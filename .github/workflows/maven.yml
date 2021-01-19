@@ -21,4 +21,4 @@ jobs:
       with:
         java-version: 11
     - name: Build with Maven
-      run: mvn clean verify --file kindergarten/pom.xml
+      run: mvn clean test --no-transfer-progress --file kindergarten/pom.xml
