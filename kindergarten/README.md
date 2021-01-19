@@ -1,3 +1,10 @@
+## Project structure
+Project is based on layered architecture pattern. 
+* Controller - API endpoints
+* Dao - Data access layer. Could be wrapped in to Repository layerin the future.
+* Service - Bussines logic layer.
+* Domain - DATA layer.
+
 
 ## Spring-boot
 To start the app on default 8080 port
