@@ -24,12 +24,24 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     private UserDetailsService userService;
 
     @Autowired
-    public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
+    public void configure(AuthenticationManagerBuilder auth) throws Exception {
         // FIXME
         // {noop} is required in order not to encode the password for now. Later we should use encoding
         auth.inMemoryAuthentication().withUser("admin").password("{noop}admin").roles("ADMIN");
     }
 
+
+    @Override
+    protected void configure(HttpSecurity httpSecurity) throws Exception {
+        httpSecurity.authorizeRequests().antMatchers("/").permitAll().and()
+                .authorizeRequests().antMatchers("/console/**").permitAll()
+                .and().csrf().ignoringAntMatchers("/console/**")
+                .and().headers().frameOptions().sameOrigin();
+
+//        httpSecurity.csrf().disable();
+//        httpSecurity.headers().frameOptions().disable();
+
+    }
     public void setSecurityEntryPoint(SecurityEntryPoint securityEntryPoint) {
         this.securityEntryPoint = securityEntryPoint;
     }
