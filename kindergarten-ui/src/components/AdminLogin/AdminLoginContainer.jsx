@@ -14,14 +14,11 @@ class AdminLoginContainer extends React.Component{
     }
 
     handleChangeUsername = (e) => {
-
         e.preventDefault();
-
         this.setState({username: e.target.value})
     }
 
     handleChangePassword = (e) => {
-
         e.preventDefault();
         this.setState({password: e.target.value})
     }
@@ -29,6 +26,9 @@ class AdminLoginContainer extends React.Component{
     handleSubmit = (e) => {
 
         e.preventDefault();
+
+        console.log(e.target.username.value);
+        console.log(e.target.password.value);
 
         this.setState({username: ""})
         this.setState({password: ""})
