@@ -34,8 +34,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity httpSecurity) throws Exception {
         httpSecurity.authorizeRequests()
-                .antMatchers("/", "/**" "/console/**", "/api/**", "/swagger-ui/").permitAll()
-                .and().csrf().ignoringAntMatchers("/", "/**" "/console/**", "/api/**", "/swagger-ui/")
+                .antMatchers("/", "/**", "/console/**", "/api/**", "/swagger-ui/").permitAll()
+                .and().csrf().ignoringAntMatchers("/", "/**", "/console/**", "/api/**", "/swagger-ui/")
                 .and().headers().frameOptions().disable();
 
 //        httpSecurity.authorizeRequests().antMatchers("/").permitAll().and()

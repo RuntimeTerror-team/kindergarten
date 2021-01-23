@@ -61,4 +61,11 @@ public class UserController {
                 user.getRole()
         );
     }
+
+    @RequestMapping(path = "/role", method = RequestMethod.GET)
+    @ResponseStatus(HttpStatus.OK)
+    @ApiOperation(value = "Get user", notes = "Returns user by username")
+    public String getRole(String username, String password) {
+        return userService.getRole(username, password);
+    }
 }

@@ -1,6 +1,10 @@
+import Axios from 'axios';
 import React, {Component} from 'react';
 import { withRouter } from "react-router-dom";
 import LoginComponent from './LoginComponent';
+import baseUrl from "../../AppConfig";
+import ServicesContext from "../../context/ServicesContext";
+
 
 class LoginContainer extends Component {
     constructor(){
@@ -24,15 +28,38 @@ class LoginContainer extends Component {
     }
     
     handleSubmit = (e) => {
-
         e.preventDefault();
 
-        let username = e.target.username.value;
-        let password = e.target.password.value;
+        let roleFromBack = "";
+        let usernameFromUser = e.target.username.value;
+        let passwordFromUser = e.target.password.value;
+        console.log("Password from user: " + passwordFromUser);
 
-        if (username === "administratorius" && password === "Administratorius1") {
-            this.props.history.push("/admin");
-        }
+        Axios
+        .get(`${baseUrl}/api/users/${usernameFromUser}`)
+        .then(res => {
+            let passwordFromBack = res.data.password;
+            roleFromBack = res.data.role;
+            console.log("Password from back: " + passwordFromBack);
+            console.log("Is equal?: " + (passwordFromBack === passwordFromUser));
+            console.log("Role from back: " + roleFromBack);
+
+            if (passwordFromUser === passwordFromBack) {
+                this.context.userService.setCurrentUser(res.data.username);
+                this.context.userService.setUserRole(roleFromBack);
+                this.context.userService.updateCurrentUser();
+                this.context.userService.updateUserRole();
+            }
+        })
+        .then(() => {
+            console.log("User's username: " +  this.context.userService.getCurrentUser());
+            console.log("User's role: " +  this.context.userService.getUserRole());
+    
+            if (roleFromBack === "ADMIN") {
+                this.props.history.push("/admin");
+            }
+        })
+        .catch(err => console.log(err));
 
         this.setState({username: ""})
         this.setState({password: ""})
@@ -57,5 +84,7 @@ class LoginContainer extends Component {
     }
 
 }
+
+LoginContainer.contextType = ServicesContext;
 
 export default withRouter(LoginContainer);

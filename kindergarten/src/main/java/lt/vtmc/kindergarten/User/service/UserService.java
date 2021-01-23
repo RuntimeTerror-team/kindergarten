@@ -61,6 +61,14 @@ public class UserService /*implements UserDetailsService*/ {
         );
     }
 
+    public String getRole(String username, String password) {
+        User user = userDao.findUserByUsername(username);
+        if (user.getPassword().equals(password)) {
+            return user.getRole();
+        }
+        return "";
+    }
+
    /* Temporarily disable all security functions
     @Override
     public UserDetails loadUserByUsername(String id) throws UsernameNotFoundException {

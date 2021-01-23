@@ -1,7 +1,7 @@
 class UserService {
     constructor() {
-        this._currentUser = undefined;
-        this._userRole = undefined;
+        this._currentUser = "";
+        this._userRole = "";
     }
     getCurrentUser = () => {
         return this._currentUser;
@@ -12,7 +12,7 @@ class UserService {
     }
 
     getUserRole = () => {
-        return this._cartCount;
+        return this._userRole;
     }
 
     setUserRole = (role) => {
