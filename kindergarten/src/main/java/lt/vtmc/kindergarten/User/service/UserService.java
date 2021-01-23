@@ -20,10 +20,39 @@ public class UserService /*implements UserDetailsService*/ {
     private UserDao userDao;
 
     @Transactional(readOnly = true)
+    public List<UserFromService> getUsers() {
+        return userDao.findAll()
+                .stream()
+                .map(user -> new UserFromService(
+                        user.getUsername(),
+                        user.getFirstName(),
+                        user.getLastName(),
+                        user.getPersonalCode(),
+                        user.getPassword(),
+                        user.getRole()))
+                .collect(Collectors.toList());
+    }
+
+    @Transactional
+    public void createUser(UserFromService userFromService) {
+        if (userDao.findUserByUsername(userFromService.getUsername()) == null) {
+            User newUser = new User(
+                    userFromService.getUsername(),
+                    userFromService.getFirstName(),
+                    userFromService.getLastName(),
+                    userFromService.getPersonalCode(),
+                    userFromService.getPassword(),
+                    userFromService.getRole()
+            );
+            userDao.save(newUser);
+        }
+    }
+
+    @Transactional(readOnly = true)
     public UserFromService getUser(String username) {
         User user = userDao.findUserByUsername(username);
         return new UserFromService(
-                username,
+                user.getUsername(),
                 user.getFirstName(),
                 user.getLastName(),
                 user.getPersonalCode(),
