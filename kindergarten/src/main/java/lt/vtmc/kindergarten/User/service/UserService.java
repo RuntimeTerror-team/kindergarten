@@ -1,9 +1,7 @@
-package lt.vtmc.kindergarten.service;
+package lt.vtmc.kindergarten.User.service;
 
-import lt.vtmc.kindergarten.dao.UserDao;
-import lt.vtmc.kindergarten.domain.Role;
-import lt.vtmc.kindergarten.domain.RoleType;
-import lt.vtmc.kindergarten.domain.User;
+import lt.vtmc.kindergarten.User.dao.User;
+import lt.vtmc.kindergarten.User.dao.UserDao;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.authority.AuthorityUtils;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -12,12 +10,29 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
-public class UserService implements UserDetailsService {
+public class UserService /*implements UserDetailsService*/ {
     @Autowired
     private UserDao userDao;
+
+    @Transactional(readOnly = true)
+    public UserFromService getUser(String username) {
+        User user = userDao.findUserByUsername(username);
+        return new UserFromService(
+                username,
+                user.getFirstName(),
+                user.getLastName(),
+                user.getPersonalCode(),
+                user.getPassword(),
+                user.getRole()
+        );
+    }
+
+   /* Temporarily disable all security functions
     @Override
     public UserDetails loadUserByUsername(String id) throws UsernameNotFoundException {
     // FIXME uncomment once user creation is implemented
@@ -56,5 +71,5 @@ public class UserService implements UserDetailsService {
 
     public void setUserDao(UserDao userDao) {
         this.userDao = userDao;
-    }
+    }*/
 }
