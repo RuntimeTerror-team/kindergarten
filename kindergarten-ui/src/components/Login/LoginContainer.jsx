@@ -1,8 +1,8 @@
-import React from 'react';
-import AdminLoginComponent from './AdminLoginComponent';
+import React, {Component} from 'react';
+import { withRouter } from "react-router-dom";
+import LoginComponent from './LoginComponent';
 
-class AdminLoginContainer extends React.Component{
-
+class LoginContainer extends Component {
     constructor(){
 
         super();
@@ -27,8 +27,12 @@ class AdminLoginContainer extends React.Component{
 
         e.preventDefault();
 
-        console.log(e.target.username.value);
-        console.log(e.target.password.value);
+        let username = e.target.username.value;
+        let password = e.target.password.value;
+
+        if (username === "administratorius" && password === "Administratorius1") {
+            this.props.history.push("/admin");
+        }
 
         this.setState({username: ""})
         this.setState({password: ""})
@@ -39,7 +43,7 @@ class AdminLoginContainer extends React.Component{
 
         return(
 
-            <AdminLoginComponent
+            <LoginComponent
 
             username={this.state.username}
             password={this.state.password}
@@ -54,4 +58,4 @@ class AdminLoginContainer extends React.Component{
 
 }
 
-export default AdminLoginContainer
+export default withRouter(LoginContainer);
