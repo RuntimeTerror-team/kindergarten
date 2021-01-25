@@ -33,16 +33,12 @@ class LoginContainer extends Component {
         let roleFromBack = "";
         let usernameFromUser = e.target.username.value;
         let passwordFromUser = e.target.password.value;
-        console.log("Password from user: " + passwordFromUser);
 
         Axios
         .get(`${baseUrl}/api/users/${usernameFromUser}`)
         .then(res => {
             let passwordFromBack = res.data.password;
             roleFromBack = res.data.role;
-            console.log("Password from back: " + passwordFromBack);
-            console.log("Is equal?: " + (passwordFromBack === passwordFromUser));
-            console.log("Role from back: " + roleFromBack);
 
             if (passwordFromUser === passwordFromBack) {
                 this.context.userService.setCurrentUser(res.data.username);
@@ -52,10 +48,7 @@ class LoginContainer extends Component {
             }
         })
         .then(() => {
-            console.log("User's username: " +  this.context.userService.getCurrentUser());
-            console.log("User's role: " +  this.context.userService.getUserRole());
-    
-            if (roleFromBack === "ADMIN") {
+            if (this.context.userService.getUserRole() === "ADMIN") {
                 this.props.history.push("/admin");
             }
         })
