@@ -1,4 +1,4 @@
-package lt.vtmc.kindergarten.User.domain;
+package lt.vtmc.kindergarten.domain;
 
 public enum RoleType {
         ADMIN,

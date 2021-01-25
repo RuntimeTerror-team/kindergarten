@@ -1,11 +1,11 @@
-package lt.vtmc.kindergarten.User.dao;
+package lt.vtmc.kindergarten.domain;
 
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 
 @Entity
-@Table(name="User")
+@Table(name="user")
 public class User {
 
     @Id
@@ -19,17 +19,22 @@ public class User {
     private Long personalCode;
     @NotBlank
     private String password;
-    @Column
-    private String role;
 
-//    @ManyToOne(cascade= {CascadeType.MERGE, CascadeType.DETACH})
-//    @JoinColumn(name = "role_id")
-//    private Role role;
+    @ManyToOne(cascade = {CascadeType.MERGE, CascadeType.DETACH})
+    @JoinColumn(name = "role_roleType")
+    private Role role;
 
     public User() {
     }
 
-    public User(String username, String firstName, String lastName, Long personalCode, @NotBlank String password, String role) {
+    public User(String username, String firstName, String lastName, Long personalCode, @NotBlank String password) {
+        this.username = username;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.personalCode = personalCode;
+        this.password = password;
+    }
+    public User(String username, String firstName, String lastName, Long personalCode, @NotBlank String password, Role role) {
         this.username = username;
         this.firstName = firstName;
         this.lastName = lastName;
@@ -78,11 +83,11 @@ public class User {
         this.password = password;
     }
 
-    public String getRole() {
+    public Role getRole() {
         return role;
     }
 
-    public void setRole(String role) {
+    public void setRole(Role role) {
         this.role = role;
     }
 }

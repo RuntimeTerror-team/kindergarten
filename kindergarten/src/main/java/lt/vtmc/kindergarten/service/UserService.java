@@ -1,17 +1,15 @@
-package lt.vtmc.kindergarten.User.service;
+package lt.vtmc.kindergarten.service;
 
-import lt.vtmc.kindergarten.User.dao.User;
-import lt.vtmc.kindergarten.User.dao.UserDao;
+import lt.vtmc.kindergarten.domain.Role;
+import lt.vtmc.kindergarten.domain.RoleType;
+import lt.vtmc.kindergarten.domain.User;
+import lt.vtmc.kindergarten.dto.UserFromService;
+import lt.vtmc.kindergarten.dao.UserDao;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.authority.AuthorityUtils;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -29,22 +27,30 @@ public class UserService /*implements UserDetailsService*/ {
                         user.getLastName(),
                         user.getPersonalCode(),
                         user.getPassword(),
-                        user.getRole()))
+                        user.getRole().getType().toString()))
                 .collect(Collectors.toList());
     }
 
     @Transactional
     public void createUser(UserFromService userFromService) {
+
         if (userDao.findUserByUsername(userFromService.getUsername()) == null) {
             User newUser = new User(
                     userFromService.getUsername(),
                     userFromService.getFirstName(),
                     userFromService.getLastName(),
                     userFromService.getPersonalCode(),
-                    userFromService.getPassword(),
-                    userFromService.getRole()
+                    userFromService.getPassword()
             );
-            userDao.save(newUser);
+
+            switch (userFromService.getRole()) {
+                case "ADMIN":
+                   Role adminRole = new Role(RoleType.ADMIN);
+                   newUser.setRole(adminRole);
+                   adminRole.addUser(newUser);
+
+                   userDao.save(newUser);
+            }
         }
     }
 
@@ -57,17 +63,22 @@ public class UserService /*implements UserDetailsService*/ {
                 user.getLastName(),
                 user.getPersonalCode(),
                 user.getPassword(),
-                user.getRole()
+                user.getRole().getType().toString()
         );
     }
 
-    public String getRole(String username, String password) {
+
+
+    /*
+    //       TODO: leave for security and modify if needed
+    public Role getRole(String username, String password) {
         User user = userDao.findUserByUsername(username);
         if (user.getPassword().equals(password)) {
-            return user.getRole();
+             user.getRole().getType().toString();
         }
-        return "";
+        return null;
     }
+      */
 
    /* Temporarily disable all security functions
     @Override

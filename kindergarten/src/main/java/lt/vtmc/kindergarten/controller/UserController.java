@@ -1,9 +1,10 @@
-package lt.vtmc.kindergarten.User.controller;
+package lt.vtmc.kindergarten.controller;
 
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
-import lt.vtmc.kindergarten.User.service.UserFromService;
-import lt.vtmc.kindergarten.User.service.UserService;
+import lt.vtmc.kindergarten.dto.UserInfo;
+import lt.vtmc.kindergarten.dto.UserFromService;
+import lt.vtmc.kindergarten.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
@@ -62,10 +63,13 @@ public class UserController {
         );
     }
 
+    /*
+    //       TODO: leave for security and modify if needed
     @RequestMapping(path = "/role", method = RequestMethod.GET)
     @ResponseStatus(HttpStatus.OK)
     @ApiOperation(value = "Get user", notes = "Returns user by username")
-    public String getRole(String username, String password) {
+    public Role getRole(String username, String password) {
         return userService.getRole(username, password);
     }
+     */
 }
