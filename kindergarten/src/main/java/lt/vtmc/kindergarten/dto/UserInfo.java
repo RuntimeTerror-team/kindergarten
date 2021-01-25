@@ -1,40 +1,25 @@
-package lt.vtmc.kindergarten.domain;
+package lt.vtmc.kindergarten.dto;
 
+import lt.vtmc.kindergarten.domain.Role;
+import org.hibernate.validator.constraints.Length;
 
-import javax.persistence.*;
-import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 
-@Entity
-@Table(name="user")
-public class User {
+public class UserInfo {
 
-    @Id
-    @Column
+    @NotNull
+    @Length(min=8)
     private String username;
-    @Column
     private String firstName;
-    @Column
     private String lastName;
-    @Column
     private Long personalCode;
-    @NotBlank
     private String password;
+    private String role;
 
-    @ManyToOne(cascade = {CascadeType.MERGE, CascadeType.DETACH})
-    @JoinColumn(name = "role_roleType")
-    private Role role;
-
-    public User() {
+    public UserInfo() {
     }
 
-    public User(String username, String firstName, String lastName, Long personalCode, @NotBlank String password) {
-        this.username = username;
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.personalCode = personalCode;
-        this.password = password;
-    }
-    public User(String username, String firstName, String lastName, Long personalCode, @NotBlank String password, Role role) {
+    public UserInfo(@NotNull @Length(min = 8)String username, String firstName, String lastName, Long personalCode, String password, String role) {
         this.username = username;
         this.firstName = firstName;
         this.lastName = lastName;
@@ -83,11 +68,11 @@ public class User {
         this.password = password;
     }
 
-    public Role getRole() {
+    public String getRole() {
         return role;
     }
 
-    public void setRole(Role role) {
+    public void setRole(String role) {
         this.role = role;
     }
 }
