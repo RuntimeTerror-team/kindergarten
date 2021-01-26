@@ -1,11 +1,8 @@
 package lt.vtmc.kindergarten.service;
 
 import lt.vtmc.kindergarten.dao.ChildDao;
-import lt.vtmc.kindergarten.dao.KindergartenDao;
 import lt.vtmc.kindergarten.domain.Child;
-import lt.vtmc.kindergarten.domain.Kindergarten;
 import lt.vtmc.kindergarten.dto.ChildDto;
-import lt.vtmc.kindergarten.dto.KindergartenDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

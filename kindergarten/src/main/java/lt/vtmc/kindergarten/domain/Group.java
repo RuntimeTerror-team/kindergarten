@@ -25,7 +25,7 @@ public class Group {
 
 
     @ManyToOne
-    @JoinColumn
+    @JoinColumn(name = "kindergarten_id")
     private Kindergarten kindergarten;
 
     public Group() {

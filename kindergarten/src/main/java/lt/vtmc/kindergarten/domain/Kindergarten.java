@@ -2,11 +2,13 @@ package lt.vtmc.kindergarten.domain;
 
 
 import org.hibernate.annotations.Cascade;
+import org.hibernate.annotations.CascadeType;
 
 import javax.persistence.*;
 import javax.validation.constraints.Email;
 import java.util.HashSet;
 import java.util.Set;
+
 
 @Entity
 @Table(name = "kindergarten")
@@ -46,7 +48,8 @@ public class Kindergarten {
     private District district;
 
 
-    @OneToMany(mappedBy = "id")
+    @OneToMany(mappedBy = "kindergarten")
+    @Cascade(CascadeType.ALL)
     private Set<Group> groups = new HashSet<Group>();
 
 
@@ -55,6 +58,10 @@ public class Kindergarten {
 
 
     public Kindergarten() {
+    }
+
+    public void addGroup(Group group){
+        this.groups.add(group);
     }
 
     public Long getId() {
