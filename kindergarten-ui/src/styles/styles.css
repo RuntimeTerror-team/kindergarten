@@ -1,0 +1,32 @@
+body{
+    
+    height: 100vh;
+    background: linear-gradient(45deg, rgba(66, 183, 245, 0.8) 0%, rgba(66, 245, 189, 0.4) 100%);
+}
+
+#loginForm{
+    
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: white;
+  padding: 4% 4% 4% 4%;
+  border-radius: 2%;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  color: rgba(0, 0, 0, 0.6);
+  font-family: 'Knewave', cursive;
+    
+}
+
+#loginh1{
+    
+    color:#4285F4;
+    margin-bottom: 15%;
+}
+
+#loginButton{
+    
+    background-color: #4285F4;
+    margin-top: 10%;
+}

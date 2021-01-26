@@ -31,8 +31,8 @@ class LoginContainer extends Component {
         e.preventDefault();
 
         let roleFromBack = "";
-        let usernameFromUser = e.target.username.value;
-        let passwordFromUser = e.target.password.value;
+        let usernameFromUser = this.state.username;
+        let passwordFromUser = this.state.password;
 
         Axios
         .get(`${baseUrl}/api/users/${usernameFromUser}`)

@@ -4,9 +4,9 @@ import Proptypes from 'prop-types';
 let LoginComponent = (props) => {
 
     return (
-        <div className="row h-100 justify-content-center align-items-center">
+        <div className="row" id="loginForm">
             <div>
-                <h1>Prisijungimas</h1>
+                <h1 id="loginh1">Prisijungimas</h1>
                 <form className="form"  onSubmit={props.onSubmit}>
                     <div className="form-group">
                         <label htmlFor="username">Prisijungimo vardas: </label>
@@ -16,7 +16,7 @@ let LoginComponent = (props) => {
                         <label htmlFor="password" className="control-label" >Slaptažodis: </label>
                         <input className="form-control" type="password" id="password" value={props.password} onChange={props.onPasswordChange} name="password" placeholder="Slaptažodis"></input>
                     </div>
-                    <button className="btn btn-primary">Prisijungti</button>
+                    <button className="btn btn-primary" id="loginButton">Prisijungti</button>
                 </form>
             </div>
         </div>
