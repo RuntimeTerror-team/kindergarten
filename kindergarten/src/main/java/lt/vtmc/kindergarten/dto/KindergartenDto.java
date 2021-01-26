@@ -1,60 +1,50 @@
-package lt.vtmc.kindergarten.domain;
+package lt.vtmc.kindergarten.dto;
 
-
-import org.hibernate.annotations.Cascade;
+import lt.vtmc.kindergarten.domain.CityEnum;
+import lt.vtmc.kindergarten.domain.District;
+import lt.vtmc.kindergarten.domain.Kindergarten;
 
 import javax.persistence.*;
 import javax.validation.constraints.Email;
-import java.util.HashSet;
-import java.util.Set;
+import javax.validation.constraints.NotNull;
 
-@Entity
-@Table(name = "kindergarten")
-public class Kindergarten {
+public class KindergartenDto {
 
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @NotNull
     private Long id;
 
-    @Column
     private String title;
 
-    @Column
     private String address;
 
-    @Column
-    @Enumerated(EnumType.STRING)
     private CityEnum city;
 
-    @Column
     private Integer postalCode;
 
-    @Column
     private Integer phoneNumber;
 
-    @Column
     @Email
     private String email;
 
-    @Column
     private String website;
 
-
-    @ManyToOne
-    @Cascade({org.hibernate.annotations.CascadeType.DETACH})
     private District district;
 
 
-    @OneToMany(mappedBy = "id")
-    private Set<Group> groups = new HashSet<Group>();
+    public KindergartenDto() {
+    }
 
-
-    @OneToMany(mappedBy = "id")
-    private Set<Application> applicationsSet = new HashSet<Application>();
-
-
-    public Kindergarten() {
+    public KindergartenDto(Kindergarten kindergarten) {
+        this.id = kindergarten.getId();
+        this.title = kindergarten.getTitle();
+        this.address = kindergarten.getAddress();
+        this.city = kindergarten.getCity();
+        this.postalCode = kindergarten.getPostalCode();
+        this.phoneNumber = kindergarten.getPhoneNumber();
+        this.email = kindergarten.getEmail();
+        this.website = kindergarten.getWebsite();
+        this.district =kindergarten.getDistrict();
     }
 
     public Long getId() {
@@ -101,8 +91,8 @@ public class Kindergarten {
         return phoneNumber;
     }
 
-    public void setPhoneNumber(Integer phoneNumeber) {
-        this.phoneNumber = phoneNumeber;
+    public void setPhoneNumber(Integer phoneNumber) {
+        this.phoneNumber = phoneNumber;
     }
 
     public String getEmail() {
@@ -127,21 +117,5 @@ public class Kindergarten {
 
     public void setDistrict(District district) {
         this.district = district;
-    }
-
-    public Set<Group> getGroups() {
-        return groups;
-    }
-
-    public void setGroups(Set<Group> groups) {
-        this.groups = groups;
-    }
-
-    public Set<Application> getApplicationsSet() {
-        return applicationsSet;
-    }
-
-    public void setApplicationsSet(Set<Application> applicationsSet) {
-        this.applicationsSet = applicationsSet;
     }
 }

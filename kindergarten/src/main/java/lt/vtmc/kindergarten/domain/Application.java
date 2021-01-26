@@ -29,6 +29,23 @@ public class Application {
     @OneToMany(mappedBy = "application")
     private Set<KindergartenApplication> kindergartenApplications = new HashSet<>();
 
+    @OneToOne(mappedBy = "application")
+    private Child child;
+
+    @Column
+    private boolean isAdopted;
+
+    @Column
+    private boolean isMultiChild;
+
+    @Column
+    private boolean isGuardianStudent;
+
+    @Column
+    private boolean isGuardianDisabled;
+
+
+
     public Application() {
     }
 
@@ -64,11 +81,51 @@ public class Application {
         this.date = date;
     }
 
+    public boolean isAdopted() {
+        return isAdopted;
+    }
+
+    public void setAdopted(boolean adopted) {
+        isAdopted = adopted;
+    }
+
+    public boolean isMultiChild() {
+        return isMultiChild;
+    }
+
+    public void setMultiChild(boolean multiChild) {
+        isMultiChild = multiChild;
+    }
+
+    public boolean isGuardianStudent() {
+        return isGuardianStudent;
+    }
+
+    public void setGuardianStudent(boolean guardianStudent) {
+        isGuardianStudent = guardianStudent;
+    }
+
+    public boolean isGuardianDisabled() {
+        return isGuardianDisabled;
+    }
+
+    public void setGuardianDisabled(boolean guardianDisabled) {
+        isGuardianDisabled = guardianDisabled;
+    }
+
     public Set<KindergartenApplication> getKindergartenApplications() {
         return kindergartenApplications;
     }
 
     public void setKindergartenApplications(Set<KindergartenApplication> kindergartenApplications) {
         this.kindergartenApplications = kindergartenApplications;
+    }
+
+    public Child getChild() {
+        return child;
+    }
+
+    public void setChild(Child child) {
+        this.child = child;
     }
 }
