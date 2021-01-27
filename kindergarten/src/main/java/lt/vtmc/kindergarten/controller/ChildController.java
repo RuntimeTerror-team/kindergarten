@@ -3,7 +3,6 @@ package lt.vtmc.kindergarten.controller;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 import lt.vtmc.kindergarten.dto.ChildDto;
-import lt.vtmc.kindergarten.dto.KindergartenDto;
 import lt.vtmc.kindergarten.service.ChildService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;

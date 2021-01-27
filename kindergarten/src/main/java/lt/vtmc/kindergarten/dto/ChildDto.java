@@ -1,6 +1,5 @@
 package lt.vtmc.kindergarten.dto;
 
-
 import lt.vtmc.kindergarten.domain.Child;
 import lt.vtmc.kindergarten.domain.CityEnum;
 import javax.validation.constraints.NotNull;

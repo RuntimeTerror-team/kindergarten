@@ -4,7 +4,6 @@ import lt.vtmc.kindergarten.domain.CityEnum;
 import lt.vtmc.kindergarten.domain.District;
 import lt.vtmc.kindergarten.domain.Kindergarten;
 
-import javax.persistence.*;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotNull;
 
