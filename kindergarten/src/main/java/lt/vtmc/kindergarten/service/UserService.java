@@ -48,8 +48,8 @@ public class UserService /*implements UserDetailsService*/ {
                    Role adminRole = new Role(RoleType.ADMIN);
                    newUser.setRole(adminRole);
                    adminRole.addUser(newUser);
-
                    userDao.save(newUser);
+                   break;
             }
         }
     }
