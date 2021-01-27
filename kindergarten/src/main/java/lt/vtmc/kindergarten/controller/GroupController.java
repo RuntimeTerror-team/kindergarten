@@ -25,7 +25,7 @@ public class GroupController {
 //    }
 
     @ApiOperation(value = "Update group", notes = "Uptades group by id")
-    @RequestMapping(value = "/api/kindergartens/{kindergartenId}/group/{groupId}", method = RequestMethod.PUT)
+    @RequestMapping(value = "/api/kindergartens/{kindergartenId}/groups/{groupId}", method = RequestMethod.PUT)
     @ResponseStatus(HttpStatus.OK)
     public void updateGroup(
             @ApiParam(value = "", required = true)

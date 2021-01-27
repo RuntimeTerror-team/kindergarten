@@ -52,7 +52,7 @@ public class KindergartenController {
     }
 
 
-    @RequestMapping(value="/api/kindergartens/{kindergartenId}/group", method = RequestMethod.POST)
+    @RequestMapping(value="/api/kindergartens/{kindergartenId}/groups", method = RequestMethod.POST)
     @ResponseStatus(HttpStatus.CREATED)
     @ApiOperation(value = "Create group", notes = "Creates a new group")
     public void addGroup(

@@ -26,7 +26,7 @@ public class ChildController {
         childService.addChild(childDto);
     }
 
-    @ApiOperation(value = "update Child", notes = "Uptades child by id")
+    @ApiOperation(value = "Update Child", notes = "Uptades child by id")
     @RequestMapping(value = "/api/children/{id}", method = RequestMethod.PUT)
     @ResponseStatus(HttpStatus.OK)
     public void updateChild(
@@ -44,7 +44,7 @@ public class ChildController {
         return childService.getChildren();
     }
 
-    @ApiOperation(value = "delete child", notes = "Delete child by id")
+    @ApiOperation(value = "Delete child", notes = "Delete child by id")
     @RequestMapping(value = "/api/children/{id}", method = RequestMethod.DELETE)
     @ResponseStatus(HttpStatus.OK)
     public void deleteChild(@ApiParam(value = "", required = true)@PathVariable final Long id){

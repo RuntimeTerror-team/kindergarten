@@ -28,7 +28,7 @@ public class DistrictController {
     }
 
 
-    @ApiOperation(value = "update District", notes = "Uptades district by id")
+    @ApiOperation(value = "Update District", notes = "Uptades district by id")
     @RequestMapping(value = "/api/district/{id}", method = RequestMethod.PUT)
     @ResponseStatus(HttpStatus.OK)
     public void updateDistrict(
