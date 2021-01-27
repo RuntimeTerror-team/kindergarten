@@ -15,8 +15,8 @@ public class Application {
     private Long id;
 
 
-    @OneToMany(mappedBy = "username")
-    private Set<User> users = new HashSet<User>();
+    @OneToMany(mappedBy = "user")
+    private Set<UserApplication> users = new HashSet<UserApplication>();
 
     @Column
     private Long childId;
@@ -57,11 +57,11 @@ public class Application {
         this.id = id;
     }
 
-    public Set<User> getUsers() {
+    public Set<UserApplication> getUsers() {
         return users;
     }
 
-    public void setUsers(Set<User> users) {
+    public void setUsers(Set<UserApplication> users) {
         this.users = users;
     }
 
