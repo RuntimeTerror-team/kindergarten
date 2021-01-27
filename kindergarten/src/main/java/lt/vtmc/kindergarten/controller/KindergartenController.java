@@ -2,7 +2,6 @@ package lt.vtmc.kindergarten.controller;
 
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
-import lt.vtmc.kindergarten.domain.Kindergarten;
 import lt.vtmc.kindergarten.dto.GroupDto;
 import lt.vtmc.kindergarten.dto.KindergartenDto;
 import lt.vtmc.kindergarten.service.GroupService;
@@ -24,6 +23,7 @@ public class KindergartenController {
     @Autowired
     private GroupService groupService;
 
+    /////////////////////////////////////////kindergartens? to chech this one
     @RequestMapping(value="/api/kindergartens", method = RequestMethod.POST)
     @ResponseStatus(HttpStatus.CREATED)
     @ApiOperation(value = "Create kindergarten", notes = "Creates kindergarten")

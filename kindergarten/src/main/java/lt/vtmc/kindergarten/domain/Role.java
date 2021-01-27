@@ -1,7 +1,5 @@
 package lt.vtmc.kindergarten.domain;
 
-import org.hibernate.tuple.entity.EntityMetamodel;
-
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
