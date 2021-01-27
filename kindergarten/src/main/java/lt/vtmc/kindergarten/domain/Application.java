@@ -1,6 +1,5 @@
 package lt.vtmc.kindergarten.domain;
 
-
 import javax.persistence.*;
 import java.util.Date;
 import java.util.HashSet;
