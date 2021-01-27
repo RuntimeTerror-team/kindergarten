@@ -4,18 +4,20 @@ body{
     background: linear-gradient(45deg, rgba(66, 183, 245, 0.8) 0%, rgba(66, 245, 189, 0.4) 100%);
 }
 
-#loginForm{
+#loginForm, #groupForm{
     
   position: fixed;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
   background-color: white;
-  padding: 4% 4% 4% 4%;
+  padding: 4% % 4% 4%;
   border-radius: 2%;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
   color: rgba(0, 0, 0, 0.6);
   font-family: 'Knewave', cursive;
+  padding: 3% 3% 3% 3%;
+    
     
 }
 
@@ -23,6 +25,14 @@ body{
     
     color:#4285F4;
     margin-bottom: 15%;
+    
+}
+
+#grouph1{
+    
+    color:#4285F4;
+    margin-bottom: 15%;
+    
 }
 
 #loginButton{
@@ -30,3 +40,16 @@ body{
     background-color: #4285F4;
     margin-top: 10%;
 }
+
+#groupButton{
+    
+    background-color: #4285F4;
+    margin-top: 3%;
+
+}
+
+input{
+    
+    min-width: 21em;
+}
+

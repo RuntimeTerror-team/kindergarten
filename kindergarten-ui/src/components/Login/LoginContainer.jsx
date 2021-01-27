@@ -18,7 +18,7 @@ class LoginContainer extends Component {
             invalidPassword: "",
             incorrectCredentials: false,
             validationErrors: [],
-            validationPassed: true
+            validationPassed: false
         }
     }
 
@@ -39,14 +39,16 @@ class LoginContainer extends Component {
         this.setState({invalidUsername: ""})
         this.setState({invalidPassword: ""})
         this.setState({incorrectCredentials: false})
-        this.setState({validationPassed: true})
+        this.setState({validationPassed: false})
 
         let roleFromBack = "";
         let usernameFromUser = this.state.username;
         let passwordFromUser = this.state.password;
 
-        this.doValidation(usernameFromUser, passwordFromUser)
-        if(this.validationPassed === true){
+       this.doValidation(usernameFromUser, passwordFromUser)
+
+       if(this.state.validationPassed === true){
+        
 
         Axios
         .get(`${baseUrl}/api/users/${usernameFromUser}`)
@@ -62,6 +64,7 @@ class LoginContainer extends Component {
             } else{
 
                 this.setState({incorrectCredentials: true});
+                
             }
         })
         .then(() => {
@@ -70,7 +73,7 @@ class LoginContainer extends Component {
             }
         })
         .catch(err => console.log(err));
-    }
+   }
 
         this.setState({username: ""})
         this.setState({password: ""})
@@ -112,12 +115,15 @@ class LoginContainer extends Component {
 
               this.setState({validationPassed: false})
             
+        } else{
+
+            this.setState({validationPassed: true})
         }
 
-        if(new RegExp("^(?!(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.{8,}))").test(password)){
+        // if(new RegExp("^(?!(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.{8,}))").test(password)){
 
-            this.setState({validationPassed: false})   
-        }
+        //     this.setState({validationPassed: false})   
+        // }
     }
         
     render(){

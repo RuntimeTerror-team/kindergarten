@@ -15,6 +15,7 @@ let LoginComponent = (props) => {
 
 let MultipleAlerts = (props) => {
 
+
     let alerts = props.validationErrors.map((message, index) => 
 
     <div key={index}className="row">
@@ -47,7 +48,7 @@ let MultipleAlerts = (props) => {
                     <button className="btn btn-primary" id="loginButton">Prisijungti</button>
                 </form>
                 { props.incorrectCredentials ? <CredentialsAlert /> : null}
-                <MultipleAlerts validationErrors = {props.validationErrors}/>
+                {<MultipleAlerts validationErrors = {props.validationErrors}/>}
             </div>
         </div>
     )
