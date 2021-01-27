@@ -23,7 +23,6 @@ public class KindergartenController {
     @Autowired
     private GroupService groupService;
 
-    /////////////////////////////////////////kindergartens? to chech this one
     @RequestMapping(value="/api/kindergartens", method = RequestMethod.POST)
     @ResponseStatus(HttpStatus.CREATED)
     @ApiOperation(value = "Create kindergarten", notes = "Creates kindergarten")

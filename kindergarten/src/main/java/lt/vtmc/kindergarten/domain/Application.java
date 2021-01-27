@@ -13,17 +13,14 @@ public class Application {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-
     @OneToMany(mappedBy = "user")
     private Set<UserApplication> users = new HashSet<UserApplication>();
 
     @Column
     private Long childId;
 
-
     @Temporal(TemporalType.DATE)
     private Date date;
-
 
     @OneToMany(mappedBy = "application")
     private Set<KindergartenApplication> kindergartenApplications = new HashSet<>();
@@ -42,8 +39,6 @@ public class Application {
 
     @Column
     private boolean isGuardianDisabled;
-
-
 
     public Application() {
     }
