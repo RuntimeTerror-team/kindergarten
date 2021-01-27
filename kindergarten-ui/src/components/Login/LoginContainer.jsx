@@ -1,5 +1,5 @@
 import Axios from 'axios';
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 import { withRouter } from "react-router-dom";
 import LoginComponent from './LoginComponent';
 import baseUrl from "../../AppConfig";
@@ -7,26 +7,26 @@ import ServicesContext from "../../context/ServicesContext";
 
 
 class LoginContainer extends Component {
-    constructor(){
+    constructor() {
 
         super();
         this.state = {
 
-            username : "",
+            username: "",
             password: ""
         }
     }
 
     handleChangeUsername = (e) => {
         e.preventDefault();
-        this.setState({username: e.target.value})
+        this.setState({ username: e.target.value })
     }
 
     handleChangePassword = (e) => {
         e.preventDefault();
-        this.setState({password: e.target.value})
+        this.setState({ password: e.target.value })
     }
-    
+
     handleSubmit = (e) => {
         e.preventDefault();
 
@@ -35,45 +35,40 @@ class LoginContainer extends Component {
         let passwordFromUser = e.target.password.value;
 
         Axios
-        .get(`${baseUrl}/api/users/${usernameFromUser}`)
-        .then(res => {
-            let passwordFromBack = res.data.password;
-            roleFromBack = res.data.role;
+            .get(`${baseUrl}/api/users/${usernameFromUser}`)
+            .then(res => {
+                let passwordFromBack = res.data.password;
+                roleFromBack = res.data.role;
 
-            if (passwordFromUser === passwordFromBack) {
-                this.context.userService.setCurrentUser(res.data.username);
-                this.context.userService.setUserRole(roleFromBack);
-                this.context.userService.updateCurrentUser();
-                this.context.userService.updateUserRole();
-            }
-        })
-        .then(() => {
-            if (this.context.userService.getUserRole() === "ADMIN") {
-                this.props.history.push("/admin");
-            }
-        })
-        .catch(err => console.log(err));
+                if (passwordFromUser === passwordFromBack) {
+                    this.context.userService.setCurrentUser(res.data.username);
+                    this.context.userService.setUserRole(roleFromBack);
+                    this.context.userService.updateCurrentUser();
+                    this.context.userService.updateUserRole();
+                }
+            })
+            .then(() => {
+                if (this.context.userService.getUserRole() === "ADMIN") {
+                    this.props.history.push("/admin");
+                }
+            })
+            .catch(err => console.log(err));
 
-        this.setState({username: ""})
-        this.setState({password: ""})
+        this.setState({ username: "" })
+        this.setState({ password: "" })
     }
-    
-        
-    render(){
 
-        return(
 
+    render() {
+        return (
             <LoginComponent
-
-            username={this.state.username}
-            password={this.state.password}
-            onSubmit={this.handleSubmit}
-            onUsernameChange={this.handleChangeUsername}
-            onPasswordChange={this.handleChangePassword}        
+                username={this.state.username}
+                password={this.state.password}
+                onSubmit={this.handleSubmit}
+                onUsernameChange={this.handleChangeUsername}
+                onPasswordChange={this.handleChangePassword}
             />
- 
         )
-
     }
 
 }
