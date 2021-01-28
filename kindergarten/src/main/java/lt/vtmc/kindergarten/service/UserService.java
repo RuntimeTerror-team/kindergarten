@@ -3,6 +3,7 @@ package lt.vtmc.kindergarten.service;
 import lt.vtmc.kindergarten.domain.Role;
 import lt.vtmc.kindergarten.domain.RoleType;
 import lt.vtmc.kindergarten.domain.User;
+import lt.vtmc.kindergarten.dto.UserDtoFromAdmin;
 import lt.vtmc.kindergarten.dto.UserFromService;
 import lt.vtmc.kindergarten.dao.UserDao;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -43,13 +44,11 @@ public class UserService /*implements UserDetailsService*/ {
                     userFromService.getPassword()
             );
 
-            switch (userFromService.getRole()) {
-                case "ADMIN":
-                   Role adminRole = new Role(RoleType.ADMIN);
-                   newUser.setRole(adminRole);
-                   adminRole.addUser(newUser);
-                   userDao.save(newUser);
-                   break;
+            if (userFromService.getRole().equals("ADMIN")) {
+                Role adminRole = new Role(RoleType.ADMIN);
+                newUser.setRole(adminRole);
+                adminRole.addUser(newUser);
+                userDao.save(newUser);
             }
         }
     }
@@ -67,7 +66,45 @@ public class UserService /*implements UserDetailsService*/ {
         );
     }
 
+    @Transactional
+    public String createUserFromAdmin(UserDtoFromAdmin userDtoFromAdmin) {
+        int defaultNum = 1;
+        String possibleUsername;
+        String role = userDtoFromAdmin.getRole();
+        RoleType roleType = null;
 
+        switch (role) {
+            case "GUARDIAN":
+                roleType = RoleType.GUARDIAN;
+                break;
+            case "EDUCATION_SPECIALIST":
+                roleType = RoleType.EDUCATION_SPECIALIST;
+                break;
+        }
+        while (true) {
+            possibleUsername = userDtoFromAdmin.getFirstName() + userDtoFromAdmin.getLastName() + defaultNum;
+
+            if (userDao.findUserByUsername(possibleUsername) == null) {
+                User newUser = new User(
+                        possibleUsername,
+                        userDtoFromAdmin.getFirstName(),
+                        userDtoFromAdmin.getLastName(),
+                        null,
+                        possibleUsername
+                );
+
+                Role finalRole = new Role(roleType);
+                newUser.setRole(finalRole);
+                finalRole.addUser(newUser);
+                userDao.save(newUser);
+
+                return possibleUsername;
+
+            } else {
+                defaultNum++;
+            }
+        }
+    }
 
     /*
     //       TODO: leave for security and modify if needed

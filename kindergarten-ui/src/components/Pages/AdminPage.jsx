@@ -46,12 +46,14 @@ class AdminPage extends Component {
                         <div className="row">
                             <div className="admin-actions col-4">
                                 <button className="btn btn-info mb-2 w-100" onClick={this.handleClick} name="adminUsers">Paskyrų administravimas</button>
-                                <button className="btn btn-info mb-2 w-100" onClick={this.handleClick} name="adminUsers">Paskyrų</button>
-                                <button className="btn btn-info mb-2 w-100" onClick={this.handleClick} name="adminUsers">Paskyrų administravimas</button>
+                                <button className="btn btn-info mb-2 w-100" onClick={this.handleClick} name="2">Kažkas dar</button>
+                                <button className="btn btn-info mb-2 w-100" onClick={this.handleClick} name="3">Ir dar kažkas</button>
                             </div>
                             <div className="admin-action-placeholder col-8">
                                 {this.state.adminChoice === "greeting" && <h1>Sveiki prisijungę į darželių informacinę sistemą</h1>}
                                 {this.state.adminChoice === "adminUsers" && <AdminUsersFormContainer />}
+                                {this.state.adminChoice === "2" && <h1>Kažkas dar</h1>}
+                                {this.state.adminChoice === "3" && <h1>Ir dar kažkas</h1> }
                             </div>
                         </div>
                     </div>

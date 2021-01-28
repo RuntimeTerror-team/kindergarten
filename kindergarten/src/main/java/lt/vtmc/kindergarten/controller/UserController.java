@@ -2,6 +2,8 @@ package lt.vtmc.kindergarten.controller;
 
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
+import lt.vtmc.kindergarten.dto.AnswerAboutCreatedUser;
+import lt.vtmc.kindergarten.dto.UserDtoFromAdmin;
 import lt.vtmc.kindergarten.dto.UserInfo;
 import lt.vtmc.kindergarten.dto.UserFromService;
 import lt.vtmc.kindergarten.service.UserService;
@@ -61,6 +63,15 @@ public class UserController {
                 user.getPassword(),
                 user.getRole()
         );
+    }
+
+    // admin creating new user
+    @RequestMapping(path = "/admin", method = RequestMethod.POST)
+    @ResponseStatus(HttpStatus.CREATED)
+    @ApiOperation(value = "Create user from admin page", notes = "Creates user with data from admin page")
+    public String createUserFromAdmin(@ApiParam(value = "User Data", required = true) @Valid @RequestBody UserDtoFromAdmin userDtoFromAdmin) {
+        String newUsername = userService.createUserFromAdmin(userDtoFromAdmin);
+        return newUsername;
     }
 
     /*
