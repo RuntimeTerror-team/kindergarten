@@ -18,7 +18,7 @@ class LoginContainer extends Component {
             invalidPassword: "",
             incorrectCredentials: false,
             validationErrors: [],
-            validationPassed: false
+            validationPassed: true
         }
     }
 
@@ -35,20 +35,20 @@ class LoginContainer extends Component {
     handleSubmit = (e) => {
         e.preventDefault();
 
+        this.context.userService.setCurrentUser("");
+        this.context.userService.setUserRole("");
+
         this.setState({validationErrors : []})
         this.setState({invalidUsername: ""})
         this.setState({invalidPassword: ""})
-        this.setState({incorrectCredentials: false})
-        this.setState({validationPassed: false})
-
+    
         let roleFromBack = "";
-        let usernameFromUser = this.state.username;
-        let passwordFromUser = this.state.password;
+        let usernameFromUser = e.target.username.value;
+        let passwordFromUser = e.target.password.value;
 
        this.doValidation(usernameFromUser, passwordFromUser)
-
-       if(this.state.validationPassed === true){
-        
+  
+       if(this.state.validationPassed){
 
         Axios
         .get(`${baseUrl}/api/users/${usernameFromUser}`)
@@ -77,6 +77,8 @@ class LoginContainer extends Component {
 
         this.setState({username: ""})
         this.setState({password: ""})
+        this.setState({validationPassed: true})
+        this.setState({incorrectCredentials: false})
     }
 
     //čia atlieku validaciją
@@ -115,15 +117,12 @@ class LoginContainer extends Component {
 
               this.setState({validationPassed: false})
             
-        } else{
+        } 
 
-            this.setState({validationPassed: true})
+        if(new RegExp("^(?!(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.{8,}))").test(password)){
+
+            this.setState({validationPassed: false})   
         }
-
-        // if(new RegExp("^(?!(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.{8,}))").test(password)){
-
-        //     this.setState({validationPassed: false})   
-        // }
     }
         
     render(){
