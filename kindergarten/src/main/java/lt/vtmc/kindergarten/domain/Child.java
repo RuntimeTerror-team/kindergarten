@@ -1,6 +1,5 @@
 package lt.vtmc.kindergarten.domain;
 
-
 import org.hibernate.annotations.Cascade;
 
 import javax.persistence.*;
