@@ -28,9 +28,10 @@ public class GroupService {
         group.setTitle(groupDto.getTitle());
         group.setChildrenCount(group.getChildrenCount());
         group.setKindergartenId(kindergarten);
+
         kindergarten.addGroup(group);
 
-       kindergartenDao.save(kindergarten);
+        kindergartenDao.save(kindergarten);
     }
 
     @Transactional
