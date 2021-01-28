@@ -3,6 +3,8 @@ package lt.vtmc.kindergarten.domain;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @Table(name="user")
@@ -21,8 +23,11 @@ public class User {
     private String password;
 
     @ManyToOne(cascade = {CascadeType.MERGE, CascadeType.DETACH})
-    @JoinColumn(name = "role_roleType")
+    @JoinColumn(name = "roleType")
     private Role role;
+
+    @OneToMany(mappedBy = "id")
+    private Set<UserApplication> userApplication = new HashSet<>();
 
     public User() {
     }
@@ -89,5 +94,13 @@ public class User {
 
     public void setRole(Role role) {
         this.role = role;
+    }
+
+    public Set<UserApplication> getUserApplication() {
+        return userApplication;
+    }
+
+    public void setUserApplication(Set<UserApplication> userApplication) {
+        this.userApplication = userApplication;
     }
 }
