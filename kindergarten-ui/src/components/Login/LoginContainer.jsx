@@ -13,7 +13,12 @@ class LoginContainer extends Component {
         this.state = {
 
             username : "",
-            password: ""
+            password: "",
+            invalidUsername: "",
+            invalidPassword: "",
+            incorrectCredentials: false,
+            validationErrors: [],
+            validationPassed: true
         }
     }
 
@@ -30,9 +35,20 @@ class LoginContainer extends Component {
     handleSubmit = (e) => {
         e.preventDefault();
 
+        this.context.userService.setCurrentUser("");
+        this.context.userService.setUserRole("");
+
+        this.setState({validationErrors : []})
+        this.setState({invalidUsername: ""})
+        this.setState({invalidPassword: ""})
+    
         let roleFromBack = "";
         let usernameFromUser = e.target.username.value;
         let passwordFromUser = e.target.password.value;
+
+       this.doValidation(usernameFromUser, passwordFromUser)
+  
+       if(this.state.validationPassed){
 
         Axios
         .get(`${baseUrl}/api/users/${usernameFromUser}`)
@@ -45,6 +61,10 @@ class LoginContainer extends Component {
                 this.context.userService.setUserRole(roleFromBack);
                 this.context.userService.updateCurrentUser();
                 this.context.userService.updateUserRole();
+            } else{
+
+                this.setState({incorrectCredentials: true});
+                
             }
         })
         .then(() => {
@@ -53,11 +73,57 @@ class LoginContainer extends Component {
             }
         })
         .catch(err => console.log(err));
+   }
 
         this.setState({username: ""})
         this.setState({password: ""})
+        this.setState({validationPassed: true})
+        this.setState({incorrectCredentials: false})
     }
-    
+
+    //čia atlieku validaciją
+
+    doValidation = (username, password) => {
+
+        if(username.trim().length === 0){
+
+              this.setState(prevState => ({
+                validationErrors: [...prevState.validationErrors, "Užpildykite privalomą lauką"]
+              }))
+              this.setState({invalidUsername: "border border-danger"})
+              this.setState({validationPassed: false})      
+        }
+
+        if(password.trim().length === 0){
+
+            this.setState(prevState => ({
+                validationErrors: [...prevState.validationErrors, "Užpildykite privalomą lauką"]
+              }))
+              this.setState({invalidPassword: "border border-danger"})
+              this.setState({validationPassed: false}) 
+        } 
+
+        if(username.trim().length < 8){
+
+              this.setState({validationPassed: false})
+        }
+
+        if(username.trim().length > 20){
+
+              this.setState({validationPassed: false})
+        }
+
+        if(password.trim().length < 8){
+
+              this.setState({validationPassed: false})
+            
+        } 
+
+        if(new RegExp("^(?!(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.{8,}))").test(password)){
+
+            this.setState({validationPassed: false})   
+        }
+    }
         
     render(){
 
@@ -67,6 +133,10 @@ class LoginContainer extends Component {
 
             username={this.state.username}
             password={this.state.password}
+            invalidUsername={this.state.invalidUsername}
+            invalidPassword={this.state.invalidPassword}
+            validationErrors = {this.state.validationErrors}
+            incorrectCredentials={this.state.incorrectCredentials}
             onSubmit={this.handleSubmit}
             onUsernameChange={this.handleChangeUsername}
             onPasswordChange={this.handleChangePassword}        

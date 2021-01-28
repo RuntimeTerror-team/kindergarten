@@ -17,6 +17,7 @@ public class UserService /*implements UserDetailsService*/ {
     @Autowired
     private UserDao userDao;
 
+
     @Transactional(readOnly = true)
     public List<UserFromService> getUsers() {
         return userDao.findAll()
