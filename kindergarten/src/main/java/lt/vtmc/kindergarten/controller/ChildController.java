@@ -51,10 +51,4 @@ public class ChildController {
         childService.removeChild(id);
     }
 
-
-
-
-    public void setChildService(ChildService childService) {
-        this.childService = childService;
-    }
 }

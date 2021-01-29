@@ -13,21 +13,26 @@ public class KindergartenDto {
     @NotNull
     private Long id;
 
+    @NotNull
     private String title;
 
+    @NotNull
     private String address;
 
+    @NotNull
     private CityEnum city;
 
+    @NotNull
     private Integer postalCode;
 
+    @NotNull
     private Integer phoneNumber;
 
     @Email
     private String email;
 
     private String website;
-
+    @NotNull
     private District district;
 
 

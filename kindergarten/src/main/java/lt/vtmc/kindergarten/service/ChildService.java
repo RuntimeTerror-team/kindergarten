@@ -37,7 +37,6 @@ public class ChildService {
         childDao.save(child);
     }
 
-
     @Transactional
     public void updateChild(Long id, ChildDto childDto){
         Child child = childDao.getOne(id);

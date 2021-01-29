@@ -1,10 +1,8 @@
 package lt.vtmc.kindergarten.dto;
 
 import lt.vtmc.kindergarten.domain.Child;
-import lt.vtmc.kindergarten.domain.KindergartenApplication;
 import lt.vtmc.kindergarten.domain.User;
 
-import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.util.Date;
 import java.util.HashSet;

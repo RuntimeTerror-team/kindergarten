@@ -22,3 +22,6 @@ To run app from war file
 ### H2
 ```http://localhost:8080/kindergarten/h2-console```
 
+## Using different application property files
+For development 
+```mvn spring-boot:run -Dspring-boot.run.arguments=--spring.config.location=classpath:/application-local.properties```

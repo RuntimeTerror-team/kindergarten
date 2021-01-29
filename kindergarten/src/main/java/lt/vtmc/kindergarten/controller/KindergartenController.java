@@ -51,20 +51,28 @@ public class KindergartenController {
     }
 
 
-    @RequestMapping(value="/api/kindergartens/{kindergartenId}/groups", method = RequestMethod.POST)
+    @RequestMapping(value="/api/kindergartens/{kindergartenId}/groups/{ageRangeId}", method = RequestMethod.POST)
     @ResponseStatus(HttpStatus.CREATED)
     @ApiOperation(value = "Create group", notes = "Creates a new group")
     public void addGroup(
             @ApiParam(value = "", required = true)
             @PathVariable Long kindergartenId,
+            @PathVariable Long ageRangeId,
             @RequestBody GroupDto groupDto){
-        groupService.addGroup(kindergartenId, groupDto);
+        groupService.addGroup(ageRangeId, kindergartenId, groupDto);
     }
 
-
-    public void setKindergartenService(KindergartenService kindergartenService) {
-        this.kindergartenService = kindergartenService;
+    @ApiOperation(value = "Update group", notes = "Updates group by id")
+    @RequestMapping(value = "/api/kindergartens/{kindergartenId}/groups/{groupId}", method = RequestMethod.PUT)
+    @ResponseStatus(HttpStatus.OK)
+    public void updateGroup(
+            @ApiParam(value = "", required = true)
+            @PathVariable Long groupId,
+            @RequestBody GroupDto groupDto
+    ){
+        groupService.updateGroup(groupId, groupDto);
     }
+
 
     public void setGroupService(GroupService groupService) {
         this.groupService = groupService;

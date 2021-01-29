@@ -1,6 +1,5 @@
 package lt.vtmc.kindergarten.domain;
 
-
 import javax.persistence.*;
 
 @Entity
@@ -15,20 +14,25 @@ public class Group {
     private String title;
 
     @Column
-    private int ageMin;
-
-    @Column
-    private int ageMax;
-
-    @Column
     private int childrenCount;
-
 
     @ManyToOne
     @JoinColumn(name = "kindergarten_id")
     private Kindergarten kindergarten;
 
+    @ManyToOne
+    @JoinColumn(name = "ageRange_id")
+    private AgeRange ageRange;
+
     public Group() {
+    }
+
+    public Kindergarten getKindergarten() {
+        return kindergarten;
+    }
+
+    public void setKindergartenId(Kindergarten kindergarten) {
+        this.kindergarten = kindergarten;
     }
 
     public Long getId() {
@@ -47,22 +51,6 @@ public class Group {
         this.title = title;
     }
 
-    public int getAgeMin() {
-        return ageMin;
-    }
-
-    public void setAgeMin(int ageMin) {
-        this.ageMin = ageMin;
-    }
-
-    public int getAgeMax() {
-        return ageMax;
-    }
-
-    public void setAgeMax(int ageMax) {
-        this.ageMax = ageMax;
-    }
-
     public int getChildrenCount() {
         return childrenCount;
     }
@@ -71,11 +59,16 @@ public class Group {
         this.childrenCount = childrenCount;
     }
 
-    public Kindergarten getKindergarten() {
-        return kindergarten;
-    }
-
-    public void setKindergartenId(Kindergarten kindergarten) {
+    public void setKindergarten(Kindergarten kindergarten) {
         this.kindergarten = kindergarten;
     }
+
+    public AgeRange getAgeRange() {
+        return ageRange;
+    }
+
+    public void setAgeRange(AgeRange ageRange) {
+        this.ageRange = ageRange;
+    }
+
 }
