@@ -38,6 +38,15 @@ public class DistrictController {
         districtService.updateDistrict(id, districtDto);
     }
 
+    @ApiOperation(value = "Get single district by id", notes = "Returns a single district by id")
+    @RequestMapping(method = RequestMethod.GET, value = "/api/districts/{district_id}")
+    @ResponseStatus(HttpStatus.OK)
+    public DistrictDto getDistrict(
+            @PathVariable final Long district_id
+    ){
+        return districtService.getDistrict(district_id);
+    }
+
     @RequestMapping(method = RequestMethod.GET, value = "/api/districts")
     @ApiOperation(value="Get districts",notes ="Returns all districts")
     @ResponseStatus(HttpStatus.OK)
