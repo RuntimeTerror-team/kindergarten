@@ -1,8 +1,11 @@
 package lt.vtmc.kindergarten.domain;
 
 
+import org.hibernate.validator.constraints.Length;
+
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -11,15 +14,15 @@ import java.util.Set;
 public class User {
 
     @Id
-    @Column
+    @NotNull
+    @Length(min = 8, max = 30)
     private String username;
-    @Column
+    @NotNull
     private String firstName;
-    @Column
+    @NotNull
     private String lastName;
-    @Column
     private Long personalCode;
-    @NotBlank
+    @NotNull
     private String password;
 
     @ManyToOne(cascade = {CascadeType.MERGE, CascadeType.DETACH})

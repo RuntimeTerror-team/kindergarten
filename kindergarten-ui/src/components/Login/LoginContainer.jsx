@@ -1,5 +1,5 @@
 import Axios from 'axios';
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 import { withRouter } from "react-router-dom";
 import LoginComponent from './LoginComponent';
 import baseUrl from "../../AppConfig";
@@ -7,11 +7,10 @@ import ServicesContext from "../../context/ServicesContext";
 
 
 class LoginContainer extends Component {
-    constructor(){
+    constructor() {
 
         super();
         this.state = {
-
             username : "",
             password: "",
             invalidUsername: "",
@@ -24,14 +23,14 @@ class LoginContainer extends Component {
 
     handleChangeUsername = (e) => {
         e.preventDefault();
-        this.setState({username: e.target.value})
+        this.setState({ username: e.target.value })
     }
 
     handleChangePassword = (e) => {
         e.preventDefault();
-        this.setState({password: e.target.value})
+        this.setState({ password: e.target.value })
     }
-    
+
     handleSubmit = (e) => {
         e.preventDefault();
 
@@ -68,10 +67,14 @@ class LoginContainer extends Component {
             }
         })
         .then(() => {
-            if (this.context.userService.getUserRole() === "ADMIN") {
-                this.props.history.push("/admin");
-            }
-        })
+                if (this.context.userService.getUserRole() === "ADMIN") {
+                    this.props.history.push("/admin");
+                } else if (this.context.userService.getUserRole() === "EDUCATION_SPECIALIST") {
+                    this.props.history.push("/education-specialist");
+                } else if (this.context.userService.getUserRole() === "GUARDIAN") {
+                    this.props.history.push("/guardian");
+                }
+            })
         .catch(err => console.log(err));
    }
 
@@ -125,12 +128,9 @@ class LoginContainer extends Component {
         }
     }
         
-    render(){
-
-        return(
-
+    render() {
+        return (
             <LoginComponent
-
             username={this.state.username}
             password={this.state.password}
             invalidUsername={this.state.invalidUsername}
@@ -141,9 +141,7 @@ class LoginContainer extends Component {
             onUsernameChange={this.handleChangeUsername}
             onPasswordChange={this.handleChangePassword}        
             />
- 
         )
-
     }
 
 }

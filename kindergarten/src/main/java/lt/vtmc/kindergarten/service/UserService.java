@@ -3,6 +3,7 @@ package lt.vtmc.kindergarten.service;
 import lt.vtmc.kindergarten.domain.Role;
 import lt.vtmc.kindergarten.domain.RoleType;
 import lt.vtmc.kindergarten.domain.User;
+import lt.vtmc.kindergarten.dto.UserDtoFromAdmin;
 import lt.vtmc.kindergarten.dto.UserFromService;
 import lt.vtmc.kindergarten.dao.UserDao;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -44,13 +45,25 @@ public class UserService /*implements UserDetailsService*/ {
                     userFromService.getPassword()
             );
 
-            switch (userFromService.getRole()) {
-                case "ADMIN":
-                   Role adminRole = new Role(RoleType.ADMIN);
-                   newUser.setRole(adminRole);
-                   adminRole.addUser(newUser);
-                   userDao.save(newUser);
-                   break;
+            if (userFromService.getRole().equals("ADMIN")) {
+                if (userDao.findByRole(new Role(RoleType.ADMIN)) == null) {
+                    Role adminRole = new Role(RoleType.ADMIN);
+                    newUser.setRole(adminRole);
+                    adminRole.addUser(newUser);
+                    userDao.save(newUser);
+                }
+            } else if (userFromService.getRole().equals("EDUCATION_SPECIALIST")) {
+                if (userDao.findByRole(new Role(RoleType.EDUCATION_SPECIALIST)) == null) {
+                    Role eduSpecRole = new Role(RoleType.EDUCATION_SPECIALIST);
+                    newUser.setRole(eduSpecRole);
+                    eduSpecRole.addUser(newUser);
+                    userDao.save(newUser);
+                }
+            } else {
+                Role guardianRole = new Role(RoleType.GUARDIAN);
+                newUser.setRole(guardianRole);
+                guardianRole.addUser(newUser);
+                userDao.save(newUser);
             }
         }
     }
@@ -68,7 +81,97 @@ public class UserService /*implements UserDetailsService*/ {
         );
     }
 
+    @Transactional
+    public String createUserFromAdmin(UserDtoFromAdmin userDtoFromAdmin) {
 
+        String roleFromAdmin = userDtoFromAdmin.getRole();
+
+        String goodFirstName = userDtoFromAdmin.getFirstName().substring(0, 1).toUpperCase() + userDtoFromAdmin.getFirstName().substring(1).toLowerCase();
+        String goodLastName = userDtoFromAdmin.getLastName().substring(0, 1).toUpperCase() + userDtoFromAdmin.getLastName().substring(1).toLowerCase();
+
+
+        if (roleFromAdmin.equals("EDUCATION_SPECIALIST")) {
+                return createEducationSpecialist(goodFirstName, goodLastName);
+        } else {
+            return createGuardian(goodFirstName, goodLastName);
+        }
+    }
+
+    private String createGuardian(String goodFirstName, String goodLastName) {
+
+        int defaultNum = 1;
+
+        String fullNameUsername = goodFirstName + goodLastName;
+
+        String goodUsername = checkUsernameLength(fullNameUsername);
+
+        while (true) {
+
+            String possibleUsername = goodUsername + defaultNum;
+
+            if (possibleUsername.length()>30) {
+                possibleUsername = goodUsername.substring(0, goodUsername.length() - 1) + defaultNum;
+            }
+
+            if (userDao.findUserByUsername(possibleUsername) == null) {
+                User newUser = new User(
+                        possibleUsername,
+                        goodFirstName,
+                        goodLastName,
+                        null,
+                        possibleUsername
+                );
+
+                Role finalRole = new Role(RoleType.GUARDIAN);
+                newUser.setRole(finalRole);
+                finalRole.addUser(newUser);
+                userDao.save(newUser);
+
+                return possibleUsername;
+
+            } else {
+                defaultNum++;
+            }
+        }
+    }
+
+    private String checkUsernameLength(String usernameToCheck) {
+        if (usernameToCheck.length() < 7) {
+            while ((usernameToCheck).length()<7) {
+                usernameToCheck += 0;
+            }
+        }
+
+        if (usernameToCheck.length() > 29) {
+            while ((usernameToCheck).length()>29) {
+                    usernameToCheck = usernameToCheck.substring(0, usernameToCheck.length() - 1);
+            }
+        }
+
+        return usernameToCheck;
+    }
+
+    private String createEducationSpecialist(String fName, String lName) {
+        String eduSpecUsername = "ŠvietimoSpecialistas1";
+
+        if (userDao.findByRole(new Role(RoleType.EDUCATION_SPECIALIST)) == null) {
+                User eduSpec = new User(
+                        eduSpecUsername,
+                        fName,
+                        lName,
+                        null,
+                        eduSpecUsername
+                );
+
+                Role finalRole = new Role(RoleType.EDUCATION_SPECIALIST);
+                eduSpec.setRole(finalRole);
+                finalRole.addUser(eduSpec);
+                userDao.save(eduSpec);
+
+                return eduSpecUsername;
+        }
+        return "Švietimo specialistas jau egzistuoja. Prisijungimo vardas: " + eduSpecUsername;
+    }
 
     /*
     //       TODO: leave for security and modify if needed
