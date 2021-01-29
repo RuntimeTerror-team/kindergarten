@@ -18,6 +18,12 @@ public class DistrictService {
 
 
     @Transactional
+    public DistrictDto getDistrict(Long id){
+        District district = districtDao.getOne(id);
+        return new DistrictDto(district);
+    }
+
+    @Transactional
     public List<DistrictDto> getDistricts(){
         List<District> districts = districtDao.findAll();
         List<DistrictDto> districtList= districts.stream().map(district -> new DistrictDto(district)).collect(Collectors.toList());
@@ -38,6 +44,8 @@ public class DistrictService {
         district.setTitle(districtDto.getTitle());
         districtDao.save(district);
     }
+
+
 
 
     public void setDistrictDao(DistrictDao districtDao) {
