@@ -13,6 +13,6 @@ public class CommandLineAppStartupRunner implements CommandLineRunner {
 
     @Override
     public void run(String...args) throws Exception {
-        userService.createUser(new UserFromService("administratorius", "firstname", "lastname", 123456789L, "Administratorius1", "ADMIN"));
+        userService.createUser(new UserFromService("administratorius", "Adminas", "Adminaitis", 12345678989L, "Administratorius1", "ADMIN"));
     }
 }

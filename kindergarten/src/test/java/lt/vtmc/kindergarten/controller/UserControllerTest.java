@@ -1,14 +1,17 @@
 package lt.vtmc.kindergarten.controller;
 
 import lt.vtmc.kindergarten.dto.UserInfo;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInstance;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.context.junit4.SpringRunner;
+import org.springframework.test.annotation.DirtiesContext;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
 
 @SpringBootTest
 public class UserControllerTest {
@@ -17,23 +20,26 @@ public class UserControllerTest {
     UserController userController;
 
     @Test
-    void testCreatingUserWithAdminRole() {
+    @Order(1)
+    void testGettingUserWithAdminRole() {
         String role = userController.getUser("administratorius").getRole();
         assertEquals("ADMIN", role);
     }
 
     @Test
+    @Order(2)
     void testGettingListOfAllUsersWithSize1() {
-        // because we have default admin user
         assertEquals(1, userController.getUsers().size());
     }
 
     @Test
-    void testCreatingUserAndGettingListOfAllUsersWithSize2() {
-        UserInfo user = new UserInfo("ArnasJocys1", "Arnas", "Jocys", 123456789l, "ArnasJocys1", "ADMIN");
+    @Order(3)
+    @DirtiesContext(methodMode = DirtiesContext.MethodMode.AFTER_METHOD)
+    void testCreatingUserAndGettingIt() {
+        UserInfo user = new UserInfo("ArnasJocys1", "Arnas", "Jocys", 123456789l, "ArnasJocys1", "GUARDIAN");
 
         userController.createUser(user);
 
-        assertEquals(2, userController.getUsers().size());
+        assertNotEquals(null, userController.getUser("ArnasJocys1"));
     }
 }

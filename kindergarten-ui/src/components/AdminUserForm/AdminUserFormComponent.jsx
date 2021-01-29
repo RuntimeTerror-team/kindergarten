@@ -1,0 +1,52 @@
+import React from 'react';
+import Proptypes from 'prop-types';
+
+let AdminUserFormComponent = ({ handleChange, handleSubmit, ...otherProps }) => {
+    const { firstname, lastname, firstnameFieldValidation, lastnameFieldValidation } = otherProps;
+
+    return (
+        <div className="row justify-content-center align-items-center">
+            <div>
+                <h1 className="mb-4">Paskyros sukūrimas</h1>
+                <form className="form" onSubmit={handleSubmit}>
+                    <div className="form-group">
+                        <input type="text" className={`form-control ${firstnameFieldValidation}`} id="firstname" value={firstname} onChange={handleChange} name="firstname" placeholder="Vardas" />
+                        <div className="invalid-feedback">
+                            Prašom užpildyti vardą.
+                        </div>
+                    </div>
+                    <div className="form-group">
+                        <input type="text" className={`form-control ${lastnameFieldValidation}`} id="lastname" value={lastname} onChange={handleChange} name="lastname" placeholder="Pavardė" />
+                        <div className="invalid-feedback">
+                            Prašom užpildyti pavardę.
+                        </div>
+                    </div>
+                    <div className="input-group mb-3">
+                        <div className="input-group-prepend">
+                            <label className="input-group-text" htmlFor="inputGroupSelect01" style={{ backgroundColor: '#e3f2fd' }}>Rolė</label>
+                        </div>
+                        <select className="custom-select" id="inputGroupSelect01" name="role">
+                            <option value="GUARDIAN" defaultValue>Tėvas/globėjas</option>
+                            <option value="EDUCATION_SPECIALIST">Švietimo specialistas</option>
+                        </select>
+                    </div>
+                    <button className="btn btn-info float-right">Išsaugoti</button>
+                </form>
+            </div>
+        </div>
+    )
+
+}
+
+AdminUserFormComponent.propTypes = {
+
+    firstname: Proptypes.string.isRequired,
+    lastname: Proptypes.string.isRequired,
+    role: Proptypes.string.isRequired,
+    handleChange: Proptypes.func.isRequired,
+    handleSubmit: Proptypes.func
+
+}
+
+
+export default AdminUserFormComponent;
