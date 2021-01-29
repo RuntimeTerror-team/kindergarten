@@ -1,27 +1,30 @@
 package lt.vtmc.kindergarten.domain;
 
 
+import org.hibernate.validator.constraints.Length;
+
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 
 @Entity
 @Table(name="user")
 public class User {
 
     @Id
-    @Column
+    @NotNull
+    @Length(min = 8, max = 30)
     private String username;
-    @Column
+    @NotNull
     private String firstName;
-    @Column
+    @NotNull
     private String lastName;
-    @Column
     private Long personalCode;
-    @NotBlank
+    @NotNull
     private String password;
 
     @ManyToOne(cascade = {CascadeType.MERGE, CascadeType.DETACH})
-    @JoinColumn(name = "role_roleType")
+    @JoinColumn(name = "role_type")
     private Role role;
 
     public User() {

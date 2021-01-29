@@ -8,12 +8,16 @@ import javax.validation.constraints.NotNull;
 public class UserInfo {
 
     @NotNull
-    @Length(min=8)
+    @Length(min=8, max=30)
     private String username;
+    @NotNull
     private String firstName;
+    @NotNull
     private String lastName;
     private Long personalCode;
+    @NotNull
     private String password;
+    @NotNull
     private String role;
 
     public UserInfo() {

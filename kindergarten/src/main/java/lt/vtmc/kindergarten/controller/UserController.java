@@ -70,8 +70,7 @@ public class UserController {
     @ResponseStatus(HttpStatus.CREATED)
     @ApiOperation(value = "Create user from admin page", notes = "Creates user with data from admin page")
     public String createUserFromAdmin(@ApiParam(value = "User Data", required = true) @Valid @RequestBody UserDtoFromAdmin userDtoFromAdmin) {
-        String newUsername = userService.createUserFromAdmin(userDtoFromAdmin);
-        return newUsername;
+        return userService.createUserFromAdmin(userDtoFromAdmin);
     }
 
     /*

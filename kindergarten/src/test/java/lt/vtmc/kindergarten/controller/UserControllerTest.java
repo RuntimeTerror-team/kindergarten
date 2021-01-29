@@ -34,7 +34,7 @@ public class UserControllerTest {
     @Order(3)
     @DirtiesContext(methodMode = DirtiesContext.MethodMode.AFTER_METHOD)
     void testCreatingUserAndGettingIt() {
-        UserInfo user = new UserInfo("ArnasJocys1", "Arnas", "Jocys", 123456789l, "ArnasJocys1", "ADMIN");
+        UserInfo user = new UserInfo("ArnasJocys1", "Arnas", "Jocys", 123456789l, "ArnasJocys1", "GUARDIAN");
 
         userController.createUser(user);
 

@@ -1,23 +1,29 @@
 import React from 'react';
 import Proptypes from 'prop-types';
 
-let AdminUsersFormComponent = ({ handleChange, handleSubmit, ...otherProps }) => {
-    const { firstname, lastname } = otherProps;
+let AdminUserFormComponent = ({ handleChange, handleSubmit, ...otherProps }) => {
+    const { firstname, lastname, firstnameFieldValidation, lastnameFieldValidation } = otherProps;
 
     return (
-        <div className="row h-100 justify-content-center align-items-center">
+        <div className="row justify-content-center align-items-center">
             <div>
                 <h1 className="mb-4">Paskyros sukūrimas</h1>
                 <form className="form" onSubmit={handleSubmit}>
                     <div className="form-group">
-                        <input className="form-control " id="firstname" value={firstname} onChange={handleChange} name="firstname" placeholder="Vardas"></input>
+                        <input type="text" className={`form-control ${firstnameFieldValidation}`} id="firstname" value={firstname} onChange={handleChange} name="firstname" placeholder="Vardas" />
+                        <div className="invalid-feedback">
+                            Prašom užpildyti vardą.
+                        </div>
                     </div>
                     <div className="form-group">
-                        <input className="form-control " id="lastname" value={lastname} onChange={handleChange} name="lastname" placeholder="Pavardė"></input>
+                        <input type="text" className={`form-control ${lastnameFieldValidation}`} id="lastname" value={lastname} onChange={handleChange} name="lastname" placeholder="Pavardė" />
+                        <div className="invalid-feedback">
+                            Prašom užpildyti pavardę.
+                        </div>
                     </div>
                     <div className="input-group mb-3">
                         <div className="input-group-prepend">
-                            <label className="input-group-text" htmlFor="inputGroupSelect01"  style={{ backgroundColor: '#e3f2fd' }}>Rolė</label>
+                            <label className="input-group-text" htmlFor="inputGroupSelect01" style={{ backgroundColor: '#e3f2fd' }}>Rolė</label>
                         </div>
                         <select className="custom-select" id="inputGroupSelect01" name="role">
                             <option value="GUARDIAN" defaultValue>Tėvas/globėjas</option>
@@ -32,7 +38,7 @@ let AdminUsersFormComponent = ({ handleChange, handleSubmit, ...otherProps }) =>
 
 }
 
-AdminUsersFormComponent.propTypes = {
+AdminUserFormComponent.propTypes = {
 
     firstname: Proptypes.string.isRequired,
     lastname: Proptypes.string.isRequired,
@@ -43,4 +49,4 @@ AdminUsersFormComponent.propTypes = {
 }
 
 
-export default AdminUsersFormComponent;
+export default AdminUserFormComponent;

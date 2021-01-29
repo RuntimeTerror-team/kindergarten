@@ -50,6 +50,10 @@ class LoginContainer extends Component {
             .then(() => {
                 if (this.context.userService.getUserRole() === "ADMIN") {
                     this.props.history.push("/admin");
+                } else if (this.context.userService.getUserRole() === "EDUCATION_SPECIALIST") {
+                    this.props.history.push("/education-specialist");
+                } else if (this.context.userService.getUserRole() === "GUARDIAN") {
+                    this.props.history.push("/guardian");
                 }
             })
             .catch(err => console.log(err));
