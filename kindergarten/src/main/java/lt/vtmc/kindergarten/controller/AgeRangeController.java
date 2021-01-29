@@ -8,11 +8,27 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 public class AgeRangeController {
 
     @Autowired
     private AgeRangeService ageRangeService;
+
+    @RequestMapping(method = RequestMethod.GET, value = "/api/ageRanges")
+    @ApiOperation(value="Get age ranges",notes ="Returns age ranges")
+    @ResponseStatus(HttpStatus.OK)
+    public List<AgeRangeDto> getAgeRanges(){
+        return ageRangeService.getAgeRanges();
+    }
+
+    @ApiOperation(value = "Get single ageRange by id", notes="Returns a single ageRange by id")
+    @RequestMapping(path="/api/ageRanges/{ageRange_id}",method = RequestMethod.GET)
+    @ResponseStatus(HttpStatus.OK)
+    public AgeRangeDto getAgeRange(@PathVariable final Long ageRange_id){
+        return ageRangeService.getAgeRange(ageRange_id);
+    }
 
     @RequestMapping(value="/api/ageRanges", method = RequestMethod.POST)
     @ResponseStatus(HttpStatus.CREATED)
@@ -33,5 +49,7 @@ public class AgeRangeController {
     ){
         ageRangeService.updateAgeRange(id, ageRangeDto);
     }
+
+
 
 }
