@@ -1,6 +1,5 @@
 package lt.vtmc.kindergarten.dto;
 
-import lt.vtmc.kindergarten.domain.Role;
 import org.hibernate.validator.constraints.Length;
 
 import javax.validation.constraints.NotNull;

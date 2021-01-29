@@ -35,6 +35,7 @@ public class UserController {
                         ufs.getRole()))
                 .collect(Collectors.toList());
     }
+    
 
     @RequestMapping(method = RequestMethod.POST)
     @ResponseStatus(HttpStatus.CREATED)
