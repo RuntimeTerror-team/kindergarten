@@ -1,55 +1,33 @@
 import React from 'react';
 import Proptypes from 'prop-types';
 
-let LoginComponent = (props) => {
-
-    let CredentialsAlert = () => {
-
-        return(
-
-            <div className="alert alert-danger row my-3" role="alert">
-                Neteisingas naudotojo vardas ar slaptažodis
-            </div>  
-        )
-    }
-
-let MultipleAlerts = (props) => {
-
-
-    let alerts = props.validationErrors.map((message, index) => 
-
-    <div key={index}className="row">
-        <div className="alert alert-danger my-3" role="alert">
-                {message}
-        </div>
-    </div>
-
-    )
-
-    return(
-
-        <div>{alerts}</div>
-    )
-}
+let LoginComponent = ({ username, password, usernameValidation, passwordValidation, areCredentialsIncorrect,
+    onSubmit, onUsernameChange, onPasswordChange }) => {
 
     return (
         <div className="row" id="loginForm">
             <div>
                 <h1 id="loginh1">Prisijungimas</h1>
-                <form className="form"  onSubmit={props.onSubmit}>
+                <form className="form" onSubmit={onSubmit}>
                     <div className="form-group">
                         <label htmlFor="username">Prisijungimo vardas: </label>
-                        <input className={"form-control " + props.invalidUsername} id="username" value={props.username} onChange={props.onUsernameChange} name="username" placeholder="Prisijungimo vardas"></input>
+                        <input className={`form-control ${usernameValidation}`} id="username" value={username} onChange={onUsernameChange} name="username"></input>
+                        <div className="invalid-feedback">
+                            Šis laukas privalomas.
+                        </div>
                     </div>
                     <div className="form-group">
                         <label htmlFor="password" className="control-label" >Slaptažodis: </label>
-                        <input className={"form-control " + props.invalidPassword} type="password" id="password" value={props.password} onChange={props.onPasswordChange} name="password" placeholder="Slaptažodis"></input>
+                        <input className={`form-control ${passwordValidation}`} type="password" id="password" value={password} onChange={onPasswordChange} name="password"></input>
+                        <div className="invalid-feedback">
+                            Šis laukas privalomas.
+                        </div>
                     </div>
-                    <button className="btn btn-primary" id="loginButton">Prisijungti</button>
+                    <button className="btn btn-primary mb-4" id="loginButton">Prisijungti</button>
                 </form>
-                { props.incorrectCredentials ? <CredentialsAlert /> : null}
-                {<MultipleAlerts validationErrors = {props.validationErrors}/>}
+                {areCredentialsIncorrect && <div className="alert alert-danger col-12" role="alert">Naudotojo vardas arba slaptažodis neteisingas</div>}
             </div>
+
         </div>
     )
 

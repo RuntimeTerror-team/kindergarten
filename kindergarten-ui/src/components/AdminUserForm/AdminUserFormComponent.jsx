@@ -2,7 +2,7 @@ import React from 'react';
 import Proptypes from 'prop-types';
 
 let AdminUserFormComponent = ({ handleChange, handleSubmit, ...otherProps }) => {
-    const { firstname, lastname, firstnameFieldValidation, lastnameFieldValidation } = otherProps;
+    const { firstname, lastname, firstnameFieldValidation, lastnameFieldValidation, createdUsername, isCreated } = otherProps;
 
     return (
         <div className="row justify-content-center align-items-center">
@@ -33,6 +33,8 @@ let AdminUserFormComponent = ({ handleChange, handleSubmit, ...otherProps }) => 
                     <button className="btn btn-info float-right">Išsaugoti</button>
                 </form>
             </div>
+            {isCreated && createdUsername.length <= 30 && <div className="alert alert-success mt-4" role="alert">{`Naudotojas sukurtas. Prisijungimo vardas ir slaptažodis: ${createdUsername}`}</div>}
+            {isCreated && createdUsername.length > 30 && <div className="alert alert-success mt-4" role="alert">{createdUsername}</div>}
         </div>
     )
 
