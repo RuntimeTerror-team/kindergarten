@@ -45,7 +45,7 @@ let MultipleAlerts = (props) => {
                         <label htmlFor="password" className="control-label" >Slaptažodis: </label>
                         <input className={"form-control " + props.invalidPassword} type="password" id="password" value={props.password} onChange={props.onPasswordChange} name="password" placeholder="Slaptažodis"></input>
                     </div>
-                    <button className="btn btn-primary" id="loginButton">Prisijungti</button>
+                    <button className="btn btn-primary float-right" id="loginButton">Prisijungti</button>
                 </form>
                 { props.incorrectCredentials ? <CredentialsAlert /> : null}
                 {<MultipleAlerts validationErrors = {props.validationErrors}/>}
