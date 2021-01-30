@@ -99,8 +99,6 @@ class AdminUserFormContainer extends Component {
                     handleChange={this.handleChange}
                     {...this.state}
                 />
-                {this.state.isCreated && this.state.createdUsername.length<=30 && <div className="alert alert-success w-100 mt-4" role="alert">{`Naudotojas sukurtas. Prisijungimo vardas ir slaptažodis: ${this.state.createdUsername}`}</div>}
-                {this.state.isCreated && this.state.createdUsername.length>30 && <div className="alert alert-success w-100 mt-4" role="alert">{this.state.createdUsername}</div>}
             </div>
         )
 
