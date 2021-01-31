@@ -6,11 +6,16 @@ import lt.vtmc.kindergarten.dto.AgeRangeDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import javax.transaction.Transactional;
+import org.springframework.transaction.annotation.Transactional;
+import org.springframework.validation.annotation.Validated;
+
+import javax.validation.Valid;
+import javax.validation.constraints.NotNull;
 import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
+@Validated
 public class AgeRangeService {
 
     @Autowired
@@ -34,7 +39,7 @@ public class AgeRangeService {
 
 
     @Transactional
-    public void addAgeRange(AgeRangeDto ageRangeDto){
+    public void addAgeRange(@Valid AgeRangeDto ageRangeDto){
         AgeRange ageRange = new AgeRange();
 
         ageRange.setAgeMin(ageRangeDto.getMinAge());
@@ -44,7 +49,7 @@ public class AgeRangeService {
     }
 
     @Transactional
-    public void updateAgeRange(Long id, AgeRangeDto ageRangeDto){
+    public void updateAgeRange(@NotNull Long id, @Valid AgeRangeDto ageRangeDto){
         AgeRange ageRange = ageRangeDao.getOne(id);
 
         ageRange.setAgeMin(ageRangeDto.getMinAge());
