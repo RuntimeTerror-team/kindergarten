@@ -5,6 +5,8 @@ import LoginComponent from './LoginComponent';
 import baseUrl from "../../AppConfig";
 import ServicesContext from "../../context/ServicesContext";
 
+Axios.defaults.withCredentials = true;
+
 class LoginContainer extends Component {
     constructor() {
 
@@ -47,7 +49,19 @@ class LoginContainer extends Component {
     handleSubmit = (e) => {
         e.preventDefault();
 
+        let userData = new URLSearchParams();
 
+        userData.append('username', this.state.username);
+        userData.append('password', this.state.password);
+
+        Axios
+            .post('http://localhost:8081/login', 
+                userData,
+                {headers:{'Content-type':'application/x-www-form-urlencoded'}})
+            .then((res) => {
+                console.log("user " + res.data.username + " logged in") })
+            .catch((e) => { console.log(e); });
+        // trinti
         let roleFromBack = "";
         let usernameFromUser = e.target.username.value;
         let passwordFromUser = e.target.password.value;

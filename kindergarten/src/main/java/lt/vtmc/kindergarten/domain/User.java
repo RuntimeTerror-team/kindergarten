@@ -26,7 +26,7 @@ public class User {
     private String password;
 
     @ManyToOne(cascade = {CascadeType.MERGE, CascadeType.DETACH})
-    @JoinColumn(name = "roleType")
+    @JoinColumn(name = "type")
     private Role role;
 
     @OneToMany(mappedBy = "id")

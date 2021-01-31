@@ -2,7 +2,7 @@ import React from 'react';
 import Proptypes from 'prop-types';
 
 let LoginComponent = ({ username, password, usernameValidation, passwordValidation, areCredentialsIncorrect,
-    onSubmit, onUsernameChange, onPasswordChange }) => {
+    onSubmit, onUsernameChange, onPasswordChange }, context ) => {
 
     return (
         <div className="row" id="loginForm">

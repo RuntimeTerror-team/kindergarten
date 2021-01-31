@@ -7,14 +7,23 @@ import lt.vtmc.kindergarten.dto.UserDtoFromAdmin;
 import lt.vtmc.kindergarten.dto.UserFromService;
 import lt.vtmc.kindergarten.dao.UserDao;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.authority.AuthorityUtils;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.factory.PasswordEncoderFactories;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.xml.bind.DatatypeConverter;
+import java.nio.charset.StandardCharsets;
+import java.security.MessageDigest;
 import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
-public class UserService /*implements UserDetailsService*/ {
+public class UserService implements UserDetailsService {
     @Autowired
     private UserDao userDao;
 
@@ -35,42 +44,58 @@ public class UserService /*implements UserDetailsService*/ {
 
     @Transactional
     public void createUser(UserFromService userFromService) {
+        String hashedPassword = getHash(userFromService.getPassword().getBytes(), "SHA-256");
+        Role role = new Role();
 
-        if (userDao.findUserByUsername(userFromService.getUsername()) == null) {
+
+        if (userDao.findByUsername(userFromService.getUsername()) == null) {
             User newUser = new User(
                     userFromService.getUsername(),
                     userFromService.getFirstName(),
                     userFromService.getLastName(),
                     userFromService.getPersonalCode(),
-                    userFromService.getPassword()
+                    hashedPassword
             );
 
             if (userFromService.getRole().equals("ADMIN")) {
                 if (userDao.findByRole(new Role(RoleType.ADMIN)) == null) {
-                    Role adminRole = new Role(RoleType.ADMIN);
-                    newUser.setRole(adminRole);
-                    adminRole.addUser(newUser);
+                    role.setType(RoleType.ADMIN);
+                    newUser.setRole(role);
+                    role.addUser(newUser);
                     userDao.save(newUser);
                 }
             } else if (userFromService.getRole().equals("EDUCATION_SPECIALIST")) {
                 if (userDao.findByRole(new Role(RoleType.EDUCATION_SPECIALIST)) == null) {
-                    Role eduSpecRole = new Role(RoleType.EDUCATION_SPECIALIST);
-                    newUser.setRole(eduSpecRole);
-                    eduSpecRole.addUser(newUser);
+                    role.setType(RoleType.EDUCATION_SPECIALIST);
+                    newUser.setRole(role);
+                    role.addUser(newUser);
                     userDao.save(newUser);
                 }
             } else {
-                Role guardianRole = new Role(RoleType.GUARDIAN);
-                newUser.setRole(guardianRole);
-                guardianRole.addUser(newUser);
+                role.setType(RoleType.GUARDIAN);
+                newUser.setRole(role);
+                role.addUser(newUser);
                 userDao.save(newUser);
             }
         }
     }
 
+    private String getHash(byte[] inputBytes, String algorithm) {
+        String hashValue = "";
+        try {
+            MessageDigest messageDigest = MessageDigest.getInstance(algorithm);
+            messageDigest.update(inputBytes);
+            byte[] digestedBytes = messageDigest.digest();
+            hashValue = DatatypeConverter.printHexBinary(digestedBytes).toLowerCase();
+        } catch (Exception e) {
+
+        }
+        return hashValue;
+    }
+
     @Transactional(readOnly = true)
     public UserFromService getUser(String username) {
-        User user = userDao.findUserByUsername(username);
+        User user = userDao.findByUsername(username);
         return new UserFromService(
                 user.getUsername(),
                 user.getFirstName(),
@@ -91,7 +116,7 @@ public class UserService /*implements UserDetailsService*/ {
 
 
         if (roleFromAdmin.equals("EDUCATION_SPECIALIST")) {
-                return createEducationSpecialist(goodFirstName, goodLastName);
+            return createEducationSpecialist(goodFirstName, goodLastName);
         } else {
             return createGuardian(goodFirstName, goodLastName);
         }
@@ -109,20 +134,23 @@ public class UserService /*implements UserDetailsService*/ {
 
             String possibleUsername = goodUsername + defaultNum;
 
-            if (possibleUsername.length()>30) {
+            if (possibleUsername.length() > 30) {
                 possibleUsername = goodUsername.substring(0, goodUsername.length() - 1) + defaultNum;
             }
 
-            if (userDao.findUserByUsername(possibleUsername) == null) {
+            if (userDao.findByUsername(possibleUsername) == null) {
+                String hashedPassword = getHash(possibleUsername.getBytes(), "SHA-256");
+                Role finalRole = new Role();
+
                 User newUser = new User(
                         possibleUsername,
                         goodFirstName,
                         goodLastName,
                         null,
-                        possibleUsername
+                        hashedPassword
                 );
 
-                Role finalRole = new Role(RoleType.GUARDIAN);
+                finalRole.setType(RoleType.GUARDIAN);
                 newUser.setRole(finalRole);
                 finalRole.addUser(newUser);
                 userDao.save(newUser);
@@ -137,14 +165,14 @@ public class UserService /*implements UserDetailsService*/ {
 
     private String checkUsernameLength(String usernameToCheck) {
         if (usernameToCheck.length() < 7) {
-            while ((usernameToCheck).length()<7) {
+            while ((usernameToCheck).length() < 7) {
                 usernameToCheck += 0;
             }
         }
 
         if (usernameToCheck.length() > 29) {
-            while ((usernameToCheck).length()>29) {
-                    usernameToCheck = usernameToCheck.substring(0, usernameToCheck.length() - 1);
+            while ((usernameToCheck).length() > 29) {
+                usernameToCheck = usernameToCheck.substring(0, usernameToCheck.length() - 1);
             }
         }
 
@@ -153,75 +181,43 @@ public class UserService /*implements UserDetailsService*/ {
 
     private String createEducationSpecialist(String fName, String lName) {
         String eduSpecUsername = "ŠvietimoSpecialistas1";
+        String hashedPassword = getHash(eduSpecUsername.getBytes(), "SHA-256");
+        Role finalRole = new Role();
 
         if (userDao.findByRole(new Role(RoleType.EDUCATION_SPECIALIST)) == null) {
-                User eduSpec = new User(
-                        eduSpecUsername,
-                        fName,
-                        lName,
-                        null,
-                        eduSpecUsername
-                );
+            User eduSpec = new User(
+                    eduSpecUsername,
+                    fName,
+                    lName,
+                    null,
+                    hashedPassword
+            );
 
-                Role finalRole = new Role(RoleType.EDUCATION_SPECIALIST);
-                eduSpec.setRole(finalRole);
-                finalRole.addUser(eduSpec);
-                userDao.save(eduSpec);
+            finalRole.setType(RoleType.EDUCATION_SPECIALIST);
+            eduSpec.setRole(finalRole);
+            finalRole.addUser(eduSpec);
+            userDao.save(eduSpec);
 
-                return eduSpecUsername;
+            return eduSpecUsername;
         }
         return "Švietimo specialistas jau egzistuoja. Prisijungimo vardas: " + eduSpecUsername;
     }
 
-    /*
-    //       TODO: leave for security and modify if needed
-    public Role getRole(String username, String password) {
-        User user = userDao.findUserByUsername(username);
-        if (user.getPassword().equals(password)) {
-             user.getRole().getType().toString();
-        }
-        return null;
-    }
-      */
+    // Security
 
-   /* Temporarily disable all security functions
     @Override
-    public UserDetails loadUserByUsername(String id) throws UsernameNotFoundException {
-    // FIXME uncomment once user creation is implemented
-        //        User user = findById(id);
-//
-//        if(user==null){
-//            throw new UsernameNotFoundException("User not found");
-//        }
+    public UserDetails loadUserByUsername(String username)
+            throws UsernameNotFoundException {
+        User user = findByUsername(username);
+        if (user == null)
+            throw new UsernameNotFoundException(username + " not found.");
         return new org.springframework.security.core.userdetails.User(
-                "admin",
-                "admin",
+                user.getUsername(), user.getPassword(),
                 AuthorityUtils.createAuthorityList(
-                        new String[] {
-                                "ROLE_ADMIN"
-                        }
-                )
-        );
-//        return new org.springframework.security.core.userdetails.User(
-//                user.getId(),
-//                user.getPassword(),
-//                AuthorityUtils.createAuthorityList(
-//                        new String[] {
-//                            "ROLE_" + user.getRole()
-//                        }
-//                )
-//        );
-
-    };
-
-
-    @Transactional(readOnly=true)
-    public User findById(String id){
-        Optional user = userDao.findById(id);
-        return (User) user.get();
+                        new String[]{"ROLE_" + user.getRole().getType()}));
     }
 
-    public void setUserDao(UserDao userDao) {
-        this.userDao = userDao;
-    }*/
+    private User findByUsername(String username) {
+        return userDao.findByUsername(username);
+    }
 }

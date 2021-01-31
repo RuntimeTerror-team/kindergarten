@@ -9,6 +9,7 @@ import lt.vtmc.kindergarten.dto.UserFromService;
 import lt.vtmc.kindergarten.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -68,19 +69,10 @@ public class UserController {
 
     // admin creating new user
     @RequestMapping(path = "/admin", method = RequestMethod.POST)
+    @PreAuthorize("hasRole('ADMIN')")
     @ResponseStatus(HttpStatus.CREATED)
     @ApiOperation(value = "Create user from admin page", notes = "Creates user with data from admin page")
     public String createUserFromAdmin(@ApiParam(value = "User Data", required = true) @Valid @RequestBody UserDtoFromAdmin userDtoFromAdmin) {
         return userService.createUserFromAdmin(userDtoFromAdmin);
     }
-
-    /*
-    //       TODO: leave for security and modify if needed
-    @RequestMapping(path = "/role", method = RequestMethod.GET)
-    @ResponseStatus(HttpStatus.OK)
-    @ApiOperation(value = "Get user", notes = "Returns user by username")
-    public Role getRole(String username, String password) {
-        return userService.getRole(username, password);
-    }
-     */
 }

@@ -1,4 +1,4 @@
-package lt.vtmc.kindergarten;
+package lt.vtmc.kindergarten.security;
 
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.web.AuthenticationEntryPoint;
