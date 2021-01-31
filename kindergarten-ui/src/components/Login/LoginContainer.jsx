@@ -67,8 +67,6 @@ class LoginContainer extends Component {
                     userData,
                     { headers: { 'Content-type': 'application/x-www-form-urlencoded' } })
                 .then((res) => {
-                    console.log(res.data);
-                    console.log("user " + res.data.username + " logged in")
                     this.context.userService.setCurrentUser(res.data.username);
                     this.context.userService.updateCurrentUser();
                     this.resetState();
@@ -77,7 +75,6 @@ class LoginContainer extends Component {
                     Axios
                     .get(`${baseUrl}/loggedRole`)
                     .then((res) => {
-                        console.log(res.data);
                         roleFromBack = res.data;
                         this.context.userService.setUserRole(roleFromBack);
                         this.context.userService.updateUserRole();
@@ -95,7 +92,7 @@ class LoginContainer extends Component {
                 })
                 .catch((e) => { 
                     this.setState({ areCredentialsIncorrect: true });
-                    console.log(e);
+                    // console.log(e);
                  });
 
         }
