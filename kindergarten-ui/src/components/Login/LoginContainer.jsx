@@ -49,55 +49,55 @@ class LoginContainer extends Component {
     handleSubmit = (e) => {
         e.preventDefault();
 
-        let userData = new URLSearchParams();
-
-        userData.append('username', this.state.username);
-        userData.append('password', this.state.password);
-
-        Axios
-            .post('http://localhost:8081/login', 
-                userData,
-                {headers:{'Content-type':'application/x-www-form-urlencoded'}})
-            .then((res) => {
-                console.log("user " + res.data.username + " logged in") })
-            .catch((e) => { console.log(e); });
-        // trinti
         let roleFromBack = "";
         let usernameFromUser = e.target.username.value;
         let passwordFromUser = e.target.password.value;
-
 
         this.doValidation(usernameFromUser, passwordFromUser);
 
         if (usernameFromUser.trim().length !== 0 && passwordFromUser.trim().length !== 0) {
 
+
+            let userData = new URLSearchParams();
+            userData.append('username', this.state.username);
+            userData.append('password', this.state.password);
+
             Axios
-                .get(`${baseUrl}/api/users/${usernameFromUser}`)
-                .then(res => {
-                    let passwordFromBack = res.data.password;
-                    roleFromBack = res.data.role;
-
-                    if (passwordFromUser === passwordFromBack) {
-                        this.context.userService.setCurrentUser(res.data.username);
+                .post(`${baseUrl}/login`,
+                    userData,
+                    { headers: { 'Content-type': 'application/x-www-form-urlencoded' } })
+                .then((res) => {
+                    console.log(res.data);
+                    console.log("user " + res.data.username + " logged in")
+                    this.context.userService.setCurrentUser(res.data.username);
+                    this.context.userService.updateCurrentUser();
+                    this.resetState();
+                })
+                .then(()=>{
+                    Axios
+                    .get(`${baseUrl}/loggedRole`)
+                    .then((res) => {
+                        console.log(res.data);
+                        roleFromBack = res.data;
                         this.context.userService.setUserRole(roleFromBack);
-                        this.context.userService.updateCurrentUser();
                         this.context.userService.updateUserRole();
+                    })
+                    .then(() => {
+                        if (this.context.userService.getUserRole() === "ROLE_ADMIN") {
+                            this.props.history.push("/admin");
+                        } else if (this.context.userService.getUserRole() === "ROLE_EDUCATION_SPECIALIST") {
+                            this.props.history.push("/education-specialist");
+                        } else if (this.context.userService.getUserRole() === "ROLE_GUARDIAN") {
+                            this.props.history.push("/guardian");
+                        }
+                    })
+                    .catch(err => console.log(err));
+                })
+                .catch((e) => { 
+                    this.setState({ areCredentialsIncorrect: true });
+                    console.log(e);
+                 });
 
-                        this.resetState();
-                    } else {
-                        this.setState({ areCredentialsIncorrect: true });
-                    }
-                })
-                .then(() => {
-                    if (this.context.userService.getUserRole() === "ADMIN") {
-                        this.props.history.push("/admin");
-                    } else if (this.context.userService.getUserRole() === "EDUCATION_SPECIALIST") {
-                        this.props.history.push("/education-specialist");
-                    } else if (this.context.userService.getUserRole() === "GUARDIAN") {
-                        this.props.history.push("/guardian");
-                    }
-                })
-                .catch(err => console.log(err));
         }
     }
 
@@ -113,7 +113,7 @@ class LoginContainer extends Component {
 
     render() {
         return (
-            <div id="loginPage" className="justify-content-center align-items-center">
+            <div id="loginPage" className="justify-content-center align-items-center" >
                 <h1 className="text-center text-info pt-4">Darželių informacinė sistema</h1>
                 <LoginComponent
                     username={this.state.username}

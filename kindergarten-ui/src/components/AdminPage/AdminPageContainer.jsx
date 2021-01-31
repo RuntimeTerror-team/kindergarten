@@ -28,9 +28,9 @@ class AdminPageContainer extends Component {
     }
 
     render() {
-        if (this.context.userService.getUserRole() === "ADMIN") {
+        if (this.context.userService.getUserRole() === "ROLE_ADMIN") {
             return (
-                <div className="pagesBackgorund">
+                <div className="pagesBackground">
                 <AdminPageComponent
                     handleUserChoice={this.handleUserChoice}
                     handleLogout={this.handleLogout}

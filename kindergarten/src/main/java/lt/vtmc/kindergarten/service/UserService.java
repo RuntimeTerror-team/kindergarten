@@ -11,14 +11,10 @@ import org.springframework.security.core.authority.AuthorityUtils;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
-import org.springframework.security.crypto.factory.PasswordEncoderFactories;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import javax.xml.bind.DatatypeConverter;
-import java.nio.charset.StandardCharsets;
-import java.security.MessageDigest;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -27,8 +23,10 @@ public class UserService implements UserDetailsService {
     @Autowired
     private UserDao userDao;
 
+    @Autowired
+    private PasswordEncoder passwordEncoder;
 
-    @Transactional(readOnly = true)
+     @Transactional(readOnly = true)
     public List<UserFromService> getUsers() {
         return userDao.findAll()
                 .stream()
@@ -44,7 +42,7 @@ public class UserService implements UserDetailsService {
 
     @Transactional
     public void createUser(UserFromService userFromService) {
-        String hashedPassword = getHash(userFromService.getPassword().getBytes(), "SHA-256");
+        String encodedPassword = passwordEncoder.encode(userFromService.getPassword());
         Role role = new Role();
 
 
@@ -54,7 +52,7 @@ public class UserService implements UserDetailsService {
                     userFromService.getFirstName(),
                     userFromService.getLastName(),
                     userFromService.getPersonalCode(),
-                    hashedPassword
+                    encodedPassword
             );
 
             if (userFromService.getRole().equals("ADMIN")) {
@@ -78,19 +76,6 @@ public class UserService implements UserDetailsService {
                 userDao.save(newUser);
             }
         }
-    }
-
-    private String getHash(byte[] inputBytes, String algorithm) {
-        String hashValue = "";
-        try {
-            MessageDigest messageDigest = MessageDigest.getInstance(algorithm);
-            messageDigest.update(inputBytes);
-            byte[] digestedBytes = messageDigest.digest();
-            hashValue = DatatypeConverter.printHexBinary(digestedBytes).toLowerCase();
-        } catch (Exception e) {
-
-        }
-        return hashValue;
     }
 
     @Transactional(readOnly = true)
@@ -139,7 +124,7 @@ public class UserService implements UserDetailsService {
             }
 
             if (userDao.findByUsername(possibleUsername) == null) {
-                String hashedPassword = getHash(possibleUsername.getBytes(), "SHA-256");
+                String encodedPassword = passwordEncoder.encode(possibleUsername);
                 Role finalRole = new Role();
 
                 User newUser = new User(
@@ -147,7 +132,7 @@ public class UserService implements UserDetailsService {
                         goodFirstName,
                         goodLastName,
                         null,
-                        hashedPassword
+                        encodedPassword
                 );
 
                 finalRole.setType(RoleType.GUARDIAN);
@@ -181,7 +166,7 @@ public class UserService implements UserDetailsService {
 
     private String createEducationSpecialist(String fName, String lName) {
         String eduSpecUsername = "ŠvietimoSpecialistas1";
-        String hashedPassword = getHash(eduSpecUsername.getBytes(), "SHA-256");
+        String encodedPassword = passwordEncoder.encode(eduSpecUsername);
         Role finalRole = new Role();
 
         if (userDao.findByRole(new Role(RoleType.EDUCATION_SPECIALIST)) == null) {
@@ -190,7 +175,7 @@ public class UserService implements UserDetailsService {
                     fName,
                     lName,
                     null,
-                    hashedPassword
+                    encodedPassword
             );
 
             finalRole.setType(RoleType.EDUCATION_SPECIALIST);

@@ -7,9 +7,17 @@ import org.springframework.security.config.annotation.method.configuration.Enabl
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 import org.springframework.security.web.authentication.SimpleUrlAuthenticationFailureHandler;
 import org.springframework.security.web.authentication.SimpleUrlAuthenticationSuccessHandler;
+
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
 
 @Configuration
 @EnableWebSecurity
@@ -29,13 +37,24 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-            http
+        http
                 .authorizeRequests()
-                .antMatchers("/").permitAll()
-                .antMatchers("/console/**").authenticated()
+                .antMatchers("/", "console/**", "**/**").permitAll()
+//                .antMatchers("/console/**").authenticated()
                 .and()
                 .formLogin()
-                .successHandler(new SimpleUrlAuthenticationSuccessHandler())
+                .successHandler(new AuthenticationSuccessHandler() {
+                    @Override
+                    public void onAuthenticationSuccess(HttpServletRequest request,
+                                                        HttpServletResponse response, Authentication authentication)
+                            throws IOException, ServletException {
+                        response.setHeader("Access-Control-Allow-Credentials", "true");
+                        response.setHeader("Access-Control-Allow-Origin", request.getHeader("Origin"));
+                        response.setHeader("Content-Type", "application/json;charset=UTF-8");
+                        response.getWriter().print("{\"username\": \"" + SecurityContextHolder.getContext().getAuthentication().getName() + "\"}");
+                        System.out.println("NAME: " + SecurityContextHolder.getContext().getAuthentication().getName());
+                    }
+                })
                 .failureHandler(new SimpleUrlAuthenticationFailureHandler())
                 .loginPage("/login").permitAll()
                 .and()
