@@ -25,7 +25,7 @@ let LoginComponent = ({ username, password, usernameValidation, passwordValidati
                     </div>
                     <button className="btn btn-primary mb-4" id="loginButton">Prisijungti</button>
                 </form>
-                {areCredentialsIncorrect && <div className="alert alert-danger col-12" role="alert">Naudotojo vardas arba slaptažodis neteisingas</div>}
+                {areCredentialsIncorrect && <div className="alert alert-danger col-12" role="alert">Prisijungimo duomenys neteisingi</div>}
             </div>
 
         </div>
