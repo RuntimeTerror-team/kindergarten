@@ -7,10 +7,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.validation.annotation.Validated;
+
+import javax.validation.Valid;
 import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
+@Validated
 public class KindergartenService {
 
     @Autowired
@@ -23,8 +27,14 @@ public class KindergartenService {
         return kindergartenList;
     }
 
+    @Transactional(readOnly = true)
+    public KindergartenDto getKindergarten(Long id){
+        Kindergarten kindergarten = kindergartenDao.getOne(id);
+        return new KindergartenDto(kindergarten);
+    }
+
     @Transactional
-    public void addKindergarten(KindergartenDto kindergartenDto){
+    public void addKindergarten(@Valid KindergartenDto kindergartenDto){
         Kindergarten kindergarten = new Kindergarten();
 
         kindergarten.setTitle(kindergartenDto.getTitle());

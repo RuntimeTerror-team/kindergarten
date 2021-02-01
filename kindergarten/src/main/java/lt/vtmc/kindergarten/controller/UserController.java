@@ -2,7 +2,6 @@ package lt.vtmc.kindergarten.controller;
 
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
-import lt.vtmc.kindergarten.dto.AnswerAboutCreatedUser;
 import lt.vtmc.kindergarten.dto.UserDtoFromAdmin;
 import lt.vtmc.kindergarten.dto.UserInfo;
 import lt.vtmc.kindergarten.dto.UserFromService;
