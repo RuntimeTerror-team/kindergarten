@@ -14,7 +14,7 @@ let LoginComponent = ({
   return (
     <div className="row" id="loginForm">
       <div>
-        <h1 id="loginh1">Prisijungimas Test</h1>
+        <h1 id="loginh1">Prisijungimas</h1>
         <form className="form" onSubmit={onSubmit}>
           <div className="form-group">
             <label htmlFor="username">Prisijungimo vardas: </label>
