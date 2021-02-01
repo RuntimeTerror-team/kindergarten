@@ -22,7 +22,7 @@ class AdminUserFormContainer extends Component {
     }
 
     handleChange = (e) => {
-        const re = /^[\w'\-,.][^0-9_!¡?÷?¿/\\+=@#$%ˆ&*(){}|~<>;:[\]]{30,}$/;
+        const re = /^[\w'\-,.][^0-9_!¡?÷?¿/\\+=@#$%ˆ&*(){}|~<>;:[\]]{31,}$/;
         const { name, value } = e.target;
 
         if (value !== '' && !re.test(value)) {
@@ -31,12 +31,19 @@ class AdminUserFormContainer extends Component {
             this.setState({ [name]: "" });
         }
 
+        if (value.length >= 31) {
+            if (name === "firstname") {
+                this.setState({firstnameLength: "is-invalid"});
+            } else {
+                this.setState({lastnameLength: "is-invalid"});
+            }
+        }
 
-        if (this.state.firstnameLength !== "" && name === "firstname") {
+        if (this.state.firstnameLength !== "" && name === "firstname" && value.length === 30) {
             this.setState({ firstnameLength: "" });
         }
 
-        if (this.state.lastnameLength !== "" && name === "lastname") {
+        if (this.state.lastnameLength !== "" && name === "lastname" && value.length === 30) {
             this.setState({ lastnameLength: "" });
         }
 
@@ -89,6 +96,8 @@ class AdminUserFormContainer extends Component {
             this.setState({ firstname: "" })
             this.setState({ lastname: "" })
             this.setState({ role: "" })
+            this.setState({ firstnameLength: "" })
+            this.setState({ lastnameLength: "" })
         }
     }
 

@@ -12,13 +12,13 @@ let AdminUserFormComponent = ({ handleChange, handleSubmit, ...otherProps }) => 
                     <div className="form-group">
                         <input type="text" className={`largeInput form-control ${firstnameLength}`} id="firstname" value={firstname} onChange={handleChange} name="firstname" placeholder="Vardas" />
                         <div className="invalid-feedback">
-                            Šis laukas privalomas. Vardas turi būti 6-8 simbolių ilgio.
+                            Šis laukas privalomas. Vardas turi būti 2-30 simbolių ilgio.
                         </div>
                     </div>
                     <div className="form-group">
                         <input type="text" className={`largeInput form-control ${lastnameLength}`} id="lastname" value={lastname} onChange={handleChange} name="lastname" placeholder="Pavardė" />
                         <div className="invalid-feedback">
-                            Šis laukas privalomas. Pavardė turi būti 6-8 simbolių ilgio.
+                            Šis laukas privalomas. Pavardė turi būti 2-30 simbolių ilgio.
                         </div>
                     </div>
                     <div className="input-group mb-3">
