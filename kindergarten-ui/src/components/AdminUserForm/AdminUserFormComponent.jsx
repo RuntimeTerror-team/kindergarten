@@ -23,7 +23,7 @@ let AdminUserFormComponent = ({ handleChange, handleSubmit, ...otherProps }) => 
                     </div>
                     <div className="input-group mb-3">
                         <div className="input-group-prepend">
-                            <label className="largeInput input-group-text" htmlFor="inputGroupSelect01" style={{ backgroundColor: '#e3f2fd' }}>Rolė</label>
+                            <label className="input-group-text" htmlFor="inputGroupSelect01" style={{ backgroundColor: '#e3f2fd' }}>Rolė</label>
                         </div>
                         <select className="custom-select" id="inputGroupSelect01" name="role">
                             <option value="GUARDIAN" defaultValue>Tėvas/globėjas</option>

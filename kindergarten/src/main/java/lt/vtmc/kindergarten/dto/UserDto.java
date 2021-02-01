@@ -22,7 +22,7 @@ public class UserDto {
     public UserDto() {
     }
 
-    public UserDto(@NotNull @Length(min = 8)String username, String firstName, String lastName, Long personalCode, String password, String role) {
+    public UserDto(@NotNull @Length(min = 8, max=30) String username, String firstName, String lastName, Long personalCode, String password, String role) {
         this.username = username;
         this.firstName = firstName;
         this.lastName = lastName;
