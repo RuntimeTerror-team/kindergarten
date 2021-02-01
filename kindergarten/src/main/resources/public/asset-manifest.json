@@ -1,23 +1,23 @@
 {
   "files": {
-    "main.css": "http://localhost:8080/kindergarten/static/css/main.1a2b5a00.chunk.css",
-    "main.js": "http://localhost:8080/kindergarten/static/js/main.7de9e089.chunk.js",
-    "main.js.map": "http://localhost:8080/kindergarten/static/js/main.7de9e089.chunk.js.map",
-    "runtime-main.js": "http://localhost:8080/kindergarten/static/js/runtime-main.1ddbbe4b.js",
-    "runtime-main.js.map": "http://localhost:8080/kindergarten/static/js/runtime-main.1ddbbe4b.js.map",
-    "static/css/2.ae9f1eb3.chunk.css": "http://localhost:8080/kindergarten/static/css/2.ae9f1eb3.chunk.css",
-    "static/js/2.3d26389b.chunk.js": "http://localhost:8080/kindergarten/static/js/2.3d26389b.chunk.js",
-    "static/js/2.3d26389b.chunk.js.map": "http://localhost:8080/kindergarten/static/js/2.3d26389b.chunk.js.map",
-    "index.html": "http://localhost:8080/kindergarten/index.html",
-    "static/css/2.ae9f1eb3.chunk.css.map": "http://localhost:8080/kindergarten/static/css/2.ae9f1eb3.chunk.css.map",
-    "static/css/main.1a2b5a00.chunk.css.map": "http://localhost:8080/kindergarten/static/css/main.1a2b5a00.chunk.css.map",
-    "static/js/2.3d26389b.chunk.js.LICENSE.txt": "http://localhost:8080/kindergarten/static/js/2.3d26389b.chunk.js.LICENSE.txt"
+    "main.css": "/kindergarten/static/css/main.1a2b5a00.chunk.css",
+    "main.js": "/kindergarten/static/js/main.5ccbba62.chunk.js",
+    "main.js.map": "/kindergarten/static/js/main.5ccbba62.chunk.js.map",
+    "runtime-main.js": "/kindergarten/static/js/runtime-main.0b2d382f.js",
+    "runtime-main.js.map": "/kindergarten/static/js/runtime-main.0b2d382f.js.map",
+    "static/css/2.ae9f1eb3.chunk.css": "/kindergarten/static/css/2.ae9f1eb3.chunk.css",
+    "static/js/2.7e53847b.chunk.js": "/kindergarten/static/js/2.7e53847b.chunk.js",
+    "static/js/2.7e53847b.chunk.js.map": "/kindergarten/static/js/2.7e53847b.chunk.js.map",
+    "index.html": "/kindergarten/index.html",
+    "static/css/2.ae9f1eb3.chunk.css.map": "/kindergarten/static/css/2.ae9f1eb3.chunk.css.map",
+    "static/css/main.1a2b5a00.chunk.css.map": "/kindergarten/static/css/main.1a2b5a00.chunk.css.map",
+    "static/js/2.7e53847b.chunk.js.LICENSE.txt": "/kindergarten/static/js/2.7e53847b.chunk.js.LICENSE.txt"
   },
   "entrypoints": [
-    "static/js/runtime-main.1ddbbe4b.js",
+    "static/js/runtime-main.0b2d382f.js",
     "static/css/2.ae9f1eb3.chunk.css",
-    "static/js/2.3d26389b.chunk.js",
+    "static/js/2.7e53847b.chunk.js",
     "static/css/main.1a2b5a00.chunk.css",
-    "static/js/main.7de9e089.chunk.js"
+    "static/js/main.5ccbba62.chunk.js"
   ]
 }

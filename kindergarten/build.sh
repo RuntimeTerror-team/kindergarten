@@ -5,8 +5,6 @@ cd ../kindergarten-ui/
 echo "Installing front end dependencies"
 npm install
 
-export PUBLIC_URL=http://localhost:8080/kindergarten
-echo "Setting PUBLIC url path to ${PUBLIC_URL}"
 echo "Building front end project"
 npm run build
 echo -e "\n\n\n"
