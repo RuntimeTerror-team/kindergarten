@@ -19,7 +19,7 @@ public class KindergartenDto {
     private CityEnum city;
 
     @NotNull
-    private Long postalCode;
+    private String postalCode;
 
     @NotNull
     private Long phoneNumber;
@@ -71,11 +71,11 @@ public class KindergartenDto {
         this.city = city;
     }
 
-    public Long getPostalCode() {
+    public String getPostalCode() {
         return postalCode;
     }
 
-    public void setPostalCode(Long postalCode) {
+    public void setPostalCode(String postalCode) {
         this.postalCode = postalCode;
     }
 

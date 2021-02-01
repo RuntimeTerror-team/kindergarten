@@ -1,9 +1,7 @@
 package lt.vtmc.kindergarten.controller;
 
 import lt.vtmc.kindergarten.dto.AgeRangeDto;
-import org.junit.Ignore;
 
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,7 +10,6 @@ import org.springframework.test.annotation.DirtiesContext;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-@Disabled
 @SpringBootTest
 @DisplayName("When running age Range Controller")
 public class AgeRangeControllerTest {

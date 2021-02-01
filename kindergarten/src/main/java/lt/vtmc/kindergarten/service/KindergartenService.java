@@ -51,7 +51,7 @@ public class KindergartenService {
 
 
     @Transactional
-    public void updateKindergarten(Long id, KindergartenDto kindergartenDto){
+    public void updateKindergarten(Long id,@Valid KindergartenDto kindergartenDto){
         Kindergarten kindergarten = kindergartenDao.getOne(id);
 
         kindergarten.setTitle(kindergartenDto.getTitle());

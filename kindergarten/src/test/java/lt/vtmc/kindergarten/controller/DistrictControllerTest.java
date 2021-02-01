@@ -1,7 +1,6 @@
 package lt.vtmc.kindergarten.controller;
 
 import lt.vtmc.kindergarten.dto.DistrictDto;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
@@ -11,7 +10,7 @@ import org.springframework.test.annotation.DirtiesContext;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-@Disabled
+
 @SpringBootTest
 @DisplayName("When running District controller")
 public class DistrictControllerTest {

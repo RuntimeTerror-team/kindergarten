@@ -34,7 +34,7 @@ public class KindergartenControllerTest {
         kindergartenDto.setTitle("Pušaitė");
         kindergartenDto.setAddress("Bistryčios g. 3");
         kindergartenDto.setCity(CityEnum.VILNIUS);
-        kindergartenDto.setPostalCode(10320L);
+        kindergartenDto.setPostalCode("10320");
         kindergartenDto.setPhoneNumber(852343900L);
         kindergartenDto.setEmail("direktore@pusaite.vilnius.lm.lt");
         kindergartenDto.setWebsite("www.darzelispusaite.lt");
@@ -57,7 +57,7 @@ public class KindergartenControllerTest {
         kindergartenDto.setTitle("Pušaitė");
         kindergartenDto.setAddress("Bistryčios g. 3");
         kindergartenDto.setCity(CityEnum.VILNIUS);
-        kindergartenDto.setPostalCode(10320L);
+        kindergartenDto.setPostalCode("10320");
         kindergartenDto.setPhoneNumber(852343900L);
         kindergartenDto.setEmail("direktore@pusaite.vilnius.lm.lt");
         kindergartenDto.setWebsite("www.darzelispusaite.lt");
@@ -72,8 +72,7 @@ public class KindergartenControllerTest {
         kindergartenDto2.setTitle("Smalsučiai");
         kindergartenDto2.setAddress(" Minties g. 40");
         kindergartenDto2.setCity(CityEnum.VILNIUS);
-//       FIXME //post code too large when writing it correctly 09221
-        kindergartenDto2.setPostalCode(9221L);
+        kindergartenDto2.setPostalCode("09221");
         kindergartenDto2.setPhoneNumber(852752119L);
         kindergartenDto2.setEmail("rastine@smalsuciai.vilnius.lm.lt");
         kindergartenDto2.setWebsite("www.vilniaussmalsuciai.lt");
@@ -95,7 +94,7 @@ public class KindergartenControllerTest {
         kindergartenDto.setTitle("Pušaitė");
         kindergartenDto.setAddress("Bistryčios g. 3");
         kindergartenDto.setCity(CityEnum.VILNIUS);
-        kindergartenDto.setPostalCode(10320L);
+        kindergartenDto.setPostalCode("10320");
         kindergartenDto.setPhoneNumber(852343900L);
         kindergartenDto.setEmail("direktore@pusaite.vilnius.lm.lt");
         kindergartenDto.setWebsite("www.darzelispusaite.lt");
@@ -107,7 +106,7 @@ public class KindergartenControllerTest {
         kindergartenDto2.setTitle("Pušaitė Update");
         kindergartenDto2.setAddress("Bistryčios g. 333");
         kindergartenDto2.setCity(CityEnum.VILNIUS);
-        kindergartenDto2.setPostalCode(10321L);
+        kindergartenDto2.setPostalCode("10321");
         kindergartenDto2.setPhoneNumber(852343900L);
         kindergartenDto2.setEmail("direktore@pusaite.vilnius.lm.lt");
         kindergartenDto2.setWebsite("www.darzelispusaite.lt");
@@ -117,7 +116,7 @@ public class KindergartenControllerTest {
 
         assertEquals("Pušaitė Update", kindergartenController.getKindergarten(2L).getTitle(), "should update the title correctly");
         assertEquals("Bistryčios g. 333", kindergartenController.getKindergarten(2L).getAddress(), "should update the address correctly");
-        assertEquals(10321L, kindergartenController.getKindergarten(2L).getPostalCode(), "should update the postal code correctly");
+        assertEquals("10321", kindergartenController.getKindergarten(2L).getPostalCode(), "should update the postal code correctly");
     }
 
 

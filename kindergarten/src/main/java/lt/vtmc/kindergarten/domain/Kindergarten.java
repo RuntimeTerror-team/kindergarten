@@ -26,6 +26,7 @@ public class Kindergarten {
 
     @Column
     @NotNull
+    @Length(max = 50)
     private String address;
 
     @Column
@@ -35,7 +36,8 @@ public class Kindergarten {
 
     @Column
     @NotNull
-    private Long postalCode;
+    @Length(max = 5)
+    private String postalCode;
 
     @Column
     @NotNull
@@ -102,11 +104,11 @@ public class Kindergarten {
         this.city = city;
     }
 
-    public Long getPostalCode() {
+    public String getPostalCode() {
         return postalCode;
     }
 
-    public void setPostalCode(Long postalCode) {
+    public void setPostalCode(String postalCode) {
         this.postalCode = postalCode;
     }
 
