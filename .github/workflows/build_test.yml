@@ -27,6 +27,3 @@ jobs:
     - name: Build kindergarten backend
       working-directory: ./kindergarten
       run: sh build.sh
-    - name: Deploy kindergarten
-      working-directory: ./kindergarten
-      run: mvn clean tomcat7:redeploy -DskipTests -Dserver=TomcatServer --no-transfer-progress
