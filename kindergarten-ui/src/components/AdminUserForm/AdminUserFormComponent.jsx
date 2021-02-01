@@ -10,13 +10,13 @@ let AdminUserFormComponent = ({ handleChange, handleSubmit, ...otherProps }) => 
                 <h1 className="mb-4">Paskyros sukūrimas</h1>
                 <form className="form" onSubmit={handleSubmit}>
                     <div className="form-group">
-                        <input type="text" className={`form-control ${firstnameFieldValidation}`} id="firstname" value={firstname} onChange={handleChange} name="firstname" placeholder="Vardas" />
+                        <input type="text" className={`largeInput form-control ${firstnameFieldValidation}`} id="firstname" value={firstname} onChange={handleChange} name="firstname" placeholder="Vardas" />
                         <div className="invalid-feedback">
                             Prašom užpildyti vardą.
                         </div>
                     </div>
                     <div className="form-group">
-                        <input type="text" className={`form-control ${lastnameFieldValidation}`} id="lastname" value={lastname} onChange={handleChange} name="lastname" placeholder="Pavardė" />
+                        <input type="text" className={`largeInput form-control ${lastnameFieldValidation}`} id="lastname" value={lastname} onChange={handleChange} name="lastname" placeholder="Pavardė" />
                         <div className="invalid-feedback">
                             Prašom užpildyti pavardę.
                         </div>
