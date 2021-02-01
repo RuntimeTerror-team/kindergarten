@@ -1,6 +1,6 @@
 package lt.vtmc.kindergarten;
 
-import lt.vtmc.kindergarten.dto.UserFromService;
+import lt.vtmc.kindergarten.dto.UserDto;
 import lt.vtmc.kindergarten.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
@@ -13,6 +13,6 @@ public class CommandLineAppStartupRunner implements CommandLineRunner {
 
     @Override
     public void run(String...args) throws Exception {
-        userService.createUser(new UserFromService("administratorius", "Adminas", "Adminaitis", 12345678989L, "Administratorius1", "ADMIN"));
+        userService.createUser(new UserDto("administratorius", "Adminas", "Adminaitis", 12345678989L, "Administratorius1", "ADMIN"));
     }
 }

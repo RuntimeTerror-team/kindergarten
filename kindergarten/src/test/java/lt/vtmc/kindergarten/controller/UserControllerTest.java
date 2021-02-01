@@ -1,6 +1,6 @@
 package lt.vtmc.kindergarten.controller;
 
-import lt.vtmc.kindergarten.dto.UserInfo;
+import lt.vtmc.kindergarten.dto.UserDto;
 import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,7 +33,7 @@ public class UserControllerTest {
     @Order(3)
     @DirtiesContext(methodMode = DirtiesContext.MethodMode.AFTER_METHOD)
     void testCreatingUserAndGettingIt() {
-        UserInfo user = new UserInfo("ArnasJocys1", "Arnas", "Jocys", 123456789l, "ArnasJocys1", "GUARDIAN");
+        UserDto user = new UserDto("ArnasJocys1", "Arnas", "Jocys", 123456789l, "ArnasJocys1", "GUARDIAN");
 
         userController.createUser(user);
 

@@ -4,21 +4,25 @@ import org.hibernate.validator.constraints.Length;
 
 import javax.validation.constraints.NotNull;
 
-public class UserFromService {
+public class UserDto {
 
     @NotNull
-    @Length(min=8)
+    @Length(min=8, max=30)
     private String username;
+    @NotNull
     private String firstName;
+    @NotNull
     private String lastName;
     private Long personalCode;
+    @NotNull
     private String password;
+    @NotNull
     private String role;
 
-    public UserFromService() {
+    public UserDto() {
     }
 
-    public UserFromService(@NotNull @Length(min = 8)String username, String firstName, String lastName, Long personalCode, String password, String role) {
+    public UserDto(@NotNull @Length(min = 8)String username, String firstName, String lastName, Long personalCode, String password, String role) {
         this.username = username;
         this.firstName = firstName;
         this.lastName = lastName;
