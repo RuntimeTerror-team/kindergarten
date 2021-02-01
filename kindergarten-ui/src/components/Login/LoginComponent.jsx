@@ -37,10 +37,6 @@ LoginComponent.propTypes = {
 
     username: Proptypes.string.isRequired,
     password: Proptypes.string.isRequired,
-    invalidUsername: Proptypes.string.isRequired,
-    invalidPassword: Proptypes.string.isRequired,
-    validationErrors: Proptypes.array.isRequired,
-    incorrectCredentials: Proptypes.bool.isRequired,
     onUsernameChange: Proptypes.func.isRequired,
     onPasswordChange: Proptypes.func.isRequired,
     onSubmit: Proptypes.func.isRequired
