@@ -2,17 +2,22 @@ package lt.vtmc.kindergarten.dto;
 
 import lt.vtmc.kindergarten.domain.AgeRange;
 
+import javax.validation.constraints.Max;
+import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 
 public class AgeRangeDto {
 
-    @NotNull
     private Long id;
 
     @NotNull
+    @Min(1)
+    @Max(7)
     private int minAge;
 
     @NotNull
+    @Min(1)
+    @Max(7)
     private int maxAge;
 
     public AgeRangeDto() {
