@@ -14,7 +14,7 @@ public class CommandLineAppStartupRunner implements CommandLineRunner {
     @Override
     public void run(String...args) throws Exception {
         userService.createUser(new UserFromService("administratorius", "Adminas", "Adminaitis", 12345678989L, "Administratorius1", "ADMIN"));
-        userService.createUser(new UserFromService("specialistas", "svietimoSpecialistas", "svietimoSpecialistaitis", 12345678988L,
-        		"Specialistas1", "EDUCATION_SPECIALIST"));
+//        userService.createUser(new UserFromService("specialistas", "svietimoSpecialistas", "svietimoSpecialistaitis", 12345678988L,
+//        		"Specialistas1", "EDUCATION_SPECIALIST"));
     }
 }
