@@ -2,17 +2,18 @@ package lt.vtmc.kindergarten.dto;
 
 import lt.vtmc.kindergarten.domain.District;
 import org.hibernate.validator.constraints.Length;
+import org.springframework.validation.annotation.Validated;
 
 import javax.validation.constraints.NotNull;
 
+@Validated
 public class DistrictDto {
 
     @NotNull
     private Long id;
 
     @NotNull
-    @Length(min = 5)
-    @Length(max = 20)
+    @Length(min = 5,max = 20 )
     private String title;
 
     public DistrictDto() {
@@ -39,7 +40,7 @@ public class DistrictDto {
         return uppercaseFirstLetter(title);
     }
 
-    public void setTitle(String title) {
+    public void setTitle(@Length(min = 5)  String title) {
         this.title = uppercaseFirstLetter(title);
     }
 
