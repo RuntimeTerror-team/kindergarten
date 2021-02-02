@@ -104,10 +104,33 @@
 			<artifactId>springfox-boot-starter</artifactId>
 			<version>3.0.0</version>
 		</dependency>
+
+<!--		<dependency>-->
+<!--			<groupId>org.assertj</groupId>-->
+<!--			<artifactId>assertj-core</artifactId>-->
+<!--			<version>3.18.1</version>-->
+<!--			<scope>test</scope>-->
+<!--		</dependency>-->
+
 	</dependencies>
 
 	<build>
+		<finalName>${project.artifactId}</finalName>
 		<plugins>
+			<plugin>
+				<groupId>org.apache.tomcat.maven</groupId>
+				<artifactId>tomcat7-maven-plugin</artifactId>
+				<version>2.2</version>
+				<configuration>
+					<username>admin</username>
+					<password>admin</password>
+					<mode>war</mode>
+					<url>http://akademijait.vtmc.lt:8181/manager/text</url>
+					<server>TomcatServer</server>
+					<path>/kindergarten</path>
+					<update>true</update>
+				</configuration>
+			</plugin>
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>

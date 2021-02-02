@@ -17,7 +17,6 @@ public class DistrictController {
     @Autowired
     private DistrictService districtService;
 
-    //user/admin/district?????????????????????????????????????????????????????????????
     @RequestMapping(value="/api/district", method = RequestMethod.POST)
     @ResponseStatus(HttpStatus.CREATED)
     @ApiOperation(value = "Create district", notes = "Creates a new district")
@@ -28,7 +27,7 @@ public class DistrictController {
     }
 
 
-    @ApiOperation(value = "update District", notes = "Uptades district by id")
+    @ApiOperation(value = "Update District", notes = "Updates district by id")
     @RequestMapping(value = "/api/district/{id}", method = RequestMethod.PUT)
     @ResponseStatus(HttpStatus.OK)
     public void updateDistrict(
@@ -37,6 +36,15 @@ public class DistrictController {
             @RequestBody DistrictDto districtDto
     ){
         districtService.updateDistrict(id, districtDto);
+    }
+
+    @ApiOperation(value = "Get single district by id", notes = "Returns a single district by id")
+    @RequestMapping(method = RequestMethod.GET, value = "/api/districts/{district_id}")
+    @ResponseStatus(HttpStatus.OK)
+    public DistrictDto getDistrict(
+            @PathVariable final Long district_id
+    ){
+        return districtService.getDistrict(district_id);
     }
 
     @RequestMapping(method = RequestMethod.GET, value = "/api/districts")

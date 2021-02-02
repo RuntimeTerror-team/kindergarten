@@ -10,9 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
-
 import java.util.List;
-
 
 @RestController
 public class KindergartenController {
@@ -23,7 +21,6 @@ public class KindergartenController {
     @Autowired
     private GroupService groupService;
 
-    /////////////////////////////////////////kindergartens? to chech this one
     @RequestMapping(value="/api/kindergartens", method = RequestMethod.POST)
     @ResponseStatus(HttpStatus.CREATED)
     @ApiOperation(value = "Create kindergarten", notes = "Creates kindergarten")
@@ -44,6 +41,16 @@ public class KindergartenController {
         kindergartenService.updateKindergarten(id, kindergartenDto);
     }
 
+
+    @RequestMapping(method = RequestMethod.GET, value = "/api/kindergartens/{kindergarten_id}")
+    @ApiOperation(value = "Get single kindergarten by id", notes = "Returns a single kindergarten by id")
+    @ResponseStatus(HttpStatus.OK)
+    public KindergartenDto getKindergarten(
+            @PathVariable final Long kindergarten_id
+    ){
+        return kindergartenService.getKindergarten(kindergarten_id);
+    }
+
     @RequestMapping(method = RequestMethod.GET, value = "/api/kindergartens")
     @ApiOperation(value="Get kindergartens",notes ="Returns kindergartens")
     @ResponseStatus(HttpStatus.OK)
@@ -52,20 +59,28 @@ public class KindergartenController {
     }
 
 
-    @RequestMapping(value="/api/kindergartens/{kindergartenId}/group", method = RequestMethod.POST)
+    @RequestMapping(value="/api/kindergartens/{kindergartenId}/groups/{ageRangeId}", method = RequestMethod.POST)
     @ResponseStatus(HttpStatus.CREATED)
     @ApiOperation(value = "Create group", notes = "Creates a new group")
     public void addGroup(
             @ApiParam(value = "", required = true)
             @PathVariable Long kindergartenId,
+            @PathVariable Long ageRangeId,
             @RequestBody GroupDto groupDto){
-        groupService.addGroup(kindergartenId, groupDto);
+        groupService.addGroup(ageRangeId, kindergartenId, groupDto);
     }
 
-
-    public void setKindergartenService(KindergartenService kindergartenService) {
-        this.kindergartenService = kindergartenService;
+    @ApiOperation(value = "Update group", notes = "Updates group by id")
+    @RequestMapping(value = "/api/kindergartens/{kindergartenId}/groups/{groupId}", method = RequestMethod.PUT)
+    @ResponseStatus(HttpStatus.OK)
+    public void updateGroup(
+            @ApiParam(value = "", required = true)
+            @PathVariable Long groupId,
+            @RequestBody GroupDto groupDto
+    ){
+        groupService.updateGroup(groupId, groupDto);
     }
+
 
     public void setGroupService(GroupService groupService) {
         this.groupService = groupService;

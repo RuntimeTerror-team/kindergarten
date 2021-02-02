@@ -7,10 +7,25 @@ import javax.validation.constraints.NotNull;
 public class DistrictDto {
 
     @NotNull
+    private Long id;
+
+    @NotNull
     private String title;
 
+    public DistrictDto() {
+    }
+
     public DistrictDto(District district) {
-        this.title = title;
+        this.id = district.getId();
+        this.title = district.getTitle();
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public String getTitle() {

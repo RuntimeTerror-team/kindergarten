@@ -9,10 +9,6 @@ public class GroupDto {
     @NotNull
     private Long id;
 
-    private int ageMin;
-
-    private int ageMax;
-
     private int childrenCount;
 
     private String title;
@@ -22,8 +18,6 @@ public class GroupDto {
 
     public GroupDto(Group group) {
         this.id = group.getId();
-        this.ageMin = group.getAgeMin();
-        this.ageMax = group.getAgeMax();
         this.childrenCount = group.getChildrenCount();
         this.title = group.getTitle();
     }
@@ -36,21 +30,6 @@ public class GroupDto {
         this.id = id;
     }
 
-    public int getAgeMin() {
-        return ageMin;
-    }
-
-    public void setAgeMin(int ageMin) {
-        this.ageMin = ageMin;
-    }
-
-    public int getAgeMax() {
-        return ageMax;
-    }
-
-    public void setAgeMax(int ageMax) {
-        this.ageMax = ageMax;
-    }
 
     public int getChildrenCount() {
         return childrenCount;

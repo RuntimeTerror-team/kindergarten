@@ -8,6 +8,8 @@ import UserService from './services/UserService'
 
 import 'bootstrap/dist/css/bootstrap.min.css';
 
+import './styles/styles.css'
+
 document.title = "Kindergarten App";
 
 const userService = new UserService();
