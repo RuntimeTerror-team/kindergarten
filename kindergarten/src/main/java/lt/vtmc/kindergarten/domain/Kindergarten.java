@@ -4,9 +4,9 @@ import org.hibernate.annotations.Cascade;
 import org.hibernate.annotations.CascadeType;
 import org.hibernate.validator.constraints.Length;
 
+
 import javax.persistence.*;
-import javax.validation.constraints.Email;
-import javax.validation.constraints.NotNull;
+import javax.validation.constraints.*;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -20,7 +20,7 @@ public class Kindergarten {
     private Long id;
 
     @Column
-    @NotNull
+    @NotNull(message = "title may not be null")
     @Length(max = 35)
     private String title;
 
@@ -41,7 +41,7 @@ public class Kindergarten {
 
     @Column
     @NotNull
-    private Long phoneNumber;
+    private String phoneNumber;
 
     @Column
     @Email
@@ -50,6 +50,8 @@ public class Kindergarten {
     @Column
     private String website;
 
+    @Column(unique = true)
+    private String companyCode;
 
     @ManyToOne
     @Cascade({CascadeType.DETACH})
@@ -66,6 +68,22 @@ public class Kindergarten {
 
 
     public Kindergarten() {
+    }
+
+    public String getPhoneNumber() {
+        return phoneNumber;
+    }
+
+    public void setPhoneNumber(String phoneNumber) {
+        this.phoneNumber = phoneNumber;
+    }
+
+    public String getCompanyCode() {
+        return companyCode;
+    }
+
+    public void setCompanyCode(String companyCode) {
+        this.companyCode = companyCode;
     }
 
     public void addGroup(Group group){
@@ -110,14 +128,6 @@ public class Kindergarten {
 
     public void setPostalCode(String postalCode) {
         this.postalCode = postalCode;
-    }
-
-    public Long getPhoneNumber() {
-        return phoneNumber;
-    }
-
-    public void setPhoneNumber(Long phoneNumeber) {
-        this.phoneNumber = phoneNumeber;
     }
 
     public String getEmail() {

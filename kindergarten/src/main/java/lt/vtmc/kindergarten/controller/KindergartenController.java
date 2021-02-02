@@ -8,8 +8,11 @@ import lt.vtmc.kindergarten.service.GroupService;
 import lt.vtmc.kindergarten.service.KindergartenService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.ConstraintViolationException;
+import javax.validation.Valid;
 import java.util.List;
 
 @RestController
@@ -24,10 +27,17 @@ public class KindergartenController {
     @RequestMapping(value="/api/kindergartens", method = RequestMethod.POST)
     @ResponseStatus(HttpStatus.CREATED)
     @ApiOperation(value = "Create kindergarten", notes = "Creates kindergarten")
-    public void addKindergarten(
+    public ResponseEntity addKindergarten(
             @ApiParam(value = "Kindergarten Data", required = true)
             @RequestBody KindergartenDto kindergartenDto){
-        kindergartenService.addKindergarten(kindergartenDto);
+        try {
+            kindergartenService.addKindergarten(kindergartenDto);
+            return new ResponseEntity<>(HttpStatus.OK);
+
+        } catch(ConstraintViolationException exception) {
+            return new ResponseEntity<>("Data Validation failed",HttpStatus.BAD_REQUEST);
+        }
+
     }
 
     @ApiOperation(value = "Update Kindergarten", notes = "Uptades Kindergarten by id")

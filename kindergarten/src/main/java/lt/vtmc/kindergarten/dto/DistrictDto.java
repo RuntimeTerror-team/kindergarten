@@ -9,7 +9,6 @@ import javax.validation.constraints.NotNull;
 @Validated
 public class DistrictDto {
 
-    @NotNull
     private Long id;
 
     @NotNull
@@ -22,6 +21,10 @@ public class DistrictDto {
     public DistrictDto(District district) {
         this.id = district.getId();
         this.title = district.getTitle();
+    }
+
+    public DistrictDto(@NotNull @Length(min = 5, max = 20) String title) {
+        this.title = title;
     }
 
     private String uppercaseFirstLetter(String word){
