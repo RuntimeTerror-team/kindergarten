@@ -13,14 +13,26 @@ class GroupFormContainer extends Component {
         super();
         this.state = {
 
+            ageRangesList: [],
             fromAge: "",
             toAge: "",
             fromAgeFieldValidation: "",
             toAgeFieldValidation: "",
-            invalidInterval: false
+            invalidInterval: false,
+            requestMessage: "",
+            messageStyle: "",
         }
     }
-   
+
+
+    componentDidMount(){
+
+        Axios.get(baseUrl + "/api/ageRanges")
+        .then(res => { this.setState({ageRangesList: res.data})})
+        .catch(err => console.log(err));
+
+    }
+
     handleChangeFromAge = (e) => {
         e.preventDefault();
         this.setState({fromAge: e.target.value})
@@ -37,18 +49,36 @@ class GroupFormContainer extends Component {
         this.setState({fromAgeFieldValidation: ""})
         this.setState({toAgeFieldValidation: ""})
         this.setState({invalidInterval: false})
-
-        console.log(this.state.fromAge + " " + this.state.toAge)
+        this.setState({requestMessage: ""})
+        this.setState({messageStyle: ""})
 
         this.validate(this.state.fromAge, this.state.toAge);
 
         if(this.validInterval(this.state.fromAge, this.state.toAge)){
 
+            let ageRange = {
 
-        // Axios
-        // .post()
-        // .then(res => {})
-        // .catch(err => console.log(err));
+                minAge: this.state.fromAge,
+                maxAge: this.state.toAge
+            }
+
+        Axios
+        .post(baseUrl + "/api/ageRanges", ageRange)
+        .then(res => {
+
+            this.setState({requestMessage: res.data.message})
+
+            if(res.data.status){
+
+                this.setState({messageStyle: "alert alert-success mt-4"})
+            } else{
+
+                this.setState({messageStyle: "alert alert-danger mt-4"})
+            }
+        }
+
+        )
+        .catch(err => console.log(err));
 
         } 
         this.setState({fromAge: ""})
@@ -102,14 +132,15 @@ class GroupFormContainer extends Component {
             fromAgeFieldValidation={this.state.fromAgeFieldValidation}
             toAgeFieldValidation={this.state.toAgeFieldValidation}
             invalidInterval={this.state.invalidInterval}
+            requestMessage={this.state.requestMessage}
+            messageStyle={this.state.messageStyle}
             onSubmit={this.handleSubmit}
             onFromAgeChange={this.handleChangeFromAge}
             onToAgeChange={this.handleChangeToAge}
        
             />
-
+           
             </div>
- 
         )
 
     }

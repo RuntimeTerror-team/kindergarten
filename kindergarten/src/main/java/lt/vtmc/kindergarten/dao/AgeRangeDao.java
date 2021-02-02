@@ -6,4 +6,8 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface AgeRangeDao extends JpaRepository<AgeRange, Long> {
+	
+	AgeRange findByAgeMinAndAgeMax(int ageMin, int ageMax );
+
+	
 }
