@@ -10,9 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
-
 import java.util.List;
-
 
 @RestController
 public class KindergartenController {
@@ -41,6 +39,16 @@ public class KindergartenController {
             @RequestBody KindergartenDto kindergartenDto
     ){
         kindergartenService.updateKindergarten(id, kindergartenDto);
+    }
+
+
+    @RequestMapping(method = RequestMethod.GET, value = "/api/kindergartens/{kindergarten_id}")
+    @ApiOperation(value = "Get single kindergarten by id", notes = "Returns a single kindergarten by id")
+    @ResponseStatus(HttpStatus.OK)
+    public KindergartenDto getKindergarten(
+            @PathVariable final Long kindergarten_id
+    ){
+        return kindergartenService.getKindergarten(kindergarten_id);
     }
 
     @RequestMapping(method = RequestMethod.GET, value = "/api/kindergartens")

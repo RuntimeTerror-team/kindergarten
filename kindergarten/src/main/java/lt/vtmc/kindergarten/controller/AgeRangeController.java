@@ -14,23 +14,36 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
+import java.util.List;
+
 @RestController
 public class AgeRangeController {
 
     @Autowired
     private AgeRangeService ageRangeService;
     
-    @RequestMapping(value="/api/ageRanges", method = RequestMethod.GET)
-    @ApiOperation(value = "Get ageRange list", notes = "Returns a list of AgeRangeDto")
+
+
+    @RequestMapping(method = RequestMethod.GET, value = "/api/ageRanges")
+    @ApiOperation(value="Get age ranges",notes ="Returns age ranges")
+    @ResponseStatus(HttpStatus.OK)
     public List<AgeRangeDto> getAgeRanges(){
-    	
-    	return ageRangeService.getAgeRanges();
+        return ageRangeService.getAgeRanges();
+    }
+
+    @ApiOperation(value = "Get single ageRange by id", notes="Returns a single ageRange by id")
+    @RequestMapping(path="/api/ageRanges/{ageRange_id}",method = RequestMethod.GET)
+    @ResponseStatus(HttpStatus.OK)
+    public AgeRangeDto getAgeRange(@PathVariable final Long ageRange_id){
+        return ageRangeService.getAgeRange(ageRange_id);
     }
 
     @RequestMapping(value="/api/ageRanges", method = RequestMethod.POST)
     @ApiOperation(value = "Create age range", notes = "Creates a new age range")
     public ResponseEntity<?> addAgeRange(
             @ApiParam(value = "Age range data", required = true)
+            @Valid
             @RequestBody AgeRangeDto ageRangeDto){
     	
         boolean addedAgeRange = ageRangeService.addAgeRange(ageRangeDto);
@@ -53,5 +66,7 @@ public class AgeRangeController {
     ){
         ageRangeService.updateAgeRange(id, ageRangeDto);
     }
+
+
 
 }

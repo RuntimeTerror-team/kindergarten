@@ -5,28 +5,42 @@ import lt.vtmc.kindergarten.domain.AgeRange;
 import lt.vtmc.kindergarten.dto.AgeRangeDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+import org.springframework.validation.annotation.Validated;
 
+import javax.validation.Valid;
+import javax.validation.constraints.NotNull;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import javax.transaction.Transactional;
-
 @Service
+@Validated
 public class AgeRangeService {
 
     @Autowired
     private AgeRangeDao ageRangeDao;
     
-    @Transactional
+
+    @Transactional	
     public List<AgeRangeDto> getAgeRanges(){
-    	
-    	return ageRangeDao.findAll().stream()
-    			.map(ageRange -> new AgeRangeDto(ageRange.getAgeMin(), ageRange.getAgeMax())).collect(Collectors.toList());
+        List<AgeRange> ageRanges = ageRangeDao.findAll();
+
+        List<AgeRangeDto> ageRangeList = ageRanges.stream().map(ageRange -> new AgeRangeDto(ageRange)).collect(Collectors.toList());
+
+        return ageRangeList;
     }
 
     @Transactional
-    public boolean addAgeRange(AgeRangeDto ageRangeDto){
-    	
+    public AgeRangeDto getAgeRange(Long id) {
+        AgeRange ageRange = ageRangeDao.getOne(id);
+        return new AgeRangeDto(ageRange);
+    }
+
+
+
+    @Transactional
+    public boolean addAgeRange(@Valid AgeRangeDto ageRangeDto){
+
         AgeRange ageRange = new AgeRange();
         int minAge = ageRangeDto.getMinAge();
         int maxAge = ageRangeDto.getMaxAge();
@@ -47,7 +61,7 @@ public class AgeRangeService {
     }
 
     @Transactional
-    public void updateAgeRange(Long id, AgeRangeDto ageRangeDto){
+    public void updateAgeRange(@NotNull Long id, @Valid AgeRangeDto ageRangeDto){
         AgeRange ageRange = ageRangeDao.getOne(id);
 
         ageRange.setAgeMin(ageRangeDto.getMinAge());

@@ -1,19 +1,18 @@
-import Axios from 'axios';
-import React, {Component} from 'react';
+import React, { Component } from "react";
 import { withRouter } from "react-router-dom";
-import GroupFormComponent from './GroupFormComponent';
-import baseUrl from "../../AppConfig";
+import GroupFormComponent from "./GroupFormComponent";
 import ServicesContext from "../../context/ServicesContext";
-import  '../../styles/groupsForm.css';
-
+import Axios from 'axios';
+import baseUrl from '../../AppConfig'
+import "../../styles/groupsForm.css";
 
 class GroupFormContainer extends Component {
+
     constructor(){
 
         super();
         this.state = {
 
-            ageRangesList: [],
             fromAge: "",
             toAge: "",
             fromAgeFieldValidation: "",
@@ -22,15 +21,6 @@ class GroupFormContainer extends Component {
             requestMessage: "",
             messageStyle: "",
         }
-    }
-
-
-    componentDidMount(){
-
-        Axios.get(baseUrl + "/api/ageRanges")
-        .then(res => { this.setState({ageRangesList: res.data})})
-        .catch(err => console.log(err));
-
     }
 
     handleChangeFromAge = (e) => {
@@ -86,37 +76,28 @@ class GroupFormContainer extends Component {
        
     }
 
-    validate = (fromAge, toAge) => {
-
-        if (fromAge === "") {
-
-            this.setState({ fromAgeFieldValidation: "is-invalid" });
-        }
-
-        if (toAge === "") {
-
-            this.setState({ toAgeFieldValidation: "is-invalid" });
-        }
-
+  validate = (fromAge, toAge) => {
+    if (fromAge === "") {
+      this.setState({ fromAgeFieldValidation: "is-invalid" });
     }
 
+    if (toAge === "") {
+      this.setState({ toAgeFieldValidation: "is-invalid" });
+    }
+
+  }
+
     validInterval = (fromAge, toAge) => {
-
-        if(fromAge > toAge && fromAge !== "" && toAge !== ""){
-
-            this.setState({invalidInterval: true})
-            return false;
-        }
-
-        if(fromAge <= toAge && fromAge !== "" && toAge !== ""){
-
-            return true
-
-        } else{
-
-            return false
-        }
-
+      if (fromAge > toAge && fromAge !== "" && toAge !== "") {
+        this.setState({ invalidInterval: true });
+        return false;
+      }
+  
+      if (fromAge <= toAge && fromAge !== "" && toAge !== "") {
+        return true;
+      } else {
+        return false;
+      }
     }
             
     render(){
@@ -142,11 +123,9 @@ class GroupFormContainer extends Component {
            
             </div>
         )
+  }
 
-    }
+}
 
-    }
-
-    GroupFormContainer.contextType = ServicesContext;
-
+GroupFormContainer.contextType = ServicesContext;
 export default withRouter(GroupFormContainer);
