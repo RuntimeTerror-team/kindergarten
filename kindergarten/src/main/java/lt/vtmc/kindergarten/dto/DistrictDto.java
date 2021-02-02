@@ -23,6 +23,10 @@ public class DistrictDto {
         this.title = district.getTitle();
     }
 
+    private String uppercaseFirstLetter(String word){
+        return word.substring(0,1).toUpperCase() + word.substring(1);
+    }
+
     public Long getId() {
         return id;
     }
@@ -32,10 +36,11 @@ public class DistrictDto {
     }
 
     public String getTitle() {
-        return title.substring(0,1).toUpperCase() + title.substring(1);
+        return uppercaseFirstLetter(title);
     }
 
     public void setTitle(String title) {
-        this.title = title.substring(0,1).toUpperCase() + title.substring(1);
+        this.title = uppercaseFirstLetter(title);
     }
+
 }
