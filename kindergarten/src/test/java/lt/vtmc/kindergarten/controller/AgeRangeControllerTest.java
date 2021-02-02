@@ -1,6 +1,7 @@
 package lt.vtmc.kindergarten.controller;
 
 import lt.vtmc.kindergarten.dto.AgeRangeDto;
+
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,6 +17,7 @@ public class AgeRangeControllerTest {
     @Autowired
     private AgeRangeController ageRangeController;
 
+
     @Test
     @DisplayName("create age Range")
     @DirtiesContext(methodMode = DirtiesContext.MethodMode.AFTER_METHOD)
@@ -30,6 +32,7 @@ public class AgeRangeControllerTest {
 
         assertEquals(1, ageRangeController.getAgeRanges().size(), "should create district correctly");
     }
+
 
     @Test
     @DisplayName("get age Range list")
@@ -49,6 +52,7 @@ public class AgeRangeControllerTest {
 
         assertEquals(2, ageRangeController.getAgeRanges().size(), "should return age range list");
     }
+
 
     @Test
     @DisplayName("update age Range by id")
