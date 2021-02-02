@@ -110,4 +110,5 @@ public class KindergartenDto {
     public void setDistrict(District district) {
         this.district = district;
     }
+
 }

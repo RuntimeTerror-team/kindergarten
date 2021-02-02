@@ -23,6 +23,12 @@ public class AgeRangeDto {
     public AgeRangeDto() {
     }
 
+    public AgeRangeDto(int minAge, int maxAge) {
+        
+        this.minAge = minAge;
+        this.maxAge = maxAge;
+    }
+    
     public AgeRangeDto(AgeRange ageRange) {
         this.id = ageRange.getId();
         this.minAge = ageRange.getAgeMin();

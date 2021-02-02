@@ -2,6 +2,8 @@ import React, { Component } from "react";
 import { withRouter } from "react-router-dom";
 import GroupFormComponent from "./GroupFormComponent";
 import ServicesContext from "../../context/ServicesContext";
+import Axios from "axios";
+import baseUrl from "../../AppConfig";
 import "../../styles/groupsForm.css";
 
 class GroupFormContainer extends Component {
@@ -13,6 +15,8 @@ class GroupFormContainer extends Component {
       fromAgeFieldValidation: "",
       toAgeFieldValidation: "",
       invalidInterval: false,
+      requestMessage: "",
+      messageStyle: "",
     };
   }
 
@@ -32,16 +36,28 @@ class GroupFormContainer extends Component {
     this.setState({ fromAgeFieldValidation: "" });
     this.setState({ toAgeFieldValidation: "" });
     this.setState({ invalidInterval: false });
-
-    console.log(this.state.fromAge + " " + this.state.toAge);
+    this.setState({ requestMessage: "" });
+    this.setState({ messageStyle: "" });
 
     this.validate(this.state.fromAge, this.state.toAge);
 
     if (this.validInterval(this.state.fromAge, this.state.toAge)) {
-      // Axios
-      // .post()
-      // .then(res => {})
-      // .catch(err => console.log(err));
+      let ageRange = {
+        minAge: this.state.fromAge,
+        maxAge: this.state.toAge,
+      };
+
+      Axios.post(baseUrl + "/api/ageRanges", ageRange)
+        .then((res) => {
+          this.setState({ requestMessage: res.data.message });
+
+          if (res.data.status) {
+            this.setState({ messageStyle: "alert alert-success mt-4" });
+          } else {
+            this.setState({ messageStyle: "alert alert-danger mt-4" });
+          }
+        })
+        .catch((err) => console.log(err));
     }
     this.setState({ fromAge: "" });
     this.setState({ toAge: "" });
@@ -79,6 +95,8 @@ class GroupFormContainer extends Component {
           fromAgeFieldValidation={this.state.fromAgeFieldValidation}
           toAgeFieldValidation={this.state.toAgeFieldValidation}
           invalidInterval={this.state.invalidInterval}
+          requestMessage={this.state.requestMessage}
+          messageStyle={this.state.messageStyle}
           onSubmit={this.handleSubmit}
           onFromAgeChange={this.handleChangeFromAge}
           onToAgeChange={this.handleChangeToAge}
@@ -89,5 +107,4 @@ class GroupFormContainer extends Component {
 }
 
 GroupFormContainer.contextType = ServicesContext;
-
 export default withRouter(GroupFormContainer);

@@ -20,7 +20,7 @@ let GroupFormComponent = (props) => {
                         <option value="6">6</option>
                         <option value="7">7</option>
                       </select>
-                      <div className="invalid-feedback">Prašom užpildyti amžių nuo</div>
+                      <div className="invalid-feedback">Prašome užpildyti amžių nuo</div>
                      </div>
                      <div className="form-group">
                       <select className={"form-control " + props.toAgeFieldValidation} name="toAge" style={{width:"25em"}} value={props.toAge} onChange={props.onToAgeChange}>
@@ -33,11 +33,16 @@ let GroupFormComponent = (props) => {
                         <option value="6">6</option>
                         <option value="7">7</option>
                       </select>
-                      <div className="invalid-feedback">Prašom užpildyti amžių iki</div>
+                      <div className="invalid-feedback">Prašome užpildyti amžių iki</div>
                      </div>
-                    <button className="btn btn-info float-right">Sukurti</button>
+                     <div className="row float-right">
+                    <button className="btn btn-info">Sukurti</button>
+                    </div>
                     <div className="row pt-5">
-                    {props.invalidInterval ? <span style={{color:"red"}}>Amžius nuo negali būti didesnis už amžių iki</span> : null}
+                    {props.invalidInterval ? <span className="alert alert-danger">Amžius nuo negali būti didesnis už amžių iki</span> : null}
+                    </div>
+                    <div className="row">
+                    {<span className={props.messageStyle} style={{width:"23em"}}>{props.requestMessage}</span>}
                     </div>
                 </form>
             </div>
@@ -54,6 +59,8 @@ GroupFormComponent.propTypes = {
     toAgeFieldValidation: Proptypes.string.isRequired,
     onFromAgeChange: Proptypes.func.isRequired,
     invalidInterval: Proptypes.bool.isRequired,
+    requestMessage: Proptypes.string.isRequired,
+    messageStyle: Proptypes.string.isRequired,
     onToAgeChange: Proptypes.func.isRequired,
     onSubmit: Proptypes.func.isRequired
 

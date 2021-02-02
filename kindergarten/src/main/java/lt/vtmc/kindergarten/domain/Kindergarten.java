@@ -153,6 +153,7 @@ public class Kindergarten {
     }
 
     public Set<Application> getApplicationsSet() {
+
         return applicationsSet;
     }
 
