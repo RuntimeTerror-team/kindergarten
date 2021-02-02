@@ -22,7 +22,6 @@ public class GroupDto {
         this.title = group.getTitle();
     }
 
-
     public Long getId() {
         return id;
     }

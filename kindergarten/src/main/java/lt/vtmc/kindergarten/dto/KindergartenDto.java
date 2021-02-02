@@ -9,10 +9,6 @@ import javax.validation.constraints.NotNull;
 
 public class KindergartenDto {
 
-
-    @NotNull
-    private Long id;
-
     @NotNull
     private String title;
 
@@ -23,15 +19,16 @@ public class KindergartenDto {
     private CityEnum city;
 
     @NotNull
-    private Integer postalCode;
+    private String postalCode;
 
     @NotNull
-    private Integer phoneNumber;
+    private Long phoneNumber;
 
     @Email
     private String email;
 
     private String website;
+
     @NotNull
     private District district;
 
@@ -40,7 +37,6 @@ public class KindergartenDto {
     }
 
     public KindergartenDto(Kindergarten kindergarten) {
-        this.id = kindergarten.getId();
         this.title = kindergarten.getTitle();
         this.address = kindergarten.getAddress();
         this.city = kindergarten.getCity();
@@ -49,14 +45,6 @@ public class KindergartenDto {
         this.email = kindergarten.getEmail();
         this.website = kindergarten.getWebsite();
         this.district =kindergarten.getDistrict();
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
     }
 
     public String getTitle() {
@@ -83,19 +71,19 @@ public class KindergartenDto {
         this.city = city;
     }
 
-    public Integer getPostalCode() {
+    public String getPostalCode() {
         return postalCode;
     }
 
-    public void setPostalCode(Integer postalCode) {
+    public void setPostalCode(String postalCode) {
         this.postalCode = postalCode;
     }
 
-    public Integer getPhoneNumber() {
+    public Long getPhoneNumber() {
         return phoneNumber;
     }
 
-    public void setPhoneNumber(Integer phoneNumber) {
+    public void setPhoneNumber(Long phoneNumber) {
         this.phoneNumber = phoneNumber;
     }
 
@@ -122,4 +110,5 @@ public class KindergartenDto {
     public void setDistrict(District district) {
         this.district = district;
     }
+
 }
