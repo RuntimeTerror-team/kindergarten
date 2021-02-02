@@ -19,6 +19,6 @@ echo "Copying kindergarten-ui to kindergarten/src/main/resources/public"
 mkdir ./src/main/resources/public/
 cp -r ../kindergarten-ui/build/* ./src/main/resources/public/
 
-mvn clean install
+mvn clean install --no-transfer-progress
 
 
