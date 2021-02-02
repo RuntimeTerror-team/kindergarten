@@ -1,6 +1,7 @@
 import React from "react";
 import PageTopComponent from '../PageTop/PageTopComponent';
 import AdminUsersFormContainer from '../AdminUserForm/AdminUserFormContainer';
+import DistrictAdministrationContainer from '../DistrictAdministration/DistrictAdministrationContainer'
 
 const AdminPageComponent = ({handleLogout, handleUserChoice, choice}) => {
     return (
@@ -16,7 +17,7 @@ const AdminPageComponent = ({handleLogout, handleUserChoice, choice}) => {
                     <div className="admin-action-placeholder col-8">
                         {choice === "greeting" && <h1>Sveiki prisijungę į darželių informacinę sistemą</h1>}
                         {choice === "adminUsers" && <AdminUsersFormContainer />}
-                        {choice === "adminDistricts" && <h1>Rajonų administravimas</h1>}
+                        {choice === "adminDistricts" && <DistrictAdministrationContainer />}
                         {choice === "3" && <h1>Ir dar kažkas</h1>}
                     </div>
                 </div>
