@@ -37,19 +37,6 @@ public class AgeRangeController {
         return ageRangeService.getAgeRange(ageRange_id);
     }
 
-    @RequestMapping(method = RequestMethod.GET, value = "/api/ageRanges")
-    @ApiOperation(value="Get age ranges",notes ="Returns age ranges")
-    @ResponseStatus(HttpStatus.OK)
-    public List<AgeRangeDto> getAgeRanges(){
-        return ageRangeService.getAgeRanges();
-    }
-
-    @ApiOperation(value = "Get single ageRange by id", notes="Returns a single ageRange by id")
-    @RequestMapping(path="/api/ageRanges/{ageRange_id}",method = RequestMethod.GET)
-    @ResponseStatus(HttpStatus.OK)
-    public AgeRangeDto getAgeRange(@PathVariable final Long ageRange_id){
-        return ageRangeService.getAgeRange(ageRange_id);
-    }
 
     @RequestMapping(value="/api/ageRanges", method = RequestMethod.POST)
     @ApiOperation(value = "Create age range", notes = "Creates a new age range")
@@ -58,14 +45,8 @@ public class AgeRangeController {
             @Valid
             @RequestBody AgeRangeDto ageRangeDto){
     	
-        boolean addedAgeRange = ageRangeService.addAgeRange(ageRangeDto);
-        
-        if(!addedAgeRange) {
-        	
-        	return ResponseEntity.ok(new MessageResponse("Toks amžiaus intervalas jau yra įrašytas", addedAgeRange));
-        }
-        
-      	return ResponseEntity.ok(new MessageResponse("Grupės intervalas sėkmingai išsaugotas", addedAgeRange));
+        ageRangeService.addAgeRange(ageRangeDto);
+        return new ResponseEntity<>(HttpStatus.OK);
     }
     
     @RequestMapping(value = "/api/ageRanges/{id}", method = RequestMethod.PUT)
