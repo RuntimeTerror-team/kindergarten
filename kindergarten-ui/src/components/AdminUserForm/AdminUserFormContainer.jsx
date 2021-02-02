@@ -14,31 +14,37 @@ class AdminUserFormContainer extends Component {
             firstname: "",
             lastname: "",
             role: "",
-            firstnameFieldValidation: "",
-            lastnameFieldValidation: "",
+            firstnameLength: "",
+            lastnameLength: "",
             isCreated: false,
             createdUsername: ""
         }
     }
 
     handleChange = (e) => {
-        
-        const re = /^[a-zA-Z\b]+$/;
+        const re = /^[\w'\-,.][^0-9_!¡?÷?¿/\\+=@#$%ˆ&*(){}|~<>;:[\]]{31,}$/;
         const { name, value } = e.target;
 
-        if (value !== '' && re.test(value)) {
+        if (value !== '' && !re.test(value)) {
             this.setState({ [name]: value });
         } else if (value.length === 0) {
             this.setState({ [name]: "" });
         }
 
-
-        if (this.state.firstnameFieldValidation !== "" && name === "firstname") {
-            this.setState({ firstnameFieldValidation: "" });
+        if (value.length >= 31) {
+            if (name === "firstname") {
+                this.setState({firstnameLength: "is-invalid"});
+            } else {
+                this.setState({lastnameLength: "is-invalid"});
+            }
         }
 
-        if (this.state.lastnameFieldValidation !== "" && name === "lastname") {
-            this.setState({ lastnameFieldValidation: "" });
+        if (this.state.firstnameLength !== "" && name === "firstname" && value.length === 30) {
+            this.setState({ firstnameLength: "" });
+        }
+
+        if (this.state.lastnameLength !== "" && name === "lastname" && value.length === 30) {
+            this.setState({ lastnameLength: "" });
         }
 
         if (this.state.isCreated) {
@@ -48,12 +54,12 @@ class AdminUserFormContainer extends Component {
     }
 
     validate = (fname, lname) => {
-        if (fname.trim().length === 0) {
-            this.setState({ firstnameFieldValidation: "is-invalid" });
+        if (fname.trim().length < 2 || fname.trim().length > 30) {
+            this.setState({ firstnameLength: "is-invalid" });
         }
 
-        if (lname.trim().length === 0) {
-            this.setState({ lastnameFieldValidation: "is-invalid" });
+        if (lname.trim().length < 2 || lname.trim().length > 30) {
+            this.setState({ lastnameLength: "is-invalid" });
         }
     }
 
@@ -70,7 +76,10 @@ class AdminUserFormContainer extends Component {
 
         this.validate(typedFirstname, typedLastname);
 
-        if (typedFirstname.trim().length !== 0 && typedLastname.trim().length !== 0) {
+        if (typedFirstname.length >= 2 
+            && typedFirstname.length <=30
+            && typedLastname.length >= 2
+            && typedLastname.length <=30) {
             Axios
                 .post(`${baseUrl}/api/users/admin`,
                     {
@@ -87,6 +96,8 @@ class AdminUserFormContainer extends Component {
             this.setState({ firstname: "" })
             this.setState({ lastname: "" })
             this.setState({ role: "" })
+            this.setState({ firstnameLength: "" })
+            this.setState({ lastnameLength: "" })
         }
     }
 
