@@ -22,6 +22,7 @@ class AdminUserFormContainer extends Component {
     }
 
     handleChange = (e) => {
+        
         const re = /^[a-zA-Z\b]+$/;
         const { name, value } = e.target;
 
