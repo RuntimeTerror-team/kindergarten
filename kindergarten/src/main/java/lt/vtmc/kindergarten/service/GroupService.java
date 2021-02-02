@@ -50,7 +50,6 @@ public class GroupService {
     }
 
 
-
     public void setGroupDao(GroupDao groupDao) {
         this.groupDao = groupDao;
     }

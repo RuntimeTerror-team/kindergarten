@@ -7,11 +7,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.validation.annotation.Validated;
 
+import javax.validation.Valid;
 import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
+@Validated
 public class DistrictService {
 
     @Autowired
@@ -33,7 +36,7 @@ public class DistrictService {
 
 
     @Transactional
-    public void addDistrict(DistrictDto districtDto){
+    public void addDistrict(@Valid DistrictDto districtDto){
         District district = new District();
         district.setTitle(districtDto.getTitle());
         districtDao.save(district);
