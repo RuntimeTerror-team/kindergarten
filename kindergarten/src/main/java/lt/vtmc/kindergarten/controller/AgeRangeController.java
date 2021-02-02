@@ -23,8 +23,6 @@ public class AgeRangeController {
     @Autowired
     private AgeRangeService ageRangeService;
     
-
-
     @RequestMapping(method = RequestMethod.GET, value = "/api/ageRanges")
     @ApiOperation(value="Get age ranges",notes ="Returns age ranges")
     @ResponseStatus(HttpStatus.OK)

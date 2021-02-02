@@ -23,7 +23,7 @@ public class AgeRangeControllerTest {
     @DirtiesContext(methodMode = DirtiesContext.MethodMode.AFTER_METHOD)
     void testCreatingAgeRange(){
         AgeRangeDto ageRangeDto = new AgeRangeDto();
-        //ageRangeDto.setId(1L);
+        ageRangeDto.setId(1L);
         ageRangeDto.setMinAge(1);
         ageRangeDto.setMaxAge(2);
 

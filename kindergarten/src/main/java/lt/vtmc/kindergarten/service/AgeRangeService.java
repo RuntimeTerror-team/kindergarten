@@ -8,6 +8,9 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.validation.annotation.Validated;
 
+import org.springframework.transaction.annotation.Transactional;
+import org.springframework.validation.annotation.Validated;
+
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 import java.util.List;
@@ -21,7 +24,7 @@ public class AgeRangeService {
     private AgeRangeDao ageRangeDao;
     
 
-    @Transactional	
+    @Transactional
     public List<AgeRangeDto> getAgeRanges(){
         List<AgeRange> ageRanges = ageRangeDao.findAll();
 
@@ -35,8 +38,6 @@ public class AgeRangeService {
         AgeRange ageRange = ageRangeDao.getOne(id);
         return new AgeRangeDto(ageRange);
     }
-
-
 
     @Transactional
     public boolean addAgeRange(@Valid AgeRangeDto ageRangeDto){
