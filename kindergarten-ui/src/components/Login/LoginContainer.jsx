@@ -69,7 +69,7 @@ class LoginContainer extends Component {
                         this.context.userService.updateCurrentUser();
                         this.context.userService.updateUserRole();
 
-                        this.resetState();
+                       // this.resetState();
                     } else {
                         this.setState({ areCredentialsIncorrect: true });
                     }
@@ -84,6 +84,7 @@ class LoginContainer extends Component {
                     }
                 })
                 .catch(err => console.log(err));
+               this.resetState();
         }
     }
 

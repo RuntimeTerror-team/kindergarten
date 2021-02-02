@@ -6,8 +6,8 @@ import javax.validation.constraints.NotNull;
 
 public class AgeRangeDto {
 
-    @NotNull
-    private Long id;
+//    @NotNull
+//    private Long id;
 
     @NotNull
     private int minAge;
@@ -18,19 +18,19 @@ public class AgeRangeDto {
     public AgeRangeDto() {
     }
 
-    public AgeRangeDto(AgeRange ageRange) {
-        this.id = ageRange.getId();
-        this.minAge = ageRange.getAgeMin();
-        this.maxAge = ageRange.getAgeMax();
+    public AgeRangeDto(int minAge, int maxAge) {
+        //this.id = ageRange.getId();
+        this.minAge = minAge;
+        this.maxAge = maxAge;
     }
 
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
+//    public Long getId() {
+//        return id;
+//    }
+//
+//    public void setId(Long id) {
+//        this.id = id;
+//    }
 
     public int getMinAge() {
         return minAge;
