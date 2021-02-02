@@ -40,6 +40,9 @@ public class Application {
     @Column
     private boolean isGuardianDisabled;
 
+    @Column
+    private int score;
+
     public Application() {
     }
 
