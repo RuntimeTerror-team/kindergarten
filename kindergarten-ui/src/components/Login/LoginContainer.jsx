@@ -69,7 +69,7 @@ class LoginContainer extends Component {
                         this.context.userService.updateCurrentUser();
                         this.context.userService.updateUserRole();
 
-                        this.resetState();
+                       // this.resetState();
                     } else {
                         this.setState({ areCredentialsIncorrect: true });
                     }
@@ -84,6 +84,7 @@ class LoginContainer extends Component {
                     }
                 })
                 .catch(err => console.log(err));
+               this.resetState();
         }
     }
 
@@ -100,7 +101,7 @@ class LoginContainer extends Component {
     render() {
         return (
             <div id="loginPage" className="justify-content-center align-items-center">
-                <h1 className="text-center text-info pt-4">Darželių informacinė sistema</h1>
+                <h1 className="text-center text-info pt-4">Vaikų darželių informacinė sistema</h1>
                 <LoginComponent
                     username={this.state.username}
                     password={this.state.password}
