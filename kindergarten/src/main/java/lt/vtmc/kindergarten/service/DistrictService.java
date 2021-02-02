@@ -45,11 +45,4 @@ public class DistrictService {
         district.setTitle(districtDto.getTitle());
         districtDao.save(district);
     }
-
-
-
-
-    public void setDistrictDao(DistrictDao districtDao) {
-        this.districtDao = districtDao;
-    }
 }

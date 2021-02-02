@@ -1,6 +1,7 @@
 package lt.vtmc.kindergarten.dto;
 
 import lt.vtmc.kindergarten.domain.District;
+import org.hibernate.validator.constraints.Length;
 
 import javax.validation.constraints.NotNull;
 
@@ -10,6 +11,8 @@ public class DistrictDto {
     private Long id;
 
     @NotNull
+    @Length(min = 5)
+    @Length(max = 20)
     private String title;
 
     public DistrictDto() {
@@ -29,10 +32,10 @@ public class DistrictDto {
     }
 
     public String getTitle() {
-        return title;
+        return title.substring(0,1).toUpperCase() + title.substring(1);
     }
 
     public void setTitle(String title) {
-        this.title = title;
+        this.title = title.substring(0,1).toUpperCase() + title.substring(1);
     }
 }

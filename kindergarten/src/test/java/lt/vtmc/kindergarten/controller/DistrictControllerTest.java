@@ -42,8 +42,8 @@ public class DistrictControllerTest {
         districtDto.setId(2L);
         districtDto.setTitle("Senamiestis");
         DistrictDto districtDto2 = new DistrictDto();
-        districtDto.setId(3L);
-        districtDto.setTitle("Naujamiestis");
+        districtDto2.setId(3L);
+        districtDto2.setTitle("Naujamiestis");
 
         districtController.addDistrict(districtDto);
         districtController.addDistrict(districtDto2);
@@ -71,8 +71,5 @@ public class DistrictControllerTest {
 
         assertEquals("ValakampiaiUpdate", districtController.getDistrict(1L).getTitle(), "should update district by id correctly");
     }
-
-
-
 
 }
