@@ -47,6 +47,27 @@ public class AgeRangeService {
 
         ageRangeDao.save(ageRange);
     }
+    
+    
+    //Paulius
+    @Transactional
+    public boolean addAgeInterval(@Valid AgeRangeDto ageRangeDto){
+
+        AgeRange ageRange = new AgeRange();
+        int minAge = ageRangeDto.getMinAge();
+        int maxAge = ageRangeDto.getMaxAge();
+        
+        if(findAgeRange(minAge, maxAge) == null) {
+        
+        ageRange.setAgeMin(minAge);
+        ageRange.setAgeMax(maxAge);
+        ageRangeDao.save(ageRange);
+        return true;
+        
+        }
+        
+        return false;
+    }
 
     @Transactional
     public void updateAgeRange(@NotNull Long id, @Valid AgeRangeDto ageRangeDto){
@@ -56,6 +77,14 @@ public class AgeRangeService {
         ageRange.setAgeMax(ageRangeDto.getMaxAge());
 
         ageRangeDao.save(ageRange);
+    }
+    
+    @Transactional
+    public AgeRange findAgeRange(int ageMin, int ageMax){
+        
+    	AgeRange ageRange = ageRangeDao.findByAgeMinAndAgeMax(ageMin, ageMax);
+    	return ageRange;
+    	
     }
 
 }

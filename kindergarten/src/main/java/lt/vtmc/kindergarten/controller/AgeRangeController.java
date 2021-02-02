@@ -36,6 +36,7 @@ public class AgeRangeController {
     public AgeRangeDto getAgeRange(@PathVariable final Long ageRange_id){
         return ageRangeService.getAgeRange(ageRange_id);
     }
+    
 
 
     @RequestMapping(value="/api/ageRanges", method = RequestMethod.POST)
@@ -48,6 +49,26 @@ public class AgeRangeController {
         ageRangeService.addAgeRange(ageRangeDto);
         return new ResponseEntity<>(HttpStatus.OK);
     }
+    
+    
+    //Paulius 
+    @RequestMapping(value="/api/saveInterval", method = RequestMethod.POST)
+    @ApiOperation(value = "Create age range", notes = "Creates a new age range")
+    public ResponseEntity<?> saveAgeRange(
+            @ApiParam(value = "Age range data", required = true)
+            @Valid
+            @RequestBody AgeRangeDto ageRangeDto){
+    	
+        boolean addedAgeRange = ageRangeService.addAgeInterval(ageRangeDto);
+        
+        if(!addedAgeRange) {
+        	
+        	return ResponseEntity.ok(new MessageResponse("Toks amžiaus intervalas jau yra įrašytas", addedAgeRange));
+        }
+        
+      	return ResponseEntity.ok(new MessageResponse("Grupės intervalas sėkmingai išsaugotas", addedAgeRange));
+    }
+    
     
     @RequestMapping(value = "/api/ageRanges/{id}", method = RequestMethod.PUT)
     @ApiOperation(value = "Update age range", notes = "Uptades age range by id")
