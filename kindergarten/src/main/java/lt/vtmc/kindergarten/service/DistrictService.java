@@ -6,7 +6,8 @@ import lt.vtmc.kindergarten.dto.DistrictDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import javax.transaction.Transactional;
+import org.springframework.transaction.annotation.Transactional;
+
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -17,7 +18,7 @@ public class DistrictService {
     private DistrictDao districtDao;
 
 
-    @Transactional
+    @Transactional(readOnly = true)
     public DistrictDto getDistrict(Long id){
         District district = districtDao.getOne(id);
         return new DistrictDto(district);

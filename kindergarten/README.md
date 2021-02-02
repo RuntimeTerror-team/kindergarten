@@ -25,3 +25,6 @@ To run app from war file
 ## Using different application property files
 For development 
 ```mvn spring-boot:run -Dspring-boot.run.arguments=--spring.config.location=classpath:/application-local.properties```
+
+## Building front end together with back end
+```sh ./build.sh```
