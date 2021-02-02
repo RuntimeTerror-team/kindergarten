@@ -23,22 +23,6 @@ public class AgeRangeController {
     @Autowired
     private AgeRangeService ageRangeService;
     
-
-
-    @RequestMapping(method = RequestMethod.GET, value = "/api/ageRanges")
-    @ApiOperation(value="Get age ranges",notes ="Returns age ranges")
-    @ResponseStatus(HttpStatus.OK)
-    public List<AgeRangeDto> getAgeRanges(){
-        return ageRangeService.getAgeRanges();
-    }
-
-    @ApiOperation(value = "Get single ageRange by id", notes="Returns a single ageRange by id")
-    @RequestMapping(path="/api/ageRanges/{ageRange_id}",method = RequestMethod.GET)
-    @ResponseStatus(HttpStatus.OK)
-    public AgeRangeDto getAgeRange(@PathVariable final Long ageRange_id){
-        return ageRangeService.getAgeRange(ageRange_id);
-    }
-
     @RequestMapping(method = RequestMethod.GET, value = "/api/ageRanges")
     @ApiOperation(value="Get age ranges",notes ="Returns age ranges")
     @ResponseStatus(HttpStatus.OK)

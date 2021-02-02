@@ -24,7 +24,7 @@ public class AgeRangeService {
     private AgeRangeDao ageRangeDao;
     
 
-    @Transactional	
+    @Transactional
     public List<AgeRangeDto> getAgeRanges(){
         List<AgeRange> ageRanges = ageRangeDao.findAll();
 
@@ -34,33 +34,10 @@ public class AgeRangeService {
     }
 
     @Transactional
-<<<<<<< HEAD
-    public List<AgeRangeDto> getAgeRanges(){
-        List<AgeRange> ageRanges = ageRangeDao.findAll();
-
-        List<AgeRangeDto> ageRangeList = ageRanges.stream().map(ageRange -> new AgeRangeDto(ageRange)).collect(Collectors.toList());
-
-        return ageRangeList;
-    }
-
-    @Transactional
-=======
->>>>>>> fb5ff0e59cfa3bb005d7fa3ceeb2a9e8bf83d714
     public AgeRangeDto getAgeRange(Long id) {
         AgeRange ageRange = ageRangeDao.getOne(id);
         return new AgeRangeDto(ageRange);
     }
-<<<<<<< HEAD
-
-
-
-    @Transactional
-    public void addAgeRange(@Valid AgeRangeDto ageRangeDto){
-        AgeRange ageRange = new AgeRange();
-=======
->>>>>>> fb5ff0e59cfa3bb005d7fa3ceeb2a9e8bf83d714
-
-
 
     @Transactional
     public boolean addAgeRange(@Valid AgeRangeDto ageRangeDto){
