@@ -6,13 +6,11 @@ import Proptypes from 'prop-types';
 const DistrictTableComponent = ({ districts, updateDistrict, startUpdate, updatingId, onDistrictNameChange, updatingTitle, titleValidationInUpdate }) => {
 
     return (
-        <div>
-            <h2 className="my-4">Rajonai</h2>
-
-            <table className='table'>
+        <div className="col-12 mt-3">
+            <table id="districtTable" className='table col-8 mx-auto'>
                 <thead>
                     <tr>
-                        <th scope='col'>#</th>
+                        <th scope='col'  style={{width: "30px"}}>#</th>
                         <th scope='col'>Pavadinimas</th>
                     </tr>
                 </thead>
@@ -22,13 +20,15 @@ const DistrictTableComponent = ({ districts, updateDistrict, startUpdate, updati
                         <tr key={id}>
                             <th scope='row'>{index + 1}</th>
                             <td>
-                                {+updatingId !== +id && <button href="#" className='btn btn-link mr-3' id={id} onClick={startUpdate} value={title}>{title} <FontAwesomeIcon icon={faPencilAlt} />
+                                {+updatingId !== +id && <button className='btn btn-link' id={id} onClick={startUpdate} value={title}>{title} <FontAwesomeIcon icon={faPencilAlt} />
                                 </button>}
                                 {+updatingId === +id
                                     && <form onSubmit={updateDistrict}>
-                                        <div className={`input-group ${titleValidationInUpdate}`}>
+                                        <div className={`input-group ${titleValidationInUpdate} px-3`}>
                                             <input type="text" className="form-control" id={id} defaultValue={title} onChange={onDistrictNameChange} name='districtTitle' value={updatingTitle} />
-                                            <button type="submit" className="btn btn-info float-right ml-1">Išsaugoti</button>
+                                            <div className="input-group-append">
+                                                <button type="submit" className="btn btn-info">Išsaugoti</button>
+                                            </div>
                                         </div>
                                         <div className="invalid-feedback">
                                             Pavadinimo ilgis turi būti 5-20 ženklų.
