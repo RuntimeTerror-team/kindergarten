@@ -78,7 +78,6 @@ class DistrictAdministrationContainer extends Component {
     onCreatingDistrictNameChange = (e) => {
         this.validateLength(e.target.value);
         this.setState({ districtName: e.target.value });
-        this.validateLength(e.target.value);
     }
 
     onDistrictNameChange = (e) => {
