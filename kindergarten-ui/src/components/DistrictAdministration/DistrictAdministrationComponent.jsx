@@ -10,7 +10,7 @@ const DistrictAdministrationComponent = ({ districts, addDistrict, titleValidati
             <form className="form-inline mt-4 text-center" onSubmit={addDistrict}>
                 <div className={`input-group mx-auto ${titleValidation}`}>
                     <input type="text" className="form-control" id="inputDistrict" placeholder="Pavadinimas" name="districtName" value={districtName} onChange={onCreatingDistrictNameChange} />
-                    <div class="input-group-append">
+                    <div className="input-group-append">
                         <button type="submit" className="btn btn-info">Pridėti</button>
                     </div>
                 </div>
