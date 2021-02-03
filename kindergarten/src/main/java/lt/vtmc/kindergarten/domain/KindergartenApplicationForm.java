@@ -5,7 +5,7 @@ import javax.persistence.*;
 
 @Entity
 @Table(name = "kindergarten_application")
-public class KindergartenApplication {
+public class KindergartenApplicationForm {
 
     @Id
     private Long id;
@@ -19,12 +19,12 @@ public class KindergartenApplication {
     private Kindergarten kindergarten;
 
     @Column
-    private int priority;
+    private Integer priority;
 
     @Column
     private boolean isAccepted;
 
-    public KindergartenApplication() {
+    public KindergartenApplicationForm() {
     }
 
     public Long getId() {
@@ -51,11 +51,11 @@ public class KindergartenApplication {
         this.kindergarten = kindergarten;
     }
 
-    public int getPriority() {
+    public Integer getPriority() {
         return priority;
     }
 
-    public void setPriority(int priority) {
+    public void setPriority(Integer priority) {
         this.priority = priority;
     }
 

@@ -63,8 +63,8 @@ public class Kindergarten {
     private Set<Group> groups = new HashSet<Group>();
 
 
-    @OneToMany(mappedBy = "id")
-    private Set<Application> applicationsSet = new HashSet<Application>();
+    @OneToMany(mappedBy = "kindergarten")
+    private Set<KindergartenApplicationForm> applicationsSet = new HashSet<KindergartenApplicationForm>();
 
 
     public Kindergarten() {
@@ -162,14 +162,11 @@ public class Kindergarten {
         this.groups = groups;
     }
 
-    public Set<Application> getApplicationsSet() {
-
+    public Set<KindergartenApplicationForm> getApplicationsSet() {
         return applicationsSet;
     }
 
-    public void setApplicationsSet(Set<Application> applicationsSet) {
+    public void setApplicationsSet(Set<KindergartenApplicationForm> applicationsSet) {
         this.applicationsSet = applicationsSet;
     }
-
-
 }

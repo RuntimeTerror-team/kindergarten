@@ -24,17 +24,7 @@ public class GroupController {
 //        groupService.addGroup(kindergartenId, groupDto);
 //    }
 
-    @ApiOperation(value = "Update group", notes = "Uptades group by id")
-    @RequestMapping(value = "/api/kindergartens/{kindergartenId}/group/{groupId}", method = RequestMethod.PUT)
-    @ResponseStatus(HttpStatus.OK)
-    public void updateGroup(
-            @ApiParam(value = "", required = true)
-            @PathVariable Long kindergartenId,
-            @PathVariable Long groupId,
-            @RequestBody GroupDto groupDto
-    ){
-//        groupService.updateGroup(kindergartenId, groupId, groupDto);
-    }
+
 
     public void setGroupService(GroupService groupService) {
         this.groupService = groupService;

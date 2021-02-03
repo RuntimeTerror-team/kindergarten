@@ -16,14 +16,11 @@ public class Application {
     @OneToMany(mappedBy = "user")
     private Set<UserApplication> users = new HashSet<UserApplication>();
 
-    @Column
-    private Long childId;
-
     @Temporal(TemporalType.DATE)
     private Date date;
 
     @OneToMany(mappedBy = "application")
-    private Set<KindergartenApplication> kindergartenApplications = new HashSet<>();
+    private Set<KindergartenApplicationForm> kindergartenApplicationForms = new HashSet<>();
 
     @OneToOne(mappedBy = "application")
     private Child child;
@@ -66,16 +63,9 @@ public class Application {
         return users;
     }
 
-    public void setUsers(Set<UserApplication> users) {
-        this.users = users;
-    }
-
-    public Long getChildId() {
-        return childId;
-    }
-
-    public void setChildId(Long childId) {
-        this.childId = childId;
+    public void addUser(UserApplication user) {
+        user.setApplication(this);
+        this.users.add(user);
     }
 
     public Date getDate() {
@@ -118,12 +108,12 @@ public class Application {
         isGuardianDisabled = guardianDisabled;
     }
 
-    public Set<KindergartenApplication> getKindergartenApplications() {
-        return kindergartenApplications;
+    public Set<KindergartenApplicationForm> getKindergartenApplications() {
+        return kindergartenApplicationForms;
     }
 
-    public void setKindergartenApplications(Set<KindergartenApplication> kindergartenApplications) {
-        this.kindergartenApplications = kindergartenApplications;
+    public void setKindergartenApplications(Set<KindergartenApplicationForm> kindergartenApplicationForms) {
+        this.kindergartenApplicationForms = kindergartenApplicationForms;
     }
 
     public Child getChild() {

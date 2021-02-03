@@ -30,31 +30,31 @@ public class CommandLineAppStartupRunner implements CommandLineRunner {
     public void run(String...args) throws Exception {
         userService.createUser(new UserDto("administratorius", "Adminas", "Adminaitis", 12345678989L, "Administratorius1", "ADMIN"));
 
-        District district = new District();
-        district.setId(1L);
-        district.setTitle("Antakalnis");
-        districtService.addDistrict(new DistrictDto(district));
-
-        KindergartenDto kindergartenDto = new KindergartenDto();
-        kindergartenDto.setTitle("Pusaite");
-        kindergartenDto.setAddress("Gatves g. 56");
-        kindergartenDto.setCity(CityEnum.VILNIUS);
-        kindergartenDto.setPostalCode("12546");
-        kindergartenDto.setPhoneNumber("862403523");
-        kindergartenDto.setEmail("darzeliasass@gmail.com");
-        kindergartenDto.setWebsite("www.darzelis.lt");
-        kindergartenDto.setCompanyCode("19555587");
-        kindergartenDto.setDistrict(district);
-        kindergartenService.addKindergarten(kindergartenDto);
-
-        ChildDto childDto = new ChildDto();
-        childDto.setLastName("Antanas");
-        childDto.setLastName("Antanaitis");
-        childDto.setPersonalCode(49004180333L);
-        childDto.setStreetAddress("Kankliu g.4");
-        childDto.setCity(CityEnum.VILNIUS);
-
-        childService.addChild(childDto);
+//        District district = new District();
+//        district.setId(1L);
+//        district.setTitle("Antakalnis");
+//        districtService.addDistrict(new DistrictDto(district));
+//
+//        KindergartenDto kindergartenDto = new KindergartenDto();
+//        kindergartenDto.setTitle("Pusaite");
+//        kindergartenDto.setAddress("Gatves g. 56");
+//        kindergartenDto.setCity(CityEnum.VILNIUS);
+//        kindergartenDto.setPostalCode("12546");
+//        kindergartenDto.setPhoneNumber("862403523");
+//        kindergartenDto.setEmail("darzeliasass@gmail.com");
+//        kindergartenDto.setWebsite("www.darzelis.lt");
+//        kindergartenDto.setCompanyCode("19555587");
+//        kindergartenDto.setDistrict(district);
+//        kindergartenService.addKindergarten(kindergartenDto);
+//
+//        ChildDto childDto = new ChildDto();
+//        childDto.setLastName("Antanas");
+//        childDto.setLastName("Antanaitis");
+//        childDto.setPersonalCode(49004180333L);
+//        childDto.setStreetAddress("Kankliu g.4");
+//        childDto.setCity(CityEnum.VILNIUS);
+//
+//        childService.addChild(childDto);
 
     }
 }

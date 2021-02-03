@@ -9,7 +9,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import java.util.ArrayList;
 
 @SpringBootTest
-class KindergartenApplicationTests {
+class KindergartenApplicationFormTests {
 
 	@Test
 	void contextLoads() {
