@@ -1,5 +1,5 @@
 .pagesBackground {
-   background: #FFF;
+    background: #FFF;
 }
 
 .container-fluid {
@@ -11,18 +11,18 @@
     display: flex;
     flex-direction: column;
     align-items: flex-end;
- }
+}
 
- .admin-actions {
+.admin-actions {
     padding-left: 0;
     display: flex;
     flex-direction: column;
     align-items: flex-start;
- }
+}
 
- .admin-action-placeholder {
+.admin-action-placeholder {
     display: flex;
     flex-direction: column;
     align-items: center;
     text-align: center;
- }
+}

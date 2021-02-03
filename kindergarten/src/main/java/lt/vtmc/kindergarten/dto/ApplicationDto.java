@@ -1,5 +1,6 @@
 package lt.vtmc.kindergarten.dto;
 
+import lt.vtmc.kindergarten.KindergartenApplication;
 import lt.vtmc.kindergarten.domain.Application;
 import lt.vtmc.kindergarten.domain.Child;
 import lt.vtmc.kindergarten.domain.User;
@@ -15,13 +16,13 @@ public class ApplicationDto {
    @NotNull
    private Long id;
 
-   @NotNull
-   private Set<UserApplication> users = new HashSet<UserApplication>();
+//   @NotNull
+//   private Set<UserApplication> users = new HashSet<UserApplication>();
 
    @NotNull
    private Long childId;
 
-   @NotNull
+
    private Date date;
 
 
@@ -29,8 +30,8 @@ public class ApplicationDto {
 //    private Set<KindergartenApplication> kindergartenApplications = new HashSet<>();
 
 
-   @NotNull
-   private Child child;
+//   @NotNull
+//   private Child child;
 
 
    private boolean isAdopted;
@@ -48,15 +49,18 @@ public class ApplicationDto {
 
    public ApplicationDto(Application application) {
       this.id = application.getId();
-      this.users = application.getUsers();
+//      this.users = application.getUsers();
       this.childId = application.getChildId();
       this.date = application.getDate();
-      this.child = application.getChild();
+//      this.child = application.getChild();
       this.isAdopted = application.isAdopted();
       this.isMultiChild = application.isMultiChild();
       this.isGuardianStudent = application.isGuardianStudent();
       this.isGuardianDisabled = application.isGuardianDisabled();
+
+
    }
+
 
    public Long getId() {
       return id;
@@ -66,13 +70,13 @@ public class ApplicationDto {
       this.id = id;
    }
 
-   public Set<UserApplication> getUsers() {
-      return users;
-   }
-
-   public void setUsers(Set<UserApplication> users) {
-      this.users = users;
-   }
+//   public Set<UserApplication> getUsers() {
+//      return users;
+//   }
+//
+//   public void setUsers(Set<UserApplication> users) {
+//      this.users = users;
+//   }
 
    public Long getChildId() {
       return childId;
@@ -89,14 +93,14 @@ public class ApplicationDto {
    public void setDate(Date date) {
       this.date = date;
    }
-
-   public Child getChild() {
-      return child;
-   }
-
-   public void setChild(Child child) {
-      this.child = child;
-   }
+//
+//   public Child getChild() {
+//      return child;
+//   }
+//
+//   public void setChild(Child child) {
+//      this.child = child;
+//   }
 
    public boolean isAdopted() {
       return isAdopted;

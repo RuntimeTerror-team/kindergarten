@@ -4,6 +4,7 @@ package lt.vtmc.kindergarten.domain;
 import javax.persistence.*;
 
 @Entity
+@Table(name = "kindergarten_application")
 public class KindergartenApplication {
 
     @Id
@@ -19,9 +20,6 @@ public class KindergartenApplication {
 
     @Column
     private int priority;
-
-    @Column
-    private boolean isSiblingInvolved;
 
     @Column
     private boolean isAccepted;
@@ -59,14 +57,6 @@ public class KindergartenApplication {
 
     public void setPriority(int priority) {
         this.priority = priority;
-    }
-
-    public boolean isSiblingInvolved() {
-        return isSiblingInvolved;
-    }
-
-    public void setSiblingInvolved(boolean siblingInvolved) {
-        isSiblingInvolved = siblingInvolved;
     }
 
     public boolean isAccepted() {

@@ -23,15 +23,23 @@ public class ApplicationService {
 
         application.setDate(applicationDto.getDate());
         application.setAdopted(applicationDto.isAdopted());
-        application.setGuardianDisabled(applicationDto.isGuardianDisabled());
-        application.setUsers(applicationDto.getUsers());
-        application.setChildId(applicationDto.getChildId());
-        application.setChild(applicationDto.getChild());
         application.setMultiChild(applicationDto.isMultiChild());
         application.setGuardianStudent(applicationDto.isGuardianDisabled());
+        application.setGuardianDisabled(applicationDto.isGuardianDisabled());
+
+//        application.setUsers(applicationDto.getUsers());
+        application.setChildId(applicationDto.getChildId());
+//        application.setChild(applicationDto.getChild());
+
+
+
+
 
 
         applicationDao.save(application);
     }
 
+    public void setApplicationDao(ApplicationDao applicationDao) {
+        this.applicationDao = applicationDao;
+    }
 }

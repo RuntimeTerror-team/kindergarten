@@ -31,8 +31,8 @@ public class ChildService {
         child.setFirstName(childDto.getFirstName());
         child.setLastName(childDto.getLastName());
         child.setPersonalCode(childDto.getPersonalCode());
-        child.setStreetAddress(child.getStreetAddress());
-        child.setApplication(child.getApplication());
+        child.setStreetAddress(childDto.getStreetAddress());
+//        child.setApplication(childDto.getApplication());
 
         childDao.save(child);
     }
@@ -45,8 +45,8 @@ public class ChildService {
         child.setFirstName(childDto.getFirstName());
         child.setLastName(childDto.getLastName());
         child.setPersonalCode(childDto.getPersonalCode());
-        child.setStreetAddress(child.getStreetAddress());
-        child.setApplication(child.getApplication());
+        child.setStreetAddress(childDto.getStreetAddress());
+//        child.setApplication(childDto.getApplication());
 
         childDao.save(child);
     }

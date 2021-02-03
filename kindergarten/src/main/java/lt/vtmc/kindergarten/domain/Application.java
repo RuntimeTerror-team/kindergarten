@@ -29,6 +29,9 @@ public class Application {
     private Child child;
 
     @Column
+    private int score;
+
+    @Column
     private boolean isAdopted;
 
     @Column
@@ -41,6 +44,14 @@ public class Application {
     private boolean isGuardianDisabled;
 
     public Application() {
+    }
+
+    public int getScore() {
+        return score;
+    }
+
+    public void setScore(int score) {
+        this.score = score;
     }
 
     public Long getId() {
