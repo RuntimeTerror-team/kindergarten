@@ -35,9 +35,10 @@ public class KindergartenControllerTest {
         kindergartenDto.setAddress("Bistryčios g. 3");
         kindergartenDto.setCity(CityEnum.VILNIUS);
         kindergartenDto.setPostalCode("10320");
-        kindergartenDto.setPhoneNumber(852343900L);
+        kindergartenDto.setPhoneNumber("852343900");
         kindergartenDto.setEmail("direktore@pusaite.vilnius.lm.lt");
         kindergartenDto.setWebsite("www.darzelispusaite.lt");
+        kindergartenDto.setCompanyCode("190025890");
         kindergartenDto.setDistrict(district);
 
         kindergartenController.addKindergarten(kindergartenDto);
@@ -58,9 +59,10 @@ public class KindergartenControllerTest {
         kindergartenDto.setAddress("Bistryčios g. 3");
         kindergartenDto.setCity(CityEnum.VILNIUS);
         kindergartenDto.setPostalCode("10320");
-        kindergartenDto.setPhoneNumber(852343900L);
+        kindergartenDto.setPhoneNumber("+37052343900");
         kindergartenDto.setEmail("direktore@pusaite.vilnius.lm.lt");
         kindergartenDto.setWebsite("www.darzelispusaite.lt");
+        kindergartenDto.setCompanyCode("190025890");
         kindergartenDto.setDistrict(district);
         kindergartenController.addKindergarten(kindergartenDto);
 
@@ -73,9 +75,10 @@ public class KindergartenControllerTest {
         kindergartenDto2.setAddress(" Minties g. 40");
         kindergartenDto2.setCity(CityEnum.VILNIUS);
         kindergartenDto2.setPostalCode("09221");
-        kindergartenDto2.setPhoneNumber(852752119L);
+        kindergartenDto2.setPhoneNumber("852343900");
         kindergartenDto2.setEmail("rastine@smalsuciai.vilnius.lm.lt");
         kindergartenDto2.setWebsite("www.vilniaussmalsuciai.lt");
+        kindergartenDto2.setCompanyCode("190055590");
         kindergartenDto2.setDistrict(district2);
         kindergartenController.addKindergarten(kindergartenDto2);
 
@@ -95,8 +98,9 @@ public class KindergartenControllerTest {
         kindergartenDto.setAddress("Bistryčios g. 3");
         kindergartenDto.setCity(CityEnum.VILNIUS);
         kindergartenDto.setPostalCode("10320");
-        kindergartenDto.setPhoneNumber(852343900L);
+        kindergartenDto.setPhoneNumber("852343900");
         kindergartenDto.setEmail("direktore@pusaite.vilnius.lm.lt");
+        kindergartenDto.setCompanyCode("190055590");
         kindergartenDto.setWebsite("www.darzelispusaite.lt");
         kindergartenDto.setDistrict(district);
 
@@ -107,8 +111,9 @@ public class KindergartenControllerTest {
         kindergartenDto2.setAddress("Bistryčios g. 333");
         kindergartenDto2.setCity(CityEnum.VILNIUS);
         kindergartenDto2.setPostalCode("10321");
-        kindergartenDto2.setPhoneNumber(852343900L);
+        kindergartenDto2.setPhoneNumber("852343900");
         kindergartenDto2.setEmail("direktore@pusaite.vilnius.lm.lt");
+        kindergartenDto2.setCompanyCode("190055590");
         kindergartenDto2.setWebsite("www.darzelispusaite.lt");
         kindergartenDto2.setDistrict(district);
 

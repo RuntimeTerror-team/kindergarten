@@ -44,6 +44,7 @@ public class KindergartenService {
         kindergarten.setCity(kindergartenDto.getCity());
         kindergarten.setPostalCode(kindergartenDto.getPostalCode());
         kindergarten.setEmail(kindergartenDto.getEmail());
+        kindergarten.setCompanyCode(kindergartenDto.getCompanyCode());
         kindergarten.setDistrict(kindergartenDto.getDistrict());
 
         kindergartenDao.save(kindergarten);
@@ -61,6 +62,7 @@ public class KindergartenService {
         kindergarten.setCity(kindergartenDto.getCity());
         kindergarten.setPostalCode(kindergartenDto.getPostalCode());
         kindergarten.setEmail(kindergartenDto.getEmail());
+        kindergarten.setCompanyCode(kindergartenDto.getCompanyCode());
         kindergarten.setDistrict(kindergartenDto.getDistrict());
 
         kindergartenDao.save(kindergarten);

@@ -4,8 +4,10 @@ import lt.vtmc.kindergarten.domain.CityEnum;
 import lt.vtmc.kindergarten.domain.District;
 import lt.vtmc.kindergarten.domain.Kindergarten;
 
-import javax.validation.constraints.Email;
-import javax.validation.constraints.NotNull;
+
+
+import javax.validation.constraints.*;
+
 
 public class KindergartenDto {
 
@@ -19,15 +21,22 @@ public class KindergartenDto {
     private CityEnum city;
 
     @NotNull
+    @Pattern(regexp = "^\\d{1,5}")
     private String postalCode;
 
     @NotNull
-    private Long phoneNumber;
+    @Pattern(regexp = "(^8\\d{8}|^\\+370\\d{8})")
+    private String phoneNumber;
 
     @Email
     private String email;
 
     private String website;
+
+
+    @NotNull
+    @Pattern(regexp = "^\\d{7,9}")
+    private String companyCode;
 
     @NotNull
     private District district;
@@ -44,7 +53,24 @@ public class KindergartenDto {
         this.phoneNumber = kindergarten.getPhoneNumber();
         this.email = kindergarten.getEmail();
         this.website = kindergarten.getWebsite();
-        this.district =kindergarten.getDistrict();
+        this.district = kindergarten.getDistrict();
+        this.companyCode = kindergarten.getCompanyCode();
+    }
+
+    public String getPhoneNumber() {
+        return phoneNumber;
+    }
+
+    public void setPhoneNumber(String phoneNumber) {
+        this.phoneNumber = phoneNumber;
+    }
+
+    public String getCompanyCode() {
+        return companyCode;
+    }
+
+    public void setCompanyCode(String companyCode) {
+        this.companyCode = companyCode;
     }
 
     public String getTitle() {
@@ -77,14 +103,6 @@ public class KindergartenDto {
 
     public void setPostalCode(String postalCode) {
         this.postalCode = postalCode;
-    }
-
-    public Long getPhoneNumber() {
-        return phoneNumber;
-    }
-
-    public void setPhoneNumber(Long phoneNumber) {
-        this.phoneNumber = phoneNumber;
     }
 
     public String getEmail() {
