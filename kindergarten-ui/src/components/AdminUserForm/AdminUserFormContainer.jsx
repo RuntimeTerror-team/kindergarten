@@ -22,29 +22,22 @@ class AdminUserFormContainer extends Component {
     }
 
     handleChange = (e) => {
-        const re = /^[\w'\-,.][^0-9_!¡?÷?¿/\\+=@#$%ˆ&*(){}|~<>;:[\]]{31,}$/;
         const { name, value } = e.target;
 
-        if (value !== '' && !re.test(value)) {
-            this.setState({ [name]: value });
-        } else if (value.length === 0) {
-            this.setState({ [name]: "" });
-        }
+        this.setState({ [name]: value });
 
-        if (value.length >= 31) {
+        if (value.trim().length > 30 || value.trim().length < 2) {
             if (name === "firstname") {
                 this.setState({firstnameLength: "is-invalid"});
             } else {
                 this.setState({lastnameLength: "is-invalid"});
             }
-        }
-
-        if (this.state.firstnameLength !== "" && name === "firstname" && value.length === 30) {
-            this.setState({ firstnameLength: "" });
-        }
-
-        if (this.state.lastnameLength !== "" && name === "lastname" && value.length === 30) {
-            this.setState({ lastnameLength: "" });
+        } else {
+            if (name === "firstname") {
+                this.setState({firstnameLength: ""});
+            } else {
+                this.setState({lastnameLength: ""});
+            }
         }
 
         if (this.state.isCreated) {

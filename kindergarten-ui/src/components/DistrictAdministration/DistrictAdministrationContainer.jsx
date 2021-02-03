@@ -68,15 +68,16 @@ class DistrictAdministrationContainer extends Component {
     }
 
     startUpdate = (e) => {
-        this.setState({ updatingId: e.target.id });
-        this.setState({ updatingTitle: e.target.value });
-        this.validateLengthInUpdate( e.target.value);
+        if (e.target.value !== undefined) {
+            this.setState({ updatingId: e.target.id });
+            this.setState({ updatingTitle: e.target.value });
+            this.validateLengthInUpdate(e.target.value);
+        }
     }
 
     onCreatingDistrictNameChange = (e) => {
         this.validateLength(e.target.value);
         this.setState({ districtName: e.target.value });
-        this.validateLength(e.target.value);
     }
 
     onDistrictNameChange = (e) => {
@@ -111,20 +112,18 @@ class DistrictAdministrationContainer extends Component {
 
     render() {
         return (
-            <div>
-                <DistrictAdministrationComponent
-                    districts={this.state.districts}
-                    addDistrict={this.addDistrict}
-                    updateDistrict={this.updateDistrict}
-                    startUpdate={this.startUpdate}
-                    updatingId={this.state.updatingId}
-                    onDistrictNameChange={this.onDistrictNameChange}
-                    updatingTitle={this.updatingTitle}
-                    titleValidation={this.state.titleValidation}
-                    onCreatingDistrictNameChange={this.onCreatingDistrictNameChange}
-                    titleValidationInUpdate={this.state.titleValidationInUpdate}
-                />
-            </div>
+            <DistrictAdministrationComponent
+                districts={this.state.districts}
+                addDistrict={this.addDistrict}
+                updateDistrict={this.updateDistrict}
+                startUpdate={this.startUpdate}
+                updatingId={this.state.updatingId}
+                onDistrictNameChange={this.onDistrictNameChange}
+                updatingTitle={this.updatingTitle}
+                titleValidation={this.state.titleValidation}
+                onCreatingDistrictNameChange={this.onCreatingDistrictNameChange}
+                titleValidationInUpdate={this.state.titleValidationInUpdate}
+            />
         );
     }
 }
