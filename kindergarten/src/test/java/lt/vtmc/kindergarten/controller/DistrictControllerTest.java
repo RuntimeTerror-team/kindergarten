@@ -91,19 +91,5 @@ public class DistrictControllerTest {
         assertTrue(errorMessage.contains("length must be between 5 and 20"),"Should validate if title respects validation");
     }
 
-    @Test
-    @Order(5)
-    @DisplayName("district id validation")
-    void testDistrictIdValidation(){
-        Exception exception = assertThrows(ConstraintViolationException.class, () -> {
-            DistrictDto districtDto = new DistrictDto();
-            districtDto.setTitle("Antakalnis");
-            districtController.addDistrict(districtDto);
-        });
-
-        String errorMessage = exception.getMessage();
-
-        assertTrue(errorMessage.contains("must not be null"),"Should validate if id is not null");
-    }
 
 }
