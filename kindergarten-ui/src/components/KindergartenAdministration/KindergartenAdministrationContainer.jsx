@@ -22,17 +22,12 @@ class KindergartenAdministrationContainer extends Component {
             .catch((err) => console.log(err));
     }
 
-    componentDidUpdate = () => {
-        console.log("Kindergartens number: " + this.state.kindergartens.length);
-        console.log("isCreatingKindergarten: " + this.state.isCreatingKindergarten);
-    }
-
     startCreatingKindergarten = () => {
         this.setState({isCreatingKindergarten: true})
     }
 
     stopCreatingKindergarten = () => {
-        this.setState({isCreatingKindergarten: false})
+        this.setState({isCreatingKindergarten: false});
     }
 
     render () {

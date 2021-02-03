@@ -4,19 +4,19 @@ import KindergartenCreationFormComponent from './KindergartenCreationFormCompone
 import baseUrl from '../../AppConfig';
 
 class KindergartenCreationFormContainer extends Component {
-    constructor () {
-        super();
-        this.state= {
+    constructor(props) {
+        super(props);
+        this.state = {
             districts: [],
-            street: "", 
+            title: "",
+            companyCode: "",
+            street: "",
             buildingNo: "",
-            city: "", 
-            email: "", 
-            phoneNo: "", 
-            postalCode: "", 
-            title: "", 
-            website: "",
-            districtId: ""
+            district: "",
+            postalCode: "",
+            phoneNo: "",
+            email: "",
+            website: ""
         }
     }
 
@@ -29,18 +29,48 @@ class KindergartenCreationFormContainer extends Component {
             .catch((err) => console.log(err));
     }
 
+    // componentDidUpdate = () => {
+    //     console.log("email: " + this.state.email);
+    // }
+
     handleChange = (e) => {
         const { name, value } = e.target;
         this.setState({ [name]: value });
     }
 
-    render () {
-        return(
+    handleSubmit = (e) => {
+        e.preventDefault();
+        console.log(e.target.district.value.split(",")[1]);
+        console.log(e.target.district.value.split(",")[0]);
+        this.props.stopCreatingKindergarten();
+        Axios
+            .post(`${baseUrl}/api/kindergartens`, {
+                "address": `${e.target.street.value} ${e.target.buildingNo.value}`,
+                "city": "VILNIUS",
+                "companyCode": e.target.companyCode.value,
+                "district": {
+                    id: e.target.district.value.split(",")[1],
+                    title: e.target.district.value.split(",")[0]
+                },
+                "email": e.target.email.value,
+                "phoneNumber": "+370" + e.target.phoneNo.value,
+                "postalCode": e.target.postalCode.value,
+                "title": e.target.title.value,
+                "website": e.target.website.value
+            })
+            .then(() => { })
+            .catch(err => console.log(err));
+    }
+
+    render() {
+        return (
             <div className="col-12">
                 <KindergartenCreationFormComponent
-                 districts={this.state.districts}
-                 handleChange={this.handleChange}
-                  />
+                    districts={this.state.districts}
+                    handleChange={this.handleChange}
+                    handleSubmit={this.handleSubmit}
+                    otherProps={this.state}
+                />
             </div>
         )
     }
