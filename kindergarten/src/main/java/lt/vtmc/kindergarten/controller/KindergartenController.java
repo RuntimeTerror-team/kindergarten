@@ -4,6 +4,7 @@ import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 import lt.vtmc.kindergarten.dto.GroupDto;
 import lt.vtmc.kindergarten.dto.KindergartenDto;
+import lt.vtmc.kindergarten.dto.KindergartenInfoDto;
 import lt.vtmc.kindergarten.service.GroupService;
 import lt.vtmc.kindergarten.service.KindergartenService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,7 +13,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.ConstraintViolationException;
-import javax.validation.Valid;
 import java.util.List;
 
 @RestController
@@ -55,7 +55,7 @@ public class KindergartenController {
     @RequestMapping(method = RequestMethod.GET, value = "/api/kindergartens/{kindergarten_id}")
     @ApiOperation(value = "Get single kindergarten by id", notes = "Returns a single kindergarten by id")
     @ResponseStatus(HttpStatus.OK)
-    public KindergartenDto getKindergarten(
+    public KindergartenInfoDto getKindergarten(
             @PathVariable final Long kindergarten_id
     ){
         return kindergartenService.getKindergarten(kindergarten_id);
@@ -64,7 +64,7 @@ public class KindergartenController {
     @RequestMapping(method = RequestMethod.GET, value = "/api/kindergartens")
     @ApiOperation(value="Get kindergartens",notes ="Returns kindergartens")
     @ResponseStatus(HttpStatus.OK)
-    public List<KindergartenDto> getKindergartens(){
+    public List<KindergartenInfoDto> getKindergartens(){
         return kindergartenService.getKindergartens();
     }
 

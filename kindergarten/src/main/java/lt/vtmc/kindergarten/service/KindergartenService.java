@@ -3,6 +3,7 @@ package lt.vtmc.kindergarten.service;
 import lt.vtmc.kindergarten.dao.KindergartenDao;
 import lt.vtmc.kindergarten.domain.Kindergarten;
 import lt.vtmc.kindergarten.dto.KindergartenDto;
+import lt.vtmc.kindergarten.dto.KindergartenInfoDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -21,16 +22,16 @@ public class KindergartenService {
     private KindergartenDao kindergartenDao;
 
     @Transactional
-    public List<KindergartenDto> getKindergartens(){
+    public List<KindergartenInfoDto> getKindergartens(){
         List<Kindergarten> kindergartens = kindergartenDao.findAll();
-        List<KindergartenDto> kindergartenList= kindergartens.stream().map(kindergarten -> new KindergartenDto(kindergarten)).collect(Collectors.toList());
+        List<KindergartenInfoDto> kindergartenList= kindergartens.stream().map(kindergarten -> new KindergartenInfoDto(kindergarten)).collect(Collectors.toList());
         return kindergartenList;
     }
 
     @Transactional(readOnly = true)
-    public KindergartenDto getKindergarten(Long id){
+    public KindergartenInfoDto getKindergarten(Long id){
         Kindergarten kindergarten = kindergartenDao.getOne(id);
-        return new KindergartenDto(kindergarten);
+        return new KindergartenInfoDto(kindergarten);
     }
 
     @Transactional
