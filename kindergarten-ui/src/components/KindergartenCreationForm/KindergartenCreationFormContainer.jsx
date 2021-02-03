@@ -29,10 +29,6 @@ class KindergartenCreationFormContainer extends Component {
             .catch((err) => console.log(err));
     }
 
-    // componentDidUpdate = () => {
-    //     console.log("email: " + this.state.email);
-    // }
-
     handleChange = (e) => {
         const { name, value } = e.target;
         this.setState({ [name]: value });
@@ -58,20 +54,21 @@ class KindergartenCreationFormContainer extends Component {
                 "title": e.target.title.value,
                 "website": e.target.website.value
             })
-            .then(() => { })
+            .then(() => {
+                this.props.handleUpdateKindergartenList();
+             })
             .catch(err => console.log(err));
     }
 
     render() {
         return (
-            <div className="col-12">
                 <KindergartenCreationFormComponent
                     districts={this.state.districts}
                     handleChange={this.handleChange}
                     handleSubmit={this.handleSubmit}
+                    stopCreatingKindergarten={this.props.stopCreatingKindergarten}
                     otherProps={this.state}
                 />
-            </div>
         )
     }
 }

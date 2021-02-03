@@ -9,7 +9,8 @@ class KindergartenAdministrationContainer extends Component {
         super(props);
         this.state = {
             kindergartens: [],
-            isCreatingKindergarten: false
+            isCreatingKindergarten: false,
+            wantsInfo: false
         }
     }
 
@@ -30,6 +31,21 @@ class KindergartenAdministrationContainer extends Component {
         this.setState({isCreatingKindergarten: false});
     }
 
+    handleUpdateKindergartenList = () => {
+        this.stopCreatingKindergarten();
+        Axios
+        .get(`${baseUrl}/api/kindergartens`)
+        .then((res) => {
+            this.setState({ kindergartens: res.data })
+        })
+        .catch((err) => console.log(err));
+    }
+
+    handleWantsInfo = (e) => {
+        console.log("Kindergarten Id: " + e.target);
+        console.log(e);
+    }
+
     render () {
         return (
             <KindergartenAdministrationComponent
@@ -37,6 +53,8 @@ class KindergartenAdministrationContainer extends Component {
                 isCreatingKindergarten={this.state.isCreatingKindergarten}
                 startCreatingKindergarten={this.startCreatingKindergarten}
                 stopCreatingKindergarten={this.stopCreatingKindergarten}
+                handleUpdateKindergartenList={this.handleUpdateKindergartenList}
+                handleWantsInfo={this.handleWantsInfo}
             />
         )
     }
