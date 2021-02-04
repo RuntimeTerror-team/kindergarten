@@ -121,8 +121,8 @@ class DistrictAdministrationContainer extends Component {
         e.preventDefault();
 
         if (this.state.districts.filter(district => district.title.toLowerCase() === this.state.updatingTitle.toLowerCase()).length === 0 
-        || ( this.state.districts.filter(district => district.title === this.state.updatingTitle).length === 1 
-        && +this.state.districts.filter(district => district.title === this.state.updatingTitle)[0].id === +this.state.updatingId)) {
+        || ( this.state.districts.filter(district => district.title.toLowerCase() === this.state.updatingTitle.toLowerCase()).length === 1 
+        && +this.state.districts.filter(district => district.title.toLowerCase() === this.state.updatingTitle.toLowerCase())[0].id === +this.state.updatingId)) {
             if (this.state.titleValidationInUpdate === "") {
                 axios
                     .put(`${baseUrl}/api/district/${this.state.updatingId}`, {
