@@ -1,5 +1,7 @@
 package lt.vtmc.kindergarten.domain;
 
+import org.hibernate.annotations.Cascade;
+
 import javax.persistence.*;
 
 @Entity
@@ -22,6 +24,7 @@ public class Group {
 
     @ManyToOne
     @JoinColumn(name = "ageRange_id")
+    @Cascade(org.hibernate.annotations.CascadeType.ALL)
     private AgeRange ageRange;
 
     public Group() {
