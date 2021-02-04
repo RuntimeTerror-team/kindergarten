@@ -95,12 +95,18 @@ class DistrictAdministrationContainer extends Component {
             this.setState({ updatingId: e.target.id });
             this.setState({ updatingTitle: e.target.value });
             this.validateLengthInUpdate(e.target.value);
+            this.setState({ requestMessage: "" })
+            this.setState({ messageStyle: "" })
         }
     }
 
     onCreatingDistrictNameChange = (e) => {
         this.validateLength(e.target.value);
         this.setState({ districtName: e.target.value });
+        this.setState({ requestMessage: "" })
+        this.setState({ messageStyle: "" })
+        this.setState({ updatingId: "" });
+        this.setState({ updatingTitle: "" });
     }
 
     onDistrictNameChange = (e) => {
@@ -108,7 +114,7 @@ class DistrictAdministrationContainer extends Component {
         this.setState({ updatingTitle: e.target.value });
         this.setState({ updatingMessage: "" })
         this.setState({ updatingMessageStyle: "" })
-
+        this.setState({})
     }
 
     updateDistrict = (e) => {
