@@ -114,7 +114,9 @@ class DistrictAdministrationContainer extends Component {
     updateDistrict = (e) => {
         e.preventDefault();
 
-        if (this.state.districts.filter(district => district.title === this.state.updatingTitle).length === 0) {
+        if (this.state.districts.filter(district => district.title === this.state.updatingTitle).length === 0 
+        || ( this.state.districts.filter(district => district.title === this.state.updatingTitle).length === 1 
+        && +this.state.districts.filter(district => district.title === this.state.updatingTitle)[0].id === +this.state.updatingId)) {
             if (this.state.titleValidationInUpdate === "") {
                 axios
                     .put(`${baseUrl}/api/district/${this.state.updatingId}`, {
