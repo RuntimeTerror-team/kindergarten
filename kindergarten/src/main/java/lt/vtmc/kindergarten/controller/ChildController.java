@@ -53,4 +53,13 @@ public class ChildController {
         childService.removeChild(id);
     }
 
+    @ApiOperation(value = "Get single child by id", notes = "Returns a single child by id")
+    @RequestMapping(method = RequestMethod.GET, value = "/api/children/{child_id}")
+    @ResponseStatus(HttpStatus.OK)
+    public ChildDto getChild(
+            @PathVariable final Long child_id
+    ){
+        return childService.getChild(child_id);
+    }
+
 }

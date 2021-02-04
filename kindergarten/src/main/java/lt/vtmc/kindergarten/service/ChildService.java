@@ -20,6 +20,13 @@ public class ChildService {
     @Autowired
     private ChildDao childDao;
 
+
+    @Transactional(readOnly = true)
+    public ChildDto getChild(Long id){
+        Child child = childDao.getOne(id);
+        return new ChildDto(child);
+    }
+
     @Transactional
     public List<ChildDto> getChildren(){
         List<Child> children = childDao.findAll();

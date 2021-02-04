@@ -2,9 +2,14 @@ package lt.vtmc.kindergarten.dto;
 
 import lt.vtmc.kindergarten.domain.Child;
 import lt.vtmc.kindergarten.domain.CityEnum;
+import org.hibernate.validator.constraints.Length;
+import org.springframework.validation.annotation.Validated;
+
+import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 
+@Validated
 public class ChildDto {
 
 
@@ -64,7 +69,7 @@ public class ChildDto {
         return streetAddress;
     }
 
-    public void setStreetAddress(String streetAddress) {
+    public void setStreetAddress(@Length(min = 5, max = 30) String streetAddress) {
         this.streetAddress = streetAddress;
     }
 
