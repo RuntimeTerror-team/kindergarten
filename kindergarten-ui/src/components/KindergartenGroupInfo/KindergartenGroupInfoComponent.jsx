@@ -1,14 +1,22 @@
 import React from 'react';
 import KindergartenGroupCreationComponent from "../KindergartenGroupCreation/KindergartenGroupCreationComponent"
+import GroupsTableComponent from '../GroupsTable/GroupsTableComponent'
 
-const KindergartenGroupInfoComponent = ({ ageRanges }) => {
+const KindergartenGroupInfoComponent = ({ ageRanges, groups, wantsCreate, toggleWantsCreate, ...otherProps }) => {
     return (
         <div>
-
-
-            <KindergartenGroupCreationComponent
-                ageRanges={ageRanges}
-            />
+            {!wantsCreate
+            && <button className="btn btn-info" onClick={toggleWantsCreate}>Kurti grupę</button>}
+            {wantsCreate
+                && <KindergartenGroupCreationComponent
+                    ageRanges={ageRanges}
+                    {...otherProps}
+                />}
+                {groups.length >0 
+                && <GroupsTableComponent
+                    groups={groups}
+                />
+                }
         </div>
 
     )
