@@ -79,7 +79,17 @@ public class AgeRangeController {
     ){
         ageRangeService.updateAgeRange(id, ageRangeDto);
     }
-
+    
+    @RequestMapping(value = "/api/ageRanges/{ageMin}/{ageMax}", method = RequestMethod.DELETE)
+    @ApiOperation(value = "delete age range", notes = "Deletes age range by ageMin adn ageMax")
+    @ResponseStatus(HttpStatus.OK)
+    public void deleteAgeRange(
+            @PathVariable int ageMin,
+            @PathVariable int ageMax
+            
+    ){
+        ageRangeService.deleteAgeRange(ageMin, ageMax);
+    }
 
 
 }

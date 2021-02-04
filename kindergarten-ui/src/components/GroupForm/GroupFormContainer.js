@@ -26,7 +26,7 @@ class GroupFormContainer extends Component {
     Axios
       .get(`${baseUrl}/api/ageRanges`)
       .then((res) => {
-        this.setState({ districts: res.data })
+        this.setState({ groups: res.data })
         })
       .catch((err) => console.log(err));         
         }
@@ -34,13 +34,48 @@ class GroupFormContainer extends Component {
 
   handleChangeFromAge = (e) => {
     e.preventDefault();
+    this.setState({fromAgeFieldValidation: ""})
+    this.setState({requestMessage: ""})
+    this.setState({messageStyle: ""})
+    this.setState({invalidInterval: false})
     this.setState({ fromAge: e.target.value });
   };
 
   handleChangeToAge = (e) => {
     e.preventDefault();
+    this.setState({toAgeFieldValidation: ""})
+    this.setState({requestMessage: ""})
+    this.setState({messageStyle: ""})
+    this.setState({invalidInterval: false})
     this.setState({ toAge: e.target.value });
   };
+
+  handleDelete= (e) => {
+
+
+    e.preventDefault();
+    this.setState({requestMessage : ""});
+    this.setState({messageStyle : ""});
+    let interval = e.target.value.split("-");
+
+    console.log(e.target.value);
+    console.log(interval);
+
+    Axios.delete(baseUrl + "/api/ageRanges/" + interval[0] + "/" + interval[1])
+      .then((res) => {
+
+        Axios
+                .get(`${baseUrl}/api/ageRanges`)
+                .then((res) => {
+                    this.setState({ groups: res.data })
+                    })
+                .catch((err) => console.log(err));         
+        }
+
+        )
+
+      .catch((err) => console.log(err)); 
+   }
 
   handleSubmit = (e) => {
     e.preventDefault();
@@ -80,7 +115,7 @@ class GroupFormContainer extends Component {
             Axios
                 .get(`${baseUrl}/api/ageRanges`)
                 .then((res) => {
-                    this.setState({ districts: res.data })
+                    this.setState({ groups: res.data })
                     })
                 .catch((err) => console.log(err));         
         }
@@ -129,6 +164,7 @@ class GroupFormContainer extends Component {
           requestMessage={this.state.requestMessage}
           messageStyle={this.state.messageStyle}
           onSubmit={this.handleSubmit}
+          onDelete={this.handleDelete}
           onFromAgeChange={this.handleChangeFromAge}
           onToAgeChange={this.handleChangeToAge}
         />
