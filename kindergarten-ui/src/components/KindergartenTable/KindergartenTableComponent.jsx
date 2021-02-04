@@ -9,7 +9,7 @@ const KindergartenTableComponent = ({ kindergartens, handleWantsInfo, handleWant
                         <th scope='col' style={{ width: "30px" }}>#</th>
                         <th scope='col'>Pavadinimas</th>
                         <th scope='col'>Adresas</th>
-                        <th scope='col'></th>
+                        <th scope='col'>Informacija</th>
                     </tr>
                 </thead>
 

@@ -1,19 +1,42 @@
-import React, {Component} from 'react';
+import Axios from 'axios';
+import React, { Component } from 'react';
+import KindergartenGroupInfoComponent from '../KindergartenGroupInfo/KindergartenGroupInfoComponent'
+import baseUrl  from '../../AppConfig'
 
 class KindergartenGroupInfoContainer extends Component {
-    constructor (props) {
+    constructor(props) {
         super(props);
         this.state = {
-            msg: "Labas"
+            kindergartenId: "",
+            groups: [],
+            ageRanges: []
         }
     }
+
+    componentDidMount = () => {
+        this.setState({kindergartenId: this.props.kindergartenInfoId})
+
+        // Axios
+        //     .get(`${baseUrl}/api/kindergartens/${this.props.kindergartenInfoId}`)
+        //     .then((res) => {
+        //         this.setState({ groups: res.data })
+        //     })
+        //     .catch((err) => console.log(err));
+
+        Axios
+        .get(`${baseUrl}/api/ageRanges`)
+        .then((res) => {
+            this.setState({ ageRanges: res.data })
+        })
+        .catch((err) => console.log(err));
+    }
+
     render() {
         return (
-            <div>
-                Grupių info
-                <p>{this.state.msg}</p>
-                <p>{this.props.kindergartenId}</p>
-            </div>
+            <KindergartenGroupInfoComponent 
+                groups={this.state.groups}
+                ageRanges={this.state.ageRanges}
+            />
         )
     }
 

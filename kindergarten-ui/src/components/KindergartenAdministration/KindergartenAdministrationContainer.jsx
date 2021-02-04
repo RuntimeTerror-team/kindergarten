@@ -57,6 +57,7 @@ class KindergartenAdministrationContainer extends Component {
     handleWantsGroups = (e) => {
         this.setState({kindergartenInfoId: e.target.id});
         this.setState({wantsGroups: true})
+        console.log(e.target.id)
     }
 
     resetWantsGroups = () => {
@@ -75,8 +76,10 @@ class KindergartenAdministrationContainer extends Component {
                 handleWantsInfo={this.handleWantsInfo}
                 wantsInfo={this.state.wantsInfo}
                 kindergartenInfoId={this.state.kindergartenInfoId}
+                handleWantsGroups={this.handleWantsGroups}
                 wantsGroups={this.state.wantsGroups}
                 resetWantsInfo={this.resetWantsInfo}
+                resetWantsGroups={this.resetWantsGroups}
             />
         )
     }

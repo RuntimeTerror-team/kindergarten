@@ -2,9 +2,9 @@ import React from 'react';
 import KindergartenCreationFormContainer from '../KindergartenCreationForm/KindergartenCreationFormContainer';
 import KindergartenInfoFormContainer from '../KindergartenInfoForm/KindergartenInfoFormContainer';
 import KindergartenTableComponent from '../KindergartenTable/KindergartenTableComponent';
-// import KindergartenGroupInfoContainer from '../KindergartenGroupInfo/KindergartenGroupInfoContainer';
+import KindergartenGroupInfoContainer from '../KindergartenGroupInfo/KindergartenGroupInfoContainer';
 
-const KindergartenAdministrationComponent = ({ kindergartens, isCreatingKindergarten,resetWantsInfo, handleWantsGroups, handleWantsInfo, wantsInfo, wantsGroups, kindergartenInfoId, handleUpdateKindergartenList, startCreatingKindergarten, stopCreatingKindergarten }) => {
+const KindergartenAdministrationComponent = ({ kindergartens, isCreatingKindergarten, resetWantsInfo, handleWantsGroups, handleWantsInfo, wantsInfo, wantsGroups, kindergartenInfoId, handleUpdateKindergartenList, startCreatingKindergarten, stopCreatingKindergarten, resetWantsGroups }) => {
     return (
         <div className="col-12">
             <h1 className="mb-4">Darželių administravimas</h1>
@@ -29,18 +29,16 @@ const KindergartenAdministrationComponent = ({ kindergartens, isCreatingKinderga
                     stopCreatingKindergarten={stopCreatingKindergarten}
                 />}
             {wantsInfo
-                // && !wantsGroups
                 && <KindergartenInfoFormContainer
                     kindergartenInfoId={kindergartenInfoId}
                     resetWantsInfo={resetWantsInfo}
-
                 />}
-
-            {/* {wantsGroups
-                && !wantsGroups
+            {wantsGroups
                 && <KindergartenGroupInfoContainer
                     kindergartenInfoId={kindergartenInfoId}
-                />} */}
+                    resetWantsGroups={resetWantsGroups}
+                />}
+
         </div>
     )
 }
