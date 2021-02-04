@@ -16,7 +16,7 @@ import java.util.*;
 
 @DirtiesContext(classMode = DirtiesContext.ClassMode.AFTER_EACH_TEST_METHOD)
 @SpringBootTest
-@DisplayName("When running Application Controller")
+@DisplayName("When running Application controller")
 public class ApplicationControllerTest {
 
     @Autowired
@@ -59,9 +59,9 @@ public class ApplicationControllerTest {
         kindergartenDao.save(kindergarten);
 
         Child child = new Child();
-        child.setLastName("Antanas");
+        child.setFirstName("Antanas");
         child.setLastName("Antanaitis");
-        child.setPersonalCode(49004180333L);
+        child.setPersonalCode("49004180333");
         child.setStreetAddress("Kankliu g.4");
         child.setCity(CityEnum.VILNIUS);
         childDao.save(child);

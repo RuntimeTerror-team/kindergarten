@@ -7,10 +7,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.validation.annotation.Validated;
+
+import javax.validation.Valid;
 import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
+@Validated
 public class ChildService {
 
     @Autowired
@@ -24,7 +28,7 @@ public class ChildService {
     }
 
     @Transactional
-    public void addChild(ChildDto childDto){
+    public void addChild(@Valid ChildDto childDto){
         Child child = new Child();
 
         child.setCity(childDto.getCity());
@@ -32,7 +36,6 @@ public class ChildService {
         child.setLastName(childDto.getLastName());
         child.setPersonalCode(childDto.getPersonalCode());
         child.setStreetAddress(childDto.getStreetAddress());
-//        child.setApplication(childDto.getApplication());
 
         childDao.save(child);
     }
@@ -46,7 +49,6 @@ public class ChildService {
         child.setLastName(childDto.getLastName());
         child.setPersonalCode(childDto.getPersonalCode());
         child.setStreetAddress(childDto.getStreetAddress());
-//        child.setApplication(childDto.getApplication());
 
         childDao.save(child);
     }

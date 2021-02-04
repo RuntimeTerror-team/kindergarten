@@ -12,7 +12,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @DirtiesContext(classMode = DirtiesContext.ClassMode.AFTER_EACH_TEST_METHOD)
 @SpringBootTest
-@DisplayName("When running age Range Controller")
+@DisplayName("When running age Range controller")
 public class AgeRangeControllerTest {
 
     @Autowired

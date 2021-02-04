@@ -3,6 +3,7 @@ package lt.vtmc.kindergarten.dto;
 import lt.vtmc.kindergarten.domain.Child;
 import lt.vtmc.kindergarten.domain.CityEnum;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
 
 public class ChildDto {
 
@@ -14,7 +15,8 @@ public class ChildDto {
     private String lastName;
 
     @NotNull
-    private Long personalCode;
+    @Pattern(regexp = "^\\d{1,11}")
+    private String personalCode;
 
     @NotNull
     private String streetAddress;
@@ -50,11 +52,11 @@ public class ChildDto {
         this.lastName = lastName;
     }
 
-    public Long getPersonalCode() {
+    public String getPersonalCode() {
         return personalCode;
     }
 
-    public void setPersonalCode(Long personalCode) {
+    public void setPersonalCode(String personalCode) {
         this.personalCode = personalCode;
     }
 

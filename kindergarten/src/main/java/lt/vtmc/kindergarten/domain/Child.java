@@ -20,7 +20,7 @@ public class Child {
     private String lastName;
 
     @Column
-    private Long personalCode;
+    private String personalCode;
 
     @Column
     private String streetAddress;
@@ -60,11 +60,11 @@ public class Child {
         this.lastName = lastName;
     }
 
-    public Long getPersonalCode() {
+    public String getPersonalCode() {
         return personalCode;
     }
 
-    public void setPersonalCode(Long personalCode) {
+    public void setPersonalCode(String personalCode) {
         this.personalCode = personalCode;
     }
 
