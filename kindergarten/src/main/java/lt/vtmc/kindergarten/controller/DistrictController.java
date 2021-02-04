@@ -2,10 +2,13 @@ package lt.vtmc.kindergarten.controller;
 
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
+import lt.vtmc.kindergarten.dto.AgeRangeDto;
 import lt.vtmc.kindergarten.dto.DistrictDto;
+import lt.vtmc.kindergarten.dto.MessageResponse;
 import lt.vtmc.kindergarten.service.DistrictService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -19,15 +22,22 @@ public class DistrictController {
     private DistrictService districtService;
 
     @RequestMapping(value="/api/district", method = RequestMethod.POST)
-    @ResponseStatus(HttpStatus.CREATED)
     @ApiOperation(value = "Create district", notes = "Creates a new district")
-    public void addDistrict(
+    public ResponseEntity<?> addDistrict(
             @ApiParam(value = "District Data", required = true)
             @Valid @RequestBody DistrictDto districtDto){
-        districtService.addDistrict(districtDto);
+    	
+    	boolean addedDistrict = districtService.addDistrict(districtDto);
+    	
+    	if(!addedDistrict) {
+    		
+    		return ResponseEntity.ok(new MessageResponse("Toks rajonas jau yra įrašytas", addedDistrict));
+    	}
+    	
+    	return ResponseEntity.ok(new MessageResponse("Rajonas sėkmingai sukurtas", addedDistrict));
+        
     }
-
-
+   
     @ApiOperation(value = "Update District", notes = "Updates district by id")
     @RequestMapping(value = "/api/district/{id}", method = RequestMethod.PUT)
     @ResponseStatus(HttpStatus.OK)

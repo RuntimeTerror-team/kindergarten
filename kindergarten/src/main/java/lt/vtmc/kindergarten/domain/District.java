@@ -11,7 +11,7 @@ public class District {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    @Column(unique = true)
+    //@Column(unique = true)
     private String title;
 
     public District() {

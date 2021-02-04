@@ -1,7 +1,9 @@
 package lt.vtmc.kindergarten.service;
 
 import lt.vtmc.kindergarten.dao.DistrictDao;
+import lt.vtmc.kindergarten.domain.AgeRange;
 import lt.vtmc.kindergarten.domain.District;
+import lt.vtmc.kindergarten.dto.AgeRangeDto;
 import lt.vtmc.kindergarten.dto.DistrictDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -35,18 +37,35 @@ public class DistrictService {
     }
 
 
+    //Paulius
     @Transactional
-    public void addDistrict(@Valid DistrictDto districtDto){
+    public boolean addDistrict(@Valid DistrictDto districtDto){
+    	
         District district = new District();
-        district.setTitle(districtDto.getTitle());
-        districtDao.save(district);
+        
+        if(findDistrict(districtDto.getTitle()) == null) {
+        
+        	district.setTitle(districtDto.getTitle());
+            districtDao.save(district);
+            return true;
+        }
+        
+        return false;
     }
-
+    
     @Transactional
     public void updateDistrict(Long id, DistrictDto districtDto){
         District district = districtDao.getOne(id);
         district.setTitle(districtDto.getTitle());
         districtDao.save(district);
+    }
+    
+    @Transactional
+    public District findDistrict(String title) {
+    	
+    	District district = districtDao.findByTitle(title);
+    	return district;
+    	
     }
 
 

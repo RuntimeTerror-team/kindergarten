@@ -29,7 +29,7 @@ public class KindergartenDto {
 
     private String website;
 
-    @NotNull
+   // @NotNull
     private District district;
 
 
@@ -45,6 +45,20 @@ public class KindergartenDto {
         this.email = kindergarten.getEmail();
         this.website = kindergarten.getWebsite();
         this.district =kindergarten.getDistrict();
+    }
+    
+    
+    public KindergartenDto(String title, String address, String city, String postalCode,
+    		Long phoneNumber, String email, String website) {
+    	
+    	this.title = title;
+    	this.address = address;
+    	this.city = CityEnum.valueOf(city);
+    	this.postalCode = postalCode;
+    	this.phoneNumber = phoneNumber;
+    	this.email = email;
+    	this.website = website; 
+    	
     }
 
     public String getTitle() {
