@@ -12,6 +12,7 @@ import org.springframework.test.annotation.DirtiesContext;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+@DirtiesContext(classMode = DirtiesContext.ClassMode.AFTER_EACH_TEST_METHOD)
 @SpringBootTest
 @DisplayName("When running Kindergarten controller")
 public class KindergartenControllerTest {
@@ -24,7 +25,6 @@ public class KindergartenControllerTest {
 
     @Test
     @DisplayName("create kindergarten")
-    @DirtiesContext(methodMode = DirtiesContext.MethodMode.AFTER_METHOD)
     void testCreatingKindergarten(){
         District district = new District();
         district.setTitle("Antakalnis");
@@ -48,7 +48,6 @@ public class KindergartenControllerTest {
 
     @Test
     @DisplayName("get all kindergartens")
-    @DirtiesContext(methodMode = DirtiesContext.MethodMode.AFTER_METHOD)
     void testGetAllKindergartens(){
         District district = new District();
         district.setTitle("Antakalnis");
@@ -87,7 +86,6 @@ public class KindergartenControllerTest {
 
     @Test
     @DisplayName("update kindergarten by id")
-    @DirtiesContext(methodMode = DirtiesContext.MethodMode.AFTER_METHOD)
     void testUpdateKindergarten(){
         District district = new District();
         district.setTitle("Antakalnis");

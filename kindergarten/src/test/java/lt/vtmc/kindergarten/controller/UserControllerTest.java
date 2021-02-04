@@ -12,7 +12,6 @@ import org.springframework.test.annotation.DirtiesContext;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-
 @SpringBootTest
 public class UserControllerTest {
 

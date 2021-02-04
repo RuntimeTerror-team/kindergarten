@@ -10,6 +10,7 @@ import org.springframework.test.annotation.DirtiesContext;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+@DirtiesContext(classMode = DirtiesContext.ClassMode.AFTER_EACH_TEST_METHOD)
 @SpringBootTest
 @DisplayName("When running age Range Controller")
 public class AgeRangeControllerTest {
@@ -17,10 +18,8 @@ public class AgeRangeControllerTest {
     @Autowired
     private AgeRangeController ageRangeController;
 
-
     @Test
     @DisplayName("create age Range")
-    @DirtiesContext(methodMode = DirtiesContext.MethodMode.AFTER_METHOD)
     void testCreatingAgeRange(){
         AgeRangeDto ageRangeDto = new AgeRangeDto();
         ageRangeDto.setId(1L);
@@ -33,10 +32,8 @@ public class AgeRangeControllerTest {
         assertEquals(1, ageRangeController.getAgeRanges().size(), "should create district correctly");
     }
 
-
     @Test
     @DisplayName("get age Range list")
-    @DirtiesContext(methodMode = DirtiesContext.MethodMode.AFTER_METHOD)
     void testGettingAllDistrictRangesWithSize3(){
         AgeRangeDto ageRangeDto1 = new AgeRangeDto();
         ageRangeDto1.setId(2L);
@@ -53,10 +50,8 @@ public class AgeRangeControllerTest {
         assertEquals(2, ageRangeController.getAgeRanges().size(), "should return age range list");
     }
 
-
     @Test
     @DisplayName("update age Range by id")
-    @DirtiesContext(methodMode = DirtiesContext.MethodMode.AFTER_METHOD)
     void testUpdateAgeRange(){
         AgeRangeDto ageRangeDto = new AgeRangeDto();
         ageRangeDto.setId(1L);
@@ -73,7 +68,6 @@ public class AgeRangeControllerTest {
         assertEquals(5, ageRangeController.getAgeRange(1L).getMaxAge(),"should update MaxAge Range correctly");
 
     }
-
 
 
 

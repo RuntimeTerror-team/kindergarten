@@ -6,8 +6,6 @@ import lt.vtmc.kindergarten.dao.KindergartenDao;
 import lt.vtmc.kindergarten.dao.UserDao;
 import lt.vtmc.kindergarten.domain.*;
 import lt.vtmc.kindergarten.dto.ApplicationCreationDto;
-import lt.vtmc.kindergarten.dto.KindergartenDto;
-import lt.vtmc.kindergarten.dto.UserDto;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,7 +14,7 @@ import org.springframework.test.annotation.DirtiesContext;
 
 import java.util.*;
 
-
+@DirtiesContext(classMode = DirtiesContext.ClassMode.AFTER_EACH_TEST_METHOD)
 @SpringBootTest
 @DisplayName("When running Application Controller")
 public class ApplicationControllerTest {
