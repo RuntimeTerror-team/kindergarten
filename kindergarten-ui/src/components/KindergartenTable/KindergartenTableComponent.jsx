@@ -1,8 +1,6 @@
 import React from 'react';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faInfo } from '@fortawesome/free-solid-svg-icons';
 
-const KindergartenTableComponent = ({ kindergartens, handleWantsInfo }) => {
+const KindergartenTableComponent = ({ kindergartens, handleWantsInfo, handleWantsGroups }) => {
     return (
         <div className="col-12 mt-3">
             <table id="kindergartenTable" className='table col-12'>
@@ -21,7 +19,10 @@ const KindergartenTableComponent = ({ kindergartens, handleWantsInfo }) => {
                             <th scope='row'>{index + 1}</th>
                             <td>{title}</td>
                             <td>{address}</td>
-                            <td><button className="btn btn-info rounded-circle" id={id} onClick={handleWantsInfo}><FontAwesomeIcon id={id} icon={faInfo} /></button></td>
+                            <td>
+                                <button className="btn btn-info mr-2" id={id} onClick={handleWantsInfo}>Kontaktai</button>
+                                <button className="btn btn-info" id={id} onClick={handleWantsGroups}>Grupės</button>
+                            </td>
                         </tr>
                     )}
                 </tbody>

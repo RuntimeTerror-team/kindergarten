@@ -10,11 +10,14 @@ class KindergartenAdministrationContainer extends Component {
         this.state = {
             kindergartens: [],
             isCreatingKindergarten: false,
-            wantsInfo: false
+            wantsInfo: false,
+            kindergartenInfoId: "",
+            wantsGroups: false
         }
     }
 
     componentDidMount = () => {
+        console.log("KindergartenAdministrationContainer - main")
         Axios
             .get(`${baseUrl}/api/kindergartens`)
             .then((res) => {
@@ -42,8 +45,23 @@ class KindergartenAdministrationContainer extends Component {
     }
 
     handleWantsInfo = (e) => {
-        console.log("Kindergarten Id: " + e.target);
-        console.log(e);
+        this.setState({kindergartenInfoId: e.target.id});
+        this.setState({wantsInfo: true})
+    }
+
+    resetWantsInfo = () => {
+        this.setState({kindergartenInfoId: ""});
+        this.setState({wantsInfo: false}) 
+    }
+
+    handleWantsGroups = (e) => {
+        this.setState({kindergartenInfoId: e.target.id});
+        this.setState({wantsGroups: true})
+    }
+
+    resetWantsGroups = () => {
+        this.setState({kindergartenInfoId: ""});
+        this.setState({wantsGroups: false}) 
     }
 
     render () {
@@ -55,6 +73,10 @@ class KindergartenAdministrationContainer extends Component {
                 stopCreatingKindergarten={this.stopCreatingKindergarten}
                 handleUpdateKindergartenList={this.handleUpdateKindergartenList}
                 handleWantsInfo={this.handleWantsInfo}
+                wantsInfo={this.state.wantsInfo}
+                kindergartenInfoId={this.state.kindergartenInfoId}
+                wantsGroups={this.state.wantsGroups}
+                resetWantsInfo={this.resetWantsInfo}
             />
         )
     }
