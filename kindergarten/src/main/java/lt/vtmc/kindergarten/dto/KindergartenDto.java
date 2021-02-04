@@ -74,7 +74,7 @@ public class KindergartenDto {
     
     
     public KindergartenDto(String title, String address, String city, String postalCode,
-    		Long phoneNumber, String email, String website) {
+    		String phoneNumber, String email, String website) {
     	
     	this.title = title;
     	this.address = address;

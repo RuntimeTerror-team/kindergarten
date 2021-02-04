@@ -14,7 +14,9 @@ class DistrictAdministrationContainer extends Component {
             titleValidation: "",
             titleValidationInUpdate: "",
             requestMessage: "",
-            messageStyle:""
+            messageStyle: "",
+            updatingMessageStyle: "",
+            updatingMessage: ""
         }
     }
 
@@ -31,10 +33,10 @@ class DistrictAdministrationContainer extends Component {
         e.preventDefault();
 
         let districtName = e.target.districtName.value;
-        this.setState({requestMessage: ""});
-        this.setState({messageStyle: ""})
-        this.setState({titleValidation: ""})
-        this.setState({districtName: ""})
+        this.setState({ requestMessage: "" });
+        this.setState({ messageStyle: "" })
+        this.setState({ titleValidation: "" })
+        this.setState({ districtName: "" })
 
         if (this.validateLength(districtName)) {
 
@@ -47,14 +49,14 @@ class DistrictAdministrationContainer extends Component {
                 .then((res) => {
                     e.target.districtName.value = "";
 
-                    this.setState({requestMessage: res.data.message});
-                    if(!res.data.status){
+                    this.setState({ requestMessage: res.data.message });
+                    if (!res.data.status) {
 
-                        this.setState({messageStyle: "alert alert-danger mt-4"})
-                    } else if (res.data.status){
+                        this.setState({ messageStyle: "alert alert-danger mt-4" })
+                    } else if (res.data.status) {
 
-                        this.setState({messageStyle: "alert alert-success mt-4"})
-                    } 
+                        this.setState({ messageStyle: "alert alert-success mt-4" })
+                    }
                     axios
                         .get(`${baseUrl}/api/districts`)
                         .then((res) => {
@@ -64,7 +66,7 @@ class DistrictAdministrationContainer extends Component {
                 })
                 .catch((err) => console.log(err));
 
-        
+
         }
     }
 
@@ -74,7 +76,7 @@ class DistrictAdministrationContainer extends Component {
             return true;
 
         } else {
-            
+
             this.setState({ titleValidation: "is-invalid" });
             return false;
         }
@@ -104,30 +106,38 @@ class DistrictAdministrationContainer extends Component {
     onDistrictNameChange = (e) => {
         this.validateLengthInUpdate(e.target.value);
         this.setState({ updatingTitle: e.target.value });
+        this.setState({ updatingMessage: "" })
+        this.setState({ updatingMessageStyle: "" })
+
     }
 
     updateDistrict = (e) => {
         e.preventDefault();
 
-        if (this.state.titleValidationInUpdate === "") {
-            axios
-                .put(`${baseUrl}/api/district/${this.state.updatingId}`, {
-                    id: 0,
-                    title: this.state.updatingTitle
-                })
-                .then(() =>
-                    axios
-                        .get(`${baseUrl}/api/districts`)
-                        .then((res) => {
-                            this.setState({ districts: res.data });
-                        })
-                        .catch((err) => console.log(err))
-                )
-                .then(() => {
-                    this.setState({ updatingId: "" });
-                    this.setState({ updatingTitle: "" });
-                })
-                .catch((err) => console.log(err));
+        if (this.state.districts.filter(district => district.title === this.state.updatingTitle).length === 0) {
+            if (this.state.titleValidationInUpdate === "") {
+                axios
+                    .put(`${baseUrl}/api/district/${this.state.updatingId}`, {
+                        id: 0,
+                        title: this.state.updatingTitle
+                    })
+                    .then(() =>
+                        axios
+                            .get(`${baseUrl}/api/districts`)
+                            .then((res) => {
+                                this.setState({ districts: res.data });
+                            })
+                            .catch((err) => console.log(err))
+                    )
+                    .then(() => {
+                        this.setState({ updatingId: "" });
+                        this.setState({ updatingTitle: "" });
+                    })
+                    .catch((err) => console.log(err));
+            }
+        } else {
+            this.setState({ updatingMessage: "Toks rajonas jau yra įrašytas" })
+            this.setState({ updatingMessageStyle: "alert alert-danger mt-4" })
         }
     }
 
@@ -147,6 +157,8 @@ class DistrictAdministrationContainer extends Component {
                     titleValidationInUpdate={this.state.titleValidationInUpdate}
                     requestMessage={this.state.requestMessage}
                     messageStyle={this.state.messageStyle}
+                    updatingMessage={this.state.updatingMessage}
+                    updatingMessageStyle={this.state.updatingMessageStyle}
                 />
             </div>
         );

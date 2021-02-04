@@ -3,7 +3,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPencilAlt } from '@fortawesome/free-solid-svg-icons';
 import Proptypes from 'prop-types';
 
-const DistrictTableComponent = ({ districts, updateDistrict, startUpdate, updatingId, onDistrictNameChange, updatingTitle, titleValidationInUpdate }) => {
+const DistrictTableComponent = ({ updatingMessage,updatingMessageStyle, districts, updateDistrict, startUpdate, updatingId, onDistrictNameChange, updatingTitle, titleValidationInUpdate }) => {
 
     return (
         <div className="col-12 mt-3">
@@ -20,7 +20,8 @@ const DistrictTableComponent = ({ districts, updateDistrict, startUpdate, updati
                         <tr key={id}>
                             <th scope='row'>{index + 1}</th>
                             <td>
-                                {+updatingId !== +id && <button className='btn btn-link' id={id} onClick={startUpdate} value={title}>{title} <FontAwesomeIcon icon={faPencilAlt} />
+                                {+updatingId !== +id 
+                                && <button className='btn btn-link' id={id} onClick={startUpdate} value={title}>{title} <FontAwesomeIcon icon={faPencilAlt} />
                                 </button>}
                                 {+updatingId === +id
                                     && <form onSubmit={updateDistrict}>
@@ -29,6 +30,7 @@ const DistrictTableComponent = ({ districts, updateDistrict, startUpdate, updati
                                             <div className="input-group-append">
                                                 <button type="submit" className="btn btn-info">Išsaugoti</button>
                                             </div>
+                                            <span className={updatingMessageStyle} style={{width:"23em"}}>{updatingMessage}</span>
                                         </div>
                                         <div className="invalid-feedback">
                                             Pavadinimo ilgis turi būti 5-20 ženklų.
