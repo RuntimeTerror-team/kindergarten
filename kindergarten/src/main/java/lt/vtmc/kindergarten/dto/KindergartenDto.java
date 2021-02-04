@@ -33,7 +33,6 @@ public class KindergartenDto {
 
     private String website;
 
-
     @NotNull
     @Pattern(regexp = "^\\d{7,9}")
     private String companyCode;
@@ -71,6 +70,20 @@ public class KindergartenDto {
 
     public void setCompanyCode(String companyCode) {
         this.companyCode = companyCode;
+    }
+    
+    
+    public KindergartenDto(String title, String address, String city, String postalCode,
+    		Long phoneNumber, String email, String website) {
+    	
+    	this.title = title;
+    	this.address = address;
+    	this.city = CityEnum.valueOf(city);
+    	this.postalCode = postalCode;
+    	this.phoneNumber = phoneNumber;
+    	this.email = email;
+    	this.website = website; 
+    	
     }
 
     public String getTitle() {

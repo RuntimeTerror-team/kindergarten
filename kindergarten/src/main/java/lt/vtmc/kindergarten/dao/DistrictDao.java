@@ -6,4 +6,6 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface DistrictDao extends JpaRepository<District,Long> {
+	
+	District findByTitle(String title);
 }
