@@ -10,6 +10,7 @@ class GroupFormContainer extends Component {
   constructor() {
     super();
     this.state = {
+      groups:[],
       fromAge: "",
       toAge: "",
       fromAgeFieldValidation: "",
@@ -20,15 +21,61 @@ class GroupFormContainer extends Component {
     };
   }
 
+  componentDidMount(){
+
+    Axios
+      .get(`${baseUrl}/api/ageRanges`)
+      .then((res) => {
+        this.setState({ groups: res.data })
+        })
+      .catch((err) => console.log(err));         
+        }
+  
+
   handleChangeFromAge = (e) => {
     e.preventDefault();
+    this.setState({fromAgeFieldValidation: ""})
+    this.setState({requestMessage: ""})
+    this.setState({messageStyle: ""})
+    this.setState({invalidInterval: false})
     this.setState({ fromAge: e.target.value });
   };
 
   handleChangeToAge = (e) => {
     e.preventDefault();
+    this.setState({toAgeFieldValidation: ""})
+    this.setState({requestMessage: ""})
+    this.setState({messageStyle: ""})
+    this.setState({invalidInterval: false})
     this.setState({ toAge: e.target.value });
   };
+
+  handleDelete= (e) => {
+
+
+    e.preventDefault();
+    this.setState({requestMessage : ""});
+    this.setState({messageStyle : ""});
+    let interval = e.target.value.split("-");
+
+    console.log(e.target.value);
+    console.log(interval);
+
+    Axios.delete(baseUrl + "/api/ageRanges/" + interval[0] + "/" + interval[1])
+      .then((res) => {
+
+        Axios
+                .get(`${baseUrl}/api/ageRanges`)
+                .then((res) => {
+                    this.setState({ groups: res.data })
+                    })
+                .catch((err) => console.log(err));         
+        }
+
+        )
+
+      .catch((err) => console.log(err)); 
+   }
 
   handleSubmit = (e) => {
     e.preventDefault();
@@ -64,6 +111,13 @@ class GroupFormContainer extends Component {
 
           this.setState({messageStyle: "alert alert-danger mt-4"})
             }
+
+            Axios
+                .get(`${baseUrl}/api/ageRanges`)
+                .then((res) => {
+                    this.setState({ groups: res.data })
+                    })
+                .catch((err) => console.log(err));         
         }
 
         )
@@ -72,7 +126,7 @@ class GroupFormContainer extends Component {
   }
     this.setState({ fromAge: "" });
     this.setState({ toAge: "" });
-  };
+  }
 
   validate = (fromAge, toAge) => {
     if (fromAge === "") {
@@ -82,25 +136,26 @@ class GroupFormContainer extends Component {
     if (toAge === "") {
       this.setState({ toAgeFieldValidation: "is-invalid" });
     }
-  };
+  }
 
   validInterval = (fromAge, toAge) => {
-    if (fromAge > toAge && fromAge !== "" && toAge !== "") {
+    if (fromAge >= toAge && fromAge !== "" && toAge !== "") {
       this.setState({ invalidInterval: true });
       return false;
     }
 
-    if (fromAge <= toAge && fromAge !== "" && toAge !== "") {
+    if (fromAge < toAge && fromAge !== "" && toAge !== "") {
       return true;
     } else {
       return false;
     }
-  };
+  }
 
   render() {
     return (
       <div className="groupsRegistration">
         <GroupFormComponent
+          groups={this.state.groups}
           fromAge={this.state.fromAge}
           toAge={this.state.toAge}
           fromAgeFieldValidation={this.state.fromAgeFieldValidation}
@@ -109,6 +164,7 @@ class GroupFormContainer extends Component {
           requestMessage={this.state.requestMessage}
           messageStyle={this.state.messageStyle}
           onSubmit={this.handleSubmit}
+          onDelete={this.handleDelete}
           onFromAgeChange={this.handleChangeFromAge}
           onToAgeChange={this.handleChangeToAge}
         />

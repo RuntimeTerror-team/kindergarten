@@ -80,6 +80,17 @@ public class AgeRangeService {
     }
     
     @Transactional
+    public void deleteAgeRange(@NotNull int ageMin, @NotNull int ageMax) {
+    	
+    	AgeRange ageRange = ageRangeDao.findByAgeMinAndAgeMax(ageMin, ageMax);
+    	
+    	if(ageRange != null) {
+    		
+    		ageRangeDao.delete(ageRange);
+    	}
+    }
+    
+    @Transactional
     public AgeRange findAgeRange(int ageMin, int ageMax){
         
     	AgeRange ageRange = ageRangeDao.findByAgeMinAndAgeMax(ageMin, ageMax);
