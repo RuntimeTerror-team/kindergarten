@@ -9,11 +9,15 @@ class KindergartenAdministrationContainer extends Component {
         super(props);
         this.state = {
             kindergartens: [],
-            isCreatingKindergarten: false
+            isCreatingKindergarten: false,
+            wantsInfo: false,
+            kindergartenInfoId: "",
+            wantsGroups: false
         }
     }
 
     componentDidMount = () => {
+        console.log("KindergartenAdministrationContainer - main")
         Axios
             .get(`${baseUrl}/api/kindergartens`)
             .then((res) => {
@@ -22,17 +26,43 @@ class KindergartenAdministrationContainer extends Component {
             .catch((err) => console.log(err));
     }
 
-    componentDidUpdate = () => {
-        console.log("Kindergartens number: " + this.state.kindergartens.length);
-        console.log("isCreatingKindergarten: " + this.state.isCreatingKindergarten);
-    }
-
     startCreatingKindergarten = () => {
         this.setState({isCreatingKindergarten: true})
     }
 
     stopCreatingKindergarten = () => {
-        this.setState({isCreatingKindergarten: false})
+        this.setState({isCreatingKindergarten: false});
+    }
+
+    handleUpdateKindergartenList = () => {
+        this.stopCreatingKindergarten();
+        Axios
+        .get(`${baseUrl}/api/kindergartens`)
+        .then((res) => {
+            this.setState({ kindergartens: res.data })
+        })
+        .catch((err) => console.log(err));
+    }
+
+    handleWantsInfo = (e) => {
+        this.setState({kindergartenInfoId: e.target.id});
+        this.setState({wantsInfo: true})
+    }
+
+    resetWantsInfo = () => {
+        this.setState({kindergartenInfoId: ""});
+        this.setState({wantsInfo: false}) 
+    }
+
+    handleWantsGroups = (e) => {
+        this.setState({kindergartenInfoId: e.target.id});
+        this.setState({wantsGroups: true})
+        console.log(e.target.id)
+    }
+
+    resetWantsGroups = () => {
+        this.setState({kindergartenInfoId: ""});
+        this.setState({wantsGroups: false}) 
     }
 
     render () {
@@ -42,6 +72,14 @@ class KindergartenAdministrationContainer extends Component {
                 isCreatingKindergarten={this.state.isCreatingKindergarten}
                 startCreatingKindergarten={this.startCreatingKindergarten}
                 stopCreatingKindergarten={this.stopCreatingKindergarten}
+                handleUpdateKindergartenList={this.handleUpdateKindergartenList}
+                handleWantsInfo={this.handleWantsInfo}
+                wantsInfo={this.state.wantsInfo}
+                kindergartenInfoId={this.state.kindergartenInfoId}
+                handleWantsGroups={this.handleWantsGroups}
+                wantsGroups={this.state.wantsGroups}
+                resetWantsInfo={this.resetWantsInfo}
+                resetWantsGroups={this.resetWantsGroups}
             />
         )
     }

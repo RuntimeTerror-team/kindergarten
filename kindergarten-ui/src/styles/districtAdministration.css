@@ -5,6 +5,6 @@
     text-align: center;
 }
 
-#districtTable {
+#districtTable, #kindergartenTable, #groupTable {
     table-layout: fixed;
 }
