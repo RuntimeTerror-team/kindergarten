@@ -16,7 +16,8 @@ class KindergartenCreationFormContainer extends Component {
             postalCode: "",
             phoneNo: "",
             email: "",
-            website: ""
+            website: "",
+            titleValidation: ""
         }
     }
 
@@ -32,43 +33,59 @@ class KindergartenCreationFormContainer extends Component {
     handleChange = (e) => {
         const { name, value } = e.target;
         this.setState({ [name]: value });
+
+        if (name === "title") {
+            if (value.length < 8 || value.length > 35) {
+                this.setState({ titleValidation: "is-invalid" })
+            } else {
+                this.setState({ titleValidation: "" })
+            }
+        }
     }
 
     handleSubmit = (e) => {
         e.preventDefault();
-        console.log(e.target.district.value.split(",")[1]);
-        console.log(e.target.district.value.split(",")[0]);
-        this.props.stopCreatingKindergarten();
-        Axios
-            .post(`${baseUrl}/api/kindergartens`, {
-                "address": `${e.target.street.value} ${e.target.buildingNo.value}`,
-                "city": "VILNIUS",
-                "companyCode": e.target.companyCode.value,
-                "district": {
-                    id: e.target.district.value.split(",")[1],
-                    title: e.target.district.value.split(",")[0]
-                },
-                "email": e.target.email.value,
-                "phoneNumber": "+370" + e.target.phoneNo.value,
-                "postalCode": e.target.postalCode.value,
-                "title": e.target.title.value,
-                "website": e.target.website.value
-            })
-            .then(() => {
-                this.props.handleUpdateKindergartenList();
-             })
-            .catch(err => console.log(err));
+
+        if (this.state.title.length === 0) {
+            this.setState({ titleValidation: "is-invalid" })
+        }
+
+        if (this.state.titleValidation === "") {
+            Axios
+                .post(`${baseUrl}/api/kindergartens`, {
+                    "address": `${e.target.street.value} ${e.target.buildingNo.value}`,
+                    "city": "VILNIUS",
+                    "companyCode": e.target.companyCode.value,
+                    "district": {
+                        id: e.target.district.value.split(",")[1],
+                        title: e.target.district.value.split(",")[0]
+                    },
+                    "email": e.target.email.value,
+                    "phoneNumber": "+370" + e.target.phoneNo.value,
+                    "postalCode": e.target.postalCode.value,
+                    "title": e.target.title.value,
+                    "website": e.target.website.value
+                })
+                .then(() => {
+                    this.props.handleUpdateKindergartenList();
+                    this.props.stopCreatingKindergarten();
+                })
+                .catch(err => console.log(err));
+        } else {
+            
+        }
     }
 
     render() {
         return (
-                <KindergartenCreationFormComponent
-                    districts={this.state.districts}
-                    handleChange={this.handleChange}
-                    handleSubmit={this.handleSubmit}
-                    stopCreatingKindergarten={this.props.stopCreatingKindergarten}
-                    otherProps={this.state}
-                />
+            <KindergartenCreationFormComponent
+                districts={this.state.districts}
+                handleChange={this.handleChange}
+                handleSubmit={this.handleSubmit}
+                stopCreatingKindergarten={this.props.stopCreatingKindergarten}
+                otherProps={this.state}
+                titleValidation={this.state.titleValidation}
+            />
         )
     }
 }

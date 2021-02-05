@@ -5,7 +5,6 @@ const GroupsTableComponent = ({ groups }) => {
     return (
 
         <div className="col-12 mt-3">
-            <h6 className="mt-3">Darželio informacija</h6>
             <table id="groupTable" className='table col-12'>
                 <thead>
                     <tr>

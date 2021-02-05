@@ -1,12 +1,15 @@
 import React from 'react';
 
-const KindergartenCreationFormComponent = ({ street, buildingNo, email, phoneNo, postalCode, title, website, districts, handleChange, companyCode, handleSubmit, stopCreatingKindergarten }) => {
+const KindergartenCreationFormComponent = ({ street, buildingNo, email, phoneNo, postalCode, title, website, districts, handleChange, companyCode, handleSubmit, stopCreatingKindergarten, titleValidation }) => {
     return (
         <div className="col-12">
             <form onSubmit={handleSubmit}>
                 <div className="form-group row">
                     <label htmlFor="title" className="col-3 pt-2 text-right">Pavadinimas</label>
-                    <input type="text" className="form-control col-9" id="title" placeholder="Pvz.: Lopšelis-darželis Voverytė" value={title} name="title" onChange={handleChange} />
+                    <input type="text" className={`form-control col-9 ${titleValidation}`} id="title" placeholder="Pvz.: Lopšelis-darželis Voverytė" value={title} name="title" onChange={handleChange} />
+                    <div class="invalid-feedback">
+                       Šis laukas privalomas. Pavadinimo ilgis turi būti 8-35 ženklų.
+                    </div>
                 </div>
                 <div className="form-group row">
                     <label htmlFor="companyCode" className="col-3 pt-2 text-right">Įmonės kodas</label>
