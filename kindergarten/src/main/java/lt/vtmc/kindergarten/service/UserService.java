@@ -56,23 +56,23 @@ public class UserService implements UserDetailsService {
 
             if (userDto.getRole().equals("ADMIN")) {
                 if (userDao.findByRole(new Role(RoleType.ADMIN)) == null) {
-                    role.setType(RoleType.ADMIN);
-                    newUser.setRole(role);
-                    role.addUser(newUser);
+                    Role adminRole = new Role(RoleType.ADMIN);
+                    newUser.setRole(adminRole);
+                    adminRole.addUser(newUser);
                     userDao.save(newUser);
                 }
             } else if (userDto
                     .getRole().equals("EDUCATION_SPECIALIST")) {
                 if (userDao.findByRole(new Role(RoleType.EDUCATION_SPECIALIST)) == null) {
-                    role.setType(RoleType.EDUCATION_SPECIALIST);
-                    newUser.setRole(role);
-                    role.addUser(newUser);
+                    Role eduSpecRole = new Role(RoleType.EDUCATION_SPECIALIST);
+                    newUser.setRole(eduSpecRole);
+                    eduSpecRole.addUser(newUser);
                     userDao.save(newUser);
                 }
             } else {
-                role.setType(RoleType.GUARDIAN);
-                newUser.setRole(role);
-                role.addUser(newUser);
+                Role guardianRole = new Role(RoleType.GUARDIAN);
+                newUser.setRole(guardianRole);
+                guardianRole.addUser(newUser);
                 userDao.save(newUser);
             }
         }

@@ -29,7 +29,7 @@ let LoginComponent = ({ username, password, usernameValidation, passwordValidati
           <div className="alert alert-danger col-12" role="alert">
             Prisijungimo duomenys neteisingi
           </div>
-        )}}
+        )}
             </div>
 
     </div>
