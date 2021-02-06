@@ -42,7 +42,7 @@ class GuardianPageContainer extends Component {
     }
 
     render() {
-        if (this.context.userService.getUserRole() === "GUARDIAN") {
+        if (this.context.userService.getUserRole() === "ROLE_GUARDIAN") {
             return (
                 <div>
                     <GuardianPageComponent

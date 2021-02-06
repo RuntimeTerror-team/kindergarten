@@ -10,7 +10,7 @@ public class Role {
 
     @Id
     @Enumerated(EnumType.STRING)
-    private RoleType roleType;
+    private RoleType type;
 
     @OneToMany(mappedBy="role")
     private List<User> users = new ArrayList<>();
@@ -18,16 +18,16 @@ public class Role {
     public Role() {
     }
 
-    public Role(RoleType roleType) {
-        this.roleType = roleType;
+    public Role(RoleType type) {
+        this.type = type;
     }
 
     public RoleType getType() {
-        return roleType;
+        return type;
     }
 
-    public void setType(RoleType roleType) {
-        this.roleType = roleType;
+    public void setType(RoleType type) {
+        this.type = type;
     }
 
     public List<User> getUsers() {

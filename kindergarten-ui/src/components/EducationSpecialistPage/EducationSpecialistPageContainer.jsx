@@ -26,7 +26,7 @@ class EducationSpecialistPageContainer extends Component {
     }
 
     render() {
-        if (this.context.userService.getUserRole() === "EDUCATION_SPECIALIST") {
+        if (this.context.userService.getUserRole() === "ROLE_EDUCATION_SPECIALIST") {
             return (
                 <EducationSpecialistPageComponent
                     handleUserChoice={this.handleUserChoice}

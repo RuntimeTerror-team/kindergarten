@@ -13,7 +13,6 @@ import javax.servlet.http.HttpServletRequest;
 
 @Controller
 public class ReactErrorController implements ErrorController {
-    // Not clear if the right resource imported
     @Value("classpath:public/index.html")
     private Resource index;
     @RequestMapping("/error")

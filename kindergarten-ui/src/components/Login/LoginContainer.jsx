@@ -5,6 +5,8 @@ import LoginComponent from './LoginComponent';
 import baseUrl from "../../AppConfig";
 import ServicesContext from "../../context/ServicesContext";
 
+Axios.defaults.withCredentials = true;
+
 class LoginContainer extends Component {
     constructor() {
 
@@ -47,44 +49,48 @@ class LoginContainer extends Component {
     handleSubmit = (e) => {
         e.preventDefault();
 
-
         let roleFromBack = "";
         let usernameFromUser = e.target.username.value;
         let passwordFromUser = e.target.password.value;
-
 
         this.doValidation(usernameFromUser, passwordFromUser);
 
         if (usernameFromUser.trim().length !== 0 && passwordFromUser.trim().length !== 0) {
 
+
+            let userData = new URLSearchParams();
+            userData.append('username', this.state.username);
+            userData.append('password', this.state.password);
+
             Axios
-                .get(`${baseUrl}/api/users/${usernameFromUser}`)
-                .then(res => {
-                    let passwordFromBack = res.data.password;
-                    roleFromBack = res.data.role;
-
-                    if (passwordFromUser === passwordFromBack) {
-                        this.context.userService.setCurrentUser(res.data.username);
+                .post(`${baseUrl}/login`,
+                    userData,
+                    { headers: { 'Content-type': 'application/x-www-form-urlencoded' } })
+                .then(()=>{
+                    Axios
+                    .get(`${baseUrl}/loggedRole`)
+                    .then((res) => {
+                        roleFromBack = res.data;
                         this.context.userService.setUserRole(roleFromBack);
-                        this.context.userService.updateCurrentUser();
                         this.context.userService.updateUserRole();
+                        this.resetState();
+                    })
+                    .then(() => {
+                        if (this.context.userService.getUserRole() === "ROLE_ADMIN") {
+                            this.props.history.push("/admin");
+                        } else if (this.context.userService.getUserRole() === "ROLE_EDUCATION_SPECIALIST") {
+                            this.props.history.push("/education-specialist");
+                        } else if (this.context.userService.getUserRole() === "ROLE_GUARDIAN") {
+                            this.props.history.push("/guardian");
+                        }
+                    })
+                    .catch(err => console.log(err));
+                })
+                .catch((e) => { 
+                    this.setState({ areCredentialsIncorrect: true });
+                    // console.log(e);
+                 });
 
-                       // this.resetState();
-                    } else {
-                        this.setState({ areCredentialsIncorrect: true });
-                    }
-                })
-                .then(() => {
-                    if (this.context.userService.getUserRole() === "ADMIN") {
-                        this.props.history.push("/admin");
-                    } else if (this.context.userService.getUserRole() === "EDUCATION_SPECIALIST") {
-                        this.props.history.push("/education-specialist");
-                    } else if (this.context.userService.getUserRole() === "GUARDIAN") {
-                        this.props.history.push("/guardian");
-                    }
-                })
-                .catch(err => console.log(err));
-               this.resetState();
         }
     }
 
