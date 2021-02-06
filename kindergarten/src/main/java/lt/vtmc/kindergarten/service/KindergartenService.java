@@ -3,28 +3,39 @@ package lt.vtmc.kindergarten.service;
 import lt.vtmc.kindergarten.dao.KindergartenDao;
 import lt.vtmc.kindergarten.domain.Kindergarten;
 import lt.vtmc.kindergarten.dto.KindergartenDto;
+import lt.vtmc.kindergarten.dto.KindergartenInfoDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import javax.transaction.Transactional;
+import org.springframework.transaction.annotation.Transactional;
+import org.springframework.validation.annotation.Validated;
+
+import javax.validation.Valid;
 import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
+@Validated
 public class KindergartenService {
 
     @Autowired
     private KindergartenDao kindergartenDao;
 
     @Transactional
-    public List<KindergartenDto> getKindergartens(){
+    public List<KindergartenInfoDto> getKindergartens(){
         List<Kindergarten> kindergartens = kindergartenDao.findAll();
-        List<KindergartenDto> kindergartenList= kindergartens.stream().map(kindergarten -> new KindergartenDto(kindergarten)).collect(Collectors.toList());
+        List<KindergartenInfoDto> kindergartenList= kindergartens.stream().map(kindergarten -> new KindergartenInfoDto(kindergarten)).collect(Collectors.toList());
         return kindergartenList;
     }
 
+    @Transactional(readOnly = true)
+    public KindergartenInfoDto getKindergarten(Long id){
+        Kindergarten kindergarten = kindergartenDao.getOne(id);
+        return new KindergartenInfoDto(kindergarten);
+    }
+
     @Transactional
-    public void addKindergarten(KindergartenDto kindergartenDto){
+    public void addKindergarten(@Valid KindergartenDto kindergartenDto){
         Kindergarten kindergarten = new Kindergarten();
 
         kindergarten.setTitle(kindergartenDto.getTitle());
@@ -34,6 +45,7 @@ public class KindergartenService {
         kindergarten.setCity(kindergartenDto.getCity());
         kindergarten.setPostalCode(kindergartenDto.getPostalCode());
         kindergarten.setEmail(kindergartenDto.getEmail());
+        kindergarten.setCompanyCode(kindergartenDto.getCompanyCode());
         kindergarten.setDistrict(kindergartenDto.getDistrict());
 
         kindergartenDao.save(kindergarten);
@@ -41,7 +53,7 @@ public class KindergartenService {
 
 
     @Transactional
-    public void updateKindergarten(Long id, KindergartenDto kindergartenDto){
+    public void updateKindergarten(Long id,@Valid KindergartenDto kindergartenDto){
         Kindergarten kindergarten = kindergartenDao.getOne(id);
 
         kindergarten.setTitle(kindergartenDto.getTitle());
@@ -51,6 +63,7 @@ public class KindergartenService {
         kindergarten.setCity(kindergartenDto.getCity());
         kindergarten.setPostalCode(kindergartenDto.getPostalCode());
         kindergarten.setEmail(kindergartenDto.getEmail());
+        kindergarten.setCompanyCode(kindergartenDto.getCompanyCode());
         kindergarten.setDistrict(kindergartenDto.getDistrict());
 
         kindergartenDao.save(kindergarten);

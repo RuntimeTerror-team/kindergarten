@@ -1,7 +1,6 @@
 package lt.vtmc.kindergarten.controller;
 
 import lt.vtmc.kindergarten.dto.DistrictDto;
-import lt.vtmc.kindergarten.service.DistrictService;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
@@ -9,7 +8,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.annotation.DirtiesContext;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import javax.validation.ConstraintViolationException;
+
+import static org.junit.jupiter.api.Assertions.*;
+
+
 
 @SpringBootTest
 @DisplayName("When running District controller")
@@ -17,6 +20,7 @@ public class DistrictControllerTest {
 
     @Autowired
     private DistrictController districtController;
+
 
     @Test
     @Order(1)
@@ -31,6 +35,7 @@ public class DistrictControllerTest {
         assertEquals(1, districtController.getDistricts().size(), "should create district correctly");
     }
 
+
     @Test
     @Order(2)
     @DisplayName("get district list")
@@ -40,8 +45,8 @@ public class DistrictControllerTest {
         districtDto.setId(2L);
         districtDto.setTitle("Senamiestis");
         DistrictDto districtDto2 = new DistrictDto();
-        districtDto.setId(3L);
-        districtDto.setTitle("Naujamiestis");
+        districtDto2.setId(3L);
+        districtDto2.setTitle("Naujamiestis");
 
         districtController.addDistrict(districtDto);
         districtController.addDistrict(districtDto2);
@@ -49,6 +54,7 @@ public class DistrictControllerTest {
 
         assertEquals(3, districtController.getDistricts().size(), "should get the right size list");
     }
+
 
     @Test
     @Order(3)
@@ -69,7 +75,21 @@ public class DistrictControllerTest {
         assertEquals("ValakampiaiUpdate", districtController.getDistrict(1L).getTitle(), "should update district by id correctly");
     }
 
+    @Test
+    @Order(4)
+    @DisplayName("district title validation")
+    void testDistrictTitleValidation(){
+        Exception exception = assertThrows(ConstraintViolationException.class, () -> {
+            DistrictDto districtDto = new DistrictDto();
+            districtDto.setId(1L);
+            districtDto.setTitle("Ant");
+            districtController.addDistrict(districtDto);
+        });
 
+        String errorMessage = exception.getMessage();
+
+        assertTrue(errorMessage.contains("length must be between 5 and 20"),"Should validate if title respects validation");
+    }
 
 
 }

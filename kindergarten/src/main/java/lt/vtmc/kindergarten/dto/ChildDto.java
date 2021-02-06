@@ -26,14 +26,12 @@ public class ChildDto {
     }
 
     public ChildDto(Child child) {
-
         this.firstName = child.getFirstName();
         this.lastName = child.getLastName();
         this.personalCode = child.getPersonalCode();
         this.streetAddress = child.getStreetAddress();
         this.city = child.getCity();
     }
-
 
 
     public String getFirstName() {

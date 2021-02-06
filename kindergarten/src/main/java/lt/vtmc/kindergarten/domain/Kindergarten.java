@@ -2,9 +2,11 @@ package lt.vtmc.kindergarten.domain;
 
 import org.hibernate.annotations.Cascade;
 import org.hibernate.annotations.CascadeType;
+import org.hibernate.validator.constraints.Length;
+
 
 import javax.persistence.*;
-import javax.validation.constraints.Email;
+import javax.validation.constraints.*;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -13,26 +15,33 @@ import java.util.Set;
 @Table(name = "kindergarten")
 public class Kindergarten {
 
-
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Long id;
 
     @Column
+    @NotNull(message = "title may not be null")
+    @Length(max = 35)
     private String title;
 
     @Column
+    @NotNull
+    @Length(max = 50)
     private String address;
 
     @Column
+    @NotNull
     @Enumerated(EnumType.STRING)
     private CityEnum city;
 
     @Column
-    private Integer postalCode;
+    @NotNull
+    @Length(max = 5)
+    private String postalCode;
 
     @Column
-    private Integer phoneNumber;
+    @NotNull
+    private String phoneNumber;
 
     @Column
     @Email
@@ -41,9 +50,11 @@ public class Kindergarten {
     @Column
     private String website;
 
+    @Column(unique = true)
+    private String companyCode;
 
     @ManyToOne
-    @Cascade({org.hibernate.annotations.CascadeType.DETACH})
+    @Cascade({CascadeType.DETACH})
     private District district;
 
 
@@ -57,6 +68,22 @@ public class Kindergarten {
 
 
     public Kindergarten() {
+    }
+
+    public String getPhoneNumber() {
+        return phoneNumber;
+    }
+
+    public void setPhoneNumber(String phoneNumber) {
+        this.phoneNumber = phoneNumber;
+    }
+
+    public String getCompanyCode() {
+        return companyCode;
+    }
+
+    public void setCompanyCode(String companyCode) {
+        this.companyCode = companyCode;
     }
 
     public void addGroup(Group group){
@@ -95,20 +122,12 @@ public class Kindergarten {
         this.city = city;
     }
 
-    public Integer getPostalCode() {
+    public String getPostalCode() {
         return postalCode;
     }
 
-    public void setPostalCode(Integer postalCode) {
+    public void setPostalCode(String postalCode) {
         this.postalCode = postalCode;
-    }
-
-    public Integer getPhoneNumber() {
-        return phoneNumber;
-    }
-
-    public void setPhoneNumber(Integer phoneNumeber) {
-        this.phoneNumber = phoneNumeber;
     }
 
     public String getEmail() {
@@ -144,10 +163,13 @@ public class Kindergarten {
     }
 
     public Set<Application> getApplicationsSet() {
+
         return applicationsSet;
     }
 
     public void setApplicationsSet(Set<Application> applicationsSet) {
         this.applicationsSet = applicationsSet;
     }
+
+
 }

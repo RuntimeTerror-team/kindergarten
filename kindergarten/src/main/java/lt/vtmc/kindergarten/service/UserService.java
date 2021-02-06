@@ -3,8 +3,8 @@ package lt.vtmc.kindergarten.service;
 import lt.vtmc.kindergarten.domain.Role;
 import lt.vtmc.kindergarten.domain.RoleType;
 import lt.vtmc.kindergarten.domain.User;
+import lt.vtmc.kindergarten.dto.UserDto;
 import lt.vtmc.kindergarten.dto.UserDtoFromAdmin;
-import lt.vtmc.kindergarten.dto.UserFromService;
 import lt.vtmc.kindergarten.dao.UserDao;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.authority.AuthorityUtils;
@@ -14,11 +14,14 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.validation.annotation.Validated;
 
+import javax.validation.Valid;
 import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
+@Validated
 public class UserService implements UserDetailsService {
     @Autowired
     private UserDao userDao;
@@ -26,11 +29,11 @@ public class UserService implements UserDetailsService {
     @Autowired
     private PasswordEncoder passwordEncoder;
 
-     @Transactional(readOnly = true)
-    public List<UserFromService> getUsers() {
+    @Transactional(readOnly = true)
+    public List<UserDto> getUsers() {
         return userDao.findAll()
                 .stream()
-                .map(user -> new UserFromService(
+                .map(user -> new UserDto(
                         user.getUsername(),
                         user.getFirstName(),
                         user.getLastName(),
@@ -41,28 +44,25 @@ public class UserService implements UserDetailsService {
     }
 
     @Transactional
-    public void createUser(UserFromService userFromService) {
-        String encodedPassword = passwordEncoder.encode(userFromService.getPassword());
-        Role role = new Role();
-
-
-        if (userDao.findByUsername(userFromService.getUsername()) == null) {
+    public void createUser(@Valid UserDto userDto) {
+        if (userDao.findUserByUsername(userDto.getUsername()) == null) {
             User newUser = new User(
-                    userFromService.getUsername(),
-                    userFromService.getFirstName(),
-                    userFromService.getLastName(),
-                    userFromService.getPersonalCode(),
-                    encodedPassword
+                    userDto.getUsername(),
+                    userDto.getFirstName(),
+                    userDto.getLastName(),
+                    userDto.getPersonalCode(),
+                    userDto.getPassword()
             );
 
-            if (userFromService.getRole().equals("ADMIN")) {
+            if (userDto.getRole().equals("ADMIN")) {
                 if (userDao.findByRole(new Role(RoleType.ADMIN)) == null) {
                     role.setType(RoleType.ADMIN);
                     newUser.setRole(role);
                     role.addUser(newUser);
                     userDao.save(newUser);
                 }
-            } else if (userFromService.getRole().equals("EDUCATION_SPECIALIST")) {
+            } else if (userDto
+                    .getRole().equals("EDUCATION_SPECIALIST")) {
                 if (userDao.findByRole(new Role(RoleType.EDUCATION_SPECIALIST)) == null) {
                     role.setType(RoleType.EDUCATION_SPECIALIST);
                     newUser.setRole(role);
@@ -79,9 +79,9 @@ public class UserService implements UserDetailsService {
     }
 
     @Transactional(readOnly = true)
-    public UserFromService getUser(String username) {
-        User user = userDao.findByUsername(username);
-        return new UserFromService(
+    public UserDto getUser(String username) {
+        User user = userDao.findUserByUsername(username);
+        return new UserDto(
                 user.getUsername(),
                 user.getFirstName(),
                 user.getLastName(),
@@ -92,7 +92,7 @@ public class UserService implements UserDetailsService {
     }
 
     @Transactional
-    public String createUserFromAdmin(UserDtoFromAdmin userDtoFromAdmin) {
+    public String createUserFromAdmin(@Valid UserDtoFromAdmin userDtoFromAdmin) {
 
         String roleFromAdmin = userDtoFromAdmin.getRole();
 

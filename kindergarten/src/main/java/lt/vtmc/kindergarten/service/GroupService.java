@@ -10,7 +10,10 @@ import lt.vtmc.kindergarten.dto.GroupDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import javax.transaction.Transactional;
+import org.springframework.transaction.annotation.Transactional;
+
+import java.util.Set;
+import java.util.stream.Collectors;
 
 @Service
 public class GroupService {
@@ -23,6 +26,24 @@ public class GroupService {
 
     @Autowired
     private AgeRangeDao ageRangeDao;
+
+
+    @Transactional(readOnly = true)
+    public Set<GroupDto> getGroups(Long kindergartenId){
+        Kindergarten kindergarten = kindergartenDao.getOne(kindergartenId);
+        Set<Group> groups = kindergarten.getGroups();
+        Set<GroupDto> groupList= groups.stream().map(group -> new GroupDto(group)).collect(Collectors.toSet());
+        return groupList;
+    }
+
+    @Transactional(readOnly = true)
+    public GroupDto getGroup(Long kindergartenId, Long groupId){
+        Kindergarten kindergarten = kindergartenDao.getOne(kindergartenId);
+        Set<Group> groups = kindergarten.getGroups();
+        Group group = groups.stream().filter(item -> item.getId() == groupId).findFirst().get();
+        return new GroupDto(group);
+    }
+
 
     @Transactional
     public void addGroup(Long ageRangeId, Long kindergartenId, GroupDto groupDto){
@@ -50,7 +71,6 @@ public class GroupService {
     }
 
 
-
     public void setGroupDao(GroupDao groupDao) {
         this.groupDao = groupDao;
     }
@@ -59,5 +79,3 @@ public class GroupService {
         this.kindergartenDao = kindergartenDao;
     }
 }
-
-

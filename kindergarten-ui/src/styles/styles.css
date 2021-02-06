@@ -44,8 +44,13 @@
 
 }
 
-input{
+.largeInput {
     
     min-width: 21em;
+}
+
+.alertTop {
+    top: 60px;
+    left: 25%;
 }
 

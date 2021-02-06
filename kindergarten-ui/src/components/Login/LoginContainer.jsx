@@ -66,11 +66,6 @@ class LoginContainer extends Component {
                 .post(`${baseUrl}/login`,
                     userData,
                     { headers: { 'Content-type': 'application/x-www-form-urlencoded' } })
-                .then((res) => {
-                    this.context.userService.setCurrentUser(res.data.username);
-                    this.context.userService.updateCurrentUser();
-                    this.resetState();
-                })
                 .then(()=>{
                     Axios
                     .get(`${baseUrl}/loggedRole`)
@@ -78,6 +73,7 @@ class LoginContainer extends Component {
                         roleFromBack = res.data;
                         this.context.userService.setUserRole(roleFromBack);
                         this.context.userService.updateUserRole();
+                        this.resetState();
                     })
                     .then(() => {
                         if (this.context.userService.getUserRole() === "ROLE_ADMIN") {
@@ -110,8 +106,8 @@ class LoginContainer extends Component {
 
     render() {
         return (
-            <div id="loginPage" className="justify-content-center align-items-center" >
-                <h1 className="text-center text-info pt-4">Darželių informacinė sistema</h1>
+            <div id="loginPage" className="justify-content-center align-items-center">
+                <h1 className="text-center text-info pt-4">Vaikų darželių informacinė sistema</h1>
                 <LoginComponent
                     username={this.state.username}
                     password={this.state.password}
