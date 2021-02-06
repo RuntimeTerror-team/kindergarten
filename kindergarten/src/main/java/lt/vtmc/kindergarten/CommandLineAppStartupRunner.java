@@ -11,9 +11,6 @@ public class CommandLineAppStartupRunner implements CommandLineRunner {
     @Autowired
     UserService userService;
 
-    @Autowired
-
-
     @Override
     public void run(String...args) throws Exception {
         userService.createUser(new UserDto("administratorius", "Adminas", "Adminaitis", 12345678989L, "Administratorius1", "ADMIN"));

@@ -51,7 +51,7 @@ public class UserService implements UserDetailsService {
                     userDto.getFirstName(),
                     userDto.getLastName(),
                     userDto.getPersonalCode(),
-                    userDto.getPassword()
+                    passwordEncoder.encode(userDto.getPassword())
             );
 
             if (userDto.getRole().equals("ADMIN")) {
