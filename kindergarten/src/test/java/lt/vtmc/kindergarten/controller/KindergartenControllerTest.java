@@ -4,7 +4,6 @@ import lt.vtmc.kindergarten.dao.DistrictDao;
 import lt.vtmc.kindergarten.dao.KindergartenDao;
 import lt.vtmc.kindergarten.domain.*;
 import lt.vtmc.kindergarten.dto.KindergartenDto;
-import lt.vtmc.kindergarten.dto.KindergartenInfoDto;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
