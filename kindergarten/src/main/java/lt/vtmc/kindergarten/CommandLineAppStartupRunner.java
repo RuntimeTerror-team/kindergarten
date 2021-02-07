@@ -1,7 +1,6 @@
 package lt.vtmc.kindergarten;
 
 import lt.vtmc.kindergarten.dto.UserDto;
-import lt.vtmc.kindergarten.service.ChildService;
 import lt.vtmc.kindergarten.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;

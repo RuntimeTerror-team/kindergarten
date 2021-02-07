@@ -1,9 +1,7 @@
 package lt.vtmc.kindergarten.service;
 
 import lt.vtmc.kindergarten.dao.DistrictDao;
-import lt.vtmc.kindergarten.domain.AgeRange;
 import lt.vtmc.kindergarten.domain.District;
-import lt.vtmc.kindergarten.dto.AgeRangeDto;
 import lt.vtmc.kindergarten.dto.DistrictDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
@@ -68,9 +66,6 @@ public class DistrictService {
     	return district;
     	
     }
-
-
-
 
     public void setDistrictDao(DistrictDao districtDao) {
         this.districtDao = districtDao;

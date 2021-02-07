@@ -4,7 +4,6 @@ import org.hibernate.annotations.Cascade;
 import org.hibernate.annotations.CascadeType;
 import org.hibernate.validator.constraints.Length;
 
-
 import javax.persistence.*;
 import javax.validation.constraints.*;
 import java.util.HashSet;
