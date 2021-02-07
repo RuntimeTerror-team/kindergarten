@@ -156,6 +156,7 @@ public class KindergartenControllerTest {
         kindergartenDto2.setAddress("Bistryčios g. 333");
         kindergartenDto2.setPostalCode("10321");
         District district2 = KindergartenTestUtil.createDistrict();
+        district2.setTitle("Pasilaiciai");
         districtDao.save(district2);
         kindergartenDto2.setDistrict(district2);
 
@@ -179,6 +180,7 @@ public class KindergartenControllerTest {
         KindergartenDto secondKindergarten = new KindergartenDto(KindergartenTestUtil.createKindergarten());
         secondKindergarten.setCompanyCode(kindergarten.getCompanyCode());
         District district2 = KindergartenTestUtil.createDistrict();
+        district2.setTitle("Karoliniskes");
         districtDao.save(district2);
 
         ResponseEntity response =  kindergartenController.addKindergarten(secondKindergarten);
