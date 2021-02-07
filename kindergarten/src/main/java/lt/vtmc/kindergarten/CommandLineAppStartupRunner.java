@@ -1,8 +1,7 @@
 package lt.vtmc.kindergarten;
 
-import lt.vtmc.kindergarten.dto.KindergartenDto;
 import lt.vtmc.kindergarten.dto.UserDto;
-import lt.vtmc.kindergarten.service.KindergartenService;
+import lt.vtmc.kindergarten.service.ChildService;
 import lt.vtmc.kindergarten.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
@@ -12,8 +11,6 @@ import org.springframework.stereotype.Component;
 public class CommandLineAppStartupRunner implements CommandLineRunner {
     @Autowired
     UserService userService;
-    @Autowired
-    KindergartenService kindergartenService;
 
     @Override
     public void run(String...args) throws Exception {
