@@ -1,8 +1,10 @@
 package lt.vtmc.kindergarten.controller;
 
+import lt.vtmc.kindergarten.controller.exception.KindergartenExistsException;
 import lt.vtmc.kindergarten.dao.DistrictDao;
 import lt.vtmc.kindergarten.dao.KindergartenDao;
 import lt.vtmc.kindergarten.domain.*;
+import lt.vtmc.kindergarten.dto.DistrictDto;
 import lt.vtmc.kindergarten.dto.KindergartenDto;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -12,7 +14,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.annotation.DirtiesContext;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import javax.validation.ConstraintViolationException;
+
+import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest
 @DisplayName("When running Kindergarten controller")
@@ -160,5 +164,24 @@ public class KindergartenControllerTest {
         assertEquals("10321", kindergartenController.getKindergarten(2L).getPostalCode(), "should update the postal code correctly");
     }
 
+    @Test
+    @Order(6)
+    @DisplayName("disallow duplicate kindergarten company codes")
+    @DirtiesContext(methodMode = DirtiesContext.MethodMode.AFTER_METHOD)
+    void testCreateKindergartenWithDuplicateCompanyCode(){
+        districtDao.save(district);
+        KindergartenDto kindergartenDto = new KindergartenDto(KindergartenTestUtil.createKindergarten());
+        kindergartenDto.setDistrict(district);
+        kindergartenController.addKindergarten(kindergartenDto);
+
+        KindergartenDto secondKindergarten = new KindergartenDto(KindergartenTestUtil.createKindergarten());
+        secondKindergarten.setCompanyCode(kindergarten.getCompanyCode());
+        District district2 = KindergartenTestUtil.createDistrict();
+        districtDao.save(district2);
+
+        assertThrows(KindergartenExistsException.class, () -> {
+            kindergartenController.addKindergarten(secondKindergarten);
+        });
+    }
 
 }
