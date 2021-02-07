@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.server.ResponseStatusException;
 
 import javax.validation.ConstraintViolationException;
 import java.util.List;
@@ -31,6 +32,11 @@ public class KindergartenController {
     public ResponseEntity addKindergarten(
             @ApiParam(value = "Kindergarten Data", required = true)
             @RequestBody KindergartenDto kindergartenDto){
+
+        if(kindergartenService.getKindergartenByCompanyCode(kindergartenDto.getCompanyCode()) != null ){
+            return new ResponseEntity<>("Kindergarten with same company code already exists", HttpStatus.CONFLICT);
+        }
+
         try {
             kindergartenService.addKindergarten(kindergartenDto);
             return new ResponseEntity<>(HttpStatus.OK);
