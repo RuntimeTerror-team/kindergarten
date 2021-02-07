@@ -54,7 +54,6 @@ public class Kindergarten {
     private String companyCode;
 
     @ManyToOne
-    @Cascade({CascadeType.DETACH})
     private District district;
 
 
