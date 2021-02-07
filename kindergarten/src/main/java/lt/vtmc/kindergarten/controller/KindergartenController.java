@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.ConstraintViolationException;
 import java.util.List;
+import java.util.Set;
 
 @RestController
 public class KindergartenController {
@@ -69,6 +70,28 @@ public class KindergartenController {
     }
 
 
+    @RequestMapping(value = "/api/kindergartens/{kindergartenId}/groups", method = RequestMethod.GET)
+    @ApiOperation(value = "get single groups", notes = "Returns all groups")
+    @ResponseStatus(HttpStatus.OK)
+    public Set<GroupDto> getGroups(
+            @PathVariable final Long kindergartenId
+    ){
+        return groupService.getGroups(kindergartenId);
+    }
+
+
+    @RequestMapping(value = "/api/kindergartens/{kindergartenId}/groups/{group_id}", method = RequestMethod.GET)
+    @ApiOperation(value = "get single group by id", notes = "Returns single group by id")
+    @ResponseStatus(HttpStatus.OK)
+    public GroupDto getGroup(
+            @PathVariable final Long kindergartenId,
+            @PathVariable final Long group_id
+    ){
+        return groupService.getGroup(kindergartenId, group_id);
+    }
+
+
+
     @RequestMapping(value="/api/kindergartens/{kindergartenId}/groups/{ageRangeId}", method = RequestMethod.POST)
     @ResponseStatus(HttpStatus.CREATED)
     @ApiOperation(value = "Create group", notes = "Creates a new group")
@@ -80,16 +103,17 @@ public class KindergartenController {
         groupService.addGroup(ageRangeId, kindergartenId, groupDto);
     }
 
-    @ApiOperation(value = "Update group", notes = "Updates group by id")
-    @RequestMapping(value = "/api/kindergartens/{kindergartenId}/groups/{groupId}", method = RequestMethod.PUT)
-    @ResponseStatus(HttpStatus.OK)
-    public void updateGroup(
-            @ApiParam(value = "", required = true)
-            @PathVariable Long groupId,
-            @RequestBody GroupDto groupDto
-    ){
-        groupService.updateGroup(groupId, groupDto);
-    }
+//    @ApiOperation(value = "Update group", notes = "Updates group by id")
+//    @RequestMapping(value = "/api/kindergartens/{kindergartenId}/groups/{groupId}", method = RequestMethod.PUT)
+//    @ResponseStatus(HttpStatus.OK)
+//    public void updateGroup(
+//            @ApiParam(value = "", required = true)
+//            @PathVariable Long groupId,
+//            @PathVariable Long kindergartenId,
+//            @RequestBody GroupDto groupDto
+//    ){
+//        groupService.updateGroup(kindergartenId, groupId, groupDto);
+//    }
 
 
     public void setGroupService(GroupService groupService) {

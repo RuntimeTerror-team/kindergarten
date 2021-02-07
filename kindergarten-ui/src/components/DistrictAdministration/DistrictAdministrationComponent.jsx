@@ -18,6 +18,9 @@ const DistrictAdministrationComponent = ({ districts, addDistrict, titleValidati
                     Pavadinimo ilgis turi būti 5-20 ženklų.
                 </div>
             </form>
+            <div className="row">
+                    {<span className={props.messageStyle} style={{width:"23em"}}>{props.requestMessage}</span>}
+                    </div>
             {districts.length > 0
                 &&
                 <DistrictTableComponent

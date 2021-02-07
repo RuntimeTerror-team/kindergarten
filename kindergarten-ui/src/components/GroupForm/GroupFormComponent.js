@@ -1,5 +1,6 @@
 import React from 'react';
 import Proptypes from 'prop-types';
+import AgeGroupTableComponent from './AgeGroupTableComponent';
 
 
 let GroupFormComponent = (props) => {
@@ -39,12 +40,13 @@ let GroupFormComponent = (props) => {
                     <button className="btn btn-info">Sukurti</button>
                     </div>
                     <div className="row pt-5">
-                    {props.invalidInterval ? <span className="alert alert-danger">Amžius nuo negali būti didesnis už amžių iki</span> : null}
+                    {props.invalidInterval ? <span className="alert alert-danger" style={{width:"23em"}} >Amžius nuo negali būti lygus arba didesnis už amžių iki</span> : null}
                     </div>
                     <div className="row">
                     {<span className={props.messageStyle} style={{width:"23em"}}>{props.requestMessage}</span>}
                     </div>
                 </form>
+                {props.groups.length > 0 ? <AgeGroupTableComponent groups={props.groups} onDelete={props.onDelete}/> : null}
             </div>
         </div>
     )
@@ -53,6 +55,7 @@ let GroupFormComponent = (props) => {
 
 GroupFormComponent.propTypes = {
 
+    groups: Proptypes.array.isRequired,
     fromAge: Proptypes.string.isRequired,
     toAge: Proptypes.string.isRequired,
     fromAgeFieldValidation: Proptypes.string.isRequired,
@@ -62,8 +65,8 @@ GroupFormComponent.propTypes = {
     requestMessage: Proptypes.string.isRequired,
     messageStyle: Proptypes.string.isRequired,
     onToAgeChange: Proptypes.func.isRequired,
-    onSubmit: Proptypes.func.isRequired
-
+    onSubmit: Proptypes.func.isRequired,
+    onDelete: Proptypes.func.isRequired
 }
 
 
