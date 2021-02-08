@@ -34,7 +34,7 @@ public class KindergartenController {
             @RequestBody KindergartenDto kindergartenDto){
 
         if(kindergartenService.getKindergartenByCompanyCode(kindergartenDto.getCompanyCode()) != null ){
-            return new ResponseEntity<>("Kindergarten with same company code already exists", HttpStatus.CONFLICT);
+            return new ResponseEntity<>("Darželis su tokiu įmonės kodu jau išsaugotas", HttpStatus.CONFLICT);
         }
 
         try {
