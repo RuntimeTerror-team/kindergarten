@@ -26,7 +26,6 @@ class AdminUserFormContainer extends Component {
         .get(`${baseUrl}/api/users`)
         .then((res) => {
             this.setState({users: res.data});
-            console.log(res.data.length);
         })
         .catch((err) => console.log(err))
     }
@@ -93,6 +92,13 @@ class AdminUserFormContainer extends Component {
                 .then(res => {
                     this.setState({ isCreated: true });
                     this.setState({ createdUsername: res.data })
+
+                    Axios
+                    .get(`${baseUrl}/api/users`)
+                    .then((res) => {
+                        this.setState({users: res.data});
+                    })
+                    .catch((err) => console.log(err))
                 })
                 .catch(err => console.log(err));
 
