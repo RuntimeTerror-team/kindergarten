@@ -3,15 +3,22 @@ package lt.vtmc.kindergarten.controller;
 import lt.vtmc.kindergarten.dao.DistrictDao;
 import lt.vtmc.kindergarten.dao.KindergartenDao;
 import lt.vtmc.kindergarten.domain.*;
+import lt.vtmc.kindergarten.dto.DistrictDto;
 import lt.vtmc.kindergarten.dto.KindergartenDto;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.test.annotation.DirtiesContext;
+import org.springframework.web.server.ResponseStatusException;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import javax.validation.ConstraintViolationException;
+
+import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest
 @DisplayName("When running Kindergarten controller")
@@ -26,28 +33,27 @@ public class KindergartenControllerTest {
     @Autowired
     private KindergartenDao kindergartenDao;
 
+    private Kindergarten kindergarten;
+
+    private District district;
+
+    @BeforeEach
+    private void init() {
+        District district = KindergartenTestUtil.createDistrict();
+        this.district = district;
+
+        Kindergarten kindergarten = KindergartenTestUtil.createKindergarten();
+        this.kindergarten = kindergarten;
+    }
 
     @Test
     @Order(1)
     @DisplayName("create kindergarten")
     @DirtiesContext(methodMode = DirtiesContext.MethodMode.AFTER_METHOD)
     void testCreatingKindergarten(){
-        District district = new District();
-        district.setTitle("Antakalnis");
         districtDao.save(district);
-
-        KindergartenDto kindergartenDto = new KindergartenDto();
-        kindergartenDto.setTitle("Pušaitė");
-        kindergartenDto.setAddress("Bistryčios g. 3");
-        kindergartenDto.setCity(CityEnum.VILNIUS);
-        kindergartenDto.setPostalCode("10320");
-        kindergartenDto.setPhoneNumber("852343900");
-        kindergartenDto.setEmail("direktore@pusaite.vilnius.lm.lt");
-        kindergartenDto.setWebsite("www.darzelispusaite.lt");
-        kindergartenDto.setCompanyCode("190025890");
-        kindergartenDto.setDistrict(district);
-
-        kindergartenController.addKindergarten(kindergartenDto);
+        kindergarten.setDistrict(district);
+        kindergartenController.addKindergarten(new KindergartenDto(kindergarten));
 
         assertEquals(1, kindergartenController.getKindergartens().size(), "should create kindergarten");
     }
@@ -57,20 +63,8 @@ public class KindergartenControllerTest {
     @DisplayName("get all groups by kindergarten id")
     @DirtiesContext(methodMode = DirtiesContext.MethodMode.AFTER_METHOD)
     void testGetAllGroupsByKindergartenId(){
-        District district = new District();
-        district.setTitle("Antakalnis");
-        districtDao.save(district);
 
-        Kindergarten kindergarten = new Kindergarten();
-        kindergarten.setTitle("Pušaitė");
-        kindergarten.setAddress("Bistryčios g. 3");
-        kindergarten.setCity(CityEnum.VILNIUS);
-        kindergarten.setPostalCode("10320");
-        kindergarten.setPhoneNumber("852343900");
-        kindergarten.setEmail("direktore@pusaite.vilnius.lm.lt");
-        kindergarten.setWebsite("www.darzelispusaite.lt");
-        kindergarten.setCompanyCode("190025890");
-        kindergarten.setDistrict(district);
+        kindergarten.setDistrict(this.district);
 
         Group group = new Group();
         AgeRange ageRange = new AgeRange();
@@ -82,6 +76,7 @@ public class KindergartenControllerTest {
         group.setTitle("Pukelis");
         kindergarten.addGroup(group);
 
+        districtDao.save(district);
         kindergartenDao.save(kindergarten);
 
         assertEquals(1, kindergartenController.getGroups(kindergarten.getId()).size(), "Should get all groups by kindergarten id");
@@ -92,19 +87,7 @@ public class KindergartenControllerTest {
     @DisplayName("get one group by kindergarten id")
     @DirtiesContext(methodMode = DirtiesContext.MethodMode.AFTER_METHOD)
     void testGetSingleGroupByKindergartenId(){
-        District district = new District();
-        district.setTitle("Antakalnis");
         districtDao.save(district);
-
-        Kindergarten kindergarten = new Kindergarten();
-        kindergarten.setTitle("Pušaitė");
-        kindergarten.setAddress("Bistryčios g. 3");
-        kindergarten.setCity(CityEnum.VILNIUS);
-        kindergarten.setPostalCode("10320");
-        kindergarten.setPhoneNumber("852343900");
-        kindergarten.setEmail("direktore@pusaite.vilnius.lm.lt");
-        kindergarten.setWebsite("www.darzelispusaite.lt");
-        kindergarten.setCompanyCode("190025890");
         kindergarten.setDistrict(district);
 
         Group group = new Group();
@@ -138,37 +121,19 @@ public class KindergartenControllerTest {
     @DisplayName("get all kindergartens")
     @DirtiesContext(methodMode = DirtiesContext.MethodMode.AFTER_METHOD)
     void testGetAllKindergartens(){
-        District district = new District();
-        district.setTitle("Antakalnis");
         districtDao.save(district);
 
-        KindergartenDto kindergartenDto = new KindergartenDto();
-        kindergartenDto.setTitle("Pušaitė");
-        kindergartenDto.setAddress("Bistryčios g. 3");
-        kindergartenDto.setCity(CityEnum.VILNIUS);
-        kindergartenDto.setPostalCode("10320");
-        kindergartenDto.setPhoneNumber("+37052343900");
-        kindergartenDto.setEmail("direktore@pusaite.vilnius.lm.lt");
-        kindergartenDto.setWebsite("www.darzelispusaite.lt");
-        kindergartenDto.setCompanyCode("190025890");
+        KindergartenDto kindergartenDto = new KindergartenDto(kindergarten);
         kindergartenDto.setDistrict(district);
         kindergartenController.addKindergarten(kindergartenDto);
 
         District district2 = new District();
-        district2.setTitle("Žirmūnai");
         districtDao.save(district2);
 
-        KindergartenDto kindergartenDto2 = new KindergartenDto();
-        kindergartenDto2.setTitle("Smalsučiai");
-        kindergartenDto2.setAddress(" Minties g. 40");
-        kindergartenDto2.setCity(CityEnum.VILNIUS);
-        kindergartenDto2.setPostalCode("09221");
-        kindergartenDto2.setPhoneNumber("852343900");
-        kindergartenDto2.setEmail("rastine@smalsuciai.vilnius.lm.lt");
-        kindergartenDto2.setWebsite("www.vilniaussmalsuciai.lt");
-        kindergartenDto2.setCompanyCode("190055590");
-        kindergartenDto2.setDistrict(district2);
-        kindergartenController.addKindergarten(kindergartenDto2);
+        KindergartenDto secondKindergarten = new KindergartenDto(KindergartenTestUtil.createKindergarten());
+        secondKindergarten.setCompanyCode("190055590");
+        secondKindergarten.setDistrict(district2);
+        kindergartenController.addKindergarten(secondKindergarten);
 
         assertEquals(2, kindergartenController.getKindergartens().size(), "should get all kindergartens");
     }
@@ -178,33 +143,22 @@ public class KindergartenControllerTest {
     @DisplayName("update kindergarten by id")
     @DirtiesContext(methodMode = DirtiesContext.MethodMode.AFTER_METHOD)
     void testUpdateKindergarten(){
-        District district = new District();
-        district.setTitle("Antakalnis");
         districtDao.save(district);
 
-        KindergartenDto kindergartenDto = new KindergartenDto();
-        kindergartenDto.setTitle("Pušaitė");
-        kindergartenDto.setAddress("Bistryčios g. 3");
-        kindergartenDto.setCity(CityEnum.VILNIUS);
-        kindergartenDto.setPostalCode("10320");
-        kindergartenDto.setPhoneNumber("852343900");
-        kindergartenDto.setEmail("direktore@pusaite.vilnius.lm.lt");
-        kindergartenDto.setCompanyCode("190055590");
-        kindergartenDto.setWebsite("www.darzelispusaite.lt");
+        KindergartenDto kindergartenDto = new KindergartenDto(KindergartenTestUtil.createKindergarten());
         kindergartenDto.setDistrict(district);
 
         kindergartenController.addKindergarten(kindergartenDto);
 
-        KindergartenDto kindergartenDto2 = new KindergartenDto();
+        KindergartenDto kindergartenDto2 = new KindergartenDto(KindergartenTestUtil.createKindergarten());
+
         kindergartenDto2.setTitle("Pušaitė Update");
         kindergartenDto2.setAddress("Bistryčios g. 333");
-        kindergartenDto2.setCity(CityEnum.VILNIUS);
         kindergartenDto2.setPostalCode("10321");
-        kindergartenDto2.setPhoneNumber("852343900");
-        kindergartenDto2.setEmail("direktore@pusaite.vilnius.lm.lt");
-        kindergartenDto2.setCompanyCode("190055590");
-        kindergartenDto2.setWebsite("www.darzelispusaite.lt");
-        kindergartenDto2.setDistrict(district);
+        District district2 = KindergartenTestUtil.createDistrict();
+        district2.setTitle("Pasilaiciai");
+        districtDao.save(district2);
+        kindergartenDto2.setDistrict(district2);
 
         kindergartenController.updateKindergarten(2L, kindergartenDto2);
 
@@ -213,5 +167,25 @@ public class KindergartenControllerTest {
         assertEquals("10321", kindergartenController.getKindergarten(2L).getPostalCode(), "should update the postal code correctly");
     }
 
+    @Test
+    @Order(6)
+    @DisplayName("disallow duplicate kindergarten company codes")
+    @DirtiesContext(methodMode = DirtiesContext.MethodMode.AFTER_METHOD)
+    void testCreateKindergartenWithDuplicateCompanyCode(){
+        districtDao.save(district);
+        KindergartenDto kindergartenDto = new KindergartenDto(KindergartenTestUtil.createKindergarten());
+        kindergartenDto.setDistrict(district);
+        kindergartenController.addKindergarten(kindergartenDto);
+
+        KindergartenDto secondKindergarten = new KindergartenDto(KindergartenTestUtil.createKindergarten());
+        secondKindergarten.setCompanyCode(kindergarten.getCompanyCode());
+        District district2 = KindergartenTestUtil.createDistrict();
+        district2.setTitle("Karoliniskes");
+        districtDao.save(district2);
+
+        ResponseEntity response =  kindergartenController.addKindergarten(secondKindergarten);
+
+        assertEquals( HttpStatus.CONFLICT, response.getStatusCode());
+    }
 
 }

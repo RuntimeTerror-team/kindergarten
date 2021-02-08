@@ -32,6 +32,11 @@ public class KindergartenController {
     public ResponseEntity addKindergarten(
             @ApiParam(value = "Kindergarten Data", required = true)
             @RequestBody KindergartenDto kindergartenDto){
+
+        if(kindergartenService.getKindergartenByCompanyCode(kindergartenDto.getCompanyCode()) != null ){
+            return new ResponseEntity<>("Kindergarten with same company code already exists", HttpStatus.CONFLICT);
+        }
+
         try {
             kindergartenService.addKindergarten(kindergartenDto);
             return new ResponseEntity<>(HttpStatus.OK);
