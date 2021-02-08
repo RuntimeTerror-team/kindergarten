@@ -2,7 +2,6 @@ package lt.vtmc.kindergarten.controller;
 
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
-import lt.vtmc.kindergarten.dto.AgeRangeDto;
 import lt.vtmc.kindergarten.dto.DistrictDto;
 import lt.vtmc.kindergarten.dto.MessageResponse;
 import lt.vtmc.kindergarten.service.DistrictService;

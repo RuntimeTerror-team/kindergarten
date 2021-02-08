@@ -2,6 +2,7 @@ package lt.vtmc.kindergarten.controller;
 
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
+import lt.vtmc.kindergarten.dto.GroupCreationDto;
 import lt.vtmc.kindergarten.dto.GroupDto;
 import lt.vtmc.kindergarten.dto.KindergartenDto;
 import lt.vtmc.kindergarten.dto.KindergartenInfoDto;
@@ -31,6 +32,11 @@ public class KindergartenController {
     public ResponseEntity addKindergarten(
             @ApiParam(value = "Kindergarten Data", required = true)
             @RequestBody KindergartenDto kindergartenDto){
+
+        if(kindergartenService.getKindergartenByCompanyCode(kindergartenDto.getCompanyCode()) != null ){
+            return new ResponseEntity<>("Darželis su tokiu įmonės kodu jau išsaugotas", HttpStatus.CONFLICT);
+        }
+
         try {
             kindergartenService.addKindergarten(kindergartenDto);
             return new ResponseEntity<>(HttpStatus.OK);
@@ -99,8 +105,8 @@ public class KindergartenController {
             @ApiParam(value = "", required = true)
             @PathVariable Long kindergartenId,
             @PathVariable Long ageRangeId,
-            @RequestBody GroupDto groupDto){
-        groupService.addGroup(ageRangeId, kindergartenId, groupDto);
+            @RequestBody GroupCreationDto groupCreationDto){
+        groupService.addGroup(ageRangeId, kindergartenId, groupCreationDto);
     }
 
 //    @ApiOperation(value = "Update group", notes = "Updates group by id")

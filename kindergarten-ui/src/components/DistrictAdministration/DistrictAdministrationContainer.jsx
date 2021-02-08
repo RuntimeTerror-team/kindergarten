@@ -144,8 +144,8 @@ class DistrictAdministrationContainer extends Component {
                     .catch((err) => console.log(err));
             }
         } else {
-            // this.setState({ updatingMessage: "Toks rajonas jau yra įrašytas" })
-            // this.setState({ updatingMessageStyle: "alert alert-danger mt-4" })
+            this.setState({ updatingMessage: "Toks rajonas jau yra įrašytas" })
+            this.setState({ updatingMessageStyle: "alert alert-danger mt-4" })
         }
     }
 

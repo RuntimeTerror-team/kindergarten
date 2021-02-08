@@ -2,7 +2,6 @@ package lt.vtmc.kindergarten.dto;
 
 import lt.vtmc.kindergarten.domain.Application;
 import lt.vtmc.kindergarten.domain.Child;
-import lt.vtmc.kindergarten.domain.User;
 import lt.vtmc.kindergarten.domain.UserApplication;
 
 import javax.validation.constraints.NotNull;
