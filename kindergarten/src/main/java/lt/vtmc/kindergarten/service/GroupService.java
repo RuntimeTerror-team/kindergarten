@@ -52,7 +52,7 @@ public class GroupService {
         Group group = new Group();
 
         group.setTitle(groupDto.getTitle());
-        group.setChildrenCount(group.getChildrenCount());
+        group.setChildrenCount(groupDto.getChildrenCount());
         group.setKindergartenId(kindergarten);
         group.setAgeRange(ageRange);
 
