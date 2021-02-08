@@ -2,6 +2,7 @@ package lt.vtmc.kindergarten.controller;
 
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
+import lt.vtmc.kindergarten.dto.GroupCreationDto;
 import lt.vtmc.kindergarten.dto.GroupDto;
 import lt.vtmc.kindergarten.dto.KindergartenDto;
 import lt.vtmc.kindergarten.dto.KindergartenInfoDto;
@@ -104,8 +105,8 @@ public class KindergartenController {
             @ApiParam(value = "", required = true)
             @PathVariable Long kindergartenId,
             @PathVariable Long ageRangeId,
-            @RequestBody GroupDto groupDto){
-        groupService.addGroup(ageRangeId, kindergartenId, groupDto);
+            @RequestBody GroupCreationDto groupCreationDto){
+        groupService.addGroup(ageRangeId, kindergartenId, groupCreationDto);
     }
 
 //    @ApiOperation(value = "Update group", notes = "Updates group by id")
