@@ -1,6 +1,7 @@
 package lt.vtmc.kindergarten.domain;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
@@ -13,17 +14,23 @@ public class Application {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    @OneToMany(mappedBy = "user")
-    private Set<UserApplication> userApplications = new HashSet<UserApplication>();
-
     @Temporal(TemporalType.DATE)
     private Date date;
 
     @OneToMany(mappedBy = "application")
     private Set<KindergartenApplicationForm> kindergartenApplicationForms = new HashSet<>();
 
-    @OneToOne(mappedBy = "application")
+    @NotNull
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "child_id")
     private Child child;
+
+    @NotNull
+    @ManyToOne
+    private User applicant;
+
+    @OneToOne(cascade = CascadeType.ALL)
+    private Person secondParentInfo;
 
     @Column
     private int score;
@@ -71,15 +78,6 @@ public class Application {
         this.id = id;
     }
 
-    public Set<UserApplication> getUserApplications() {
-        return userApplications;
-    }
-
-    public void addUser(UserApplication user) {
-        user.setApplication(this);
-        this.userApplications.add(user);
-    }
-
     public Date getDate() {
         return date;
     }
@@ -120,14 +118,6 @@ public class Application {
         isGuardianDisabled = guardianDisabled;
     }
 
-    public Set<KindergartenApplicationForm> getKindergartenApplications() {
-        return kindergartenApplicationForms;
-    }
-
-    public void setKindergartenApplications(Set<KindergartenApplicationForm> kindergartenApplicationForms) {
-        this.kindergartenApplicationForms = kindergartenApplicationForms;
-    }
-
     public Child getChild() {
         return child;
     }
@@ -135,4 +125,30 @@ public class Application {
     public void setChild(Child child) {
         this.child = child;
     }
+
+
+    public Set<KindergartenApplicationForm> getKindergartenApplicationForms() {
+        return kindergartenApplicationForms;
+    }
+
+    public void setKindergartenApplicationForms(Set<KindergartenApplicationForm> kindergartenApplicationForms) {
+        this.kindergartenApplicationForms = kindergartenApplicationForms;
+    }
+
+    public User getApplicant() {
+        return applicant;
+    }
+
+    public void setApplicant(User applicant) {
+        this.applicant = applicant;
+    }
+
+    public Person getSecondParentInfo() {
+        return secondParentInfo;
+    }
+
+    public void setSecondParentInfo(Person secondParentInfo) {
+        this.secondParentInfo = secondParentInfo;
+    }
+
 }

@@ -28,9 +28,7 @@ public class Child {
     @Column
     private CityEnum city;
 
-    @OneToOne
-    @Cascade(org.hibernate.annotations.CascadeType.ALL)
-    @JoinColumn(name = "application_id", referencedColumnName = "id")
+    @OneToOne(mappedBy = "child")
     private Application application;
 
     public Child() {

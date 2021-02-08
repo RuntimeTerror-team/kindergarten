@@ -13,7 +13,8 @@ public class UserDto {
     private String firstName;
     @NotNull
     private String lastName;
-    private Long personalCode;
+    @NotNull
+    private String personalCode;
     @NotNull
     private String password;
     @NotNull
@@ -22,7 +23,7 @@ public class UserDto {
     public UserDto() {
     }
 
-    public UserDto(@NotNull @Length(min = 8, max=30) String username, String firstName, String lastName, Long personalCode, String password, String role) {
+    public UserDto(@NotNull @Length(min = 8, max=30) String username, String firstName, String lastName, String personalCode, String password, String role) {
         this.username = username;
         this.firstName = firstName;
         this.lastName = lastName;
@@ -55,11 +56,11 @@ public class UserDto {
         this.lastName = lastName;
     }
 
-    public Long getPersonalCode() {
+    public String getPersonalCode() {
         return personalCode;
     }
 
-    public void setPersonalCode(Long personalCode) {
+    public void setPersonalCode(String personalCode) {
         this.personalCode = personalCode;
     }
 

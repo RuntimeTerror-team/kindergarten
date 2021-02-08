@@ -73,27 +73,15 @@ public class ApplicationControllerTest {
         applicationCreationDto.setMultiChild(false);
         applicationCreationDto.setScore(0);
         applicationCreationDto.setChildId(child.getId());
-
+        applicationCreationDto.setUsername("12345678910");
 
         User user = new User();
         user.setUsername("hhhwwwttt");
-        user.setPersonalCode(123456789L);
+        user.setPersonalCode("12345678910");
         user.setRole(new Role(RoleType.GUARDIAN));
         user.setFirstName("Petras");
         user.setLastName("Poskauskas");
         user.setPassword("kompiuteriailabaismagu");
-
-
-
-        UserApplication userApplication = new UserApplication();
-        userApplication.setUser(user);
-
-        Set<UserApplication> userApplications = new HashSet<>();
-        userApplications.add(userApplication);
-
-        user.setUserApplications(userApplications);
-//        userApplication.setApplication(applicaiton?);
-        user.addUserApplication(userApplication);
 
         Map<Integer,Long> priorityKindergarten = new HashMap<>();
         priorityKindergarten.put(1,kindergarten.getId());
@@ -107,6 +95,7 @@ public class ApplicationControllerTest {
         applicationController.addApplication(applicationCreationDto);
 
         applicationController.getApplications("hhhwwwttt");
+
 
 
     }

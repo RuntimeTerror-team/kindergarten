@@ -10,6 +10,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.validation.annotation.Validated;
 
 import javax.validation.Valid;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -32,18 +33,14 @@ public class ApplicationService {
     private KindergartenDao kindergartenDao;
 
     @Autowired
-    private UserApplicationDao userApplicationDao;
+    private PersonDao personDao;
 
     @Transactional
     public void addApplication(@Valid ApplicationCreationDto applicationCreationDto){
         Child child = childDao.getOne(applicationCreationDto.getChildId());
-        UserApplication userApplication = new UserApplication();
         User user = userDao.getOne(applicationCreationDto.getUsername());
-        userApplication.setUser(user);
-
 
         Application application = new Application();
-
         application.setDate(applicationCreationDto.getDate());
         application.setAdopted(applicationCreationDto.isAdopted());
         application.setMultiChild(applicationCreationDto.isMultiChild());
@@ -52,24 +49,17 @@ public class ApplicationService {
         application.setChild(child);
         application.setScore(applicationCreationDto.getScore());
         application.setApplicationStatus(ApplicationStatusEnum.SUBMITTED);
-
-        userApplication.setApplication(application);
-        user.addUserApplication(userApplication);
-        application.addUser(userApplication);
-        application.setKindergartenApplications(parseKindergartenApplications(applicationCreationDto,application));
+        application.setApplicant(user);
+        application.setKindergartenApplicationForms(parseKindergartenApplications(applicationCreationDto,application));
+        user.addUserApplication(application);
 
         applicationDao.save(application);
     }
 
     @Transactional(readOnly = true)
     public Set<ApplicationDto> getApplications(String username){
-        List<UserApplication> userApplications = userApplicationDao.findAll();
-        return userApplications.stream()
-                .filter(item -> item.getUser().getUsername() == username)
-                .collect(Collectors.toSet())
-                .stream()
-                .map(userApplication -> new ApplicationDto(userApplication.getApplication(), userApplication.getUser().getUsername()))
-                .collect(Collectors.toSet());
+        User user = userDao.findById(username).get();
+        return user.getUserApplications().stream().map(application -> new ApplicationDto(application)).collect(Collectors.toSet());
     }
 
 
@@ -90,5 +80,19 @@ public class ApplicationService {
 
         return kindergartenApplications;
 
+    }
+
+    public void updateApplication(String username, Long id, ApplicationCreationDto applicationCreationDto) {
+        Application application = applicationDao.getOne(id);
+        application.setDate(applicationCreationDto.getDate());
+        application.setAdopted(applicationCreationDto.isAdopted());
+        application.setMultiChild(applicationCreationDto.isMultiChild());
+        application.setGuardianStudent(applicationCreationDto.isGuardianDisabled());
+        application.setGuardianDisabled(applicationCreationDto.isGuardianDisabled());
+        application.setScore(applicationCreationDto.getScore());
+        application.setApplicationStatus(ApplicationStatusEnum.SUBMITTED);
+        application.setKindergartenApplicationForms(parseKindergartenApplications(applicationCreationDto,application));
+
+        applicationDao.save(application);
     }
 }
