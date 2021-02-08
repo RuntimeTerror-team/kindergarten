@@ -1,11 +1,10 @@
 package lt.vtmc.kindergarten.dto;
 
 import lt.vtmc.kindergarten.domain.AgeRange;
-import lt.vtmc.kindergarten.domain.Group;
 
 import javax.validation.constraints.NotNull;
 
-public class GroupDto {
+public class GroupCreationDto{
 
     @NotNull
     private Long id;
@@ -14,24 +13,23 @@ public class GroupDto {
 
     private String title;
 
-    private AgeRange ageRange;
+    private Long ageRangeId;
 
-    public GroupDto() {
+
+
+    public GroupCreationDto(@NotNull Long id, int childrenCount, String title, Long ageRangeId) {
+        this.id = id;
+        this.childrenCount = childrenCount;
+        this.title = title;
+        this.ageRangeId = ageRangeId;
     }
 
-    public GroupDto(Group group) {
-        this.id = group.getId();
-        this.childrenCount = group.getChildrenCount();
-        this.title = group.getTitle();
-        this.ageRange = group.getAgeRange();
+    public Long getAgeRangeId() {
+        return ageRangeId;
     }
 
-    public AgeRange getAgeRange() {
-        return ageRange;
-    }
-
-    public void setAgeRange(AgeRange ageRange) {
-        this.ageRange = ageRange;
+    public void setAgeRangeId(Long ageRangeId) {
+        this.ageRangeId = ageRangeId;
     }
 
     public Long getId() {
@@ -41,7 +39,6 @@ public class GroupDto {
     public void setId(Long id) {
         this.id = id;
     }
-
 
     public int getChildrenCount() {
         return childrenCount;

@@ -6,4 +6,5 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface KindergartenDao extends JpaRepository<Kindergarten, Long> {
+    Kindergarten findByCompanyCode(String companyCode);
 }
