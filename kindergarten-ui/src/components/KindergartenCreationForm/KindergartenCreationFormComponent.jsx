@@ -5,7 +5,7 @@ const KindergartenCreationFormComponent = ({ address, email, phoneNo, postalCode
         <div className="col-12">
             <form onSubmit={handleSubmit}>
                 <div className="form-group row">
-                    <label htmlFor="title" className="col-3 pt-2 text-right">Pavadinimas</label>
+                    <label htmlFor="title" className="col-3 pt-2 text-right">Pavadinimas <span className="mandatory">*</span></label>
                     <input type="text" className={`form-control col-9 ${titleValidation}`} id="title" placeholder="Pvz.: Lopšelis-darželis Voverytė" value={title} name="title" onChange={handleChange} />
                     <div className="col-3"></div>
                     <div className="invalid-feedback col-9">
@@ -13,7 +13,7 @@ const KindergartenCreationFormComponent = ({ address, email, phoneNo, postalCode
                     </div>
                 </div>
                 <div className="form-group row">
-                    <label htmlFor="companyCode" className="col-3 pt-2 text-right">Įmonės kodas</label>
+                    <label htmlFor="companyCode" className="col-3 pt-2 text-right">Įmonės kodas <span className="mandatory">*</span></label>
                     <input type="number" className={`form-control col-9 ${companyCodeValidation}`} id="companyCode" placeholder="Pvz.: 123456789" value={companyCode} name="companyCode" onChange={handleChange} />
                     <div className="col-3"></div>
                     <div className="invalid-feedback col-9">
@@ -21,7 +21,7 @@ const KindergartenCreationFormComponent = ({ address, email, phoneNo, postalCode
                     </div>
                 </div>
                 <div className="form-group row">
-                    <label htmlFor="address" className="col-3 pt-2 text-right">Adresas</label>
+                    <label htmlFor="address" className="col-3 pt-2 text-right">Adresas <span className="mandatory">*</span></label>
                     <input type="text" className={`form-control col-9 ${addressValidation}`} id="address" placeholder="Pvz.: Kalvarijų g. 128" value={address} name="address" onChange={handleChange} />
                     <div className="col-3"></div>
                     <div className="invalid-feedback col-9">
@@ -29,7 +29,7 @@ const KindergartenCreationFormComponent = ({ address, email, phoneNo, postalCode
                     </div>
                 </div>
                 <div className="form-group row">
-                    <label htmlFor="district" className="col-3 pt-2 text-right">Rajonas</label>
+                    <label htmlFor="district" className="col-3 pt-2 text-right">Rajonas <span className="mandatory">*</span></label>
                     <select id="district" className={`form-control col-9 ${districtValidation}`} name="district" onChange={handleChange} >
                         <option defaultValue>Pasirinkti...</option>
                         {districts.map(({ title, id }) => {
@@ -48,7 +48,7 @@ const KindergartenCreationFormComponent = ({ address, email, phoneNo, postalCode
                     <input type="text" className="form-control col-9" id="city" value="Vilnius" name="city" readOnly />
                 </div>
                 <div className="form-group row">
-                    <label htmlFor="postalCode" className="col-3 pt-2 text-right">Pašto kodas</label>
+                    <label htmlFor="postalCode" className="col-3 pt-2 text-right">Pašto kodas <span className="mandatory">*</span></label>
                     <input type="text" className="form-control col-1" placeholder="LT-" readOnly />
                     <input type="number" className={`form-control col-8 ${postalCodeValidation}`} id="postalCode" placeholder="00000" value={postalCode} name="postalCode" onChange={handleChange} />
                     <div className="col-3"></div>
@@ -57,7 +57,7 @@ const KindergartenCreationFormComponent = ({ address, email, phoneNo, postalCode
                     </div>
                 </div>
                 <div className="form-group row">
-                    <label htmlFor="phoneNo" className="col-3 pt-3 text-right">Tel. numeris</label>
+                    <label htmlFor="phoneNo" className="col-3 pt-3 text-right">Tel. numeris <span className="mandatory">*</span></label>
                     <input type="text" className="form-control col-1 p-1" placeholder="+370" readOnly />
                     <input type="text" className={`form-control col-8 ${phoneNoValidation}`} id="phoneNo" placeholder="60000000" value={phoneNo} name="phoneNo" onChange={handleChange} />
                     <div className="col-3"></div>
@@ -84,7 +84,9 @@ const KindergartenCreationFormComponent = ({ address, email, phoneNo, postalCode
                 <button type="submit" className="btn btn-info float-right">Išsaugoti</button>
             </form>
             <button className="btn btn-warning float-right mx-2" onClick={stopCreatingKindergarten}>Atšaukti</button>
-            {<span className={`${failMessageStyle} alertTop`} style={{ width: "23em" }}>{failMessage}</span>}
+            <div className="col-3"></div>
+            <div className="col-9"><span  className="mandatory">*</span> pažymėti laukai privalomi.</div>
+            {<span className={`${failMessageStyle} alertTop`} style={{ width: "30em" }}>{failMessage}</span>}
         </div>
     )
 }
