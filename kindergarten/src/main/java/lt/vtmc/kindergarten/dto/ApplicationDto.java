@@ -1,9 +1,14 @@
 package lt.vtmc.kindergarten.dto;
 
+import lt.vtmc.kindergarten.domain.Application;
+import lt.vtmc.kindergarten.domain.ApplicationStatusEnum;
+import lt.vtmc.kindergarten.domain.KindergartenApplicationForm;
+
 import java.util.Date;
 import java.util.Map;
+import java.util.Set;
 
-public class ApplicationCreationDto {
+public class ApplicationDto {
 
    private String username;
 
@@ -11,7 +16,7 @@ public class ApplicationCreationDto {
 
    private Date date;
 
-   private Map<Integer,Long> priorityForKindergartenID;
+   private Set<KindergartenApplicationForm> kindergartenApplications;
 
    private int score;
 
@@ -23,7 +28,22 @@ public class ApplicationCreationDto {
 
    private boolean isGuardianDisabled;
 
-   public ApplicationCreationDto() {
+   private ApplicationStatusEnum applicationStatusEnum;
+
+   public ApplicationDto() {
+   }
+
+   public ApplicationDto(Application  application, String username) {
+      this.username= username;
+      this.childId = application.getChild().getId();
+      this.date=application.getDate();
+      this.kindergartenApplications=application.getKindergartenApplications();
+      this.score=application.getScore();
+      this.isAdopted=application.isAdopted();
+      this.isMultiChild=application.isMultiChild();
+      this.isGuardianStudent=application.isGuardianStudent();
+      this.isGuardianStudent=application.isGuardianDisabled();
+      this.applicationStatusEnum=application.getApplicationStatus();
    }
 
    public String getUsername() {
@@ -50,12 +70,12 @@ public class ApplicationCreationDto {
       this.date = date;
    }
 
-   public Map<Integer, Long> getPriorityForKindergartenID() {
-      return priorityForKindergartenID;
+   public Set<KindergartenApplicationForm> getKindergartenApplications() {
+      return kindergartenApplications;
    }
 
-   public void setPriorityForKindergartenID(Map<Integer, Long> priorityForKindergartenID) {
-      this.priorityForKindergartenID = priorityForKindergartenID;
+   public void setKindergartenApplications(Set<KindergartenApplicationForm> kindergartenApplications) {
+      this.kindergartenApplications = kindergartenApplications;
    }
 
    public int getScore() {
@@ -96,5 +116,13 @@ public class ApplicationCreationDto {
 
    public void setGuardianDisabled(boolean guardianDisabled) {
       isGuardianDisabled = guardianDisabled;
+   }
+
+   public ApplicationStatusEnum getApplicationStatusEnum() {
+      return applicationStatusEnum;
+   }
+
+   public void setApplicationStatusEnum(ApplicationStatusEnum applicationStatusEnum) {
+      this.applicationStatusEnum = applicationStatusEnum;
    }
 }

@@ -14,7 +14,7 @@ public class Application {
     private Long id;
 
     @OneToMany(mappedBy = "user")
-    private Set<UserApplication> users = new HashSet<UserApplication>();
+    private Set<UserApplication> userApplications = new HashSet<UserApplication>();
 
     @Temporal(TemporalType.DATE)
     private Date date;
@@ -40,7 +40,19 @@ public class Application {
     @Column
     private boolean isGuardianDisabled;
 
+    @Column
+    @Enumerated(EnumType.STRING)
+    private ApplicationStatusEnum applicationStatus;
+
     public Application() {
+    }
+
+    public ApplicationStatusEnum getApplicationStatus() {
+        return applicationStatus;
+    }
+
+    public void setApplicationStatus(ApplicationStatusEnum applicationStatus) {
+        this.applicationStatus = applicationStatus;
     }
 
     public int getScore() {
@@ -59,13 +71,13 @@ public class Application {
         this.id = id;
     }
 
-    public Set<UserApplication> getUsers() {
-        return users;
+    public Set<UserApplication> getUserApplications() {
+        return userApplications;
     }
 
     public void addUser(UserApplication user) {
         user.setApplication(this);
-        this.users.add(user);
+        this.userApplications.add(user);
     }
 
     public Date getDate() {

@@ -1,9 +1,6 @@
 package lt.vtmc.kindergarten.controller;
 
-import lt.vtmc.kindergarten.dao.ChildDao;
-import lt.vtmc.kindergarten.dao.DistrictDao;
-import lt.vtmc.kindergarten.dao.KindergartenDao;
-import lt.vtmc.kindergarten.dao.UserDao;
+import lt.vtmc.kindergarten.dao.*;
 import lt.vtmc.kindergarten.domain.*;
 import lt.vtmc.kindergarten.dto.ApplicationCreationDto;
 import org.junit.jupiter.api.DisplayName;
@@ -36,6 +33,9 @@ public class ApplicationControllerTest {
 
     @Autowired
     private ChildController childController;
+
+    @Autowired
+    private ApplicationDao applicationDao;
 
     @Test
     @DisplayName("create an application")
@@ -84,24 +84,29 @@ public class ApplicationControllerTest {
         user.setPassword("kompiuteriailabaismagu");
 
 
+
         UserApplication userApplication = new UserApplication();
         userApplication.setUser(user);
 
         Set<UserApplication> userApplications = new HashSet<>();
         userApplications.add(userApplication);
 
-        user.setUserApplication(userApplications);
+        user.setUserApplications(userApplications);
+//        userApplication.setApplication(applicaiton?);
+        user.addUserApplication(userApplication);
 
         Map<Integer,Long> priorityKindergarten = new HashMap<>();
         priorityKindergarten.put(1,kindergarten.getId());
 
 
-        applicationCreationDto.setPriorityKindergarten(priorityKindergarten);
+        applicationCreationDto.setPriorityForKindergartenID(priorityKindergarten);
         applicationCreationDto.setUsername(user.getUsername());
 
-
+        userDao.save(user);
 
         applicationController.addApplication(applicationCreationDto);
+
+        applicationController.getApplications("hhhwwwttt");
 
 
     }

@@ -21,6 +21,7 @@ public class User {
     private String firstName;
     @NotNull
     private String lastName;
+//    @NotNull
     private Long personalCode;
     @NotNull
     private String password;
@@ -30,7 +31,7 @@ public class User {
     private Role role;
 
     @OneToMany(mappedBy = "id")
-    private Set<UserApplication> userApplication = new HashSet<>();
+    private Set<UserApplication> userApplications = new HashSet<>();
 
     public User() {
     }
@@ -99,11 +100,16 @@ public class User {
         this.role = role;
     }
 
-    public Set<UserApplication> getUserApplication() {
-        return userApplication;
+    public Set<UserApplication> getUserApplications() {
+        return userApplications;
     }
 
-    public void setUserApplication(Set<UserApplication> userApplication) {
-        this.userApplication = userApplication;
+    public void setUserApplications(Set<UserApplication> userApplication) {
+        this.userApplications = userApplication;
+    }
+
+    public void addUserApplication(UserApplication userApplication){
+        userApplication.setUser(this);
+        this.userApplications.add(userApplication);
     }
 }
