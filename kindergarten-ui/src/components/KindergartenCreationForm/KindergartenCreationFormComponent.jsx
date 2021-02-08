@@ -181,9 +181,9 @@ const KindergartenCreationFormComponent = ({
         <span className="mandatory">*</span> pažymėti laukai privalomi.
       </div>
       {
-        <span className={`${failMessageStyle} alertTop`} style={{ width: "30em" }}>
+        <div className={`${failMessageStyle} alertTop`} style={{ width: "30em" }}>
           {failMessage}
-        </span>
+        </div>
       }
     </div>
   );

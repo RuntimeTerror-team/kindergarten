@@ -7,7 +7,7 @@ import Footer from "../PageBottom/Footer";
 
 const AdminPageComponent = ({ handleLogout, handleUserChoice, choice }) => {
   return (
-    <div>
+    <div className="page-container">
       <PageTopComponent handleLogout={handleLogout} usersName={"Administratoriaus paskyra"} />
       <div className="container p-4">
         <div className="row">
