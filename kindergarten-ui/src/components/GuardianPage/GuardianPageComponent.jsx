@@ -2,6 +2,7 @@ import React from "react";
 import PageTopComponent from "../PageTop/PageTopComponent";
 import GreetingComponent from "../Greeting/GreetingComponent";
 import Footer from "../PageBottom/Footer";
+import ApplicationContainer from '../ApplicationForm/ApplicationContainer'
 
 const GuardianPageComponent = ({
   handleLogout,
@@ -17,7 +18,7 @@ const GuardianPageComponent = ({
         <div className="row">
           <div className="admin-actions col-4">
             <button className="btn btn-main mb-2 w-100" onClick={handleUserChoice} name="1">
-              Kažkas
+              Vaiko registracija
             </button>
             <button className="btn btn-main mb-2 w-100" onClick={handleUserChoice} name="2">
               Kažkas dar
@@ -28,7 +29,7 @@ const GuardianPageComponent = ({
           </div>
           <div className="admin-action-placeholder col-8">
             {choice === "greeting" && <GreetingComponent />}
-            {choice === "1" && <h1>Kažkas</h1>}
+            {choice === "1" && <ApplicationContainer/>}
             {choice === "2" && <h1>Kažkas dar</h1>}
             {choice === "3" && <h1>Ir dar kažkas</h1>}
           </div>
