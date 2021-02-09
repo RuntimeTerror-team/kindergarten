@@ -11,21 +11,33 @@ class GuardianPageContainer extends Component {
         super();
         this.state = {
             choice: "greeting",
+            currentUser: "",
             currentUserFirstname: "",
             currentUserLastname: ""
         }
     }
 
     componentDidMount = () => {
-        let currentUser = this.context.userService.getCurrentUser();
+        let usernameFromBack = "";
 
         Axios
+        .get(`${baseUrl}/loggedUsername`)
+        .then((res) => {
+            usernameFromBack = res.data;
+            this.context.userService.setCurrentUser(usernameFromBack);
+            this.context.userService.updateCurrentUser();
+        })
+        .then(()=> {
+            let currentUser = this.context.userService.getCurrentUser();
+            Axios
             .get(`${baseUrl}/api/users/${currentUser}`)
             .then(res => {
                 this.setState({ currentUserFirstname: res.data.firstName });
                 this.setState({ currentUserLastname: res.data.lastName });
             })
             .catch(err => console.log(err));
+        })
+        .catch(err => console.log(err));
     }
 
     handleUserChoice = (e) => {

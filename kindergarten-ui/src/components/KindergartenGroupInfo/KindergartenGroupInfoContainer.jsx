@@ -38,10 +38,6 @@ class KindergartenGroupInfoContainer extends Component {
             .catch((err) => console.log(err));
     }
 
-    componentDidUpdate = () => {
-        console.log("Valid: " + this.state.childrenCountValidation);
-    }
-
     handleFormChange = (e) => {
         const { name, value } = e.target;
         this.setState({ [name]: value });
@@ -114,7 +110,6 @@ class KindergartenGroupInfoContainer extends Component {
     }
 
     toggleWantsCreate = () => {
-        console.log("cia");
         this.setState({ wantsCreate: !this.state.wantsCreate })
     }
 

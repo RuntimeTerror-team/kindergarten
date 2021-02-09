@@ -17,7 +17,6 @@ class KindergartenAdministrationContainer extends Component {
     }
 
     componentDidMount = () => {
-        console.log("KindergartenAdministrationContainer - main")
         Axios
             .get(`${baseUrl}/api/kindergartens`)
             .then((res) => {
@@ -57,7 +56,6 @@ class KindergartenAdministrationContainer extends Component {
     handleWantsGroups = (e) => {
         this.setState({kindergartenInfoId: e.target.id});
         this.setState({wantsGroups: true})
-        console.log(e.target.id)
     }
 
     resetWantsGroups = () => {

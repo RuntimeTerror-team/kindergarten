@@ -56,8 +56,6 @@ class LoginContainer extends Component {
         this.doValidation(usernameFromUser, passwordFromUser);
 
         if (usernameFromUser.trim().length !== 0 && passwordFromUser.trim().length !== 0) {
-
-
             let userData = new URLSearchParams();
             userData.append('username', this.state.username);
             userData.append('password', this.state.password);
@@ -75,16 +73,17 @@ class LoginContainer extends Component {
                         this.context.userService.updateUserRole();
                         this.resetState();
                     })
-                    .then(() => {
-                        if (this.context.userService.getUserRole() === "ROLE_ADMIN") {
-                            this.props.history.push("/admin");
-                        } else if (this.context.userService.getUserRole() === "ROLE_EDUCATION_SPECIALIST") {
-                            this.props.history.push("/education-specialist");
-                        } else if (this.context.userService.getUserRole() === "ROLE_GUARDIAN") {
-                            this.props.history.push("/guardian");
-                        }
-                    })
                     .catch(err => console.log(err));
+                })
+                .then(() => {
+                    if (this.context.userService.getUserRole() === "ROLE_ADMIN") {
+                        this.props.history.push("/admin");
+                    } else if (this.context.userService.getUserRole() === "ROLE_EDUCATION_SPECIALIST") {
+                        this.props.history.push("/education-specialist");
+                    } else if (this.context.userService.getUserRole() === "ROLE_GUARDIAN") {
+                        //we could push directly to particular guardians page with id in url
+                        this.props.history.push("/guardian");
+                    }
                 })
                 .catch((e) => { 
                     this.setState({ areCredentialsIncorrect: true });
