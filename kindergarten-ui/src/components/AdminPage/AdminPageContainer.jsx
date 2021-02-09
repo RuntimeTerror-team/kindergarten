@@ -31,7 +31,7 @@ class AdminPageContainer extends Component {
         this.context.userService.updateCurrentUser();
         this.context.userService.updateUserRole();
 
-        // this.props.history.push("/");
+        this.props.history.push("/");
     }
 
     render() {

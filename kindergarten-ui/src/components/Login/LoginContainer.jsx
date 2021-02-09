@@ -16,8 +16,18 @@ class LoginContainer extends Component {
             password: "",
             usernameValidation: "",
             passwordValidation: "",
-            areCredentialsIncorrect: false
+            areCredentialsIncorrect: false,
+            userRole: ""
         }
+    }
+
+    componentDidMount = () => {
+        Axios
+        .get(`${baseUrl}/loggedRole`)
+        .then((res) => {
+            console.log(res.data);
+        })
+        .catch(err => console.log("role: " + err))
     }
 
     handleChange = (e) => {
