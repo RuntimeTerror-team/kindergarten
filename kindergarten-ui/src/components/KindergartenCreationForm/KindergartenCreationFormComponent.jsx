@@ -142,7 +142,7 @@ const KindergartenCreationFormComponent = ({
             El. paštas
           </label>
           <input
-            type="email"
+            type="text"
             className={`form-control col-9 ${emailValidation}`}
             id="email"
             placeholder="pavyzdys@pvz.lt"
@@ -158,7 +158,7 @@ const KindergartenCreationFormComponent = ({
             Interneto svetainė
           </label>
           <input
-            type="url"
+            type="text"
             className={`form-control col-9 ${websiteValidation}`}
             id="website"
             placeholder="www.pavyzdys.lt"
