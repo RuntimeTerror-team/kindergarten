@@ -57,7 +57,7 @@ const KindergartenCreationFormComponent = ({
           />
           <div className="col-3"></div>
           <div className="invalid-feedback col-9">
-            Šis laukas privalomas. Įmonės kodo ilgis turi būti 7 arba 9 ženklų.
+            Šis laukas privalomas. Įmonės kodo ilgis turi būti 7 arba 9 skaitmenų.
           </div>
         </div>
         <div className="form-group row">
@@ -118,7 +118,7 @@ const KindergartenCreationFormComponent = ({
             onChange={handleChange}
           />
           <div className="col-3"></div>
-          <div className="invalid-feedback col-9">Šis laukas privalomas. Pašto kodo ilgis turi būti 5 ženklų.</div>
+          <div className="invalid-feedback col-9">Šis laukas privalomas. Pašto kodo ilgis turi būti 5 skaitmenų.</div>
         </div>
         <div className="form-group row">
           <label htmlFor="phoneNo" className="col-3 pt-3 text-right">
@@ -126,7 +126,7 @@ const KindergartenCreationFormComponent = ({
           </label>
           <input type="text" className="form-control col-1 p-1" placeholder="+370" readOnly />
           <input
-            type="text"
+            type="number"
             className={`form-control col-8 ${phoneNoValidation}`}
             id="phoneNo"
             placeholder="60000000"
@@ -135,7 +135,7 @@ const KindergartenCreationFormComponent = ({
             onChange={handleChange}
           />
           <div className="col-3"></div>
-          <div className="invalid-feedback col-9">Šis laukas privalomas. Įveskite 8 skaitmenis.</div>
+          <div className="invalid-feedback col-9">Šis laukas privalomas. Telefono numeris ilgis turi būti 8 skaitmenų.</div>
         </div>
         <div className="form-group row">
           <label htmlFor="email" className="col-3 pt-2 text-right">
