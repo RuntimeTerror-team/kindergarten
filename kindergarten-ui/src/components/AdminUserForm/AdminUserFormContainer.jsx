@@ -2,15 +2,15 @@ import Axios from 'axios';
 import React, { Component } from 'react';
 import baseUrl from "../../AppConfig";
 import ServicesContext from "../../context/ServicesContext";
+import AdminUserTableComponent from '../AdminUserTable/AdminUserTableComponent';
 import AdminUserFormComponent from './AdminUserFormComponent';
 
 
 class AdminUserFormContainer extends Component {
     constructor() {
-
         super();
         this.state = {
-
+            users: [],
             firstname: "",
             lastname: "",
             role: "",
@@ -19,6 +19,15 @@ class AdminUserFormContainer extends Component {
             isCreated: false,
             createdUsername: ""
         }
+    }
+
+    componentDidMount = () => {
+        Axios
+        .get(`${baseUrl}/api/users`)
+        .then((res) => {
+            this.setState({users: res.data});
+        })
+        .catch((err) => console.log(err))
     }
 
     handleChange = (e) => {
@@ -83,6 +92,13 @@ class AdminUserFormContainer extends Component {
                 .then(res => {
                     this.setState({ isCreated: true });
                     this.setState({ createdUsername: res.data })
+
+                    Axios
+                    .get(`${baseUrl}/api/users`)
+                    .then((res) => {
+                        this.setState({users: res.data});
+                    })
+                    .catch((err) => console.log(err))
                 })
                 .catch(err => console.log(err));
 
@@ -104,6 +120,9 @@ class AdminUserFormContainer extends Component {
                     handleChange={this.handleChange}
                     {...this.state}
                 />
+                {this.state.users.length > 0 && <AdminUserTableComponent
+                    users={this.state.users}
+                />}
             </div>
         )
 

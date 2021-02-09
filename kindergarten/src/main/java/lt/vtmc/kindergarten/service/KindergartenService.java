@@ -69,6 +69,15 @@ public class KindergartenService {
         kindergartenDao.save(kindergarten);
     }
 
+    @Transactional(readOnly = true)
+    public Kindergarten getKindergartenByCompanyCode(String companyCode) {
+        try {
+            return kindergartenDao.findByCompanyCode(companyCode);
+        } catch (Exception e) {
+            return null;
+        }
+    }
+
 
     public void setKindergartenDao(KindergartenDao kindergartenDao) {
         this.kindergartenDao = kindergartenDao;

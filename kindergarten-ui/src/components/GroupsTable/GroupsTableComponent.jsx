@@ -16,11 +16,11 @@ const GroupsTableComponent = ({ groups }) => {
                 </thead>
 
                 <tbody>
-                    {groups.map(({ id, title, childrenCount }, index) =>
+                    {groups.map(({ id, title, childrenCount, ageRange }, index) =>
                         <tr key={id}>
                             <th scope='row'>{index + 1}</th>
                             <td>{title}</td>
-                            <td>amzius</td>
+                            <td>{ageRange.ageMin} - {ageRange.ageMax}</td>
                             <td>{childrenCount}</td>
                         </tr>
                     )}

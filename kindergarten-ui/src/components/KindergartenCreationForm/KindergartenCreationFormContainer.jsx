@@ -2,13 +2,13 @@ import Axios from 'axios';
 import React, { Component } from 'react';
 import KindergartenCreationFormComponent from './KindergartenCreationFormComponent';
 import baseUrl from '../../AppConfig';
+import "../../styles/forms.css";
 
 class KindergartenCreationFormContainer extends Component {
     constructor(props) {
         super(props);
         this.state = {
             districts: [],
-            kindergartens: [],
             title: "",
             companyCode: "",
             address: "",
@@ -39,15 +39,9 @@ class KindergartenCreationFormContainer extends Component {
             .catch((err) => console.log(err));
     }
 
-    componentDidUpdate = () => {
-        console.log("district: " + this.state.district);
-    }
-
     handleChange = (e) => {
         const { name, value } = e.target;
         this.setState({ [name]: value });
-
-        console.log(value)
 
         if (name === "title") {
             if (value.length < 8 || value.length > 35) {
@@ -99,15 +93,6 @@ class KindergartenCreationFormContainer extends Component {
 
         if (name === "email") {
             const re = /^\S+@\S+$/;
-            if (re.test(value)) {
-                this.setState({ emailValidation: "" })
-            } else {
-                this.setState({ emailValidation: "is-invalid" })
-            }
-        }
-
-        if (name === "email") {
-            const re = /^\S+@\S+$/;
             if (re.test(value) || value.length === 0 || value === null) {
                 this.setState({ emailValidation: "" })
             } else {
@@ -115,9 +100,9 @@ class KindergartenCreationFormContainer extends Component {
             }
         }
 
-        if (name === "website" || value.length === 0 || value === null) {
+        if (name === "website") {
             const re = /^((https?):\/\/)?([w|W]{3}\.)+[a-zA-Z0-9\-.]{3,}\.[a-zA-Z]{2,}(\.[a-zA-Z]{2,})?$/;
-            if (re.test(value)) {
+            if (re.test(value) || value.length === 0 || value === null) {
                 this.setState({ websiteValidation: "" })
             } else {
                 this.setState({ websiteValidation: "is-invalid" })
@@ -154,55 +139,44 @@ class KindergartenCreationFormContainer extends Component {
 
         this.validateBlank();
 
-        Axios
-            .get(`${baseUrl}/api/kindergartens`)
-            .then((res) => {
-                this.setState({ kindergartens: res.data })
-            })
-            .then(() => {
-                if (this.state.kindergartens.filter(kg => +kg.companyCode === +this.state.companyCode).length === 0) {
-                    if ((this.state.titleValidation === "" && this.state.title.length !== 0)
-                        && (this.state.companyCodeValidation === "" && this.state.companyCode.length !== 0)
-                        && (this.state.addressValidation === "" && this.state.address.length !== 0)
-                        && (this.state.districtValidation === "" && this.state.district.length !== 0)
-                        && (this.state.postalCodeValidation === "" && this.state.postalCode.length !== 0)
-                        && (this.state.phoneNoValidation === "" && this.state.phoneNo.length !== 0)
-                        && (this.state.emailValidation === "")
-                        && (this.state.websiteValidation === "")) {
-                        Axios
-                            .post(`${baseUrl}/api/kindergartens`, {
-                                "address": e.target.address.value,
-                                "city": "VILNIUS",
-                                "companyCode": e.target.companyCode.value,
-                                "district": {
-                                    id: e.target.district.value.split(",")[1],
-                                    title: e.target.district.value.split(",")[0]
-                                },
-                                "email": e.target.email.value,
-                                "phoneNumber": "+370" + e.target.phoneNo.value,
-                                "postalCode": e.target.postalCode.value,
-                                "title": e.target.title.value,
-                                "website": e.target.website.value
-                            })
-                            .then(() => {
-                                this.props.handleUpdateKindergartenList();
-                                this.props.stopCreatingKindergarten();
-                            })
-                            .catch((err) => {
-                                console.log(err);
-                                this.setState({ failMessage: "Darželio sukurti nepavyko. Pasitikrinkite duomenis." })
-                                this.setState({ failMessageStyle: "alert alert-danger" })
-                            });
-                    } else {
-                        this.setState({ failMessage: "Darželio sukurti nepavyko. Pasitikrinkite duomenis." })
+        if ((this.state.titleValidation === "" && this.state.title.length !== 0)
+            && (this.state.companyCodeValidation === "" && this.state.companyCode.length !== 0)
+            && (this.state.addressValidation === "" && this.state.address.length !== 0)
+            && (this.state.districtValidation === "" && this.state.district.length !== 0)
+            && (this.state.postalCodeValidation === "" && this.state.postalCode.length !== 0)
+            && (this.state.phoneNoValidation === "" && this.state.phoneNo.length !== 0)
+            && (this.state.emailValidation === "")
+            && (this.state.websiteValidation === "")) {
+            Axios
+                .post(`${baseUrl}/api/kindergartens`, {
+                    "address": e.target.address.value,
+                    "city": "VILNIUS",
+                    "companyCode": e.target.companyCode.value,
+                    "district": {
+                        id: e.target.district.value.split(",")[1],
+                        title: e.target.district.value.split(",")[0]
+                    },
+                    "email": e.target.email.value,
+                    "phoneNumber": "+370" + e.target.phoneNo.value,
+                    "postalCode": e.target.postalCode.value,
+                    "title": e.target.title.value,
+                    "website": e.target.website.value
+                })
+                .then(() => {
+                    this.props.handleUpdateKindergartenList();
+                    this.props.stopCreatingKindergarten();
+                })
+                .catch((err) => {
+                    if (err.response.status === 409) {
+                        this.setState({ failMessage: err.response.data })
                         this.setState({ failMessageStyle: "alert alert-danger" })
                     }
-                } else {
-                    this.setState({ failMessage: "Darželio sukurti nepavyko. Toks įmonės kodas jau egzistuoja." })
-                    this.setState({ failMessageStyle: "alert alert-danger" })
-                }
-            })
-            .catch((err) => console.log(err));
+                    console.log(err);
+                });
+        } else {
+            this.setState({ failMessage: "Darželio sukurti nepavyko. Pasitikrinkite duomenis." })
+            this.setState({ failMessageStyle: "alert alert-danger" })
+        }
     }
 
     render() {

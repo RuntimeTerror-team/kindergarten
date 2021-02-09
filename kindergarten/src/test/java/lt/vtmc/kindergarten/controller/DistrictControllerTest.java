@@ -1,5 +1,6 @@
 package lt.vtmc.kindergarten.controller;
 
+import lt.vtmc.kindergarten.domain.District;
 import lt.vtmc.kindergarten.dto.DistrictDto;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Order;
@@ -9,6 +10,9 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.annotation.DirtiesContext;
 
 import javax.validation.ConstraintViolationException;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -92,4 +96,26 @@ public class DistrictControllerTest {
     }
 
 
+
+    @Test
+    @Order(5)
+    @DisplayName("district sorting test")
+    void testDistrictSorting() {
+        District district1 = KindergartenTestUtil.createDistrict();
+        district1.setTitle("Alpha");
+        District district2 = KindergartenTestUtil.createDistrict();
+        district2.setTitle("Bravo");
+        District district3 = KindergartenTestUtil.createDistrict();
+        district3.setTitle("Charlie");
+
+        districtController.addDistrict(new DistrictDto(district3));
+        districtController.addDistrict(new DistrictDto(district1));
+        districtController.addDistrict(new DistrictDto(district2));
+
+        List<DistrictDto> districts =  districtController.getDistricts();
+
+        assertEquals(districts.get(0).getTitle(), district1.getTitle(), "Districts should be ordered alphabetically by title");
+        assertEquals(districts.get(1).getTitle(), district2.getTitle(), "Districts should be ordered alphabetically by title");
+        assertEquals(districts.get(2).getTitle(), district3.getTitle(), "Districts should be ordered alphabetically by title");
+    }
 }
