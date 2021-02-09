@@ -42,6 +42,14 @@ public class User {
         this.personalCode = personalCode;
         this.password = password;
     }
+
+    public User(String username, String firstName, String lastName, @NotBlank String password) {
+        this.username = username;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.password = password;
+    }
+
     public User(String username, String firstName, String lastName, Long personalCode, @NotBlank String password, Role role) {
         this.username = username;
         this.firstName = firstName;

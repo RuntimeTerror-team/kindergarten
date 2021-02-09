@@ -131,7 +131,6 @@ public class UserService implements UserDetailsService {
                         possibleUsername,
                         goodFirstName,
                         goodLastName,
-                        null,
                         encodedPassword
                 );
 
@@ -174,7 +173,6 @@ public class UserService implements UserDetailsService {
                     eduSpecUsername,
                     fName,
                     lName,
-                    null,
                     encodedPassword
             );
 
