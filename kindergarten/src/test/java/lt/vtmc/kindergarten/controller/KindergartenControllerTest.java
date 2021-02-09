@@ -3,7 +3,6 @@ package lt.vtmc.kindergarten.controller;
 import lt.vtmc.kindergarten.dao.DistrictDao;
 import lt.vtmc.kindergarten.dao.KindergartenDao;
 import lt.vtmc.kindergarten.domain.*;
-import lt.vtmc.kindergarten.dto.DistrictDto;
 import lt.vtmc.kindergarten.dto.KindergartenDto;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -14,11 +13,10 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.test.annotation.DirtiesContext;
-import org.springframework.web.server.ResponseStatusException;
 
-import javax.validation.ConstraintViolationException;
 
 import static org.junit.jupiter.api.Assertions.*;
+
 
 @DirtiesContext(classMode = DirtiesContext.ClassMode.AFTER_EACH_TEST_METHOD)
 @SpringBootTest

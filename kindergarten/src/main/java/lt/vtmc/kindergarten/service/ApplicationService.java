@@ -39,6 +39,7 @@ public class ApplicationService {
     public void addApplication(@Valid ApplicationCreationDto applicationCreationDto){
         Child child = childDao.getOne(applicationCreationDto.getChildId());
         User user = userDao.getOne(applicationCreationDto.getUsername());
+        Person secondParent = personDao.getOne(applicationCreationDto.getSecondParentId());
 
         Application application = new Application();
         application.setDate(applicationCreationDto.getDate());
@@ -47,6 +48,7 @@ public class ApplicationService {
         application.setGuardianStudent(applicationCreationDto.isGuardianDisabled());
         application.setGuardianDisabled(applicationCreationDto.isGuardianDisabled());
         application.setChild(child);
+        application.setSecondParentInfo(secondParent);
         application.setScore(applicationCreationDto.getScore());
         application.setApplicationStatus(ApplicationStatusEnum.SUBMITTED);
         application.setApplicant(user);

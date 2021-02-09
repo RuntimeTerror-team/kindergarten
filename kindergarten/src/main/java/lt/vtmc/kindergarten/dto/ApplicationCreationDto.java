@@ -9,6 +9,8 @@ public class ApplicationCreationDto {
 
    private Long childId;
 
+   private Long secondParentId;
+
    private Date date;
 
    private Map<Integer,Long> priorityForKindergartenID;
@@ -28,6 +30,14 @@ public class ApplicationCreationDto {
 
    public String getUsername() {
       return username;
+   }
+
+   public Long getSecondParentId() {
+      return secondParentId;
+   }
+
+   public void setSecondParentId(Long secondParentId) {
+      this.secondParentId = secondParentId;
    }
 
    public void setUsername(String username) {

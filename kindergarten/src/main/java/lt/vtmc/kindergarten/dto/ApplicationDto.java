@@ -14,6 +14,8 @@ public class ApplicationDto {
 
    private Long childId;
 
+   private Long secondParentId;
+
    private Date date;
 
    private Set<KindergartenApplicationForm> kindergartenApplications;
@@ -49,6 +51,7 @@ public class ApplicationDto {
    public ApplicationDto(Application application) {
       this.username=application.getApplicant().getUsername();
       this.childId=application.getChild().getId();
+      this.secondParentId = application.getSecondParentInfo().getId();
       this.date=application.getDate();
       this.kindergartenApplications=application.getKindergartenApplicationForms();
       this.score=application.getScore();

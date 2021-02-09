@@ -2,6 +2,7 @@ package lt.vtmc.kindergarten.service;
 
 import lt.vtmc.kindergarten.dao.ChildDao;
 import lt.vtmc.kindergarten.domain.Child;
+import lt.vtmc.kindergarten.domain.CityEnum;
 import lt.vtmc.kindergarten.dto.ChildDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -43,6 +44,7 @@ public class ChildService {
         child.setLastName(childDto.getLastName());
         child.setPersonalCode(childDto.getPersonalCode());
         child.setStreetAddress(childDto.getStreetAddress());
+        child.setCity(childDto.getCity());
 
         childDao.save(child);
     }

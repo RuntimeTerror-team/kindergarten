@@ -1,75 +1,55 @@
-package lt.vtmc.kindergarten.domain;
-import org.hibernate.validator.constraints.Length;
-import org.hibernate.validator.constraints.UniqueElements;
+package lt.vtmc.kindergarten.dto;
 
-import javax.persistence.*;
+import lt.vtmc.kindergarten.domain.CityEnum;
+import lt.vtmc.kindergarten.domain.Person;
+import org.hibernate.validator.constraints.Length;
+
+import javax.validation.Valid;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 
-@Entity
-@Table(name = "person")
-public class Person {
+public class PersonDto {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
-    private Long id;
+    @NotNull
+    private String firstName;
 
-    @Column(unique = true)
+    @NotNull
+    private String lastName;
+
+    @NotNull
     @Length(min = 11,max = 11)
     private String personalCode;
 
-    @Column
-    private String firstName;
-
-    @Column
-    private String lastName;
-
-    @Column
+    @NotNull
     @Pattern(regexp = "(^8\\d{8}|^\\+370\\d{8})")
     private String phoneNumber;
 
-    @Column
+    @NotNull
     private String address;
 
-    @Enumerated(EnumType.STRING)
-    @Column
-    private CityEnum city;
+    @NotNull
+    private CityEnum cityEnum;
 
     @NotNull
     @Pattern(regexp = "^\\d{1,5}")
-    @Column
     private String postalCode;
 
-    @Column
     @Email
     private String email;
 
-//    @OneToOne(mappedBy = "secondParentInfo")
-//    private Application application;
-//
-//    public Application getApplication() {
-//        return application;
-//    }
-//
-//    public void setApplication(Application application) {
-//        this.application = application;
-//    }
-
-    public Long getId() {
-        return id;
+    public PersonDto() {
     }
 
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getPersonalCode() {
-        return personalCode;
-    }
-
-    public void setPersonalCode(String personalCode) {
-        this.personalCode = personalCode;
+    public PersonDto(@Valid Person person) {
+        this.firstName = person.getFirstName();
+        this.lastName = person.getLastName();
+        this.personalCode = person.getPersonalCode();
+        this.phoneNumber = person.getPhoneNumber();
+        this.address = person.getAddress();
+        this.cityEnum = person.getCity();
+        this.postalCode = person.getPostalCode();
+        this.email = person.getEmail();
     }
 
     public String getFirstName() {
@@ -88,6 +68,14 @@ public class Person {
         this.lastName = lastName;
     }
 
+    public String getPersonalCode() {
+        return personalCode;
+    }
+
+    public void setPersonalCode(String personalCode) {
+        this.personalCode = personalCode;
+    }
+
     public String getPhoneNumber() {
         return phoneNumber;
     }
@@ -104,12 +92,12 @@ public class Person {
         this.address = address;
     }
 
-    public CityEnum getCity() {
-        return city;
+    public CityEnum getCityEnum() {
+        return cityEnum;
     }
 
-    public void setCity(CityEnum city) {
-        this.city = city;
+    public void setCityEnum(CityEnum cityEnum) {
+        this.cityEnum = cityEnum;
     }
 
     public String getPostalCode() {
@@ -127,5 +115,4 @@ public class Person {
     public void setEmail(String email) {
         this.email = email;
     }
-
 }

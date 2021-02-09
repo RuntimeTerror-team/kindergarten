@@ -31,7 +31,7 @@ public class User {
     @OneToMany(mappedBy = "applicant",cascade = CascadeType.ALL)
     private Set<Application> applications = new HashSet<>();
 
-//    @NotNull
+
     @Column
     @Length(min = 11,max = 11)
     private String personalCode;

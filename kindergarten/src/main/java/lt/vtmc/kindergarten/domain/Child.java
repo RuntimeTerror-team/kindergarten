@@ -19,7 +19,7 @@ public class Child {
     @Column
     private String lastName;
 
-    @Column
+    @Column(unique = true)
     private String personalCode;
 
     @Column
