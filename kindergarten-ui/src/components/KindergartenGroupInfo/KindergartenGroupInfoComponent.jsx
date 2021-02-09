@@ -6,13 +6,13 @@ const KindergartenGroupInfoComponent = ({ ageRanges, groups, wantsCreate, toggle
     return (
         <div>
             {!wantsCreate
-            && <button className="btn btn-info" onClick={toggleWantsCreate}>Kurti grupę</button>}
+            && <button className="btn btn-info mb-4" onClick={toggleWantsCreate}>Kurti grupę</button>}
             {wantsCreate
                 && <KindergartenGroupCreationComponent
                     ageRanges={ageRanges}
                     {...otherProps}
                 />}
-                {groups.length >0 
+                {groups.length > 0 
                 && <GroupsTableComponent
                     groups={groups}
                 />
