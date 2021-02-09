@@ -93,15 +93,6 @@ class KindergartenCreationFormContainer extends Component {
 
         if (name === "email") {
             const re = /^\S+@\S+$/;
-            if (re.test(value)) {
-                this.setState({ emailValidation: "" })
-            } else {
-                this.setState({ emailValidation: "is-invalid" })
-            }
-        }
-
-        if (name === "email") {
-            const re = /^\S+@\S+$/;
             if (re.test(value) || value.length === 0 || value === null) {
                 this.setState({ emailValidation: "" })
             } else {
@@ -109,9 +100,9 @@ class KindergartenCreationFormContainer extends Component {
             }
         }
 
-        if (name === "website" || value.length === 0 || value === null) {
+        if (name === "website") {
             const re = /^((https?):\/\/)?([w|W]{3}\.)+[a-zA-Z0-9\-.]{3,}\.[a-zA-Z]{2,}(\.[a-zA-Z]{2,})?$/;
-            if (re.test(value)) {
+            if (re.test(value) || value.length === 0 || value === null) {
                 this.setState({ websiteValidation: "" })
             } else {
                 this.setState({ websiteValidation: "is-invalid" })
