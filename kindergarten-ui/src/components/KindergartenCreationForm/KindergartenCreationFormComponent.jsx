@@ -126,7 +126,7 @@ const KindergartenCreationFormComponent = ({
           </label>
           <input type="text" className="form-control col-1 p-1" placeholder="+370" readOnly />
           <input
-            type="text"
+            type="number"
             className={`form-control col-8 ${phoneNoValidation}`}
             id="phoneNo"
             placeholder="60000000"
