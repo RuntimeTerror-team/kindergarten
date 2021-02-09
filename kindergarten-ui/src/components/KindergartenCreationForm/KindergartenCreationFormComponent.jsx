@@ -67,7 +67,7 @@ const KindergartenCreationFormComponent = ({ address, email, phoneNo, postalCode
                 </div>
                 <div className="form-group row">
                     <label htmlFor="email" className="col-3 pt-2 text-right">El. paštas</label>
-                    <input type="email" className={`form-control col-9 ${emailValidation}`} id="email" placeholder="pavyzdys@pvz.lt" value={email} name="email" onChange={handleChange} />
+                    <input type="text" className={`form-control col-9 ${emailValidation}`} id="email" placeholder="pavyzdys@pvz.lt" value={email} name="email" onChange={handleChange} />
                     <div className="col-3"></div>
                     <div className="invalid-feedback col-9">
                         Įveskite elektroninį paštą arba palikite tuščią.
@@ -75,7 +75,7 @@ const KindergartenCreationFormComponent = ({ address, email, phoneNo, postalCode
                 </div>
                 <div className="form-group row">
                     <label htmlFor="website" className="col-3 pt-2 text-right">Interneto svetainė</label>
-                    <input type="url" className={`form-control col-9 ${websiteValidation}`} id="website" placeholder="www.pavyzdys.lt" value={website} name="website" onChange={handleChange} />
+                    <input type="text" className={`form-control col-9 ${websiteValidation}`} id="website" placeholder="www.pavyzdys.lt" value={website} name="website" onChange={handleChange} />
                     <div className="col-3"></div>
                     <div className="invalid-feedback col-9">
                         Įveskite svetainės adresą arba palikite tuščią.
