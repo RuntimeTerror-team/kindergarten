@@ -1,4 +1,6 @@
+import axios from 'axios';
 import React, { Component } from 'react';
+import baseUrl from '../../AppConfig';
 import ServicesContext from '../../context/ServicesContext';
 
 import '../../styles/pages.css';
@@ -19,12 +21,17 @@ class AdminPageContainer extends Component {
     }
 
     handleLogout = () => {
+        axios
+        .get(`${baseUrl}/logout`)
+        .then(()=> console.log("logged out"))
+        .catch((err)=> console.log(err))
+
         this.context.userService.setCurrentUser("");
         this.context.userService.setUserRole("");
         this.context.userService.updateCurrentUser();
         this.context.userService.updateUserRole();
 
-        this.props.history.push("/");
+        // this.props.history.push("/");
     }
 
     render() {

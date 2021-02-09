@@ -42,7 +42,7 @@ public class UserController {
 
     // admin creating new user
     @RequestMapping(path = "/admin", method = RequestMethod.POST)
-//    @PreAuthorize("hasRole('ADMIN')")
+    @PreAuthorize("hasRole('ADMIN')")
     @ResponseStatus(HttpStatus.CREATED)
     @ApiOperation(value = "Create user from admin page", notes = "Creates user with data from admin page")
     public String createUserFromAdmin(@ApiParam(value = "User Data", required = true) @Valid @RequestBody UserDtoFromAdmin userDtoFromAdmin) {

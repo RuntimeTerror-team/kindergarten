@@ -64,26 +64,35 @@ class LoginContainer extends Component {
                 .post(`${baseUrl}/login`,
                     userData,
                     { headers: { 'Content-type': 'application/x-www-form-urlencoded' } })
-                .then(()=>{
+                .then((res)=>{
+                    let userFromBack = res.data.username;
+                    console.log(res);
+                    console.log("user from back: " + userFromBack);
+                    this.context.userService.setCurrentUser(userFromBack);
+                    this.context.userService.updateCurrentUser();
+
                     Axios
                     .get(`${baseUrl}/loggedRole`)
                     .then((res) => {
                         roleFromBack = res.data;
+                        console.log("role from back: " + roleFromBack);
                         this.context.userService.setUserRole(roleFromBack);
                         this.context.userService.updateUserRole();
-                        this.resetState();
+                        // this.resetState();
+                    })
+                    .then(() => {
+                        if (this.context.userService.getUserRole() === "ROLE_ADMIN") {
+                            this.props.history.push("/admin");
+                        } else if (this.context.userService.getUserRole() === "ROLE_EDUCATION_SPECIALIST") {
+                            this.props.history.push("/education-specialist");
+                        } else if (this.context.userService.getUserRole() === "ROLE_GUARDIAN") {
+                            //we could push directly to particular guardians page with id in url
+                            this.props.history.push("/guardian");
+                        } else {
+                            console.log("no role");
+                        }
                     })
                     .catch(err => console.log(err));
-                })
-                .then(() => {
-                    if (this.context.userService.getUserRole() === "ROLE_ADMIN") {
-                        this.props.history.push("/admin");
-                    } else if (this.context.userService.getUserRole() === "ROLE_EDUCATION_SPECIALIST") {
-                        this.props.history.push("/education-specialist");
-                    } else if (this.context.userService.getUserRole() === "ROLE_GUARDIAN") {
-                        //we could push directly to particular guardians page with id in url
-                        this.props.history.push("/guardian");
-                    }
                 })
                 .catch((e) => { 
                     this.setState({ areCredentialsIncorrect: true });

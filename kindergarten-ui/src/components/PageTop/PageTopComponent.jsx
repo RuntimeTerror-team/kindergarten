@@ -14,7 +14,6 @@ const PageTopComponent = ({ handleLogout, usersName }) => {
           <p className="lead">
             <strong>{usersName}</strong>
           </p>
-
           <button className="btn btn-yellow" onClick={handleLogout}>
             Atsijungti <IoMdExit size={20} />
           </button>

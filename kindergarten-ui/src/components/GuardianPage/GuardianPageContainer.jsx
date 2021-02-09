@@ -18,17 +18,18 @@ class GuardianPageContainer extends Component {
     }
 
     componentDidMount = () => {
-        let usernameFromBack = "";
+        // let usernameFromBack = "";
 
-        Axios
-        .get(`${baseUrl}/loggedUsername`)
-        .then((res) => {
-            usernameFromBack = res.data;
-            this.context.userService.setCurrentUser(usernameFromBack);
-            this.context.userService.updateCurrentUser();
-        })
-        .then(()=> {
+        // Axios
+        // .get(`${baseUrl}/loggedUsername`)
+        // .then((res) => {
+        //     usernameFromBack = res.data;
+        //     this.context.userService.setCurrentUser(usernameFromBack);
+        //     this.context.userService.updateCurrentUser();
+        // })
+        // .then(()=> {
             let currentUser = this.context.userService.getCurrentUser();
+            console.log(currentUser);
             Axios
             .get(`${baseUrl}/api/users/${currentUser}`)
             .then(res => {
@@ -36,8 +37,13 @@ class GuardianPageContainer extends Component {
                 this.setState({ currentUserLastname: res.data.lastName });
             })
             .catch(err => console.log(err));
-        })
-        .catch(err => console.log(err));
+        // })
+        // .then(() => {
+        //     console.log(this.context.userService.getCurrentUser());
+        //     console.log("guardian page");
+        //     console.log(this.state.currentUserFirstname);
+        // })
+        // .catch(err => console.log(err));
     }
 
     handleUserChoice = (e) => {
