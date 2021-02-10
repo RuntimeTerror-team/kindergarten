@@ -57,17 +57,30 @@ let KindergartenListComponent = (props) =>{
         
     }
 
+    if (props.currentStep !== 3) {
+        return null
+      }
+
     return(
 
         <div className="form-group">
-            <label className="my-3 ml-n5" htmlFor="kindergartens">Pridėkite bent vieną daržėlį iš sąrašo. Max 5</label>
-            <select style={{width:"30%"}} multiple={true} className="form-control mb-2 ml-5" name="kindergartens" value={props.optionsValuesList} onChange={props.handleOnOptionsChange}>
+            <h2>Darželių pasirinkimas</h2>
+            {/* <label className="my-3 ml-n5" htmlFor="kindergartens">Pridėkite bent vieną daržėlį iš sąrašo. Max 5</label> */}
+            <select style={{width:"40%"}} multiple={true} className="form-control mb-2" name="kindergartens" value={props.optionsValuesList} onChange={props.handleOnOptionsChange}>
                 <option value="" disabled>Pasirinkti</option>
                 {Options}
             </select>
             <div className="invalid-feedback">Prašome pridėti bent vieną darželį</div>
-            <button className="btn btn-info my-3 d-block ml-5" onClick={props.onChosenKindergartens}>Pridėti darželį</button>
+            <button className="btn btn-info float-left" onClick={props.onChosenKindergartens}>Pridėti darželį</button>
             {props.showChoices ? myTable() : null}
+            <div className="row mt-5 ml-1">
+                <div className="mr-2">
+
+            {props.previousButton()}
+
+            </div>
+            {props.nextButton()}
+            </div>
         </div>
 
         
@@ -77,12 +90,17 @@ let KindergartenListComponent = (props) =>{
 
 KindergartenListComponent.propTypes = {
 
+    currentStep: Proptypes.number.isRequired,
     kinderGartenList: Proptypes.array.isRequired,
     optionsValuesList: Proptypes.array.isRequired,
     showChoices: Proptypes.bool.isRequired,
     handleOnOptionsChange: Proptypes.func.isRequired,
     onChosenKindergartens: Proptypes.func.isRequired,
-    onDeleteSelection: Proptypes.func.isRequired
+    onDeleteSelection: Proptypes.func.isRequired,
+    prev: Proptypes.func.isRequired,
+    next: Proptypes.func.isRequired,
+    previousButton: Proptypes.func.isRequired,
+    nextButton: Proptypes.func.isRequired
 }
 
 export default KindergartenListComponent

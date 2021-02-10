@@ -3,13 +3,18 @@ import Proptypes from 'prop-types';
 
 let PriorityListComponent = (props) =>{
 
+    if (props.currentStep !== 4) {
+        return null
+      }
+
     return(
 
         <div className="my-3 float-left">
 
-            <label htmlFor="checkSelections">Pasirinkite prioritetus</label>
+            <h2>Papildoma informacija</h2>
+            {/* <label htmlFor="checkSelections">Pasirinkite prioritetus</label> */}
             <div className="" name="checkSelections">
-            <div className="form-check d-block">
+            <div className="form form-check d-inline">
             <input type="checkbox" className="form-check-input" name="priority1" checked={props.priorities[0].isChecked} value={props.priorities[0].value} onChange={props.onPrioritiesChange}></input>
             <label className="form-check-label" htmlFor="priority1">Vaiko deklaruojama gyvenamoji vieta yra miesto savivaldybė</label>
             </div>
@@ -41,7 +46,9 @@ lygio</label>
 </div>
             </div>
             
-            
+            {props.previousButton()}
+            {props.nextButton()}
+            <button className="btn btn-info d-block">Siųsti</button>
         </div>
     )
 
@@ -49,8 +56,13 @@ lygio</label>
 
 PriorityListComponent.propTypes = {
 
+    currentStep: Proptypes.number.isRequired,
     onPrioritiesChange: Proptypes.func.isRequired,
-    priorities: Proptypes.array.isRequired
+    priorities: Proptypes.array.isRequired,
+    prev: Proptypes.func.isRequired,
+    next: Proptypes.func.isRequired,
+    previousButton: Proptypes.func.isRequired,
+    nextButton: Proptypes.func.isRequired
 }
 
 export default PriorityListComponent

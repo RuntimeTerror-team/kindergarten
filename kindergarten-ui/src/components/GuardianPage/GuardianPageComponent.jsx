@@ -18,7 +18,7 @@ const GuardianPageComponent = ({
         <div className="row">
           <div className="admin-actions col-4">
             <button className="btn btn-main mb-2 w-100" onClick={handleUserChoice} name="1">
-              Vaiko registracija
+              Prašymo pildymas
             </button>
             <button className="btn btn-main mb-2 w-100" onClick={handleUserChoice} name="2">
               Kažkas dar
