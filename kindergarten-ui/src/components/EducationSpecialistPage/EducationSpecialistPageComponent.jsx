@@ -1,5 +1,5 @@
 import React from "react";
-import PageTopComponent from "../PageTop/PageTopComponent";
+import HeaderComponent from "../Header/HeaderComponent";
 import GroupFormContainer from "../GroupForm/GroupFormContainer";
 import GreetingComponent from "../Greeting/GreetingComponent";
 import KindergartenAdministrationContainer from "../KindergartenAdministration/KindergartenAdministrationContainer";
@@ -8,7 +8,7 @@ import Footer from "../PageBottom/Footer";
 const EducationSpecialistPageComponent = ({ handleLogout, handleUserChoice, choice }) => {
   return (
     <div>
-      <PageTopComponent handleLogout={handleLogout} usersName={"Švietimo specialistas"} />
+      <HeaderComponent handleLogout={handleLogout} loggedInName={"Švietimo specialistas"} />
       <div className="container p-4">
         <div className="row">
           <div className="admin-actions col-4">

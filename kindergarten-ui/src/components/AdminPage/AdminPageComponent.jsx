@@ -1,5 +1,5 @@
 import React from "react";
-import PageTopComponent from "../PageTop/PageTopComponent";
+import HeaderComponent from "../Header/HeaderComponent";
 import AdminUsersFormContainer from "../AdminUserForm/AdminUserFormContainer";
 import DistrictAdministrationContainer from "../DistrictAdministration/DistrictAdministrationContainer";
 import GreetingComponent from "../Greeting/GreetingComponent";
@@ -8,7 +8,7 @@ import Footer from "../PageBottom/Footer";
 const AdminPageComponent = ({ handleLogout, handleUserChoice, choice }) => {
   return (
     <div className="page-container">
-      <PageTopComponent handleLogout={handleLogout} usersName={"Administratoriaus paskyra"} />
+      <HeaderComponent handleLogout={handleLogout} loggedInName={"Administratorius"} />
       <div className="container p-4">
         <div className="row">
           <div className="admin-actions col-4">

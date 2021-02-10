@@ -1,5 +1,6 @@
 import axios from 'axios';
 import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
 import baseUrl from '../../AppConfig';
 import ServicesContext from '../../context/ServicesContext';
 
@@ -11,31 +12,26 @@ class AdminPageContainer extends Component {
         super();
         this.state = {
             choice: "greeting",
-            currentUserFirstame: "",
-            currentUserLastname: ""
+            userRole: ""
         }
+    }
+
+    componentDidMount = () => {
+        axios
+        .get(`${baseUrl}/loggedRole`)
+        .then((res) => {
+            this.setState({userRole : res.data})
+        })
+        .catch(err => console.log(err))
     }
 
     handleUserChoice = (e) => {
         this.setState({ choice: e.target.name });
     }
 
-    handleLogout = () => {
-        axios
-        .get(`${baseUrl}/logout`)
-        .then(()=> console.log("logged out"))
-        .catch((err)=> console.log(err))
-
-        this.context.userService.setCurrentUser("");
-        this.context.userService.setUserRole("");
-        this.context.userService.updateCurrentUser();
-        this.context.userService.updateUserRole();
-
-        this.props.history.push("/");
-    }
 
     render() {
-        if (this.context.userService.getUserRole() === "ROLE_ADMIN") {
+        if (this.state.userRole === "ROLE_ADMIN") {
             return (
                 <div className="pagesBackground">
                 <AdminPageComponent
@@ -47,7 +43,10 @@ class AdminPageContainer extends Component {
             )
         } else {
             return (
-                <h1>Access denied</h1>
+                <div className="text-center p-5">
+                <h1>Prieiga uždrausta</h1>
+                <Link to="/" className="btn btn-primary">Prisijungti</Link>
+                </div>
             )
         }
     }
