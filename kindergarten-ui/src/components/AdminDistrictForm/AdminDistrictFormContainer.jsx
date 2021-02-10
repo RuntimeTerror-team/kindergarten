@@ -1,9 +1,13 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 import baseUrl from '../../AppConfig';
-import DistrictAdministrationComponent from './DistrictAdministrationComponent';
+import AdminDistrictFormComponent from './AdminDistrictFormComponent';
+import { Link } from 'react-router-dom';
+import Footer from '../Footer/Footer';
+import AdminNavigationComponent from '../AdminNavigation/AdminNavigationComponent';
+import HeaderComponent from '../Header/HeaderComponent';
 
-class DistrictAdministrationContainer extends Component {
+class AdminDistrictFormContainer extends Component {
     constructor() {
         super();
         this.state = {
@@ -16,7 +20,8 @@ class DistrictAdministrationContainer extends Component {
             requestMessage: "",
             messageStyle: "",
             updatingMessageStyle: "",
-            updatingMessage: ""
+            updatingMessage: "",
+            loggedInUserRole : ""
         }
     }
 
@@ -27,6 +32,13 @@ class DistrictAdministrationContainer extends Component {
                 this.setState({ districts: res.data })
             })
             .catch((err) => console.log(err));
+
+            axios
+            .get(`${baseUrl}/loggedRole`)
+            .then((res) => {
+                this.setState({ loggedInUserRole: res.data })
+            })
+            .catch(err => console.log(err))
     }
 
     addDistrict = (e) => {
@@ -39,8 +51,6 @@ class DistrictAdministrationContainer extends Component {
         this.setState({ districtName: "" })
 
         if (this.validateLength(districtName)) {
-
-            console.log("inside axios")
             axios
                 .post(`${baseUrl}/api/district`, {
                     id: 0,
@@ -120,9 +130,9 @@ class DistrictAdministrationContainer extends Component {
     updateDistrict = (e) => {
         e.preventDefault();
 
-        if (this.state.districts.filter(district => district.title.toLowerCase() === this.state.updatingTitle.toLowerCase()).length === 0 
-        || ( this.state.districts.filter(district => district.title.toLowerCase() === this.state.updatingTitle.toLowerCase()).length === 1 
-        && +this.state.districts.filter(district => district.title.toLowerCase() === this.state.updatingTitle.toLowerCase())[0].id === +this.state.updatingId)) {
+        if (this.state.districts.filter(district => district.title.toLowerCase() === this.state.updatingTitle.toLowerCase()).length === 0
+            || (this.state.districts.filter(district => district.title.toLowerCase() === this.state.updatingTitle.toLowerCase()).length === 1
+                && +this.state.districts.filter(district => district.title.toLowerCase() === this.state.updatingTitle.toLowerCase())[0].id === +this.state.updatingId)) {
             if (this.state.titleValidationInUpdate === "") {
                 axios
                     .put(`${baseUrl}/api/district/${this.state.updatingId}`, {
@@ -150,27 +160,48 @@ class DistrictAdministrationContainer extends Component {
     }
 
     render() {
-        return (
-            <div>
-                <DistrictAdministrationComponent
-                    districts={this.state.districts}
-                    addDistrict={this.addDistrict}
-                    updateDistrict={this.updateDistrict}
-                    startUpdate={this.startUpdate}
-                    updatingId={this.state.updatingId}
-                    onDistrictNameChange={this.onDistrictNameChange}
-                    updatingTitle={this.updatingTitle}
-                    titleValidation={this.state.titleValidation}
-                    onCreatingDistrictNameChange={this.onCreatingDistrictNameChange}
-                    titleValidationInUpdate={this.state.titleValidationInUpdate}
-                    requestMessage={this.state.requestMessage}
-                    messageStyle={this.state.messageStyle}
-                    updatingMessage={this.state.updatingMessage}
-                    updatingMessageStyle={this.state.updatingMessageStyle}
-                />
-            </div>
-        );
+        if (this.state.loggedInUserRole === "ROLE_ADMIN") {
+            return (
+                <div className="footerBottom">
+                    <HeaderComponent />
+                    <div className="container py-4">
+                        <div className="row">
+                            <AdminNavigationComponent />
+                            <div className="col-8">
+                                <h1 className="mb-5 text-center">Rajonų administravimas</h1>
+
+                                <AdminDistrictFormComponent
+                                    districts={this.state.districts}
+                                    addDistrict={this.addDistrict}
+                                    updateDistrict={this.updateDistrict}
+                                    startUpdate={this.startUpdate}
+                                    updatingId={this.state.updatingId}
+                                    onDistrictNameChange={this.onDistrictNameChange}
+                                    updatingTitle={this.updatingTitle}
+                                    titleValidation={this.state.titleValidation}
+                                    onCreatingDistrictNameChange={this.onCreatingDistrictNameChange}
+                                    titleValidationInUpdate={this.state.titleValidationInUpdate}
+                                    requestMessage={this.state.requestMessage}
+                                    messageStyle={this.state.messageStyle}
+                                    updatingMessage={this.state.updatingMessage}
+                                    updatingMessageStyle={this.state.updatingMessageStyle}
+                                />
+                            </div>
+
+                        </div>
+                    </div>
+                    <Footer />
+                </div>
+            )
+        } else {
+            return (
+                <div className="text-center p-5">
+                    <h1>Prieiga uždrausta</h1>
+                    <Link to="/" className="btn btn-primary">Išeiti</Link>
+                </div>
+            )
+        }
     }
 }
 
-export default DistrictAdministrationContainer;
+export default AdminDistrictFormContainer;

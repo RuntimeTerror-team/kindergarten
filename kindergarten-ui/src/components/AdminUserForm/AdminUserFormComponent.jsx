@@ -6,8 +6,6 @@ let AdminUserFormComponent = ({ handleChange, handleSubmit, ...otherProps }) => 
 
   return (
     <div className="row justify-content-center align-items-center">
-      <div>
-        <h1 className="mb-4">Paskyros sukūrimas</h1>
         <form className="form" onSubmit={handleSubmit}>
           <div className="form-group">
             <input
@@ -48,7 +46,6 @@ let AdminUserFormComponent = ({ handleChange, handleSubmit, ...otherProps }) => 
           </div>
           <button className="btn btn-green float-right">Išsaugoti</button>
         </form>
-      </div>
       {isCreated && createdUsername.length <= 30 && (
         <div
           className="alert alert-success mt-4"

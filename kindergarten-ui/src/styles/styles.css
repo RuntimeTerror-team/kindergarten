@@ -73,3 +73,7 @@ input::-webkit-inner-spin-button {
 input[type=number] {
   -moz-appearance: textfield;
 }
+
+.footerBottom {
+    padding-bottom: 50px;
+}

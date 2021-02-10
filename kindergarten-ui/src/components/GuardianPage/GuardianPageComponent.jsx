@@ -1,7 +1,7 @@
 import React from "react";
 import HeaderComponent from "../Header/HeaderComponent";
 import GreetingComponent from "../Greeting/GreetingComponent";
-import Footer from "../PageBottom/Footer";
+import Footer from "../Footer/Footer";
 
 const GuardianPageComponent = ({
   handleLogout,

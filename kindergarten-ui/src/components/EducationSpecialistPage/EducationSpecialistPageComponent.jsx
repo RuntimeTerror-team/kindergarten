@@ -3,12 +3,12 @@ import HeaderComponent from "../Header/HeaderComponent";
 import GroupFormContainer from "../GroupForm/GroupFormContainer";
 import GreetingComponent from "../Greeting/GreetingComponent";
 import KindergartenAdministrationContainer from "../KindergartenAdministration/KindergartenAdministrationContainer";
-import Footer from "../PageBottom/Footer";
+import Footer from "../Footer/Footer";
 
 const EducationSpecialistPageComponent = ({ handleLogout, handleUserChoice, choice }) => {
   return (
     <div>
-      <HeaderComponent handleLogout={handleLogout} loggedInName={"Švietimo specialistas"} />
+      <HeaderComponent handleLogout={handleLogout} />
       <div className="container p-4">
         <div className="row">
           <div className="admin-actions col-4">

@@ -1,30 +1,43 @@
-import React, { useEffect, useState} from "react";
+import React, { useEffect, useState } from "react";
 import logo from "../../image/logo.png";
 import "../../styles/logo.css";
 import { IoMdExit } from "react-icons/io";
 import axios from "axios";
 import baseUrl from "../../AppConfig";
-import { useHistory} from "react-router";
+import { useHistory } from "react-router";
 
-const HeaderComponent = ({ loggedInName }) => {
+const HeaderComponent = () => {
   let history = useHistory();
-  
-  const [nameToShow, setNameShow] = useState(loggedInName);
+
+  const [nameToShow, setNameShow] = useState("");
+  const [userRole, setUserRole] = useState("");
 
   useEffect(() => {
-      if (loggedInName === undefined) {
-        axios
-        .get(`${baseUrl}/loggedUsername`)
-        .then((res) =>{
-          axios.get(`${baseUrl}/api/users/${res.data}`)
-          .then((res) =>{
-              setNameShow(`${res.data.firstName} ${res.data.lastName}`)
-          })
-          .catch(err => console.log(err))
-        })
-        .catch(err => console.log(err))
-      }
-    });
+    axios
+      .get(`${baseUrl}/loggedRole`)
+      .then((res) => {
+        setUserRole(res.data);
+      })
+      .then(() => {
+        console.log(userRole);
+        if (userRole === "ROLE_ADMIN") {
+          setNameShow("Administratorius")
+        } else if (userRole === "ROLE_EDUCATION_SPECIALIST") {
+          setNameShow("Švietimo specialistas")
+        } else if (userRole === "ROLE_GUARDIAN") {
+          axios
+            .get(`${baseUrl}/loggedUsername`)
+            .then((res) => {
+              axios.get(`${baseUrl}/api/users/${res.data}`)
+                .then((res) => {
+                  setNameShow(`${res.data.firstName} ${res.data.lastName}`)
+                })
+                .catch(err => console.log(err))
+            })
+            .catch(err => console.log(err))
+        }
+      })
+  }, [userRole]);
 
   const handleLogout = () => {
     axios

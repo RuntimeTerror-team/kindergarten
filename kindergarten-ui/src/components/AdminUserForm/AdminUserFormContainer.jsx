@@ -1,9 +1,13 @@
-import Axios from 'axios';
+import axios from 'axios';
 import React, { Component } from 'react';
 import baseUrl from "../../AppConfig";
 import ServicesContext from "../../context/ServicesContext";
 import AdminUserTableComponent from '../AdminUserTable/AdminUserTableComponent';
+import HeaderComponent from '../Header/HeaderComponent';
+import Footer from '../Footer/Footer';
 import AdminUserFormComponent from './AdminUserFormComponent';
+import { Link } from 'react-router-dom';
+import AdminNavigationComponent from '../AdminNavigation/AdminNavigationComponent';
 
 
 class AdminUserFormContainer extends Component {
@@ -17,17 +21,25 @@ class AdminUserFormContainer extends Component {
             firstnameLength: "",
             lastnameLength: "",
             isCreated: false,
-            createdUsername: ""
+            createdUsername: "",
+            loggedInUserRole: ""
         }
     }
 
     componentDidMount = () => {
-        Axios
-        .get(`${baseUrl}/api/users`)
-        .then((res) => {
-            this.setState({users: res.data});
-        })
-        .catch((err) => console.log(err))
+        axios
+            .get(`${baseUrl}/api/users`)
+            .then((res) => {
+                this.setState({ users: res.data });
+            })
+            .catch((err) => console.log(err))
+
+        axios
+            .get(`${baseUrl}/loggedRole`)
+            .then((res) => {
+                this.setState({ loggedInUserRole: res.data })
+            })
+            .catch(err => console.log(err))
     }
 
     handleChange = (e) => {
@@ -37,15 +49,15 @@ class AdminUserFormContainer extends Component {
 
         if (value.trim().length > 30 || value.trim().length < 2) {
             if (name === "firstname") {
-                this.setState({firstnameLength: "is-invalid"});
+                this.setState({ firstnameLength: "is-invalid" });
             } else {
-                this.setState({lastnameLength: "is-invalid"});
+                this.setState({ lastnameLength: "is-invalid" });
             }
         } else {
             if (name === "firstname") {
-                this.setState({firstnameLength: ""});
+                this.setState({ firstnameLength: "" });
             } else {
-                this.setState({lastnameLength: ""});
+                this.setState({ lastnameLength: "" });
             }
         }
 
@@ -78,11 +90,11 @@ class AdminUserFormContainer extends Component {
 
         this.validate(typedFirstname, typedLastname);
 
-        if (typedFirstname.length >= 2 
-            && typedFirstname.length <=30
+        if (typedFirstname.length >= 2
+            && typedFirstname.length <= 30
             && typedLastname.length >= 2
-            && typedLastname.length <=30) {
-            Axios
+            && typedLastname.length <= 30) {
+            axios
                 .post(`${baseUrl}/api/users/admin`,
                     {
                         firstName: typedFirstname,
@@ -93,12 +105,12 @@ class AdminUserFormContainer extends Component {
                     this.setState({ isCreated: true });
                     this.setState({ createdUsername: res.data })
 
-                    Axios
-                    .get(`${baseUrl}/api/users`)
-                    .then((res) => {
-                        this.setState({users: res.data});
-                    })
-                    .catch((err) => console.log(err))
+                    axios
+                        .get(`${baseUrl}/api/users`)
+                        .then((res) => {
+                            this.setState({ users: res.data });
+                        })
+                        .catch((err) => console.log(err))
                 })
                 .catch(err => console.log(err));
 
@@ -112,19 +124,37 @@ class AdminUserFormContainer extends Component {
 
 
     render() {
-
-        return (
-            <div>
-                <AdminUserFormComponent
-                    handleSubmit={this.handleSubmit}
-                    handleChange={this.handleChange}
-                    {...this.state}
-                />
-                {this.state.users.length > 0 && <AdminUserTableComponent
-                    users={this.state.users}
-                />}
-            </div>
-        )
+        if (this.state.loggedInUserRole === "ROLE_ADMIN") {
+            return (
+                <div className="footerBottom">
+                    <HeaderComponent />
+                    <div className="container py-4">
+                        <div className="row">
+                            <AdminNavigationComponent />
+                            <div className="col-8">
+                                <h1 className="mb-5 text-center">Paskyrų administravimas</h1>
+                                <AdminUserFormComponent
+                                    handleSubmit={this.handleSubmit}
+                                    handleChange={this.handleChange}
+                                    {...this.state}
+                                />
+                                {this.state.users.length > 0 && <AdminUserTableComponent
+                                    users={this.state.users}
+                                />}
+                            </div>
+                        </div>
+                    </div>
+                    <Footer />
+                </div>
+            )
+        } else {
+            return (
+                <div className="text-center p-5">
+                    <h1>Prieiga uždrausta</h1>
+                    <Link to="/" className="btn btn-primary">Išeiti</Link>
+                </div>
+            )
+        }
 
     }
 

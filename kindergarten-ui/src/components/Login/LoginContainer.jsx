@@ -34,7 +34,7 @@ class LoginContainer extends Component {
 
     checkLoggedIn = () => {
         if (this.state.userRole === "ROLE_ADMIN") {
-            this.props.history.push("/admin");
+            this.props.history.push("/admin/users");
         } else if (this.state.userRole === "ROLE_EDUCATION_SPECIALIST") {
             this.props.history.push("/education-specialist");
         } else if (this.state.userRole === "ROLE_GUARDIAN") {

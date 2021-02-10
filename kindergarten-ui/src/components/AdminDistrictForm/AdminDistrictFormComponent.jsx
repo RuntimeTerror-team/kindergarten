@@ -1,9 +1,9 @@
 import React from "react";
-import DistrictTableComponent from "../DistrictTable/DistrictTableComponent";
+import DistrictTableComponent from "../AdminDistrictTable/DistrictTableComponent";
 
 import "../../styles/districtAdministration.css";
 
-const DistrictAdministrationComponent = ({
+const AdminDistrictFormComponent = ({
   districts,
   addDistrict,
   titleValidation,
@@ -13,8 +13,7 @@ const DistrictAdministrationComponent = ({
 }) => {
   return (
     <div id="districtAdministrationComponent" className="col-12 row">
-      <h1>Rajonų administravimas</h1>
-      <form className="form-inline mt-4 text-center" onSubmit={addDistrict}>
+      <form className="form-inline text-center" onSubmit={addDistrict}>
         <div className={`input-group mx-auto ${titleValidation}`}>
           <input
             type="text"
@@ -45,4 +44,4 @@ const DistrictAdministrationComponent = ({
   );
 };
 
-export default DistrictAdministrationComponent;
+export default AdminDistrictFormComponent;
