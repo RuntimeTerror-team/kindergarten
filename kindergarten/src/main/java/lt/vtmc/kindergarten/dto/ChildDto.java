@@ -5,7 +5,6 @@ import lt.vtmc.kindergarten.domain.CityEnum;
 import org.hibernate.validator.constraints.Length;
 import org.springframework.validation.annotation.Validated;
 
-import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 
@@ -28,6 +27,7 @@ public class ChildDto {
 
     @NotNull
     private CityEnum city;
+
 
     public ChildDto() {
     }

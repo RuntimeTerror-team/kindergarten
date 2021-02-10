@@ -3,6 +3,7 @@ package lt.vtmc.kindergarten.controller;
 import lt.vtmc.kindergarten.domain.District;
 import lt.vtmc.kindergarten.dto.DistrictDto;
 
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
@@ -16,7 +17,7 @@ import javax.validation.ConstraintViolationException;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
-
+@Disabled
 @DirtiesContext(classMode = DirtiesContext.ClassMode.AFTER_EACH_TEST_METHOD)
 @SpringBootTest
 @DisplayName("When running District controller")

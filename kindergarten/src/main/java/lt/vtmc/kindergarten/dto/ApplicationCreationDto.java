@@ -15,8 +15,6 @@ public class ApplicationCreationDto {
 
    private Map<Integer,Long> priorityForKindergartenID;
 
-   private int score;
-
    private boolean isAdopted;
 
    private boolean isMultiChild;
@@ -66,14 +64,6 @@ public class ApplicationCreationDto {
 
    public void setPriorityForKindergartenID(Map<Integer, Long> priorityForKindergartenID) {
       this.priorityForKindergartenID = priorityForKindergartenID;
-   }
-
-   public int getScore() {
-      return score;
-   }
-
-   public void setScore(int score) {
-      this.score = score;
    }
 
    public boolean isAdopted() {

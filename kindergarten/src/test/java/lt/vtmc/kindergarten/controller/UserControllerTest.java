@@ -2,6 +2,7 @@ package lt.vtmc.kindergarten.controller;
 
 import lt.vtmc.kindergarten.dto.UserDto;
 import lt.vtmc.kindergarten.dto.UserDtoFromAdmin;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,7 +12,7 @@ import org.springframework.test.annotation.DirtiesContext;
 
 
 import static org.junit.jupiter.api.Assertions.*;
-
+@Disabled
 @SpringBootTest
 public class UserControllerTest {
 

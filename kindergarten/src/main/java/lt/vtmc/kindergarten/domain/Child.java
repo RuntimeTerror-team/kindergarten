@@ -1,6 +1,7 @@
 package lt.vtmc.kindergarten.domain;
 
 import org.hibernate.annotations.Cascade;
+import org.hibernate.annotations.NaturalId;
 
 import javax.persistence.*;
 
@@ -25,7 +26,7 @@ public class Child {
     @Column
     private String streetAddress;
 
-    @Column
+    @Enumerated(EnumType.STRING)
     private CityEnum city;
 
     @OneToOne(mappedBy = "child")

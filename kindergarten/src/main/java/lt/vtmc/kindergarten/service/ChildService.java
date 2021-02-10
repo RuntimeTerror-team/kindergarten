@@ -40,11 +40,11 @@ public class ChildService {
         Child child = new Child();
 
         child.setCity(childDto.getCity());
+//        child.setCity(CityEnum.valueOf(childDto.getCity()));
         child.setFirstName(childDto.getFirstName());
         child.setLastName(childDto.getLastName());
         child.setPersonalCode(childDto.getPersonalCode());
         child.setStreetAddress(childDto.getStreetAddress());
-        child.setCity(childDto.getCity());
 
         childDao.save(child);
     }

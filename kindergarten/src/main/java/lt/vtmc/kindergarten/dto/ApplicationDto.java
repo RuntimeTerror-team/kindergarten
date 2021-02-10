@@ -35,18 +35,18 @@ public class ApplicationDto {
    public ApplicationDto() {
    }
 
-   public ApplicationDto(Application  application, String username) {
-      this.username= username;
-      this.childId = application.getChild().getId();
-      this.date=application.getDate();
-      this.kindergartenApplications=application.getKindergartenApplicationForms();
-      this.score=application.getScore();
-      this.isAdopted=application.isAdopted();
-      this.isMultiChild=application.isMultiChild();
-      this.isGuardianStudent=application.isGuardianStudent();
-      this.isGuardianStudent=application.isGuardianDisabled();
-      this.applicationStatusEnum=application.getApplicationStatus();
-   }
+//   public ApplicationDto(Application  application, String username) {
+//      this.username= username;
+//      this.childId = application.getChild().getId();
+//      this.date=application.getDate();
+//      this.kindergartenApplications=application.getKindergartenApplicationForms();
+//      this.score=application.getScore();
+//      this.isAdopted=application.isAdopted();
+//      this.isMultiChild=application.isMultiChild();
+//      this.isGuardianStudent=application.isGuardianStudent();
+//      this.isGuardianStudent=application.isGuardianDisabled();
+//      this.applicationStatusEnum=application.getApplicationStatus();
+//   }
 
    public ApplicationDto(Application application) {
       this.username=application.getApplicant().getUsername();
