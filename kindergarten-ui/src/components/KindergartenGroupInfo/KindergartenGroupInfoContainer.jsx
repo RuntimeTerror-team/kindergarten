@@ -13,7 +13,10 @@ class KindergartenGroupInfoContainer extends Component {
             title: "",
             ageRangeId: "",
             childrenCount: "",
-            wantsCreate: false
+            wantsCreate: false,
+            titleValidation: "",
+            ageRangeValidation: "",
+            childrenCountValidation: ""
         }
     }
 
@@ -23,7 +26,7 @@ class KindergartenGroupInfoContainer extends Component {
         Axios
             .get(`${baseUrl}/api/kindergartens/${this.props.kindergartenInfoId}/groups`)
             .then((res) => {
-                this.setState({ groups: res.data })
+                this.setState({ groups: res.data });
             })
             .catch((err) => console.log(err));
 
@@ -35,42 +38,84 @@ class KindergartenGroupInfoContainer extends Component {
             .catch((err) => console.log(err));
     }
 
+    componentDidUpdate = () => {
+        console.log("Valid: " + this.state.childrenCountValidation);
+    }
+
     handleFormChange = (e) => {
         const { name, value } = e.target;
         this.setState({ [name]: value });
+
+        if (name === "title") {
+            if (value.length < 5 || value.length > 20) {
+                this.setState({ titleValidation: "is-invalid" })
+            } else {
+                this.setState({ titleValidation: "" })
+            }
+        }
+        if (name === "ageRangeId") {
+            if (value !== "Pasirinkti...") {
+                this.setState({ ageRangeValidation: "" })
+            } else {
+                this.setState({ ageRangeValidation: "is-invalid" })
+            }
+        }
+        if (name === "childrenCount") {
+            if (value.length > 0) {
+                this.setState({ childrenCountValidation: "" })
+            } else {
+                this.setState({ childrenCountValidation: "is-invalid" })
+            }
+        }
+    }
+
+    validateBlank = () => {
+        if (this.state.title.length === 0) {
+            this.setState({ titleValidation: "is-invalid" })
+        }
+        if (this.state.ageRangeId.length === 0) {
+            this.setState({ ageRangeValidation: "is-invalid" })
+        }
+        if (this.state.childrenCount.length === 0) {
+            this.setState({ childrenCountValidation: "is-invalid" })
+        }
     }
 
     handleGroupCreation = (e) => {
         e.preventDefault();
 
-        console.log(e.target.childrenCount.value);
+        this.validateBlank();
 
-        Axios
-            .post(`${baseUrl}/api/kindergartens/${this.props.kindergartenInfoId}/groups/${e.target.ageRangeId.value}`, {
-                childrenCount: e.target.childrenCount.value,
-                id: 0,
-                title: e.target.title.value
-            })
-            .then(() => {
-                Axios
-                    .get(`${baseUrl}/api/kindergartens/${this.props.kindergartenInfoId}/groups`)
-                    .then((res) => {
-                        this.setState({ groups: res.data })
-                    })
-                    .catch((err) => console.log(err));
-            })
-            .then(() => {
-                this.setState({ title: "" })
-                this.setState({ ageRangeId: "" })
-                this.setState({ childrenCount: "" })
-                this.setState({wantsCreate: !this.state.wantsCreate})
-            })
-            .catch((err) => console.log(err));
+        if ((this.state.titleValidation === "" && this.state.title.length !== 0)
+            && (this.state.ageRangeValidation === "" && this.state.ageRangeId.length !== 0)
+            && (this.state.childrenCountValidation === "" && this.state.childrenCount.length !== 0)) {
+            Axios
+                .post(`${baseUrl}/api/kindergartens/${this.props.kindergartenInfoId}/groups/${e.target.ageRangeId.value}`, {
+                    childrenCount: e.target.childrenCount.value,
+                    id: 0,
+                    title: e.target.title.value
+                })
+                .then(() => {
+                    Axios
+                        .get(`${baseUrl}/api/kindergartens/${this.props.kindergartenInfoId}/groups`)
+                        .then((res) => {
+                            this.setState({ groups: res.data })
+                        })
+                        .catch((err) => console.log(err));
+                })
+                .then(() => {
+                    this.setState({ title: "" })
+                    this.setState({ ageRangeId: "" })
+                    this.setState({ childrenCount: "" })
+                    this.setState({ wantsCreate: !this.state.wantsCreate })
+                })
+                .catch((err) => console.log(err));
+        }
     }
 
     toggleWantsCreate = () => {
         console.log("cia");
-        this.setState({wantsCreate: !this.state.wantsCreate})
+        this.setState({ wantsCreate: !this.state.wantsCreate })
     }
 
     render() {
@@ -83,6 +128,9 @@ class KindergartenGroupInfoContainer extends Component {
                 handleGroupCreation={this.handleGroupCreation}
                 toggleWantsCreate={this.toggleWantsCreate}
                 wantsCreate={this.state.wantsCreate}
+                titleValidation={this.state.titleValidation}
+                ageRangeValidation={this.state.ageRangeValidation}
+                childrenCountValidation={this.state.childrenCountValidation}
             />
         )
     }
