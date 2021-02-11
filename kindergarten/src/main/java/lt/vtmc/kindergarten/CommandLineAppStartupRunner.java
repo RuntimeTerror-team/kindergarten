@@ -20,10 +20,10 @@ public class CommandLineAppStartupRunner implements CommandLineRunner {
     KindergartenService kindergartenService;
 
     @Autowired
-    ChildService childService;
+    PersonTestService personTestService;
 
     @Autowired
-    PersonService personService;
+    PersonTestService personService;
 
     @Autowired
     AgeRangeService ageRangeService;
@@ -35,12 +35,11 @@ public class CommandLineAppStartupRunner implements CommandLineRunner {
 
 
         District district = new District();
-//        district.setId(1L);
         district.setTitle("Antakalnis");
         districtService.addDistrict(new DistrictDto(district));
 
 
-        Person person = new Person();
+        PersonTest person = new PersonTest();
         person.setFirstName("Tadas");
         person.setLastName("Bujonauskas");
         person.setEmail("tadasbujonauskas@gmail.com");
@@ -49,17 +48,7 @@ public class CommandLineAppStartupRunner implements CommandLineRunner {
         person.setPersonalCode("38005201234");
         person.setPhoneNumber("862412323");
         person.setPostalCode("10321");
-        personService.addPerson(new PersonDto(person));
-
-
-        ChildDto childDto = new ChildDto();
-        childDto.setFirstName("Antanunkas");
-        childDto.setLastName("Bujonauskas");
-        childDto.setPersonalCode("39004180333");
-        childDto.setStreetAddress("Kankliu g.4");
-        childDto.setCity(CityEnum.VILNIUS);
-
-        childService.addChild(childDto);
+        personTestService.addPerson(new PersonTestDto(person));
 
         AgeRange ageRange = new AgeRange();
         ageRange.setAgeMin(1);
@@ -69,7 +58,7 @@ public class CommandLineAppStartupRunner implements CommandLineRunner {
 
 
 
-//
+
 //        Kindergarten kindergarten = new Kindergarten();
 //        kindergarten.setTitle("Pušaitė");
 //        kindergarten.setAddress("Gatvės g. 56");
@@ -80,7 +69,7 @@ public class CommandLineAppStartupRunner implements CommandLineRunner {
 //        kindergarten.setWebsite("www.darzelispusaite.lt");
 //        kindergarten.setCompanyCode("19555587");
 //        kindergarten.setDistrict(district);
-
+//
 //        kindergartenService.addKindergarten(new KindergartenDto(kindergarten));
 
 

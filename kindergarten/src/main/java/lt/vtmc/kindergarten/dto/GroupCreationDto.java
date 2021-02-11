@@ -1,7 +1,5 @@
 package lt.vtmc.kindergarten.dto;
 
-import lt.vtmc.kindergarten.domain.AgeRange;
-
 import javax.validation.constraints.NotNull;
 
 public class GroupCreationDto{

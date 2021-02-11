@@ -28,8 +28,8 @@ public class User {
     @JoinColumn(name = "roleType")
     private Role role;
 
-    @OneToMany(mappedBy = "applicant",cascade = CascadeType.ALL)
-    private Set<Application> applications = new HashSet<>();
+//    @OneToMany(mappedBy = "applicant",cascade = CascadeType.ALL)
+//    private Set<Application> applications = new HashSet<>();
 
 
     @Column
@@ -107,13 +107,13 @@ public class User {
         this.role = role;
     }
 
-    public Set<Application> getUserApplications() {
-        return applications;
-    }
-
-    public void setUserApplications(Set<Application> applications) {
-        this.applications = applications;
-    }
+//    public Set<Application> getUserApplications() {
+//        return applications;
+//    }
+//
+//    public void setUserApplications(Set<Application> applications) {
+//        this.applications = applications;
+//    }
 
     public String getPersonalCode() {
         return personalCode;
@@ -179,8 +179,8 @@ public class User {
         this.email = email;
     }
 
-    public void addUserApplication(Application application){
-        application.setApplicant(this);
-        this.applications.add(application);
-    }
+//    public void addUserApplication(Application application){
+//        application.setApplicant(this);
+//        this.applications.add(application);
+//    }
 }

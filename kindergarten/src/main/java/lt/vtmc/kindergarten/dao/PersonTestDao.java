@@ -1,7 +1,5 @@
 package lt.vtmc.kindergarten.dao;
 
-
-import lt.vtmc.kindergarten.domain.Person;
 import lt.vtmc.kindergarten.domain.PersonTest;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;

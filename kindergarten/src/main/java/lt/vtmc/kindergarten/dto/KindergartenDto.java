@@ -4,10 +4,7 @@ import lt.vtmc.kindergarten.domain.CityEnum;
 import lt.vtmc.kindergarten.domain.District;
 import lt.vtmc.kindergarten.domain.Kindergarten;
 
-
-
 import javax.validation.constraints.*;
-
 
 public class KindergartenDto {
 
