@@ -9,12 +9,12 @@ public class UserDto {
     @NotNull
     @Length(min=8, max=30)
     private String username;
-    @NotNull
-    private String firstName;
-    @NotNull
-    private String lastName;
-    @NotNull
-    private String personalCode;
+//    @NotNull
+//    private String firstName;
+//    @NotNull
+//    private String lastName;
+//    @NotNull
+//    private String personalCode;
     @NotNull
     private String password;
     @NotNull
@@ -22,12 +22,16 @@ public class UserDto {
 
     public UserDto() {
     }
-
-    public UserDto(@NotNull @Length(min = 8, max=30) String username, String firstName, String lastName, String personalCode, String password, String role) {
+//    public UserDto(@NotNull @Length(min = 8, max=30) String username, String firstName, String lastName, String personalCode, String password, String role) {
+//        this.username = username;
+//        this.firstName = firstName;
+//        this.lastName = lastName;
+//        this.personalCode = personalCode;
+//        this.password = password;
+//        this.role = role;
+//    }
+    public UserDto(@NotNull @Length(min = 8, max=30) String username, String password, String role) {
         this.username = username;
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.personalCode = personalCode;
         this.password = password;
         this.role = role;
     }
@@ -40,29 +44,29 @@ public class UserDto {
         this.username = username;
     }
 
-    public String getFirstName() {
-        return firstName;
-    }
-
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
-    }
-
-    public String getLastName() {
-        return lastName;
-    }
-
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
-    }
-
-    public String getPersonalCode() {
-        return personalCode;
-    }
-
-    public void setPersonalCode(String personalCode) {
-        this.personalCode = personalCode;
-    }
+//    public String getFirstName() {
+//        return firstName;
+//    }
+//
+//    public void setFirstName(String firstName) {
+//        this.firstName = firstName;
+//    }
+//
+//    public String getLastName() {
+//        return lastName;
+//    }
+//
+//    public void setLastName(String lastName) {
+//        this.lastName = lastName;
+//    }
+//
+//    public String getPersonalCode() {
+//        return personalCode;
+//    }
+//
+//    public void setPersonalCode(String personalCode) {
+//        this.personalCode = personalCode;
+//    }
 
     public String getPassword() {
         return password;

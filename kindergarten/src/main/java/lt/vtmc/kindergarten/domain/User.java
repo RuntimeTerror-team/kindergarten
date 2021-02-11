@@ -32,56 +32,59 @@ public class User {
 //    private Set<Application> applications = new HashSet<>();
 
 
-    @Column
-    @Length(min = 11,max = 11)
-    private String personalCode;
-
-    @NotNull
-    @Column
-    private String firstName;
-
-    @NotNull
-    @Column
-    private String lastName;
-
-    @Column
-    @Pattern(regexp = "(^8\\d{8}|^\\+370\\d{8})")
-    private String phoneNumber;
-
-    @Column
-    private String address;
-
-    @Enumerated(EnumType.STRING)
-    @Column
-    private CityEnum city;
-
-    @Pattern(regexp = "^\\d{1,5}")
-    @Column
-    private String postalCode;
-
-    @Column
-    @Email
-    private String email;
+//    @Column
+//    @Length(min = 11,max = 11)
+//    private String personalCode;
+//
+//    @NotNull
+//    @Column
+//    private String firstName;
+//
+//    @NotNull
+//    @Column
+//    private String lastName;
+//
+//    @Column
+//    @Pattern(regexp = "(^8\\d{8}|^\\+370\\d{8})")
+//    private String phoneNumber;
+//
+//    @Column
+//    private String address;
+//
+//    @Enumerated(EnumType.STRING)
+//    @Column
+//    private CityEnum city;
+//
+//    @Pattern(regexp = "^\\d{1,5}")
+//    @Column
+//    private String postalCode;
+//
+//    @Column
+//    @Email
+//    private String email;
 
 
     public User() {
     }
-
-    public User(String username, String firstName, String lastName, String personalCode, @NotBlank String password) {
+    public User(String username, @NotBlank String password) {
         this.username = username;
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.personalCode = personalCode;
         this.password = password;
     }
-    public User(String username, String firstName, String lastName, String personalCode, @NotBlank String password, Role role) {
-        this.username = username;
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.personalCode = personalCode;
-        this.password = password;
-        this.role = role;
-    }
+//    public User(String username, String firstName, String lastName, String personalCode, @NotBlank String password) {
+//        this.username = username;
+//        this.firstName = firstName;
+//        this.lastName = lastName;
+//        this.personalCode = personalCode;
+//        this.password = password;
+//    }
+//    public User(String username, String firstName, String lastName, String personalCode, @NotBlank String password, Role role) {
+//        this.username = username;
+//        this.firstName = firstName;
+//        this.lastName = lastName;
+//        this.personalCode = personalCode;
+//        this.password = password;
+//        this.role = role;
+//    }
 
     public String getUsername() {
         return username;
@@ -114,70 +117,70 @@ public class User {
 //    public void setUserApplications(Set<Application> applications) {
 //        this.applications = applications;
 //    }
-
-    public String getPersonalCode() {
-        return personalCode;
-    }
-
-    public void setPersonalCode(String personalCode) {
-        this.personalCode = personalCode;
-    }
-
-    public String getFirstName() {
-        return firstName;
-    }
-
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
-    }
-
-    public String getLastName() {
-        return lastName;
-    }
-
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
-    }
-
-    public String getPhoneNumber() {
-        return phoneNumber;
-    }
-
-    public void setPhoneNumber(String phoneNumber) {
-        this.phoneNumber = phoneNumber;
-    }
-
-    public String getAddress() {
-        return address;
-    }
-
-    public void setAddress(String address) {
-        this.address = address;
-    }
-
-    public CityEnum getCity() {
-        return city;
-    }
-
-    public void setCity(CityEnum city) {
-        this.city = city;
-    }
-
-    public String getPostalCode() {
-        return postalCode;
-    }
-
-    public void setPostalCode(String postalCode) {
-        this.postalCode = postalCode;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
+//
+//    public String getPersonalCode() {
+//        return personalCode;
+//    }
+//
+//    public void setPersonalCode(String personalCode) {
+//        this.personalCode = personalCode;
+//    }
+//
+//    public String getFirstName() {
+//        return firstName;
+//    }
+//
+//    public void setFirstName(String firstName) {
+//        this.firstName = firstName;
+//    }
+//
+//    public String getLastName() {
+//        return lastName;
+//    }
+//
+//    public void setLastName(String lastName) {
+//        this.lastName = lastName;
+//    }
+//
+//    public String getPhoneNumber() {
+//        return phoneNumber;
+//    }
+//
+//    public void setPhoneNumber(String phoneNumber) {
+//        this.phoneNumber = phoneNumber;
+//    }
+//
+//    public String getAddress() {
+//        return address;
+//    }
+//
+//    public void setAddress(String address) {
+//        this.address = address;
+//    }
+//
+//    public CityEnum getCity() {
+//        return city;
+//    }
+//
+//    public void setCity(CityEnum city) {
+//        this.city = city;
+//    }
+//
+//    public String getPostalCode() {
+//        return postalCode;
+//    }
+//
+//    public void setPostalCode(String postalCode) {
+//        this.postalCode = postalCode;
+//    }
+//
+//    public String getEmail() {
+//        return email;
+//    }
+//
+//    public void setEmail(String email) {
+//        this.email = email;
+//    }
 
 //    public void addUserApplication(Application application){
 //        application.setApplicant(this);
