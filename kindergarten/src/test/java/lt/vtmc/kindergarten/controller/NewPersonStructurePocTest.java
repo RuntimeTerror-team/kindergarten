@@ -1,10 +1,9 @@
 package lt.vtmc.kindergarten.controller;
 
-import lt.vtmc.kindergarten.dao.ApplicationTestDao;
-import lt.vtmc.kindergarten.dao.PersonTestDao;
-import lt.vtmc.kindergarten.domain.ApplicationTest;
-import lt.vtmc.kindergarten.domain.PersonTest;
-import lt.vtmc.kindergarten.dto.AgeRangeDto;
+import lt.vtmc.kindergarten.dao.ApplicationDao;
+import lt.vtmc.kindergarten.dao.PersonDao;
+import lt.vtmc.kindergarten.domain.Application;
+import lt.vtmc.kindergarten.domain.Person;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -22,23 +21,23 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 @Transactional
 public class NewPersonStructurePocTest {
     @Autowired
-    private PersonTestDao personTestDao;
+    private PersonDao personDao;
 
     @Autowired
-    private ApplicationTestDao applicationTestDao;
+    private ApplicationDao applicationDao;
 
 
     @Test
     @DisplayName("create age Range")
     void testCreatingAgeRange(){
         // Parent 1
-        PersonTest person1 = new PersonTest();
+        Person person1 = new Person();
         // Parent 2
-        PersonTest person2 = new PersonTest();
+        Person person2 = new Person();
         // Child 1
-        PersonTest person3 = new PersonTest();
+        Person person3 = new Person();
 
-        ApplicationTest application1 = new ApplicationTest();
+        Application application1 = new Application();
 
 
         application1.setParentId(person1);
@@ -46,11 +45,11 @@ public class NewPersonStructurePocTest {
         application1.setChildId(person3);
 
 
-        applicationTestDao.save(application1);
+        applicationDao.save(application1);
 
 
 
-        List<PersonTest> persons = personTestDao.findAll();
+        List<Person> persons = personDao.findAll();
 
 
 

@@ -3,7 +3,7 @@ package lt.vtmc.kindergarten.dto;
 import java.util.Date;
 import java.util.Map;
 
-public class ApplicationCreationTestDto {
+public class ApplicationCreationDto {
 
 
     private Long firstParentId;
@@ -24,7 +24,7 @@ public class ApplicationCreationTestDto {
 
     private boolean isGuardianDisabled;
 
-    public ApplicationCreationTestDto() {
+    public ApplicationCreationDto() {
     }
 
 

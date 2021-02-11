@@ -9,7 +9,7 @@
 //import org.springframework.boot.test.context.SpringBootTest;
 //
 //@SpringBootTest
-//public class PersonTest {
+//public class Person {
 //
 //    @Autowired
 //    PersonDao personDao;

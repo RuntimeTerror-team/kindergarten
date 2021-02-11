@@ -12,7 +12,7 @@ public class KindergartenApplicationForm {
 
     @ManyToOne
     @JoinColumn(name = "application")
-    private ApplicationTest application;
+    private Application application;
 
     @ManyToOne
     @JoinColumn(name = "kindergarten")
@@ -35,11 +35,11 @@ public class KindergartenApplicationForm {
         this.id = id;
     }
 
-    public ApplicationTest getApplication() {
+    public Application getApplication() {
         return application;
     }
 
-    public void setApplication(ApplicationTest application) {
+    public void setApplication(Application application) {
         this.application = application;
     }
 

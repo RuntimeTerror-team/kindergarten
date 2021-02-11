@@ -1,7 +1,7 @@
 package lt.vtmc.kindergarten.dto;
 
 import lt.vtmc.kindergarten.domain.CityEnum;
-import lt.vtmc.kindergarten.domain.PersonTest;
+import lt.vtmc.kindergarten.domain.Person;
 import org.hibernate.validator.constraints.Length;
 
 import javax.validation.Valid;
@@ -9,7 +9,7 @@ import javax.validation.constraints.Email;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 
-public class PersonTestDto {
+public class PersonDto {
 
     @NotNull
     private String firstName;
@@ -21,7 +21,7 @@ public class PersonTestDto {
     @Length(min = 11,max = 11)
     private String personalCode;
 
-    @NotNull
+
     @Pattern(regexp = "(^8\\d{8}|^\\+370\\d{8})")
     private String phoneNumber;
 
@@ -38,18 +38,18 @@ public class PersonTestDto {
     @Email
     private String email;
 
-    public PersonTestDto() {
+    public PersonDto() {
     }
 
-    public PersonTestDto(@Valid PersonTest personTest) {
-        this.firstName = personTest.getFirstName();
-        this.lastName = personTest.getLastName();
-        this.personalCode = personTest.getPersonalCode();
-        this.phoneNumber = personTest.getPhoneNumber();
-        this.address = personTest.getAddress();
-        this.cityEnum = personTest.getCity();
-        this.postalCode = personTest.getPostalCode();
-        this.email = personTest.getEmail();
+    public PersonDto(@Valid Person person) {
+        this.firstName = person.getFirstName();
+        this.lastName = person.getLastName();
+        this.personalCode = person.getPersonalCode();
+        this.phoneNumber = person.getPhoneNumber();
+        this.address = person.getAddress();
+        this.cityEnum = person.getCity();
+        this.postalCode = person.getPostalCode();
+        this.email = person.getEmail();
     }
 
     public String getFirstName() {

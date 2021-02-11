@@ -9,7 +9,7 @@ import javax.validation.constraints.Pattern;
 
 
 @Entity
-public class PersonTest {
+public class Person {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
@@ -47,7 +47,7 @@ public class PersonTest {
     @Email
     private String email;
 
-    public PersonTest() {
+    public Person() {
     }
 
     public String getPersonalCode() {
