@@ -15,7 +15,7 @@ public class Application {
     @Temporal(TemporalType.DATE)
     private Date date;
 
-    @OneToMany(mappedBy = "application")
+    @OneToMany(mappedBy = "application",cascade = CascadeType.ALL)
     private Set<KindergartenApplicationForm> kindergartenApplicationForms = new HashSet<>();
 
 //    @ManyToOne

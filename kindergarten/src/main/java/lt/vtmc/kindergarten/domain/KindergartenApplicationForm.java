@@ -8,6 +8,7 @@ import javax.persistence.*;
 public class KindergartenApplicationForm {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
     @ManyToOne
@@ -48,6 +49,7 @@ public class KindergartenApplicationForm {
     }
 
     public void setKindergarten(Kindergarten kindergarten) {
+        kindergarten.addApplicationForm(this);
         this.kindergarten = kindergarten;
     }
 

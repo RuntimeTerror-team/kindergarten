@@ -164,7 +164,7 @@ public class Kindergarten {
         return applicationsSet;
     }
 
-    public void setApplicationsSet(Set<KindergartenApplicationForm> applicationsSet) {
-        this.applicationsSet = applicationsSet;
+    public void addApplicationForm(KindergartenApplicationForm applicationForm) {
+        applicationsSet.add(applicationForm);
     }
 }
