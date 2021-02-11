@@ -1,18 +1,16 @@
 import React from "react";
-import PageTopComponent from "../PageTop/PageTopComponent";
+import HeaderComponent from "../Header/HeaderComponent";
 import GreetingComponent from "../Greeting/GreetingComponent";
-import Footer from "../PageBottom/Footer";
+import Footer from "../Footer/Footer";
 
 const GuardianPageComponent = ({
   handleLogout,
   handleUserChoice,
-  choice,
-  currentUserFirstname,
-  currentUserLastname,
+  choice
 }) => {
   return (
     <div>
-      <PageTopComponent handleLogout={handleLogout} usersName={`${currentUserFirstname} ${currentUserLastname}`} />
+      <HeaderComponent handleLogout={handleLogout} />
       <div className="container p-4">
         <div className="row">
           <div className="admin-actions col-4">

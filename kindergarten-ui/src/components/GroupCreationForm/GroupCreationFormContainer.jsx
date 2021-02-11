@@ -1,9 +1,12 @@
 import Axios from 'axios';
 import React, { Component } from 'react';
-import KindergartenGroupInfoComponent from '../KindergartenGroupInfo/KindergartenGroupInfoComponent'
 import baseUrl from '../../AppConfig'
+import ESNavigationComponent from '../Navigation/ESNavigationComponent';
+import HeaderComponent from '../Header/HeaderComponent';
+import Footer from '../Footer/Footer';
+import GroupCreationFormComponent from './GroupCreationFormComponent';
 
-class KindergartenGroupInfoContainer extends Component {
+class GroupCreationFormContainer extends Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -21,10 +24,10 @@ class KindergartenGroupInfoContainer extends Component {
     }
 
     componentDidMount = () => {
-        this.setState({ kindergartenId: this.props.kindergartenInfoId })
+        this.setState({ kindergartenId: this.props.match.params.id })
 
         Axios
-            .get(`${baseUrl}/api/kindergartens/${this.props.kindergartenInfoId}/groups`)
+            .get(`${baseUrl}/api/kindergartens/${this.props.match.params.id}/groups`)
             .then((res) => {
                 this.setState({ groups: res.data });
             })
@@ -86,14 +89,14 @@ class KindergartenGroupInfoContainer extends Component {
             && (this.state.ageRangeValidation === "" && this.state.ageRangeId.length !== 0)
             && (this.state.childrenCountValidation === "" && this.state.childrenCount.length !== 0)) {
             Axios
-                .post(`${baseUrl}/api/kindergartens/${this.props.kindergartenInfoId}/groups/${e.target.ageRangeId.value}`, {
+                .post(`${baseUrl}/api/kindergartens/${this.state.kindergartenId}/groups/${e.target.ageRangeId.value}`, {
                     childrenCount: e.target.childrenCount.value,
                     id: 0,
                     title: e.target.title.value
                 })
                 .then(() => {
                     Axios
-                        .get(`${baseUrl}/api/kindergartens/${this.props.kindergartenInfoId}/groups`)
+                        .get(`${baseUrl}/api/kindergartens/${this.state.kindergartenId}/groups`)
                         .then((res) => {
                             this.setState({ groups: res.data })
                         })
@@ -104,6 +107,7 @@ class KindergartenGroupInfoContainer extends Component {
                     this.setState({ ageRangeId: "" })
                     this.setState({ childrenCount: "" })
                     this.setState({ wantsCreate: !this.state.wantsCreate })
+                    console.log("success");
                 })
                 .catch((err) => console.log(err));
         }
@@ -115,21 +119,37 @@ class KindergartenGroupInfoContainer extends Component {
 
     render() {
         return (
-            <KindergartenGroupInfoComponent
-                groups={this.state.groups}
-                ageRanges={this.state.ageRanges}
-                otherProps={this.state}
-                handleFormChange={this.handleFormChange}
-                handleGroupCreation={this.handleGroupCreation}
-                toggleWantsCreate={this.toggleWantsCreate}
-                wantsCreate={this.state.wantsCreate}
-                titleValidation={this.state.titleValidation}
-                ageRangeValidation={this.state.ageRangeValidation}
-                childrenCountValidation={this.state.childrenCountValidation}
-            />
+            <div>
+                <div className="footerBottom">
+                    <HeaderComponent userRole="ROLE_EDUCATION_SPECIALIST" />
+                    <div className="container py-4">
+                        <div className="row">
+                            <ESNavigationComponent />
+                            <div className="col-8">
+                                <h1 className="mb-5 text-center">Darželio grupių sąrašas</h1>
+                                <GroupCreationFormComponent
+                                    groups={this.state.groups}
+                                    ageRanges={this.state.ageRanges}
+                                    otherProps={this.state}
+                                    handleFormChange={this.handleFormChange}
+                                    handleGroupCreation={this.handleGroupCreation}
+                                    toggleWantsCreate={this.toggleWantsCreate}
+                                    wantsCreate={this.state.wantsCreate}
+                                    titleValidation={this.state.titleValidation}
+                                    ageRangeValidation={this.state.ageRangeValidation}
+                                    childrenCountValidation={this.state.childrenCountValidation}
+                                    kindergartenId={this.state.kindergartenId}
+                                />
+                            </div>
+                        </div>
+                    </div>
+                    <Footer />
+                </div>
+            </div>
+
         )
     }
 
 }
 
-export default KindergartenGroupInfoContainer;
+export default GroupCreationFormContainer;

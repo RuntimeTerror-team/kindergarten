@@ -1,11 +1,15 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 import baseUrl from '../../AppConfig';
-import DistrictAdministrationComponent from './DistrictAdministrationComponent';
+import AdminDistrictFormComponent from './AdminDistrictFormComponent';
+import Footer from '../Footer/Footer';
+import AdminNavigationComponent from '../Navigation/AdminNavigationComponent';
+import HeaderComponent from '../Header/HeaderComponent';
+import ServicesContext from '../../context/ServicesContext';
 
-class DistrictAdministrationContainer extends Component {
-    constructor() {
-        super();
+class AdminDistrictFormContainer extends Component {
+    constructor(props) {
+        super(props);
         this.state = {
             districts: [],
             districtName: "",
@@ -21,6 +25,7 @@ class DistrictAdministrationContainer extends Component {
     }
 
     componentDidMount = () => {
+        console.log(this.state.userRole);
         axios
             .get(`${baseUrl}/api/districts`)
             .then((res) => {
@@ -39,8 +44,6 @@ class DistrictAdministrationContainer extends Component {
         this.setState({ districtName: "" })
 
         if (this.validateLength(districtName)) {
-
-            console.log("inside axios")
             axios
                 .post(`${baseUrl}/api/district`, {
                     id: 0,
@@ -120,9 +123,9 @@ class DistrictAdministrationContainer extends Component {
     updateDistrict = (e) => {
         e.preventDefault();
 
-        if (this.state.districts.filter(district => district.title.toLowerCase() === this.state.updatingTitle.toLowerCase()).length === 0 
-        || ( this.state.districts.filter(district => district.title.toLowerCase() === this.state.updatingTitle.toLowerCase()).length === 1 
-        && +this.state.districts.filter(district => district.title.toLowerCase() === this.state.updatingTitle.toLowerCase())[0].id === +this.state.updatingId)) {
+        if (this.state.districts.filter(district => district.title.toLowerCase() === this.state.updatingTitle.toLowerCase()).length === 0
+            || (this.state.districts.filter(district => district.title.toLowerCase() === this.state.updatingTitle.toLowerCase()).length === 1
+                && +this.state.districts.filter(district => district.title.toLowerCase() === this.state.updatingTitle.toLowerCase())[0].id === +this.state.updatingId)) {
             if (this.state.titleValidationInUpdate === "") {
                 axios
                     .put(`${baseUrl}/api/district/${this.state.updatingId}`, {
@@ -151,26 +154,38 @@ class DistrictAdministrationContainer extends Component {
 
     render() {
         return (
-            <div>
-                <DistrictAdministrationComponent
-                    districts={this.state.districts}
-                    addDistrict={this.addDistrict}
-                    updateDistrict={this.updateDistrict}
-                    startUpdate={this.startUpdate}
-                    updatingId={this.state.updatingId}
-                    onDistrictNameChange={this.onDistrictNameChange}
-                    updatingTitle={this.updatingTitle}
-                    titleValidation={this.state.titleValidation}
-                    onCreatingDistrictNameChange={this.onCreatingDistrictNameChange}
-                    titleValidationInUpdate={this.state.titleValidationInUpdate}
-                    requestMessage={this.state.requestMessage}
-                    messageStyle={this.state.messageStyle}
-                    updatingMessage={this.state.updatingMessage}
-                    updatingMessageStyle={this.state.updatingMessageStyle}
-                />
+            <div className="footerBottom">
+                <HeaderComponent userRole="ROLE_ADMIN" />
+                <div className="container py-4">
+                    <div className="row">
+                        <AdminNavigationComponent />
+                        <div className="col-8">
+                            <h1 className="mb-5 text-center">Rajonų administravimas</h1>
+                            <AdminDistrictFormComponent
+                                districts={this.state.districts}
+                                addDistrict={this.addDistrict}
+                                updateDistrict={this.updateDistrict}
+                                startUpdate={this.startUpdate}
+                                updatingId={this.state.updatingId}
+                                onDistrictNameChange={this.onDistrictNameChange}
+                                updatingTitle={this.updatingTitle}
+                                titleValidation={this.state.titleValidation}
+                                onCreatingDistrictNameChange={this.onCreatingDistrictNameChange}
+                                titleValidationInUpdate={this.state.titleValidationInUpdate}
+                                requestMessage={this.state.requestMessage}
+                                messageStyle={this.state.messageStyle}
+                                updatingMessage={this.state.updatingMessage}
+                                updatingMessageStyle={this.state.updatingMessageStyle}
+                            />
+                        </div>
+                    </div>
+                </div>
+                <Footer />
             </div>
-        );
+        )
     }
 }
 
-export default DistrictAdministrationContainer;
+AdminDistrictFormContainer.contextType = ServicesContext;
+
+export default AdminDistrictFormContainer;

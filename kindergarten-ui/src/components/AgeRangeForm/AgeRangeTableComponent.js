@@ -1,12 +1,12 @@
 import React from 'react';
 import Proptypes from 'prop-types';
 
-let AgeGroupTableComponent = (props) => {
+let AgeRangeTableComponent = (props) => {
 
 
     return (
-        <div>
-            <h2 className="my-4">Amžiaus grupės</h2>
+        <div className="footerBottom">
+            <h2 className="my-4 text-center">Amžiaus grupės</h2>
 
             <table className='table col-8 mx-auto'>
                 <thead>
@@ -32,10 +32,10 @@ let AgeGroupTableComponent = (props) => {
 
 }
 
-AgeGroupTableComponent.propTypes = {
+AgeRangeTableComponent.propTypes = {
 
     groups: Proptypes.array.isRequired,
     onDelete: Proptypes.func.isRequired
 }
 
-export default AgeGroupTableComponent;
+export default AgeRangeTableComponent;

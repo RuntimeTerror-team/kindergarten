@@ -2,6 +2,9 @@ import Axios from 'axios';
 import React, { Component } from 'react';
 import KindergartenInfoFormComponent from './KindergartenInfoFormComponent';
 import baseUrl from '../../AppConfig';
+import Footer from '../Footer/Footer';
+import ESNavigationComponent from '../Navigation/ESNavigationComponent';
+import HeaderComponent from '../Header/HeaderComponent';
 
 class KindergartenInfoFormContainer extends Component {
     constructor(props) {
@@ -13,24 +16,40 @@ class KindergartenInfoFormContainer extends Component {
     }
 
     componentDidMount = () => {
-            Axios
-            .get(`${baseUrl}/api/kindergartens/${this.props.kindergartenInfoId}`)
+        Axios
+            .get(`${baseUrl}/api/kindergartens/${this.props.match.params.id}`)
             .then((res) => {
                 this.setState({ kindergarten: res.data })
             })
-            .catch((err) => console.log(err)); 
+            .catch((err) => console.log(err));
     }
 
     render() {
-        if ( this.state.kindergarten !== null) {
+        if (this.state.kindergarten !== null) {
             return (
-                <KindergartenInfoFormComponent
-                    districts={this.state.districts}
-                    kindergarten={this.state.kindergarten}
-                    resetWantsInfo={this.props.resetWantsInfo}
-                    otherProps={this.state}
-                />
-        )} else {
+                <div>
+                    <div className="footerBottom">
+                        <HeaderComponent userRole="ROLE_EDUCATION_SPECIALIST" />
+                        <div className="container py-4">
+                            <div className="row">
+                                <ESNavigationComponent />
+                                <div className="col-8">
+                                    <h1 className="mb-5 text-center">Darželio informacija</h1>
+                                    <KindergartenInfoFormComponent
+                                        districts={this.state.districts}
+                                        kindergarten={this.state.kindergarten}
+                                        resetWantsInfo={this.props.resetWantsInfo}
+                                        otherProps={this.state}
+                                    />
+                                </div>
+                            </div>
+                        </div>
+                        <Footer />
+                    </div>
+                </div>
+
+            )
+        } else {
             return (
                 <div>Duomenys kraunasi...</div>
             )

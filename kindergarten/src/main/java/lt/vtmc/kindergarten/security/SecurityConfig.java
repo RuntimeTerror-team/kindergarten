@@ -1,5 +1,6 @@
 package lt.vtmc.kindergarten.security;
 
+import lt.vtmc.kindergarten.domain.RoleType;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
@@ -15,6 +16,7 @@ import org.springframework.security.web.authentication.AuthenticationSuccessHand
 import org.springframework.security.web.authentication.SimpleUrlAuthenticationFailureHandler;
 import org.springframework.security.web.authentication.SimpleUrlAuthenticationSuccessHandler;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
+import static lt.vtmc.kindergarten.domain.RoleType.*;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -45,8 +47,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http
                 .cors().and()//is Stasausko
                 .authorizeRequests()
-                .antMatchers("/", "console/**", "**/**").permitAll()
-//                .antMatchers("/console/**").authenticated()
+                .antMatchers("/", "/console/**", "/api/**").permitAll()
+                .antMatchers("/admin/**").hasRole("ADMIN")
+                .antMatchers("/education-specialist/**").hasRole("EDUCATION_SPECIALIST")
+                .antMatchers("/guardian/**").hasRole("GUARDIAN")
                 .and()
                 .formLogin()
                 .successHandler(new AuthenticationSuccessHandler() {

@@ -2,8 +2,7 @@ import React from 'react';
 
 const AdminUserTableComponent = ({ users }) => {
     return (
-        <div className="col-12 mt-3">
-            <table id="districtTable" className="table col-12 mx-auto">
+            <table id="districtTable" className="table col-12 mx-auto mt-3">
                 <thead>
                     <tr>
                         <th scope="col" style={{ width: "30px" }}>
@@ -15,7 +14,6 @@ const AdminUserTableComponent = ({ users }) => {
                         <th scope="col">Rolė</th>
                     </tr>
                 </thead>
-
                 <tbody>
                     {users.map(({ username, firstName, lastName, role }, index) => (
                         <tr key={username}>
@@ -28,7 +26,6 @@ const AdminUserTableComponent = ({ users }) => {
                     ))}
                 </tbody>
             </table>
-        </div>
     )
 }
 

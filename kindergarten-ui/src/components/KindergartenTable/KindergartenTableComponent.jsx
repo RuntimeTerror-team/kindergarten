@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 const KindergartenTableComponent = ({ kindergartens, handleWantsInfo, handleWantsGroups }) => {
     return (
@@ -20,8 +21,10 @@ const KindergartenTableComponent = ({ kindergartens, handleWantsInfo, handleWant
                             <td>{title}</td>
                             <td>{address}</td>
                             <td>
-                                <button className="btn btn-info mr-2" id={id} onClick={handleWantsInfo}>Kontaktai</button>
-                                <button className="btn btn-info" id={id} onClick={handleWantsGroups}>Grupės</button>
+                                <Link to={`/education-specialist/kindergartens/${id}`} className="btn btn-info mr-2">
+                                    Kontaktai
+                                </Link>
+                                <Link to={`/education-specialist/kindergartens/${id}/groups`} className="btn btn-info" >Grupės</Link>
                             </td>
                         </tr>
                     )}

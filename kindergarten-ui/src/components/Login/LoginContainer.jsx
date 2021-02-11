@@ -9,7 +9,6 @@ Axios.defaults.withCredentials = true;
 
 class LoginContainer extends Component {
     constructor() {
-
         super();
         this.state = {
             username: "",
@@ -25,9 +24,29 @@ class LoginContainer extends Component {
         Axios
         .get(`${baseUrl}/loggedRole`)
         .then((res) => {
-            console.log(res.data);
+            console.log("Login Container Role: " + res.data)
+            this.context.userService.setUserRole(res.data);
+            this.context.userService.updateUserRole();
+            this.setState({userRole : res.data})
         })
-        .catch(err => console.log("role: " + err))
+        .then(()=> {
+            this.checkLoggedIn();
+        })
+        .catch(err => console.log(err))
+    }
+
+    componentDidUpdate = () => {
+        console.log("Updated: " + this.state.userRole);
+    }
+
+    checkLoggedIn = () => {
+        if (this.state.userRole === "ROLE_ADMIN") {
+            this.props.history.push("/admin/users");
+        } else if (this.state.userRole === "ROLE_EDUCATION_SPECIALIST") {
+            this.props.history.push("/education-specialist/kindergartens");
+        } else if (this.state.userRole === "ROLE_GUARDIAN") {
+            this.props.history.push("/guardian");
+        }
     }
 
     handleChange = (e) => {
@@ -74,39 +93,24 @@ class LoginContainer extends Component {
                 .post(`${baseUrl}/login`,
                     userData,
                     { headers: { 'Content-type': 'application/x-www-form-urlencoded' } })
-                .then((res)=>{
-                    let userFromBack = res.data.username;
-                    console.log(res);
-                    console.log("user from back: " + userFromBack);
-                    this.context.userService.setCurrentUser(userFromBack);
-                    this.context.userService.updateCurrentUser();
-
+                .then(()=>{
                     Axios
                     .get(`${baseUrl}/loggedRole`)
                     .then((res) => {
                         roleFromBack = res.data;
-                        console.log("role from back: " + roleFromBack);
-                        this.context.userService.setUserRole(roleFromBack);
-                        this.context.userService.updateUserRole();
-                        // this.resetState();
+                        this.setState({userRole : roleFromBack})
                     })
                     .then(() => {
-                        if (this.context.userService.getUserRole() === "ROLE_ADMIN") {
-                            this.props.history.push("/admin");
-                        } else if (this.context.userService.getUserRole() === "ROLE_EDUCATION_SPECIALIST") {
-                            this.props.history.push("/education-specialist");
-                        } else if (this.context.userService.getUserRole() === "ROLE_GUARDIAN") {
-                            //we could push directly to particular guardians page with id in url
-                            this.props.history.push("/guardian");
-                        } else {
-                            console.log("no role");
-                        }
+                            this.checkLoggedIn();
                     })
                     .catch(err => console.log(err));
                 })
                 .catch((e) => { 
-                    this.setState({ areCredentialsIncorrect: true });
-                    // console.log(e);
+                    if (e.response.status === 401) {
+                        this.setState({ areCredentialsIncorrect: true });
+                    } else {
+                        console.log(e);
+                    }
                  });
 
         }

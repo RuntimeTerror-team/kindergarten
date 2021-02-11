@@ -1,32 +1,36 @@
+import axios from 'axios';
 import React, { Component } from 'react';
+import baseUrl from '../../AppConfig';
 import ServicesContext from '../../context/ServicesContext';
 
 import '../../styles/pages.css';
+import '../../styles/styles.css';
 import EducationSpecialistPageComponent from './EducationSpecialistPageComponent';
 
 class EducationSpecialistPageContainer extends Component {
     constructor() {
         super();
         this.state = {
-            choice: "greeting"
+            choice: "greeting",
+            userRole: ""
         }
+    }
+
+    componentDidMount = () => {
+        axios
+        .get(`${baseUrl}/loggedRole`)
+        .then((res) => {
+            this.setState({userRole : res.data})
+        })
+        .catch(err => console.log(err))
     }
 
     handleUserChoice = (e) => {
         this.setState({ choice: e.target.name });
     }
 
-    handleLogout = () => {
-        this.context.userService.setCurrentUser("");
-        this.context.userService.setUserRole("");
-        this.context.userService.updateCurrentUser();
-        this.context.userService.updateUserRole();
-
-        this.props.history.push("/");
-    }
-
     render() {
-        if (this.context.userService.getUserRole() === "ROLE_EDUCATION_SPECIALIST") {
+        if (this.state.userRole === "ROLE_EDUCATION_SPECIALIST") {
             return (
                 <EducationSpecialistPageComponent
                     handleUserChoice={this.handleUserChoice}

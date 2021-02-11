@@ -73,3 +73,11 @@ input::-webkit-inner-spin-button {
 input[type=number] {
   -moz-appearance: textfield;
 }
+
+.footerBottom {
+    padding-bottom: 50px;
+}
+
+.btn-active {
+    border-color: rgb(0, 122, 201);
+}
