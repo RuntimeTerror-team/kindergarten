@@ -2,14 +2,14 @@ import React, { Component } from 'react';
 import axios from 'axios';
 import baseUrl from '../../AppConfig';
 import AdminDistrictFormComponent from './AdminDistrictFormComponent';
-import { Link } from 'react-router-dom';
 import Footer from '../Footer/Footer';
-import AdminNavigationComponent from '../AdminNavigation/AdminNavigationComponent';
+import AdminNavigationComponent from '../Navigation/AdminNavigationComponent';
 import HeaderComponent from '../Header/HeaderComponent';
+import ServicesContext from '../../context/ServicesContext';
 
 class AdminDistrictFormContainer extends Component {
-    constructor() {
-        super();
+    constructor(props) {
+        super(props);
         this.state = {
             districts: [],
             districtName: "",
@@ -20,25 +20,18 @@ class AdminDistrictFormContainer extends Component {
             requestMessage: "",
             messageStyle: "",
             updatingMessageStyle: "",
-            updatingMessage: "",
-            loggedInUserRole : ""
+            updatingMessage: ""
         }
     }
 
     componentDidMount = () => {
+        console.log(this.state.userRole);
         axios
             .get(`${baseUrl}/api/districts`)
             .then((res) => {
                 this.setState({ districts: res.data })
             })
             .catch((err) => console.log(err));
-
-            axios
-            .get(`${baseUrl}/loggedRole`)
-            .then((res) => {
-                this.setState({ loggedInUserRole: res.data })
-            })
-            .catch(err => console.log(err))
     }
 
     addDistrict = (e) => {
@@ -160,48 +153,39 @@ class AdminDistrictFormContainer extends Component {
     }
 
     render() {
-        if (this.state.loggedInUserRole === "ROLE_ADMIN") {
-            return (
-                <div className="footerBottom">
-                    <HeaderComponent />
-                    <div className="container py-4">
-                        <div className="row">
-                            <AdminNavigationComponent />
-                            <div className="col-8">
-                                <h1 className="mb-5 text-center">Rajonų administravimas</h1>
-
-                                <AdminDistrictFormComponent
-                                    districts={this.state.districts}
-                                    addDistrict={this.addDistrict}
-                                    updateDistrict={this.updateDistrict}
-                                    startUpdate={this.startUpdate}
-                                    updatingId={this.state.updatingId}
-                                    onDistrictNameChange={this.onDistrictNameChange}
-                                    updatingTitle={this.updatingTitle}
-                                    titleValidation={this.state.titleValidation}
-                                    onCreatingDistrictNameChange={this.onCreatingDistrictNameChange}
-                                    titleValidationInUpdate={this.state.titleValidationInUpdate}
-                                    requestMessage={this.state.requestMessage}
-                                    messageStyle={this.state.messageStyle}
-                                    updatingMessage={this.state.updatingMessage}
-                                    updatingMessageStyle={this.state.updatingMessageStyle}
-                                />
-                            </div>
-
+        return (
+            <div className="footerBottom">
+                <HeaderComponent userRole="ROLE_ADMIN" />
+                <div className="container py-4">
+                    <div className="row">
+                        <AdminNavigationComponent />
+                        <div className="col-8">
+                            <h1 className="mb-5 text-center">Rajonų administravimas</h1>
+                            <AdminDistrictFormComponent
+                                districts={this.state.districts}
+                                addDistrict={this.addDistrict}
+                                updateDistrict={this.updateDistrict}
+                                startUpdate={this.startUpdate}
+                                updatingId={this.state.updatingId}
+                                onDistrictNameChange={this.onDistrictNameChange}
+                                updatingTitle={this.updatingTitle}
+                                titleValidation={this.state.titleValidation}
+                                onCreatingDistrictNameChange={this.onCreatingDistrictNameChange}
+                                titleValidationInUpdate={this.state.titleValidationInUpdate}
+                                requestMessage={this.state.requestMessage}
+                                messageStyle={this.state.messageStyle}
+                                updatingMessage={this.state.updatingMessage}
+                                updatingMessageStyle={this.state.updatingMessageStyle}
+                            />
                         </div>
                     </div>
-                    <Footer />
                 </div>
-            )
-        } else {
-            return (
-                <div className="text-center p-5">
-                    <h1>Prieiga uždrausta</h1>
-                    <Link to="/" className="btn btn-primary">Išeiti</Link>
-                </div>
-            )
-        }
+                <Footer />
+            </div>
+        )
     }
 }
+
+AdminDistrictFormContainer.contextType = ServicesContext;
 
 export default AdminDistrictFormContainer;

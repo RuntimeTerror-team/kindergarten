@@ -24,6 +24,9 @@ class LoginContainer extends Component {
         Axios
         .get(`${baseUrl}/loggedRole`)
         .then((res) => {
+            console.log("Login Container Role: " + res.data)
+            this.context.userService.setUserRole(res.data);
+            this.context.userService.updateUserRole();
             this.setState({userRole : res.data})
         })
         .then(()=> {
@@ -32,11 +35,15 @@ class LoginContainer extends Component {
         .catch(err => console.log(err))
     }
 
+    componentDidUpdate = () => {
+        console.log("Updated: " + this.state.userRole);
+    }
+
     checkLoggedIn = () => {
         if (this.state.userRole === "ROLE_ADMIN") {
             this.props.history.push("/admin/users");
         } else if (this.state.userRole === "ROLE_EDUCATION_SPECIALIST") {
-            this.props.history.push("/education-specialist");
+            this.props.history.push("/education-specialist/kindergartens");
         } else if (this.state.userRole === "ROLE_GUARDIAN") {
             this.props.history.push("/guardian");
         }

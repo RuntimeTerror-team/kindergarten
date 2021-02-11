@@ -4,6 +4,7 @@ import baseUrl from '../../AppConfig';
 import ServicesContext from '../../context/ServicesContext';
 
 import '../../styles/pages.css';
+import '../../styles/styles.css';
 import EducationSpecialistPageComponent from './EducationSpecialistPageComponent';
 
 class EducationSpecialistPageContainer extends Component {

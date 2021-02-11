@@ -1,7 +1,7 @@
 import React from 'react'
 import Proptypes from 'prop-types';
 
-const GroupsTableComponent = ({ groups }) => {
+const GroupTableComponent = ({ groups }) => {
     return (
 
         <div className="col-12 mt-3">
@@ -30,7 +30,8 @@ const GroupsTableComponent = ({ groups }) => {
     )
 }
 
-GroupsTableComponent.propTypes = {
-    groups: Proptypes.array.isRequired
+GroupTableComponent.propTypes = {
+    groups: Proptypes.array
 }
-export default GroupsTableComponent
+
+export default GroupTableComponent

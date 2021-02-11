@@ -3,6 +3,9 @@ import React, { Component } from 'react';
 import KindergartenCreationFormComponent from './KindergartenCreationFormComponent';
 import baseUrl from '../../AppConfig';
 import "../../styles/forms.css";
+import Footer from '../Footer/Footer';
+import ESNavigationComponent from '../Navigation/ESNavigationComponent';
+import HeaderComponent from '../Header/HeaderComponent';
 
 class KindergartenCreationFormContainer extends Component {
     constructor(props) {
@@ -167,7 +170,7 @@ class KindergartenCreationFormContainer extends Component {
                     this.props.stopCreatingKindergarten();
                 })
                 .catch((err) => {
-                    if (err.response.status === 409) {
+                    if (err.response.status && err.response.status === 409) {
                         this.setState({ failMessage: err.response.data })
                         this.setState({ failMessageStyle: "alert alert-danger" })
                     }
@@ -180,24 +183,39 @@ class KindergartenCreationFormContainer extends Component {
     }
 
     render() {
+        console.log(window.location.pathname);
         return (
-            <KindergartenCreationFormComponent
-                districts={this.state.districts}
-                handleChange={this.handleChange}
-                handleSubmit={this.handleSubmit}
-                stopCreatingKindergarten={this.props.stopCreatingKindergarten}
-                otherProps={this.state}
-                failMessage={this.state.failMessage}
-                failMessageStyle={this.state.failMessageStyle}
-                titleValidation={this.state.titleValidation}
-                companyCodeValidation={this.state.companyCodeValidation}
-                addressValidation={this.state.addressValidation}
-                districtValidation={this.state.districtValidation}
-                postalCodeValidation={this.state.postalCodeValidation}
-                phoneNoValidation={this.state.phoneNoValidation}
-                emailValidation={this.state.emailValidation}
-                websiteValidation={this.state.websiteValidation}
-            />
+            <div>
+                <div className="footerBottom">
+                    <HeaderComponent userRole="ROLE_EDUCATION_SPECIALIST" />
+                    <div className="container py-4">
+                        <div className="row">
+                            <ESNavigationComponent />
+                            <div className="col-8">
+                                <h1 className="mb-5 text-center">Darželių sąrašas</h1>
+                                <KindergartenCreationFormComponent
+                                    districts={this.state.districts}
+                                    handleChange={this.handleChange}
+                                    handleSubmit={this.handleSubmit}
+                                    stopCreatingKindergarten={this.props.stopCreatingKindergarten}
+                                    otherProps={this.state}
+                                    failMessage={this.state.failMessage}
+                                    failMessageStyle={this.state.failMessageStyle}
+                                    titleValidation={this.state.titleValidation}
+                                    companyCodeValidation={this.state.companyCodeValidation}
+                                    addressValidation={this.state.addressValidation}
+                                    districtValidation={this.state.districtValidation}
+                                    postalCodeValidation={this.state.postalCodeValidation}
+                                    phoneNoValidation={this.state.phoneNoValidation}
+                                    emailValidation={this.state.emailValidation}
+                                    websiteValidation={this.state.websiteValidation}
+                                />
+                            </div>
+                        </div>
+                    </div>
+                    <Footer />
+                </div>
+            </div>
         )
     }
 }

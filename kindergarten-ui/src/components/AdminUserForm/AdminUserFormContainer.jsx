@@ -2,13 +2,10 @@ import axios from 'axios';
 import React, { Component } from 'react';
 import baseUrl from "../../AppConfig";
 import ServicesContext from "../../context/ServicesContext";
-import AdminUserTableComponent from '../AdminUserTable/AdminUserTableComponent';
 import HeaderComponent from '../Header/HeaderComponent';
 import Footer from '../Footer/Footer';
 import AdminUserFormComponent from './AdminUserFormComponent';
-import { Link } from 'react-router-dom';
-import AdminNavigationComponent from '../AdminNavigation/AdminNavigationComponent';
-
+import AdminNavigationComponent from '../Navigation/AdminNavigationComponent';
 
 class AdminUserFormContainer extends Component {
     constructor() {
@@ -21,8 +18,7 @@ class AdminUserFormContainer extends Component {
             firstnameLength: "",
             lastnameLength: "",
             isCreated: false,
-            createdUsername: "",
-            loggedInUserRole: ""
+            createdUsername: ""
         }
     }
 
@@ -33,13 +29,6 @@ class AdminUserFormContainer extends Component {
                 this.setState({ users: res.data });
             })
             .catch((err) => console.log(err))
-
-        axios
-            .get(`${baseUrl}/loggedRole`)
-            .then((res) => {
-                this.setState({ loggedInUserRole: res.data })
-            })
-            .catch(err => console.log(err))
     }
 
     handleChange = (e) => {
@@ -122,12 +111,11 @@ class AdminUserFormContainer extends Component {
         }
     }
 
-
     render() {
-        if (this.state.loggedInUserRole === "ROLE_ADMIN") {
-            return (
+        return (
+            <div>
                 <div className="footerBottom">
-                    <HeaderComponent />
+                    <HeaderComponent userRole="ROLE_ADMIN" />
                     <div className="container py-4">
                         <div className="row">
                             <AdminNavigationComponent />
@@ -136,26 +124,16 @@ class AdminUserFormContainer extends Component {
                                 <AdminUserFormComponent
                                     handleSubmit={this.handleSubmit}
                                     handleChange={this.handleChange}
+                                    isCreated={this.state.isCreated}
                                     {...this.state}
                                 />
-                                {this.state.users.length > 0 && <AdminUserTableComponent
-                                    users={this.state.users}
-                                />}
                             </div>
                         </div>
                     </div>
                     <Footer />
                 </div>
-            )
-        } else {
-            return (
-                <div className="text-center p-5">
-                    <h1>Prieiga uždrausta</h1>
-                    <Link to="/" className="btn btn-primary">Išeiti</Link>
-                </div>
-            )
-        }
-
+            </div>
+        )
     }
 
 }

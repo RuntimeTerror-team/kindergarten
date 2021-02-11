@@ -1,12 +1,12 @@
 import React from "react";
 import Proptypes from "prop-types";
-import AgeGroupTableComponent from "./AgeGroupTableComponent";
+import AgeRangeTableComponent from "./AgeRangeTableComponent";
 
-let GroupFormComponent = (props) => {
+let AgeRangeFormComponent = (props) => {
   return (
     <div className="row justify-content-center align-items-center">
       <div>
-        <h1 className="mb-4">Grupės sukūrimas</h1>
+        <h1 className="mb-4 text-center">Grupės sukūrimas</h1>
         <form className="form" onSubmit={props.onSubmit}>
           <div className="form-group">
             <select
@@ -22,7 +22,6 @@ let GroupFormComponent = (props) => {
               <option value="4">4</option>
               <option value="5">5</option>
               <option value="6">6</option>
-              <option value="7">7</option>
             </select>
             <div className="invalid-feedback">Prašome užpildyti amžių nuo</div>
           </div>
@@ -34,7 +33,6 @@ let GroupFormComponent = (props) => {
               value={props.toAge}
               onChange={props.onToAgeChange}>
               <option value="">Amžius iki</option>
-              <option value="1">1</option>
               <option value="2">2</option>
               <option value="3">3</option>
               <option value="4">4</option>
@@ -62,13 +60,13 @@ let GroupFormComponent = (props) => {
             }
           </div>
         </form>
-        {props.groups.length > 0 ? <AgeGroupTableComponent groups={props.groups} onDelete={props.onDelete} /> : null}
+        {props.groups.length > 0 ? <AgeRangeTableComponent groups={props.groups} onDelete={props.onDelete} /> : null}
       </div>
     </div>
   );
 };
 
-GroupFormComponent.propTypes = {
+AgeRangeFormComponent.propTypes = {
   groups: Proptypes.array.isRequired,
   fromAge: Proptypes.string.isRequired,
   toAge: Proptypes.string.isRequired,
@@ -83,4 +81,4 @@ GroupFormComponent.propTypes = {
   onDelete: Proptypes.func.isRequired,
 };
 
-export default GroupFormComponent;
+export default AgeRangeFormComponent;

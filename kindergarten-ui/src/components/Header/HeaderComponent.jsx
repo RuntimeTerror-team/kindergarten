@@ -6,20 +6,14 @@ import axios from "axios";
 import baseUrl from "../../AppConfig";
 import { useHistory } from "react-router";
 
-const HeaderComponent = () => {
+const HeaderComponent = ({userRole}) => {
   let history = useHistory();
 
   const [nameToShow, setNameShow] = useState("");
-  const [userRole, setUserRole] = useState("");
 
   useEffect(() => {
-    axios
-      .get(`${baseUrl}/loggedRole`)
-      .then((res) => {
-        setUserRole(res.data);
-      })
-      .then(() => {
-        console.log(userRole);
+    console.log("Header: " + userRole)
+
         if (userRole === "ROLE_ADMIN") {
           setNameShow("Administratorius")
         } else if (userRole === "ROLE_EDUCATION_SPECIALIST") {
@@ -36,7 +30,6 @@ const HeaderComponent = () => {
             })
             .catch(err => console.log(err))
         }
-      })
   }, [userRole]);
 
   const handleLogout = () => {
@@ -59,9 +52,9 @@ const HeaderComponent = () => {
           <p className="lead">
             <strong>{nameToShow}</strong>
           </p>
-          <button className="btn btn-yellow" onClick={handleLogout}>
+          {userRole !== "no role" && userRole !== "" && <button className="btn btn-yellow" onClick={handleLogout}>
             Atsijungti <IoMdExit size={20} />
-          </button>
+          </button>}
         </div>
       </div>
     </div>

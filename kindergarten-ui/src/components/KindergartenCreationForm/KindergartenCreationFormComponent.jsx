@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
 const KindergartenCreationFormComponent = ({
   address,
@@ -24,7 +25,7 @@ const KindergartenCreationFormComponent = ({
   websiteValidation,
 }) => {
   return (
-    <div className="col-12 clearfix">
+    <div className="col-12 clearfix mb-3">
       <form onSubmit={handleSubmit}>
         <div className="form-group row">
           <label htmlFor="title" className="col-3 pt-2 text-right">
@@ -169,22 +170,22 @@ const KindergartenCreationFormComponent = ({
           <div className="col-3"></div>
           <div className="invalid-feedback col-9">Įveskite svetainės adresą arba palikite tuščią.</div>
         </div>
+        <div className="col-12 row">
+        <div className="offset-3 col-9"><span className="mandatory">*</span> pažymėti laukai privalomi.</div>
+        {<div className={`${failMessageStyle} offset-4 col-8 mt-4`}>
+          {failMessage}
+        </div>}
+      </div>
         <button type="submit" className="btn btn-green float-right">
           Išsaugoti
         </button>
       </form>
-      <button className="btn btn-red float-right mx-2" onClick={stopCreatingKindergarten}>
+      <Link to="/education-specialist/kindergartens" className="btn btn-red float-right mx-2" onClick={stopCreatingKindergarten}>
         Atšaukti
-      </button>
-      <div className="col-3"></div>
-      <div className="col-9">
-        <span className="mandatory">*</span> pažymėti laukai privalomi.
-      </div>
-      {
-        <div className={`${failMessageStyle} alertTop`} style={{ width: "30em" }}>
-          {failMessage}
-        </div>
-      }
+      </Link>
+
+
+
     </div>
   );
 };

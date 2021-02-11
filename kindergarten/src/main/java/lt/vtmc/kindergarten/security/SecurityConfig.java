@@ -48,6 +48,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .cors().and()//is Stasausko
                 .authorizeRequests()
                 .antMatchers("/", "/console/**", "/api/**").permitAll()
+                .antMatchers("/admin/**").hasRole("ADMIN")
+                .antMatchers("/education-specialist/**").hasRole("EDUCATION_SPECIALIST")
+                .antMatchers("/guardian/**").hasRole("GUARDIAN")
                 .and()
                 .formLogin()
                 .successHandler(new AuthenticationSuccessHandler() {
