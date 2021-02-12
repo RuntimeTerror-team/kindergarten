@@ -74,7 +74,7 @@ class AdminDistrictFormContainer extends Component {
     }
 
     validateLength = (title) => {
-        if (title.length >= 5 && title.length <= 20) {
+        if (title.trim().length >= 5 && title.trim().length <= 20) {
             this.setState({ titleValidation: "" });
             return true;
 
@@ -86,7 +86,7 @@ class AdminDistrictFormContainer extends Component {
     }
 
     validateLengthInUpdate = (title) => {
-        if (title.length >= 5 && title.length <= 20) {
+        if (title.trim().length >= 5 && title.trim().length <= 20) {
             this.setState({ titleValidationInUpdate: "" });
         } else {
             this.setState({ titleValidationInUpdate: "is-invalid" });
@@ -123,8 +123,8 @@ class AdminDistrictFormContainer extends Component {
     updateDistrict = (e) => {
         e.preventDefault();
 
-        if (this.state.districts.filter(district => district.title.toLowerCase() === this.state.updatingTitle.toLowerCase()).length === 0
-            || (this.state.districts.filter(district => district.title.toLowerCase() === this.state.updatingTitle.toLowerCase()).length === 1
+        if (this.state.districts.filter(district => district.title.toLowerCase() === this.state.updatingTitle.toLowerCase()).trim().length === 0
+            || (this.state.districts.filter(district => district.title.toLowerCase() === this.state.updatingTitle.toLowerCase()).trim().length === 1
                 && +this.state.districts.filter(district => district.title.toLowerCase() === this.state.updatingTitle.toLowerCase())[0].id === +this.state.updatingId)) {
             if (this.state.titleValidationInUpdate === "") {
                 axios

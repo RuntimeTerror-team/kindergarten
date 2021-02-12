@@ -14,6 +14,8 @@ import org.springframework.test.context.ContextConfiguration;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+@ContextConfiguration
+@WithMockUser(username="administratorius",roles={"ADMIN"})
 @SpringBootTest
 public class UserControllerTest {
 

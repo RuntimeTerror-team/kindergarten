@@ -19,7 +19,10 @@ class GroupCreationFormContainer extends Component {
             wantsCreate: false,
             titleValidation: "",
             ageRangeValidation: "",
-            childrenCountValidation: ""
+            childrenCountValidation: "",
+            message: "",
+            messageStyle: "",
+            kindergarten: ""
         }
     }
 
@@ -39,6 +42,14 @@ class GroupCreationFormContainer extends Component {
                 this.setState({ ageRanges: res.data })
             })
             .catch((err) => console.log(err));
+
+        Axios
+            .get(`${baseUrl}/api/kindergartens/${this.props.match.params.id}`)
+            .then((res) => {
+                this.setState({ kindergarten: res.data })
+                console.log(res.data);
+            })
+            .catch((err) => console.log(err));
     }
 
     handleFormChange = (e) => {
@@ -46,7 +57,7 @@ class GroupCreationFormContainer extends Component {
         this.setState({ [name]: value });
 
         if (name === "title") {
-            if (value.length < 5 || value.length > 20) {
+            if (value.trim().length < 5 || value.trim().length > 20) {
                 this.setState({ titleValidation: "is-invalid" })
             } else {
                 this.setState({ titleValidation: "" })
@@ -60,16 +71,19 @@ class GroupCreationFormContainer extends Component {
             }
         }
         if (name === "childrenCount") {
-            if (value.length > 0) {
+            if (value >= 0 && value <= 99) {
                 this.setState({ childrenCountValidation: "" })
             } else {
                 this.setState({ childrenCountValidation: "is-invalid" })
             }
         }
+
+        this.setState({ message: "" })
+        this.setState({ messageStyle: "" })
     }
 
     validateBlank = () => {
-        if (this.state.title.length === 0) {
+        if (this.state.title.trim().length === 0) {
             this.setState({ titleValidation: "is-invalid" })
         }
         if (this.state.ageRangeId.length === 0) {
@@ -103,13 +117,15 @@ class GroupCreationFormContainer extends Component {
                         .catch((err) => console.log(err));
                 })
                 .then(() => {
-                    this.setState({ title: "" })
-                    this.setState({ ageRangeId: "" })
-                    this.setState({ childrenCount: "" })
-                    this.setState({ wantsCreate: !this.state.wantsCreate })
-                    console.log("success");
+                    this.setState({ message: "Darželio grupė sėkmingai išsaugota" })
+                    this.setState({ messageStyle: "alert alert-success" })
+                    e.target.reset();
                 })
-                .catch((err) => console.log(err));
+                .catch((err) => {
+                    this.setState({ message: "Grupės nepavyko sukurti" })
+                    this.setState({ messageStyle: "alert alert-danger" })
+                    console.log(err)
+                });
         }
     }
 
@@ -126,7 +142,8 @@ class GroupCreationFormContainer extends Component {
                         <div className="row">
                             <ESNavigationComponent />
                             <div className="col-8">
-                                <h1 className="mb-5 text-center">Darželio grupių sąrašas</h1>
+                                <h1 className="text-center">Kurti darželio grupę</h1>
+                                <p className="text-center"><strong>{this.state.kindergarten.title}</strong> {this.state.kindergarten.address}</p>
                                 <GroupCreationFormComponent
                                     groups={this.state.groups}
                                     ageRanges={this.state.ageRanges}
@@ -139,6 +156,8 @@ class GroupCreationFormContainer extends Component {
                                     ageRangeValidation={this.state.ageRangeValidation}
                                     childrenCountValidation={this.state.childrenCountValidation}
                                     kindergartenId={this.state.kindergartenId}
+                                    message={this.state.message}
+                                    messageStyle={this.state.messageStyle}
                                 />
                             </div>
                         </div>

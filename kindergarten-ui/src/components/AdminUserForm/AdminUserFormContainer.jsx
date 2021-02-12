@@ -79,10 +79,10 @@ class AdminUserFormContainer extends Component {
 
         this.validate(typedFirstname, typedLastname);
 
-        if (typedFirstname.length >= 2
-            && typedFirstname.length <= 30
-            && typedLastname.length >= 2
-            && typedLastname.length <= 30) {
+        if (typedFirstname.trim().length >= 2
+            && typedFirstname.trim().length <= 30
+            && typedLastname.trim().length >= 2
+            && typedLastname.trim().length <= 30) {
             axios
                 .post(`${baseUrl}/api/users/admin`,
                     {
