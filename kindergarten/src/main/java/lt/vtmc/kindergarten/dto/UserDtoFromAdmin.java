@@ -1,7 +1,5 @@
 package lt.vtmc.kindergarten.dto;
 
-import org.hibernate.validator.constraints.Length;
-
 import javax.validation.constraints.NotNull;
 
 public class UserDtoFromAdmin {
