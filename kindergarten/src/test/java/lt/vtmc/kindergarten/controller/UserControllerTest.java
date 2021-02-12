@@ -2,7 +2,6 @@ package lt.vtmc.kindergarten.controller;
 
 import lt.vtmc.kindergarten.dto.UserDto;
 import lt.vtmc.kindergarten.dto.UserDtoFromAdmin;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,7 +11,7 @@ import org.springframework.test.annotation.DirtiesContext;
 
 
 import static org.junit.jupiter.api.Assertions.*;
-@Disabled
+
 @SpringBootTest
 public class UserControllerTest {
 
@@ -138,6 +137,7 @@ public class UserControllerTest {
         String createdUsername = userController.createUserFromAdmin(user);
 
         assertEquals("ArnasJocys1", userController.getUser(createdUsername).getUsername(), "Pascal case Username is not created");
+//FIXME those must be moved to Person test
 //        assertEquals("Arnas", userController.getUser(createdUsername).getFirstName(), "Pascal case firstname is not created");
 //        assertEquals("Jocys", userController.getUser(createdUsername).getLastName(), "Pascal case lastname is not created");
     }

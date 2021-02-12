@@ -18,24 +18,17 @@ public class Application {
     @OneToMany(mappedBy = "application",cascade = CascadeType.ALL)
     private Set<KindergartenApplicationForm> kindergartenApplicationForms = new HashSet<>();
 
-//    @ManyToOne
-//    @JoinColumn(nullable = false)
     @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "child_person_id")
+    @JoinColumn(name = "child_person_id", nullable = false)
     private Person childId;
 
-//    @ManyToOne
-//    @JoinColumn(nullable = false)
     @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "parent_person_id")
+    @JoinColumn(name = "parent_person_id", nullable = false)
     private Person parentId;
 
-//    @ManyToOne
-//    @JoinColumn(nullable = true)
     @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "second_parent_person_id")
+    @JoinColumn(name = "second_parent_person_id", nullable = true)
     private Person secondParentId;
-
 
     @Column
     private int score;
@@ -142,7 +135,6 @@ public class Application {
     }
 
     public void setParentId(Person parentId) {
-//        parentId.addApplication(this);
         this.parentId = parentId;
     }
 
@@ -151,7 +143,6 @@ public class Application {
     }
 
     public void setSecondParentId(Person secondParentId) {
-//        secondParentId.addApplication(this);
         this.secondParentId = secondParentId;
     }
 }

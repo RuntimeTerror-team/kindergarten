@@ -12,7 +12,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.*;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 @DirtiesContext(classMode = DirtiesContext.ClassMode.AFTER_EACH_TEST_METHOD)
@@ -22,9 +21,6 @@ public class ApplicationControllerTest {
 
     @Autowired
     private ApplicationController applicationController;
-
-//    @Autowired
-//    private UserDao userDao;
 
     @Autowired
     private KindergartenDao kindergartenDao;

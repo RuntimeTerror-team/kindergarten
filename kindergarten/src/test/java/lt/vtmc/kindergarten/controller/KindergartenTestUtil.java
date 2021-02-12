@@ -4,9 +4,8 @@ package lt.vtmc.kindergarten.controller;
 import lt.vtmc.kindergarten.domain.CityEnum;
 import lt.vtmc.kindergarten.domain.District;
 import lt.vtmc.kindergarten.domain.Kindergarten;
-import org.junit.jupiter.api.Disabled;
 
-@Disabled
+
 public final class KindergartenTestUtil {
 
         public static District createDistrict(){
@@ -29,8 +28,5 @@ public final class KindergartenTestUtil {
 
             return kindergarten;
         }
-
-
-
 
 }
