@@ -21,15 +21,12 @@ public final class KindergartenTestUtil {
             kindergarten.setCity(CityEnum.VILNIUS);
             kindergarten.setPostalCode("12546");
             kindergarten.setPhoneNumber("862403523");
-            kindergarten.setEmail("darzeliasass@gmail.com");
+            kindergarten.setEmail("darzelispusaite@gmail.com");
             kindergarten.setWebsite("www.darzelis.lt");
             kindergarten.setCompanyCode("19555587");
             kindergarten.setDistrict(createDistrict());
 
             return kindergarten;
         }
-
-
-
 
 }

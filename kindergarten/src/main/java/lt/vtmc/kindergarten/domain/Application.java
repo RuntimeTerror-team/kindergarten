@@ -6,27 +6,32 @@ import java.util.HashSet;
 import java.util.Set;
 
 @Entity
-@Table(name = "application")
 public class Application {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    @OneToMany(mappedBy = "user")
-    private Set<UserApplication> users = new HashSet<UserApplication>();
-
-    @Column
-    private Long childId;
-
     @Temporal(TemporalType.DATE)
     private Date date;
 
-    @OneToMany(mappedBy = "application")
-    private Set<KindergartenApplication> kindergartenApplications = new HashSet<>();
+    @OneToMany(mappedBy = "application",cascade = CascadeType.ALL)
+    private Set<KindergartenApplicationForm> kindergartenApplicationForms = new HashSet<>();
 
-    @OneToOne(mappedBy = "application")
-    private Child child;
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "child_person_id", nullable = false)
+    private Person childId;
+
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "parent_person_id", nullable = false)
+    private Person parentId;
+
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "second_parent_person_id", nullable = true)
+    private Person secondParentId;
+
+    @Column
+    private int score;
 
     @Column
     private boolean isAdopted;
@@ -40,32 +45,9 @@ public class Application {
     @Column
     private boolean isGuardianDisabled;
 
-    public Application() {
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public Set<UserApplication> getUsers() {
-        return users;
-    }
-
-    public void setUsers(Set<UserApplication> users) {
-        this.users = users;
-    }
-
-    public Long getChildId() {
-        return childId;
-    }
-
-    public void setChildId(Long childId) {
-        this.childId = childId;
-    }
+    @Column
+    @Enumerated(EnumType.STRING)
+    private ApplicationStatusEnum applicationStatus;
 
     public Date getDate() {
         return date;
@@ -73,6 +55,22 @@ public class Application {
 
     public void setDate(Date date) {
         this.date = date;
+    }
+
+    public Set<KindergartenApplicationForm> getKindergartenApplicationForms() {
+        return kindergartenApplicationForms;
+    }
+
+    public void setKindergartenApplicationForms(Set<KindergartenApplicationForm> kindergartenApplicationForms) {
+        this.kindergartenApplicationForms = kindergartenApplicationForms;
+    }
+
+    public int getScore() {
+        return score;
+    }
+
+    public void setScore(int score) {
+        this.score = score;
     }
 
     public boolean isAdopted() {
@@ -107,19 +105,44 @@ public class Application {
         isGuardianDisabled = guardianDisabled;
     }
 
-    public Set<KindergartenApplication> getKindergartenApplications() {
-        return kindergartenApplications;
+    public ApplicationStatusEnum getApplicationStatus() {
+        return applicationStatus;
     }
 
-    public void setKindergartenApplications(Set<KindergartenApplication> kindergartenApplications) {
-        this.kindergartenApplications = kindergartenApplications;
+    public void setApplicationStatus(ApplicationStatusEnum applicationStatus) {
+        this.applicationStatus = applicationStatus;
     }
 
-    public Child getChild() {
-        return child;
+    public Long getId() {
+        return id;
     }
 
-    public void setChild(Child child) {
-        this.child = child;
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public Person getChildId() {
+        return childId;
+    }
+
+
+    public void setChildId(Person childId) {
+        this.childId = childId;
+    }
+
+    public Person getParentId() {
+        return parentId;
+    }
+
+    public void setParentId(Person parentId) {
+        this.parentId = parentId;
+    }
+
+    public Person getSecondParentId() {
+        return secondParentId;
+    }
+
+    public void setSecondParentId(Person secondParentId) {
+        this.secondParentId = secondParentId;
     }
 }

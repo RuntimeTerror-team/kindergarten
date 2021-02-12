@@ -2,6 +2,8 @@ package lt.vtmc.kindergarten.controller;
 
 import lt.vtmc.kindergarten.domain.District;
 import lt.vtmc.kindergarten.dto.DistrictDto;
+
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
@@ -9,22 +11,19 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.annotation.DirtiesContext;
 
+
 import javax.validation.ConstraintViolationException;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
-
-
-
+@DirtiesContext(classMode = DirtiesContext.ClassMode.AFTER_EACH_TEST_METHOD)
 @SpringBootTest
 @DisplayName("When running District controller")
 public class DistrictControllerTest {
 
     @Autowired
     private DistrictController districtController;
-
 
     @Test
     @Order(1)
@@ -43,7 +42,6 @@ public class DistrictControllerTest {
     @Test
     @Order(2)
     @DisplayName("get district list")
-    @DirtiesContext(methodMode = DirtiesContext.MethodMode.AFTER_METHOD)
     void testGettingAllDistrictsWithSize3(){
         DistrictDto districtDto = new DistrictDto();
         districtDto.setId(2L);
@@ -56,14 +54,13 @@ public class DistrictControllerTest {
         districtController.addDistrict(districtDto2);
         districtController.getDistricts();
 
-        assertEquals(3, districtController.getDistricts().size(), "should get the right size list");
+        assertEquals(2, districtController.getDistricts().size(), "should get the right size list");
     }
 
 
     @Test
     @Order(3)
     @DisplayName("update district by id")
-    @DirtiesContext(methodMode = DirtiesContext.MethodMode.AFTER_METHOD)
     void testUpdateDistrict(){
         DistrictDto districtDto = new DistrictDto();
         districtDto.setId(1L);
@@ -78,6 +75,7 @@ public class DistrictControllerTest {
 
         assertEquals("ValakampiaiUpdate", districtController.getDistrict(1L).getTitle(), "should update district by id correctly");
     }
+
 
     @Test
     @Order(4)

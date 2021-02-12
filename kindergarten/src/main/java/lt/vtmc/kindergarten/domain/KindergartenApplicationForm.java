@@ -4,9 +4,11 @@ package lt.vtmc.kindergarten.domain;
 import javax.persistence.*;
 
 @Entity
-public class KindergartenApplication {
+@Table(name = "kindergarten_application")
+public class KindergartenApplicationForm {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
     @ManyToOne
@@ -18,15 +20,12 @@ public class KindergartenApplication {
     private Kindergarten kindergarten;
 
     @Column
-    private int priority;
-
-    @Column
-    private boolean isSiblingInvolved;
+    private Integer priority;
 
     @Column
     private boolean isAccepted;
 
-    public KindergartenApplication() {
+    public KindergartenApplicationForm() {
     }
 
     public Long getId() {
@@ -50,23 +49,16 @@ public class KindergartenApplication {
     }
 
     public void setKindergarten(Kindergarten kindergarten) {
+        kindergarten.addApplicationForm(this);
         this.kindergarten = kindergarten;
     }
 
-    public int getPriority() {
+    public Integer getPriority() {
         return priority;
     }
 
-    public void setPriority(int priority) {
+    public void setPriority(Integer priority) {
         this.priority = priority;
-    }
-
-    public boolean isSiblingInvolved() {
-        return isSiblingInvolved;
-    }
-
-    public void setSiblingInvolved(boolean siblingInvolved) {
-        isSiblingInvolved = siblingInvolved;
     }
 
     public boolean isAccepted() {
