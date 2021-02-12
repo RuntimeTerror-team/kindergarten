@@ -108,7 +108,7 @@ class GroupCreationFormContainer extends Component {
                         .catch((err) => console.log(err));
                 })
                 .then(() => {
-                    this.setState({ message: "Grupė sėkmingai sukurta" })
+                    this.setState({ message: "Darželio grupė sėkmingai išsaugota" })
                     this.setState({ messageStyle: "alert alert-success" })
                     e.target.reset();
                 })
