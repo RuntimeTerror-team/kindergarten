@@ -2,10 +2,9 @@ import React, { Component } from 'react';
 import axios from 'axios';
 import baseUrl from '../../AppConfig';
 import AdminDistrictFormComponent from './AdminDistrictFormComponent';
-import Footer from '../Footer/Footer';
 import AdminNavigationComponent from '../Navigation/AdminNavigationComponent';
 import HeaderComponent from '../Header/HeaderComponent';
-import ServicesContext from '../../context/ServicesContext';
+import Footer from '../Footer/Footer';
 
 class AdminDistrictFormContainer extends Component {
     constructor(props) {
@@ -74,7 +73,7 @@ class AdminDistrictFormContainer extends Component {
     }
 
     validateLength = (title) => {
-        if (title.length >= 5 && title.length <= 20) {
+        if (title.trim().length >= 5 && title.trim().length <= 20) {
             this.setState({ titleValidation: "" });
             return true;
 
@@ -86,7 +85,7 @@ class AdminDistrictFormContainer extends Component {
     }
 
     validateLengthInUpdate = (title) => {
-        if (title.length >= 5 && title.length <= 20) {
+        if (title.trim().length >= 5 && title.trim().length <= 20) {
             this.setState({ titleValidationInUpdate: "" });
         } else {
             this.setState({ titleValidationInUpdate: "is-invalid" });
@@ -185,7 +184,5 @@ class AdminDistrictFormContainer extends Component {
         )
     }
 }
-
-AdminDistrictFormContainer.contextType = ServicesContext;
 
 export default AdminDistrictFormContainer;

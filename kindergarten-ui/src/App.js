@@ -25,7 +25,7 @@ function App(props) {
       <Route exact path='/education-specialist/kindergartens/:id/groups' component={GroupInfoContainer} />
       <Route exact path='/education-specialist/kindergartens/:id/groups/new' component={GroupCreationFormContainer} />
       <Route exact path='/education-specialist/age-ranges' component={AgeRangeFormContainer} />
-      <Route exact path='/guardian' component={GuardianPageContainer} />
+      <Route exact path='/guardian/applications' component={GuardianPageContainer} />
       <Route path='*' component={NoMatchComponent} />
       <Route component={NoMatchComponent} />
     </Switch>

@@ -28,12 +28,9 @@ let AgeRangeTableComponent = (props) => {
             </table>
         </div>
     )
-
-
 }
 
 AgeRangeTableComponent.propTypes = {
-
     groups: Proptypes.array.isRequired,
     onDelete: Proptypes.func.isRequired
 }

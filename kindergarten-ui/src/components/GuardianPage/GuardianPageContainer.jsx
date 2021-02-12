@@ -1,52 +1,28 @@
-import axios from 'axios';
 import React, { Component } from 'react';
-import ServicesContext from '../../context/ServicesContext';
-import baseUrl from '../../AppConfig';
+import GuardianNavigationComponent from '../Navigation/GuardianNavigationComponent'
+import HeaderComponent from '../Header/HeaderComponent';
+import Footer from '../Footer/Footer';
 
 import '../../styles/pages.css';
-import GuardianPageComponent from './GuardianPageComponent';
 
 class GuardianPageContainer extends Component {
-    constructor() {
-        super();
-        this.state = {
-            choice: "greeting",
-            userRole: ""
-        }
-    }
-
-    componentDidMount = () => {
-        axios
-            .get(`${baseUrl}/loggedRole`)
-            .then((res) => {
-                this.setState({ userRole: res.data })
-            })
-            .catch(err => console.log(err))
-    }
-
-    handleUserChoice = (e) => {
-        this.setState({ choice: e.target.name });
-    }
-
     render() {
-        if (this.state.userRole === "ROLE_GUARDIAN") {
-            return (
-                <div>
-                    <GuardianPageComponent
-                        handleUserChoice={this.handleUserChoice}
-                        handleLogout={this.handleLogout}
-                        choice={this.state.choice}
-                    />
+        return (
+            <div className="footerBottom">
+                <HeaderComponent userRole="ROLE_GUARDIAN" />
+                <div className="container py-4">
+                    <div className="row">
+                        <GuardianNavigationComponent />
+                        <div className="col-8">
+                            <h1 className="mb-5 text-center">Prašymai</h1>
+                            <h2 className="text-center">APLICATIONS</h2>
+                        </div>
+                    </div>
                 </div>
-            )
-        } else {
-            return (
-                <h1>Access denied</h1>
-            )
-        }
+                <Footer />
+            </div>
+        )
     }
 }
-
-GuardianPageContainer.contextType = ServicesContext;
 
 export default GuardianPageContainer;

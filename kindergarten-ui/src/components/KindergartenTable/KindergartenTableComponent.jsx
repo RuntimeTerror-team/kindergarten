@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
-const KindergartenTableComponent = ({ kindergartens, handleWantsInfo, handleWantsGroups }) => {
+const KindergartenTableComponent = ({ kindergartens }) => {
     return (
         <div className="col-12 mt-3">
             <table id="kindergartenTable" className='table col-12'>

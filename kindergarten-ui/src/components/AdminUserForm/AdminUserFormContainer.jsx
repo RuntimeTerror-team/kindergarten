@@ -1,7 +1,6 @@
 import axios from 'axios';
 import React, { Component } from 'react';
 import baseUrl from "../../AppConfig";
-import ServicesContext from "../../context/ServicesContext";
 import HeaderComponent from '../Header/HeaderComponent';
 import Footer from '../Footer/Footer';
 import AdminUserFormComponent from './AdminUserFormComponent';
@@ -135,9 +134,6 @@ class AdminUserFormContainer extends Component {
             </div>
         )
     }
-
 }
-
-AdminUserFormContainer.contextType = ServicesContext;
 
 export default AdminUserFormContainer;

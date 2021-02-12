@@ -1,13 +1,13 @@
 import React, { Component } from "react";
 import { withRouter } from "react-router-dom";
-import AgeRangeFormComponent from "./AgeRangeFormComponent";
-import ServicesContext from "../../context/ServicesContext";
-import "../../styles/groupsForm.css";
-import Axios from 'axios';
+import axios from 'axios';
 import baseUrl from '../../AppConfig';
 import HeaderComponent from "../Header/HeaderComponent";
 import ESNavigationComponent from "../Navigation/ESNavigationComponent";
 import Footer from "../Footer/Footer";
+import AgeRangeFormComponent from "./AgeRangeFormComponent";
+
+import "../../styles/groupsForm.css";
 
 class AgeRangeFormContainer extends Component {
   constructor() {
@@ -26,7 +26,7 @@ class AgeRangeFormContainer extends Component {
 
   componentDidMount() {
 
-    Axios
+    axios
       .get(`${baseUrl}/api/ageRanges`)
       .then((res) => {
         this.setState({ groups: res.data })
@@ -64,10 +64,10 @@ class AgeRangeFormContainer extends Component {
     console.log(e.target.value);
     console.log(interval);
 
-    Axios.delete(baseUrl + "/api/ageRanges/" + interval[0] + "/" + interval[1])
+    axios.delete(baseUrl + "/api/ageRanges/" + interval[0] + "/" + interval[1])
       .then((res) => {
 
-        Axios
+        axios
           .get(`${baseUrl}/api/ageRanges`)
           .then((res) => {
             this.setState({ groups: res.data })
@@ -101,7 +101,7 @@ class AgeRangeFormContainer extends Component {
         maxAge: this.state.toAge
       }
 
-      Axios
+      axios
         .post(baseUrl + "/api/saveInterval", ageRange)
         .then(res => {
 
@@ -115,7 +115,7 @@ class AgeRangeFormContainer extends Component {
             this.setState({ messageStyle: "alert alert-danger mt-4" })
           }
 
-          Axios
+          axios
             .get(`${baseUrl}/api/ageRanges`)
             .then((res) => {
               this.setState({ groups: res.data })
@@ -187,7 +187,5 @@ class AgeRangeFormContainer extends Component {
     );
   }
 }
-
-AgeRangeFormContainer.contextType = ServicesContext;
 
 export default withRouter(AgeRangeFormContainer);

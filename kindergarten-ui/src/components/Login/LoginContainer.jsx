@@ -1,11 +1,10 @@
-import Axios from 'axios';
+import axios from 'axios';
 import React, { Component } from 'react';
 import { withRouter } from "react-router-dom";
 import LoginComponent from './LoginComponent';
 import baseUrl from "../../AppConfig";
-import ServicesContext from "../../context/ServicesContext";
 
-Axios.defaults.withCredentials = true;
+axios.defaults.withCredentials = true;
 
 class LoginContainer extends Component {
     constructor() {
@@ -21,12 +20,9 @@ class LoginContainer extends Component {
     }
 
     componentDidMount = () => {
-        Axios
+        axios
         .get(`${baseUrl}/loggedRole`)
         .then((res) => {
-            console.log("Login Container Role: " + res.data)
-            this.context.userService.setUserRole(res.data);
-            this.context.userService.updateUserRole();
             this.setState({userRole : res.data})
         })
         .then(()=> {
@@ -35,17 +31,13 @@ class LoginContainer extends Component {
         .catch(err => console.log(err))
     }
 
-    componentDidUpdate = () => {
-        console.log("Updated: " + this.state.userRole);
-    }
-
     checkLoggedIn = () => {
         if (this.state.userRole === "ROLE_ADMIN") {
             this.props.history.push("/admin/users");
         } else if (this.state.userRole === "ROLE_EDUCATION_SPECIALIST") {
             this.props.history.push("/education-specialist/kindergartens");
         } else if (this.state.userRole === "ROLE_GUARDIAN") {
-            this.props.history.push("/guardian");
+            this.props.history.push("/guardian/applications");
         }
     }
 
@@ -89,12 +81,12 @@ class LoginContainer extends Component {
             userData.append('username', this.state.username);
             userData.append('password', this.state.password);
 
-            Axios
+            axios
                 .post(`${baseUrl}/login`,
                     userData,
                     { headers: { 'Content-type': 'application/x-www-form-urlencoded' } })
                 .then(()=>{
-                    Axios
+                    axios
                     .get(`${baseUrl}/loggedRole`)
                     .then((res) => {
                         roleFromBack = res.data;
@@ -143,9 +135,6 @@ class LoginContainer extends Component {
             </div>
         )
     }
-
 }
-
-LoginContainer.contextType = ServicesContext;
 
 export default withRouter(LoginContainer);

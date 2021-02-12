@@ -6,30 +6,28 @@ import axios from "axios";
 import baseUrl from "../../AppConfig";
 import { useHistory } from "react-router";
 
-const HeaderComponent = ({userRole}) => {
+const HeaderComponent = ({ userRole }) => {
   let history = useHistory();
 
   const [nameToShow, setNameShow] = useState("");
 
   useEffect(() => {
-    console.log("Header: " + userRole)
-
-        if (userRole === "ROLE_ADMIN") {
-          setNameShow("Administratorius")
-        } else if (userRole === "ROLE_EDUCATION_SPECIALIST") {
-          setNameShow("Švietimo specialistas")
-        } else if (userRole === "ROLE_GUARDIAN") {
-          axios
-            .get(`${baseUrl}/loggedUsername`)
+    if (userRole === "ROLE_ADMIN") {
+      setNameShow("Administratorius")
+    } else if (userRole === "ROLE_EDUCATION_SPECIALIST") {
+      setNameShow("Švietimo specialistas")
+    } else if (userRole === "ROLE_GUARDIAN") {
+      axios
+        .get(`${baseUrl}/loggedUsername`)
+        .then((res) => {
+          axios.get(`${baseUrl}/api/users/${res.data}`)
             .then((res) => {
-              axios.get(`${baseUrl}/api/users/${res.data}`)
-                .then((res) => {
-                  setNameShow(`${res.data.firstName} ${res.data.lastName}`)
-                })
-                .catch(err => console.log(err))
+              setNameShow(`${res.data.firstName} ${res.data.lastName}`)
             })
             .catch(err => console.log(err))
-        }
+        })
+        .catch(err => console.log(err))
+    }
   }, [userRole]);
 
   const handleLogout = () => {
@@ -52,9 +50,9 @@ const HeaderComponent = ({userRole}) => {
           <p className="lead">
             <strong>{nameToShow}</strong>
           </p>
-          {userRole !== "no role" && userRole !== "" && <button className="btn btn-yellow" onClick={handleLogout}>
+          <button className="btn btn-yellow" onClick={handleLogout}>
             Atsijungti <IoMdExit size={20} />
-          </button>}
+          </button>
         </div>
       </div>
     </div>

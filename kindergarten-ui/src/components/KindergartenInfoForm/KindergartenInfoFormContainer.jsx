@@ -1,4 +1,4 @@
-import Axios from 'axios';
+import axios from 'axios';
 import React, { Component } from 'react';
 import KindergartenInfoFormComponent from './KindergartenInfoFormComponent';
 import baseUrl from '../../AppConfig';
@@ -16,7 +16,7 @@ class KindergartenInfoFormContainer extends Component {
     }
 
     componentDidMount = () => {
-        Axios
+        axios
             .get(`${baseUrl}/api/kindergartens/${this.props.match.params.id}`)
             .then((res) => {
                 this.setState({ kindergarten: res.data })
