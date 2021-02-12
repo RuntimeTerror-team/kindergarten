@@ -122,8 +122,8 @@ class AdminDistrictFormContainer extends Component {
     updateDistrict = (e) => {
         e.preventDefault();
 
-        if (this.state.districts.filter(district => district.title.toLowerCase() === this.state.updatingTitle.toLowerCase()).length === 0
-            || (this.state.districts.filter(district => district.title.toLowerCase() === this.state.updatingTitle.toLowerCase()).length === 1
+        if (this.state.districts.filter(district => district.title.toLowerCase() === this.state.updatingTitle.toLowerCase()).trim().length === 0
+            || (this.state.districts.filter(district => district.title.toLowerCase() === this.state.updatingTitle.toLowerCase()).trim().length === 1
                 && +this.state.districts.filter(district => district.title.toLowerCase() === this.state.updatingTitle.toLowerCase())[0].id === +this.state.updatingId)) {
             if (this.state.titleValidationInUpdate === "") {
                 axios

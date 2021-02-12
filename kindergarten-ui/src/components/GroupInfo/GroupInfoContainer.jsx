@@ -33,6 +33,14 @@ class GroupInfoContainer extends Component {
                 console.log(res.data);
             })
             .catch((err) => console.log(err));
+
+        Axios
+            .get(`${baseUrl}/api/kindergartens/${this.props.match.params.id}`)
+            .then((res) => {
+                this.setState({ kindergarten: res.data })
+                console.log(res.data);
+            })
+            .catch((err) => console.log(err));
     }
 
     render() {
@@ -46,6 +54,7 @@ class GroupInfoContainer extends Component {
                             <div className="col-8">
                                 <h1 className="text-center">Darželio grupių sąrašas</h1>
                                 <p className="mb-5 text-center"><strong>{this.state.kindergarten.title}</strong> {this.state.kindergarten.address}</p>
+
                                 <GroupInfoComponent
                                     groups={this.state.groups}
                                     kindergartenId={this.state.kindergartenId}

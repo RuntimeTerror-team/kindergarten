@@ -180,6 +180,7 @@ const KindergartenCreationFormComponent = ({
         </button>
             </form>
             <Link to="/education-specialist/kindergartens" className="btn btn-red float-right mx-2" >
+
                 Grįžti į darželių sąrašą
       </Link>
         </div>

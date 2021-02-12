@@ -18,7 +18,7 @@ let AgeRangeTableComponent = (props) => {
 
                 <tbody>
                     {props.groups.map((group, index) =>
-                        <tr>
+                        <tr key={group.id}>
                             <td>{index + 1}</td>
                             <td className="">{group.minAge + "-" + group.maxAge}</td>
                             {/* <button className="btn btn-link" value={group.minAge + "-" + group.maxAge} onClick={props.onDelete}>Ištrinti</button> */}
