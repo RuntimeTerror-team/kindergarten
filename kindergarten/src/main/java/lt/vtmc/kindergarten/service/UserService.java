@@ -28,9 +28,6 @@ public class UserService /*implements UserDetailsService*/ {
                 .stream()
                 .map(user -> new UserDto(
                         user.getUsername(),
-                        user.getFirstName(),
-                        user.getLastName(),
-                        user.getPersonalCode(),
                         user.getPassword(),
                         user.getRole().getType().toString()))
                 .collect(Collectors.toList());
@@ -41,9 +38,6 @@ public class UserService /*implements UserDetailsService*/ {
         if (userDao.findUserByUsername(userDto.getUsername()) == null) {
             User newUser = new User(
                     userDto.getUsername(),
-                    userDto.getFirstName(),
-                    userDto.getLastName(),
-                    userDto.getPersonalCode(),
                     userDto.getPassword()
             );
 
@@ -76,9 +70,6 @@ public class UserService /*implements UserDetailsService*/ {
         User user = userDao.findUserByUsername(username);
         return new UserDto(
                 user.getUsername(),
-                user.getFirstName(),
-                user.getLastName(),
-                user.getPersonalCode(),
                 user.getPassword(),
                 user.getRole().getType().toString()
         );
@@ -119,9 +110,6 @@ public class UserService /*implements UserDetailsService*/ {
             if (userDao.findUserByUsername(possibleUsername) == null) {
                 User newUser = new User(
                         possibleUsername,
-                        goodFirstName,
-                        goodLastName,
-                        null,
                         possibleUsername
                 );
 
@@ -160,9 +148,6 @@ public class UserService /*implements UserDetailsService*/ {
         if (userDao.findByRole(new Role(RoleType.EDUCATION_SPECIALIST)) == null) {
             User eduSpec = new User(
                     eduSpecUsername,
-                    fName,
-                    lName,
-                    null,
                     eduSpecUsername
             );
 

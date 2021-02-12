@@ -12,7 +12,6 @@ import org.springframework.test.annotation.DirtiesContext;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-
 @SpringBootTest
 public class UserControllerTest {
 
@@ -36,7 +35,7 @@ public class UserControllerTest {
     @Order(3)
     @DirtiesContext(methodMode = DirtiesContext.MethodMode.AFTER_METHOD)
     void testCreatingUserAndGettingIt() {
-        UserDto user = new UserDto("ArnasJocys1", "Arnas", "Jocys", 123456789l, "ArnasJocys1", "GUARDIAN");
+        UserDto user = new UserDto("ArnasJocys1",  "ArnasJocys1", "GUARDIAN");
 
         userController.createUser(user);
 
@@ -47,7 +46,7 @@ public class UserControllerTest {
     @Order(4)
     @DirtiesContext(methodMode = DirtiesContext.MethodMode.AFTER_METHOD)
     void testCreatingEduSpecialistAndGettingIt() {
-        UserDto user = new UserDto("ArnasJocys2", "Arnas", "Jocys", 123456789l, "ArnasJocys2", "EDUCATION_SPECIALIST");
+        UserDto user = new UserDto("ArnasJocys2", "ArnasJocys2", "EDUCATION_SPECIALIST");
 
         userController.createUser(user);
 
@@ -58,9 +57,9 @@ public class UserControllerTest {
     @Order(5)
     @DirtiesContext(methodMode = DirtiesContext.MethodMode.AFTER_METHOD)
     void testCreating2AdditionalUsersAndGettingListOfAllUsersWithSize3() {
-        UserDto user1 = new UserDto("ArnasJocys1", "Arnas", "Jocys", 123456789l, "ArnasJocys1", "GUARDIAN");
+        UserDto user1 = new UserDto("ArnasJocys1", "ArnasJocys1", "GUARDIAN");
         userController.createUser(user1);
-        UserDto user2 = new UserDto("ArnasJocys2", "Arnas", "Jocys", 123456789l, "ArnasJocys2", "EDUCATION_SPECIALIST");
+        UserDto user2 = new UserDto("ArnasJocys2",  "ArnasJocys2", "EDUCATION_SPECIALIST");
         userController.createUser(user2);
 
         assertEquals(3, userController.getUsers().size());
@@ -138,8 +137,9 @@ public class UserControllerTest {
         String createdUsername = userController.createUserFromAdmin(user);
 
         assertEquals("ArnasJocys1", userController.getUser(createdUsername).getUsername(), "Pascal case Username is not created");
-        assertEquals("Arnas", userController.getUser(createdUsername).getFirstName(), "Pascal case firstname is not created");
-        assertEquals("Jocys", userController.getUser(createdUsername).getLastName(), "Pascal case lastname is not created");
+//FIXME those must be moved to Person test
+//        assertEquals("Arnas", userController.getUser(createdUsername).getFirstName(), "Pascal case firstname is not created");
+//        assertEquals("Jocys", userController.getUser(createdUsername).getLastName(), "Pascal case lastname is not created");
     }
 
     @Test

@@ -21,11 +21,13 @@ public class AgeRangeService {
     @Autowired
     private AgeRangeDao ageRangeDao;
 
-    @Transactional
+    @Transactional(readOnly = true)
     public List<AgeRangeDto> getAgeRanges(){
         List<AgeRange> ageRanges = ageRangeDao.findAll();
 
-        List<AgeRangeDto> ageRangeList = ageRanges.stream().map(ageRange -> new AgeRangeDto(ageRange)).collect(Collectors.toList());
+        List<AgeRangeDto> ageRangeList = ageRanges.stream()
+                .map(ageRange -> new AgeRangeDto(ageRange))
+                .collect(Collectors.toList());
 
         return ageRangeList;
     }

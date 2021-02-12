@@ -3,23 +3,18 @@ package lt.vtmc.kindergarten.controller;
 import lt.vtmc.kindergarten.dao.DistrictDao;
 import lt.vtmc.kindergarten.dao.KindergartenDao;
 import lt.vtmc.kindergarten.domain.*;
-import lt.vtmc.kindergarten.dto.DistrictDto;
 import lt.vtmc.kindergarten.dto.KindergartenDto;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Order;
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.test.annotation.DirtiesContext;
-import org.springframework.web.server.ResponseStatusException;
 
-import javax.validation.ConstraintViolationException;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+@DirtiesContext(classMode = DirtiesContext.ClassMode.AFTER_EACH_TEST_METHOD)
 @SpringBootTest
 @DisplayName("When running Kindergarten controller")
 public class KindergartenControllerTest {
@@ -49,7 +44,6 @@ public class KindergartenControllerTest {
     @Test
     @Order(1)
     @DisplayName("create kindergarten")
-    @DirtiesContext(methodMode = DirtiesContext.MethodMode.AFTER_METHOD)
     void testCreatingKindergarten(){
         districtDao.save(district);
         kindergarten.setDistrict(district);
@@ -119,7 +113,6 @@ public class KindergartenControllerTest {
     @Test
     @Order(4)
     @DisplayName("get all kindergartens")
-    @DirtiesContext(methodMode = DirtiesContext.MethodMode.AFTER_METHOD)
     void testGetAllKindergartens(){
         districtDao.save(district);
 
@@ -141,7 +134,6 @@ public class KindergartenControllerTest {
     @Test
     @Order(5)
     @DisplayName("update kindergarten by id")
-    @DirtiesContext(methodMode = DirtiesContext.MethodMode.AFTER_METHOD)
     void testUpdateKindergarten(){
         districtDao.save(district);
 
