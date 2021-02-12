@@ -13,6 +13,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.*;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 @DirtiesContext(classMode = DirtiesContext.ClassMode.AFTER_EACH_TEST_METHOD)
 @SpringBootTest
@@ -22,8 +23,8 @@ public class ApplicationControllerTest {
     @Autowired
     private ApplicationController applicationController;
 
-    @Autowired
-    private UserDao userDao;
+//    @Autowired
+//    private UserDao userDao;
 
     @Autowired
     private KindergartenDao kindergartenDao;
@@ -93,17 +94,14 @@ public class ApplicationControllerTest {
         applicationCreationDto.setSecondParentId(secondParent.getId());
 
 
-
         Map<Integer,Long> priorityKindergarten = new HashMap<>();
         priorityKindergarten.put(1,kindergarten.getId());
 
         applicationCreationDto.setPriorityForKindergartenID(priorityKindergarten);
 
         applicationController.addApplication(applicationCreationDto);
-        applicationController.addApplication(applicationCreationDto);
-//        applicationController.getApplications("hhhwwwttt");
 
-//        assertEquals(1, applicationController.getApplications()???, "should create application");
+        assertTrue(applicationDao.findAll().size()==1);
 
     }
 
