@@ -43,7 +43,7 @@ class GroupCreationFormContainer extends Component {
             })
             .catch((err) => console.log(err));
 
-            Axios
+        Axios
             .get(`${baseUrl}/api/kindergartens/${this.props.match.params.id}`)
             .then((res) => {
                 this.setState({ kindergarten: res.data })
@@ -143,7 +143,7 @@ class GroupCreationFormContainer extends Component {
                             <ESNavigationComponent />
                             <div className="col-8">
                                 <h1 className="text-center">Kurti darželio grupę</h1>
-                                <p className="text-center">{this.state.kindergarten.title} {this.state.kindergarten.address}</p>
+                                <p className="text-center"><strong>{this.state.kindergarten.title}</strong> {this.state.kindergarten.address}</p>
                                 <GroupCreationFormComponent
                                     groups={this.state.groups}
                                     ageRanges={this.state.ageRanges}
