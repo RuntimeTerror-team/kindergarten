@@ -20,8 +20,8 @@ class KindergartenCreationFormContainer extends Component {
             phoneNo: "",
             email: "",
             website: "",
-            failMessage: "",
-            failMessageStyle: "",
+            message: "",
+            messageStyle: "",
             titleValidation: "",
             companyCodeValidation: "",
             addressValidation: "",
@@ -47,7 +47,7 @@ class KindergartenCreationFormContainer extends Component {
         this.setState({ [name]: value });
 
         if (name === "title") {
-            if (value.length < 8 || value.length > 35) {
+            if (value.trim().length < 8 || value.trim().length > 35) {
                 this.setState({ titleValidation: "is-invalid" })
             } else {
                 this.setState({ titleValidation: "" })
@@ -55,7 +55,7 @@ class KindergartenCreationFormContainer extends Component {
         }
 
         if (name === "companyCode") {
-            if (value.length === 7 || value.length === 9) {
+            if (value.trim().length === 7 || value.trim().length === 9) {
                 this.setState({ companyCodeValidation: "" })
             } else {
                 this.setState({ companyCodeValidation: "is-invalid" })
@@ -63,7 +63,7 @@ class KindergartenCreationFormContainer extends Component {
         }
 
         if (name === "address") {
-            if (value.length >= 8 && value.length <= 50) {
+            if (value.trim().length >= 8 && value.trim().length <= 50) {
                 this.setState({ addressValidation: "" })
             } else {
                 this.setState({ addressValidation: "is-invalid" })
@@ -79,7 +79,7 @@ class KindergartenCreationFormContainer extends Component {
         }
 
         if (name === "postalCode") {
-            if (value.length === 5) {
+            if (value.trim().length === 5) {
                 this.setState({ postalCodeValidation: "" })
             } else {
                 this.setState({ postalCodeValidation: "is-invalid" })
@@ -87,7 +87,7 @@ class KindergartenCreationFormContainer extends Component {
         }
 
         if (name === "phoneNo") {
-            if (value.length === 8) {
+            if (value.trim().length === 8) {
                 this.setState({ phoneNoValidation: "" })
             } else {
                 this.setState({ phoneNoValidation: "is-invalid" })
@@ -96,7 +96,7 @@ class KindergartenCreationFormContainer extends Component {
 
         if (name === "email") {
             const re = /^\S+@\S+$/;
-            if (re.test(value) || value.length === 0 || value === null) {
+            if (re.test(value) || value.trim().length === 0 || value === null) {
                 this.setState({ emailValidation: "" })
             } else {
                 this.setState({ emailValidation: "is-invalid" })
@@ -105,34 +105,34 @@ class KindergartenCreationFormContainer extends Component {
 
         if (name === "website") {
             const re = /^((https?):\/\/)?([w|W]{3}\.)+[a-zA-Z0-9\-.]{3,}\.[a-zA-Z]{2,}(\.[a-zA-Z]{2,})?$/;
-            if (re.test(value) || value.length === 0 || value === null) {
+            if (re.test(value) || value.trim().length === 0 || value === null) {
                 this.setState({ websiteValidation: "" })
             } else {
                 this.setState({ websiteValidation: "is-invalid" })
             }
         }
 
-        this.setState({ failMessage: "" })
-        this.setState({ failMessageStyle: "" })
+        this.setState({ message: "" })
+        this.setState({ messageStyle: "" })
     }
 
     validateBlank = () => {
-        if (this.state.title.length === 0) {
+        if (this.state.title.trim().length === 0) {
             this.setState({ titleValidation: "is-invalid" })
         }
-        if (this.state.companyCode.length === 0) {
+        if (this.state.companyCode.trim().length === 0) {
             this.setState({ companyCodeValidation: "is-invalid" })
         }
-        if (this.state.address.length === 0) {
+        if (this.state.address.trim().length === 0) {
             this.setState({ addressValidation: "is-invalid" })
         }
-        if (this.state.district.length === 0) {
+        if (this.state.district.trim().length === 0) {
             this.setState({ districtValidation: "is-invalid" })
         }
-        if (this.state.postalCode.length === 0) {
+        if (this.state.postalCode.trim().length === 0) {
             this.setState({ postalCodeValidation: "is-invalid" })
         }
-        if (this.state.phoneNo.length === 0) {
+        if (this.state.phoneNo.trim().length === 0) {
             this.setState({ phoneNoValidation: "is-invalid" })
         }
     }
@@ -142,12 +142,12 @@ class KindergartenCreationFormContainer extends Component {
 
         this.validateBlank();
 
-        if ((this.state.titleValidation === "" && this.state.title.length !== 0)
-            && (this.state.companyCodeValidation === "" && this.state.companyCode.length !== 0)
-            && (this.state.addressValidation === "" && this.state.address.length !== 0)
-            && (this.state.districtValidation === "" && this.state.district.length !== 0)
-            && (this.state.postalCodeValidation === "" && this.state.postalCode.length !== 0)
-            && (this.state.phoneNoValidation === "" && this.state.phoneNo.length !== 0)
+        if ((this.state.titleValidation === "" && this.state.title.trim().length !== 0)
+            && (this.state.companyCodeValidation === "" && this.state.companyCode.trim().length !== 0)
+            && (this.state.addressValidation === "" && this.state.address.trim().length !== 0)
+            && (this.state.districtValidation === "" && this.state.district.trim().length !== 0)
+            && (this.state.postalCodeValidation === "" && this.state.postalCode.trim().length !== 0)
+            && (this.state.phoneNoValidation === "" && this.state.phoneNo.trim().length !== 0)
             && (this.state.emailValidation === "")
             && (this.state.websiteValidation === "")) {
             Axios
@@ -166,19 +166,21 @@ class KindergartenCreationFormContainer extends Component {
                     "website": e.target.website.value
                 })
                 .then(() => {
-                    this.props.handleUpdateKindergartenList();
-                    this.props.stopCreatingKindergarten();
+                    this.setState({ message: "Darželis sėkmingai sukurtas" })
+                    this.setState({ messageStyle: "alert alert-success" })
+                    e.target.reset();
                 })
                 .catch((err) => {
-                    if (err.response.status && err.response.status === 409) {
-                        this.setState({ failMessage: err.response.data })
-                        this.setState({ failMessageStyle: "alert alert-danger" })
-                    }
                     console.log(err);
+                    if (err.response.status && err.response.status === 409) {
+                        this.setState({ message: err.response.data })
+                        this.setState({ messageStyle: "alert alert-danger" })
+                    }
+
                 });
         } else {
-            this.setState({ failMessage: "Darželio sukurti nepavyko. Pasitikrinkite duomenis." })
-            this.setState({ failMessageStyle: "alert alert-danger" })
+            this.setState({ message: "Darželio sukurti nepavyko. Pasitikrinkite duomenis." })
+            this.setState({ messageStyle: "alert alert-danger" })
         }
     }
 
@@ -199,8 +201,8 @@ class KindergartenCreationFormContainer extends Component {
                                     handleSubmit={this.handleSubmit}
                                     stopCreatingKindergarten={this.props.stopCreatingKindergarten}
                                     otherProps={this.state}
-                                    failMessage={this.state.failMessage}
-                                    failMessageStyle={this.state.failMessageStyle}
+                                    message={this.state.message}
+                                    messageStyle={this.state.messageStyle}
                                     titleValidation={this.state.titleValidation}
                                     companyCodeValidation={this.state.companyCodeValidation}
                                     addressValidation={this.state.addressValidation}
