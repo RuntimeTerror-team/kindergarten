@@ -1,7 +1,5 @@
 import React from "react";
-import KindergartenInfoFormContainer from "../KindergartenInfoForm/KindergartenInfoFormContainer";
 import KindergartenTableComponent from "../KindergartenTable/KindergartenTableComponent";
-import GroupInfoContainer from "../GroupInfo/GroupInfoContainer";
 import { Link } from "react-router-dom";
 
 const KindergartenAdministrationComponent = ({
