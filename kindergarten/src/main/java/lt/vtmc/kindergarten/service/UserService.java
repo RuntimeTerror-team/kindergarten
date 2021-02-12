@@ -45,7 +45,7 @@ public class UserService implements UserDetailsService {
         if (userDao.findUserByUsername(userDto.getUsername()) == null) {
             User newUser = new User(
                     userDto.getUsername(),
-                    userDto.getPassword()
+                    passwordEncoder.encode(userDto.getPassword())
             );
 
             if (userDto.getRole().equals("ADMIN")) {
