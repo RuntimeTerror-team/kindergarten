@@ -12,7 +12,6 @@ const KindergartenCreationFormComponent = ({
     handleChange,
     companyCode,
     handleSubmit,
-    stopCreatingKindergarten,
     message,
     messageStyle,
     titleValidation,
@@ -180,7 +179,8 @@ const KindergartenCreationFormComponent = ({
                     Išsaugoti
         </button>
             </form>
-            <Link to="/education-specialist/kindergartens" className="btn btn-red float-right mx-2" onClick={stopCreatingKindergarten}>
+            <Link to="/education-specialist/kindergartens" className="btn btn-red float-right mx-2" >
+
                 Grįžti į darželių sąrašą
       </Link>
         </div>

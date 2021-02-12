@@ -2,10 +2,11 @@ import Axios from 'axios';
 import React, { Component } from 'react';
 import KindergartenCreationFormComponent from './KindergartenCreationFormComponent';
 import baseUrl from '../../AppConfig';
-import "../../styles/forms.css";
 import Footer from '../Footer/Footer';
 import ESNavigationComponent from '../Navigation/ESNavigationComponent';
 import HeaderComponent from '../Header/HeaderComponent';
+
+import "../../styles/forms.css";
 
 class KindergartenCreationFormContainer extends Component {
     constructor(props) {

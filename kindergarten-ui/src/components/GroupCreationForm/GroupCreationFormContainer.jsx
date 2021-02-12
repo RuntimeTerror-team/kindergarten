@@ -16,7 +16,6 @@ class GroupCreationFormContainer extends Component {
             title: "",
             ageRangeId: "",
             childrenCount: "",
-            wantsCreate: false,
             titleValidation: "",
             ageRangeValidation: "",
             childrenCountValidation: "",
@@ -99,9 +98,9 @@ class GroupCreationFormContainer extends Component {
 
         this.validateBlank();
 
-        if ((this.state.titleValidation === "" && this.state.title.length !== 0)
+        if ((this.state.titleValidation === "" && this.state.title.trim().length !== 0)
             && (this.state.ageRangeValidation === "" && this.state.ageRangeId.length !== 0)
-            && (this.state.childrenCountValidation === "" && this.state.childrenCount.length !== 0)) {
+            && (this.state.childrenCountValidation === "" && this.state.childrenCount.trim().length !== 0)) {
             Axios
                 .post(`${baseUrl}/api/kindergartens/${this.state.kindergartenId}/groups/${e.target.ageRangeId.value}`, {
                     childrenCount: e.target.childrenCount.value,
@@ -129,10 +128,6 @@ class GroupCreationFormContainer extends Component {
         }
     }
 
-    toggleWantsCreate = () => {
-        this.setState({ wantsCreate: !this.state.wantsCreate })
-    }
-
     render() {
         return (
             <div>
@@ -150,8 +145,6 @@ class GroupCreationFormContainer extends Component {
                                     otherProps={this.state}
                                     handleFormChange={this.handleFormChange}
                                     handleGroupCreation={this.handleGroupCreation}
-                                    toggleWantsCreate={this.toggleWantsCreate}
-                                    wantsCreate={this.state.wantsCreate}
                                     titleValidation={this.state.titleValidation}
                                     ageRangeValidation={this.state.ageRangeValidation}
                                     childrenCountValidation={this.state.childrenCountValidation}

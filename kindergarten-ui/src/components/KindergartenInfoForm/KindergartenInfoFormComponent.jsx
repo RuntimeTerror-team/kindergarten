@@ -1,7 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
-const KindergartenInfoFormComponent = ({ kindergarten, resetWantsInfo }) => {
+const KindergartenInfoFormComponent = ({ kindergarten }) => {
   let { address, email, phoneNumber, postalCode, title, website, companyCode, district } = kindergarten;
   return (
     <form>

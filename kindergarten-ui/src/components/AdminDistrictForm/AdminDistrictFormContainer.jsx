@@ -2,10 +2,9 @@ import React, { Component } from 'react';
 import axios from 'axios';
 import baseUrl from '../../AppConfig';
 import AdminDistrictFormComponent from './AdminDistrictFormComponent';
-import Footer from '../Footer/Footer';
 import AdminNavigationComponent from '../Navigation/AdminNavigationComponent';
 import HeaderComponent from '../Header/HeaderComponent';
-import ServicesContext from '../../context/ServicesContext';
+import Footer from '../Footer/Footer';
 
 class AdminDistrictFormContainer extends Component {
     constructor(props) {
@@ -185,7 +184,5 @@ class AdminDistrictFormContainer extends Component {
         )
     }
 }
-
-AdminDistrictFormContainer.contextType = ServicesContext;
 
 export default AdminDistrictFormContainer;
