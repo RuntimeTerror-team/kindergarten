@@ -21,7 +21,8 @@ class GroupCreationFormContainer extends Component {
             ageRangeValidation: "",
             childrenCountValidation: "",
             message: "",
-            messageStyle: ""
+            messageStyle: "",
+            kindergarten: ""
         }
     }
 
@@ -39,6 +40,14 @@ class GroupCreationFormContainer extends Component {
             .get(`${baseUrl}/api/ageRanges`)
             .then((res) => {
                 this.setState({ ageRanges: res.data })
+            })
+            .catch((err) => console.log(err));
+
+            Axios
+            .get(`${baseUrl}/api/kindergartens/${this.props.match.params.id}`)
+            .then((res) => {
+                this.setState({ kindergarten: res.data })
+                console.log(res.data);
             })
             .catch((err) => console.log(err));
     }
@@ -133,7 +142,8 @@ class GroupCreationFormContainer extends Component {
                         <div className="row">
                             <ESNavigationComponent />
                             <div className="col-8">
-                                <h1 className="mb-5 text-center">Darželio grupių sąrašas</h1>
+                                <h1 className="text-center">Kurti darželio grupę</h1>
+                                <p className="text-center">{this.state.kindergarten.title} {this.state.kindergarten.address}</p>
                                 <GroupCreationFormComponent
                                     groups={this.state.groups}
                                     ageRanges={this.state.ageRanges}

@@ -19,7 +19,8 @@ class GroupInfoContainer extends Component {
             wantsCreate: false,
             titleValidation: "",
             ageRangeValidation: "",
-            childrenCountValidation: ""
+            childrenCountValidation: "",
+            kindergarten: ""
         }
     }
 
@@ -37,6 +38,14 @@ class GroupInfoContainer extends Component {
             .get(`${baseUrl}/api/ageRanges`)
             .then((res) => {
                 this.setState({ ageRanges: res.data })
+            })
+            .catch((err) => console.log(err));
+
+            Axios
+            .get(`${baseUrl}/api/kindergartens/${this.props.match.params.id}`)
+            .then((res) => {
+                this.setState({ kindergarten: res.data })
+                console.log(res.data);
             })
             .catch((err) => console.log(err));
     }
@@ -125,7 +134,8 @@ class GroupInfoContainer extends Component {
                         <div className="row">
                             <ESNavigationComponent />
                             <div className="col-8">
-                                <h1 className="mb-5 text-center">Darželio grupių sąrašas</h1>
+                                <h1 className="text-center">Darželio grupių sąrašas</h1>
+                                <p className="text-center">{this.state.kindergarten.title} {this.state.kindergarten.address}</p>
                                 <GroupInfoComponent
                                     groups={this.state.groups}
                                     ageRanges={this.state.ageRanges}

@@ -30,11 +30,8 @@ public class User {
         this.password = password;
     }
 
-    public User(String username, String firstName, String lastName, Long personalCode, @NotBlank String password, Role role) {
+    public User(String username, @NotBlank String password, Role role) {
         this.username = username;
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.personalCode = personalCode;
         this.password = password;
         this.role = role;
     }

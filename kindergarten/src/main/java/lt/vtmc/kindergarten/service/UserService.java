@@ -120,7 +120,7 @@ public class UserService implements UserDetailsService {
 
                 User newUser = new User(
                         possibleUsername,
-                        possibleUsername
+                        encodedPassword
                 );
 
                 finalRole.setType(RoleType.GUARDIAN);
@@ -160,7 +160,7 @@ public class UserService implements UserDetailsService {
         if (userDao.findByRole(new Role(RoleType.EDUCATION_SPECIALIST)) == null) {
             User eduSpec = new User(
                     eduSpecUsername,
-                    eduSpecUsername
+                    encodedPassword
             );
 
             finalRole.setType(RoleType.EDUCATION_SPECIALIST);
