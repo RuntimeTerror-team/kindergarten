@@ -1,4 +1,5 @@
 import React from "react";
+import Proptypes from "prop-types";
 import DistrictTableComponent from "../AdminDistrictTable/DistrictTableComponent";
 
 import "../../styles/districtAdministration.css";
@@ -42,6 +43,16 @@ const AdminDistrictFormComponent = ({
       {districts.length > 0 && <DistrictTableComponent districts={districts} {...props} />}
     </div>
   );
+};
+
+AdminDistrictFormComponent.propTypes = {
+  addDistrict: Proptypes.func.isRequired,
+  titleValidation: Proptypes.string.isRequired,
+  districtName: Proptypes.string,
+  onCreatingDistrictNameChange: Proptypes.func.isRequired,
+  messageStyle: Proptypes.string.isRequired,
+  requestMessage: Proptypes.string.isRequired,
+  districts: Proptypes.array.isRequired
 };
 
 export default AdminDistrictFormComponent;

@@ -69,7 +69,12 @@ AdminUserFormComponent.propTypes = {
   lastname: Proptypes.string.isRequired,
   role: Proptypes.string.isRequired,
   handleChange: Proptypes.func.isRequired,
-  handleSubmit: Proptypes.func,
+  handleSubmit: Proptypes.func.isRequired,
+  firstnameLength: Proptypes.string.isRequired,
+  lastnameLength: Proptypes.string.isRequired,
+  createdUsername: Proptypes.string.isRequired,
+  isCreated: Proptypes.bool.isRequired,
+  users: Proptypes.array.isRequired
 };
 
 export default AdminUserFormComponent;

@@ -1,4 +1,5 @@
 import React from "react";
+import PropTypes from 'prop-types'
 import KindergartenTableComponent from "../KindergartenTable/KindergartenTableComponent";
 import { Link } from "react-router-dom";
 
@@ -15,5 +16,9 @@ const KindergartenAdministrationComponent = ({ kindergartens }) => {
     </div>
   );
 };
+
+KindergartenAdministrationComponent.propTypes = {
+  kindergartens: PropTypes.array.isRequired
+}
 
 export default KindergartenAdministrationComponent;

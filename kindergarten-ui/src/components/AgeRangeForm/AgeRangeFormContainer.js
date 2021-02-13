@@ -26,13 +26,13 @@ class AgeRangeFormContainer extends Component {
 
     componentDidMount() {
 
-    axios
-      .get(`${baseUrl}/api/ageRanges`)
-      .then((res) => {
-        this.setState({ groups: res.data })
-      })
-      .catch((err) => console.log(err));
-  }
+        axios
+            .get(`${baseUrl}/api/ageRanges`)
+            .then((res) => {
+                this.setState({ groups: res.data })
+            })
+            .catch((err) => console.log(err));
+    }
 
 
 
@@ -65,16 +65,16 @@ class AgeRangeFormContainer extends Component {
         console.log(e.target.value);
         console.log(interval);
 
-    axios.delete(baseUrl + "/api/ageRanges/" + interval[0] + "/" + interval[1])
-      .then((res) => {
+        axios.delete(baseUrl + "/api/ageRanges/" + interval[0] + "/" + interval[1])
+            .then((res) => {
 
-        axios
-          .get(`${baseUrl}/api/ageRanges`)
-          .then((res) => {
-            this.setState({ groups: res.data })
-          })
-          .catch((err) => console.log(err));
-      }
+                axios
+                    .get(`${baseUrl}/api/ageRanges`)
+                    .then((res) => {
+                        this.setState({ groups: res.data })
+                    })
+                    .catch((err) => console.log(err));
+            }
 
             )
 
@@ -102,9 +102,9 @@ class AgeRangeFormContainer extends Component {
                 maxAge: this.state.toAge
             }
 
-      axios
-        .post(baseUrl + "/api/saveInterval", ageRange)
-        .then(res => {
+            axios
+                .post(baseUrl + "/api/saveInterval", ageRange)
+                .then(res => {
 
                     this.setState({ requestMessage: res.data.message })
 
@@ -116,13 +116,13 @@ class AgeRangeFormContainer extends Component {
                         this.setState({ messageStyle: "alert alert-danger mt-4" })
                     }
 
-          axios
-            .get(`${baseUrl}/api/ageRanges`)
-            .then((res) => {
-              this.setState({ groups: res.data })
-            })
-            .catch((err) => console.log(err));
-        }
+                    axios
+                        .get(`${baseUrl}/api/ageRanges`)
+                        .then((res) => {
+                            this.setState({ groups: res.data })
+                        })
+                        .catch((err) => console.log(err));
+                }
 
 
                 )

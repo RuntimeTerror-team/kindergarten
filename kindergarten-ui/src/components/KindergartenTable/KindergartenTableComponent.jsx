@@ -1,4 +1,5 @@
 import React from 'react';
+import Proptypes from "prop-types";
 import { Link } from 'react-router-dom';
 
 const KindergartenTableComponent = ({ kindergartens }) => {
@@ -32,6 +33,10 @@ const KindergartenTableComponent = ({ kindergartens }) => {
             </table>
         </div>
     )
+}
+
+KindergartenTableComponent.propTypes = {
+    kindergartens: Proptypes.array.isRequired
 }
 
 export default KindergartenTableComponent;

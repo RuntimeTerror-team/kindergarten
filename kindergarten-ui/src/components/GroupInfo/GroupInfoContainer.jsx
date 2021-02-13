@@ -26,19 +26,10 @@ class GroupInfoContainer extends Component {
             })
             .catch((err) => console.log(err));
 
-            Axios
-            .get(`${baseUrl}/api/kindergartens/${this.props.match.params.id}`)
-            .then((res) => {
-                this.setState({ kindergarten: res.data })
-                console.log(res.data);
-            })
-            .catch((err) => console.log(err));
-
         Axios
             .get(`${baseUrl}/api/kindergartens/${this.props.match.params.id}`)
             .then((res) => {
                 this.setState({ kindergarten: res.data })
-                console.log(res.data);
             })
             .catch((err) => console.log(err));
     }

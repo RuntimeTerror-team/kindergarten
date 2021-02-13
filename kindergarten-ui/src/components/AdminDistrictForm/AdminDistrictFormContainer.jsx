@@ -24,7 +24,6 @@ class AdminDistrictFormContainer extends Component {
     }
 
     componentDidMount = () => {
-        console.log(this.state.userRole);
         axios
             .get(`${baseUrl}/api/districts`)
             .then((res) => {

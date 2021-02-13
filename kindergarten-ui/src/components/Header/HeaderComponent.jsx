@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import Proptypes from "prop-types";
 import logo from "../../image/logo.png";
 import "../../styles/logo.css";
 import { IoMdExit } from "react-icons/io";
@@ -58,5 +59,9 @@ const HeaderComponent = ({ userRole }) => {
     </div>
   );
 };
+
+HeaderComponent.propTypes = {
+  userRole: Proptypes.string.isRequired
+}
 
 export default HeaderComponent;

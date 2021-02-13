@@ -5,63 +5,60 @@ import AgeRangeTableComponent from "./AgeRangeTableComponent";
 let AgeRangeFormComponent = (props) => {
   return (
     <div className="row justify-content-center align-items-center">
-      <div>
-        <h1 className="mb-4 text-center">Grupės sukūrimas</h1>
-        <form className="form" onSubmit={props.onSubmit}>
-          <div className="form-group">
-            <select
-              className={"form-control " + props.fromAgeFieldValidation}
-              name="fromAge"
-              style={{ width: "25em" }}
-              value={props.fromAge}
-              onChange={props.onFromAgeChange}>
-              <option value="">Amžius nuo</option>
-              <option value="1">1</option>
-              <option value="2">2</option>
-              <option value="3">3</option>
-              <option value="4">4</option>
-              <option value="5">5</option>
-              <option value="6">6</option>
-            </select>
-            <div className="invalid-feedback">Prašome užpildyti amžių nuo</div>
-          </div>
-          <div className="form-group">
-            <select
-              className={"form-control " + props.toAgeFieldValidation}
-              name="toAge"
-              style={{ width: "25em" }}
-              value={props.toAge}
-              onChange={props.onToAgeChange}>
-              <option value="">Amžius iki</option>
-              <option value="2">2</option>
-              <option value="3">3</option>
-              <option value="4">4</option>
-              <option value="5">5</option>
-              <option value="6">6</option>
-              <option value="7">7</option>
-            </select>
-            <div className="invalid-feedback">Prašome užpildyti amžių iki</div>
-          </div>
-          <div className="row float-right">
-            <button className="btn btn-green">Sukurti</button>
-          </div>
-          <div className="row pt-5">
-            {props.invalidInterval ? (
-              <span className="alert alert-danger" style={{ width: "23em" }}>
-                Amžius nuo negali būti lygus arba didesnis už amžių iki
-              </span>
-            ) : null}
-          </div>
-          <div className="row">
-            {
-              <span className={props.messageStyle} style={{ width: "23em" }}>
-                {props.requestMessage}
-              </span>
-            }
-          </div>
-        </form>
-        {props.groups.length > 0 ? <AgeRangeTableComponent groups={props.groups} onDelete={props.onDelete} /> : null}
-      </div>
+      <form className="form" onSubmit={props.onSubmit}>
+        <div className="form-group">
+          <select
+            className={"form-control " + props.fromAgeFieldValidation}
+            name="fromAge"
+            style={{ width: "25em" }}
+            value={props.fromAge}
+            onChange={props.onFromAgeChange}>
+            <option value="">Amžius nuo</option>
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+            <option value="4">4</option>
+            <option value="5">5</option>
+            <option value="6">6</option>
+          </select>
+          <div className="invalid-feedback">Prašome užpildyti amžių nuo</div>
+        </div>
+        <div className="form-group">
+          <select
+            className={"form-control " + props.toAgeFieldValidation}
+            name="toAge"
+            style={{ width: "25em" }}
+            value={props.toAge}
+            onChange={props.onToAgeChange}>
+            <option value="">Amžius iki</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+            <option value="4">4</option>
+            <option value="5">5</option>
+            <option value="6">6</option>
+            <option value="7">7</option>
+          </select>
+          <div className="invalid-feedback">Prašome užpildyti amžių iki</div>
+        </div>
+        <div className="row float-right">
+          <button className="btn btn-green">Sukurti</button>
+        </div>
+        <div className="row pt-5">
+          {props.invalidInterval ? (
+            <span className="alert alert-danger" style={{ width: "23em" }}>
+              Amžius nuo negali būti lygus arba didesnis už amžių iki
+            </span>
+          ) : null}
+        </div>
+        <div className="row">
+          {
+            <span className={props.messageStyle} style={{ width: "23em" }}>
+              {props.requestMessage}
+            </span>
+          }
+        </div>
+      </form>
+      {props.groups.length > 0 ? <AgeRangeTableComponent groups={props.groups} onDelete={props.onDelete} /> : null}
     </div>
   );
 };

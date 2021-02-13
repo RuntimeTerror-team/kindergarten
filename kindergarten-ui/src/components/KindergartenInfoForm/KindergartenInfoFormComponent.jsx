@@ -1,4 +1,5 @@
 import React from "react";
+import Proptypes from "prop-types";
 import { Link } from "react-router-dom";
 
 const KindergartenInfoFormComponent = ({ kindergarten }) => {
@@ -59,7 +60,7 @@ const KindergartenInfoFormComponent = ({ kindergarten }) => {
         <label htmlFor="email" className="col-3 pt-2 text-right">
           El. paštas
           </label>
-        <input type="email" className="form-control col-9" id="email" value={email} name="email" readOnly />
+        <input type="email" className="form-control col-9" id="email" value={email ? email : "-"} name="email" readOnly />
       </div>
       <div className="form-group row">
         <label htmlFor="website" className="col-3 pt-2 text-right">
@@ -80,5 +81,16 @@ const KindergartenInfoFormComponent = ({ kindergarten }) => {
     </form>
   );
 };
+
+KindergartenInfoFormComponent.propsTypes = {
+  address: Proptypes.string.required,
+  email: Proptypes.string.required,
+  phoneNumber: Proptypes.string.required,
+  postalCode: Proptypes.string.required,
+  title: Proptypes.string.required,
+  website: Proptypes.string.required,
+  companyCode: Proptypes.string.required,
+  district: Proptypes.object.required
+}
 
 export default KindergartenInfoFormComponent;

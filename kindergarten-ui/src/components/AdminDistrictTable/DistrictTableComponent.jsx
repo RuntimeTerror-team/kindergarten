@@ -71,6 +71,14 @@ const DistrictTableComponent = ({
 
 DistrictTableComponent.propTypes = {
   districts: Proptypes.array.isRequired,
+  updatingMessage: Proptypes.string.isRequired,
+  updatingMessageStyle: Proptypes.string.isRequired,
+  updateDistrict: Proptypes.func.isRequired,
+  startUpdate: Proptypes.func.isRequired,
+  updatingId: Proptypes.string.isRequired,
+  onDistrictNameChange: Proptypes.func.isRequired,
+  updatingTitle: Proptypes.string,
+  titleValidationInUpdate: Proptypes.string
 };
 
 export default DistrictTableComponent;

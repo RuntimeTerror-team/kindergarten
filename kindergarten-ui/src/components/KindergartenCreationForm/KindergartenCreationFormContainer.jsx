@@ -14,11 +14,11 @@ class KindergartenCreationFormContainer extends Component {
         this.state = {
             districts: [],
             title: "",
-            companyCode: "",
+            companyCode: null,
             address: "",
             district: "",
-            postalCode: "",
-            phoneNo: "",
+            postalCode: null,
+            phoneNo: null,
             email: "",
             website: "",
             message: "",
@@ -186,7 +186,6 @@ class KindergartenCreationFormContainer extends Component {
     }
 
     render() {
-        console.log(window.location.pathname);
         return (
             <div>
                 <div className="footerBottom">

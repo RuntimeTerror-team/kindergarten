@@ -46,7 +46,6 @@ class GroupCreationFormContainer extends Component {
             .get(`${baseUrl}/api/kindergartens/${this.props.match.params.id}`)
             .then((res) => {
                 this.setState({ kindergarten: res.data })
-                console.log(res.data);
             })
             .catch((err) => console.log(err));
     }

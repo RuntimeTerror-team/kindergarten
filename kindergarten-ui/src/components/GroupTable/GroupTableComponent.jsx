@@ -3,7 +3,6 @@ import Proptypes from 'prop-types';
 
 const GroupTableComponent = ({ groups }) => {
     return (
-
         <div className="col-12 mt-3">
             <table id="groupTable" className='table col-12'>
                 <thead>

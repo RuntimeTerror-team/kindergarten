@@ -1,4 +1,5 @@
 import React from "react";
+import Proptypes from "prop-types";
 import { Link } from "react-router-dom";
 
 const KindergartenCreationFormComponent = ({
@@ -186,5 +187,29 @@ const KindergartenCreationFormComponent = ({
         </div>
     );
 };
+
+KindergartenCreationFormComponent.propsTypes = {
+    address: Proptypes.string.required,
+    email: Proptypes.string.required,
+    postalCode: Proptypes.number.required,
+    title: Proptypes.string.required,
+    website: Proptypes.string.required,
+    companyCode: Proptypes.number.required,
+    district: Proptypes.object.required,
+    phoneNo: Proptypes.number.required,
+    districts: Proptypes.array.isRequired,
+    handleChange: Proptypes.func.isRequired,
+    handleSubmit: Proptypes.func.isRequired,
+    message: Proptypes.string.isRequired,
+    messageStyle: Proptypes.string.isRequired,
+    titleValidation: Proptypes.string.isRequired,
+    companyCodeValidation: Proptypes.string.isRequired,
+    addressValidation: Proptypes.string.isRequired,
+    districtValidation: Proptypes.string.isRequired,
+    postalCodeValidation: Proptypes.string.isRequired,
+    phoneNoValidation: Proptypes.string.isRequired,
+    emailValidation: Proptypes.string.isRequired,
+    websiteValidation: Proptypes.string.isRequired,
+}
 
 export default KindergartenCreationFormComponent;

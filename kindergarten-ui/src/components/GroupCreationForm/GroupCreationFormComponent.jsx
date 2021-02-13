@@ -1,4 +1,5 @@
 import React from "react";
+import Proptypes from "prop-types";
 import { Link } from "react-router-dom";
 
 const GroupCreationFComponent = ({
@@ -80,5 +81,19 @@ const GroupCreationFComponent = ({
         </form>
     );
 };
+
+GroupCreationFComponent.propTypes = {
+    ageRanges: Proptypes.array.isRequired,
+    title: Proptypes.string,
+    childrenCount: Proptypes.string,
+    handleFormChange: Proptypes.func.isRequired,
+    handleGroupCreation: Proptypes.func.isRequired,
+    kindergartenId: Proptypes.string.isRequired,
+    message: Proptypes.string.isRequired,
+    messageStyle: Proptypes.string.isRequired,
+    titleValidation: Proptypes.string.isRequired,
+    ageRangeValidation: Proptypes.string.isRequired,
+    childrenCountValidation: Proptypes.string.isRequired
+}
 
 export default GroupCreationFComponent;
