@@ -21,14 +21,14 @@ class LoginContainer extends Component {
 
     componentDidMount = () => {
         axios
-        .get(`${baseUrl}/loggedRole`)
-        .then((res) => {
-            this.setState({userRole : res.data})
-        })
-        .then(()=> {
-            this.checkLoggedIn();
-        })
-        .catch(err => console.log(err))
+            .get(`${baseUrl}/loggedRole`)
+            .then((res) => {
+                this.setState({ userRole: res.data })
+            })
+            .then(() => {
+                this.checkLoggedIn();
+            })
+            .catch(err => console.log(err))
     }
 
     checkLoggedIn = () => {
@@ -85,25 +85,25 @@ class LoginContainer extends Component {
                 .post(`${baseUrl}/login`,
                     userData,
                     { headers: { 'Content-type': 'application/x-www-form-urlencoded' } })
-                .then(()=>{
+                .then(() => {
                     axios
-                    .get(`${baseUrl}/loggedRole`)
-                    .then((res) => {
-                        roleFromBack = res.data;
-                        this.setState({userRole : roleFromBack})
-                    })
-                    .then(() => {
+                        .get(`${baseUrl}/loggedRole`)
+                        .then((res) => {
+                            roleFromBack = res.data;
+                            this.setState({ userRole: roleFromBack })
+                        })
+                        .then(() => {
                             this.checkLoggedIn();
-                    })
-                    .catch(err => console.log(err));
+                        })
+                        .catch(err => console.log(err));
                 })
-                .catch((e) => { 
-                    if (e.response.status === 401) {
+                .catch((e) => {
+                    if (e.response.status && e.response.status === 401) {
                         this.setState({ areCredentialsIncorrect: true });
                     } else {
                         console.log(e);
                     }
-                 });
+                });
 
         }
     }
