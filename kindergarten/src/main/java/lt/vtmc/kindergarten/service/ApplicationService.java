@@ -9,6 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.validation.annotation.Validated;
 
 import javax.validation.Valid;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -93,6 +94,32 @@ public class ApplicationService {
         return kindergartenApplications;
 
     }
+
+
+    @Transactional
+    public void updateApplication(Long id, ApplicationCreationDto applicationCreationDto){
+        Application application = applicationDao.getOne(id);
+    //TODO fill this part
+
+        applicationDao.save(application);
+
+    }
+
+
+//    @Transactional(readOnly = true)
+//    public ApplicationCreationDto getApplication(Long id){
+//        Application application = applicationDao.getOne(id);
+//        return new ApplicationCreationDto(application);
+//    }
+//
+//    @Transactional
+//    public List<ApplicationCreationDto> getApplications(){
+//        List<Application> applications = applicationDao.findAll();
+//        List<ApplicationCreationDto> applicationList = applications.stream()
+//                .map(application -> new ApplicationCreationDto(application))
+//                .collect(Collectors.toList());
+//        return applicationList;
+//    }
 
 
 }
