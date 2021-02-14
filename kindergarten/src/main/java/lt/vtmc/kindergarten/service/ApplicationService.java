@@ -3,13 +3,13 @@ package lt.vtmc.kindergarten.service;
 import lt.vtmc.kindergarten.dao.*;
 import lt.vtmc.kindergarten.domain.*;
 import lt.vtmc.kindergarten.dto.ApplicationCreationDto;
+import lt.vtmc.kindergarten.dto.UserDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.validation.annotation.Validated;
 
 import javax.validation.Valid;
-import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -26,11 +26,17 @@ public class ApplicationService {
     @Autowired
     private PersonDao personDao;
 
+    @Autowired
+    private UserService userService;
+
     @Transactional
     public void addApplication(@Valid ApplicationCreationDto applicationCreationDto) {
         Person child = personDao.getOne(applicationCreationDto.getChildId());
         Person firstParent = personDao.getOne(applicationCreationDto.getFirstParentId());
         Person secondParent = personDao.getOne(applicationCreationDto.getSecondParentId());
+        if ( secondParent != null ){
+            createParentUser(secondParent.getFirstName(), secondParent.getLastName());
+        }
 
         Application application = new Application();
         application.setDate(applicationCreationDto.getDate());
@@ -103,6 +109,10 @@ public class ApplicationService {
 
         applicationDao.save(application);
 
+    }
+
+    public void createParentUser(String firstName, String lastName){
+        userService.createGuardian(firstName,lastName);
     }
 
 

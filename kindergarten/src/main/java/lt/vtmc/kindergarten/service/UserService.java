@@ -117,11 +117,11 @@ public class UserService implements UserDetailsService {
         return new UserDetailsDto(person, username);
     }
 
-    public String assembleUsername(String firstName, String lastName) {
+    private String assembleUsername(String firstName, String lastName) {
         return checkUsernameLength(sanitizeNameToPascalCase(firstName)+sanitizeNameToPascalCase(lastName));
     }
 
-    private String createGuardian(String firstName, String lastName) {
+    public String createGuardian(String firstName, String lastName) {
 
         int defaultNum = 1;
 

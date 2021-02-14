@@ -4,6 +4,7 @@ import lt.vtmc.kindergarten.dao.PersonDao;
 import lt.vtmc.kindergarten.dao.UserDao;
 import lt.vtmc.kindergarten.domain.*;
 import lt.vtmc.kindergarten.dto.PersonDto;
+import lt.vtmc.kindergarten.dto.UserDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
@@ -23,6 +24,9 @@ public class PersonService {
 
     @Autowired
     private UserDao userDao;
+
+    @Autowired
+    private UserService userService;
 
     @Transactional
     public void addPerson(@Valid PersonDto personDto) {
@@ -61,7 +65,7 @@ public class PersonService {
         return new PersonDto(person);
     }
 
-    @Transactional
+    @Transactional(readOnly = true)
     public List<PersonDto> getPersons() {
         List<Person> persons = personDao.findAll(Sort.by(Sort.Direction.ASC, "lastName"));
         List<PersonDto> personList = persons.stream().map(person -> new PersonDto(person)).collect(Collectors.toList());

@@ -7,16 +7,17 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.annotation.DirtiesContext;
+import org.springframework.transaction.annotation.Transactional;
 
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 @SpringBootTest
+@Transactional
 @DirtiesContext(classMode = DirtiesContext.ClassMode.AFTER_EACH_TEST_METHOD)
 public class PersonTest {
 
     @Autowired
     PersonDao personDao;
-
 
     @Test
     @Order(1)
@@ -38,7 +39,8 @@ public class PersonTest {
         person.setUser(user);
 
         personDao.save(person);
-
+        Person personFromDB = personDao.getOne(person.getId());
+        assertTrue(user.getUsername() == personFromDB.getUser().getUsername(), "Should be assigned to same user");
     }
 
     private Person createPerson(String personalCode){

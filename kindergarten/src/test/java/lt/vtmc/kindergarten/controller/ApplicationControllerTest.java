@@ -100,7 +100,4 @@ public class ApplicationControllerTest {
         assertTrue(applicationDao.findAll().size()==1);
 
     }
-
-
-
 }

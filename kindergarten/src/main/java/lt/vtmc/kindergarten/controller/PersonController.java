@@ -3,7 +3,6 @@ package lt.vtmc.kindergarten.controller;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 import lt.vtmc.kindergarten.dto.PersonDto;
-import lt.vtmc.kindergarten.dto.UserDto;
 import lt.vtmc.kindergarten.service.PersonService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -38,12 +37,12 @@ public class PersonController {
     }
 
     @ApiOperation(value = "Get single person by id", notes = "Returns a single person by id")
-    @RequestMapping(method = RequestMethod.GET, value = "/api/persons/{person_id}")
+    @RequestMapping(method = RequestMethod.GET, value = "/api/persons/{personID}")
     @ResponseStatus(HttpStatus.OK)
     public PersonDto getPerson(
-            @PathVariable final Long person_id
+            @PathVariable final Long personID
     ){
-        return personService.getPerson(person_id);
+        return personService.getPerson(personID);
     }
 
     @RequestMapping(method = RequestMethod.GET, value = "/api/persons")
