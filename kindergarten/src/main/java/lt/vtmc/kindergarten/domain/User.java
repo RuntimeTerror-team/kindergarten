@@ -19,7 +19,7 @@ public class User {
     private String password;
 
     @ManyToOne(cascade = {CascadeType.MERGE, CascadeType.DETACH})
-    @JoinColumn(name = "roleType")
+    @JoinColumn(name = "type")
     private Role role;
 
 
@@ -30,7 +30,12 @@ public class User {
         this.password = password;
     }
 
-
+    public User(String username, @NotBlank String password, Role role) {
+        this.username = username;
+        this.password = password;
+        this.role = role;
+    }
+    
     public String getUsername() {
         return username;
     }

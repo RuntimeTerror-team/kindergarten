@@ -1,52 +1,25 @@
 import React from "react";
-import KindergartenCreationFormContainer from "../KindergartenCreationForm/KindergartenCreationFormContainer";
-import KindergartenInfoFormContainer from "../KindergartenInfoForm/KindergartenInfoFormContainer";
+import PropTypes from 'prop-types'
 import KindergartenTableComponent from "../KindergartenTable/KindergartenTableComponent";
-import KindergartenGroupInfoContainer from "../KindergartenGroupInfo/KindergartenGroupInfoContainer";
+import { Link } from "react-router-dom";
+import urls from '../../constants/urls'
 
-const KindergartenAdministrationComponent = ({
-  kindergartens,
-  isCreatingKindergarten,
-  resetWantsInfo,
-  handleWantsGroups,
-  handleWantsInfo,
-  wantsInfo,
-  wantsGroups,
-  kindergartenInfoId,
-  handleUpdateKindergartenList,
-  startCreatingKindergarten,
-  stopCreatingKindergarten,
-  resetWantsGroups,
-}) => {
+const KindergartenAdministrationComponent = ({ kindergartens }) => {
   return (
-    <div className="col-12">
-      <h1 className="mb-4">Darželių administravimas</h1>
-      {!isCreatingKindergarten && !wantsInfo && !wantsGroups && (
-        <button className="btn btn-yellow text-left" onClick={startCreatingKindergarten}>
-          Pridėti naują darželį
-        </button>
-      )}
-      {kindergartens.length > 0 && !isCreatingKindergarten && !wantsInfo && !wantsGroups && (
+    <div className="col-12 text-center">
+      <Link to={`${urls.educationSpecialist.kindergartenBase}/new`} className="btn btn-yellow text-left" >
+        Pridėti naują darželį
+        </Link>
+      {kindergartens.length > 0 &&
         <KindergartenTableComponent
           kindergartens={kindergartens}
-          handleWantsInfo={handleWantsInfo}
-          handleWantsGroups={handleWantsGroups}
-        />
-      )}
-      {isCreatingKindergarten && !wantsInfo && !wantsGroups && (
-        <KindergartenCreationFormContainer
-          handleUpdateKindergartenList={handleUpdateKindergartenList}
-          stopCreatingKindergarten={stopCreatingKindergarten}
-        />
-      )}
-      {wantsInfo && (
-        <KindergartenInfoFormContainer kindergartenInfoId={kindergartenInfoId} resetWantsInfo={resetWantsInfo} />
-      )}
-      {wantsGroups && (
-        <KindergartenGroupInfoContainer kindergartenInfoId={kindergartenInfoId} resetWantsGroups={resetWantsGroups} />
-      )}
+        />}
     </div>
   );
 };
+
+KindergartenAdministrationComponent.propTypes = {
+  kindergartens: PropTypes.array.isRequired
+}
 
 export default KindergartenAdministrationComponent;

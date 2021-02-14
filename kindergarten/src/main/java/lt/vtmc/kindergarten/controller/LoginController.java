@@ -9,13 +9,23 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 public class LoginController {
-//    @RequestMapping(path = "/login", method = RequestMethod.POST )
-//    public String login(){
-//        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-//        if(!(authentication instanceof AnonymousAuthenticationToken)){
-//            String userName = authentication.getName();
-//            return "Success";
-//        }
-//        return "Forbidden";
-//    }
+    @RequestMapping(path = "/loggedUsername", method = RequestMethod.GET)
+    public String getLoggedInUsername() {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        if (!(authentication instanceof AnonymousAuthenticationToken)) {
+            String currentUserName = authentication.getName();
+            return currentUserName;
+        }
+        return "not logged";
+    }
+
+    @RequestMapping(path = "/loggedRole", method = RequestMethod.GET)
+    public String getLoggedInRole() {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        if (!(authentication instanceof AnonymousAuthenticationToken)) {
+            String role = authentication.getAuthorities().toArray()[0].toString();
+            return role;
+        }
+        return "no role";
+    }
 }
