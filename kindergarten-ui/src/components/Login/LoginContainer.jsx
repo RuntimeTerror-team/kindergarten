@@ -1,20 +1,43 @@
-import Axios from 'axios';
+import axios from 'axios';
 import React, { Component } from 'react';
 import { withRouter } from "react-router-dom";
 import LoginComponent from './LoginComponent';
 import baseUrl from "../../AppConfig";
-import ServicesContext from "../../context/ServicesContext";
+
+axios.defaults.withCredentials = true;
 
 class LoginContainer extends Component {
     constructor() {
-
         super();
         this.state = {
             username: "",
             password: "",
             usernameValidation: "",
             passwordValidation: "",
-            areCredentialsIncorrect: false
+            areCredentialsIncorrect: false,
+            userRole: ""
+        }
+    }
+
+    componentDidMount = () => {
+        axios
+            .get(`${baseUrl}/loggedRole`)
+            .then((res) => {
+                this.setState({ userRole: res.data })
+            })
+            .then(() => {
+                this.checkLoggedIn();
+            })
+            .catch(err => console.log(err))
+    }
+
+    checkLoggedIn = () => {
+        if (this.state.userRole === "ROLE_ADMIN") {
+            this.props.history.push("/admin/users");
+        } else if (this.state.userRole === "ROLE_EDUCATION_SPECIALIST") {
+            this.props.history.push("/education-specialist/kindergartens");
+        } else if (this.state.userRole === "ROLE_GUARDIAN") {
+            this.props.history.push("/guardian/applications");
         }
     }
 
@@ -47,44 +70,41 @@ class LoginContainer extends Component {
     handleSubmit = (e) => {
         e.preventDefault();
 
-
         let roleFromBack = "";
         let usernameFromUser = e.target.username.value;
         let passwordFromUser = e.target.password.value;
 
-
         this.doValidation(usernameFromUser, passwordFromUser);
 
         if (usernameFromUser.trim().length !== 0 && passwordFromUser.trim().length !== 0) {
+            let userData = new URLSearchParams();
+            userData.append('username', this.state.username);
+            userData.append('password', this.state.password);
 
-            Axios
-                .get(`${baseUrl}/api/users/${usernameFromUser}`)
-                .then(res => {
-                    let passwordFromBack = res.data.password;
-                    roleFromBack = res.data.role;
-
-                    if (passwordFromUser === passwordFromBack) {
-                        this.context.userService.setCurrentUser(res.data.username);
-                        this.context.userService.setUserRole(roleFromBack);
-                        this.context.userService.updateCurrentUser();
-                        this.context.userService.updateUserRole();
-
-                       // this.resetState();
-                    } else {
-                        this.setState({ areCredentialsIncorrect: true });
-                    }
-                })
+            axios
+                .post(`${baseUrl}/login`,
+                    userData,
+                    { headers: { 'Content-type': 'application/x-www-form-urlencoded' } })
                 .then(() => {
-                    if (this.context.userService.getUserRole() === "ADMIN") {
-                        this.props.history.push("/admin");
-                    } else if (this.context.userService.getUserRole() === "EDUCATION_SPECIALIST") {
-                        this.props.history.push("/education-specialist");
-                    } else if (this.context.userService.getUserRole() === "GUARDIAN") {
-                        this.props.history.push("/guardian");
-                    }
+                    axios
+                        .get(`${baseUrl}/loggedRole`)
+                        .then((res) => {
+                            roleFromBack = res.data;
+                            this.setState({ userRole: roleFromBack })
+                        })
+                        .then(() => {
+                            this.checkLoggedIn();
+                        })
+                        .catch(err => console.log(err));
                 })
-                .catch(err => console.log(err));
-               this.resetState();
+                .catch((e) => {
+                    if (e.response.status && e.response.status === 401) {
+                        this.setState({ areCredentialsIncorrect: true });
+                    } else {
+                        console.log(e);
+                    }
+                });
+
         }
     }
 
@@ -115,9 +135,6 @@ class LoginContainer extends Component {
             </div>
         )
     }
-
 }
-
-LoginContainer.contextType = ServicesContext;
 
 export default withRouter(LoginContainer);

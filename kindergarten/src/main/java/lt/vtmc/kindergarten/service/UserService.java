@@ -7,6 +7,11 @@ import lt.vtmc.kindergarten.dto.UserDto;
 import lt.vtmc.kindergarten.dto.UserDtoFromAdmin;
 import lt.vtmc.kindergarten.dao.UserDao;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.authority.AuthorityUtils;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.validation.annotation.Validated;
@@ -17,10 +22,12 @@ import java.util.stream.Collectors;
 
 @Service
 @Validated
-public class UserService /*implements UserDetailsService*/ {
+public class UserService implements UserDetailsService {
     @Autowired
     private UserDao userDao;
 
+    @Autowired
+    private PasswordEncoder passwordEncoder;
 
     @Transactional(readOnly = true)
     public List<UserDto> getUsers() {
@@ -38,7 +45,7 @@ public class UserService /*implements UserDetailsService*/ {
         if (userDao.findUserByUsername(userDto.getUsername()) == null) {
             User newUser = new User(
                     userDto.getUsername(),
-                    userDto.getPassword()
+                    passwordEncoder.encode(userDto.getPassword())
             );
 
             if (userDto.getRole().equals("ADMIN")) {
@@ -107,13 +114,16 @@ public class UserService /*implements UserDetailsService*/ {
                 possibleUsername = goodUsername.substring(0, goodUsername.length() - 1) + defaultNum;
             }
 
-            if (userDao.findUserByUsername(possibleUsername) == null) {
+            if (userDao.findByUsername(possibleUsername) == null) {
+                String encodedPassword = passwordEncoder.encode(possibleUsername);
+                Role finalRole = new Role();
+
                 User newUser = new User(
                         possibleUsername,
-                        possibleUsername
+                        encodedPassword
                 );
 
-                Role finalRole = new Role(RoleType.GUARDIAN);
+                finalRole.setType(RoleType.GUARDIAN);
                 newUser.setRole(finalRole);
                 finalRole.addUser(newUser);
                 userDao.save(newUser);
@@ -144,14 +154,16 @@ public class UserService /*implements UserDetailsService*/ {
 
     private String createEducationSpecialist(String fName, String lName) {
         String eduSpecUsername = "ŠvietimoSpecialistas1";
+        String encodedPassword = passwordEncoder.encode(eduSpecUsername);
+        Role finalRole = new Role();
 
         if (userDao.findByRole(new Role(RoleType.EDUCATION_SPECIALIST)) == null) {
             User eduSpec = new User(
                     eduSpecUsername,
-                    eduSpecUsername
+                    encodedPassword
             );
 
-            Role finalRole = new Role(RoleType.EDUCATION_SPECIALIST);
+            finalRole.setType(RoleType.EDUCATION_SPECIALIST);
             eduSpec.setRole(finalRole);
             finalRole.addUser(eduSpec);
             userDao.save(eduSpec);
@@ -161,55 +173,21 @@ public class UserService /*implements UserDetailsService*/ {
         return "Švietimo specialistas jau egzistuoja. Prisijungimo vardas: " + eduSpecUsername;
     }
 
-    /*
-    //       TODO: leave for security and modify if needed
-    public Role getRole(String username, String password) {
-        User user = userDao.findUserByUsername(username);
-        if (user.getPassword().equals(password)) {
-             user.getRole().getType().toString();
-        }
-        return null;
-    }
-      */
+    // Security
 
-   /* Temporarily disable all security functions
     @Override
-    public UserDetails loadUserByUsername(String id) throws UsernameNotFoundException {
-    // FIXME uncomment once user creation is implemented
-        //        User user = findById(id);
-//
-//        if(user==null){
-//            throw new UsernameNotFoundException("User not found");
-//        }
+    public UserDetails loadUserByUsername(String username)
+            throws UsernameNotFoundException {
+        User user = findByUsername(username);
+        if (user == null)
+            throw new UsernameNotFoundException(username + " not found.");
         return new org.springframework.security.core.userdetails.User(
-                "admin",
-                "admin",
+                user.getUsername(), user.getPassword(),
                 AuthorityUtils.createAuthorityList(
-                        new String[] {
-                                "ROLE_ADMIN"
-                        }
-                )
-        );
-//        return new org.springframework.security.core.userdetails.User(
-//                user.getId(),
-//                user.getPassword(),
-//                AuthorityUtils.createAuthorityList(
-//                        new String[] {
-//                            "ROLE_" + user.getRole()
-//                        }
-//                )
-//        );
-
-    };
-
-
-    @Transactional(readOnly=true)
-    public User findById(String id){
-        Optional user = userDao.findById(id);
-        return (User) user.get();
+                        new String[]{"ROLE_" + user.getRole().getType()}));
     }
 
-    public void setUserDao(UserDao userDao) {
-        this.userDao = userDao;
-    }*/
+    private User findByUsername(String username) {
+        return userDao.findByUsername(username);
+    }
 }
