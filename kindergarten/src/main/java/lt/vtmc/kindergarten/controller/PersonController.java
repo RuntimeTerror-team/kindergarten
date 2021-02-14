@@ -3,6 +3,7 @@ package lt.vtmc.kindergarten.controller;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 import lt.vtmc.kindergarten.dto.PersonDto;
+import lt.vtmc.kindergarten.dto.PersonUserDto;
 import lt.vtmc.kindergarten.service.PersonService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -23,6 +24,15 @@ public class PersonController {
             @ApiParam(value = "", required = true)
             @RequestBody PersonDto personDto){
         personService.addPerson(personDto);
+    }
+
+    @RequestMapping(value="/api/persons/username", method = RequestMethod.POST)
+    @ResponseStatus(HttpStatus.CREATED)
+    @ApiOperation(value = "Adds person", notes = "Creates new person and assigns it to the existing user")
+    public void addPersonWithUsername(
+            @ApiParam(value = "", required = true)
+            @RequestBody PersonUserDto personDto) {
+        personService.addPersonWithUsername(personDto);
     }
 
     @ApiOperation(value = "Update person", notes = "Updates person by id")
@@ -50,9 +60,5 @@ public class PersonController {
     @ResponseStatus(HttpStatus.OK)
     public List<PersonDto> getPersons(){
         return personService.getPersons();
-    }
-
-    public void setPersonService(PersonService personService) {
-        this.personService = personService;
     }
 }

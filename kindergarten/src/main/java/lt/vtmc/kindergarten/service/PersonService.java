@@ -4,6 +4,7 @@ import lt.vtmc.kindergarten.dao.PersonDao;
 import lt.vtmc.kindergarten.dao.UserDao;
 import lt.vtmc.kindergarten.domain.*;
 import lt.vtmc.kindergarten.dto.PersonDto;
+import lt.vtmc.kindergarten.dto.PersonUserDto;
 import lt.vtmc.kindergarten.dto.UserDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
@@ -30,15 +31,7 @@ public class PersonService {
 
     @Transactional
     public void addPerson(@Valid PersonDto personDto) {
-        Person person = new Person();
-        person.setFirstName(personDto.getFirstName());
-        person.setLastName(personDto.getLastName());
-        person.setPersonalCode(personDto.getPersonalCode());
-        person.setPhoneNumber(personDto.getPhoneNumber());
-        person.setAddress(personDto.getAddress());
-        person.setCity(personDto.getCityEnum());
-        person.setPostalCode(personDto.getPostalCode());
-        person.setEmail(personDto.getEmail());
+        Person person = createFromDto(personDto);
 
         personDao.save(person);
     }
@@ -72,4 +65,26 @@ public class PersonService {
         return personList;
     }
 
+    @Transactional
+    public void addPersonWithUsername(PersonUserDto personDto) {
+        Person person = createFromDto(personDto);
+        User user = userDao.findUserByUsername(personDto.getUsername());
+        person.setUser(user);
+
+        personDao.save(person);
+    }
+
+    private Person createFromDto(PersonDto person){
+        Person personEntity = new Person();
+        personEntity.setFirstName(person.getFirstName());
+        personEntity.setLastName(person.getLastName());
+        personEntity.setPersonalCode(person.getPersonalCode());
+        personEntity.setPhoneNumber(person.getPhoneNumber());
+        personEntity.setAddress(person.getAddress());
+        personEntity.setCity(person.getCityEnum());
+        personEntity.setPostalCode(person.getPostalCode());
+        personEntity.setEmail(person.getEmail());
+
+        return personEntity;
+    }
 }
