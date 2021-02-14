@@ -55,7 +55,7 @@ public class PersonTest {
     @Test
     @Order(3)
     void testCreatePersonAndAssignUser() {
-        PersonUserDto personDto = new PersonUserDto(createPerson("12345678910"),"KatinasPatinas1");
+        PersonUserDto personDto = new PersonUserDto(new PersonDto(createPerson("12345678910")),"KatinasPatinas1");
 
         Role role = new Role(RoleType.GUARDIAN);
         User user = new User("KatinasPatinas1","");

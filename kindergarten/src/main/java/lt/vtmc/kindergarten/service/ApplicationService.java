@@ -3,7 +3,6 @@ package lt.vtmc.kindergarten.service;
 import lt.vtmc.kindergarten.dao.*;
 import lt.vtmc.kindergarten.domain.*;
 import lt.vtmc.kindergarten.dto.ApplicationCreationDto;
-import lt.vtmc.kindergarten.dto.UserDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -38,7 +37,12 @@ public class ApplicationService {
             createParentUser(secondParent.getFirstName(), secondParent.getLastName());
         }
 
-        Application application = new Application();
+        Application application = applicationDao.findApplicationByChild(child);
+
+        if (application == null) {
+            application = new Application();
+        }
+
         application.setDate(applicationCreationDto.getDate());
 
         application.setAdopted(applicationCreationDto.isAdopted());
@@ -52,9 +56,9 @@ public class ApplicationService {
             application.setScore(countScore(applicationCreationDto));
         }
 
-        application.setChildId(child);
-        application.setParentId(firstParent);
-        application.setSecondParentId(secondParent);
+        application.setChild(child);
+        application.setParent(firstParent);
+        application.setSecondParent(secondParent);
 
         application.setApplicationStatus(ApplicationStatusEnum.SUBMITTED);
 

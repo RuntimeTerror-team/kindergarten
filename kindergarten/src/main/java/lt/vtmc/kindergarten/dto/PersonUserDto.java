@@ -12,7 +12,10 @@ public class PersonUserDto extends PersonDto {
     @Length(min=8, max=30)
     private String username;
 
-    public PersonUserDto(@Valid Person person, String username) {
+    public PersonUserDto() {
+    }
+
+    public PersonUserDto(@Valid PersonDto person, String username) {
         super(person);
         this.username = username;
     }
