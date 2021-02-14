@@ -117,7 +117,7 @@ class KindergartenCreationFormContainer extends Component {
         this.setState({ messageStyle: "" })
     }
 
-    validateBlank = () => {
+    validateBlank = (e) => {
         if (this.state.title.trim().length === 0) {
             this.setState({ titleValidation: "is-invalid" })
         }
@@ -136,13 +136,16 @@ class KindergartenCreationFormContainer extends Component {
         if (this.state.phoneNo.trim().length === 0) {
             this.setState({ phoneNoValidation: "is-invalid" })
         }
+
+        this.createKindergarten(e);
     }
 
     handleSubmit = (e) => {
         e.preventDefault();
+        this.validateBlank(e);
+    }
 
-        this.validateBlank();
-
+    createKindergarten = (e) => {
         if ((this.state.titleValidation === "" && this.state.title.trim().length !== 0)
             && (this.state.companyCodeValidation === "" && this.state.companyCode.trim().length !== 0)
             && (this.state.addressValidation === "" && this.state.address.trim().length !== 0)
