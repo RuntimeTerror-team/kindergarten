@@ -1,6 +1,7 @@
 import React from 'react';
 import Proptypes from "prop-types";
 import { Link } from 'react-router-dom';
+import urls from '../../constants/urls'
 
 const KindergartenTableComponent = ({ kindergartens }) => {
     return (
@@ -22,10 +23,10 @@ const KindergartenTableComponent = ({ kindergartens }) => {
                             <td>{title}</td>
                             <td>{address}</td>
                             <td>
-                                <Link to={`/education-specialist/kindergartens/${id}`} className="btn btn-info mr-2">
+                                <Link to={`${urls.educationSpecialist.kindergartenBase}/${id}`} className="btn btn-info mr-2">
                                     Kontaktai
                                 </Link>
-                                <Link to={`/education-specialist/kindergartens/${id}/groups`} className="btn btn-info" >Grupės</Link>
+                                <Link to={`${urls.educationSpecialist.kindergartenBase}/${id}/groups`} className="btn btn-info" >Grupės</Link>
                             </td>
                         </tr>
                     )}

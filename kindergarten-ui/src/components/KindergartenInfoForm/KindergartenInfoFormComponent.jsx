@@ -1,6 +1,7 @@
 import React from "react";
 import Proptypes from "prop-types";
 import { Link } from "react-router-dom";
+import urls from "../../constants/urls";
 
 const KindergartenInfoFormComponent = ({ kindergarten }) => {
   let { address, email, phoneNumber, postalCode, title, website, companyCode, district } = kindergarten;
@@ -75,7 +76,7 @@ const KindergartenInfoFormComponent = ({ kindergarten }) => {
           readOnly
         />
       </div>
-      <Link className="btn btn-warning float-right" to="/education-specialist/kindergartens">
+      <Link className="btn btn-warning float-right" to={`${urls.educationSpecialist.kindergartenBase}`}>
         Atgal
       </Link>
     </form>

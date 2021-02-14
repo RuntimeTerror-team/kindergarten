@@ -6,13 +6,13 @@ let AgeRangeTableComponent = (props) => {
 
     return (
         <div className="footerBottom">
-            <h2 className="my-4 text-center">Amžiaus grupės</h2>
+            <h4 className="my-4 text-center">Amžiaus grupės</h4>
 
             <table className='table col-8 mx-auto'>
                 <thead>
                     <tr>
-                        <th scope='col' style={{width: "40px"}}>#</th>
-                        <th scope='col'>Metai</th>
+                        <th scope='col' style={{ width: "30px" }}>#</th>
+                        <th className="text-center" scope='col'>Metai</th>
                     </tr>
                 </thead>
 
@@ -20,7 +20,7 @@ let AgeRangeTableComponent = (props) => {
                     {props.groups.map((group, index) =>
                         <tr key={group.id}>
                             <td>{index + 1}</td>
-                            <td className="">{group.minAge + "-" + group.maxAge}</td>
+                            <td className="text-center">{group.minAge + " - " + group.maxAge}</td>
                             {/* <button className="btn btn-link" value={group.minAge + "-" + group.maxAge} onClick={props.onDelete}>Ištrinti</button> */}
                         </tr>
                     )}

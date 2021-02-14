@@ -34,7 +34,7 @@ class KindergartenInfoFormContainer extends Component {
                             <div className="row">
                                 <ESNavigationComponent />
                                 <div className="col-8">
-                                    <h1 className="mb-5 text-center">Darželio informacija</h1>
+                                    <h1 className="mb-5 text-center">Darželio kontaktinė informacija</h1>
                                     <KindergartenInfoFormComponent
                                         districts={this.state.districts}
                                         kindergarten={this.state.kindergarten}

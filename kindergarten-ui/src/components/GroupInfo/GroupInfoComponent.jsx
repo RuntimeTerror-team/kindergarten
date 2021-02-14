@@ -2,11 +2,12 @@ import React from 'react';
 import GroupTableComponent from '../GroupTable/GroupTableComponent'
 import Proptypes from "prop-types";
 import { Link } from 'react-router-dom';
+import urls from '../../constants/urls';
 
 const GroupInfoComponent = ({ groups, kindergartenId }) => {
     return (
         <div>
-            <div className="text-center"><Link to={`/education-specialist/kindergartens/${kindergartenId}/groups/new`} className="btn btn-info mb-4">Kurti grupę</Link></div>
+            <div className="text-center"><Link to={`${urls.educationSpecialist.kindergartenBase}/${kindergartenId}/groups/new`} className="btn btn-info mb-4">Kurti grupę</Link></div>
             {groups.length > 0
                 && <GroupTableComponent
                     groups={groups}

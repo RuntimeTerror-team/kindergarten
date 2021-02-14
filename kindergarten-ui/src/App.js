@@ -14,21 +14,22 @@ import GroupCreationFormContainer from './components/GroupCreationForm/GroupCrea
 import Error from './components/ErrorHandling/Error';
 import Forbidden from './components/ErrorHandling/Forbidden';
 import NotAuthorized from './components/ErrorHandling/NotAuthorized';
+import urls from './constants/urls'
 
 function App(props) {
   return (
     <div>
       <Switch>
         <Route exact path='/' component={LoginContainer} />
-        <Route exact path='/admin/users' component={AdminUserFormContainer} />
-        <Route exact path='/admin/districts' component={AdminDistrictFormContainer} />
-        <Route exact path='/education-specialist/kindergartens' component={KindergartenAdministrationContainer} />
-        <Route exact path='/education-specialist/kindergartens/new' component={KindergartenCreationFormContainer} />
-        <Route exact path='/education-specialist/kindergartens/:id' component={KindergartenInfoFormContainer} />
-        <Route exact path='/education-specialist/kindergartens/:id/groups' component={GroupInfoContainer} />
-        <Route exact path='/education-specialist/kindergartens/:id/groups/new' component={GroupCreationFormContainer} />
-        <Route exact path='/education-specialist/age-ranges' component={AgeRangeFormContainer} />
-        <Route exact path='/guardian/applications' component={GuardianPageContainer} />
+        <Route exact path={`${urls.admin.userBase}`} component={AdminUserFormContainer} />
+        <Route exact path={`${urls.admin.districtBase}`} component={AdminDistrictFormContainer} />
+        <Route exact path={`${urls.educationSpecialist.kindergartenBase}`} component={KindergartenAdministrationContainer} />
+        <Route exact path={`${urls.educationSpecialist.kindergartenBase}/new`} component={KindergartenCreationFormContainer} />
+        <Route exact path={`${urls.educationSpecialist.kindergartenBase}/:id`} component={KindergartenInfoFormContainer} />
+        <Route exact path={`${urls.educationSpecialist.kindergartenBase}/:id/groups`} component={GroupInfoContainer} />
+        <Route exact path={`${urls.educationSpecialist.kindergartenBase}/:id/groups/new`} component={GroupCreationFormContainer} />
+        <Route exact path={`${urls.educationSpecialist.ageRangeBase}`} component={AgeRangeFormContainer} />
+        <Route exact path={`${urls.guardian.applicationBase}`} component={GuardianPageContainer} />
         <Route exact path='/not-authorized' component={NotAuthorized} />
         <Route exact path='/forbidden' component={Forbidden} />
         <Route exact path='/error' component={Error} />

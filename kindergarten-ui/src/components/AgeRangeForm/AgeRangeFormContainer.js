@@ -55,18 +55,13 @@ class AgeRangeFormContainer extends Component {
     };
 
     handleDelete = (e) => {
-
-
         e.preventDefault();
         this.setState({ requestMessage: "" });
         this.setState({ messageStyle: "" });
         let interval = e.target.value.split("-");
 
-        console.log(e.target.value);
-        console.log(interval);
-
         axios.delete(baseUrl + "/api/ageRanges/" + interval[0] + "/" + interval[1])
-            .then((res) => {
+            .then(() => {
 
                 axios
                     .get(`${baseUrl}/api/ageRanges`)
@@ -89,8 +84,6 @@ class AgeRangeFormContainer extends Component {
         this.setState({ invalidInterval: false });
         this.setState({ requestMessage: "" })
         this.setState({ messageStyle: "" })
-
-        console.log(this.state.fromAge + " " + this.state.toAge);
 
         this.validate(this.state.fromAge, this.state.toAge);
 
@@ -164,7 +157,6 @@ class AgeRangeFormContainer extends Component {
                     <div className="row">
                         <ESNavigationComponent />
                         <div className="col-8">
-                            <h1 className="mb-5 text-center">Amžiaus grupės sukūrimas</h1>
                             <div className="groupsRegistration">
                                 <AgeRangeFormComponent
                                     groups={this.state.groups}

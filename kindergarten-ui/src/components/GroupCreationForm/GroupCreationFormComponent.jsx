@@ -1,6 +1,7 @@
 import React from "react";
 import Proptypes from "prop-types";
 import { Link } from "react-router-dom";
+import urls from "../../constants/urls";
 
 const GroupCreationFComponent = ({
     ageRanges,
@@ -75,7 +76,7 @@ const GroupCreationFComponent = ({
             <button type="submit" className="btn btn-green float-right">
                 Išsaugoti
             </button>
-            <Link to={`/education-specialist/kindergartens/${kindergartenId}/groups`} className="btn btn-yellow float-right mr-2">
+            <Link to={`${urls.educationSpecialist.kindergartenBase}/${kindergartenId}/groups`} className="btn btn-yellow float-right mr-2">
                 Grįžti į grupių sąrašą
       </Link>
         </form>

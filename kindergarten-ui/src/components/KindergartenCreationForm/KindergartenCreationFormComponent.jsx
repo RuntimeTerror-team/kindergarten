@@ -1,6 +1,7 @@
 import React from "react";
 import Proptypes from "prop-types";
 import { Link } from "react-router-dom";
+import urls from "../../constants/urls";
 
 const KindergartenCreationFormComponent = ({
     address,
@@ -180,8 +181,7 @@ const KindergartenCreationFormComponent = ({
                     Išsaugoti
         </button>
             </form>
-            <Link to="/education-specialist/kindergartens" className="btn btn-red float-right mx-2" >
-
+            <Link to={`${urls.educationSpecialist.kindergartenBase}`} className="btn btn-red float-right mx-2" >
                 Grįžti į darželių sąrašą
       </Link>
         </div>

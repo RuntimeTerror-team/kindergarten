@@ -194,7 +194,7 @@ class KindergartenCreationFormContainer extends Component {
                         <div className="row">
                             <ESNavigationComponent />
                             <div className="col-8">
-                                <h1 className="mb-5 text-center">Darželių sąrašas</h1>
+                                <h1 className="mb-5 text-center">Pridėti naują darželį</h1>
                                 <KindergartenCreationFormComponent
                                     districts={this.state.districts}
                                     handleChange={this.handleChange}
