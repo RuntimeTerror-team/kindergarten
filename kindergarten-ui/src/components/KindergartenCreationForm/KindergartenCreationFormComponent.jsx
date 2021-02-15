@@ -181,7 +181,7 @@ const KindergartenCreationFormComponent = ({
                     Išsaugoti
         </button>
             </form>
-            <Link to={`${urls.educationSpecialist.kindergartenBase}`} className="btn btn-red float-right mx-2" >
+            <Link to={`${urls.educationSpecialist.kindergartenBase}`} className="btn btn-yellow float-right mx-2" >
                 Grįžti į darželių sąrašą
       </Link>
         </div>

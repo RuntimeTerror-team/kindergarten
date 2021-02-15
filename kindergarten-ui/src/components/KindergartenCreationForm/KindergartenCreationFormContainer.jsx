@@ -96,7 +96,7 @@ class KindergartenCreationFormContainer extends Component {
         }
 
         if (name === "email") {
-            const re = /^\S+@\S+$/;
+            const re = /^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/g;
             if (re.test(value) || value.trim().length === 0 || value === null) {
                 this.setState({ emailValidation: "" })
             } else {
