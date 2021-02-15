@@ -49,6 +49,11 @@ public class Application {
     @Enumerated(EnumType.STRING)
     private ApplicationStatusEnum applicationStatus;
 
+    @ManyToOne
+    @JoinColumn(name = "queue_id")
+    private Queue queue;
+
+
     public Date getDate() {
         return date;
     }
