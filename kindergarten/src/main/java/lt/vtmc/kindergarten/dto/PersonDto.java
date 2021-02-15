@@ -41,6 +41,17 @@ public class PersonDto {
     public PersonDto() {
     }
 
+    public PersonDto(@Valid PersonDto person) {
+        this.firstName = person.getFirstName();
+        this.lastName = person.getLastName();
+        this.personalCode = person.getPersonalCode();
+        this.phoneNumber = person.getPhoneNumber();
+        this.address = person.getAddress();
+        this.cityEnum = person.getCityEnum();
+        this.postalCode = person.getPostalCode();
+        this.email = person.getEmail();
+    }
+
     public PersonDto(@Valid Person person) {
         this.firstName = person.getFirstName();
         this.lastName = person.getLastName();

@@ -2,14 +2,8 @@ package lt.vtmc.kindergarten.config;
 
 
 import lt.vtmc.kindergarten.domain.*;
-import lt.vtmc.kindergarten.dto.AgeRangeDto;
-import lt.vtmc.kindergarten.dto.DistrictDto;
-import lt.vtmc.kindergarten.dto.KindergartenDto;
-import lt.vtmc.kindergarten.dto.PersonDto;
-import lt.vtmc.kindergarten.service.AgeRangeService;
-import lt.vtmc.kindergarten.service.DistrictService;
-import lt.vtmc.kindergarten.service.KindergartenService;
-import lt.vtmc.kindergarten.service.PersonService;
+import lt.vtmc.kindergarten.dto.*;
+import lt.vtmc.kindergarten.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -28,10 +22,14 @@ public class DataSeeder {
     @Autowired
     AgeRangeService ageRangeService;
 
+    @Autowired
+    UserService userService;
+
 
     public District createDistrict(){
         District district = new District();
         district.setTitle("Antakalnis");
+        district.setId(1L);
         districtService.addDistrict(new DistrictDto(district));
         return district;
     }
@@ -84,7 +82,7 @@ public class DataSeeder {
         ageRangeService.addAgeRange(new AgeRangeDto(ageRange2));
     }
 
-    public void createKindergarten(District district){
+    public void createKindergartens(District district){
         Kindergarten kindergarten = new Kindergarten();
         kindergarten.setTitle("Pušaitė");
         kindergarten.setAddress("Gatvės g. 56");
@@ -97,6 +95,25 @@ public class DataSeeder {
         kindergarten.setDistrict(district);
 
         kindergartenService.addKindergarten(new KindergartenDto(kindergarten));
+
+        Kindergarten kindergarten2 = new Kindergarten();
+        kindergarten2.setTitle("Smalsučiai");
+        kindergarten2.setAddress("Vėjų g. 12");
+        kindergarten2.setCity(CityEnum.VILNIUS);
+        kindergarten2.setPostalCode("12546");
+        kindergarten2.setPhoneNumber("862404444");
+        kindergarten2.setEmail("smalsuciai@gmail.com");
+        kindergarten2.setWebsite("www.smalsuciai.lt");
+        kindergarten2.setCompanyCode("19555888");
+        kindergarten2.setDistrict(district);
+
+        kindergartenService.addKindergarten(new KindergartenDto(kindergarten2));
+    }
+
+    public void createUsers(){
+        userService.createGuardian("Petras", "Petrauskas");
+        userService.createGuardian("Marija", "Pūkienė");
+        userService.createGuardian("Justinas", "Bingelis");
     }
 
 

@@ -25,13 +25,24 @@ public class ApplicationService {
     @Autowired
     private PersonDao personDao;
 
+    @Autowired
+    private UserService userService;
+
     @Transactional
     public void addApplication(@Valid ApplicationCreationDto applicationCreationDto) {
         Person child = personDao.getOne(applicationCreationDto.getChildId());
         Person firstParent = personDao.getOne(applicationCreationDto.getFirstParentId());
         Person secondParent = personDao.getOne(applicationCreationDto.getSecondParentId());
+        if ( secondParent != null ){
+            createParentUser(secondParent.getFirstName(), secondParent.getLastName());
+        }
 
-        Application application = new Application();
+        Application application = applicationDao.findApplicationByChild(child);
+
+        if (application == null) {
+            application = new Application();
+        }
+
         application.setDate(applicationCreationDto.getDate());
 
         application.setAdopted(applicationCreationDto.isAdopted());
@@ -45,9 +56,9 @@ public class ApplicationService {
             application.setScore(countScore(applicationCreationDto));
         }
 
-        application.setChildId(child);
-        application.setParentId(firstParent);
-        application.setSecondParentId(secondParent);
+        application.setChild(child);
+        application.setParent(firstParent);
+        application.setSecondParent(secondParent);
 
         application.setApplicationStatus(ApplicationStatusEnum.SUBMITTED);
 
@@ -93,6 +104,36 @@ public class ApplicationService {
         return kindergartenApplications;
 
     }
+
+
+    @Transactional
+    public void updateApplication(Long id, ApplicationCreationDto applicationCreationDto){
+        Application application = applicationDao.getOne(id);
+    //TODO fill this part
+
+        applicationDao.save(application);
+
+    }
+
+    public void createParentUser(String firstName, String lastName){
+        userService.createGuardian(firstName,lastName);
+    }
+
+
+//    @Transactional(readOnly = true)
+//    public ApplicationCreationDto getApplication(Long id){
+//        Application application = applicationDao.getOne(id);
+//        return new ApplicationCreationDto(application);
+//    }
+//
+//    @Transactional
+//    public List<ApplicationCreationDto> getApplications(){
+//        List<Application> applications = applicationDao.findAll();
+//        List<ApplicationCreationDto> applicationList = applications.stream()
+//                .map(application -> new ApplicationCreationDto(application))
+//                .collect(Collectors.toList());
+//        return applicationList;
+//    }
 
 
 }

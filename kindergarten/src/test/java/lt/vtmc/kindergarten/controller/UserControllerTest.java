@@ -1,5 +1,8 @@
 package lt.vtmc.kindergarten.controller;
 
+import lt.vtmc.kindergarten.dao.PersonDao;
+import lt.vtmc.kindergarten.domain.*;
+import lt.vtmc.kindergarten.dto.UserDetailsDto;
 import lt.vtmc.kindergarten.dto.UserDto;
 import lt.vtmc.kindergarten.dto.UserDtoFromAdmin;
 import org.junit.jupiter.api.Order;
@@ -7,6 +10,8 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.ContextConfiguration;
@@ -21,6 +26,9 @@ public class UserControllerTest {
 
     @Autowired
     UserController userController;
+
+    @Autowired
+    PersonDao personDao;
 
     @Test
     @Order(1)
@@ -183,4 +191,46 @@ public class UserControllerTest {
 
         assertTrue(createdUsername.length()<=30, "Username is not equal or shorter than 30 characters after creating 10 users with same long firstname and lastname");
     }
+
+    @Test
+    public void testGetUserPersonalInfoByUsernameIfPersonDoesntExist() {
+        ResponseEntity<?> userDetails = userController.getUserDetails("nonexistant");
+        assertTrue(userDetails.getStatusCode()==HttpStatus.BAD_REQUEST);
+    }
+
+    @Test
+    public void testGetUserPersonalInfoByUsernameIfPersonExists() {
+        Person person = new Person();
+        person.setPersonalCode("12345678910");
+        person.setEmail("katinai@miauksas.com");
+        person.setFirstName("Katinas");
+        person.setLastName("Patinas");
+        person.setPostalCode("10321");
+        person.setCity(CityEnum.VILNIUS);
+        person.setPhoneNumber("+37065365887");
+        person.setAddress("Katinu 15");
+        personDao.save(person);
+
+        Role role = new Role(RoleType.GUARDIAN);
+        User user = new User("KatinasPatinas1","");
+        user.setRole(role);
+        role.addUser(user);
+
+        person.setUser(user);
+
+        personDao.save(person);
+
+        ResponseEntity<?> userDetails = userController.getUserDetails("KatinasPatinas1");
+        assertTrue(userDetails.getStatusCode()==HttpStatus.OK);
+        UserDetailsDto userDetailsBodyContents = (UserDetailsDto) userDetails.getBody();
+        assertTrue(userDetailsBodyContents.getPersonDetails().getFirstName()=="Katinas");
+        assertTrue(userDetailsBodyContents.getPersonDetails().getLastName()=="Patinas");
+        assertTrue(userDetailsBodyContents.getPersonDetails().getPersonalCode()=="12345678910");
+        assertTrue(userDetailsBodyContents.getPersonDetails().getEmail()=="katinai@miauksas.com");
+        assertTrue(userDetailsBodyContents.getPersonDetails().getPostalCode()=="10321");
+        assertTrue(userDetailsBodyContents.getPersonDetails().getCityEnum()==CityEnum.VILNIUS);
+        assertTrue(userDetailsBodyContents.getPersonDetails().getAddress()=="Katinu 15");
+        assertTrue(userDetailsBodyContents.getPersonDetails().getPhoneNumber()=="+37065365887");
+    }
+
 }

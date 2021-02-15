@@ -5,7 +5,6 @@ import java.util.Map;
 
 public class ApplicationCreationDto {
 
-
     private Long firstParentId;
 
     private Long childId;

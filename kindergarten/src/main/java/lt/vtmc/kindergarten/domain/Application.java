@@ -20,15 +20,15 @@ public class Application {
 
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "child_person_id", nullable = false)
-    private Person childId;
+    private Person child;
 
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "parent_person_id", nullable = false)
-    private Person parentId;
+    private Person parent;
 
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "second_parent_person_id", nullable = true)
-    private Person secondParentId;
+    private Person secondParent;
 
     @Column
     private int score;
@@ -121,28 +121,28 @@ public class Application {
         this.id = id;
     }
 
-    public Person getChildId() {
-        return childId;
+    public Person getChild() {
+        return child;
     }
 
 
-    public void setChildId(Person childId) {
-        this.childId = childId;
+    public void setChild(Person childId) {
+        this.child = childId;
     }
 
-    public Person getParentId() {
-        return parentId;
+    public Person getParent() {
+        return parent;
     }
 
-    public void setParentId(Person parentId) {
-        this.parentId = parentId;
+    public void setParent(Person parentId) {
+        this.parent = parentId;
     }
 
-    public Person getSecondParentId() {
-        return secondParentId;
+    public Person getSecondParent() {
+        return secondParent;
     }
 
-    public void setSecondParentId(Person secondParentId) {
-        this.secondParentId = secondParentId;
+    public void setSecondParent(Person secondParentId) {
+        this.secondParent = secondParentId;
     }
 }

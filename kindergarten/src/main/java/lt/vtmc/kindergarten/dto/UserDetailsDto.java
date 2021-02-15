@@ -1,17 +1,27 @@
 package lt.vtmc.kindergarten.dto;
 
+import lt.vtmc.kindergarten.domain.Person;
+
 public class UserDetailsDto {
+    private String username;
     private String role;
-    private String firstName;
-    private String lastName;
+    private PersonDto personDetails;
+
 
     public UserDetailsDto() {
     }
 
-    public UserDetailsDto(String role, String firstName, String lastName) {
-        this.role = role;
-        this.firstName = firstName;
-        this.lastName = lastName;
+    public UserDetailsDto(Person person, String username) {
+        this.personDetails = new PersonDto(person);
+        this.username = username;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
     }
 
     public String getRole() {
@@ -22,19 +32,11 @@ public class UserDetailsDto {
         this.role = role;
     }
 
-    public String getFirstName() {
-        return firstName;
+    public PersonDto getPersonDetails() {
+        return personDetails;
     }
 
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
-    }
-
-    public String getLastName() {
-        return lastName;
-    }
-
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
+    public void setPersonDetails(PersonDto personDetails) {
+        this.personDetails = personDetails;
     }
 }

@@ -1,8 +1,11 @@
 package lt.vtmc.kindergarten.service;
 
+import lt.vtmc.kindergarten.dao.PersonDao;
+import lt.vtmc.kindergarten.domain.Person;
 import lt.vtmc.kindergarten.domain.Role;
 import lt.vtmc.kindergarten.domain.RoleType;
 import lt.vtmc.kindergarten.domain.User;
+import lt.vtmc.kindergarten.dto.UserDetailsDto;
 import lt.vtmc.kindergarten.dto.UserDto;
 import lt.vtmc.kindergarten.dto.UserDtoFromAdmin;
 import lt.vtmc.kindergarten.dao.UserDao;
@@ -18,6 +21,7 @@ import org.springframework.validation.annotation.Validated;
 
 import javax.validation.Valid;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -25,6 +29,9 @@ import java.util.stream.Collectors;
 public class UserService implements UserDetailsService {
     @Autowired
     private UserDao userDao;
+
+    @Autowired
+    private PersonDao personDao;
 
     @Autowired
     private PasswordEncoder passwordEncoder;
@@ -87,31 +94,45 @@ public class UserService implements UserDetailsService {
 
         String roleFromAdmin = userDtoFromAdmin.getRole();
 
-        String goodFirstName = userDtoFromAdmin.getFirstName().substring(0, 1).toUpperCase() + userDtoFromAdmin.getFirstName().substring(1).toLowerCase();
-        String goodLastName = userDtoFromAdmin.getLastName().substring(0, 1).toUpperCase() + userDtoFromAdmin.getLastName().substring(1).toLowerCase();
-
-
         if (roleFromAdmin.equals("EDUCATION_SPECIALIST")) {
-            return createEducationSpecialist(goodFirstName, goodLastName);
+            return createEducationSpecialist(userDtoFromAdmin.getFirstName(), userDtoFromAdmin.getLastName());
         } else {
-            return createGuardian(goodFirstName, goodLastName);
+            return createGuardian(userDtoFromAdmin.getFirstName(), userDtoFromAdmin.getLastName());
         }
     }
 
-    private String createGuardian(String goodFirstName, String goodLastName) {
+    @Transactional(readOnly = true)
+    public Object getUserDetails(String username) {
+        Optional user = userDao.findById(username);
+        Person person = null;
+
+        if (user.isPresent()) {
+            person = personDao.findByUser((User) user.get());
+        }
+
+        if(person == null){
+            return "No person associated with user: " + username;
+        }
+
+        return new UserDetailsDto(person, username);
+    }
+
+    private String assembleUsername(String firstName, String lastName) {
+        return checkUsernameLength(sanitizeNameToPascalCase(firstName)+sanitizeNameToPascalCase(lastName));
+    }
+
+    public String createGuardian(String firstName, String lastName) {
 
         int defaultNum = 1;
 
-        String fullNameUsername = goodFirstName + goodLastName;
-
-        String goodUsername = checkUsernameLength(fullNameUsername);
+        String username = assembleUsername(firstName, lastName);
 
         while (true) {
 
-            String possibleUsername = goodUsername + defaultNum;
+            String possibleUsername = username + defaultNum;
 
             if (possibleUsername.length() > 30) {
-                possibleUsername = goodUsername.substring(0, goodUsername.length() - 1) + defaultNum;
+                possibleUsername = username.substring(0, username.length() - 1) + defaultNum;
             }
 
             if (userDao.findByUsername(possibleUsername) == null) {
@@ -152,7 +173,8 @@ public class UserService implements UserDetailsService {
         return usernameToCheck;
     }
 
-    private String createEducationSpecialist(String fName, String lName) {
+    private String createEducationSpecialist(String firstName, String lastName) {
+        //FIXME String eduSpecUsername = assembleUsername(firstName, lastName);
         String eduSpecUsername = "ŠvietimoSpecialistas1";
         String encodedPassword = passwordEncoder.encode(eduSpecUsername);
         Role finalRole = new Role();
@@ -189,5 +211,9 @@ public class UserService implements UserDetailsService {
 
     private User findByUsername(String username) {
         return userDao.findByUsername(username);
+    }
+
+    private String sanitizeNameToPascalCase(String word) {
+        return word.substring(0, 1).toUpperCase() + word.substring(1).toLowerCase();
     }
 }
