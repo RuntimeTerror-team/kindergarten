@@ -28,11 +28,15 @@ public class ApplicationService {
     @Autowired
     private UserService userService;
 
+    @Autowired
+    private QueueDao queueDao;
+
     @Transactional
     public void addApplication(@Valid ApplicationCreationDto applicationCreationDto) {
         Person child = personDao.getOne(applicationCreationDto.getChildId());
         Person firstParent = personDao.getOne(applicationCreationDto.getFirstParentId());
         Person secondParent = personDao.getOne(applicationCreationDto.getSecondParentId());
+
         if ( secondParent != null ){
             createParentUser(secondParent.getFirstName(), secondParent.getLastName());
         }
@@ -59,6 +63,9 @@ public class ApplicationService {
         application.setChild(child);
         application.setParent(firstParent);
         application.setSecondParent(secondParent);
+
+        Queue queue = queueDao.getOne(applicationCreationDto.getQueue());
+        application.setQueue(queue);
 
         application.setApplicationStatus(ApplicationStatusEnum.SUBMITTED);
 

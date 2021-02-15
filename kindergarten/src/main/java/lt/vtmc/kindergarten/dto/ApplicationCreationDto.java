@@ -1,5 +1,7 @@
 package lt.vtmc.kindergarten.dto;
 
+import lt.vtmc.kindergarten.domain.Queue;
+
 import java.util.Date;
 import java.util.Map;
 
@@ -23,9 +25,18 @@ public class ApplicationCreationDto {
 
     private boolean isGuardianDisabled;
 
+    private Long queue;
+
     public ApplicationCreationDto() {
     }
 
+    public Long getQueue() {
+        return queue;
+    }
+
+    public void setQueue(Long queue) {
+        this.queue = queue;
+    }
 
     public Long getFirstParentId() {
         return firstParentId;

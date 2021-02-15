@@ -19,6 +19,9 @@ public class QueueDto {
     @Column
     private QueueStatusEnum status;
 
+    public QueueDto() {
+    }
+
     public QueueDto(@Valid Queue queue) {
         this.openingDate = queue.getOpeningDate();
         this.closingDate = queue.getClosingDate();

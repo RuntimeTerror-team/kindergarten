@@ -17,10 +17,12 @@ public class Queue {
     private Long id;
 
     @NotNull
+    @Column(unique = true)
     @Temporal(TemporalType.TIMESTAMP)
     private Date openingDate;
 
     @NotNull
+    @Column(unique = true)
     private Date closingDate;
 
     @Column

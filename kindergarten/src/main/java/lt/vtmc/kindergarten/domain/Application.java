@@ -70,6 +70,14 @@ public class Application {
         this.kindergartenApplicationForms = kindergartenApplicationForms;
     }
 
+    public Queue getQueue() {
+        return queue;
+    }
+
+    public void setQueue(Queue queue) {
+        this.queue = queue;
+    }
+
     public int getScore() {
         return score;
     }
