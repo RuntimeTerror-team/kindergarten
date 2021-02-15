@@ -5,6 +5,7 @@ import io.swagger.annotations.ApiParam;
 import lt.vtmc.kindergarten.dto.UserDetailsDto;
 import lt.vtmc.kindergarten.dto.UserDtoFromAdmin;
 import lt.vtmc.kindergarten.dto.UserDto;
+import lt.vtmc.kindergarten.dto.UserValidateCommandDto;
 import lt.vtmc.kindergarten.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -14,7 +15,6 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.util.List;
-import java.util.Optional;
 
 @RestController
 @RequestMapping(value = "/api/users")
@@ -62,6 +62,22 @@ public class UserController {
             return new ResponseEntity(userInfo, HttpStatus.OK);
         } else {
             return new ResponseEntity<>(userInfo, HttpStatus.BAD_REQUEST);
+        }
+    }
+
+    @ApiOperation(value = "Get user validation info", notes = "Returns validity data on person associated with user")
+    @RequestMapping(method = RequestMethod.POST, value = "/{username}/validate")
+    @ResponseStatus(HttpStatus.OK)
+    public ResponseEntity validateUser(
+           @ApiParam(value = "Username",required=true)
+           @Valid
+           @PathVariable String username
+    ){
+        try {
+            UserValidateCommandDto userValidationData = userService.getUserValidityData(username);
+            return new ResponseEntity(userValidationData,HttpStatus.OK);
+        } catch (RuntimeException exception) {
+            return new ResponseEntity(exception.getMessage(),HttpStatus.BAD_REQUEST);
         }
     }
 }
