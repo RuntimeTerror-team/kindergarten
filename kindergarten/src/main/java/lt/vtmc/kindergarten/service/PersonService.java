@@ -31,9 +31,13 @@ public class PersonService {
 
     @Transactional
     public void addPerson(@Valid PersonDto personDto) {
-        Person person = createFromDto(personDto);
+        if (personDao.findByPersonalCode(personDto.getPersonalCode()) == null) {
+            Person person = createFromDto(personDto);
+            personDao.save(person);
+        } else {
+            throw new RuntimeException("Toks asmuo jau egzistuoja");
+        }
 
-        personDao.save(person);
     }
 
     @Transactional
@@ -74,7 +78,7 @@ public class PersonService {
         personDao.save(person);
     }
 
-    private Person createFromDto(PersonDto person){
+    private Person createFromDto(PersonDto person) {
         Person personEntity = new Person();
         personEntity.setFirstName(person.getFirstName());
         personEntity.setLastName(person.getLastName());
