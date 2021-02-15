@@ -5,9 +5,9 @@ const GuardianPrimaryDataFormComponent = ({
     firstname,
     lastname,
     personalCode,
+    postalCode,
     phoneNo,
     address,
-    postalCode,
     email,
     firstnameValidation,
     lastnameValidation,
@@ -17,14 +17,14 @@ const GuardianPrimaryDataFormComponent = ({
     cityValidation,
     postalCodeValidation,
     emailValidation,
-    handleSaveGuardianInfo,
+    handleSubmit,
     handleChange,
     message,
     messageStyle
 }) => {
     return (
         <div className="col-12 clearfix mb-3">
-            <form onSubmit={handleSaveGuardianInfo}>
+            <form onSubmit={handleSubmit}>
                 <div className="form-group row">
                     <label htmlFor="firstname" className="col-3 pt-2 text-right">
                         Vardas <span className="mandatory">*</span>
@@ -145,7 +145,7 @@ const GuardianPrimaryDataFormComponent = ({
                         name="email"
                         onChange={handleChange}
                     />
-                    <div className="invalid-feedback offset-3 col-9">Įveskite elektroninį paštą arba palikite tuščią.</div>
+                    <div className="invalid-feedback offset-3 col-9">Įveskite elektroninį paštą.</div>
                 </div>
                 <div className="col-12 row">
                     <div className="offset-3 col-9"><span className="mandatory">*</span> pažymėti laukai privalomi.</div>
@@ -173,7 +173,7 @@ GuardianPrimaryDataFormComponent.propTypes = {
     cityValidation: Proptypes.string.isRequired,
     postalCodeValidation: Proptypes.string.isRequired,
     emailValidation: Proptypes.string.isRequired,
-    handleSaveGuardianInfo: Proptypes.func.isRequired,
+    handleSubmit: Proptypes.func.isRequired,
     handleChange: Proptypes.func.isRequired,
     message: Proptypes.string.isRequired,
     messageStyle: Proptypes.string.isRequired,

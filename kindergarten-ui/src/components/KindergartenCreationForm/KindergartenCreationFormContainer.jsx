@@ -1,4 +1,4 @@
-import Axios from 'axios';
+import axios from 'axios';
 import React, { Component } from 'react';
 import KindergartenCreationFormComponent from './KindergartenCreationFormComponent';
 import baseUrl from '../../AppConfig';
@@ -35,7 +35,7 @@ class KindergartenCreationFormContainer extends Component {
     }
 
     componentDidMount = () => {
-        Axios
+        axios
             .get(`${baseUrl}/api/districts`)
             .then((res) => {
                 this.setState({ districts: res.data })
@@ -96,7 +96,7 @@ class KindergartenCreationFormContainer extends Component {
         }
 
         if (name === "email") {
-            const re = /^\S+@\S+$/;
+            const re = /^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/g;
             if (re.test(value) || value.trim().length === 0 || value === null) {
                 this.setState({ emailValidation: "" })
             } else {
@@ -154,7 +154,7 @@ class KindergartenCreationFormContainer extends Component {
             && (this.state.phoneNoValidation === "" && this.state.phoneNo.trim().length !== 0)
             && (this.state.emailValidation === "")
             && (this.state.websiteValidation === "")) {
-            Axios
+            axios
                 .post(`${baseUrl}/api/kindergartens`, {
                     "address": e.target.address.value,
                     "city": "VILNIUS",
