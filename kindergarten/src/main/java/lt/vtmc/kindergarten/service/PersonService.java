@@ -5,7 +5,6 @@ import lt.vtmc.kindergarten.dao.UserDao;
 import lt.vtmc.kindergarten.domain.*;
 import lt.vtmc.kindergarten.dto.PersonDto;
 import lt.vtmc.kindergarten.dto.PersonUserDto;
-import lt.vtmc.kindergarten.dto.UserDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;

@@ -34,7 +34,8 @@ public class CommandLineAppStartupRunner implements CommandLineRunner {
             District district = dataSeeder.createDistrict();
             dataSeeder.cretePersons();
             dataSeeder.createAgeRanges();
-//            dataSeeder.createKindergarten(district);
+            dataSeeder.createKindergartens(district);
+            dataSeeder.createUsers();
         }
 
 
