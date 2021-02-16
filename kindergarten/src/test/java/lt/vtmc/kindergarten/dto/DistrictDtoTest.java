@@ -1,10 +1,9 @@
 package lt.vtmc.kindergarten.dto;
 import lt.vtmc.kindergarten.domain.District;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-@Disabled
+
 public class DistrictDtoTest {
     @Test
     public void titleShouldBeGetWithUppercasedLetter(){

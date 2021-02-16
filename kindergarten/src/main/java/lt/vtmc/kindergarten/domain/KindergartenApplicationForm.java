@@ -1,6 +1,5 @@
 package lt.vtmc.kindergarten.domain;
 
-
 import javax.persistence.*;
 
 @Entity
