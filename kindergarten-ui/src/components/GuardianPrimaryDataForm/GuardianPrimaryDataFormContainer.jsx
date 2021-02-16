@@ -187,9 +187,14 @@ class GuardianPrimaryDataFormContainer extends Component {
                     }, 1000);
                 })
                 .catch((err) => {
-                    console.log(err);
-                    this.setState({ message: "Įvyko klaida. Nepavyko išsaugoti duomenų." })
-                    this.setState({ messageStyle: "alert alert-danger" })
+                    if (err.response.status && err.response.status === 409) {
+                        this.setState({ message: err.response.data })
+                        this.setState({ messageStyle: "alert alert-danger" })
+                    } else {
+                        console.log(err);
+                        this.setState({ message: "Įvyko klaida. Nepavyko išsaugoti duomenų." })
+                        this.setState({ messageStyle: "alert alert-danger" })
+                    }
                 });
         } else {
             this.setState({ message: "Duomenų išsaugoti nepavyko. Pasitikrinkite." })

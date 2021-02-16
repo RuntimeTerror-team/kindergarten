@@ -175,12 +175,12 @@ class KindergartenCreationFormContainer extends Component {
                     e.target.reset();
                 })
                 .catch((err) => {
-                    console.log(err);
                     if (err.response.status && err.response.status === 409) {
                         this.setState({ message: err.response.data })
                         this.setState({ messageStyle: "alert alert-danger" })
+                    } else {
+                        console.log(err);
                     }
-
                 });
         } else {
             this.setState({ message: "Darželio sukurti nepavyko. Pasitikrinkite duomenis." })
