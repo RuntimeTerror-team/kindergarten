@@ -53,7 +53,7 @@ const GuardianPrimaryDataFormComponent = ({
                         name="lastname"
                         onChange={handleChange}
                     />
-                    <div className="invalid-feedback offset-3 col-9">Šis laukas privalomas. Vardo ilgis turi būti 2-30 ženklų. Atskiras pavardes atskirkite brūkšniu</div>
+                    <div className="invalid-feedback offset-3 col-9">Šis laukas privalomas. Pavardės ilgis turi būti 2-30 ženklų. Atskiras pavardes atskirkite brūkšniu</div>
                 </div>
                 <div className="form-group row">
                     <label htmlFor="personalCode" className="col-3 pt-2 text-right">
