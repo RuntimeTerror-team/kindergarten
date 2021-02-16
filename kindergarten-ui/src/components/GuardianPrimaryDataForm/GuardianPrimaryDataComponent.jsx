@@ -145,7 +145,7 @@ const GuardianPrimaryDataFormComponent = ({
                         name="email"
                         onChange={handleChange}
                     />
-                    <div className="invalid-feedback offset-3 col-9">Įveskite elektroninį paštą.</div>
+                    <div className="invalid-feedback offset-3 col-9">Šis laukas privalomas. Įveskite elektroninį paštą.</div>
                 </div>
                 <div className="col-12 row">
                     <div className="offset-3 col-9"><span className="mandatory">*</span> pažymėti laukai privalomi.</div>
