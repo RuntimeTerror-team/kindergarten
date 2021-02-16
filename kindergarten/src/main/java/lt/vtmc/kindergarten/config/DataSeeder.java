@@ -7,6 +7,7 @@ import lt.vtmc.kindergarten.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+
 @Component
 public class DataSeeder {
 
@@ -24,7 +25,6 @@ public class DataSeeder {
 
     @Autowired
     UserService userService;
-
 
     public District createDistrict(){
         District district = new District();

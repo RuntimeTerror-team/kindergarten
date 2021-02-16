@@ -1,5 +1,6 @@
 package lt.vtmc.kindergarten.controller;
 
+import lt.vtmc.kindergarten.TestUtils;
 import lt.vtmc.kindergarten.dao.DistrictDao;
 import lt.vtmc.kindergarten.dao.KindergartenDao;
 import lt.vtmc.kindergarten.domain.*;
@@ -28,23 +29,21 @@ public class KindergartenControllerTest {
     @Autowired
     private KindergartenDao kindergartenDao;
 
-    private Kindergarten kindergarten;
-
-    private District district;
-
-    @BeforeEach
-    private void init() {
-        District district = KindergartenTestUtil.createDistrict();
-        this.district = district;
-
-        Kindergarten kindergarten = KindergartenTestUtil.createKindergarten();
-        this.kindergarten = kindergarten;
-    }
+//    @BeforeEach
+//    private void init() {
+//        District district = TestUtils.createDistrict("Antakalnis");
+//        this.district = district;
+//
+//        Kindergarten kindergarten = TestUtils.createKindergarten("1234567");
+//        this.kindergarten = kindergarten;
+//    }
 
     @Test
     @Order(1)
     @DisplayName("create kindergarten")
     void testCreatingKindergarten(){
+        District district = TestUtils.createDefaultDistrict("Antakalnis");
+        Kindergarten kindergarten = TestUtils.createDefaultKindergarten("12345678");
         districtDao.save(district);
         kindergarten.setDistrict(district);
         kindergartenController.addKindergarten(new KindergartenDto(kindergarten));
@@ -57,8 +56,9 @@ public class KindergartenControllerTest {
     @DisplayName("get all groups by kindergarten id")
     @DirtiesContext(methodMode = DirtiesContext.MethodMode.AFTER_METHOD)
     void testGetAllGroupsByKindergartenId(){
-
-        kindergarten.setDistrict(this.district);
+        District district = TestUtils.createDefaultDistrict("Antakalnis");
+        Kindergarten kindergarten = TestUtils.createDefaultKindergarten("12345678");
+        kindergarten.setDistrict(district);
 
         Group group = new Group();
         AgeRange ageRange = new AgeRange();
@@ -81,24 +81,19 @@ public class KindergartenControllerTest {
     @DisplayName("get one group by kindergarten id")
     @DirtiesContext(methodMode = DirtiesContext.MethodMode.AFTER_METHOD)
     void testGetSingleGroupByKindergartenId(){
-        districtDao.save(district);
-        kindergarten.setDistrict(district);
+        districtDao.save(TestUtils.createDefaultDistrict("Antakalnis"));
 
-        Group group = new Group();
+
+        Kindergarten kindergarten = TestUtils.createDefaultKindergarten("132456778");
+        kindergarten.setDistrict(districtDao.findByTitle("Antakalnis"));
+
+        Group group = TestUtils.createDefaultGroup(kindergarten);
+
+        Group group2 = TestUtils.createDefaultGroup(kindergarten);
         AgeRange ageRange = new AgeRange();
-        ageRange.setAgeMin(1);
-        ageRange.setAgeMax(2);
-        group.setAgeRange(ageRange);
-        group.setKindergartenId(kindergarten);
-        group.setChildrenCount(10);
-        group.setTitle("Pukelis");
-
-        Group group2 = new Group();
-        AgeRange ageRange2 = new AgeRange();
-        ageRange2.setAgeMin(3);
-        ageRange2.setAgeMax(4);
-        group2.setAgeRange(ageRange2);
-        group2.setKindergartenId(kindergarten);
+        ageRange.setAgeMin(3);
+        ageRange.setAgeMax(4);
+        group2.setAgeRange(ageRange);
         group2.setChildrenCount(10);
         group2.setTitle("Zva");
 
@@ -114,6 +109,9 @@ public class KindergartenControllerTest {
     @Order(4)
     @DisplayName("get all kindergartens")
     void testGetAllKindergartens(){
+        District district = TestUtils.createDefaultDistrict("Antakalnis");
+        Kindergarten kindergarten = TestUtils.createDefaultKindergarten("12345678");
+
         districtDao.save(district);
 
         KindergartenDto kindergartenDto = new KindergartenDto(kindergarten);
@@ -123,8 +121,7 @@ public class KindergartenControllerTest {
         District district2 = new District();
         districtDao.save(district2);
 
-        KindergartenDto secondKindergarten = new KindergartenDto(KindergartenTestUtil.createKindergarten());
-        secondKindergarten.setCompanyCode("190055590");
+        KindergartenDto secondKindergarten = new KindergartenDto(TestUtils.createDefaultKindergarten("190055590"));
         secondKindergarten.setDistrict(district2);
         kindergartenController.addKindergarten(secondKindergarten);
 
@@ -135,20 +132,20 @@ public class KindergartenControllerTest {
     @Order(5)
     @DisplayName("update kindergarten by id")
     void testUpdateKindergarten(){
+        District district = TestUtils.createDefaultDistrict("Antakalnis");
         districtDao.save(district);
 
-        KindergartenDto kindergartenDto = new KindergartenDto(KindergartenTestUtil.createKindergarten());
+        KindergartenDto kindergartenDto = new KindergartenDto(TestUtils.createDefaultKindergarten("12345688"));
         kindergartenDto.setDistrict(district);
 
         kindergartenController.addKindergarten(kindergartenDto);
 
-        KindergartenDto kindergartenDto2 = new KindergartenDto(KindergartenTestUtil.createKindergarten());
+        KindergartenDto kindergartenDto2 = new KindergartenDto(TestUtils.createDefaultKindergarten("12345682"));
 
         kindergartenDto2.setTitle("Pušaitė Update");
         kindergartenDto2.setAddress("Bistryčios g. 333");
         kindergartenDto2.setPostalCode("10321");
-        District district2 = KindergartenTestUtil.createDistrict();
-        district2.setTitle("Pasilaiciai");
+        District district2 = TestUtils.createDefaultDistrict("Pasilaiciai");
         districtDao.save(district2);
         kindergartenDto2.setDistrict(district2);
 
@@ -162,18 +159,22 @@ public class KindergartenControllerTest {
     @Test
     @Order(6)
     @DisplayName("disallow duplicate kindergarten company codes")
-    @DirtiesContext(methodMode = DirtiesContext.MethodMode.AFTER_METHOD)
+    @DirtiesContext(methodMode = DirtiesContext.MethodMode.BEFORE_METHOD)
     void testCreateKindergartenWithDuplicateCompanyCode(){
+
+        Kindergarten kindergarten = TestUtils.createDefaultKindergarten("12345888");
+        KindergartenDto kindergartenDto = new KindergartenDto(TestUtils.createDefaultKindergarten("12345888"));
+        District district = TestUtils.createDefaultDistrict("Antakalnis");
         districtDao.save(district);
-        KindergartenDto kindergartenDto = new KindergartenDto(KindergartenTestUtil.createKindergarten());
         kindergartenDto.setDistrict(district);
         kindergartenController.addKindergarten(kindergartenDto);
 
-        KindergartenDto secondKindergarten = new KindergartenDto(KindergartenTestUtil.createKindergarten());
-        secondKindergarten.setCompanyCode(kindergarten.getCompanyCode());
-        District district2 = KindergartenTestUtil.createDistrict();
-        district2.setTitle("Karoliniskes");
+        kindergartenDto.setDistrict(district);
+        KindergartenDto secondKindergarten = new KindergartenDto(TestUtils.createDefaultKindergarten(kindergarten.getCompanyCode()));
+
+        District district2 = TestUtils.createDefaultDistrict("Pilaite");
         districtDao.save(district2);
+        secondKindergarten.setDistrict(district2);
 
         ResponseEntity response =  kindergartenController.addKindergarten(secondKindergarten);
 

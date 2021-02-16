@@ -1,9 +1,12 @@
 package lt.vtmc.kindergarten.dto;
 
-import lt.vtmc.kindergarten.domain.Queue;
+import lt.vtmc.kindergarten.domain.Application;
+import lt.vtmc.kindergarten.domain.KindergartenApplicationForm;
 
 import java.util.Date;
 import java.util.Map;
+import java.util.Set;
+import java.util.concurrent.ConcurrentHashMap;
 
 public class ApplicationCreationDto {
 
@@ -29,6 +32,29 @@ public class ApplicationCreationDto {
 
     public ApplicationCreationDto() {
     }
+
+    public ApplicationCreationDto(Application application) {
+        this.firstParentId = application.getParent().getId();
+        this.childId = application.getChild().getId();
+        this.secondParentId = application.getSecondParent().getId();
+        this.date = application.getDate();
+        this.priorityForKindergartenID = parseApplicationMetadata(application);
+        this.isAdopted = application.isAdopted();
+        this.isMultiChild = application.isMultiChild();
+        this.isGuardianStudent = application.isGuardianStudent();
+        this.isGuardianDisabled = application.isGuardianDisabled();
+        this.queue = application.getQueue().getId();
+    }
+
+    public Map<Integer, Long> parseApplicationMetadata(Application application){
+        Set<KindergartenApplicationForm> kindergartenApplications = application.getKindergartenApplicationForms();
+        Map<Integer, Long> applicationToPriority = new ConcurrentHashMap<>();
+        kindergartenApplications.stream()
+                .forEach(item -> applicationToPriority.put(item.getPriority(),item.getKindergarten().getId()));
+
+        return applicationToPriority;
+    }
+
 
     public Long getQueue() {
         return queue;

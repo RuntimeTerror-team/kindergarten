@@ -138,7 +138,6 @@ public class Application {
         return child;
     }
 
-
     public void setChild(Person childId) {
         this.child = childId;
     }

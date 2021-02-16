@@ -8,6 +8,7 @@ import javax.persistence.*;
 import javax.validation.constraints.*;
 import java.util.HashSet;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 
 @Entity
@@ -162,6 +163,10 @@ public class Kindergarten {
 
     public Set<KindergartenApplicationForm> getApplicationsSet() {
         return applicationsSet;
+    }
+
+    public void setApplicationsSet(Set<KindergartenApplicationForm> applicationsSet) {
+        this.applicationsSet = applicationsSet;
     }
 
     public void addApplicationForm(KindergartenApplicationForm applicationForm) {

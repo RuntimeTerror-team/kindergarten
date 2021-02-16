@@ -1,8 +1,11 @@
 package lt.vtmc.kindergarten.controller;
 
+import lt.vtmc.kindergarten.TestUtils;
 import lt.vtmc.kindergarten.dao.*;
 import lt.vtmc.kindergarten.domain.*;
 import lt.vtmc.kindergarten.dto.ApplicationCreationDto;
+import lt.vtmc.kindergarten.dto.QueueDto;
+import lt.vtmc.kindergarten.service.QueueService;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,61 +37,47 @@ public class ApplicationControllerTest {
     @Autowired
     private PersonDao personDao;
 
+    @Autowired
+    private QueueService queueService;
+
+    @Autowired
+    private QueueDao queueDao;
+
+    @Autowired
+    private KindergartenApplicationFormDao kindergartenApplicationFormDao;
+
     @Test
     @DisplayName("create an application")
     @DirtiesContext(methodMode = DirtiesContext.MethodMode.BEFORE_METHOD)
     @Transactional
     void testCreatingApplication() {
-        District district = KindergartenTestUtil.createDistrict();
+        QueueDto queue = TestUtils.createDefaultQueue();
+        queueService.addQueue(queue);
+
+        District district = TestUtils.createDefaultDistrict("Antakalnis");
         districtDao.save(district);
 
-        Kindergarten kindergarten = KindergartenTestUtil.createKindergarten();
+        Kindergarten kindergarten = TestUtils.createDefaultKindergarten("123456877");
         kindergarten.setDistrict(district);
         kindergartenDao.save(kindergarten);
 
-        Person child = new Person();
-        child.setFirstName("Antanas");
-        child.setLastName("Antanaitis");
-        child.setPersonalCode("13345678910");
-        child.setAddress("Kanklių g.4");
-        child.setCity(CityEnum.VILNIUS);
-        child.setPostalCode("12355");
+        Person child = TestUtils.createDefaultPerson("13345678910");
         personDao.save(child);
 
-        Person secondParent = new Person();
-        secondParent.setFirstName("Alvydas");
-        secondParent.setEmail("alvydasantanaitis@gmail.com");
-        secondParent.setLastName("Antanaitis");
-        secondParent.setPhoneNumber("862403633");
-        secondParent.setPersonalCode("12545678910");
-        secondParent.setAddress("Kanklių g. 4");
-        secondParent.setCity(CityEnum.VILNIUS);
-        secondParent.setPostalCode("12345");
+        Person secondParent = TestUtils.createDefaultPerson("12545678910");
         personDao.save(secondParent);
 
 
-        Person firstParent = new Person();
-        firstParent.setFirstName("Alvydasdas");
-        firstParent.setLastName("Antanasdaitis");
-        firstParent.setEmail("alvydasanasdtanaitis@gmail.com");
-        firstParent.setPhoneNumber("862443633");
-        firstParent.setPersonalCode("12345678910");
-        firstParent.setAddress("Kankfių g. 4");
-        firstParent.setCity(CityEnum.VILNIUS);
-        firstParent.setPostalCode("66666");
+        Person firstParent = TestUtils.createDefaultPerson("12345678910");
         personDao.save(firstParent);
 
 
-        ApplicationCreationDto applicationCreationDto = new ApplicationCreationDto();
-        applicationCreationDto.setDate(new Date());
-        applicationCreationDto.setAdopted(true);
-        applicationCreationDto.setGuardianDisabled(false);
-        applicationCreationDto.setMultiChild(false);
-        applicationCreationDto.setGuardianStudent(false);
+        ApplicationCreationDto applicationCreationDto = TestUtils.createDefaultApplicationDto();
         applicationCreationDto.setChildId(child.getId());
         applicationCreationDto.setFirstParentId(firstParent.getId());
         applicationCreationDto.setSecondParentId(secondParent.getId());
-
+        Long queueId = queueDao.findAll().get(0).getId();
+        applicationCreationDto.setQueue(queueId);
 
         Map<Integer,Long> priorityKindergarten = new HashMap<>();
         priorityKindergarten.put(1,kindergarten.getId());
@@ -99,5 +88,87 @@ public class ApplicationControllerTest {
 
         assertTrue(applicationDao.findAll().size()==1);
 
+    }
+
+
+    @Test
+    @DisplayName("update an application")
+    @DirtiesContext(methodMode = DirtiesContext.MethodMode.BEFORE_METHOD)
+    @Transactional
+    void testUpdateApplication() {
+
+        QueueDto queue = TestUtils.createDefaultQueue();
+        queueService.addQueue(queue);
+
+        District district = TestUtils.createDefaultDistrict("");
+        districtDao.save(district);
+
+        Kindergarten kindergarten = TestUtils.createDefaultKindergarten("11111111");
+        kindergarten.setDistrict(district);
+        kindergartenDao.save(kindergarten);
+
+        District district2 = TestUtils.createDefaultDistrict("KATAKALNIS");
+        districtDao.save(district2);
+
+        Kindergarten kindergarten2 = TestUtils.createDefaultKindergarten("22222222");
+        kindergarten2.setDistrict(district2);
+        kindergartenDao.save(kindergarten2);
+
+        Kindergarten kindergarten3 = TestUtils.createDefaultKindergarten("33333333");
+        kindergarten2.setDistrict(district2);
+        kindergartenDao.save(kindergarten3);
+
+
+        Person child = TestUtils.createDefaultPerson("13345678910");
+        personDao.save(child);
+
+        Person secondParent = TestUtils.createDefaultPerson("12545678910");
+        personDao.save(secondParent);
+
+
+        Person firstParent = TestUtils.createDefaultPerson("12345678910");
+        personDao.save(firstParent);
+
+
+        ApplicationCreationDto applicationCreationDto = TestUtils.createDefaultApplicationDto();
+        applicationCreationDto.setChildId(child.getId());
+        applicationCreationDto.setFirstParentId(firstParent.getId());
+        applicationCreationDto.setSecondParentId(secondParent.getId());
+        Long queueId = queueDao.findAll().get(0).getId();
+        applicationCreationDto.setQueue(queueId);
+
+        Map<Integer,Long> priorityKindergarten = new HashMap<>();
+        priorityKindergarten.put(1,kindergarten.getId());
+
+        applicationCreationDto.setPriorityForKindergartenID(priorityKindergarten);
+
+        applicationController.addApplication(applicationCreationDto);
+        assertTrue(kindergartenApplicationFormDao.findAll().size()==1);
+
+
+        Application application = applicationDao.findAll().get(0);
+
+
+        ApplicationCreationDto applicationUpdateDto = TestUtils.createDefaultApplicationDto();
+        applicationUpdateDto.setChildId(child.getId());
+        applicationUpdateDto.setFirstParentId(firstParent.getId());
+        applicationUpdateDto.setSecondParentId(secondParent.getId());
+        applicationUpdateDto.setQueue(queueId);
+
+        Map<Integer,Long> priorityKindergartenUpdate = new HashMap<>();
+        priorityKindergartenUpdate.put(1,kindergarten.getId());
+        priorityKindergartenUpdate.put(2,kindergarten2.getId());
+        priorityKindergartenUpdate.put(3,kindergarten2.getId());
+
+        applicationUpdateDto.setPriorityForKindergartenID(priorityKindergartenUpdate);
+        applicationController.updateApplication(application.getId(), applicationUpdateDto);
+
+        assertTrue(kindergartenApplicationFormDao.findAll().size()==3);
+
+        assertTrue(kindergartenDao.findByCompanyCode("11111111").getApplicationsSet().size()==1,"Should apply to kindergarten once");
+        assertTrue(kindergartenDao.findByCompanyCode("22222222").getApplicationsSet().size()==1,"Should not apply to the same kindergarten twice");
+        assertTrue(kindergartenDao.findByCompanyCode("33333333").getApplicationsSet().size()==0, "Should have no applications");
+        assertTrue(applicationDao.findApplicationByChild(personDao.findByPersonalCode("13345678910")).getKindergartenApplicationForms().size()==3);
+        applicationDao.findAll();
     }
 }
