@@ -4,7 +4,7 @@ import Footer from '../Footer/Footer';
 
 import '../../styles/pages.css';
 import GuardianPrimaryDataFormComponent from './GuardianPrimaryDataComponent';
-import GuardianPrimaryInfoComponent from './GuardianPrimaryInfoComponent';
+import GuardianPrimaryInfoComponent from '../GuardianPrimaryInfo/GuardianPrimaryInfoComponent';
 import axios from 'axios';
 import baseUrl from '../../AppConfig';
 import urls from '../../constants/urls';
