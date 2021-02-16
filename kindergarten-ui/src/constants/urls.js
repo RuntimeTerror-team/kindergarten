@@ -8,7 +8,8 @@ const urls = {
         ageRangeBase: '/education-specialist/age-ranges'
     },
     guardian: {
-        applicationBase: '/guardian/applications'
+        applicationBase: '/guardian/applications',
+        primaryDataBase: '/guardian/primary-data'
     }
 }
 

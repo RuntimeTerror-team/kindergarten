@@ -1,4 +1,4 @@
-import Axios from 'axios';
+import axios from 'axios';
 import React, { Component } from 'react';
 import KindergartenCreationFormComponent from './KindergartenCreationFormComponent';
 import baseUrl from '../../AppConfig';
@@ -35,7 +35,7 @@ class KindergartenCreationFormContainer extends Component {
     }
 
     componentDidMount = () => {
-        Axios
+        axios
             .get(`${baseUrl}/api/districts`)
             .then((res) => {
                 this.setState({ districts: res.data })
@@ -154,7 +154,7 @@ class KindergartenCreationFormContainer extends Component {
             && (this.state.phoneNoValidation === "" && this.state.phoneNo.trim().length !== 0)
             && (this.state.emailValidation === "")
             && (this.state.websiteValidation === "")) {
-            Axios
+            axios
                 .post(`${baseUrl}/api/kindergartens`, {
                     "address": e.target.address.value,
                     "city": "VILNIUS",
@@ -175,12 +175,12 @@ class KindergartenCreationFormContainer extends Component {
                     e.target.reset();
                 })
                 .catch((err) => {
-                    console.log(err);
                     if (err.response.status && err.response.status === 409) {
                         this.setState({ message: err.response.data })
                         this.setState({ messageStyle: "alert alert-danger" })
+                    } else {
+                        console.log(err);
                     }
-
                 });
         } else {
             this.setState({ message: "Darželio sukurti nepavyko. Pasitikrinkite duomenis." })
