@@ -9,6 +9,7 @@ import lt.vtmc.kindergarten.dto.UserDetailsDto;
 import lt.vtmc.kindergarten.dto.UserDto;
 import lt.vtmc.kindergarten.dto.UserDtoFromAdmin;
 import lt.vtmc.kindergarten.dao.UserDao;
+import lt.vtmc.kindergarten.dto.UserValidateCommandDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.authority.AuthorityUtils;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -98,6 +99,31 @@ public class UserService implements UserDetailsService {
             return createEducationSpecialist(userDtoFromAdmin.getFirstName(), userDtoFromAdmin.getLastName());
         } else {
             return createGuardian(userDtoFromAdmin.getFirstName(), userDtoFromAdmin.getLastName());
+        }
+    }
+
+    @Transactional(readOnly = true)
+    public UserValidateCommandDto getUserValidityData(String username){
+        UserValidateCommandDto userValidationData = new UserValidateCommandDto();
+        userValidationData.setUsername(username);
+        userValidationData = checkIfAsociatedPersonExists(userValidationData,username);
+        return userValidationData;
+    }
+
+    private UserValidateCommandDto checkIfAsociatedPersonExists(UserValidateCommandDto userValidation,String username) {
+        User user = userDao.findUserByUsername(username);
+
+        if(user != null) {
+            Person person = personDao.findByUser(user);
+            if(person!=null){
+                userValidation.setAssociatedPersonExists(true);
+                return userValidation;
+            } else {
+                userValidation.setAssociatedPersonExists(false);
+                return userValidation;
+            }
+        } else {
+            throw new RuntimeException("User doesn't exist");
         }
     }
 

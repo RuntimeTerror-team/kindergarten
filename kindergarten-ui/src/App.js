@@ -15,6 +15,7 @@ import Error from './components/ErrorHandling/Error';
 import Forbidden from './components/ErrorHandling/Forbidden';
 import NotAuthorized from './components/ErrorHandling/NotAuthorized';
 import urls from './constants/urls'
+import GuardianPrimaryDataFormContainer from './components/GuardianPrimaryDataForm/GuardianPrimaryDataFormContainer';
 
 function App(props) {
   return (
@@ -30,6 +31,7 @@ function App(props) {
         <Route exact path={`${urls.educationSpecialist.kindergartenBase}/:id/groups/new`} component={GroupCreationFormContainer} />
         <Route exact path={`${urls.educationSpecialist.ageRangeBase}`} component={AgeRangeFormContainer} />
         <Route exact path={`${urls.guardian.applicationBase}`} component={GuardianPageContainer} />
+        <Route exact path={`${urls.guardian.primaryDataBase}`} component={GuardianPrimaryDataFormContainer} />
         <Route exact path='/not-authorized' component={NotAuthorized} />
         <Route exact path='/forbidden' component={Forbidden} />
         <Route exact path='/error' component={Error} />

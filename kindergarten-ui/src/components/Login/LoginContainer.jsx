@@ -3,6 +3,7 @@ import React, { Component } from 'react';
 import { withRouter } from "react-router-dom";
 import LoginComponent from './LoginComponent';
 import baseUrl from "../../AppConfig";
+import urls from '../../constants/urls';
 
 axios.defaults.withCredentials = true;
 
@@ -33,11 +34,13 @@ class LoginContainer extends Component {
 
     checkLoggedIn = () => {
         if (this.state.userRole === "ROLE_ADMIN") {
-            this.props.history.push("/admin/users");
+            this.props.history.push(urls.admin.userBase);
         } else if (this.state.userRole === "ROLE_EDUCATION_SPECIALIST") {
-            this.props.history.push("/education-specialist/kindergartens");
-        } else if (this.state.userRole === "ROLE_GUARDIAN") {
-            this.props.history.push("/guardian/applications");
+            this.props.history.push(urls.educationSpecialist.kindergartenBase);
+        } else if (this.state.hasDetails && this.state.userRole === "ROLE_GUARDIAN") {
+            this.props.history.push(urls.guardian.applicationBase);
+        } else if (!this.state.hasDetails && this.state.userRole === "ROLE_GUARDIAN") {
+            this.props.history.push(urls.guardian.primaryDataBase);
         }
     }
 
@@ -70,7 +73,6 @@ class LoginContainer extends Component {
     handleSubmit = (e) => {
         e.preventDefault();
 
-        let roleFromBack = "";
         let usernameFromUser = e.target.username.value;
         let passwordFromUser = e.target.password.value;
 
@@ -89,13 +91,21 @@ class LoginContainer extends Component {
                     axios
                         .get(`${baseUrl}/loggedRole`)
                         .then((res) => {
-                            roleFromBack = res.data;
-                            this.setState({ userRole: roleFromBack })
+                            this.setState({ userRole: res.data })
+                            if (res.data === "ROLE_GUARDIAN") {
+                                axios
+                                    .get(`${baseUrl}/loggedWithDetails`)
+                                    .then((res) => {
+                                        console.log(res.data);
+                                        this.setState({ hasDetails: res.data })
+                                    })
+                                    .then(() => this.checkLoggedIn())
+                                    .catch(err => console.log(err))
+                            } else {
+                                this.checkLoggedIn();
+                            }
                         })
-                        .then(() => {
-                            this.checkLoggedIn();
-                        })
-                        .catch(err => console.log(err));
+                        .catch(err => console.log(err))
                 })
                 .catch((e) => {
                     if (e.response.status && e.response.status === 401) {
