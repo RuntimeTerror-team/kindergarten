@@ -130,7 +130,7 @@ const GuardianPrimaryDataFormComponent = ({
                         name="phoneNo"
                         onChange={handleChange}
                     />
-                    <div className="invalid-feedback offset-3 col-9">Šis laukas privalomas. Telefono numeris ilgis turi būti 8 skaitmenų.</div>
+                    <div className="invalid-feedback offset-3 col-9">Šis laukas privalomas. Telefono numerio ilgis turi būti 8 skaitmenų.</div>
                 </div>
                 <div className="form-group row">
                     <label htmlFor="email" className="col-3 pt-2 text-right">
