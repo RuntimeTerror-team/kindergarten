@@ -6,6 +6,7 @@ import { IoMdExit } from "react-icons/io";
 import axios from "axios";
 import baseUrl from "../../AppConfig";
 import { useHistory } from "react-router";
+import urls from '../../constants/urls'
 
 const HeaderComponent = ({ userRole }) => {
   let history = useHistory();
@@ -21,9 +22,9 @@ const HeaderComponent = ({ userRole }) => {
       axios
         .get(`${baseUrl}/loggedUsername`)
         .then((res) => {
-          axios.get(`${baseUrl}/api/users/${res.data}`)
+          axios.get(`${baseUrl}/api/users/${res.data}/details`)
             .then((res) => {
-              setNameShow(`${res.data.firstName} ${res.data.lastName}`)
+              setNameShow(`${res.data.personDetails.firstName} ${res.data.personDetails.lastName}`)
             })
             .catch(err => console.log(err))
         })
@@ -48,9 +49,10 @@ const HeaderComponent = ({ userRole }) => {
           <img className="logo" src={logo} alt="Logo" />
         </div>
         <div className="offset-5 col-3 col-xs-3 col-sm-3 col-md-3 col-lg-3">
-          <p className="lead">
-            <strong>{nameToShow}</strong>
-          </p>
+          {window.location.pathname === `/kindergarten${urls.guardian.primaryDataBase}` ? <p className="lead">
+          </p> : <p className="lead">
+              <strong>{nameToShow}</strong>
+            </p>}
           <button className="btn btn-yellow" onClick={handleLogout}>
             Atsijungti <IoMdExit size={20} />
           </button>
