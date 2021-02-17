@@ -32,7 +32,7 @@ public class ApplicationController {
     @RequestMapping(value="/api/applications", method = RequestMethod.GET)
     @ResponseStatus(HttpStatus.CREATED)
     @ApiOperation(value = "Get applications", notes = "Returns a list of applications")
-    public List<ApplicationDto> getApplications(){
+    public List<ApplicationDto> getApplicationsList(){
         return applicationService.getApplicationsList();
     }
 
