@@ -33,7 +33,7 @@ public class ApplicationController {
     @ResponseStatus(HttpStatus.CREATED)
     @ApiOperation(value = "Get applications", notes = "Returns a list of applications")
     public List<ApplicationDto> getApplications(){
-        return applicationService.getApplications();
+        return applicationService.getApplicationsList();
     }
 
     @ApiOperation(value = "Update application", notes = "Updates application by id")

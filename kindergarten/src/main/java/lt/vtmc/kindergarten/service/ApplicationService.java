@@ -96,7 +96,7 @@ public class ApplicationService {
     }
     
     @Transactional
-    public List<ApplicationDto> getApplications(){
+    public List<ApplicationDto> getApplicationsList(){
     	
     	List<Application> applications = applicationDao.findAll();
     	return applications.stream().map(application -> new ApplicationDto(application.getId(), application.getApplicationStatus(),
