@@ -25,8 +25,6 @@ public class PersonService {
     @Autowired
     private UserDao userDao;
 
-    @Autowired
-    private UserService userService;
 
     @Transactional
     public void addPerson(@Valid PersonDto personDto) {
