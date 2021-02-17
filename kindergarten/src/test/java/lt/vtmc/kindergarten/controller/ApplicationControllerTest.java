@@ -41,9 +41,6 @@ public class ApplicationControllerTest {
     private QueueService queueService;
 
     @Autowired
-    private QueueDao queueDao;
-
-    @Autowired
     private KindergartenApplicationFormDao kindergartenApplicationFormDao;
 
     @Test
@@ -82,8 +79,6 @@ public class ApplicationControllerTest {
         applicationCreationDto.setChildId(child.getId());
         applicationCreationDto.setFirstParentId(firstParent.getId());
         applicationCreationDto.setSecondParentId(secondParent.getId());
-        Long queueId = queueDao.findAll().get(0).getId();
-        applicationCreationDto.setQueue(queueId);
 
         Map<Integer,Long> priorityKindergarten = new HashMap<>();
         priorityKindergarten.put(1,kindergarten.getId());
@@ -140,8 +135,6 @@ public class ApplicationControllerTest {
         applicationCreationDto.setChildId(child.getId());
         applicationCreationDto.setFirstParentId(firstParent.getId());
         applicationCreationDto.setSecondParentId(secondParent.getId());
-        Long queueId = queueDao.findAll().get(0).getId();
-        applicationCreationDto.setQueue(queueId);
 
         Map<Integer,Long> priorityKindergarten = new HashMap<>();
         priorityKindergarten.put(1,kindergarten.getId());
@@ -159,7 +152,6 @@ public class ApplicationControllerTest {
         applicationUpdateDto.setChildId(child.getId());
         applicationUpdateDto.setFirstParentId(firstParent.getId());
         applicationUpdateDto.setSecondParentId(secondParent.getId());
-        applicationUpdateDto.setQueue(queueId);
 
         Map<Integer,Long> priorityKindergartenUpdate = new HashMap<>();
         priorityKindergartenUpdate.put(1,kindergarten.getId());

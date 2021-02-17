@@ -8,11 +8,12 @@ import lt.vtmc.kindergarten.service.ApplicationService;
 
 import java.util.List;
 
+import lt.vtmc.kindergarten.service.QueueDoesntExistException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
 
 @RestController
 public class ApplicationController {
@@ -23,10 +24,17 @@ public class ApplicationController {
     @RequestMapping(value="/api/applications", method = RequestMethod.POST)
     @ResponseStatus(HttpStatus.CREATED)
     @ApiOperation(value = "Create application", notes = "Creates a new application")
-    public void addApplication(
+    public ResponseEntity addApplication(
             @ApiParam(value = "", required = true)
             @RequestBody ApplicationCreationDto applicationCreationDto){
-        applicationService.addApplication(applicationCreationDto);
+        try{
+            applicationService.addApplication(applicationCreationDto);
+            return new ResponseEntity(HttpStatus.OK);
+        } catch (QueueDoesntExistException exception) {
+            return new ResponseEntity("Nėra aktyvios eilės priskirti aplikacijai",HttpStatus.FORBIDDEN);
+        } catch (Exception exception) {
+            return new ResponseEntity("Ivyko klaida",HttpStatus.BAD_REQUEST);
+        }
     }
     
 
@@ -40,12 +48,18 @@ public class ApplicationController {
     @ApiOperation(value = "Update application", notes = "Updates application by id")
     @RequestMapping(value = "/api/applications/{id}", method = RequestMethod.PUT)
     @ResponseStatus(HttpStatus.OK)
-    public void updateApplication(
+    public ResponseEntity updateApplication(
             @ApiParam(value = "", required = true)
             @PathVariable Long id,
             @RequestBody ApplicationCreationDto applicationDto
     ){
-        applicationService.updateApplication(id, applicationDto);
+        try {
+            applicationService.updateApplication(id, applicationDto);
+            return new ResponseEntity(HttpStatus.OK);
+        } catch (QueueDoesntExistException exception){
+           return new ResponseEntity("Prašymo, negalima redaguoti, nes nėra aktyvios eilės", HttpStatus.FORBIDDEN);
+        }
+
     }
 
     @ApiOperation(value = "Get single application by id", notes = "Returns a single application by id")
