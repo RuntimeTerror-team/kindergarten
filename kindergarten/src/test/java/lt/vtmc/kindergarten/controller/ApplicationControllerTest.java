@@ -4,7 +4,7 @@ import lt.vtmc.kindergarten.TestUtils;
 import lt.vtmc.kindergarten.dao.*;
 import lt.vtmc.kindergarten.domain.*;
 import lt.vtmc.kindergarten.dto.ApplicationCreationDto;
-import lt.vtmc.kindergarten.dto.QueueDto;
+import lt.vtmc.kindergarten.dto.QueueDtoFromAdmin;
 import lt.vtmc.kindergarten.service.QueueService;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -51,8 +51,8 @@ public class ApplicationControllerTest {
     @DirtiesContext(methodMode = DirtiesContext.MethodMode.BEFORE_METHOD)
     @Transactional
     void testCreatingApplication() {
-        QueueDto queue = TestUtils.createDefaultQueue();
-        queueService.addQueue(queue);
+        QueueDtoFromAdmin queue = TestUtils.createDefaultQueue();
+        queueService.addQueueWithOpeningDate(queue);
 
         District district = TestUtils.createDefaultDistrict("Antakalnis");
         districtDao.save(district);
@@ -70,7 +70,6 @@ public class ApplicationControllerTest {
 
         Person firstParent = TestUtils.createDefaultPerson("12345678910");
         personDao.save(firstParent);
-
 
 
         ApplicationCreationDto applicationCreationDto = new ApplicationCreationDto();
@@ -104,8 +103,8 @@ public class ApplicationControllerTest {
     @Transactional
     void testUpdateApplication() {
 
-        QueueDto queue = TestUtils.createDefaultQueue();
-        queueService.addQueue(queue);
+        QueueDtoFromAdmin queue = TestUtils.createDefaultQueue();
+        queueService.addQueueWithOpeningDate(queue);
 
         District district = TestUtils.createDefaultDistrict("");
         districtDao.save(district);

@@ -1,7 +1,6 @@
 package lt.vtmc.kindergarten.dto;
 
 import java.util.Date;
-import java.util.HashSet;
 import java.util.LinkedHashSet;
 import java.util.Set;
 import java.util.stream.Collectors;

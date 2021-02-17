@@ -45,32 +45,34 @@ public class ApplicationService {
 
     @Transactional
     public void addApplication(@Valid ApplicationCreationDto applicationCreationDto) {
-    	
+
         Person child = personDao.getOne(applicationCreationDto.getChildId());
         Person firstParent = personDao.getOne(applicationCreationDto.getFirstParentId());
 
         Person secondParent = null;
         boolean isSecondParent = false;
-        if(applicationCreationDto.getSecondParentId() != null) {
-        	
-          isSecondParent = true;
-          secondParent = personDao.getOne(applicationCreationDto.getSecondParentId()); 
-          
+        if (applicationCreationDto.getSecondParentId() != null) {
+
+            isSecondParent = true;
+            secondParent = personDao.getOne(applicationCreationDto.getSecondParentId());
+
         }
-        
-        if( secondParent != null ){
+
+        if (secondParent != null) {
             createParentUser(secondParent.getFirstName(), secondParent.getLastName());
-           
+
         }
 
         Application application = applicationDao.findApplicationByChild(child);
-      
+
         if (application == null) {
             application = new Application();
-            
-        } else { throw new RuntimeException("Application already exists"); }
 
-        
+        } else {
+            throw new RuntimeException("Application already exists");
+        }
+
+
         application.setDate(java.sql.Date.valueOf(LocalDate.now()));
 
         application.setIsAdopted(applicationCreationDto.isAdopted());
@@ -86,35 +88,32 @@ public class ApplicationService {
 
         application.setChild(child);
         application.setParent(firstParent);
-        if(isSecondParent) {
+        if (isSecondParent) {
             application.setSecondParent(secondParent);
-            }
+        }
 
-        System.out.println("1111111111111111111111111111111");
+
         Queue queue = queueDao.getOne(applicationCreationDto.getQueue());
-        System.out.println("222222222222222222222222222222");
+
         application.setQueue(queue);
-        System.out.println("333333333333333333333333333333333333333");
 
         application.setApplicationStatus(ApplicationStatusEnum.SUBMITTED);
-        System.out.println("44444444444444444444444444444444444444444");
 
         application.setKindergartenApplicationForms(parseKindergartenApplications(applicationCreationDto, application));
-        System.out.println("555555555555555555555555555555555555555555");
 
         applicationDao.save(application);
-        System.out.println("6666666666666666666666666666666666666666666");
+
     }
-    
+
     @Transactional
-    public List<ApplicationDto> getApplicationsList(){
-    	
-    	List<Application> applications = applicationDao.findAll();
-    	return applications.stream().map(application -> new ApplicationDto(application.getId(), application.getApplicationStatus(),
-    			application.getChild(), new PersonDto(application.getParent()),
-    			application.getScore(), application.getSecondParent(), application.getDate(), application.isAdopted(),
-    			application.isMultiChild(), application.isGuardianDisabled(), application.isGuardianStudent(),
-    			application.getKindergartenApplicationForms())).collect(Collectors.toList());
+    public List<ApplicationDto> getApplicationsList() {
+
+        List<Application> applications = applicationDao.findAll();
+        return applications.stream().map(application -> new ApplicationDto(application.getId(), application.getApplicationStatus(),
+                application.getChild(), new PersonDto(application.getParent()),
+                application.getScore(), application.getSecondParent(), application.getDate(), application.isAdopted(),
+                application.isMultiChild(), application.isGuardianDisabled(), application.isGuardianStudent(),
+                application.getKindergartenApplicationForms())).collect(Collectors.toList());
     }
 
 
@@ -150,6 +149,7 @@ public class ApplicationService {
         }
         return sumOfPriorities;
     }
+
     @Transactional
     public void updateApplication(Long id, ApplicationCreationDto applicationCreationDto) {
         Application application = applicationDao.getOne(id);
@@ -191,8 +191,9 @@ public class ApplicationService {
 
     /**
      * Creates applications to concrete kindergartens
+     *
      * @param applicationCreationDto dto that contains Map<Integer priority, Long kindergartenId>
-     * @param application application to which new KindergartenApplicationForms will be created
+     * @param application            application to which new KindergartenApplicationForms will be created
      * @return Set of application forms to specific kindergartens
      */
     private Set<KindergartenApplicationForm> parseKindergartenApplications(ApplicationCreationDto applicationCreationDto, Application application) {
@@ -201,7 +202,7 @@ public class ApplicationService {
         Set<KindergartenApplicationForm> kindergartenApplications = applicationMetadata.entrySet().stream().map(entry -> {
             Kindergarten kindergarten = kindergartenDao.getOne(entry.getValue());
             removeApplicationFormsFromApplication(application);
-            removeApplicationFormsFromKindergarten(kindergarten,entry.getValue());
+            removeApplicationFormsFromKindergarten(kindergarten, entry.getValue());
 
             KindergartenApplicationForm kindergartenApplicationForm = new KindergartenApplicationForm();
             kindergartenApplicationForm.setKindergarten(kindergarten);
@@ -217,21 +218,21 @@ public class ApplicationService {
 
     }
 
-    private void removeApplicationFormsFromApplication(Application application){
+    private void removeApplicationFormsFromApplication(Application application) {
         application
                 .setKindergartenApplicationForms(
                         application.getKindergartenApplicationForms()
                                 .stream()
-                                .filter(item -> item.getApplication().getId()!=application.getId())
+                                .filter(item -> item.getApplication().getId() != application.getId())
                                 .collect(Collectors.toSet()));
     }
 
-    private void removeApplicationFormsFromKindergarten(Kindergarten kindergarten, Long kindergartenIdToRemove){
+    private void removeApplicationFormsFromKindergarten(Kindergarten kindergarten, Long kindergartenIdToRemove) {
         kindergarten
                 .setApplicationsSet(
                         kindergarten.getApplicationsSet()
                                 .stream()
-                                .filter(item -> item.getKindergarten().getId() != kindergartenIdToRemove )
+                                .filter(item -> item.getKindergarten().getId() != kindergartenIdToRemove)
                                 .collect(Collectors.toSet()));
     }
 

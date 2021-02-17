@@ -9,6 +9,8 @@ import java.util.Date;
 public class QueueDto {
 
 
+    private Long id;
+
     private Date openingDate;
 
     private Date closingDate;
@@ -21,6 +23,7 @@ public class QueueDto {
     }
 
     public QueueDto(@Valid Queue queue) {
+        this.id = queue.getId();
         this.openingDate = queue.getOpeningDate();
         this.closingDate = queue.getClosingDate();
         this.closingDate = queue.getRegistrationClosingDate();
@@ -33,6 +36,14 @@ public class QueueDto {
 
     public void setRegistrationClosingDate(Date registrationClosingDate) {
         this.registrationClosingDate = registrationClosingDate;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public Date getOpeningDate() {
