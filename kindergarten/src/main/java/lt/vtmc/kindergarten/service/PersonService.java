@@ -60,6 +60,18 @@ public class PersonService {
         Person person = personDao.getOne(id);
         return new PersonDto(person);
     }
+    
+    @Transactional
+    public PersonDto getPersonByPersonalCode(String personalCode){
+        
+    	Person person = personDao.findByPersonalCode(personalCode);
+    	System.out.println("RETURNING PERSON WITH ID");
+    	
+    	return new PersonDto(person.getId(), person.getFirstName(), person.getLastName(), person.getPersonalCode(), person.getPhoneNumber(),
+    			person.getAddress(), person.getCity(), person.getPostalCode(), person.getEmail());
+    }
+    
+    
 
     @Transactional(readOnly = true)
     public List<PersonDto> getPersons() {

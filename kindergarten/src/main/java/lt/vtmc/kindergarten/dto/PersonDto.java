@@ -10,6 +10,8 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 
 public class PersonDto {
+	
+	private Long id;
 
     @NotNull
     private String firstName;
@@ -31,7 +33,7 @@ public class PersonDto {
     @NotNull
     private CityEnum cityEnum;
 
-    @NotNull
+    
     @Pattern(regexp = "^\\d{1,5}")
     private String postalCode;
 
@@ -62,6 +64,29 @@ public class PersonDto {
         this.postalCode = person.getPostalCode();
         this.email = person.getEmail();
     }
+    
+    public PersonDto(Long id, String firstName, String lastName, String personalCode, String phoneNumber,
+			String address, CityEnum city, String postalCode, String email) {
+		
+    	this.id= id;
+    	this.firstName = firstName;
+        this.lastName = lastName;
+        this.personalCode = personalCode;
+        this.phoneNumber = phoneNumber;
+        this.address = address;
+        this.cityEnum = city;
+        this.postalCode = postalCode;
+        this.email = email;
+	}
+    
+    public Long getId() {
+    	return id;
+    }
+    
+    public void setId(Long id) {
+    	this.id=id;
+    }
+    
 
     public String getFirstName() {
         return firstName;

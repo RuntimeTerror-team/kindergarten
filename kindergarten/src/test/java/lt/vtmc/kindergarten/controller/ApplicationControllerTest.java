@@ -81,10 +81,10 @@ public class ApplicationControllerTest {
 
         ApplicationCreationDto applicationCreationDto = new ApplicationCreationDto();
         applicationCreationDto.setDate(new Date());
-        applicationCreationDto.setAdopted(true);
-        applicationCreationDto.setGuardianDisabled(false);
-        applicationCreationDto.setMultiChild(false);
-        applicationCreationDto.setGuardianStudent(false);
+        applicationCreationDto.setIsAdopted(true);
+        applicationCreationDto.setIsGuardianDisabled(false);
+        applicationCreationDto.setIsMultiChild(false);
+        applicationCreationDto.setIsGuardianStudent(false);
         applicationCreationDto.setChildId(child.getId());
         applicationCreationDto.setFirstParentId(firstParent.getId());
         applicationCreationDto.setSecondParentId(secondParent.getId());
