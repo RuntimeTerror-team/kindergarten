@@ -26,7 +26,7 @@ public class PersonController {
             @ApiParam(value = "", required = true)
             @RequestBody PersonDto personDto){
 
-        if(personService.getPersonByPersonalCode(personDto.getPersonalCode()) != null){
+        if(personService.checkIfPersonExistsByPersonalCode(personDto.getPersonalCode())){
             return new ResponseEntity<>("Asmuo su tokiu asmens kodu jau egzistuoja", HttpStatus.CONFLICT);
         }
 
@@ -46,7 +46,7 @@ public class PersonController {
             @ApiParam(value = "", required = true)
             @RequestBody PersonUserDto personDto) {
 
-        if(personService.getPersonByPersonalCode(personDto.getPersonalCode()) != null){
+        if(personService.checkIfPersonExistsByPersonalCode(personDto.getPersonalCode())){
             return new ResponseEntity<>("Asmuo su tokiu asmens kodu jau egzistuoja", HttpStatus.CONFLICT);
         }
 

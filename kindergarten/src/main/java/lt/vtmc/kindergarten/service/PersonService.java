@@ -58,17 +58,17 @@ public class PersonService {
         Person person = personDao.getOne(id);
         return new PersonDto(person);
     }
-    
+
     @Transactional
     public PersonDto getPersonByPersonalCode(String personalCode){
-        
+
     	Person person = personDao.findByPersonalCode(personalCode);
     	System.out.println("RETURNING PERSON WITH ID");
-    	
+
     	return new PersonDto(person.getId(), person.getFirstName(), person.getLastName(), person.getPersonalCode(), person.getPhoneNumber(),
     			person.getAddress(), person.getCity(), person.getPostalCode(), person.getEmail());
     }
-    
+
     
 
     @Transactional(readOnly = true)
@@ -102,11 +102,12 @@ public class PersonService {
     }
 
     @Transactional(readOnly = true)
-    public Person getPersonByPersonalCode(String personalCode) {
-        try {
-            return personDao.findByPersonalCode(personalCode);
-        } catch (Exception e) {
-            return null;
+    public boolean checkIfPersonExistsByPersonalCode(String personalCode) {
+        if(personDao.findByPersonalCode(personalCode)!=null){
+            return true;
+        } else {
+            return false;
         }
+
     }
 }
