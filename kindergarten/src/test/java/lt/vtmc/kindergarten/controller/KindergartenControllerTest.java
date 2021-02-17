@@ -29,15 +29,6 @@ public class KindergartenControllerTest {
     @Autowired
     private KindergartenDao kindergartenDao;
 
-//    @BeforeEach
-//    private void init() {
-//        District district = TestUtils.createDistrict("Antakalnis");
-//        this.district = district;
-//
-//        Kindergarten kindergarten = TestUtils.createKindergarten("1234567");
-//        this.kindergarten = kindergarten;
-//    }
-
     @Test
     @Order(1)
     @DisplayName("create kindergarten")

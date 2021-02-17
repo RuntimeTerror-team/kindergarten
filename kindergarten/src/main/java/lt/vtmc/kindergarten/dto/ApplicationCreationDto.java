@@ -28,7 +28,6 @@ public class ApplicationCreationDto {
 
     private boolean isGuardianDisabled;
 
-    private Long queue;
 
     public ApplicationCreationDto() {
     }
@@ -43,7 +42,6 @@ public class ApplicationCreationDto {
         this.isMultiChild = application.isMultiChild();
         this.isGuardianStudent = application.isGuardianStudent();
         this.isGuardianDisabled = application.isGuardianDisabled();
-        this.queue = application.getQueue().getId();
     }
 
     public Map<Integer, Long> parseApplicationMetadata(Application application){
@@ -55,14 +53,6 @@ public class ApplicationCreationDto {
         return applicationToPriority;
     }
 
-
-    public Long getQueue() {
-        return queue;
-    }
-
-    public void setQueue(Long queue) {
-        this.queue = queue;
-    }
 
     public Long getFirstParentId() {
         return firstParentId;

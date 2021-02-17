@@ -43,66 +43,69 @@ public class ApplicationService {
     @Autowired
     private KindergartenApplicationFormService kindergartenApplicationService;
 
+
     @Transactional
     public void addApplication(@Valid ApplicationCreationDto applicationCreationDto) {
+        Queue queue = queueDao.findByStatus(QueueStatusEnum.ACTIVE);
 
-        Person child = personDao.getOne(applicationCreationDto.getChildId());
-        Person firstParent = personDao.getOne(applicationCreationDto.getFirstParentId());
+        if (queue != null) {
 
-        Person secondParent = null;
-        boolean isSecondParent = false;
-        if (applicationCreationDto.getSecondParentId() != null) {
+            Person child = personDao.getOne(applicationCreationDto.getChildId());
+            Person firstParent = personDao.getOne(applicationCreationDto.getFirstParentId());
 
-            isSecondParent = true;
-            secondParent = personDao.getOne(applicationCreationDto.getSecondParentId());
+            Person secondParent = null;
+            boolean isSecondParent = false;
+            if (applicationCreationDto.getSecondParentId() != null) {
 
-        }
+                isSecondParent = true;
+                secondParent = personDao.getOne(applicationCreationDto.getSecondParentId());
 
-        if (secondParent != null) {
-            createParentUser(secondParent.getFirstName(), secondParent.getLastName());
+            }
 
-        }
+            if (secondParent != null) {
+                createParentUser(secondParent.getFirstName(), secondParent.getLastName());
 
-        Application application = applicationDao.findApplicationByChild(child);
+            }
 
-        if (application == null) {
-            application = new Application();
+            Application application = applicationDao.findApplicationByChild(child);
 
+            if (application == null) {
+                application = new Application();
+
+            } else {
+                throw new RuntimeException("Application already exists");
+            }
+
+
+            application.setDate(java.sql.Date.valueOf(LocalDate.now()));
+
+            application.setIsAdopted(applicationCreationDto.isAdopted());
+            application.setIsMultiChild(applicationCreationDto.isMultiChild());
+            application.setIsGuardianStudent(applicationCreationDto.isGuardianStudent());
+            application.setIsGuardianDisabled(applicationCreationDto.isGuardianDisabled());
+
+            if (child.getCity() == CityEnum.VILNIUS) {
+                application.setScore(countScore(applicationCreationDto) + 1);
+            } else {
+                application.setScore(countScore(applicationCreationDto));
+            }
+
+            application.setChild(child);
+            application.setParent(firstParent);
+            if (isSecondParent) {
+                application.setSecondParent(secondParent);
+            }
+
+            application.setQueue(queue);
+
+            application.setApplicationStatus(ApplicationStatusEnum.SUBMITTED);
+
+            application.setKindergartenApplicationForms(parseKindergartenApplications(applicationCreationDto, application));
+
+            applicationDao.save(application);
         } else {
-            throw new RuntimeException("Application already exists");
+            throw new QueueDoesntExistException("Active queue must exists");
         }
-
-
-        application.setDate(java.sql.Date.valueOf(LocalDate.now()));
-
-        application.setIsAdopted(applicationCreationDto.isAdopted());
-        application.setIsMultiChild(applicationCreationDto.isMultiChild());
-        application.setIsGuardianStudent(applicationCreationDto.isGuardianStudent());
-        application.setIsGuardianDisabled(applicationCreationDto.isGuardianDisabled());
-
-        if (child.getCity() == CityEnum.VILNIUS) {
-            application.setScore(countScore(applicationCreationDto) + 1);
-        } else {
-            application.setScore(countScore(applicationCreationDto));
-        }
-
-        application.setChild(child);
-        application.setParent(firstParent);
-        if (isSecondParent) {
-            application.setSecondParent(secondParent);
-        }
-
-
-        Queue queue = queueDao.getOne(applicationCreationDto.getQueue());
-
-        application.setQueue(queue);
-
-        application.setApplicationStatus(ApplicationStatusEnum.SUBMITTED);
-
-        application.setKindergartenApplicationForms(parseKindergartenApplications(applicationCreationDto, application));
-
-        applicationDao.save(application);
-
     }
 
     @Transactional
@@ -152,40 +155,45 @@ public class ApplicationService {
 
     @Transactional
     public void updateApplication(Long id, ApplicationCreationDto applicationCreationDto) {
-        Application application = applicationDao.getOne(id);
+        Queue queue = queueDao.findByStatus(QueueStatusEnum.ACTIVE);
 
-        Person child = personDao.getOne(applicationCreationDto.getChildId());
-        Person firstParent = personDao.getOne(applicationCreationDto.getFirstParentId());
-        Person secondParent = personDao.getOne(applicationCreationDto.getSecondParentId());
+        if (queue != null) {
+            Application application = applicationDao.getOne(id);
 
-        application.setDate(applicationCreationDto.getDate());
-        application.setIsAdopted(applicationCreationDto.isAdopted());
-        application.setIsMultiChild(applicationCreationDto.isMultiChild());
-        application.setIsGuardianStudent(applicationCreationDto.isGuardianDisabled());
-        application.setIsGuardianDisabled(applicationCreationDto.isGuardianDisabled());
+            Person child = personDao.getOne(applicationCreationDto.getChildId());
+            Person firstParent = personDao.getOne(applicationCreationDto.getFirstParentId());
+            Person secondParent = personDao.getOne(applicationCreationDto.getSecondParentId());
 
-        if (child.getCity() == CityEnum.VILNIUS) {
-            application.setScore(countScore(applicationCreationDto) + 1);
+            application.setDate(applicationCreationDto.getDate());
+            application.setIsAdopted(applicationCreationDto.isAdopted());
+            application.setIsMultiChild(applicationCreationDto.isMultiChild());
+            application.setIsGuardianStudent(applicationCreationDto.isGuardianDisabled());
+            application.setIsGuardianDisabled(applicationCreationDto.isGuardianDisabled());
+
+            if (child.getCity() == CityEnum.VILNIUS) {
+                application.setScore(countScore(applicationCreationDto) + 1);
+            } else {
+                application.setScore(countScore(applicationCreationDto));
+            }
+
+            application.setChild(child);
+            application.setParent(firstParent);
+            application.setSecondParent(secondParent);
+
+            application.setQueue(queue);
+
+            application.setApplicationStatus(ApplicationStatusEnum.SUBMITTED);
+
+            //Delete preexisting applications before applying new ones
+            kindergartenApplicationService.deleteApplicationFormsByApplicationId(application.getId());
+
+            Set<KindergartenApplicationForm> kindergartenApplicationForms = parseKindergartenApplications(applicationCreationDto, application);
+            application.setKindergartenApplicationForms(kindergartenApplicationForms);
+
+            applicationDao.save(application);
         } else {
-            application.setScore(countScore(applicationCreationDto));
+            throw new QueueDoesntExistException("Active queue must exists");
         }
-
-        application.setChild(child);
-        application.setParent(firstParent);
-        application.setSecondParent(secondParent);
-
-        Queue queue = queueDao.getOne(applicationCreationDto.getQueue());
-        application.setQueue(queue);
-
-        application.setApplicationStatus(ApplicationStatusEnum.SUBMITTED);
-
-        //Delete preexisting applications before applying new ones
-        kindergartenApplicationService.deleteApplicationFormsByApplicationId(application.getId());
-
-        Set<KindergartenApplicationForm> kindergartenApplicationForms = parseKindergartenApplications(applicationCreationDto, application);
-        application.setKindergartenApplicationForms(kindergartenApplicationForms);
-
-        applicationDao.save(application);
 
     }
 
