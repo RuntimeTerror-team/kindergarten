@@ -27,7 +27,7 @@ public class UserController {
     public List<UserDto> getUsers() {
         return userService.getUsers();
     }
-    
+
 
     @RequestMapping(method = RequestMethod.POST)
     @ResponseStatus(HttpStatus.CREATED)
@@ -58,7 +58,7 @@ public class UserController {
     public ResponseEntity<?> getUserDetails(@PathVariable String username) {
         Object userInfo = userService.getUserDetails(username);
 
-        if(userInfo instanceof UserDetailsDto) {
+        if (userInfo instanceof UserDetailsDto) {
             return new ResponseEntity(userInfo, HttpStatus.OK);
         } else {
             return new ResponseEntity<>(userInfo, HttpStatus.BAD_REQUEST);
@@ -69,15 +69,15 @@ public class UserController {
     @RequestMapping(method = RequestMethod.POST, value = "/{username}/validate")
     @ResponseStatus(HttpStatus.OK)
     public ResponseEntity validateUser(
-           @ApiParam(value = "Username",required=true)
-           @Valid
-           @PathVariable String username
-    ){
+            @ApiParam(value = "Username", required = true)
+            @Valid
+            @PathVariable String username
+    ) {
         try {
             UserValidateCommandDto userValidationData = userService.getUserValidityData(username);
-            return new ResponseEntity(userValidationData,HttpStatus.OK);
+            return new ResponseEntity(userValidationData, HttpStatus.OK);
         } catch (RuntimeException exception) {
-            return new ResponseEntity(exception.getMessage(),HttpStatus.BAD_REQUEST);
+            return new ResponseEntity(exception.getMessage(), HttpStatus.BAD_REQUEST);
         }
     }
 }
