@@ -12,6 +12,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 public class ApplicationController {
 
@@ -44,22 +46,22 @@ public class ApplicationController {
     ){
         applicationService.updateApplication(id, applicationDto);
     }
-//
-//    @ApiOperation(value = "Get single application by id", notes = "Returns a single application by id")
-//    @RequestMapping(method = RequestMethod.GET, value = "/api/applications/{application_id}")
-//    @ResponseStatus(HttpStatus.OK)
-//    public ApplicationCreationDto getApplication(
-//            @PathVariable final Long application_id
-//    ){
-//        return applicationService.getApplication(application_id);
-//    }
-//
-//    @RequestMapping(method = RequestMethod.GET, value = "/api/applications")
-//    @ApiOperation(value="Get applications",notes ="Returns all applications")
-//    @ResponseStatus(HttpStatus.OK)
-//    public List<ApplicationCreationDto> getApplications(){
-//        return applicationService.getApplications();
-//    }
+
+    @ApiOperation(value = "Get single application by id", notes = "Returns a single application by id")
+    @RequestMapping(method = RequestMethod.GET, value = "/api/applications/{application_id}")
+    @ResponseStatus(HttpStatus.OK)
+    public ApplicationCreationDto getApplication(
+            @PathVariable final Long application_id
+    ){
+        return applicationService.getApplication(application_id);
+    }
+
+    @RequestMapping(method = RequestMethod.GET, value = "/api/applications")
+    @ApiOperation(value="Get applications",notes ="Returns all applications")
+    @ResponseStatus(HttpStatus.OK)
+    public List<ApplicationCreationDto> getApplications(){
+        return applicationService.getApplications();
+    }
 
 
     public void setApplicationService(ApplicationService applicationService) {
