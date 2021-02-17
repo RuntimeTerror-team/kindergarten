@@ -90,4 +90,13 @@ public class PersonService {
 
         return personEntity;
     }
+
+    @Transactional(readOnly = true)
+    public Person getPersonByPersonalCode(String personalCode) {
+        try {
+            return personDao.findByPersonalCode(personalCode);
+        } catch (Exception e) {
+            return null;
+        }
+    }
 }

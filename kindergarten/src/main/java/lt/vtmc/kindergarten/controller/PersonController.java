@@ -7,8 +7,10 @@ import lt.vtmc.kindergarten.dto.PersonUserDto;
 import lt.vtmc.kindergarten.service.PersonService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.ConstraintViolationException;
 import java.util.List;
 
 @RestController
@@ -20,19 +22,40 @@ public class PersonController {
     @RequestMapping(value="/api/persons", method = RequestMethod.POST)
     @ResponseStatus(HttpStatus.CREATED)
     @ApiOperation(value = "Create person", notes = "Creates new person")
-    public void addPerson(
+    public ResponseEntity addPerson(
             @ApiParam(value = "", required = true)
             @RequestBody PersonDto personDto){
-        personService.addPerson(personDto);
+
+        if(personService.getPersonByPersonalCode(personDto.getPersonalCode()) != null){
+            return new ResponseEntity<>("Asmuo su tokiu asmens kodu jau egzistuoja", HttpStatus.CONFLICT);
+        }
+
+        try {
+            personService.addPerson(personDto);
+            return new ResponseEntity<>(HttpStatus.OK);
+        } catch (ConstraintViolationException exception){
+            return new ResponseEntity<>("Data Validation failed", HttpStatus.BAD_REQUEST);
+        }
+
     }
 
     @RequestMapping(value="/api/persons/username", method = RequestMethod.POST)
     @ResponseStatus(HttpStatus.CREATED)
     @ApiOperation(value = "Adds person", notes = "Creates new person and assigns it to the existing user")
-    public void addPersonWithUsername(
+    public ResponseEntity addPersonWithUsername(
             @ApiParam(value = "", required = true)
             @RequestBody PersonUserDto personDto) {
-        personService.addPersonWithUsername(personDto);
+
+        if(personService.getPersonByPersonalCode(personDto.getPersonalCode()) != null){
+            return new ResponseEntity<>("Asmuo su tokiu asmens kodu jau egzistuoja", HttpStatus.CONFLICT);
+        }
+
+        try {
+            personService.addPersonWithUsername(personDto);
+            return new ResponseEntity<>(HttpStatus.OK);
+        } catch (ConstraintViolationException exception){
+            return new ResponseEntity<>("Data Validation failed", HttpStatus.BAD_REQUEST);
+        }
     }
 
     @ApiOperation(value = "Update person", notes = "Updates person by id")
