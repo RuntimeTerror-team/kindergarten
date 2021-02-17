@@ -1,9 +1,10 @@
 import React from "react";
 import Proptypes from "prop-types";
 import Input from "../common/Input";
-import QueueTableComponent from "../QueueTable/QueueTableComponent";
+import EsQueueTableComponent from "../EsQueueTable/EsQueueTableComponent";
+import EsQueueFormComponent from "../EsQueueForm/EsQueueFormComponent";
 
-const QueueListComponent = ({
+const EsQueueListComponent = ({
     queues,
     handleSubmit,
     handleChange,
@@ -11,13 +12,21 @@ const QueueListComponent = ({
     isCreating,
     queue,
     errors,
+    userRole,
+    toggleUpdate,
+    isUpdating,
+    handleUpdate,
+    esMessage,
+    esMessageStyle,
     message,
     messageStyle
 }) => {
-    const { openingDate } = queue;
+    const { openingDate, registrationClosingDate, id } = queue;
     return (
         <div className="col-12 clearfix mb-3">
-            {!isCreating &&
+            {!isCreating
+                && userRole === "ROLE_ADMIN"
+                &&
                 <div className="col text-center">
                     <button className="btn btn-green mx-auto" onClick={toggleCreation}>Sukurti naują eilę</button>
                 </div>}
@@ -39,26 +48,33 @@ const QueueListComponent = ({
                             inputStyle="col-7"
                             invalidStyle="offset-3 col-9"
                         />
+                        <span className={messageStyle} style={{ width: "23em" }}>
+                            {message}
+                        </span>
                         <button className="btn btn-green float-right">Išsaugoti</button>
                     </form>
                     <button className="btn btn-yellow float-right mr-2" onClick={toggleCreation}>Baigti kūrimą</button>
-                    <span className={`float-right mr-2 ${messageStyle}`} style={{ width: "23em" }}>
-                        {message}
-                    </span>
                 </div>}
-            {queues.length > 0 && <QueueTableComponent queues={queues} />}
+            {queues.length > 0
+                && <EsQueueTableComponent
+                    queues={queues}
+                    userRole={userRole}
+                    toggleUpdate={toggleUpdate}
+                    isUpdating={isUpdating}
+                />}
+            {isUpdating
+                &&
+                <EsQueueFormComponent />
+            }
         </div>
     );
 };
 
-QueueListComponent.propTypes = {
+EsQueueListComponent.propTypes = {
     queues: Proptypes.array.isRequired,
-    handleSubmit: Proptypes.func.isRequired,
     handleChange: Proptypes.func.isRequired,
-    toggleCreation: Proptypes.func.isRequired,
-    isCreating: Proptypes.bool.isRequired,
     queue: Proptypes.object.isRequired,
     errors: Proptypes.object.isRequired
 };
 
-export default QueueListComponent;
+export default EsQueueListComponent;

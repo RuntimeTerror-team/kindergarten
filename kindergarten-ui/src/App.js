@@ -18,6 +18,7 @@ import NotAuthorized from './components/ErrorHandling/NotAuthorized';
 import urls from './constants/urls'
 import GuardianPrimaryDataFormContainer from './components/GuardianPrimaryDataForm/GuardianPrimaryDataFormContainer';
 import QueueListContainer from './components/QueueList/QueueListContainer';
+import EsQueueListContainer from './components/EsQueueList/EsQueueListContainer';
 
 function App(props) {
   return (
@@ -33,7 +34,7 @@ function App(props) {
         <Route exact path={`${urls.educationSpecialist.kindergartenBase}/:id/groups`} component={GroupInfoContainer} />
         <Route exact path={`${urls.educationSpecialist.kindergartenBase}/:id/groups/new`} component={GroupCreationFormContainer} />
         <Route exact path={`${urls.educationSpecialist.ageRangeBase}`} component={AgeRangeFormContainer} />
-        <Route exact path={`${urls.educationSpecialist.queueBase}`} component={QueueListContainer} />
+        <Route exact path={`${urls.educationSpecialist.queueBase}`} component={EsQueueListContainer} />
         <Route exact path={`${urls.guardian.applicationBase}`} component={GuardianPageContainer} />
         <Route exact path={`${urls.guardian.applicationBase}/new`} component={ApplicationContainer} />
         <Route exact path={`${urls.guardian.primaryDataBase}`} component={GuardianPrimaryDataFormContainer} />
