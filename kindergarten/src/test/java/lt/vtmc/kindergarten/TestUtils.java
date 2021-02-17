@@ -69,6 +69,7 @@ public final class TestUtils {
             QueueDto queue = new QueueDto();
             queue.setOpeningDate(new Date());
             queue.setClosingDate(new Date());
+            queue.setRegistrationClosingDate(new Date());
             queue.setStatus(QueueStatusEnum.ACTIVE);
             return queue;
         }
