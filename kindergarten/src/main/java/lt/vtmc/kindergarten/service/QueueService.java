@@ -2,7 +2,10 @@ package lt.vtmc.kindergarten.service;
 
 import lt.vtmc.kindergarten.dao.QueueDao;
 import lt.vtmc.kindergarten.domain.Queue;
+import lt.vtmc.kindergarten.domain.QueueStatusEnum;
 import lt.vtmc.kindergarten.dto.QueueDto;
+import lt.vtmc.kindergarten.dto.QueueDtoFromAdmin;
+import lt.vtmc.kindergarten.dto.QueueDtoFromEducationSpecialist;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
@@ -24,7 +27,26 @@ public class QueueService {
         Queue queue = new Queue();
         queue.setOpeningDate(queueDto.getOpeningDate());
         queue.setClosingDate(queueDto.getClosingDate());
+        queue.setRegistrationClosingDate(queueDto.getRegistrationClosingDate());
         queue.setStatus(queueDto.getStatus());
+
+        queueDao.save(queue);
+    }
+
+    @Transactional
+    public void addQueueWithOpeningDate(QueueDtoFromAdmin queueDtoFromAdmin) {
+        Queue queue = new Queue();
+        queue.setOpeningDate(queueDtoFromAdmin.getOpeningDate());
+        queue.setStatus(QueueStatusEnum.ACTIVE);
+
+        queueDao.save(queue);
+    }
+
+    @Transactional
+    public void updateQueueFromES(Long id, QueueDtoFromEducationSpecialist queueDto) {
+        Queue queue = queueDao.getOne(id);
+        queue.setRegistrationClosingDate(queueDto.getRegistrationClosingDate());
+        queue.setClosingDate(queueDto.getClosingDate());
 
         queueDao.save(queue);
     }
@@ -35,6 +57,7 @@ public class QueueService {
         Queue queue = queueDao.getOne(id);
         queue.setStatus(queueDto.getStatus());
         queue.setOpeningDate(queueDto.getOpeningDate());
+        queue.setRegistrationClosingDate(queueDto.getRegistrationClosingDate());
         queue.setClosingDate(queueDto.getClosingDate());
 
         queueDao.save(queue);

@@ -1,30 +1,21 @@
 package lt.vtmc.kindergarten.dto;
 
 import lt.vtmc.kindergarten.domain.Queue;
-import lt.vtmc.kindergarten.domain.QueueStatusEnum;
-
-import javax.validation.Valid;
 import java.util.Date;
 
-public class QueueDto {
+public class QueueDtoFromEducationSpecialist {
 
-
-    private Date openingDate;
 
     private Date closingDate;
 
     private Date registrationClosingDate;
 
-    private QueueStatusEnum status;
-
-    public QueueDto() {
+    public QueueDtoFromEducationSpecialist() {
     }
 
-    public QueueDto(@Valid Queue queue) {
-        this.openingDate = queue.getOpeningDate();
+    public QueueDtoFromEducationSpecialist(Queue queue) {
         this.closingDate = queue.getClosingDate();
         this.closingDate = queue.getRegistrationClosingDate();
-        this.status = queue.getStatus();
     }
 
     public Date getRegistrationClosingDate() {
@@ -35,13 +26,6 @@ public class QueueDto {
         this.registrationClosingDate = registrationClosingDate;
     }
 
-    public Date getOpeningDate() {
-        return openingDate;
-    }
-
-    public void setOpeningDate(Date openingDate) {
-        this.openingDate = openingDate;
-    }
 
     public Date getClosingDate() {
         return closingDate;
@@ -51,11 +35,4 @@ public class QueueDto {
         this.closingDate = closingDate;
     }
 
-    public QueueStatusEnum getStatus() {
-        return status;
-    }
-
-    public void setStatus(QueueStatusEnum status) {
-        this.status = status;
-    }
 }

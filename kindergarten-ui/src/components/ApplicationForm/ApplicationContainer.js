@@ -755,6 +755,8 @@ class ApplicationContainer extends Component{
             isGuardianDisabled: this.state.priorities[4].isChecked
           }
 
+          console.log(application)
+
 
           Axios.post(baseUrl + "/api/applications", application)
         .then(res => {})

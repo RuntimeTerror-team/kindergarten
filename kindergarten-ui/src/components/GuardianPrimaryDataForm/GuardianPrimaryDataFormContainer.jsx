@@ -184,7 +184,7 @@ class GuardianPrimaryDataFormContainer extends Component {
                     e.target.reset();
                     this.timer = setTimeout(() => {
                         this.props.history.push(urls.guardian.applicationBase)
-                    }, 1000);
+                    }, 3000);
                 })
                 .catch((err) => {
                     if (err.response.status && err.response.status === 409) {
