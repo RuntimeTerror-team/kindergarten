@@ -148,10 +148,10 @@ public class ApplicationService {
         Person secondParent = personDao.getOne(applicationCreationDto.getSecondParentId());
 
         application.setDate(applicationCreationDto.getDate());
-        application.setAdopted(applicationCreationDto.isAdopted());
-        application.setMultiChild(applicationCreationDto.isMultiChild());
-        application.setGuardianStudent(applicationCreationDto.isGuardianDisabled());
-        application.setGuardianDisabled(applicationCreationDto.isGuardianDisabled());
+        application.setIsAdopted(applicationCreationDto.isAdopted());
+        application.setIsMultiChild(applicationCreationDto.isMultiChild());
+        application.setIsGuardianStudent(applicationCreationDto.isGuardianDisabled());
+        application.setIsGuardianDisabled(applicationCreationDto.isGuardianDisabled());
 
         if (child.getCity() == CityEnum.VILNIUS) {
             application.setScore(countScore(applicationCreationDto) + 1);
