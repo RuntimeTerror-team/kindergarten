@@ -84,4 +84,11 @@ public class PersonController {
     public List<PersonDto> getPersons(){
         return personService.getPersons();
     }
+    
+    @RequestMapping(value="/api/persons/byPersonalCode/{personalCode}", method = RequestMethod.GET)
+    @ResponseStatus(HttpStatus.CREATED)
+    @ApiOperation(value = "Get person by personalCode", notes = "Returns a person by personalCode")
+    public PersonDto getPersonById(@PathVariable final String personalCode){
+        return personService.getPersonByPersonalCode(personalCode);
+    }
 }

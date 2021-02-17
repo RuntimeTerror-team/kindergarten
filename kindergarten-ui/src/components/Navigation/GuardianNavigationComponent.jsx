@@ -8,6 +8,10 @@ const ESNavigationComponent = () => {
             <Link to={`${urls.guardian.applicationBase}`} className={`btn btn-main mb-2 w-100 ${window.location.pathname === `/kindergarten${urls.guardian.applicationBase}` ? "btn-active" : ""}`} >
                 Prašymai
             </Link>
+            <Link to={`${urls.guardian.applicationBase}/new`} className={`btn btn-main mb-2 w-100 ${window.location.pathname === `/kindergarten${urls.guardian.applicationBase}/new`
+             ? "btn-active" : ""}`} >
+                Prašymo pildymas
+            </Link>
         </nav>
     )
 }
