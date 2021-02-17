@@ -1,6 +1,7 @@
 package lt.vtmc.kindergarten.dto;
 
 import lt.vtmc.kindergarten.domain.Queue;
+
 import java.util.Date;
 
 public class QueueDtoFromEducationSpecialist {

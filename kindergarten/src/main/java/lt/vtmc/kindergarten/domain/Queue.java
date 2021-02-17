@@ -3,7 +3,6 @@ package lt.vtmc.kindergarten.domain;
 import org.hibernate.annotations.Cascade;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotNull;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
@@ -17,16 +16,18 @@ public class Queue {
     private Long id;
 
 
-    @Column(unique = true)
+    @Column(unique = false)
     @Temporal(TemporalType.TIMESTAMP)
     private Date openingDate;
 
 
-    @Column(unique = true)
+    @Column(unique = false)
+    @Temporal(TemporalType.TIMESTAMP)
     private Date closingDate;
 
 
     @Column
+    @Temporal(TemporalType.TIMESTAMP)
     private Date registrationClosingDate;
 
     @Column
