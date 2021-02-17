@@ -38,7 +38,7 @@ public class Person {
     @Column
     private CityEnum city;
 
-    @NotNull
+    
     @Pattern(regexp = "^\\d{1,5}")
     @Column
     private String postalCode;

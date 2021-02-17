@@ -12,7 +12,8 @@ public class UserDetailsDto {
     }
 
     public UserDetailsDto(Person person, String username) {
-        this.personDetails = new PersonDto(person);
+        this.personDetails = new PersonDto(person.getId(), person.getFirstName(), person.getLastName(), person.getPersonalCode(),
+        		person.getPhoneNumber(), person.getAddress(), person.getCity(), person.getPostalCode(), person.getEmail());
         this.username = username;
     }
 

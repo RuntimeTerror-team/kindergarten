@@ -3,7 +3,11 @@ package lt.vtmc.kindergarten.controller;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 import lt.vtmc.kindergarten.dto.ApplicationCreationDto;
+import lt.vtmc.kindergarten.dto.ApplicationDto;
 import lt.vtmc.kindergarten.service.ApplicationService;
+
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
@@ -23,6 +27,13 @@ public class ApplicationController {
             @ApiParam(value = "", required = true)
             @RequestBody ApplicationCreationDto applicationCreationDto){
         applicationService.addApplication(applicationCreationDto);
+    }
+    
+    @RequestMapping(value="/api/applications", method = RequestMethod.GET)
+    @ResponseStatus(HttpStatus.CREATED)
+    @ApiOperation(value = "Get applications", notes = "Returns a list of applications")
+    public List<ApplicationDto> getApplications(){
+        return applicationService.getApplications();
     }
 
     @ApiOperation(value = "Update application", notes = "Updates application by id")

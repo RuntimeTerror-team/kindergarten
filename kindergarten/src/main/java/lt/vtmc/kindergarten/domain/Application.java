@@ -90,32 +90,32 @@ public class Application {
         return isAdopted;
     }
 
-    public void setAdopted(boolean adopted) {
-        isAdopted = adopted;
+    public void setIsAdopted(boolean isAdopted) {
+        this.isAdopted = isAdopted;
     }
 
     public boolean isMultiChild() {
         return isMultiChild;
     }
 
-    public void setMultiChild(boolean multiChild) {
-        isMultiChild = multiChild;
+    public void setIsMultiChild(boolean isMultiChild) {
+        this.isMultiChild = isMultiChild;
     }
 
     public boolean isGuardianStudent() {
         return isGuardianStudent;
     }
 
-    public void setGuardianStudent(boolean guardianStudent) {
-        isGuardianStudent = guardianStudent;
+    public void setIsGuardianStudent(boolean isGuardianStudent) {
+        this.isGuardianStudent = isGuardianStudent;
     }
 
     public boolean isGuardianDisabled() {
         return isGuardianDisabled;
     }
 
-    public void setGuardianDisabled(boolean guardianDisabled) {
-        isGuardianDisabled = guardianDisabled;
+    public void setIsGuardianDisabled(boolean isGuardianDisabled) {
+        this.isGuardianDisabled = isGuardianDisabled;
     }
 
     public ApplicationStatusEnum getApplicationStatus() {

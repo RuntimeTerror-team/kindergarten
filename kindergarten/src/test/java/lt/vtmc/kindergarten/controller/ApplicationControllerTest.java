@@ -72,7 +72,14 @@ public class ApplicationControllerTest {
         personDao.save(firstParent);
 
 
-        ApplicationCreationDto applicationCreationDto = TestUtils.createDefaultApplicationDto();
+
+        ApplicationCreationDto applicationCreationDto = new ApplicationCreationDto();
+        applicationCreationDto.setDate(new Date());
+        applicationCreationDto.setIsAdopted(true);
+        applicationCreationDto.setIsGuardianDisabled(false);
+        applicationCreationDto.setIsMultiChild(false);
+        applicationCreationDto.setIsGuardianStudent(false);
+
         applicationCreationDto.setChildId(child.getId());
         applicationCreationDto.setFirstParentId(firstParent.getId());
         applicationCreationDto.setSecondParentId(secondParent.getId());
