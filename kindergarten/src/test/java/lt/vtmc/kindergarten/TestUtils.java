@@ -44,10 +44,10 @@ public final class TestUtils {
         public static ApplicationCreationDto createDefaultApplicationDto(){
             ApplicationCreationDto applicationDto = new ApplicationCreationDto();
             applicationDto.setDate(new Date());
-            applicationDto.setAdopted(true);
-            applicationDto.setGuardianDisabled(false);
-            applicationDto.setMultiChild(false);
-            applicationDto.setGuardianStudent(false);
+            applicationDto.setIsAdopted(true);
+            applicationDto.setIsGuardianDisabled(false);
+            applicationDto.setIsMultiChild(false);
+            applicationDto.setIsGuardianStudent(false);
 
             return applicationDto;
         }
