@@ -13,6 +13,7 @@ import org.springframework.validation.annotation.Validated;
 
 import javax.validation.Valid;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -54,7 +55,7 @@ public class ApplicationService {
             application = new Application();
         }
 
-        application.setDate(applicationCreationDto.getDate());
+        application.setDate(java.sql.Date.valueOf(LocalDate.now()));
 
         application.setIsAdopted(applicationCreationDto.isAdopted());
         application.setIsMultiChild(applicationCreationDto.isMultiChild());

@@ -110,11 +110,10 @@ class ApplicationContainer extends Component{
           Axios
           .get(`${baseUrl}/loggedUsername`)
           .then((res) => {
-            this.setState({ username: res.data }); console.log("username " + this.state.username)
+            this.setState({ username: res.data })
             Axios
           .get(baseUrl + "/api/users/" + this.state.username + "/details")
           .then((res) => {this.setState({ userPerson: res.data.personDetails});
-                console.log("User's person " + this.state.userPerson)
                 this.setState({guardianName: this.state.userPerson.firstName})
                 this.setState({guardianSurname: this.state.userPerson.lastName})
                 this.setState({guardianId: this.state.userPerson.personalCode})
@@ -122,19 +121,13 @@ class ApplicationContainer extends Component{
                 this.setState({guardianAddress: this.state.userPerson.address})
                 this.setState({guardianCity: this.state.userPerson.cityEnum})
                 this.setState({guardianPostalCode: this.state.userPerson.postalCode})
-                this.setState({guardianEmail: this.state.userPerson.email})
-                
+                this.setState({guardianEmail: this.state.userPerson.email})     
 
               })
                 
           .catch((err) => console.log(err))
           })
           .catch((err) => console.log(err))
-
-
-
-
-          
 
       }
 
@@ -267,10 +260,8 @@ class ApplicationContainer extends Component{
         )
         .catch(err => console.log(err))
 
-        console.log("Validation passed!")
 
-      } else{ console.log("validation did not passed")}
-
+      } 
       }
 
         handleGuardianSave = (e) =>{
@@ -300,23 +291,7 @@ class ApplicationContainer extends Component{
             email: this.state.guardianEmail
         }
 
-        // Axios.post(baseUrl + "/api/persons", guardian)
-        // .then(res => {
-        //   if(res.status === 201){
-        //     this.setState({guardianMessage: "Globėjo duomenys sėkmingai išsaugoti"})
-        //     this.setState({guardianMessageStyle: "alert alert-success mt-4"})
-        //     this.setState({guardianAdded: true})
-        //     this.setState({noGuardianMessage: ""})
-        //     this.setState({noGuardianMessageStyle: ""})     
-        //   }
-        //   Axios.get(baseUrl + "/api/persons/byPersonalCode/" + this.state.guardianId)
-        //   .then(res => {this.setState({guardian: res.data})})
-        //   .catch(err => {console.log(err)});
-        // })
-        // .catch(err => {console.log(err)})
-
-        // console.log("guardian Validation passed!")
-
+        
         console.log("person id" + this.state.userPerson.id)
         Axios.put(baseUrl + "/api/persons/" + this.state.userPerson.id, guardian )
           .then(res => {
@@ -332,10 +307,8 @@ class ApplicationContainer extends Component{
           })
           .catch(err => console.log(err));
 
-    
-        console.log("guardian Validation passed!")
 
-      } else{ console.log("guardian validation failed")}
+      } 
 
         
         }
@@ -380,9 +353,8 @@ class ApplicationContainer extends Component{
           .catch(err => {console.log(err)});
         })
         .catch(err => {console.log(err)})
-        console.log("secondGuardian validation passed!")
 
-      } else{console.log("secondGuardian validation failed")}
+      } 
             
         }
 
@@ -402,7 +374,7 @@ class ApplicationContainer extends Component{
           return (name.length >= 2 && name.length <=30)
                    &&(surname.length >=2 && surname.length <=30)
                    &&(personalCode.length === 11 && /^[0-9]*$/.test(personalCode))
-                   &&(phone.length === 9 && /^[0-9]*$/.test(phone))
+                   &&(phone.length === 12 && /^\+?370[0-9]*$/.test(phone))
                    &&(address.length >= 8 && address.length <=50)
                    &&(city.length >=4 && city.length <= 19)
                    &&(postalCode.length === 5 && /^[0-9]*$/.test(postalCode))
@@ -412,7 +384,6 @@ class ApplicationContainer extends Component{
 
         checkInputs = (name, value) =>{
 
-          
 
           if(name === "guardianName"){
 
@@ -427,9 +398,7 @@ class ApplicationContainer extends Component{
           }
 
         }
-
-
-                    
+          
         if(name === "guardianSurname"){
 
           if(value.length < 2 || value.length > 30){
@@ -757,8 +726,7 @@ class ApplicationContainer extends Component{
 
         }
 
-        
-
+      
         else{
 
           let selectedKindergartens = this.state.optionsValuesList.map(title => {
@@ -789,7 +757,7 @@ class ApplicationContainer extends Component{
 
 
           Axios.post(baseUrl + "/api/applications", application)
-        .then(res => {console.log(application)})
+        .then(res => {})
         .catch(err => {console.log(err)})
   
         this.setState({showChoices: false})
