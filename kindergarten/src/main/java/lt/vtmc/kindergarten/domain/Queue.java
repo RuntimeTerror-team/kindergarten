@@ -16,16 +16,16 @@ public class Queue {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    @NotNull
+
     @Column(unique = true)
     @Temporal(TemporalType.TIMESTAMP)
     private Date openingDate;
 
-    @NotNull
+
     @Column(unique = true)
     private Date closingDate;
 
-    @NotNull
+
     @Column
     private Date registrationClosingDate;
 
