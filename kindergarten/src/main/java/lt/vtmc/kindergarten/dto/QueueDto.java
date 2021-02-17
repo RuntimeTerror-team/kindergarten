@@ -3,20 +3,18 @@ package lt.vtmc.kindergarten.dto;
 import lt.vtmc.kindergarten.domain.Queue;
 import lt.vtmc.kindergarten.domain.QueueStatusEnum;
 
-import javax.persistence.*;
 import javax.validation.Valid;
-import javax.validation.constraints.NotNull;
 import java.util.Date;
 
 public class QueueDto {
 
-    @NotNull
+
     private Date openingDate;
 
-    @NotNull
     private Date closingDate;
 
-    @Column
+    private Date registrationClosingDate;
+
     private QueueStatusEnum status;
 
     public QueueDto() {
@@ -25,7 +23,16 @@ public class QueueDto {
     public QueueDto(@Valid Queue queue) {
         this.openingDate = queue.getOpeningDate();
         this.closingDate = queue.getClosingDate();
+        this.closingDate = queue.getRegistrationClosingDate();
         this.status = queue.getStatus();
+    }
+
+    public Date getRegistrationClosingDate() {
+        return registrationClosingDate;
+    }
+
+    public void setRegistrationClosingDate(Date registrationClosingDate) {
+        this.registrationClosingDate = registrationClosingDate;
     }
 
     public Date getOpeningDate() {

@@ -25,6 +25,10 @@ public class Queue {
     @Column(unique = true)
     private Date closingDate;
 
+    @NotNull
+    @Column
+    private Date registrationClosingDate;
+
     @Column
     @Enumerated(EnumType.STRING)
     private QueueStatusEnum status;
@@ -34,6 +38,15 @@ public class Queue {
     private Set<Application> applications = new HashSet<>();
 
     public Queue() {
+    }
+
+
+    public Date getRegistrationClosingDate() {
+        return registrationClosingDate;
+    }
+
+    public void setRegistrationClosingDate(Date registrationClosingDate) {
+        this.registrationClosingDate = registrationClosingDate;
     }
 
     public Long getId() {

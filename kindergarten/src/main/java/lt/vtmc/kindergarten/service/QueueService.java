@@ -24,6 +24,7 @@ public class QueueService {
         Queue queue = new Queue();
         queue.setOpeningDate(queueDto.getOpeningDate());
         queue.setClosingDate(queueDto.getClosingDate());
+        queue.setRegistrationClosingDate(queueDto.getRegistrationClosingDate());
         queue.setStatus(queueDto.getStatus());
 
         queueDao.save(queue);
@@ -35,6 +36,7 @@ public class QueueService {
         Queue queue = queueDao.getOne(id);
         queue.setStatus(queueDto.getStatus());
         queue.setOpeningDate(queueDto.getOpeningDate());
+        queue.setRegistrationClosingDate(queueDto.getRegistrationClosingDate());
         queue.setClosingDate(queueDto.getClosingDate());
 
         queueDao.save(queue);
