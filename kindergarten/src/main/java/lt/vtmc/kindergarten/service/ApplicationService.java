@@ -4,11 +4,13 @@ import lt.vtmc.kindergarten.dao.*;
 import lt.vtmc.kindergarten.domain.*;
 import lt.vtmc.kindergarten.dto.ApplicationCreationDto;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.validation.annotation.Validated;
 
 import javax.validation.Valid;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -28,12 +30,19 @@ public class ApplicationService {
     @Autowired
     private UserService userService;
 
+    @Autowired
+    private QueueDao queueDao;
+
+    @Autowired
+    private KindergartenApplicationFormService kindergartenApplicationService;
+
     @Transactional
     public void addApplication(@Valid ApplicationCreationDto applicationCreationDto) {
         Person child = personDao.getOne(applicationCreationDto.getChildId());
         Person firstParent = personDao.getOne(applicationCreationDto.getFirstParentId());
         Person secondParent = personDao.getOne(applicationCreationDto.getSecondParentId());
-        if ( secondParent != null ){
+
+        if (secondParent != null) {
             createParentUser(secondParent.getFirstName(), secondParent.getLastName());
         }
 
@@ -41,7 +50,7 @@ public class ApplicationService {
 
         if (application == null) {
             application = new Application();
-        }
+        } else { throw new RuntimeException("Application already exists"); }
 
         application.setDate(applicationCreationDto.getDate());
 
@@ -60,12 +69,31 @@ public class ApplicationService {
         application.setParent(firstParent);
         application.setSecondParent(secondParent);
 
+        Queue queue = queueDao.getOne(applicationCreationDto.getQueue());
+        application.setQueue(queue);
+
         application.setApplicationStatus(ApplicationStatusEnum.SUBMITTED);
 
         application.setKindergartenApplicationForms(parseKindergartenApplications(applicationCreationDto, application));
 
         applicationDao.save(application);
     }
+
+
+    @Transactional(readOnly = true)
+    public ApplicationCreationDto getApplication(Long id) {
+        Application application = applicationDao.getOne(id);
+        return new ApplicationCreationDto(application);
+    }
+
+    @Transactional
+    public List<ApplicationCreationDto> getApplications() {
+        List<Application> applications = applicationDao.findAll(Sort.by(Sort.Direction.ASC, "date"));
+        List<ApplicationCreationDto> applicationList = applications.stream().map(application -> new ApplicationCreationDto(application))
+                .collect(Collectors.toList());
+        return applicationList;
+    }
+
 
     private int countScore(ApplicationCreationDto applicationCreationDto) {
         int sumOfPriorities = 0;
@@ -84,13 +112,59 @@ public class ApplicationService {
         }
         return sumOfPriorities;
     }
+    @Transactional
+    public void updateApplication(Long id, ApplicationCreationDto applicationCreationDto) {
+        Application application = applicationDao.getOne(id);
 
+        Person child = personDao.getOne(applicationCreationDto.getChildId());
+        Person firstParent = personDao.getOne(applicationCreationDto.getFirstParentId());
+        Person secondParent = personDao.getOne(applicationCreationDto.getSecondParentId());
 
+        application.setDate(applicationCreationDto.getDate());
+        application.setAdopted(applicationCreationDto.isAdopted());
+        application.setMultiChild(applicationCreationDto.isMultiChild());
+        application.setGuardianStudent(applicationCreationDto.isGuardianDisabled());
+        application.setGuardianDisabled(applicationCreationDto.isGuardianDisabled());
+
+        if (child.getCity() == CityEnum.VILNIUS) {
+            application.setScore(countScore(applicationCreationDto) + 1);
+        } else {
+            application.setScore(countScore(applicationCreationDto));
+        }
+
+        application.setChild(child);
+        application.setParent(firstParent);
+        application.setSecondParent(secondParent);
+
+        Queue queue = queueDao.getOne(applicationCreationDto.getQueue());
+        application.setQueue(queue);
+
+        application.setApplicationStatus(ApplicationStatusEnum.SUBMITTED);
+
+        //Delete preexisting applications before applying new ones
+        kindergartenApplicationService.deleteApplicationFormsByApplicationId(application.getId());
+
+        Set<KindergartenApplicationForm> kindergartenApplicationForms = parseKindergartenApplications(applicationCreationDto, application);
+        application.setKindergartenApplicationForms(kindergartenApplicationForms);
+
+        applicationDao.save(application);
+
+    }
+
+    /**
+     * Creates applications to concrete kindergartens
+     * @param applicationCreationDto dto that contains Map<Integer priority, Long kindergartenId>
+     * @param application application to which new KindergartenApplicationForms will be created
+     * @return Set of application forms to specific kindergartens
+     */
     private Set<KindergartenApplicationForm> parseKindergartenApplications(ApplicationCreationDto applicationCreationDto, Application application) {
         Map<Integer, Long> applicationMetadata = applicationCreationDto.getPriorityForKindergartenID();
 
         Set<KindergartenApplicationForm> kindergartenApplications = applicationMetadata.entrySet().stream().map(entry -> {
             Kindergarten kindergarten = kindergartenDao.getOne(entry.getValue());
+            removeApplicationFormsFromApplication(application);
+            removeApplicationFormsFromKindergarten(kindergarten,entry.getValue());
+
             KindergartenApplicationForm kindergartenApplicationForm = new KindergartenApplicationForm();
             kindergartenApplicationForm.setKindergarten(kindergarten);
             kindergartenApplicationForm.setPriority(entry.getKey());
@@ -105,35 +179,27 @@ public class ApplicationService {
 
     }
 
-
-    @Transactional
-    public void updateApplication(Long id, ApplicationCreationDto applicationCreationDto){
-        Application application = applicationDao.getOne(id);
-    //TODO fill this part
-
-        applicationDao.save(application);
-
+    private void removeApplicationFormsFromApplication(Application application){
+        application
+                .setKindergartenApplicationForms(
+                        application.getKindergartenApplicationForms()
+                                .stream()
+                                .filter(item -> item.getApplication().getId()!=application.getId())
+                                .collect(Collectors.toSet()));
     }
 
-    public void createParentUser(String firstName, String lastName){
-        userService.createGuardian(firstName,lastName);
+    private void removeApplicationFormsFromKindergarten(Kindergarten kindergarten, Long kindergartenIdToRemove){
+        kindergarten
+                .setApplicationsSet(
+                        kindergarten.getApplicationsSet()
+                                .stream()
+                                .filter(item -> item.getKindergarten().getId() != kindergartenIdToRemove )
+                                .collect(Collectors.toSet()));
     }
 
-
-//    @Transactional(readOnly = true)
-//    public ApplicationCreationDto getApplication(Long id){
-//        Application application = applicationDao.getOne(id);
-//        return new ApplicationCreationDto(application);
-//    }
-//
-//    @Transactional
-//    public List<ApplicationCreationDto> getApplications(){
-//        List<Application> applications = applicationDao.findAll();
-//        List<ApplicationCreationDto> applicationList = applications.stream()
-//                .map(application -> new ApplicationCreationDto(application))
-//                .collect(Collectors.toList());
-//        return applicationList;
-//    }
+    public void createParentUser(String firstName, String lastName) {
+        userService.createGuardian(firstName, lastName);
+    }
 
 
 }

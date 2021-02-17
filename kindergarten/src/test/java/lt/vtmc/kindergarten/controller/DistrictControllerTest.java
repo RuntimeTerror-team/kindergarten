@@ -1,9 +1,9 @@
 package lt.vtmc.kindergarten.controller;
 
+import lt.vtmc.kindergarten.TestUtils;
 import lt.vtmc.kindergarten.domain.District;
 import lt.vtmc.kindergarten.dto.DistrictDto;
 
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
@@ -99,12 +99,9 @@ public class DistrictControllerTest {
     @Order(5)
     @DisplayName("district sorting test")
     void testDistrictSorting() {
-        District district1 = KindergartenTestUtil.createDistrict();
-        district1.setTitle("Alpha");
-        District district2 = KindergartenTestUtil.createDistrict();
-        district2.setTitle("Bravo");
-        District district3 = KindergartenTestUtil.createDistrict();
-        district3.setTitle("Charlie");
+        District district1 = TestUtils.createDefaultDistrict("Alpha");
+        District district2 = TestUtils.createDefaultDistrict("Bravo");
+        District district3 = TestUtils.createDefaultDistrict("Charlie");
 
         districtController.addDistrict(new DistrictDto(district3));
         districtController.addDistrict(new DistrictDto(district1));

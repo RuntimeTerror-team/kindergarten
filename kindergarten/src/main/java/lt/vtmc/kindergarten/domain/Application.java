@@ -49,6 +49,11 @@ public class Application {
     @Enumerated(EnumType.STRING)
     private ApplicationStatusEnum applicationStatus;
 
+    @ManyToOne
+    @JoinColumn(name = "queue_id")
+    private Queue queue;
+
+
     public Date getDate() {
         return date;
     }
@@ -63,6 +68,14 @@ public class Application {
 
     public void setKindergartenApplicationForms(Set<KindergartenApplicationForm> kindergartenApplicationForms) {
         this.kindergartenApplicationForms = kindergartenApplicationForms;
+    }
+
+    public Queue getQueue() {
+        return queue;
+    }
+
+    public void setQueue(Queue queue) {
+        this.queue = queue;
     }
 
     public int getScore() {
@@ -124,7 +137,6 @@ public class Application {
     public Person getChild() {
         return child;
     }
-
 
     public void setChild(Person childId) {
         this.child = childId;
