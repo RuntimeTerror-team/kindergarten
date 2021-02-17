@@ -29,6 +29,7 @@ public class ApplicationController {
         applicationService.addApplication(applicationCreationDto);
     }
     
+
     @RequestMapping(value="/api/applicationsDtos", method = RequestMethod.GET)
     @ResponseStatus(HttpStatus.CREATED)
     @ApiOperation(value = "Get applications", notes = "Returns a list of applications")

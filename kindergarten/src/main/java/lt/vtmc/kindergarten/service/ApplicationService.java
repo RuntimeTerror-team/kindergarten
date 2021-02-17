@@ -45,27 +45,32 @@ public class ApplicationService {
 
     @Transactional
     public void addApplication(@Valid ApplicationCreationDto applicationCreationDto) {
+    	
         Person child = personDao.getOne(applicationCreationDto.getChildId());
         Person firstParent = personDao.getOne(applicationCreationDto.getFirstParentId());
 
         Person secondParent = null;
         boolean isSecondParent = false;
         if(applicationCreationDto.getSecondParentId() != null) {
+        	
           isSecondParent = true;
-          secondParent = personDao.getOne(applicationCreationDto.getSecondParentId());
+          secondParent = personDao.getOne(applicationCreationDto.getSecondParentId()); 
+          
         }
         
-        if ( secondParent != null ){
-
+        if( secondParent != null ){
             createParentUser(secondParent.getFirstName(), secondParent.getLastName());
+           
         }
 
         Application application = applicationDao.findApplicationByChild(child);
-
+      
         if (application == null) {
             application = new Application();
+            
         } else { throw new RuntimeException("Application already exists"); }
 
+        
         application.setDate(java.sql.Date.valueOf(LocalDate.now()));
 
         application.setIsAdopted(applicationCreationDto.isAdopted());
@@ -85,14 +90,20 @@ public class ApplicationService {
             application.setSecondParent(secondParent);
             }
 
+        System.out.println("1111111111111111111111111111111");
         Queue queue = queueDao.getOne(applicationCreationDto.getQueue());
+        System.out.println("222222222222222222222222222222");
         application.setQueue(queue);
+        System.out.println("333333333333333333333333333333333333333");
 
         application.setApplicationStatus(ApplicationStatusEnum.SUBMITTED);
+        System.out.println("44444444444444444444444444444444444444444");
 
         application.setKindergartenApplicationForms(parseKindergartenApplications(applicationCreationDto, application));
+        System.out.println("555555555555555555555555555555555555555555");
 
         applicationDao.save(application);
+        System.out.println("6666666666666666666666666666666666666666666");
     }
     
     @Transactional
