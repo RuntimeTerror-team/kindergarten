@@ -14,17 +14,17 @@ let ApplicationComponent = (props) =>{
 
         <div className="container">
             <div className="row justify-content-center align-items-center">
-              <div className="col-12">
+              <div>
             <h1 className="my-3">Registracijos į darželį forma</h1>
             </div>
-            <form className="form ml-5" onSubmit={props.onSubmit}>
+            <form className="form ml-5 mt-3" onSubmit={props.onSubmit}>
 
               <div className="row">
 
               <NoApplicationsComponent
                currentStep={props.currentStep}/>
 
-                <div className="col-4 px-5 mt-4">
+                <div className="col-4 px-5">
                 <ChildInfoComponent
                   currentStep={props.currentStep}
                   name={props.childName}
