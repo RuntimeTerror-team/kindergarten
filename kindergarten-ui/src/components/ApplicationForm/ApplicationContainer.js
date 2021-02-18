@@ -1,8 +1,9 @@
 import React, { Component } from "react";
 import GuardianNavigationComponent from '../Navigation/GuardianNavigationComponent'
-import HeaderComponent from '../Header/HeaderComponent';
+import ApplicationFormHeader from '../Header/ApplicationFormHeader';
 import Footer from '../Footer/Footer';
 import { withRouter } from "react-router-dom";
+import urls from '../../constants/urls';
 import Axios from 'axios';
 import baseUrl from '../../AppConfig';
 import ApplicationComponent from './ApplicationComponent'
@@ -15,9 +16,12 @@ class ApplicationContainer extends Component{
         this.state = {
             username: "",
             userPerson: {},
+            userName: "",
+            userSurname: "",
             currentStep: 1,
             kinderGartenList: [],
             optionsValuesList:[],
+            activeQueues: [],
             showChoices: false,
             guardianName: "",
             guardianSurname: "",
@@ -79,6 +83,10 @@ class ApplicationContainer extends Component{
             emptyGuardianInputsMessageStyle:"",
             noneKindergartenSelectedMessage: "",
             noneKindergartenSelectedMessageStyle: "",
+            applicationMessage: "",
+            applicationMessageStyle: "",
+            childRegistratedMessage: "",
+            childRegistratedMessageStyle: "",
             guardian: [],
             secondGuardian: [],
             child: [],
@@ -113,6 +121,14 @@ class ApplicationContainer extends Component{
           .then(res => this.setState({children: res.data}))
           .catch(err => console.log(err));
 
+          Axios.get(baseUrl + "/api/queues")
+           .then(res => {
+             this.setState({activeQueues: res.data})
+             console.log("ilgis" + this.state.activeQueues.length)
+             this.state.activeQueues.length === 0 ? this.setState({currentStep: 5}) : this.setState({currentStep: 1})
+          })
+           .catch(err =>console.log(err))
+
           Axios
           .get(`${baseUrl}/loggedUsername`)
           .then((res) => {
@@ -127,7 +143,9 @@ class ApplicationContainer extends Component{
                 this.setState({guardianAddress: this.state.userPerson.address})
                 this.setState({guardianCity: this.state.userPerson.cityEnum})
                 this.setState({guardianPostalCode: this.state.userPerson.postalCode})
-                this.setState({guardianEmail: this.state.userPerson.email})     
+                this.setState({guardianEmail: this.state.userPerson.email})
+                this.setState({userName: this.state.guardianName})
+                this.setState({userSurname: this.state.guardianSurname})     
 
               })
                 
@@ -158,7 +176,7 @@ class ApplicationContainer extends Component{
         if(currentStep !==1){
           return (
             <button 
-            className="btn btn-secondary" 
+            className="btn btn-yellow float-right mr-1 mt-2" 
             type="button" 
             onClick={this.prev}>
                 Atgal
@@ -173,7 +191,7 @@ class ApplicationContainer extends Component{
         if(currentStep === 1){
           return (
             <button 
-            className="btn btn-primary" 
+            className="btn btn-info" 
             type="button" 
             onClick={this.next}>
               Toliau
@@ -233,6 +251,8 @@ class ApplicationContainer extends Component{
 
             this.setState({emptyChildInputsMessage: "Užpildykite privalomus laukus"})
             this.setState({emptyChildInputsMessageStyle: "alert alert-danger mt-4"})
+            this.setState({applicationMessage:""})
+             this.setState({applicationMessageStyle: "" })
 
           } else{
 
@@ -266,14 +286,26 @@ class ApplicationContainer extends Component{
              this.setState({noChildMessageStyle: ""})
              this.setState({emptyChildInputsMessage: ""})
              this.setState({emptyChildInputsMessageStyle: "" })
+             this.setState({childRegistratedMessage: ""})
+             this.setState({childRegistratedMessageStyle: ""})
+             this.setState({applicationMessage:""})
+             this.setState({applicationMessageStyle: "" })
           }
 
+  
           Axios.get(baseUrl + "/api/persons/byPersonalCode/" + this.state.childId)
           .then(res => {this.setState({child: res.data})})
           .catch(err => {console.log(err)});  
         }
         )
-        .catch(err => console.log(err))
+        .catch(err => {
+          this.setState({childRegistratedMessage: "Vaikas su tokiu nurodytu asmens kodu jau yra išsaugotas kitame prašyme"})
+          this.setState({childRegistratedMessageStyle: "alert alert-danger mt-4"})
+          this.setState({childMessageStyle: ""})
+          this.setState({childMessage: ""})
+          this.setState({applicationMessage:""})
+          this.setState({applicationMessageStyle: "" })
+          console.log(err)})
 
 
       } 
@@ -297,6 +329,8 @@ class ApplicationContainer extends Component{
 
                 this.setState({emptyInputsMessage: "Užpildykite privalomus laukus"})
                 this.setState({emptyInputsMessageStyle: "alert alert-danger mt-4" })
+                this.setState({applicationMessage:""})
+             this.setState({applicationMessageStyle: "" })
                 this.setState({isDisabled: false});
                 this.setState({guardianButtonText: "Išsaugoti"})
                 return;
@@ -338,7 +372,13 @@ class ApplicationContainer extends Component{
               this.setState({emptyInputsMessageStyle: "" })
               this.setState({guardianAdded: true})
               this.setState({noGuardianMessage: ""})
-              this.setState({noGuardianMessageStyle: ""})     
+              this.setState({noGuardianMessageStyle: ""})
+              this.setState({applicationMessage:""})
+              this.setState({applicationMessageStyle: "" })
+              this.setState({userName: this.state.guardianName})
+              this.setState({userSurname: this.state.guardianSurname})  
+
+              
             }
 
           })
@@ -397,10 +437,12 @@ class ApplicationContainer extends Component{
           console.log("status: " + res.status)
 
            if(res.status === 201 || res.status === 200){
-             this.setState({secondGuardianMessage: "Globėjo duomenys sėkmingai išsaugoti"})
+             this.setState({secondGuardianMessage: "Vaiko atstovo duomenys sėkmingai išsaugoti"})
              this.setState({secondGuardianMessageStyle: "alert alert-success mt-4"})
              this.setState({emptyGuardianInputsMessage: ""})
              this.setState({emptyGuardianInputsMessageStyle: ""})
+             this.setState({applicationMessage:""})
+             this.setState({applicationMessageStyle: "" })
            }
       
           Axios.get(baseUrl + "/api/persons/byPersonalCode/" + this.state.secondGuardianId)
@@ -772,6 +814,12 @@ class ApplicationContainer extends Component{
           this.setState({priorities: priorities})
         }
 
+        async waitforSecond () {
+
+          await new Promise(r => setTimeout(1000));
+
+        }
+
       handleSubmit = (e) =>{
         
         e.preventDefault();
@@ -788,14 +836,6 @@ class ApplicationContainer extends Component{
           this.setState({noChildMessageStyle: "alert alert-danger mt-4"})
 
         }
-
-        if(this.state.guardianAdded === false){
-
-          this.setState({noGuardianMessage: "Prašome išsaugoti globėjo duomenys"})
-          this.setState({noGuardianMessageStyle: "alert alert-danger mt-4"})
-
-        }
-
       
         else{
 
@@ -825,12 +865,40 @@ class ApplicationContainer extends Component{
             isGuardianDisabled: this.state.priorities[4].isChecked
           }
 
-          console.log(application)
-
-
           Axios.post(baseUrl + "/api/applications", application)
-        .then(res => {})
+        .then(res => {
+          if(res.status === 200){
+            
+            this.setState({applicationMessage: "Prašymas sėkmingai pateiktas"})
+            this.setState({applicationMessageStyle: "alert alert-success mt-4" })
+            this.waitforSecond()
+
+          }
+        })
         .catch(err => {console.log(err)})
+
+        Axios
+          .get(`${baseUrl}/loggedUsername`)
+          .then((res) => {
+            this.setState({ username: res.data })
+            Axios
+          .get(baseUrl + "/api/users/" + this.state.username + "/details")
+          .then((res) => {this.setState({ userPerson: res.data.personDetails});
+                this.setState({guardianName: this.state.userPerson.firstName})
+                this.setState({guardianSurname: this.state.userPerson.lastName})
+                this.setState({guardianId: this.state.userPerson.personalCode})
+                this.setState({guardianPhone: this.state.userPerson.phoneNumber})
+                this.setState({guardianAddress: this.state.userPerson.address})
+                this.setState({guardianCity: this.state.userPerson.cityEnum})
+                this.setState({guardianPostalCode: this.state.userPerson.postalCode})
+                this.setState({guardianEmail: this.state.userPerson.email})
+                this.setState({userName: this.state.guardianName})
+                this.setState({userSurname: this.state.guardianSurname})     
+
+              })
+              .catch((err) => console.log(err))
+          })
+          .catch((err) => console.log(err))
   
         this.setState({showChoices: false})
         this.setState({optionsValuesList: []})
@@ -883,6 +951,8 @@ class ApplicationContainer extends Component{
         this.setState({secondGuardian: []})
         this.setState({child: []})
 
+        
+
       }
       }
 
@@ -894,7 +964,10 @@ class ApplicationContainer extends Component{
         return(
 
           <div className="footerBottom">
-                <HeaderComponent userRole="ROLE_GUARDIAN" />
+                <ApplicationFormHeader
+                  userRole="ROLE_GUARDIAN"
+                  name={this.state.userName}
+                  surname={this.state.userSurname} />
                 <div className="container py-4">
                     <div className="row">
                         <GuardianNavigationComponent />
@@ -969,6 +1042,10 @@ class ApplicationContainer extends Component{
               emptyGuardianInputsMessageStyle={this.state.emptyGuardianInputsMessageStyle}
               noneKindergartenSelectedMessage={this.state.noneKindergartenSelectedMessage}
               noneKindergartenSelectedMessageStyle={this.state.noneKindergartenSelectedMessageStyle}
+              applicationMessage={this.state.applicationMessage}
+              applicationMessageStyle={this.state.applicationMessageStyle}
+              childRegistratedMessage={this.state.childRegistratedMessage}
+              childRegistratedMessageStyle={this.state.childRegistratedMessageStyle}
               guardianButtonText={this.state.guardianButtonText}
               isDisabled={this.state.isDisabled}
               showSecondGuardianForm={this.state.showSecondGuardianForm}

@@ -16,12 +16,12 @@ let ChildInfoComponent = (props) =>{
         <div className="form-group">
             <input
               className={"form-control " + props.childNameValidation} name="childName" value={props.name} onChange={props.onDetailsChange} placeholder="Vardas"></input>
-              <div className="invalid-feedback">Šis laukas privalomas. Vardas turi būti 3-20 simbolių ilgio.</div>
+              <div className="invalid-feedback">Šis laukas privalomas. Vardas turi būti 3-20 raidžių ilgio.</div>
         </div>
         <div className="form-group">
             <input
               className={"form-control " + props.childSurnameValidation} name="childSurname" value={props.surname} onChange={props.onDetailsChange} placeholder="Pavardė"></input>
-              <div className="invalid-feedback">Šis laukas privalomas. Pavardė turi būti 3-30 simbolių ilgio.</div>
+              <div className="invalid-feedback">Šis laukas privalomas. Pavardė turi būti 3-30 raidžių ilgio.</div>
         </div>
         {/* <div className="form-group">
             <input
@@ -31,7 +31,7 @@ let ChildInfoComponent = (props) =>{
         <div className="form-group">
             <input
               className={"form-control " + props.childIdValidation} name="childId" value={props.id} onChange={props.onDetailsChange} placeholder="Asmens kodas"></input>
-              <div className="invalid-feedback">Šis laukas privalomas. Asmens kodas turi būti 11 simbolių ilgio.</div>
+              <div className="invalid-feedback">Šis laukas privalomas. Asmens kodas turi būti 11 skaitmenų ilgio.</div>
         </div>
         <div className="form-group">
             <input
@@ -43,7 +43,7 @@ let ChildInfoComponent = (props) =>{
               className={"form-control " + props.childCityValidation} name="childCity" value={props.city} onChange={props.onDetailsChange} placeholder="Miestas"></input>
               <div className="invalid-feedback">Šis laukas privalomas. Miesto pavadinimas turi būti 4-19 simbolių ilgio. </div>
         </div>
-        <button className="btn btn-info" onClick={props.saveChild}>Išsaugoti</button>
+        <button className="btn btn-green" onClick={props.saveChild}>Išsaugoti</button>
         <div className={props.messageStyle + " mt-2"}>
         <span>{props.message}</span>
         </div>
@@ -51,6 +51,16 @@ let ChildInfoComponent = (props) =>{
         <div className={props.emptyChildInputsMessageStyle + " mt-2"}>
         <span>{props.emptyChildInputsMessage}</span>
         </div>
+
+        <div className={props.childRegistratedMessageStyle + " mt-2"}>
+        <span>{props.childRegistratedMessage}</span>
+        </div>
+            
+        <div className={props.applicationMessageStyle + " mt-2"}>
+          {props.applicationMessage}
+        </div>
+            
+    
 
         
 

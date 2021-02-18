@@ -11,24 +11,24 @@ let SecondGuardianInfoComponent = (props) =>{
 
         <div>
 
-        <h3>Globėjas/Globėja</h3>
+        <h3>Vaiko atstovas</h3>
 
 
         <div className="form-group">
             <input
               className={"form-control " + props.secondGuardianNameValidation} name="secondGuardianName" value={props.secondGuardianName} onChange={props.onDetailsChange} placeholder="Vardas"></input>
-              <div className="invalid-feedback">Vardas turi būti 3-20 simbolių ilgio.</div>
+              <div className="invalid-feedback">Vardas turi būti 3-20 raidžių ilgio.</div>
               
         </div>
         <div className="form-group">
             <input
               className={"form-control " + props.secondGuardianSurnameValidation} name="secondGuardianSurname" value={props.secondGuardianSurname} onChange={props.onDetailsChange} placeholder="Pavardė"></input>
-              <div className="invalid-feedback">Pavardė turi būti 3-30 simbolių ilgio.</div>
+              <div className="invalid-feedback">Pavardė turi būti 3-30 raidžių ilgio.</div>
         </div>
         <div className="form-group">
             <input
               className={"form-control " + props.secondGuardianIdValidation} name="secondGuardianId" value={props.secondGuardianId} onChange={props.onDetailsChange} placeholder="Asmens kodas"></input>
-              <div className="invalid-feedback">Asmens kodas turi būti 11 simbolių ilgio.</div>
+              <div className="invalid-feedback">Asmens kodas turi būti 11 skaitmenų ilgio.</div>
         </div>
         <div className="form-group">
             <input
@@ -55,7 +55,7 @@ let SecondGuardianInfoComponent = (props) =>{
               className={"form-control " + props.secondGuardianEmailValidation} name="secondGuardianEmail" value={props.secondGuardianEmail} onChange={props.onDetailsChange} placeholder="El. paštas"></input>
               <div className="invalid-feedback">E.paštas privalo turėti @ simbolį.</div>
         </div>
-        <button className="btn btn-info" onClick={props.saveSecondGuardian}>Išsaugoti</button>
+        <button className="btn btn-green" onClick={props.saveSecondGuardian}>Išsaugoti</button>
         <div className={props.messageStyle + " mt-2"}>
         <span>{props.message}</span>
         </div>
