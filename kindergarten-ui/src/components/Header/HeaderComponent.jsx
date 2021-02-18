@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import Proptypes from "prop-types";
 import logo from "../../image/logo.png";
 import "../../styles/logo.css";
-import { IoMdExit } from "react-icons/io";
+import { IoMdLogOut } from "react-icons/io";
 import axios from "axios";
 import baseUrl from "../../AppConfig";
 import { useHistory } from "react-router";
@@ -54,7 +54,7 @@ const HeaderComponent = ({ userRole }) => {
               <strong>{nameToShow}</strong>
             </p>}
           <button className="btn btn-yellow" onClick={handleLogout}>
-            Atsijungti <IoMdExit size={20} />
+            Atsijungti <IoMdLogOut size={20} />
           </button>
         </div>
       </div>
