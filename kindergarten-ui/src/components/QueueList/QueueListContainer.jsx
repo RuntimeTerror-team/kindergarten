@@ -15,7 +15,8 @@ class QueueListContainer extends Component {
             errors: {},
             message: "",
             messageStyle: "",
-            isCreating: false
+            isCreating: false,
+            isActive: false
         }
     }
 
@@ -24,6 +25,14 @@ class QueueListContainer extends Component {
             .get(`${baseUrl}/api/queues`)
             .then((res) => {
                 this.setState({ queues: res.data })
+            })
+            .then(() => {
+                if (this.state.queues.length > 0) {
+                    let activeArr = this.state.queues.filter(q => q.status === "ACTIVE");
+                    if (activeArr.length > 0) {
+                        this.setState({ isActive: true })
+                    }
+                }
             })
             .catch((err) => console.log(err));
     }
@@ -118,6 +127,7 @@ class QueueListContainer extends Component {
                                 isUpdating={this.state.isUpdating}
                                 message={this.state.message}
                                 messageStyle={this.state.messageStyle}
+                                isActive={this.state.isActive}
                             />}
                         </div>
                     </div>

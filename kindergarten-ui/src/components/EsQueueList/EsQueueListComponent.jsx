@@ -60,6 +60,7 @@ const EsQueueListComponent = ({
                                             error={errors.registrationClosingDt}
                                             name="registrationClosingDt"
                                             value={registrationClosingDt}
+                                            errorMessage="Šis laukas privalomas"
                                         />
                                     </td>}
                                 {isUpdating
@@ -71,6 +72,7 @@ const EsQueueListComponent = ({
                                             error={errors.closingDt}
                                             name="closingDt"
                                             value={closingDt}
+                                            errorMessage="Šis laukas privalomas"
                                         />
                                     </td>}
                                 <td>{status === "ACTIVE" ? "Aktyvi" : ""}</td>
@@ -81,7 +83,6 @@ const EsQueueListComponent = ({
                     </tbody>}
             </table>
             {message
-                && isUpdating
                 && <span className={`float-right mr-2 ${messageStyle}`} style={{ width: "23em" }}>
                     {message}
                 </span>}

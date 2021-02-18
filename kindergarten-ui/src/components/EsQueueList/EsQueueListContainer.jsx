@@ -23,6 +23,8 @@ class EsQueueListContainer extends Component {
         }
     }
 
+    timer = null;
+
     componentDidMount = () => {
         axios
             .get(`${baseUrl}/api/queues`)
@@ -31,17 +33,20 @@ class EsQueueListContainer extends Component {
             })
             .catch((err) => console.log(err));
     }
-    componentDidUpdate = () => {
-        console.log("in update: " + this.state.updatingId);
-        // console.log(this.state.queue);
+
+    componentWillUnmount = () => {
+        if (this.timer) {
+            clearTimeout(this.timer);
+        }
     }
 
     toggleUpdate = (e) => {
-        console.log("in toggle (target): " + e.target.id);
-        this.setState({ isUpdating: !this.state.isUpdating })
-        this.setState({ updatingId: e.target.id })
-
-        console.log("in toggle (state): " + this.state.updatingId);
+        if (e.target.id) {
+            this.setState({ isUpdating: !this.state.isUpdating })
+            this.setState({ updatingId: e.target.id })
+            this.setState({ message: "" })
+            this.setState({ messageStyle: "" })
+        }
     }
 
     handleChange = ({ target: input }) => {
@@ -88,35 +93,31 @@ class EsQueueListContainer extends Component {
 
         this.setState({ errors: errors || {} });
         if (errors) {
-            this.setState({ message: "Datos išsaugoti nepavyko" })
+            this.setState({ message: "Datų išsaugoti nepavyko" })
             this.setState({ messageStyle: "alert alert-danger" })
             return;
         }
 
-        console.log("in handle update: " + this.state.updatingId);
         axios
             .put(`${baseUrl}/api/queues/${this.state.updatingId}`, {
                 "closingDate": new Date(queue.closingDt).toISOString(),
                 "registrationClosingDate": new Date(queue.registrationClosingDt).toISOString()
             })
-            .then((res) => {
-                // this.setState({ message: "Datos išsaugotos sėkmingai" })
-                // this.setState({ messageStyle: "alert alert-success" })
-                // queue = {
-                //     registrationClosingDate: "",
-                //     closingDate: ""
-                // };
-                // this.setState({ queue })
-                console.log(res);
+            .then(() => {
+
                 axios
                     .get(`${baseUrl}/api/queues`)
                     .then((res) => {
                         this.setState({ queues: res.data })
                         this.setState({ isUpdating: false });
+                        this.setState({ message: "Datos išsaugotos sėkmingai" })
+                        this.setState({ messageStyle: "alert alert-success" })
+                        this.timer = setTimeout(() => {
+                            this.setState({ message: "" })
+                            this.setState({ messageStyle: "" })
+                        }, 1500);
                     })
                     .catch((err) => console.log(err));
-
-
             })
             .catch((err) => {
                 this.setState({ message: "Klaida. Datų išsaugoti nepavyko" })

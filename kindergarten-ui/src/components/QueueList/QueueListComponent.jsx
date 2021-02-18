@@ -12,15 +12,20 @@ const QueueListComponent = ({
     queue,
     errors,
     message,
-    messageStyle
+    messageStyle,
+    isActive
 }) => {
     const { openingDate } = queue;
     return (
         <div className="col-12 clearfix mb-3">
-            {!isCreating &&
+            {!isCreating && !isActive &&
                 <div className="col text-center">
                     <button className="btn btn-green mx-auto" onClick={toggleCreation}>Sukurti naują eilę</button>
                 </div>}
+            {!isCreating && isActive
+                && <div class="alert alert-warning text-center" role="alert">
+                    Kol yra aktyvi eilė, naujos kurti negalite.
+              </div>}
             {isCreating
                 &&
                 <div className="clearfix">
