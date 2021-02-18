@@ -17,13 +17,13 @@ let SecondGuardianInfoComponent = (props) =>{
         <div className="form-group">
             <input
               className={"form-control " + props.secondGuardianNameValidation} name="secondGuardianName" value={props.secondGuardianName} onChange={props.onDetailsChange} placeholder="Vardas"></input>
-              <div className="invalid-feedback">Vardas turi būti 2-30 simbolių ilgio.</div>
+              <div className="invalid-feedback">Vardas turi būti 3-20 simbolių ilgio.</div>
               
         </div>
         <div className="form-group">
             <input
               className={"form-control " + props.secondGuardianSurnameValidation} name="secondGuardianSurname" value={props.secondGuardianSurname} onChange={props.onDetailsChange} placeholder="Pavardė"></input>
-              <div className="invalid-feedback">Pavardė turi būti 2-30 simbolių ilgio.</div>
+              <div className="invalid-feedback">Pavardė turi būti 3-30 simbolių ilgio.</div>
         </div>
         <div className="form-group">
             <input
@@ -58,6 +58,10 @@ let SecondGuardianInfoComponent = (props) =>{
         <button className="btn btn-info" onClick={props.saveSecondGuardian}>Išsaugoti</button>
         <div className={props.messageStyle + " mt-2"}>
         <span>{props.message}</span>
+        </div>
+
+        <div className={props.emptyGuardianInputsMessageStyle + " mt-2"}>
+        <span>{props.emptyGuardianInputsMessage}</span>
         </div>
 
         </div>

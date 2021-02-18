@@ -73,6 +73,10 @@ class ApplicationContainer extends Component{
             childCityValidation: "",
             emptyInputsMessage: "",
             emptyInputsMessageStyle: "",
+            emptyChildInputsMessage: "",
+            emptyChildInputsMessageStyle: "",
+            emptyGuardianInputsMessage: "",
+            emptyGuardianInputsMessageStyle:"",
             noneKindergartenSelectedMessage: "",
             noneKindergartenSelectedMessageStyle: "",
             guardian: [],
@@ -89,7 +93,9 @@ class ApplicationContainer extends Component{
             noChildMessageStyle: "",
             guardianAdded: false,
             noGuardianMessage: "",
-            noGuardianMessageStyle: ""
+            noGuardianMessageStyle: "",
+            guardianButtonText: "Redaguoti",
+            isDisabled: true
         };
 
         
@@ -223,6 +229,13 @@ class ApplicationContainer extends Component{
 
           e.preventDefault();
 
+          if(this.checkEmptyChildInputs(this.state.childName, this.state.childSurname, this.state.childId, this.state.childStreet, this.state.childCity)){
+
+            this.setState({emptyChildInputsMessage: "Užpildykite privalomus laukus"})
+            this.setState({emptyChildInputsMessageStyle: "alert alert-danger mt-4"})
+
+          } else{
+
           if(this.childValidation(this.state.childName, this.state.childSurname, this.state.childId, this.state.childStreet, this.state.childCity)){
 
           let city = this.state.childCity.toUpperCase();
@@ -250,7 +263,9 @@ class ApplicationContainer extends Component{
              this.setState({childMessageStyle: "alert alert-success mt-4"})
              this.setState({childAdded: true})
              this.setState({noChildMessage: ""})
-             this.setState({noChildMessageStyle: ""})           
+             this.setState({noChildMessageStyle: ""})
+             this.setState({emptyChildInputsMessage: ""})
+             this.setState({emptyChildInputsMessageStyle: "" })
           }
 
           Axios.get(baseUrl + "/api/persons/byPersonalCode/" + this.state.childId)
@@ -262,11 +277,31 @@ class ApplicationContainer extends Component{
 
 
       } 
+
+    }
       }
 
         handleGuardianSave = (e) =>{
 
           e.preventDefault();
+
+          if(this.state.isDisabled){
+
+            this.setState({isDisabled: false});
+            this.setState({guardianButtonText: "Išsaugoti"})
+
+          } else if(!this.state.isDisabled){
+
+            if(this.checkEmptyGuardianInputs(this.state.guardianName, this.state.guardianSurname, this.state.guardianId, this.state.guardianPhone,
+              this.state.guardianAddress, this.state.guardianCity, this.state.guardianPostalCode, this.state.guardianEmail)){
+
+                this.setState({emptyInputsMessage: "Užpildykite privalomus laukus"})
+                this.setState({emptyInputsMessageStyle: "alert alert-danger mt-4" })
+                this.setState({isDisabled: false});
+                this.setState({guardianButtonText: "Išsaugoti"})
+                return;
+
+              } else{
 
           if(this.guardiansValidation(this.state.guardianName, this.state.guardianSurname, this.state.guardianId, this.state.guardianPhone,
              this.state.guardianAddress, this.state.guardianCity, this.state.guardianPostalCode, this.state.guardianEmail)){
@@ -297,8 +332,10 @@ class ApplicationContainer extends Component{
           .then(res => {
 
             if(res.status === 201 || res.status === 200){
-              this.setState({guardianMessage: "Globėjo duomenys sėkmingai atnaujinti"})
+              this.setState({guardianMessage: "Sėkmingai atnaujinti duomenys"})
               this.setState({guardianMessageStyle: "alert alert-success mt-4"})
+              this.setState({emptyInputsMessage: ""})
+              this.setState({emptyInputsMessageStyle: "" })
               this.setState({guardianAdded: true})
               this.setState({noGuardianMessage: ""})
               this.setState({noGuardianMessageStyle: ""})     
@@ -310,12 +347,26 @@ class ApplicationContainer extends Component{
 
       } 
 
+    }
+
+            this.setState({isDisabled: true});
+            this.setState({guardianButtonText: "Redaguoti"})
+
+    }
         
         }
 
         handleSecondGuardianSave = (e) =>{
 
           e.preventDefault();
+
+          if(this.checkEmptyGuardianInputs(this.state.secondGuardianName, this.state.secondGuardianSurname, this.state.secondGuardianId, this.state.secondGuardianPhone,
+            this.state.secondGuardianAddress, this.state.secondGuardianCity, this.state.secondGuardianPostalCode, this.state.secondGuardianEmail)){
+
+              this.setState({emptyGuardianInputsMessage: "Užpildykite privalomus laukus"})
+              this.setState({emptyGuardianInputsMessageStyle: "alert alert-danger mt-4"})
+
+            } else{
 
           if(this.guardiansValidation(this.state.secondGuardianName, this.state.secondGuardianSurname, this.state.secondGuardianId, this.state.secondGuardianPhone,
             this.state.secondGuardianAddress, this.state.secondGuardianCity, this.state.secondGuardianPostalCode, this.state.secondGuardianEmail)){
@@ -343,9 +394,13 @@ class ApplicationContainer extends Component{
         Axios.post(baseUrl + "/api/persons", secondGuardian)
         .then(res => {
 
-           if(res.status === 201){
+          console.log("status: " + res.status)
+
+           if(res.status === 201 || res.status === 200){
              this.setState({secondGuardianMessage: "Globėjo duomenys sėkmingai išsaugoti"})
              this.setState({secondGuardianMessageStyle: "alert alert-success mt-4"})
+             this.setState({emptyGuardianInputsMessage: ""})
+             this.setState({emptyGuardianInputsMessageStyle: ""})
            }
       
           Axios.get(baseUrl + "/api/persons/byPersonalCode/" + this.state.secondGuardianId)
@@ -355,6 +410,8 @@ class ApplicationContainer extends Component{
         .catch(err => {console.log(err)})
 
       } 
+
+    }
             
         }
 
@@ -371,7 +428,7 @@ class ApplicationContainer extends Component{
 
         guardiansValidation = (name, surname, personalCode, phone, address, city, postalCode, email) => {
 
-          return (name.length >= 2 && name.length <=30)
+          return (name.length >= 3 && name.length <=30)
                    &&(surname.length >=2 && surname.length <=30)
                    &&(personalCode.length === 11 && /^[0-9]*$/.test(personalCode))
                    &&(phone.length === 12 && /^\+?370[0-9]*$/.test(phone))
@@ -382,13 +439,26 @@ class ApplicationContainer extends Component{
 
         }
 
+
+        checkEmptyGuardianInputs = (name, surname, personalCode, phone, address, city, postalCode, email) => {
+
+          return (name.trim() === "" || surname.trim() === "" || personalCode.trim() === "" || phone.trim() === "" || address.trim() === ""
+          || city.trim() === "" || postalCode.trim() === "" || email.trim() === "")
+
+        }
+
+        checkEmptyChildInputs = (name, surname, personalCode, address, city) => {
+
+          return (name.trim() === "" || surname.trim() === "" || personalCode.trim() === "" || address.trim() === "" || city.trim() === "")
+        }
+
         checkInputs = (name, value) =>{
 
 
           if(name === "guardianName"){
 
-          if(value.trim().length < 2 || value.length > 30){
-  
+          if(value.trim().length < 3 || value.length > 20 || /\d/.test(value)){
+                                                  
             this.setState({guardianNameValidation: "is-invalid"})
            
           } else{
@@ -401,7 +471,7 @@ class ApplicationContainer extends Component{
           
         if(name === "guardianSurname"){
 
-          if(value.length < 2 || value.length > 30){
+          if(value.trim().length < 3 || value.length > 30 || /\d/.test(value)){
   
             this.setState({guardianSurnameValidation: "is-invalid"})
             
@@ -415,7 +485,7 @@ class ApplicationContainer extends Component{
 
         if(name === "guardianId"){
   
-          if(value.trim().length !== 11){
+          if(value.trim().length !== 11 || /[^\d]/.test(value)){
   
             this.setState({guardianIdValidation: "is-invalid"})
             
@@ -472,7 +542,7 @@ class ApplicationContainer extends Component{
         if(name === "guardianPostalCode"){
   
           if(value.trim().length === 5 && /^[0-9]*$/.test(value)){
-  
+                                          
             this.setState({guardianPostalCodeValidation: ""})
             
           } else{
@@ -485,7 +555,7 @@ class ApplicationContainer extends Component{
 
         if(name === "guardianEmail"){
   
-          if(/(?=.@)/.test(value)){
+          if(/^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/.test(value)){
   
             this.setState({guardianEmailValidation: ""})
             
@@ -502,7 +572,7 @@ class ApplicationContainer extends Component{
         if(name === "secondGuardianName"){
 
         
-          if(value.length < 2 || value.length > 30){
+          if(value.trim().length < 3 || value.length > 20 || /\d/.test(value)){
   
             this.setState({secondGuardianNameValidation: "is-invalid"})
             
@@ -516,7 +586,7 @@ class ApplicationContainer extends Component{
 
         if(name === "secondGuardianSurname"){
   
-          if(value.length < 2 || value.length > 30){
+          if(value.trim().length < 3 || value.length > 30 || /\d/.test(value)){
   
             this.setState({secondGuardianSurnameValidation: "is-invalid"})
             
@@ -530,7 +600,7 @@ class ApplicationContainer extends Component{
 
         if(name === "secondGuardianId"){
   
-          if(value.trim().length !== 11){
+          if(value.trim().length !== 11 || /[^\d]/.test(value)){
   
             this.setState({secondGuardianIdValidation: "is-invalid"})
             
@@ -600,7 +670,7 @@ class ApplicationContainer extends Component{
 
         if(name === "secondGuardianEmail"){
   
-          if(/(?=.@)/.test(value)){
+          if(/^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/.test(value)){
   
             this.setState({secondGuardianEmailValidation: ""})
             
@@ -615,7 +685,7 @@ class ApplicationContainer extends Component{
 
         if(name === "childName"){  
 
-          if(value.length < 2 || value.length > 30){
+          if(value.trim().length < 3 || value.length > 20 || /\d/.test(value)){
   
             this.setState({childNameValidation: "is-invalid"})
             
@@ -630,7 +700,7 @@ class ApplicationContainer extends Component{
 
         if(name === "childSurname"){
 
-          if(value.length < 2 || value.length > 30){
+          if(value.trim().length < 3 || value.length > 30 || /\d/.test(value)){
   
             this.setState({childSurnameValidation: "is-invalid"})
             
@@ -644,7 +714,7 @@ class ApplicationContainer extends Component{
 
         if(name === "childId"){
   
-          if(value.trim().length !== 11){
+          if(value.trim().length !== 11 || /[^\d]/.test(value)){
   
             this.setState({childIdValidation: "is-invalid"})
             
@@ -893,8 +963,14 @@ class ApplicationContainer extends Component{
               childCityValidation={this.state.childCityValidation}
               emptyInputsMessage={this.state.emptyInputsMessage}
               emptyInputsMessageStyle={this.state.emptyInputsMessageStyle}
+              emptyChildInputsMessage={this.state.emptyChildInputsMessage}
+              emptyChildInputsMessageStyle={this.state.emptyChildInputsMessageStyle}
+              emptyGuardianInputsMessage={this.state.emptyGuardianInputsMessage}
+              emptyGuardianInputsMessageStyle={this.state.emptyGuardianInputsMessageStyle}
               noneKindergartenSelectedMessage={this.state.noneKindergartenSelectedMessage}
               noneKindergartenSelectedMessageStyle={this.state.noneKindergartenSelectedMessageStyle}
+              guardianButtonText={this.state.guardianButtonText}
+              isDisabled={this.state.isDisabled}
               showSecondGuardianForm={this.state.showSecondGuardianForm}
               handleOnOptionsChange={this.handleChangeOptions}
               onChosenKindergartens={this.handleChosenKindergartens}
