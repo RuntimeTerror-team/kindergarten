@@ -7,6 +7,7 @@ import lt.vtmc.kindergarten.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.time.LocalDate;
 import java.util.Date;
 
 
@@ -31,6 +32,9 @@ public class DataSeeder {
     @Autowired
     QueueService queueService;
 
+    @Autowired
+    ApplicationService applicationService;
+
     public District createDistrict(){
         District district = new District();
         district.setTitle("Antakalnis");
@@ -41,23 +45,23 @@ public class DataSeeder {
 
     public void cretePersons(){
         Person person = new Person();
-        person.setFirstName("Tadas");
+        person.setFirstName("Edgaras");
         person.setLastName("Bujonauskas");
         person.setEmail("tadasbujonauskas@gmail.com");
         person.setCity(CityEnum.VILNIUS);
-        person.setAddress("Kankliu g. 4");
-        person.setPersonalCode("38005201234");
+        person.setAddress("Kanklių g. 4");
+        person.setPersonalCode("33333333333");
         person.setPhoneNumber("862412323");
         person.setPostalCode("10321");
         personService.addPerson(new PersonDto(person));
 
         Person child = new Person();
-        child.setFirstName("Tadukas");
+        child.setFirstName("Jonukas");
         child.setLastName("Bujonauskas");
         child.setEmail(null);
         child.setCity(CityEnum.VILNIUS);
-        child.setAddress("Kankliu g. 4");
-        child.setPersonalCode("18005201234");
+        child.setAddress("Kanklių g. 4");
+        child.setPersonalCode("11111111111");
         child.setPhoneNumber(null);
         child.setPostalCode("10321");
         personService.addPerson(new PersonDto(child));
@@ -67,11 +71,45 @@ public class DataSeeder {
         person2.setLastName("Bujonauskienė");
         person2.setEmail("monika@gmail.com");
         person2.setCity(CityEnum.VILNIUS);
-        person2.setAddress("Kankliu g. 4");
-        person2.setPersonalCode("68005201234");
+        person2.setAddress("Kanklių g. 4");
+        person2.setPersonalCode("22222222222");
         person2.setPhoneNumber("862412322");
         person2.setPostalCode("10321");
         personService.addPerson(new PersonDto(person2));
+
+        Application application = new Application();
+        Person person3 = new Person();
+        person3.setFirstName("Ieva");
+        person3.setLastName("Urbelienė");
+        person3.setEmail("ieva@gmail.com");
+        person3.setCity(CityEnum.OTHER);
+        person3.setAddress("Vėjų g. 16");
+        person3.setPersonalCode("66666666666");
+        person3.setPhoneNumber("862412111");
+        person3.setPostalCode("10321");
+        personService.addPerson(new PersonDto(person3));
+
+        Person child2 = new Person();
+        child2.setFirstName("Marytė");
+        child2.setLastName("Urbelytė");
+        child2.setEmail(null);
+        child2.setCity(CityEnum.OTHER);
+        child2.setAddress("Vėjų g. 16");
+        child2.setPersonalCode("55555555555");
+        child2.setPhoneNumber(null);
+        child2.setPostalCode("10321");
+        personService.addPerson(new PersonDto(child2));
+
+        Person person4 = new Person();
+        person4.setFirstName("Simas");
+        person4.setLastName("Urbelis");
+        person4.setEmail("simas@gmail.com");
+        person4.setCity(CityEnum.OTHER);
+        person4.setAddress("Vėjų g. 16");
+        person4.setPersonalCode("99999999999");
+        person4.setPhoneNumber("862414444");
+        person4.setPostalCode("10321");
+        personService.addPerson(new PersonDto(person4));
     }
 
     public void createAgeRanges(){

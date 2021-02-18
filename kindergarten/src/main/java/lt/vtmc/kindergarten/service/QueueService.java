@@ -1,8 +1,12 @@
 package lt.vtmc.kindergarten.service;
 
+import lt.vtmc.kindergarten.dao.ApplicationDao;
 import lt.vtmc.kindergarten.dao.QueueDao;
+import lt.vtmc.kindergarten.domain.Application;
+import lt.vtmc.kindergarten.domain.ApplicationStatusEnum;
 import lt.vtmc.kindergarten.domain.Queue;
 import lt.vtmc.kindergarten.domain.QueueStatusEnum;
+import lt.vtmc.kindergarten.dto.ApplicationCreationDto;
 import lt.vtmc.kindergarten.dto.QueueDto;
 import lt.vtmc.kindergarten.dto.QueueDtoFromAdmin;
 import lt.vtmc.kindergarten.dto.QueueDtoFromEducationSpecialist;
@@ -25,15 +29,18 @@ public class QueueService {
     @Autowired
     private QueueDao queueDao;
 
+    @Autowired
+    private ApplicationDao applicationDao;
+
 
     @Transactional
     public void addQueueWithOpeningDate(QueueDtoFromAdmin queueDtoFromAdmin) {
         List<Queue> queues = queueDao.findAll();
         QueueStatusEnum queueStatusEnumToFind = QueueStatusEnum.ACTIVE;
 
-        boolean isThereOtherActiveQueue =  queues.stream().anyMatch(queue -> queueStatusEnumToFind.equals(queue.getStatus()));
+        boolean isThereOtherActiveQueue = queues.stream().anyMatch(queue -> queueStatusEnumToFind.equals(queue.getStatus()));
 
-        if(!isThereOtherActiveQueue){
+        if (!isThereOtherActiveQueue) {
             Queue queue = new Queue();
             queue.setOpeningDate(queueDtoFromAdmin.getOpeningDate());
             queue.setStatus(QueueStatusEnum.ACTIVE);
@@ -69,12 +76,25 @@ public class QueueService {
      * Check happens every minute
      */
     @Scheduled(cron = "1 * * * * *")
-    protected void lockQueueOnRegistrationClosingTime (){
+    protected void lockQueueOnRegistrationClosingTime() {
         Queue queue = queueDao.findByStatus(QueueStatusEnum.ACTIVE);
-        if(queue != null && queue.getRegistrationClosingDate()!=null && queue.getRegistrationClosingDate().before(new Date())){
+        List<Application> applicationList = applicationDao.findAll();
+
+        if (queue != null && queue.getRegistrationClosingDate() != null && queue.getRegistrationClosingDate().before(new Date())) {
             System.out.println("Queue is after due date. Closing queue.");
             queue.setStatus(QueueStatusEnum.LOCKED);
             queueDao.save(queue);
+
+            applicationList.stream().forEach( application ->
+                    {
+                        application.setApplicationStatus(ApplicationStatusEnum.WAITING);
+                        applicationDao.save(application);
+                    }
+
+
+            );
+
+
         }
     }
 }

@@ -1,6 +1,7 @@
 package lt.vtmc.kindergarten;
 
 import lt.vtmc.kindergarten.config.DataSeeder;
+import lt.vtmc.kindergarten.dao.QueueDao;
 import lt.vtmc.kindergarten.domain.District;
 import lt.vtmc.kindergarten.dto.*;
 import lt.vtmc.kindergarten.service.*;
@@ -24,6 +25,9 @@ public class CommandLineAppStartupRunner implements CommandLineRunner {
 
     @Autowired
     DataSeeder dataSeeder;
+
+    @Autowired
+    QueueDao queueDao;
 
 
     @Override
