@@ -14,7 +14,8 @@ class QueueListContainer extends Component {
             queue: { openingDate: "" },
             errors: {},
             message: "",
-            messageStyle: ""
+            messageStyle: "",
+            isCreating: false
         }
     }
 

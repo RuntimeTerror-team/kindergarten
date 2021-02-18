@@ -12,10 +12,8 @@ class EsQueueListContainer extends Component {
         this.state = {
             queues: [],
             queue: {
-                openingDate: "",
-                registrationClosingDate: "",
-                closingDate: "",
-                id: ""
+                registrationClosingDt: "",
+                closingDt: ""
             },
             errors: {},
             message: "",
@@ -34,16 +32,16 @@ class EsQueueListContainer extends Component {
             .catch((err) => console.log(err));
     }
     componentDidUpdate = () => {
-        console.log(this.state.errors);
+        console.log("in update: " + this.state.updatingId);
+        // console.log(this.state.queue);
     }
 
-    toggleCreation = () => {
-        this.setState({ isCreating: !this.state.isCreating })
-    }
-
-    toggleUpdate = (id) => {
+    toggleUpdate = (e) => {
+        console.log("in toggle (target): " + e.target.id);
         this.setState({ isUpdating: !this.state.isUpdating })
-        console.log(id);
+        this.setState({ updatingId: e.target.id })
+
+        console.log("in toggle (state): " + this.state.updatingId);
     }
 
     handleChange = ({ target: input }) => {
@@ -60,10 +58,10 @@ class EsQueueListContainer extends Component {
     }
 
     validateProperty = ({ name, value }) => {
-        if (name === "openingDate") {
+        if (name === "registrationClosingDt") {
             return "";
         }
-        if (name === "registrationClosingDate") {
+        if (name === "closingDt") {
             return "";
         }
     }
@@ -72,100 +70,59 @@ class EsQueueListContainer extends Component {
         const errors = {};
 
         const { queue } = this.state;
-        console.log(queue.openingDate.trim() === '');
-        if (queue.openingDate.trim() === '')
-            errors.openingDate = "is-invalid"
 
-        if (queue.registrationClosingDate.trim() === '')
-            errors.openingDate = "is-invalid"
+        if (queue.registrationClosingDt.trim() === '')
+            errors.registrationClosingDt = "is-invalid"
+
+        if (queue.closingDt.trim() === '')
+            errors.closingDt = "is-invalid"
 
         return Object.keys(errors).length === 0 ? null : errors;
     }
 
-    handleSubmit = (e) => {
+    handleUpdate = (e) => {
         e.preventDefault();
 
         let { queue } = this.state;
-
         const errors = this.validate();
+
         this.setState({ errors: errors || {} });
-        console.log(errors);
         if (errors) {
-            this.setState({ esMessage: "Eilės sukurti nepavyko" })
-            this.setState({ esMessageStyle: "alert alert-danger" })
+            this.setState({ message: "Datos išsaugoti nepavyko" })
+            this.setState({ messageStyle: "alert alert-danger" })
             return;
         }
 
+        console.log("in handle update: " + this.state.updatingId);
         axios
-            .post(`${baseUrl}/api/queues`, {
-                "openingDate": new Date(queue.openingDate).toISOString()
+            .put(`${baseUrl}/api/queues/${this.state.updatingId}`, {
+                "closingDate": new Date(queue.closingDt).toISOString(),
+                "registrationClosingDate": new Date(queue.registrationClosingDt).toISOString()
             })
-            .then(() => {
-                this.setState({ message: "Eilė sukurta sėkmingai" })
-                this.setState({ messageStyle: "alert alert-success" })
-                queue = { openingDate: "" };
-                this.setState({ queue })
+            .then((res) => {
+                // this.setState({ message: "Datos išsaugotos sėkmingai" })
+                // this.setState({ messageStyle: "alert alert-success" })
+                // queue = {
+                //     registrationClosingDate: "",
+                //     closingDate: ""
+                // };
+                // this.setState({ queue })
+                console.log(res);
                 axios
                     .get(`${baseUrl}/api/queues`)
                     .then((res) => {
                         this.setState({ queues: res.data })
+                        this.setState({ isUpdating: false });
                     })
                     .catch((err) => console.log(err));
+
+
             })
             .catch((err) => {
-                this.setState({ message: "Klaida. Eilės sukurti nepavyko" })
+                this.setState({ message: "Klaida. Datų išsaugoti nepavyko" })
                 this.setState({ messageStyle: "alert alert-danger" })
                 console.log(err);
             });
-    }
-
-
-    handleUpdate = (e) => {
-        e.preventDefault();
-        this.toggleUpdate();
-        console.log(e.target.id);
-
-        let { queue } = this.state;
-
-        const errors = this.validate();
-        this.setState({ errors: errors || {} });
-
-        console.log(new Date(queue.registrationClosingDate).toISOString());
-        if (errors) {
-            this.setState({ esMessage: "Datos išsaugoti nepavyko" })
-            this.setState({ esMessageStyle: "alert alert-danger" })
-            return;
-        }
-
-        console.log(new Date(queue.registrationClosingDate).toISOString());
-        axios
-            .post(`${baseUrl}/api/queues/${queue.id}`, {
-                "closingDate": queue.closingDate,
-                "registrationClosingDate": new Date(queue.registrationClosingDate).toISOString()
-            })
-            .then(() => {
-                this.setState({ esMessage: "Data išsaugota sėkmingai" })
-                this.setState({ esMessageStyle: "alert alert-success" })
-                queue = {
-                    openingDate: "",
-                    registrationClosingDate: "",
-                    closingDate: ""
-                };
-                this.setState({ queue })
-                axios
-                    .get(`${baseUrl}/api/queues`)
-                    .then((res) => {
-                        this.setState({ queues: res.data })
-                    })
-                    .catch((err) => console.log(err));
-            })
-            .catch((err) => {
-                this.setState({ esMessage: "Klaida. Datos išsaugoti nepavyko" })
-                this.setState({ esMessageStyle: "alert alert-danger" })
-                console.log(err);
-            });
-
-        this.toggleUpdate();
     }
 
     render() {

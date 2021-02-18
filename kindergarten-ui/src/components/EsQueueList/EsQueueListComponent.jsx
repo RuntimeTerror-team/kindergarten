@@ -1,72 +1,91 @@
 import React from "react";
 import Proptypes from "prop-types";
+import { FaPencilAlt } from "react-icons/fa";
+import { FaSave } from "react-icons/fa";
 import Input from "../common/Input";
-import EsQueueTableComponent from "../EsQueueTable/EsQueueTableComponent";
-import EsQueueFormComponent from "../EsQueueForm/EsQueueFormComponent";
 
 const EsQueueListComponent = ({
     queues,
-    handleSubmit,
     handleChange,
-    toggleCreation,
-    isCreating,
     queue,
     errors,
-    userRole,
     toggleUpdate,
     isUpdating,
     handleUpdate,
-    esMessage,
-    esMessageStyle,
     message,
     messageStyle
 }) => {
-    const { openingDate, registrationClosingDate, id } = queue;
+    const { registrationClosingDt, closingDt } = queue;
     return (
         <div className="col-12 clearfix mb-3">
-            {!isCreating
-                && userRole === "ROLE_ADMIN"
-                &&
-                <div className="col text-center">
-                    <button className="btn btn-green mx-auto" onClick={toggleCreation}>Sukurti naują eilę</button>
-                </div>}
-            {isCreating
-                &&
-                <div className="clearfix">
-                    <form onSubmit={handleSubmit}>
-                        <Input
-                            name="openingDate"
-                            value={openingDate}
-                            label="Eilės atsidarymo data ir laikas"
-                            mandatory={false}
-                            type="datetime-local"
-                            error={errors.openingDate}
-                            placeholder=""
-                            onChange={handleChange}
-                            errorMessage="Šis laukas privalomas."
-                            labelStyle="col-5 pt-2 text-right"
-                            inputStyle="col-7"
-                            invalidStyle="offset-3 col-9"
-                        />
-                        <span className={messageStyle} style={{ width: "23em" }}>
-                            {message}
-                        </span>
-                        <button className="btn btn-green float-right">Išsaugoti</button>
-                    </form>
-                    <button className="btn btn-yellow float-right mr-2" onClick={toggleCreation}>Baigti kūrimą</button>
-                </div>}
-            {queues.length > 0
-                && <EsQueueTableComponent
-                    queues={queues}
-                    userRole={userRole}
-                    toggleUpdate={toggleUpdate}
-                    isUpdating={isUpdating}
-                />}
-            {isUpdating
-                &&
-                <EsQueueFormComponent />
-            }
-        </div>
+            <table className="table col-12 mt-3 fixedTable text-center">
+                <thead>
+                    <tr>
+                        <th scope="col" style={{ width: "30px" }}>
+                            #
+                    </th>
+                        <th scope="col">Eilės atidarymas</th>
+                        <th scope="col">Registracijos stabdymas</th>
+                        <th scope="col">Eilės uždarymas</th>
+                        <th scope="col">Būsena</th>
+                        {queues.length > 0 && <th scope="col" style={{ width: "30px" }}></th>}
+                    </tr>
+                </thead>
+
+                {queues.length > 0 &&
+                    <tbody>
+                        {queues.map(({ openingDate, closingDate, registrationClosingDate, status, id }, index) => (
+                            <tr key={id}>
+                                <th scope="row">{index + 1}</th>
+                                <td>
+                                    {openingDate ? new Date(openingDate).toLocaleDateString() : "-"}<br />
+                                    {openingDate && new Date(openingDate).toLocaleTimeString()}
+                                </td>
+                                {!isUpdating
+                                    && <td>
+                                        {registrationClosingDate ? new Date(registrationClosingDate).toLocaleDateString() : "-"}<br />
+                                        {registrationClosingDate && new Date(registrationClosingDate).toLocaleTimeString()}
+                                    </td>}
+                                {!isUpdating
+                                    && <td>
+                                        {closingDate ? new Date(closingDate).toLocaleDateString() : "-"}<br />
+                                        {closingDate && new Date(closingDate).toLocaleTimeString()}
+                                    </td>}
+                                {isUpdating
+                                    && <td>
+                                        <Input
+                                            type="datetime-local"
+                                            onChange={handleChange}
+                                            inputStyle="col-11"
+                                            error={errors.registrationClosingDt}
+                                            name="registrationClosingDt"
+                                            value={registrationClosingDt}
+                                        />
+                                    </td>}
+                                {isUpdating
+                                    && <td>
+                                        <Input
+                                            type="datetime-local"
+                                            onChange={handleChange}
+                                            inputStyle="col-11"
+                                            error={errors.closingDt}
+                                            name="closingDt"
+                                            value={closingDt}
+                                        />
+                                    </td>}
+                                <td>{status === "ACTIVE" ? "Aktyvi" : ""}</td>
+                                {status === "ACTIVE" && !isUpdating && <td className="pl-1" id={id}><FaPencilAlt id={id} onClick={toggleUpdate} color="#F1CC00" size={20} /></td>}
+                                {status === "ACTIVE" && isUpdating && <td className="pl-1" id={id}><FaSave id={id} onClick={handleUpdate} color="#F1CC00" size={20} /></td>}
+                            </tr>
+                        ))}
+                    </tbody>}
+            </table>
+            {message
+                && isUpdating
+                && <span className={`float-right mr-2 ${messageStyle}`} style={{ width: "23em" }}>
+                    {message}
+                </span>}
+        </div >
     );
 };
 
