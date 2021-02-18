@@ -46,7 +46,9 @@ let PriorityListComponent = (props) =>{
             </div>
             </div>
             
-            <button className="btn btn-info float-right">Pateikti</button>
+            
+            <button className="btn btn-green float-right mt-2">Pateikti</button>
+            {props.previousButton()}
             <div className="row">
             
               <span className={props.noneKindergartenSelectedMessageStyle} style={{ width: "23em" }}>
@@ -62,6 +64,8 @@ let PriorityListComponent = (props) =>{
               </span>
             
           </div>
+
+          
         </div>
     )
 
@@ -73,6 +77,8 @@ PriorityListComponent.propTypes = {
     currentStep: Proptypes.number.isRequired,
     onPrioritiesChange: Proptypes.func.isRequired,
     priorities: Proptypes.array.isRequired,
+    applicationMessage: Proptypes.string.isRequired,
+    applicationMessageStyle: Proptypes.string.isRequired,
     prev: Proptypes.func.isRequired,
     next: Proptypes.func.isRequired,
     previousButton: Proptypes.func.isRequired,

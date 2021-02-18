@@ -6,6 +6,7 @@ import SecondGuardianInfoComponent from './SecondGuardianInfoComponent';
 import ChildInfoComponent from './ChildInfoComponent';
 import PriorityListComponent from './PriorityListComponent';
 import SecondGuardianButtonComponent from './SecondGuardianButtonComponent'
+import NoApplicationsComponent from './NoApplicationsComponent'
 
 let ApplicationComponent = (props) =>{
 
@@ -20,7 +21,10 @@ let ApplicationComponent = (props) =>{
 
               <div className="row">
 
-                <div className="col-4 px-5">
+              <NoApplicationsComponent
+               currentStep={props.currentStep}/>
+
+                <div className="col-4 px-5 mt-4">
                 <ChildInfoComponent
                   currentStep={props.currentStep}
                   name={props.childName}
@@ -37,6 +41,10 @@ let ApplicationComponent = (props) =>{
                   childCityValidation={props.childCityValidation}
                   emptyChildInputsMessage={props.emptyChildInputsMessage}
                   emptyChildInputsMessageStyle={props.emptyChildInputsMessageStyle}
+                  childRegistratedMessage={props.childRegistratedMessage}
+                  childRegistratedMessageStyle={props.childRegistratedMessageStyle}
+                  applicationMessage={props.applicationMessage}
+                  applicationMessageStyle={props.applicationMessageStyle}
                   message={props.childMessage}
                   messageStyle={props.childMessageStyle}
                   onDetailsChange={props.onDetailsChange}
@@ -199,6 +207,10 @@ ApplicationComponent.propTypes = {
     guardianMessageStyle: Proptypes.string.isRequired,
     secondGuardianMessage: Proptypes.string.isRequired,
     secondGuardianMessageStyle: Proptypes.string.isRequired,
+    applicationMessage: Proptypes.string.isRequired,
+    applicationMessageStyle: Proptypes.string.isRequired,
+    childRegistratedMessage: Proptypes.string.isRequired,
+    childRegistratedMessageStyle: Proptypes.string.isRequired,
     noChildMessage: Proptypes.string.isRequired,
     noChildMessageStyle: Proptypes.string.isRequired,
     noGuardianMessage: Proptypes.string.isRequired,

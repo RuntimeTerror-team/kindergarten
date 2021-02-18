@@ -75,12 +75,7 @@ let KindergartenListComponent = (props) =>{
             
             {props.showChoices ? myTable() : null}
             <div className="row  ml-1 my-5">
-                <div className="mr-2">
-
-            {props.previousButton()}
-
-            </div>
-            {props.nextButton()}
+                
             </div>
         </div>
 

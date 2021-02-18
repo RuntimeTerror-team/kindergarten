@@ -14,22 +14,22 @@ let GuardianInfoComponent = (props) =>{
                 
                 
                 <div>
-                <h3>Globėjas/Globėja</h3>
+                <h3>Vaiko atstovas</h3>
 
                 <div className="form-group">
                     <input
                         className={"form-control " + props.guardianNameValidation} name="guardianName" value={props.name} onChange={props.onDetailsChange} placeholder="Vardas" disabled={props.isDisabled}></input>
-                        <div className="invalid-feedback">Šis laukas privalomas. Vardas turi būti 3-20 simbolių ilgio.</div>
+                        <div className="invalid-feedback">Šis laukas privalomas. Vardas turi būti 3-20 raidžių ilgio.</div>
                 </div>
                 <div className="form-group">
                     <input
                         className={"form-control " + props.guardianSurnameValidation} name="guardianSurname" value={props.surname} onChange={props.onDetailsChange} placeholder="Pavardė" disabled={props.isDisabled}></input>
-                        <div className="invalid-feedback">Šis laukas privalomas. Pavardė turi būti 3-30 simbolių ilgio.</div>
+                        <div className="invalid-feedback">Šis laukas privalomas. Pavardė turi būti 3-30 raidžių ilgio.</div>
                 </div>
                 <div className="form-group">
                     <input
                         className={"form-control " + props.guardianIdValidation} name="guardianId" value={props.id} onChange={props.onDetailsChange} placeholder="Asmens kodas" disabled={true}></input>
-                        <div className="invalid-feedback">Šis laukas privalomas. Asmens kodas turi būti 11 simbolių ilgio.</div>
+                        <div className="invalid-feedback">Šis laukas privalomas. Asmens kodas turi būti 11 skaitmenų ilgio.</div>
                 </div>
                 <div className="form-group">
                     <input
@@ -56,7 +56,7 @@ let GuardianInfoComponent = (props) =>{
                         className={"form-control " + props.guardianEmailValidation} name="guardianEmail" value={props.email} onChange={props.onDetailsChange} placeholder="El. paštas" disabled={props.isDisabled}></input>
                         <div className="invalid-feedback">Šis laukas privalomas. E.paštas privalo turėti @ simbolį.</div>
                 </div>
-                <button className="btn btn-info" onClick={props.saveGuardian}>{props.guardianButtonText}</button>
+                <button className={props.isDisabled === true ? "btn btn-yellow" : "btn btn-green"} onClick={props.saveGuardian}>{props.guardianButtonText}</button>
                 </div>
 
                <div className={props.messageStyle + " mt-2"}>
