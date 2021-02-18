@@ -5,6 +5,7 @@ import lt.vtmc.kindergarten.dao.DistrictDao;
 import lt.vtmc.kindergarten.dao.KindergartenDao;
 import lt.vtmc.kindergarten.domain.*;
 import lt.vtmc.kindergarten.dto.KindergartenDto;
+import lt.vtmc.kindergarten.service.KindergartenService;
 import org.junit.jupiter.api.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -29,10 +30,13 @@ public class KindergartenControllerTest {
     @Autowired
     private KindergartenDao kindergartenDao;
 
+    @Autowired
+    private KindergartenService kindergartenService;
+
     @Test
     @Order(1)
     @DisplayName("create kindergarten")
-    void testCreatingKindergarten(){
+    void testCreatingKindergarten() {
         District district = TestUtils.createDefaultDistrict("Antakalnis");
         Kindergarten kindergarten = TestUtils.createDefaultKindergarten("12345678");
         districtDao.save(district);
@@ -46,7 +50,7 @@ public class KindergartenControllerTest {
     @Order(2)
     @DisplayName("get all groups by kindergarten id")
     @DirtiesContext(methodMode = DirtiesContext.MethodMode.AFTER_METHOD)
-    void testGetAllGroupsByKindergartenId(){
+    void testGetAllGroupsByKindergartenId() {
         District district = TestUtils.createDefaultDistrict("Antakalnis");
         Kindergarten kindergarten = TestUtils.createDefaultKindergarten("12345678");
         kindergarten.setDistrict(district);
@@ -71,35 +75,27 @@ public class KindergartenControllerTest {
     @Order(3)
     @DisplayName("get one group by kindergarten id")
     @DirtiesContext(methodMode = DirtiesContext.MethodMode.AFTER_METHOD)
-    void testGetSingleGroupByKindergartenId(){
+    void testGetSingleGroupByKindergartenId() {
         districtDao.save(TestUtils.createDefaultDistrict("Antakalnis"));
-
 
         Kindergarten kindergarten = TestUtils.createDefaultKindergarten("132456778");
         kindergarten.setDistrict(districtDao.findByTitle("Antakalnis"));
 
-        Group group = TestUtils.createDefaultGroup(kindergarten);
-
-        Group group2 = TestUtils.createDefaultGroup(kindergarten);
-        AgeRange ageRange = new AgeRange();
-        ageRange.setAgeMin(3);
-        ageRange.setAgeMax(4);
-        group2.setAgeRange(ageRange);
-        group2.setChildrenCount(10);
-        group2.setTitle("Zva");
+        Group group = TestUtils.createDefaultGroup(kindergarten, "Zuikučiai");
+        Group group2 = TestUtils.createDefaultGroup(kindergarten, "Meškučiai");
 
         kindergarten.addGroup(group);
         kindergarten.addGroup(group2);
 
         kindergartenDao.save(kindergarten);
 
-        assertEquals("Zva", kindergartenController.getGroup(kindergarten.getId(),group2.getId()).getTitle(), "Should get single group by kindergarten id");
+        assertEquals("Meškučiai", kindergartenController.getGroup(kindergarten.getId(), group2.getId()).getTitle(), "Should get single group by kindergarten id");
     }
 
     @Test
     @Order(4)
     @DisplayName("get all kindergartens")
-    void testGetAllKindergartens(){
+    void testGetAllKindergartens() {
         District district = TestUtils.createDefaultDistrict("Antakalnis");
         Kindergarten kindergarten = TestUtils.createDefaultKindergarten("12345678");
 
@@ -122,7 +118,7 @@ public class KindergartenControllerTest {
     @Test
     @Order(5)
     @DisplayName("update kindergarten by id")
-    void testUpdateKindergarten(){
+    void testUpdateKindergarten() {
         District district = TestUtils.createDefaultDistrict("Antakalnis");
         districtDao.save(district);
 
@@ -151,7 +147,7 @@ public class KindergartenControllerTest {
     @Order(6)
     @DisplayName("disallow duplicate kindergarten company codes")
     @DirtiesContext(methodMode = DirtiesContext.MethodMode.BEFORE_METHOD)
-    void testCreateKindergartenWithDuplicateCompanyCode(){
+    void testCreateKindergartenWithDuplicateCompanyCode() {
 
         Kindergarten kindergarten = TestUtils.createDefaultKindergarten("12345888");
         KindergartenDto kindergartenDto = new KindergartenDto(TestUtils.createDefaultKindergarten("12345888"));
@@ -167,9 +163,9 @@ public class KindergartenControllerTest {
         districtDao.save(district2);
         secondKindergarten.setDistrict(district2);
 
-        ResponseEntity response =  kindergartenController.addKindergarten(secondKindergarten);
+        ResponseEntity response = kindergartenController.addKindergarten(secondKindergarten);
 
-        assertEquals( HttpStatus.CONFLICT, response.getStatusCode());
+        assertEquals(HttpStatus.CONFLICT, response.getStatusCode());
     }
 
 }

@@ -7,7 +7,6 @@ import lt.vtmc.kindergarten.dto.QueueDtoFromAdmin;
 import java.util.Date;
 
 
-
 public final class TestUtils {
 
     public static District createDefaultDistrict(String title) {
@@ -52,15 +51,18 @@ public final class TestUtils {
         return applicationDto;
     }
 
-    public static Group createDefaultGroup(Kindergarten kindergarten) {
+    public static Group createDefaultGroup(Kindergarten kindergarten, String title) {
         Group group = new Group();
+
         AgeRange ageRange = new AgeRange();
+
         ageRange.setAgeMin(1);
         ageRange.setAgeMax(2);
+
         group.setAgeRange(ageRange);
         group.setKindergartenId(kindergarten);
         group.setChildrenCount(10);
-        group.setTitle("Pukelis");
+        group.setTitle(title);
 
         return group;
     }
