@@ -52,20 +52,7 @@ public class ApplicationControllerTest {
     void testCreatingApplication() {
         createDefaultQueueDistrictKindergarten();
 
-        createDefaultChildFirstAndSecondParent("49041888888", "49041777777", "49041666666");
-
-        ApplicationCreationDto applicationCreationDto = TestUtils.createDefaultApplicationDto();
-
-        applicationCreationDto.setChildId(personDao.findByPersonalCode("49041888888").getId());
-        applicationCreationDto.setFirstParentId(personDao.findByPersonalCode("49041777777").getId());
-        applicationCreationDto.setSecondParentId(personDao.findByPersonalCode("49041666666").getId());
-
-        Map<Integer, Long> priorityKindergarten = new HashMap<>();
-        Kindergarten kindergarten = kindergartenDao.getOne(3L);
-        priorityKindergarten.put(1, kindergarten.getId());
-
-        applicationCreationDto.setPriorityForKindergartenID(priorityKindergarten);
-        applicationController.addApplication(applicationCreationDto);
+        createFilledApplicationWithOneKindergartenAndThreePersons();
 
         assertTrue(applicationDao.findAll().size() == 1);
     }
@@ -78,33 +65,19 @@ public class ApplicationControllerTest {
 
         createDefaultQueueDistrictKindergarten();
 
-        District district2 = TestUtils.createDefaultDistrict("KATAKALNIS");
-        districtDao.save(district2);
-
+        //Creates two new kindergartens
         Kindergarten kindergarten2 = TestUtils.createDefaultKindergarten("22222222");
-        kindergarten2.setDistrict(district2);
+        kindergarten2.setDistrict(districtDao.findByTitle("Antakalnis"));
         kindergartenDao.save(kindergarten2);
 
         Kindergarten kindergarten3 = TestUtils.createDefaultKindergarten("33333333");
-        kindergarten2.setDistrict(district2);
+        kindergarten2.setDistrict(districtDao.findByTitle("Antakalnis"));
         kindergartenDao.save(kindergarten3);
 
-        createDefaultChildFirstAndSecondParent("49041888888", "49041777777","49041666666");
+        //Creates filled application
+        createFilledApplicationWithOneKindergartenAndThreePersons();
 
-        ApplicationCreationDto applicationCreationDto = TestUtils.createDefaultApplicationDto();
-
-        applicationCreationDto.setChildId(personDao.findByPersonalCode("49041888888").getId());
-        applicationCreationDto.setFirstParentId(personDao.findByPersonalCode("49041777777").getId());
-        applicationCreationDto.setSecondParentId(personDao.findByPersonalCode("49041666666").getId());
-
-        Map<Integer, Long> priorityKindergarten = new HashMap<>();
-        Kindergarten kindergarten = kindergartenDao.getOne(3L);
-        priorityKindergarten.put(1, kindergarten.getId());
-
-        applicationCreationDto.setPriorityForKindergartenID(priorityKindergarten);
-        applicationController.addApplication(applicationCreationDto);
-
-        Application application = applicationDao.findAll().get(0);
+        assertEquals(1, kindergartenApplicationFormDao.findAll().size());
 
         ApplicationCreationDto applicationUpdateDto2 = TestUtils.createDefaultApplicationDto();
 
@@ -113,19 +86,17 @@ public class ApplicationControllerTest {
         applicationUpdateDto2.setSecondParentId(personDao.findByPersonalCode("49041666666").getId());
 
         Map<Integer, Long> priorityKindergartenUpdate = new HashMap<>();
-        priorityKindergartenUpdate.put(1, kindergarten.getId());
+        priorityKindergartenUpdate.put(1, kindergarten2.getId());
         priorityKindergartenUpdate.put(2, kindergarten2.getId());
-        priorityKindergartenUpdate.put(3, kindergarten2.getId());
-
         applicationUpdateDto2.setPriorityForKindergartenID(priorityKindergartenUpdate);
+
+        Application application = applicationDao.findAll().get(0);
         applicationController.updateApplication(application.getId(), applicationUpdateDto2);
 
-        assertTrue(kindergartenApplicationFormDao.findAll().size() == 3);
-
-        assertTrue(kindergartenDao.findByCompanyCode("11111111").getApplicationsSet().size() == 1, "Should apply to kindergarten once");
-        assertTrue(kindergartenDao.findByCompanyCode("22222222").getApplicationsSet().size() == 1, "Should not apply to the same kindergarten twice");
-        assertTrue(kindergartenDao.findByCompanyCode("33333333").getApplicationsSet().size() == 0, "Should have no applications");
-        assertTrue(applicationDao.findApplicationByChild(personDao.findByPersonalCode("49041888888")).getKindergartenApplicationForms().size() == 3);
+        assertEquals(kindergartenApplicationFormDao.findAll().size(), 2);
+        assertEquals(kindergartenDao.findByCompanyCode("22222222").getApplicationsSet().size(), 1, "Should apply to kindergarten once");
+        assertEquals(kindergartenDao.findByCompanyCode("33333333").getApplicationsSet().size(), 0, "Should have no applications");
+        assertEquals(applicationDao.findApplicationByChild(personDao.findByPersonalCode("49041888888")).getKindergartenApplicationForms().size(), 2);
     }
 
 
@@ -137,23 +108,10 @@ public class ApplicationControllerTest {
 
         createDefaultQueueDistrictKindergarten();
 
-        //PIRMAS PRASYMAS
-        createDefaultChildFirstAndSecondParent("49041888888", "49041777777", "49041666666");
+        //The first application creation
+        createFilledApplicationWithOneKindergartenAndThreePersons();
 
-        ApplicationCreationDto applicationCreationDto = TestUtils.createDefaultApplicationDto();
-
-        applicationCreationDto.setChildId(personDao.findByPersonalCode("49041888888").getId());
-        applicationCreationDto.setFirstParentId(personDao.findByPersonalCode("49041777777").getId());
-        applicationCreationDto.setSecondParentId(personDao.findByPersonalCode("49041666666").getId());
-
-        Map<Integer, Long> priorityKindergarten = new HashMap<>();
-        Kindergarten kindergarten = kindergartenDao.getOne(3L);
-        priorityKindergarten.put(1, kindergarten.getId());
-
-        applicationCreationDto.setPriorityForKindergartenID(priorityKindergarten);
-        applicationController.addApplication(applicationCreationDto);
-
-        //ANTRAS PRASYMAS
+        //The second application creation
         createDefaultChildFirstAndSecondParent("49041111111", "49041222222", "49041333333");
 
         ApplicationCreationDto applicationCreationDto2 = TestUtils.createDefaultApplicationDto();
@@ -170,6 +128,22 @@ public class ApplicationControllerTest {
         applicationController.addApplication(applicationCreationDto2);
 
         assertEquals(2, applicationDao.findAll().size(), "Should get all applications");
+    }
+
+    @Test
+    @DisplayName("get one applications by id")
+    @DirtiesContext(methodMode = DirtiesContext.MethodMode.BEFORE_METHOD)
+    @Transactional
+    void testGetOneApplicationById(){
+
+        createDefaultQueueDistrictKindergarten();
+
+        createFilledApplicationWithOneKindergartenAndThreePersons();
+
+        Long applicationId = applicationDao.findAll().get(0).getId();
+        Long childId = personDao.findByPersonalCode("49041888888").getId();
+
+        assertEquals(childId, applicationController.getApplication(applicationId).getChildId(), "Should get one applications by id");
     }
 
     private void createDefaultQueueDistrictKindergarten() {
@@ -193,5 +167,22 @@ public class ApplicationControllerTest {
 
         Person secondParent = TestUtils.createDefaultPerson(secondParentPersonalCode);
         personDao.save(secondParent);
+    }
+
+    private void createFilledApplicationWithOneKindergartenAndThreePersons() {
+
+        createDefaultChildFirstAndSecondParent("49041888888", "49041777777", "49041666666");
+        ApplicationCreationDto applicationCreationDto = TestUtils.createDefaultApplicationDto();
+
+        applicationCreationDto.setChildId(personDao.findByPersonalCode("49041888888").getId());
+        applicationCreationDto.setFirstParentId(personDao.findByPersonalCode("49041777777").getId());
+        applicationCreationDto.setSecondParentId(personDao.findByPersonalCode("49041666666").getId());
+
+        Map<Integer, Long> priorityKindergarten = new HashMap<>();
+        Kindergarten kindergarten = kindergartenDao.getOne(3L);
+        priorityKindergarten.put(1, kindergarten.getId());
+
+        applicationCreationDto.setPriorityForKindergartenID(priorityKindergarten);
+        applicationController.addApplication(applicationCreationDto);
     }
 }

@@ -12,7 +12,7 @@ import lt.vtmc.kindergarten.domain.Person;
 
 public class ApplicationDto {
 
-    
+
     private Long id;
     private Date date;
     private Set<String> kindergartensIds = new LinkedHashSet<>();
@@ -25,30 +25,33 @@ public class ApplicationDto {
     private boolean isGuardianStudent;
     private boolean isGuardianDisabled;
     private ApplicationStatusEnum applicationStatus;
-    
-    public ApplicationDto() {};
-    
-    public ApplicationDto(Long id, ApplicationStatusEnum applicationStatus, Person child,
-    		PersonDto parent, int score,
-			Person secondParent, Date date, boolean isAdopted, boolean isMultiChild, boolean isGuardianDisabled, boolean isGuardianStudent,
-			Set<KindergartenApplicationForm> kindergartenApplicationForms) {
-		this.id = id;
-		this.applicationStatus = applicationStatus;
-		this.child = child;
-		this.date = date;
-		this.parent = parent;
-		this.score = score;
-		this.secondParent = secondParent;
-		this.isAdopted = isAdopted;
-		this.isMultiChild = isMultiChild;
-		this.isGuardianDisabled = isGuardianDisabled;
-		this.isGuardianStudent = isGuardianStudent;
-		this.kindergartensIds = kindergartenApplicationForms.stream()
-				.map(application -> "Priority" + application.getPriority()
-				+ ":" + application.getKindergarten().getId()).collect(Collectors.toSet());
-	}
 
-	public Date getDate() {
+    public ApplicationDto() {
+    }
+
+    ;
+
+    public ApplicationDto(Long id, ApplicationStatusEnum applicationStatus, Person child,
+                          PersonDto parent, int score,
+                          Person secondParent, Date date, boolean isAdopted, boolean isMultiChild, boolean isGuardianDisabled, boolean isGuardianStudent,
+                          Set<KindergartenApplicationForm> kindergartenApplicationForms) {
+        this.id = id;
+        this.applicationStatus = applicationStatus;
+        this.child = child;
+        this.date = date;
+        this.parent = parent;
+        this.score = score;
+        this.secondParent = secondParent;
+        this.isAdopted = isAdopted;
+        this.isMultiChild = isMultiChild;
+        this.isGuardianDisabled = isGuardianDisabled;
+        this.isGuardianStudent = isGuardianStudent;
+        this.kindergartensIds = kindergartenApplicationForms.stream()
+                .map(application -> "Priority" + application.getPriority()
+                        + ":" + application.getKindergarten().getId()).collect(Collectors.toSet());
+    }
+
+    public Date getDate() {
         return date;
     }
 
