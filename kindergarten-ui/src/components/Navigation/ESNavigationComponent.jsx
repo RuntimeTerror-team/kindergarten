@@ -11,6 +11,9 @@ const ESNavigationComponent = () => {
             <Link to={`${urls.educationSpecialist.ageRangeBase}`} className={`btn btn-main mb-2 w-100 ${window.location.pathname === `/kindergarten${urls.educationSpecialist.ageRangeBase}` ? "btn-active" : ""}`} >
                 Amžiaus grupės sukūrimas
             </Link>
+            <Link to={`${urls.educationSpecialist.queueBase}`} className={`btn btn-main mb-2 w-100 ${window.location.pathname === `/kindergarten${urls.educationSpecialist.queueBase}` ? "btn-active" : ""}`}>
+                Eilių administravimas
+            </Link>
         </nav>
     )
 }
