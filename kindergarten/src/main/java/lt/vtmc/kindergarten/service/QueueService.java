@@ -8,14 +8,18 @@ import lt.vtmc.kindergarten.dto.QueueDtoFromAdmin;
 import lt.vtmc.kindergarten.dto.QueueDtoFromEducationSpecialist;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
+import org.springframework.scheduling.annotation.EnableScheduling;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 
 
 @Service
+@EnableScheduling
 public class QueueService {
 
     @Autowired
@@ -60,5 +64,17 @@ public class QueueService {
         return queueList;
     }
 
-
+    /**
+     * Checks for queue closing date and triggers lockdown if the deadline is met
+     * Check happens every minute
+     */
+    @Scheduled(cron = "1 * * * * *")
+    protected void lockQueueOnRegistrationClosingTime (){
+        Queue queue = queueDao.findByStatus(QueueStatusEnum.ACTIVE);
+        if(queue != null && queue.getRegistrationClosingDate()!=null && queue.getRegistrationClosingDate().before(new Date())){
+            System.out.println("Queue is after due date. Closing queue.");
+            queue.setStatus(QueueStatusEnum.LOCKED);
+            queueDao.save(queue);
+        }
+    }
 }

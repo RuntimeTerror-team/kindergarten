@@ -11,6 +11,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.stereotype.Component;
 
+
 @Component
 @Configuration
 @PropertySource("classpath:application.properties")
@@ -38,8 +39,6 @@ public class CommandLineAppStartupRunner implements CommandLineRunner {
             dataSeeder.createUsers();
             dataSeeder.createQueueWithOpeningDate();
         }
-
-
 
 
     }
