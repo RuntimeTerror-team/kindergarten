@@ -26,7 +26,7 @@ public class QueueDto {
         this.id = queue.getId();
         this.openingDate = queue.getOpeningDate();
         this.closingDate = queue.getClosingDate();
-        this.closingDate = queue.getRegistrationClosingDate();
+        this.registrationClosingDate = queue.getRegistrationClosingDate();
         this.status = queue.getStatus();
     }
 
