@@ -1,13 +1,11 @@
 package lt.vtmc.kindergarten;
 
-
 import lt.vtmc.kindergarten.domain.*;
 import lt.vtmc.kindergarten.dto.ApplicationCreationDto;
 import lt.vtmc.kindergarten.dto.QueueDtoFromAdmin;
 
 import java.util.Date;
-import java.util.HashMap;
-import java.util.Map;
+
 
 
 public final class TestUtils {
