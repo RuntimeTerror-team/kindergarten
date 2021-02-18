@@ -7,6 +7,8 @@ import lt.vtmc.kindergarten.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.util.Date;
+
 
 @Component
 public class DataSeeder {
@@ -25,6 +27,9 @@ public class DataSeeder {
 
     @Autowired
     UserService userService;
+
+    @Autowired
+    QueueService queueService;
 
     public District createDistrict(){
         District district = new District();
@@ -116,5 +121,9 @@ public class DataSeeder {
         userService.createGuardian("Justinas", "Bingelis");
     }
 
+    public void createQueueWithOpeningDate(){
+        Date date = new Date();
+        queueService.addQueueWithOpeningDate(new QueueDtoFromAdmin(date));
+    }
 
 }
