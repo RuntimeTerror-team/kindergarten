@@ -16,7 +16,7 @@ class QueueListContainer extends Component {
             message: "",
             messageStyle: "",
             isCreating: false,
-            isActive: false
+            isActiveQueue: false
         }
     }
 
@@ -28,9 +28,9 @@ class QueueListContainer extends Component {
             })
             .then(() => {
                 if (this.state.queues.length > 0) {
-                    let activeArr = this.state.queues.filter(q => q.status === "ACTIVE");
+                    let activeArr = this.state.queues.filter(q => q.status !== "INACTIVE");
                     if (activeArr.length > 0) {
-                        this.setState({ isActive: true })
+                        this.setState({ isActiveQueue: true })
                     }
                 }
             })
@@ -44,8 +44,8 @@ class QueueListContainer extends Component {
     handleChange = ({ target: input }) => {
         const errors = { ...this.state.errors };
         const errorMessage = this.validateProperty(input);
-        if (errorMessage) errors[input.name] = errorMessage;
-        else delete errors[input.name];
+        if (errorMessage) { errors[input.name] = errorMessage; }
+        else { delete errors[input.name]; }
 
         const queue = { ...this.state.queue };
         queue[input.name] = input.value;
@@ -96,6 +96,14 @@ class QueueListContainer extends Component {
                     .then((res) => {
                         this.setState({ queues: res.data })
                     })
+                    .then(() => {
+                        if (this.state.queues.length > 0) {
+                            let activeArr = this.state.queues.filter(q => q.status !== "INACTIVE");
+                            if (activeArr.length > 0) {
+                                this.setState({ isActiveQueue: true, isCreating: false })
+                            }
+                        }
+                    })
                     .catch((err) => console.log(err));
             })
             .catch((err) => {
@@ -127,7 +135,7 @@ class QueueListContainer extends Component {
                                 isUpdating={this.state.isUpdating}
                                 message={this.state.message}
                                 messageStyle={this.state.messageStyle}
-                                isActive={this.state.isActive}
+                                isActiveQueue={this.state.isActiveQueue}
                             />}
                         </div>
                     </div>
