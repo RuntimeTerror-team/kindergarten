@@ -18,6 +18,7 @@ class ApplicationContainer extends Component{
             currentStep: 1,
             kinderGartenList: [],
             optionsValuesList:[],
+            activeQueues: [],
             showChoices: false,
             guardianName: "",
             guardianSurname: "",
@@ -112,6 +113,14 @@ class ApplicationContainer extends Component{
           Axios.get(baseUrl + "/api/children")
           .then(res => this.setState({children: res.data}))
           .catch(err => console.log(err));
+
+          Axios.get(baseUrl + "/api/queues")
+           .then(res => {
+             this.setState({activeQueues: res.data})
+             console.log("ilgis" + this.state.activeQueues.length)
+             this.state.activeQueues.length === 0 ? this.setState({currentStep: 5}) : this.setState({currentStep: 1})
+          })
+           .catch(err =>console.log(err))
 
           Axios
           .get(`${baseUrl}/loggedUsername`)

@@ -6,6 +6,7 @@ import SecondGuardianInfoComponent from './SecondGuardianInfoComponent';
 import ChildInfoComponent from './ChildInfoComponent';
 import PriorityListComponent from './PriorityListComponent';
 import SecondGuardianButtonComponent from './SecondGuardianButtonComponent'
+import NoApplicationsComponent from './NoApplicationsComponent'
 
 let ApplicationComponent = (props) =>{
 
@@ -19,6 +20,9 @@ let ApplicationComponent = (props) =>{
             <form className="form ml-5" onSubmit={props.onSubmit}>
 
               <div className="row">
+
+              <NoApplicationsComponent
+               currentStep={props.currentStep}/>
 
                 <div className="col-4 px-5">
                 <ChildInfoComponent
