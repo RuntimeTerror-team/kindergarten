@@ -13,7 +13,7 @@ let GuardianInfoComponent = (props) =>{
         <div>
                 
                 
-                <div>
+                <div style={{width: "12em"}}>
                 <h3>Vaiko atstovas</h3>
 
                 <div className="form-group">

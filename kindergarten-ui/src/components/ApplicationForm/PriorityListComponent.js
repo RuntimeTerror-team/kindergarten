@@ -47,7 +47,7 @@ let PriorityListComponent = (props) =>{
             </div>
             
             
-            <button className="btn btn-green float-right mt-2">Pateikti</button>
+            <button className="btn btn-green float-right my-2">Pateikti</button>
             {props.previousButton()}
             <div className="row">
             

@@ -16,6 +16,8 @@ class ApplicationContainer extends Component {
     this.state = {
       username: "",
       userPerson: {},
+      userName: "",
+      userSurname: "",
       currentStep: 1,
       kinderGartenList: [],
       optionsValuesList: [],
@@ -80,6 +82,10 @@ class ApplicationContainer extends Component {
       emptyGuardianInputsMessageStyle: "",
       noneKindergartenSelectedMessage: "",
       noneKindergartenSelectedMessageStyle: "",
+      applicationMessage: "",
+      applicationMessageStyle: "",
+      childRegistratedMessage: "",
+      childRegistratedMessageStyle: "",
       guardian: [],
       secondGuardian: [],
       child: [],
@@ -153,6 +159,8 @@ class ApplicationContainer extends Component {
                 this.setState({ guardianCity: this.state.userPerson.cityEnum })
                 this.setState({ guardianPostalCode: this.state.userPerson.postalCode })
                 this.setState({ guardianEmail: this.state.userPerson.email })
+                this.setState({userName: this.state.guardianName})
+                this.setState({userSurname: this.state.guardianSurname})
               })
               .catch((err) => console.log(err))
           })
@@ -1050,6 +1058,10 @@ class ApplicationContainer extends Component {
                   emptyGuardianInputsMessageStyle={this.state.emptyGuardianInputsMessageStyle}
                   noneKindergartenSelectedMessage={this.state.noneKindergartenSelectedMessage}
                   noneKindergartenSelectedMessageStyle={this.state.noneKindergartenSelectedMessageStyle}
+                  applicationMessage={this.state.applicationMessage}
+                  applicationMessageStyle={this.state.applicationMessageStyle}
+                  childRegistratedMessage={this.state.childRegistratedMessage}
+                  childRegistratedMessageStyle={this.state.childRegistratedMessageStyle}
                   guardianButtonText={this.state.guardianButtonText}
                   isDisabled={this.state.isDisabled}
                   showSecondGuardianForm={this.state.showSecondGuardianForm}

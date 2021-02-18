@@ -37,7 +37,7 @@ let KindergartenListComponent = (props) =>{
 
         return(
 
-        <div className="">
+        <div className="mt-4">
 
             <table className='table col-3'>
                 {/* <thead>
@@ -71,10 +71,10 @@ let KindergartenListComponent = (props) =>{
                 {Options}
             </select>
             <div className="invalid-feedback">Prašome pridėti bent vieną darželį</div>
-            <button className="btn btn-info float-left" onClick={props.onChosenKindergartens}>Pridėti darželį</button>
+            <button className="btn btn-info" onClick={props.onChosenKindergartens}>Pridėti darželį</button>
             
             {props.showChoices ? myTable() : null}
-            <div className="row  ml-1 my-5">
+            <div className="row  ml-1 mb-0">
                 
             </div>
         </div>
