@@ -35,6 +35,8 @@ let ApplicationComponent = (props) =>{
                   childIdValidation={props.childIdValidation}
                   childStreetValidation={props.childStreetValidation}
                   childCityValidation={props.childCityValidation}
+                  emptyChildInputsMessage={props.emptyChildInputsMessage}
+                  emptyChildInputsMessageStyle={props.emptyChildInputsMessageStyle}
                   message={props.childMessage}
                   messageStyle={props.childMessageStyle}
                   onDetailsChange={props.onDetailsChange}
@@ -59,6 +61,8 @@ let ApplicationComponent = (props) =>{
                    email={props.guardianEmail}
                    message={props.guardianMessage}
                    messageStyle={props.guardianMessageStyle}
+                   guardianButtonText={props.guardianButtonText}
+                   isDisabled={props.isDisabled}
                    guardianNameValidation={props.guardianNameValidation}
                    guardianSurnameValidation={props.guardianSurnameValidation}
                    guardianIdValidation={props.guardianIdValidation}
@@ -67,6 +71,8 @@ let ApplicationComponent = (props) =>{
                    guardianCityValidation={props.guardianCityValidation}
                    guardianPostalCodeValidation={props.guardianPostalCodeValidation}
                    guardianEmailValidation={props.guardianEmailValidation}
+                   emptyInputsMessage={props.emptyInputsMessage}
+                   emptyInputsMessageStyle={props.emptyInputsMessageStyle}
                    onDetailsChange={props.onDetailsChange}
                    saveGuardian={props.saveGuardian}
                    prev={props.prev}
@@ -96,6 +102,8 @@ let ApplicationComponent = (props) =>{
                        secondGuardianAddressValidation={props.secondGuardianAddressValidation}
                        secondGuardianCityValidation={props.secondGuardianCityValidation}
                        secondGuardianPostalCodeValidation={props.secondGuardianPostalCodeValidation}
+                       emptyGuardianInputsMessage={props.emptyGuardianInputsMessage}
+                       emptyGuardianInputsMessageStyle={props.emptyGuardianInputsMessageStyle}
                        secondGuardianEmailValidation={props.secondGuardianEmailValidation}
                        showSecondGuardianForm={props.showSecondGuardianForm}
                        onDetailsChange={props.onDetailsChange}
@@ -195,6 +203,8 @@ ApplicationComponent.propTypes = {
     noChildMessageStyle: Proptypes.string.isRequired,
     noGuardianMessage: Proptypes.string.isRequired,
     noGuardianMessageStyle: Proptypes.string.isRequired,
+    guardianButtonText: Proptypes.string.isRequired,
+    isDisabled: Proptypes.bool.isRequired,
     handleOnOptionsChange: Proptypes.func.isRequired,
     onChosenKindergartens: Proptypes.func.isRequired,
     onDeleteSelection: Proptypes.func.isRequired,

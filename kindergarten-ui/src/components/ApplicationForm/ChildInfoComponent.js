@@ -16,12 +16,12 @@ let ChildInfoComponent = (props) =>{
         <div className="form-group">
             <input
               className={"form-control " + props.childNameValidation} name="childName" value={props.name} onChange={props.onDetailsChange} placeholder="Vardas"></input>
-              <div className="invalid-feedback">Šis laukas privalomas. Vardas turi būti 2-30 simbolių ilgio.</div>
+              <div className="invalid-feedback">Šis laukas privalomas. Vardas turi būti 3-20 simbolių ilgio.</div>
         </div>
         <div className="form-group">
             <input
               className={"form-control " + props.childSurnameValidation} name="childSurname" value={props.surname} onChange={props.onDetailsChange} placeholder="Pavardė"></input>
-              <div className="invalid-feedback">Šis laukas privalomas. Pavardė turi būti 2-30 simbolių ilgio.</div>
+              <div className="invalid-feedback">Šis laukas privalomas. Pavardė turi būti 3-30 simbolių ilgio.</div>
         </div>
         {/* <div className="form-group">
             <input
@@ -46,6 +46,10 @@ let ChildInfoComponent = (props) =>{
         <button className="btn btn-info" onClick={props.saveChild}>Išsaugoti</button>
         <div className={props.messageStyle + " mt-2"}>
         <span>{props.message}</span>
+        </div>
+
+        <div className={props.emptyChildInputsMessageStyle + " mt-2"}>
+        <span>{props.emptyChildInputsMessage}</span>
         </div>
 
         

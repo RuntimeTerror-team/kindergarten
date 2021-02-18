@@ -10,7 +10,7 @@ let SecondGuardianButtonComponent = (props) =>{
     return(
 
         <div className="row">
-            <button className="btn btn-info" onClick={props.fillSecondGuardian}>Pridėti antrąjį tevėli</button>
+            <button className="btn btn-info" onClick={props.fillSecondGuardian}>Pridėti antrą vaiko atstovą</button>
         </div>
 
 
