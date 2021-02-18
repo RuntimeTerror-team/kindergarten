@@ -25,11 +25,10 @@ public class PersonController {
     public ResponseEntity addPerson(
             @ApiParam(value = "", required = true)
             @RequestBody PersonDto personDto){
-
-        if(personService.checkIfPersonExistsByPersonalCode(personDto.getPersonalCode())){
-            return new ResponseEntity<>("Asmuo su tokiu asmens kodu jau egzistuoja", HttpStatus.CONFLICT);
-        }
-
+//        if(personService.checkIfPersonExistsByPersonalCode(personDto.getPersonalCode())){
+//            return new ResponseEntity<>("Asmuo su tokiu asmens kodu jau egzistuoja", HttpStatus.CONFLICT);
+//        }
+//
         try {
             personService.addPerson(personDto);
             return new ResponseEntity<>(HttpStatus.OK);
