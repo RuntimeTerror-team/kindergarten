@@ -4,6 +4,7 @@ import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 import lt.vtmc.kindergarten.dto.ApplicationCreationDto;
 import lt.vtmc.kindergarten.dto.ApplicationDto;
+import lt.vtmc.kindergarten.dto.ApplicationInfoDto;
 import lt.vtmc.kindergarten.service.ApplicationService;
 
 import java.util.List;
@@ -76,6 +77,15 @@ public class ApplicationController {
     @ResponseStatus(HttpStatus.OK)
     public List<ApplicationCreationDto> getApplications(){
         return applicationService.getApplications();
+    }
+
+    @RequestMapping(method = RequestMethod.GET, value = "/api/applications/info/{username}")
+    @ApiOperation(value="Get applications info",notes ="Returns all applications with info about children first, last names and application status, date by username")
+    @ResponseStatus(HttpStatus.OK)
+    public List<ApplicationInfoDto> getApplicationsInfo(
+            @PathVariable final String username
+    ){
+        return applicationService.getApplicationsInfo(username);
     }
 
 
