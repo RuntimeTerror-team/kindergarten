@@ -62,8 +62,9 @@ public class QueueService {
     @Transactional
     public void updateQueueWithClosingDate(Long id, QueueDtoClosingDate queueDto) {
         Queue queue = queueDao.getOne(id);
-        if (queue.getStatus() == QueueStatusEnum.ACTIVE) {
+        if (queue.getStatus() == QueueStatusEnum.LOCKED) {
             queue.setClosingDate(queueDto.getClosingDate());
+            queue.setStatus(QueueStatusEnum.INACTIVE);
             queueDao.save(queue);
         }
     }

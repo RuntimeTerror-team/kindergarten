@@ -24,7 +24,7 @@ const QueueListComponent = ({
                 </div>}
             {!isCreating && isActiveQueue
                 && <div className="alert alert-warning text-center" role="alert">
-                    Kol yra aktyvi arba uždaryta eilė, naujos kurti negalite.
+                    Galite kurti naują eilę, kai eilės yra neaktyvios.
               </div>}
             {isCreating
                 &&
