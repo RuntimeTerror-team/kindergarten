@@ -51,13 +51,18 @@ let PriorityListComponent = (props) =>{
             {props.previousButton()}
             <div className="row">
             
-              <span className={props.noneKindergartenSelectedMessageStyle} style={{ width: "23em" }}>
+              <span className={props.noneKindergartenSelectedMessageStyle + " mt-5"} style={{ width: "23em" }}>
                 {props.noneKindergartenSelectedMessage}
               </span>
 
               </div>
+
+              
+              <div className={"row " + props.noChildMessageStyle + " ml-1"} style={{ width: "23em" }}>
+                <span>{props.noChildMessage}</span>
+                </div>
             
-            <div className="row">
+             <div className="row">
               <span className={props.emptyInputsMessageStyle} style={{ width: "23em" }}>
                 {props.emptyInputsMessage}
               </span>

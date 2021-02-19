@@ -149,6 +149,8 @@ let ApplicationComponent = (props) =>{
                   emptyInputsMessageStyle={props.emptyInputsMessageStyle}
                   noneKindergartenSelectedMessage={props.noneKindergartenSelectedMessage}
                   noneKindergartenSelectedMessageStyle={props.noneKindergartenSelectedMessageStyle}
+                  noChildMessage={props.noChildMessage}
+                  noChildMessageStyle={props.noChildMessageStyle}
                   applicationMessage={props.applicationMessage}
                   applicationMessageStyle={props.applicationMessageStyle}
                   prev={props.prev}
@@ -157,12 +159,10 @@ let ApplicationComponent = (props) =>{
                   nextButton={props.nextButton}
                 />
 
-                <div className={props.noChildMessageStyle + " mt-2"}>
+                {/* <div className={props.noChildMessageStyle + " mt-2"}>
                 <span>{props.noChildMessage}</span>
-                </div>
-                <div className={props.noGuardianMessageStyle + " mt-2"}>
-                <span>{props.noGuardianMessage}</span>
-                </div>
+                </div> */}
+                
 
             </form>
             </div>
