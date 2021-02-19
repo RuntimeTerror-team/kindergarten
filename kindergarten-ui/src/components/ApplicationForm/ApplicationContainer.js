@@ -16,10 +16,12 @@ class ApplicationContainer extends Component {
     this.state = {
       username: "",
       userPerson: {},
+      userName: "",
+      userSurname: "",
       currentStep: 1,
       kinderGartenList: [],
       optionsValuesList: [],
-      showChoices: false,
+      showChoices: true,
       guardianName: "",
       guardianSurname: "",
       guardianId: "",
@@ -80,6 +82,10 @@ class ApplicationContainer extends Component {
       emptyGuardianInputsMessageStyle: "",
       noneKindergartenSelectedMessage: "",
       noneKindergartenSelectedMessageStyle: "",
+      applicationMessage: "",
+      applicationMessageStyle: "",
+      childRegistratedMessage: "",
+      childRegistratedMessageStyle: "",
       guardian: [],
       secondGuardian: [],
       child: [],
@@ -153,6 +159,8 @@ class ApplicationContainer extends Component {
                 this.setState({ guardianCity: this.state.userPerson.cityEnum })
                 this.setState({ guardianPostalCode: this.state.userPerson.postalCode })
                 this.setState({ guardianEmail: this.state.userPerson.email })
+                this.setState({userName: this.state.guardianName})
+                this.setState({userSurname: this.state.guardianSurname})
               })
               .catch((err) => console.log(err))
           })
@@ -175,6 +183,28 @@ class ApplicationContainer extends Component {
     this.setState({
       currentStep: currentStep
     })
+    this.setState({ applicationMessage: "" })
+    this.setState({ applicationMessageStyle: "" })
+    this.setState({ childMessage: "" })
+    this.setState({ childMessageStyle: "" })
+    this.setState({ noChildMessage: "" })
+    this.setState({ noChildMessageStyle: "" })
+    this.setState({ emptyChildInputsMessage: "" })
+    this.setState({ emptyChildInputsMessageStyle: "" })
+    this.setState({ childRegistratedMessage: "" })
+    this.setState({ childRegistratedMessageStyle: "" })
+    this.setState({ emptyInputsMessage: "" })
+    this.setState({ emptyInputsMessageStyle: "" })
+    this.setState({ guardianMessage: "" })
+    this.setState({ guardianMessageStyle: "" })
+    this.setState({ secondGuardianMessage: "" })
+    this.setState({ secondGuardianMessageStyle: "" })
+    this.setState({ emptyGuardianInputsMessage: "" })
+    this.setState({ emptyGuardianInputsMessageStyle: "" })
+    this.setState({ noGuardianMessage: "" })
+    this.setState({ noGuardianMessageStyle: "" })
+    this.setState({ noneKindergartenSelectedMessage: "" })
+    this.setState({ noneKindergartenSelectedMessageStyle: "" })
   }
 
   previousButton = () => {
@@ -831,6 +861,8 @@ class ApplicationContainer extends Component {
 
     e.preventDefault();
 
+    console.log("selected kindergardens list size: " + this.state.optionsValuesList.length)
+
     if (this.state.optionsValuesList.length === 0) {
 
       this.setState({ noneKindergartenSelectedMessage: "Prašome pridėti bent vieną darželį" })
@@ -844,7 +876,7 @@ class ApplicationContainer extends Component {
 
     }
 
-    else {
+    if(this.state.optionsValuesList.length !== 0 && this.state.childAdded ) {
 
       let selectedKindergartens = this.state.optionsValuesList.map(title => {
 
@@ -878,7 +910,10 @@ class ApplicationContainer extends Component {
 
             this.setState({ applicationMessage: "Prašymas sėkmingai pateiktas" })
             this.setState({ applicationMessageStyle: "alert alert-success mt-4" })
-            this.waitforSecond()
+            this.setState({currentStep: 2})
+            this.timer = setTimeout(() => {
+              this.props.history.push(urls.guardian.applicationBase)
+          }, 3000);
 
           }
         })
@@ -908,7 +943,7 @@ class ApplicationContainer extends Component {
         })
         .catch((err) => console.log(err))
 
-      this.setState({ showChoices: false })
+      this.setState({ showChoices: true })
       this.setState({ optionsValuesList: [] })
       this.setState({
         priorities: [
@@ -1050,6 +1085,10 @@ class ApplicationContainer extends Component {
                   emptyGuardianInputsMessageStyle={this.state.emptyGuardianInputsMessageStyle}
                   noneKindergartenSelectedMessage={this.state.noneKindergartenSelectedMessage}
                   noneKindergartenSelectedMessageStyle={this.state.noneKindergartenSelectedMessageStyle}
+                  applicationMessage={this.state.applicationMessage}
+                  applicationMessageStyle={this.state.applicationMessageStyle}
+                  childRegistratedMessage={this.state.childRegistratedMessage}
+                  childRegistratedMessageStyle={this.state.childRegistratedMessageStyle}
                   guardianButtonText={this.state.guardianButtonText}
                   isDisabled={this.state.isDisabled}
                   showSecondGuardianForm={this.state.showSecondGuardianForm}

@@ -9,7 +9,7 @@ let ChildInfoComponent = (props) =>{
 
     return(
 
-    <div>
+    <div style={{width: "12em"}}>
 
         <h3>Vaikas</h3> 
 
@@ -56,9 +56,9 @@ let ChildInfoComponent = (props) =>{
         <span>{props.childRegistratedMessage}</span>
         </div>
             
-        <div className={props.applicationMessageStyle + " mt-2"}>
+        {/* <div className={props.applicationMessageStyle + " mt-2"}>
           {props.applicationMessage}
-        </div>
+        </div> */}
             
     
 

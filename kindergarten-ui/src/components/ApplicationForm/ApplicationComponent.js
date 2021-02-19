@@ -14,17 +14,17 @@ let ApplicationComponent = (props) =>{
 
         <div className="container">
             <div className="row justify-content-center align-items-center">
-              <div className="col-12">
+              <div>
             <h1 className="my-3">Registracijos į darželį forma</h1>
             </div>
-            <form className="form ml-5" onSubmit={props.onSubmit}>
+            <form className="form ml-5 mt-3" onSubmit={props.onSubmit}>
 
               <div className="row">
 
               <NoApplicationsComponent
                currentStep={props.currentStep}/>
 
-                <div className="col-4 px-5 mt-4">
+                <div className="col-4 px-5">
                 <ChildInfoComponent
                   currentStep={props.currentStep}
                   name={props.childName}
@@ -41,8 +41,8 @@ let ApplicationComponent = (props) =>{
                   childCityValidation={props.childCityValidation}
                   emptyChildInputsMessage={props.emptyChildInputsMessage}
                   emptyChildInputsMessageStyle={props.emptyChildInputsMessageStyle}
-                  childRegistratedMessage={props.childRegistratedMessage}
-                  childRegistratedMessageStyle={props.childRegistratedMessageStyle}
+                  // childRegistratedMessage={props.childRegistratedMessage}
+                  // childRegistratedMessageStyle={props.childRegistratedMessageStyle}
                   applicationMessage={props.applicationMessage}
                   applicationMessageStyle={props.applicationMessageStyle}
                   message={props.childMessage}
@@ -149,18 +149,20 @@ let ApplicationComponent = (props) =>{
                   emptyInputsMessageStyle={props.emptyInputsMessageStyle}
                   noneKindergartenSelectedMessage={props.noneKindergartenSelectedMessage}
                   noneKindergartenSelectedMessageStyle={props.noneKindergartenSelectedMessageStyle}
+                  noChildMessage={props.noChildMessage}
+                  noChildMessageStyle={props.noChildMessageStyle}
+                  applicationMessage={props.applicationMessage}
+                  applicationMessageStyle={props.applicationMessageStyle}
                   prev={props.prev}
                   next={props.next}
                   previousButton={props.previousButton}
                   nextButton={props.nextButton}
                 />
 
-                <div className={props.noChildMessageStyle + " mt-2"}>
+                {/* <div className={props.noChildMessageStyle + " mt-2"}>
                 <span>{props.noChildMessage}</span>
-                </div>
-                <div className={props.noGuardianMessageStyle + " mt-2"}>
-                <span>{props.noGuardianMessage}</span>
-                </div>
+                </div> */}
+                
 
             </form>
             </div>

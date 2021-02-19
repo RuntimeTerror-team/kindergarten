@@ -9,7 +9,7 @@ let SecondGuardianInfoComponent = (props) =>{
 
     return(
 
-        <div>
+        <div style={{width: "12em"}}>
 
         <h3>Vaiko atstovas</h3>
 
