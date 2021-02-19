@@ -15,7 +15,7 @@ class GuardianPageContainer extends Component {
                         <GuardianNavigationComponent />
                         <div className="col-8">
                             <h1 className="mb-5 text-center">Prašymai</h1>
-                            <h2 className="text-center">APLICATIONS</h2>
+                            <h6 className="text-center">Prašymų sąrašas</h6>
                         </div>
                     </div>
                 </div>

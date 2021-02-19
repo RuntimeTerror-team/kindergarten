@@ -76,8 +76,8 @@ const EsQueueListComponent = ({
                                         />
                                     </td>}
                                 <td>{status === "ACTIVE" ? "Aktyvi" : ""}</td>
-                                {status === "ACTIVE" && !isUpdating && <td className="pl-1" id={id}><FaPencilAlt id={id} onClick={toggleUpdate} color="#F1CC00" size={20} /></td>}
-                                {status === "ACTIVE" && isUpdating && <td className="pl-1" id={id}><FaSave id={id} onClick={handleUpdate} color="#F1CC00" size={20} /></td>}
+                                {/* {status === "ACTIVE" && !isUpdating && <td className="pl-1" id={id}><FaPencilAlt id={id} onClick={toggleUpdate} color="#F1CC00" size={20} /></td>}
+                                {status === "ACTIVE" && isUpdating && <td className="pl-1" id={id}><FaSave id={id} onClick={handleUpdate} color="#F1CC00" size={20} /></td>} */}
                             </tr>
                         ))}
                     </tbody>}
