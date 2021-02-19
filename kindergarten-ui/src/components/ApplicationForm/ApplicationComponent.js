@@ -41,8 +41,8 @@ let ApplicationComponent = (props) =>{
                   childCityValidation={props.childCityValidation}
                   emptyChildInputsMessage={props.emptyChildInputsMessage}
                   emptyChildInputsMessageStyle={props.emptyChildInputsMessageStyle}
-                  childRegistratedMessage={props.childRegistratedMessage}
-                  childRegistratedMessageStyle={props.childRegistratedMessageStyle}
+                  // childRegistratedMessage={props.childRegistratedMessage}
+                  // childRegistratedMessageStyle={props.childRegistratedMessageStyle}
                   applicationMessage={props.applicationMessage}
                   applicationMessageStyle={props.applicationMessageStyle}
                   message={props.childMessage}
@@ -149,6 +149,8 @@ let ApplicationComponent = (props) =>{
                   emptyInputsMessageStyle={props.emptyInputsMessageStyle}
                   noneKindergartenSelectedMessage={props.noneKindergartenSelectedMessage}
                   noneKindergartenSelectedMessageStyle={props.noneKindergartenSelectedMessageStyle}
+                  applicationMessage={props.applicationMessage}
+                  applicationMessageStyle={props.applicationMessageStyle}
                   prev={props.prev}
                   next={props.next}
                   previousButton={props.previousButton}

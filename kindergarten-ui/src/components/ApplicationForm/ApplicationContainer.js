@@ -21,7 +21,7 @@ class ApplicationContainer extends Component {
       currentStep: 1,
       kinderGartenList: [],
       optionsValuesList: [],
-      showChoices: false,
+      showChoices: true,
       guardianName: "",
       guardianSurname: "",
       guardianId: "",
@@ -886,7 +886,10 @@ class ApplicationContainer extends Component {
 
             this.setState({ applicationMessage: "Prašymas sėkmingai pateiktas" })
             this.setState({ applicationMessageStyle: "alert alert-success mt-4" })
-            this.waitforSecond()
+            this.setState({currentStep: 2})
+            this.timer = setTimeout(() => {
+              this.props.history.push(urls.guardian.applicationBase)
+          }, 3000);
 
           }
         })
@@ -916,7 +919,7 @@ class ApplicationContainer extends Component {
         })
         .catch((err) => console.log(err))
 
-      this.setState({ showChoices: false })
+      this.setState({ showChoices: true })
       this.setState({ optionsValuesList: [] })
       this.setState({
         priorities: [

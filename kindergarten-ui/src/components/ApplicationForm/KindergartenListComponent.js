@@ -71,7 +71,7 @@ let KindergartenListComponent = (props) =>{
                 {Options}
             </select>
             <div className="invalid-feedback">Prašome pridėti bent vieną darželį</div>
-            <button className="btn btn-info" onClick={props.onChosenKindergartens}>Pridėti darželį</button>
+            {/* <button className="btn btn-info" onClick={props.onChosenKindergartens}>Pridėti darželį</button> */}
             
             {props.showChoices ? myTable() : null}
             <div className="row  ml-1 mb-0">
