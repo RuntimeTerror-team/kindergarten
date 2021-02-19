@@ -2,7 +2,7 @@ package lt.vtmc.kindergarten;
 
 import lt.vtmc.kindergarten.domain.*;
 import lt.vtmc.kindergarten.dto.ApplicationCreationDto;
-import lt.vtmc.kindergarten.dto.QueueDtoFromAdmin;
+import lt.vtmc.kindergarten.dto.QueueDtoWithOpeningDate;
 
 import java.util.Date;
 
@@ -67,8 +67,8 @@ public final class TestUtils {
         return group;
     }
 
-    public static QueueDtoFromAdmin createDefaultQueue() {
-        QueueDtoFromAdmin queue = new QueueDtoFromAdmin();
+    public static QueueDtoWithOpeningDate createDefaultQueue() {
+        QueueDtoWithOpeningDate queue = new QueueDtoWithOpeningDate();
         queue.setOpeningDate(new Date());
         return queue;
     }

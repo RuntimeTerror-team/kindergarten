@@ -7,7 +7,6 @@ import lt.vtmc.kindergarten.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import java.time.LocalDate;
 import java.util.Date;
 
 
@@ -161,7 +160,7 @@ public class DataSeeder {
 
     public void createQueueWithOpeningDate(){
         Date date = new Date();
-        queueService.addQueueWithOpeningDate(new QueueDtoFromAdmin(date));
+        queueService.addQueueWithOpeningDate(new QueueDtoWithOpeningDate(date));
     }
 
 }

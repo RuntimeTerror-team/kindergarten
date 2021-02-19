@@ -2,16 +2,16 @@ package lt.vtmc.kindergarten.dto;
 
 import java.util.Date;
 
-public class QueueDtoFromAdmin {
+public class QueueDtoWithOpeningDate {
 
 
     private Date openingDate;
 
 
-    public QueueDtoFromAdmin() {
+    public QueueDtoWithOpeningDate() {
     }
 
-    public QueueDtoFromAdmin(Date openingDate) {
+    public QueueDtoWithOpeningDate(Date openingDate) {
         this.openingDate = openingDate;
     }
 
