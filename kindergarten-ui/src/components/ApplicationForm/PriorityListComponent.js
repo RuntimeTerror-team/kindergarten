@@ -58,12 +58,16 @@ let PriorityListComponent = (props) =>{
               </div>
             
             <div className="row">
-            
               <span className={props.emptyInputsMessageStyle} style={{ width: "23em" }}>
                 {props.emptyInputsMessage}
               </span>
-            
-          </div>
+             </div>
+
+             <div className="row mt-5">
+              <span className={props.applicationMessageStyle + ""} style={{ width: "23em" }}>
+                {props.applicationMessage}
+              </span>
+             </div>
 
           
         </div>
