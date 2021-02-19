@@ -183,6 +183,28 @@ class ApplicationContainer extends Component {
     this.setState({
       currentStep: currentStep
     })
+    this.setState({ applicationMessage: "" })
+    this.setState({ applicationMessageStyle: "" })
+    this.setState({ childMessage: "" })
+    this.setState({ childMessageStyle: "" })
+    this.setState({ noChildMessage: "" })
+    this.setState({ noChildMessageStyle: "" })
+    this.setState({ emptyChildInputsMessage: "" })
+    this.setState({ emptyChildInputsMessageStyle: "" })
+    this.setState({ childRegistratedMessage: "" })
+    this.setState({ childRegistratedMessageStyle: "" })
+    this.setState({ emptyInputsMessage: "" })
+    this.setState({ emptyInputsMessageStyle: "" })
+    this.setState({ guardianMessage: "" })
+    this.setState({ guardianMessageStyle: "" })
+    this.setState({ secondGuardianMessage: "" })
+    this.setState({ secondGuardianMessageStyle: "" })
+    this.setState({ emptyGuardianInputsMessage: "" })
+    this.setState({ emptyGuardianInputsMessageStyle: "" })
+    this.setState({ noGuardianMessage: "" })
+    this.setState({ noGuardianMessageStyle: "" })
+    this.setState({ noneKindergartenSelectedMessage: "" })
+    this.setState({ noneKindergartenSelectedMessageStyle: "" })
   }
 
   previousButton = () => {
@@ -839,6 +861,8 @@ class ApplicationContainer extends Component {
 
     e.preventDefault();
 
+    console.log("selected kindergardens list size: " + this.state.optionsValuesList.length)
+
     if (this.state.optionsValuesList.length === 0) {
 
       this.setState({ noneKindergartenSelectedMessage: "Prašome pridėti bent vieną darželį" })
@@ -852,7 +876,7 @@ class ApplicationContainer extends Component {
 
     }
 
-    else {
+    if(this.state.optionsValuesList.length !== 0 && this.state.childAdded ) {
 
       let selectedKindergartens = this.state.optionsValuesList.map(title => {
 
