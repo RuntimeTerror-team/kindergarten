@@ -6,10 +6,10 @@ import lt.vtmc.kindergarten.domain.Application;
 import lt.vtmc.kindergarten.domain.ApplicationStatusEnum;
 import lt.vtmc.kindergarten.domain.Queue;
 import lt.vtmc.kindergarten.domain.QueueStatusEnum;
-import lt.vtmc.kindergarten.dto.ApplicationCreationDto;
 import lt.vtmc.kindergarten.dto.QueueDto;
-import lt.vtmc.kindergarten.dto.QueueDtoFromAdmin;
-import lt.vtmc.kindergarten.dto.QueueDtoFromEducationSpecialist;
+import lt.vtmc.kindergarten.dto.QueueDtoClosingDate;
+import lt.vtmc.kindergarten.dto.QueueDtoWithOpeningDate;
+import lt.vtmc.kindergarten.dto.QueueDtoRegistrationClosingDate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
 import org.springframework.scheduling.annotation.EnableScheduling;
@@ -34,7 +34,7 @@ public class QueueService {
 
 
     @Transactional
-    public void addQueueWithOpeningDate(QueueDtoFromAdmin queueDtoFromAdmin) {
+    public void addQueueWithOpeningDate(QueueDtoWithOpeningDate queueDtoWithOpeningDate) {
         List<Queue> queues = queueDao.findAll();
         QueueStatusEnum queueStatusEnumToFind = QueueStatusEnum.ACTIVE;
 
@@ -42,7 +42,7 @@ public class QueueService {
 
         if (!isThereOtherActiveQueue) {
             Queue queue = new Queue();
-            queue.setOpeningDate(queueDtoFromAdmin.getOpeningDate());
+            queue.setOpeningDate(queueDtoWithOpeningDate.getOpeningDate());
             queue.setStatus(QueueStatusEnum.ACTIVE);
 
             queueDao.save(queue);
@@ -50,12 +50,22 @@ public class QueueService {
     }
 
     @Transactional
-    public void updateQueueFromES(Long id, QueueDtoFromEducationSpecialist queueDto) {
+    public void updateQueueWithRegistrationClosingDate(Long id, QueueDtoRegistrationClosingDate queueDto) {
         Queue queue = queueDao.getOne(id);
-        queue.setRegistrationClosingDate(queueDto.getRegistrationClosingDate());
-        queue.setClosingDate(queueDto.getClosingDate());
 
-        queueDao.save(queue);
+        if (queue.getStatus() == QueueStatusEnum.ACTIVE) {
+            queue.setRegistrationClosingDate(queueDto.getRegistrationClosingDate());
+            queueDao.save(queue);
+        }
+    }
+
+    @Transactional
+    public void updateQueueWithClosingDate(Long id, QueueDtoClosingDate queueDto) {
+        Queue queue = queueDao.getOne(id);
+        if (queue.getStatus() == QueueStatusEnum.ACTIVE) {
+            queue.setClosingDate(queueDto.getClosingDate());
+            queueDao.save(queue);
+        }
     }
 
     @Transactional(readOnly = true)
@@ -84,17 +94,14 @@ public class QueueService {
             System.out.println("Queue is after due date. Closing queue.");
             queue.setStatus(QueueStatusEnum.LOCKED);
             queueDao.save(queue);
-
-            applicationList.stream().forEach( application ->
+            applicationList.stream().forEach(application ->
                     {
                         application.setApplicationStatus(ApplicationStatusEnum.WAITING);
                         applicationDao.save(application);
                     }
-
-
             );
-
-
         }
     }
+
+
 }
