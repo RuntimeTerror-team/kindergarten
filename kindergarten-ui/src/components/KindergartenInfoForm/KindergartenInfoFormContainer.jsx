@@ -51,7 +51,22 @@ class KindergartenInfoFormContainer extends Component {
             )
         } else {
             return (
-                <div>Duomenys kraunasi...</div>
+                <div>
+                    <div className="footerBottom">
+                        <HeaderComponent userRole="ROLE_EDUCATION_SPECIALIST" />
+                        <div className="container py-4">
+                            <div className="row">
+                                <ESNavigationComponent />
+                                <div className="col-8">
+                                    <h1 className="mb-5 text-center">Darželio kontaktinė informacija</h1>
+                                    <div>Duomenys kraunasi...</div>
+                                </div>
+                            </div>
+                        </div>
+                        <Footer />
+                    </div>
+                </div>
+
             )
         }
 

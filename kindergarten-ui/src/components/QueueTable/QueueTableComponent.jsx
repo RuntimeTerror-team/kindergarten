@@ -1,7 +1,6 @@
 import React from 'react';
 
 const QueueTableComponent = ({ queues }) => {
-    console.log(queues);
     return (
         <table className="table col-10 mx-auto mt-3 fixedTable text-center">
             <thead>
@@ -31,7 +30,12 @@ const QueueTableComponent = ({ queues }) => {
                             {closingDate ? new Date(closingDate).toLocaleDateString() : "-"}<br />
                             {closingDate && new Date(closingDate).toLocaleTimeString()}
                         </td>
-                        <td>{status === "ACTIVE" ? "Aktyvi" : ""}</td>
+                        <td>{(status === "ACTIVE")
+                            ? "Aktyvi"
+                            : (status === "LOCKED")
+                                ? "Sustabdyta"
+                                : "Neaktyvi"}
+                        </td>
                     </tr>
                 ))}
             </tbody>

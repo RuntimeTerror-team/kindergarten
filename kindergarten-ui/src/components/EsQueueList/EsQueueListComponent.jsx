@@ -1,7 +1,5 @@
 import React from "react";
 import Proptypes from "prop-types";
-import { FaPencilAlt } from "react-icons/fa";
-import { FaSave } from "react-icons/fa";
 import Input from "../common/Input";
 
 const EsQueueListComponent = ({
@@ -11,11 +9,12 @@ const EsQueueListComponent = ({
     errors,
     toggleUpdate,
     isUpdating,
-    handleUpdate,
+    handleClosingRegistration,
     message,
-    messageStyle
+    messageStyle,
+    handleApprove
 }) => {
-    const { registrationClosingDt, closingDt } = queue;
+    const { registrationClosingDt } = queue;
     return (
         <div className="col-12 clearfix mb-3">
             <table className="table col-12 mt-3 fixedTable text-center">
@@ -28,7 +27,11 @@ const EsQueueListComponent = ({
                         <th scope="col">Registracijos stabdymas</th>
                         <th scope="col">Eilės uždarymas</th>
                         <th scope="col">Būsena</th>
-                        {queues.length > 0 && <th scope="col" style={{ width: "30px" }}></th>}
+                        {queues.length > 0
+                            &&
+                            queues.filter(q => q.status === "ACTIVE").length > 0
+                            &&
+                            <th scope="col">Veiksmai</th>}
                     </tr>
                 </thead>
 
@@ -46,12 +49,7 @@ const EsQueueListComponent = ({
                                         {registrationClosingDate ? new Date(registrationClosingDate).toLocaleDateString() : "-"}<br />
                                         {registrationClosingDate && new Date(registrationClosingDate).toLocaleTimeString()}
                                     </td>}
-                                {!isUpdating
-                                    && <td>
-                                        {closingDate ? new Date(closingDate).toLocaleDateString() : "-"}<br />
-                                        {closingDate && new Date(closingDate).toLocaleTimeString()}
-                                    </td>}
-                                {isUpdating
+                                {(isUpdating && status === "ACTIVE")
                                     && <td>
                                         <Input
                                             type="datetime-local"
@@ -63,21 +61,38 @@ const EsQueueListComponent = ({
                                             errorMessage="Šis laukas privalomas"
                                         />
                                     </td>}
-                                {isUpdating
+                                {(isUpdating && status !== "ACTIVE")
                                     && <td>
-                                        <Input
-                                            type="datetime-local"
-                                            onChange={handleChange}
-                                            inputStyle="col-11"
-                                            error={errors.closingDt}
-                                            name="closingDt"
-                                            value={closingDt}
-                                            errorMessage="Šis laukas privalomas"
-                                        />
+                                        {registrationClosingDate ? new Date(registrationClosingDate).toLocaleDateString() : "-"}<br />
+                                        {registrationClosingDate && new Date(registrationClosingDate).toLocaleTimeString()}
                                     </td>}
-                                <td>{status === "ACTIVE" ? "Aktyvi" : ""}</td>
-                                {/* {status === "ACTIVE" && !isUpdating && <td className="pl-1" id={id}><FaPencilAlt id={id} onClick={toggleUpdate} color="#F1CC00" size={20} /></td>}
-                                {status === "ACTIVE" && isUpdating && <td className="pl-1" id={id}><FaSave id={id} onClick={handleUpdate} color="#F1CC00" size={20} /></td>} */}
+                                {closingDate
+                                    ? <td>
+                                        {closingDate && new Date(closingDate).toLocaleDateString()}<br />
+                                        {closingDate && new Date(closingDate).toLocaleTimeString()}
+                                    </td>
+                                    : status === "LOCKED"
+                                        ? <td>
+                                            <button className="btn btn-red" id={id} onClick={handleApprove}>Uždaryti</button>
+                                        </td>
+                                        : <td>-</td>}
+                                <td>{(status === "ACTIVE")
+                                    ? "Aktyvi"
+                                    : (status === "LOCKED")
+                                        ? "Sustabdyta"
+                                        : "Neaktyvi"}
+                                </td>
+                                {status === "ACTIVE"
+                                    && !isUpdating
+                                    && <td className="pl-1" id={id}>
+                                        <button className="btn btn-small btn-green p-1" id={id} onClick={toggleUpdate}>Keisti</button>
+                                    </td>}
+                                {status === "ACTIVE"
+                                    && isUpdating
+                                    && <td className="pl-1 pt-1" id={id}>
+                                        <button className="btn btn-small btn-yellow p-1 mb-1" id={id} onClick={toggleUpdate}>Atšaukti</button> <br />
+                                        <button className="btn btn-small btn-green p-1" id={id} onClick={handleClosingRegistration}>Saugoti</button>
+                                    </td>}
                             </tr>
                         ))}
                     </tbody>}

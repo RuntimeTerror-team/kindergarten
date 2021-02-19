@@ -23,7 +23,8 @@ class EsQueueListContainer extends Component {
         }
     }
 
-    timer = null;
+    alertTimer = null;
+    refreshTimer = null;
 
     componentDidMount = () => {
         axios
@@ -31,22 +32,36 @@ class EsQueueListContainer extends Component {
             .then((res) => {
                 this.setState({ queues: res.data })
             })
+            .then(() => {
+                let active = this.state.queues.filter(q => q.status === "ACTIVE" && q.registrationClosingDate);
+                if (active.length > 0) {
+                    this.refreshtTimer = setTimeout(() => {
+                        this.refresh();
+                    }, new Date(active[0].registrationClosingDate) - new Date());
+                }
+            })
             .catch((err) => console.log(err));
     }
 
     componentWillUnmount = () => {
-        if (this.timer) {
-            clearTimeout(this.timer);
+        if (this.alertTimer) {
+            clearTimeout(this.alertTimer);
+        }
+        if (this.refreshTimer) {
+            clearTimeout(this.refreshTimer);
         }
     }
 
     toggleUpdate = (e) => {
+        this.setState({})
+
         if (e.target.id) {
-            this.setState({ isUpdating: !this.state.isUpdating })
             this.setState({ updatingId: e.target.id })
             this.setState({ message: "" })
             this.setState({ messageStyle: "" })
+            this.setState({ errors: {} })
         }
+        this.setState({ isUpdating: !this.state.isUpdating })
     }
 
     handleChange = ({ target: input }) => {
@@ -66,9 +81,6 @@ class EsQueueListContainer extends Component {
         if (name === "registrationClosingDt") {
             return "";
         }
-        if (name === "closingDt") {
-            return "";
-        }
     }
 
     validate = () => {
@@ -79,13 +91,10 @@ class EsQueueListContainer extends Component {
         if (queue.registrationClosingDt.trim() === '')
             errors.registrationClosingDt = "is-invalid"
 
-        if (queue.closingDt.trim() === '')
-            errors.closingDt = "is-invalid"
-
         return Object.keys(errors).length === 0 ? null : errors;
     }
 
-    handleUpdate = (e) => {
+    handleClosingRegistration = (e) => {
         e.preventDefault();
 
         let { queue } = this.state;
@@ -100,7 +109,6 @@ class EsQueueListContainer extends Component {
 
         axios
             .put(`${baseUrl}/api/queues/${this.state.updatingId}`, {
-                "closingDate": new Date(queue.closingDt).toISOString(),
                 "registrationClosingDate": new Date(queue.registrationClosingDt).toISOString()
             })
             .then(() => {
@@ -110,9 +118,47 @@ class EsQueueListContainer extends Component {
                     .then((res) => {
                         this.setState({ queues: res.data })
                         this.setState({ isUpdating: false });
-                        this.setState({ message: "Datos išsaugotos sėkmingai" })
+                        this.setState({ message: "Data išsaugota sėkmingai" })
                         this.setState({ messageStyle: "alert alert-success" })
-                        this.timer = setTimeout(() => {
+                        this.alertTimer = setTimeout(() => {
+                            this.setState({ message: "" })
+                            this.setState({ messageStyle: "" })
+                        }, 1500);
+                    })
+                    .then(() => {
+                        let active = this.state.queues.filter(q => q.status === "ACTIVE" && q.registrationClosingDate)[0].registrationClosingDate;
+
+                        this.refreshtTimer = setTimeout(() => {
+                            this.refresh();
+                        }, new Date(active) - new Date());
+                    })
+                    .catch((err) => console.log(err));
+            })
+            .catch((err) => {
+                this.setState({ message: "Klaida. Datos išsaugoti nepavyko" })
+                this.setState({ messageStyle: "alert alert-danger" })
+                console.log(err);
+            });
+    }
+
+    refresh = () => {
+        window.location.reload()
+    }
+
+    handleApprove = (e) => {
+        axios
+            .put(`${baseUrl}/api/queues/closing/${e.target.id}`, {
+                "closingDate": new Date().toISOString()
+            })
+            .then(() => {
+                axios
+                    .get(`${baseUrl}/api/queues`)
+                    .then((res) => {
+                        this.setState({ queues: res.data })
+                        this.setState({ isUpdating: false });
+                        this.setState({ message: "Eilė uždaryta sėkmingai" })
+                        this.setState({ messageStyle: "alert alert-success" })
+                        this.alertTimer = setTimeout(() => {
                             this.setState({ message: "" })
                             this.setState({ messageStyle: "" })
                         }, 1500);
@@ -120,7 +166,7 @@ class EsQueueListContainer extends Component {
                     .catch((err) => console.log(err));
             })
             .catch((err) => {
-                this.setState({ message: "Klaida. Datų išsaugoti nepavyko" })
+                this.setState({ message: "Klaida. Eilės uždaryti nepavyko" })
                 this.setState({ messageStyle: "alert alert-danger" })
                 console.log(err);
             });
@@ -142,10 +188,11 @@ class EsQueueListContainer extends Component {
                                 handleChange={this.handleChange}
                                 toggleUpdate={this.toggleUpdate}
                                 isUpdating={this.state.isUpdating}
-                                handleUpdate={this.handleUpdate}
+                                handleClosingRegistration={this.handleClosingRegistration}
                                 message={this.state.message}
                                 messageStyle={this.state.messageStyle}
-                                updatingId={this.state.updatingId}
+                                refresh={this.refresh}
+                                handleApprove={this.handleApprove}
                             />}
                         </div>
                     </div>

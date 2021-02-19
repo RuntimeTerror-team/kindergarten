@@ -3,8 +3,9 @@ package lt.vtmc.kindergarten.controller;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 import lt.vtmc.kindergarten.dto.QueueDto;
-import lt.vtmc.kindergarten.dto.QueueDtoFromAdmin;
-import lt.vtmc.kindergarten.dto.QueueDtoFromEducationSpecialist;
+import lt.vtmc.kindergarten.dto.QueueDtoClosingDate;
+import lt.vtmc.kindergarten.dto.QueueDtoWithOpeningDate;
+import lt.vtmc.kindergarten.dto.QueueDtoRegistrationClosingDate;
 import lt.vtmc.kindergarten.service.QueueService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -38,21 +39,34 @@ public class QueueController {
     @RequestMapping(value="/api/queues", method = RequestMethod.POST)
     @ResponseStatus(HttpStatus.CREATED)
     @ApiOperation(value = "Create queue with opening Date", notes = "Creates new queue with opening date")
-    public void addQueueWithOpeningDate(
+    public void addQueueOpeningDate(
             @ApiParam(value = "", required = true)
-            @RequestBody QueueDtoFromAdmin queueDtoFromAdmin){
-        queueService.addQueueWithOpeningDate(queueDtoFromAdmin);
+            @RequestBody QueueDtoWithOpeningDate queueDtoWithOpeningDate){
+        queueService.addQueueWithOpeningDate(queueDtoWithOpeningDate);
     }
 
-    @ApiOperation(value = "Update queue", notes = "Updates queue closing date and closing registration date by id")
+
     @RequestMapping(value = "/api/queues/{id}", method = RequestMethod.PUT)
+    @ApiOperation(value = "Update queue registration closing date", notes = "Updates queue closing registration date by id")
     @ResponseStatus(HttpStatus.OK)
-    public void updateQueueFromES(
+    public void updateQueueWithRegistrationClosingDate(
             @ApiParam(value = "", required = true)
             @PathVariable Long id,
-            @RequestBody QueueDtoFromEducationSpecialist queueDtoFromES
+            @RequestBody QueueDtoRegistrationClosingDate queueDtoRegistrationClosingDate
             ){
-        queueService.updateQueueFromES(id, queueDtoFromES);
+        queueService.updateQueueWithRegistrationClosingDate(id, queueDtoRegistrationClosingDate);
+    }
+
+
+    @RequestMapping(value = "/api/queues/closing/{id}", method = RequestMethod.PUT)
+    @ApiOperation(value = "Update queue closing date", notes = "Updates queue closing date by id")
+    @ResponseStatus(HttpStatus.OK)
+    public void updateQueueClosingDate(
+            @ApiParam(value = "", required = true)
+            @PathVariable Long id,
+            @RequestBody QueueDtoClosingDate queueDtoClosingDate
+            ){
+        queueService.updateQueueWithClosingDate(id, queueDtoClosingDate);
     }
 
 }

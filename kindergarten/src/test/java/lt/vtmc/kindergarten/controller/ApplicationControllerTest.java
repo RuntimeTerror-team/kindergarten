@@ -4,7 +4,7 @@ import lt.vtmc.kindergarten.TestUtils;
 import lt.vtmc.kindergarten.dao.*;
 import lt.vtmc.kindergarten.domain.*;
 import lt.vtmc.kindergarten.dto.ApplicationCreationDto;
-import lt.vtmc.kindergarten.dto.QueueDtoFromAdmin;
+import lt.vtmc.kindergarten.dto.QueueDtoWithOpeningDate;
 import lt.vtmc.kindergarten.service.QueueService;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -147,7 +147,7 @@ public class ApplicationControllerTest {
     }
 
     private void createDefaultQueueDistrictKindergarten() {
-        QueueDtoFromAdmin queue = TestUtils.createDefaultQueue();
+        QueueDtoWithOpeningDate queue = TestUtils.createDefaultQueue();
         queueService.addQueueWithOpeningDate(queue);
 
         District district = TestUtils.createDefaultDistrict("Antakalnis");
