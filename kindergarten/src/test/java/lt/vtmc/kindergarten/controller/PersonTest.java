@@ -77,6 +77,7 @@ public class PersonTest {
         person.setLastName("Patinas");
         person.setPostalCode("10321");
         person.setCity(CityEnum.VILNIUS);
+        person.setTribeId("qwerty");
         person.setPhoneNumber("+37065365887");
 
         return person;

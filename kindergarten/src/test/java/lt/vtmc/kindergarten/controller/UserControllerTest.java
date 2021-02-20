@@ -209,6 +209,7 @@ public class UserControllerTest {
         person.setCity(CityEnum.VILNIUS);
         person.setPhoneNumber("+37065365887");
         person.setAddress("Katinu 15");
+        person.setTribeId("perdaugkaciu");
         personDao.save(person);
 
         Role role = new Role(RoleType.GUARDIAN);

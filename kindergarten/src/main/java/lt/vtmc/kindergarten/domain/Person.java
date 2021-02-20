@@ -47,6 +47,10 @@ public class Person {
     @Email
     private String email;
 
+    @Column
+    @NotNull
+    private String tribeId;
+
     public Person() {
     }
 
@@ -130,4 +134,11 @@ public class Person {
         this.id = id;
     }
 
+    public String getTribeId() {
+        return tribeId;
+    }
+
+    public void setTribeId(String tribeId) {
+        this.tribeId = tribeId;
+    }
 }
