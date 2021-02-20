@@ -4,6 +4,7 @@ import lt.vtmc.kindergarten.dao.*;
 import lt.vtmc.kindergarten.domain.*;
 import lt.vtmc.kindergarten.dto.ApplicationCreationDto;
 import lt.vtmc.kindergarten.dto.ApplicationDto;
+import lt.vtmc.kindergarten.dto.ApplicationInfoDto;
 import lt.vtmc.kindergarten.dto.PersonDto;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,6 +12,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.validation.annotation.Validated;
+
 
 import javax.validation.Valid;
 
@@ -42,6 +44,9 @@ public class ApplicationService {
 
     @Autowired
     private KindergartenApplicationFormService kindergartenApplicationService;
+
+    @Autowired
+    private UserDao userDao;
 
 
     @Transactional
@@ -132,6 +137,19 @@ public class ApplicationService {
         List<ApplicationCreationDto> applicationList = applications.stream().map(application -> new ApplicationCreationDto(application))
                 .collect(Collectors.toList());
         return applicationList;
+    }
+
+    @Transactional
+    public List<ApplicationInfoDto> getApplicationsInfo(String username) {
+        User user = userDao.findByUsername(username);
+        Person parent = personDao.findByUser(user);
+
+        Set<Application> applicationsByParent = applicationDao.findByParent(parent);
+
+        List<ApplicationInfoDto> applicationInfoList = applicationsByParent.stream().map(application -> new ApplicationInfoDto(application)
+        ).collect(Collectors.toList());
+
+        return applicationInfoList;
     }
 
 
