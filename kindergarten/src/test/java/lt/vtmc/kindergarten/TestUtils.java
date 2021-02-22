@@ -37,6 +37,7 @@ public final class TestUtils {
         person.setAddress("Kanklių g.4");
         person.setCity(CityEnum.VILNIUS);
         person.setPostalCode("12355");
+        person.setTribeId("qwerty");
         return person;
     }
 

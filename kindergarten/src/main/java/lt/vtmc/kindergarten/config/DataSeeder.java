@@ -52,6 +52,7 @@ public class DataSeeder {
         person.setPersonalCode("33333333333");
         person.setPhoneNumber("862412323");
         person.setPostalCode("10321");
+        person.setTribeId("qwerty");
         personService.addPerson(new PersonDto(person));
 
         Person child = new Person();
@@ -63,6 +64,7 @@ public class DataSeeder {
         child.setPersonalCode("11111111111");
         child.setPhoneNumber(null);
         child.setPostalCode("10321");
+        child.setTribeId("qwerty");
         personService.addPerson(new PersonDto(child));
 
         Person person2 = new Person();
@@ -74,6 +76,7 @@ public class DataSeeder {
         person2.setPersonalCode("22222222222");
         person2.setPhoneNumber("862412322");
         person2.setPostalCode("10321");
+        person2.setTribeId("qwerty");;
         personService.addPerson(new PersonDto(person2));
 
         Application application = new Application();
@@ -86,6 +89,7 @@ public class DataSeeder {
         person3.setPersonalCode("66666666666");
         person3.setPhoneNumber("862412111");
         person3.setPostalCode("10321");
+        person3.setTribeId("qwerty");
         personService.addPerson(new PersonDto(person3));
 
         Person child2 = new Person();
@@ -97,6 +101,7 @@ public class DataSeeder {
         child2.setPersonalCode("55555555555");
         child2.setPhoneNumber(null);
         child2.setPostalCode("10321");
+        child2.setTribeId("qwerty");
         personService.addPerson(new PersonDto(child2));
 
         Person person4 = new Person();
@@ -108,6 +113,7 @@ public class DataSeeder {
         person4.setPersonalCode("99999999999");
         person4.setPhoneNumber("862414444");
         person4.setPostalCode("10321");
+        person4.setTribeId("qwerty");
         personService.addPerson(new PersonDto(person4));
     }
 

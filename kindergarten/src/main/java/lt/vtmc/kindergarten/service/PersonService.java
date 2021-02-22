@@ -5,8 +5,12 @@ import lt.vtmc.kindergarten.dao.UserDao;
 import lt.vtmc.kindergarten.domain.*;
 import lt.vtmc.kindergarten.dto.PersonDto;
 import lt.vtmc.kindergarten.dto.PersonUserDto;
+import org.apache.commons.lang3.RandomStringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContext;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.validation.annotation.Validated;
@@ -31,6 +35,7 @@ public class PersonService {
         Person person = personDao.findByPersonalCode(personDto.getPersonalCode());
         if (person == null) {
             person = createPersonFromDto(personDto);
+            person.setTribeId(getLoggedInUserTribeId());
             personDao.save(person);
         } else {
             updatePerson(person.getId(), personDto);
@@ -41,7 +46,9 @@ public class PersonService {
     @Transactional
     public void updatePerson(Long id, PersonDto personDto) {
         Person person = personDao.getOne(id);
-
+        if(!isPersonFamilyMember(person)){
+            throw new FamilyMemberValidationException("Person does not belong to the family");
+        }
         person.setFirstName(personDto.getFirstName());
         person.setLastName(personDto.getLastName());
         person.setPersonalCode(personDto.getPersonalCode());
@@ -83,6 +90,7 @@ public class PersonService {
     public void addPersonWithUsername(PersonUserDto personDto) {
         Person person = createPersonFromDto(personDto);
         User user = userDao.findUserByUsername(personDto.getUsername());
+        person.setTribeId(RandomStringUtils.random(30,true,false));
         person.setUser(user);
 
         personDao.save(person);
@@ -105,6 +113,28 @@ public class PersonService {
     @Transactional(readOnly = true)
     public boolean checkIfPersonExistsByPersonalCode(String personalCode) {
         if(personDao.findByPersonalCode(personalCode)!=null){
+            return true;
+        } else {
+            return false;
+        }
+
+    }
+
+    private String getLoggedInUserTribeId(){
+        Authentication context = SecurityContextHolder.getContext().getAuthentication();
+        // Used as a workaround for data seeding as it happens during app startup when no user is logged in.
+        if (context == null ){
+            return "swagger_family";
+        }
+        String username = context.getName();
+        User user = userDao.findUserByUsername(username);
+        Person person = personDao.findByUser(user);
+        return person.getTribeId();
+    }
+
+    private boolean isPersonFamilyMember(Person person){
+        String tribeId = getLoggedInUserTribeId();
+        if(person.getTribeId()==tribeId){
             return true;
         } else {
             return false;

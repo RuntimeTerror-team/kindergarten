@@ -12,6 +12,7 @@ import lt.vtmc.kindergarten.dao.UserDao;
 import lt.vtmc.kindergarten.dto.UserValidateCommandDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.authority.AuthorityUtils;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -181,6 +182,11 @@ public class UserService implements UserDetailsService {
                 defaultNum++;
             }
         }
+    }
+
+    public void getLoggedInUserUsername(){
+        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+//        return principal
     }
 
     private String checkUsernameLength(String usernameToCheck) {

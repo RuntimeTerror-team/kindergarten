@@ -4,6 +4,7 @@ import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 import lt.vtmc.kindergarten.dto.PersonDto;
 import lt.vtmc.kindergarten.dto.PersonUserDto;
+import lt.vtmc.kindergarten.service.FamilyMemberValidationException;
 import lt.vtmc.kindergarten.service.PersonService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -25,15 +26,14 @@ public class PersonController {
     public ResponseEntity addPerson(
             @ApiParam(value = "", required = true)
             @RequestBody PersonDto personDto){
-//        if(personService.checkIfPersonExistsByPersonalCode(personDto.getPersonalCode())){
-//            return new ResponseEntity<>("Asmuo su tokiu asmens kodu jau egzistuoja", HttpStatus.CONFLICT);
-//        }
-//
+
         try {
             personService.addPerson(personDto);
             return new ResponseEntity<>(HttpStatus.OK);
         } catch (ConstraintViolationException exception){
             return new ResponseEntity<>("Data Validation failed", HttpStatus.BAD_REQUEST);
+        } catch (FamilyMemberValidationException exception) {
+            return new ResponseEntity<>("Can not edit person", HttpStatus.UNAUTHORIZED);
         }
 
     }
