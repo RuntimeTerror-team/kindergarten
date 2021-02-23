@@ -9,16 +9,13 @@ public class GroupCreationDto{
 
     private int childrenCount;
 
-    private String title;
-
     private Long ageRangeId;
 
 
 
-    public GroupCreationDto(@NotNull Long id, int childrenCount, String title, Long ageRangeId) {
+    public GroupCreationDto(@NotNull Long id, int childrenCount, Long ageRangeId) {
         this.id = id;
         this.childrenCount = childrenCount;
-        this.title = title;
         this.ageRangeId = ageRangeId;
     }
 
@@ -46,11 +43,4 @@ public class GroupCreationDto{
         this.childrenCount = childrenCount;
     }
 
-    public String getTitle() {
-        return title;
-    }
-
-    public void setTitle(String title) {
-        this.title = title;
-    }
 }

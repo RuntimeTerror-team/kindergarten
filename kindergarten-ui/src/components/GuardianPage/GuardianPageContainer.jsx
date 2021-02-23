@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import GuardianNavigationComponent from '../Navigation/GuardianNavigationComponent'
 import HeaderComponent from '../Header/HeaderComponent';
+import ApplicationListContainer from './../ApplicationList/ApplicationListContainer'
 import Footer from '../Footer/Footer';
 
 import '../../styles/pages.css';
@@ -15,7 +16,7 @@ class GuardianPageContainer extends Component {
                         <GuardianNavigationComponent />
                         <div className="col-8">
                             <h1 className="mb-5 text-center">Prašymai</h1>
-                            <h6 className="text-center">Prašymų sąrašas</h6>
+                            <ApplicationListContainer/>
                         </div>
                     </div>
                 </div>

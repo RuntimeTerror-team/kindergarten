@@ -52,7 +52,6 @@ public class GroupService {
         AgeRange ageRange = ageRangeDao.getOne(ageRangeId);
         Group group = new Group();
 
-        group.setTitle(groupDto.getTitle());
         group.setChildrenCount(groupDto.getChildrenCount());
         group.setKindergartenId(kindergarten);
         group.setAgeRange(ageRange);
@@ -65,7 +64,6 @@ public class GroupService {
     public void updateGroup(Long id,GroupDto groupDto){
         Group group = groupDao.getOne(id);
 
-        group.setTitle(groupDto.getTitle());
         group.setChildrenCount(groupDto.getChildrenCount());
 
         groupDao.save(group);

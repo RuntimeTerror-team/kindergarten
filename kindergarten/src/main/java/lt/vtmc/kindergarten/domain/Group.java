@@ -13,9 +13,6 @@ public class Group {
     private Long id;
 
     @Column
-    private String title;
-
-    @Column
     private int childrenCount;
 
     @ManyToOne
@@ -44,14 +41,6 @@ public class Group {
 
     public void setId(Long id) {
         this.id = id;
-    }
-
-    public String getTitle() {
-        return title;
-    }
-
-    public void setTitle(String title) {
-        this.title = title;
     }
 
     public int getChildrenCount() {

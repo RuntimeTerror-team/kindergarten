@@ -135,9 +135,16 @@ class EsQueueListContainer extends Component {
                     .catch((err) => console.log(err));
             })
             .catch((err) => {
-                this.setState({ message: "Klaida. Datos išsaugoti nepavyko" })
-                this.setState({ messageStyle: "alert alert-danger" })
-                console.log(err);
+                if (err.response.status && err.response.status === 409) {
+                    this.setState({ message: err.response.data })
+                    this.setState({ messageStyle: "alert alert-danger" })
+                    this.alertTimer = setTimeout(() => {
+                        this.setState({ message: "" })
+                        this.setState({ messageStyle: "" })
+                    }, 1500);
+                } else {
+                    console.log(err);
+                }
             });
     }
 
@@ -168,6 +175,10 @@ class EsQueueListContainer extends Component {
             .catch((err) => {
                 this.setState({ message: "Klaida. Eilės uždaryti nepavyko" })
                 this.setState({ messageStyle: "alert alert-danger" })
+                this.alertTimer = setTimeout(() => {
+                    this.setState({ message: "" })
+                    this.setState({ messageStyle: "" })
+                }, 1500);
                 console.log(err);
             });
     }

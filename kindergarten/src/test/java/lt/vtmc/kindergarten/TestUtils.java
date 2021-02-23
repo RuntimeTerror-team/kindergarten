@@ -52,7 +52,7 @@ public final class TestUtils {
         return applicationDto;
     }
 
-    public static Group createDefaultGroup(Kindergarten kindergarten, String title) {
+    public static Group createDefaultGroup(Kindergarten kindergarten) {
         Group group = new Group();
 
         AgeRange ageRange = new AgeRange();
@@ -63,7 +63,6 @@ public final class TestUtils {
         group.setAgeRange(ageRange);
         group.setKindergartenId(kindergarten);
         group.setChildrenCount(10);
-        group.setTitle(title);
 
         return group;
     }
