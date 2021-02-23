@@ -12,8 +12,6 @@ public class GroupDto {
 
     private int childrenCount;
 
-    private String title;
-
     private AgeRange ageRange;
 
     public GroupDto() {
@@ -22,7 +20,6 @@ public class GroupDto {
     public GroupDto(Group group) {
         this.id = group.getId();
         this.childrenCount = group.getChildrenCount();
-        this.title = group.getTitle();
         this.ageRange = group.getAgeRange();
     }
 
@@ -51,11 +48,4 @@ public class GroupDto {
         this.childrenCount = childrenCount;
     }
 
-    public String getTitle() {
-        return title;
-    }
-
-    public void setTitle(String title) {
-        this.title = title;
-    }
 }
