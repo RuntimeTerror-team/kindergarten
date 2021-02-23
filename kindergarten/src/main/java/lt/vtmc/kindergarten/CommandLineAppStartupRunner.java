@@ -36,11 +36,12 @@ public class CommandLineAppStartupRunner implements CommandLineRunner {
         userService.createUser(new UserDto("administratorius", "Administratorius1", "ADMIN"));
 
         if(seedData){
-            District district = dataSeeder.createDistrict();
+            District districtAntakalnis = dataSeeder.createDistrict("Antakalnis", 1L);
+            District districtZirmunai = dataSeeder.createDistrict("Žirmūnai", 2L);
             dataSeeder.createUsers();
             dataSeeder.cretePersons();
             dataSeeder.createAgeRanges();
-            dataSeeder.createKindergartens(district);
+            dataSeeder.createKindergartens(districtAntakalnis, districtZirmunai);
             dataSeeder.createQueueWithOpeningDate();
         }
 
