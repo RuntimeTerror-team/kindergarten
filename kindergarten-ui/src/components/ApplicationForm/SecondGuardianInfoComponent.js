@@ -55,7 +55,7 @@ let SecondGuardianInfoComponent = (props) =>{
               className={"form-control " + props.secondGuardianEmailValidation} name="secondGuardianEmail" value={props.secondGuardianEmail} onChange={props.onDetailsChange} placeholder="El. paštas"></input>
               <div className="invalid-feedback">E.paštas privalo turėti @ simbolį.</div>
         </div>
-        <button className="btn btn-green" onClick={props.saveSecondGuardian}>Išsaugoti</button>
+        <button className="btn btn-info" onClick={props.saveSecondGuardian}>Išsaugoti</button>
         <div className={props.messageStyle + " mt-2"}>
         <span>{props.message}</span>
         </div>
