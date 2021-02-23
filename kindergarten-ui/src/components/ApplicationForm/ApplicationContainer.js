@@ -212,7 +212,7 @@ class ApplicationContainer extends Component {
     if (currentStep !== 1) {
       return (
         <button
-          className="btn btn-yellow float-right mr-1 mt-2"
+          className="btn btn-info float-right mr-1 mt-2"
           type="button"
           onClick={this.prev}>
           Atgal
@@ -437,7 +437,7 @@ class ApplicationContainer extends Component {
 
     e.preventDefault();
 
-    if (this.checkEmptyGuardianInputs(this.state.secondGuardianName, this.state.secondGuardianSurname, this.state.secondGuardianId, this.state.secondGuardianPhone,
+    if (this.checkEmptySecondGuardianInputs(this.state.secondGuardianName, this.state.secondGuardianSurname, this.state.secondGuardianId, this.state.secondGuardianPhone,
       this.state.secondGuardianAddress, this.state.secondGuardianCity, this.state.secondGuardianPostalCode, this.state.secondGuardianEmail)) {
 
       this.setState({ emptyGuardianInputsMessage: "Užpildykite privalomus laukus" })
@@ -521,12 +521,230 @@ class ApplicationContainer extends Component {
 
   checkEmptyGuardianInputs = (name, surname, personalCode, phone, address, city, postalCode, email) => {
 
+    if(name.trim() === ""){
+
+      this.setState({ guardianNameValidation: "is-invalid" })
+
+      } else {
+
+        this.setState({ guardianNameValidation: "" })
+
+      }
+
+    if(surname.trim() === ""){
+
+      this.setState({ guardianSurnameValidation: "is-invalid" })
+
+      } else {
+
+        this.setState({ guardianSurnameValidation: "" })
+
+      }
+
+    if(personalCode.trim() === ""){
+
+      this.setState({ guardianIdValidation: "is-invalid" })
+
+      } else {
+
+        this.setState({ guardianIdValidation: "" })
+
+      }
+
+    if(phone.trim() === ""){
+
+      this.setState({ guardianPhoneValidation: "is-invalid" })
+
+      } else {
+
+        this.setState({ guardianPhoneValidation: "" })
+
+      }
+
+    if(address.trim() === ""){
+
+      this.setState({ guardianAddressValidation: "is-invalid" })
+
+      } else {
+
+        this.setState({ guardianAddressValidation: "" })
+
+      }
+    
+    if(city.trim() === ""){
+
+      this.setState({ guardianCityValidation: "is-invalid" })
+
+      } else {
+
+        this.setState({ guardianCityValidation: "" })
+
+      }
+
+    if(postalCode.trim() === ""){
+
+      this.setState({ guardianPostalCodeValidation: "is-invalid" })
+
+      } else {
+
+        this.setState({ sguardianPostalCodeValidation: "" })
+
+      }
+
+    if(email.trim() === ""){
+
+      this.setState({ guardianEmailValidation: "is-invalid" })
+
+      } else {
+
+        this.setState({ guardianEmailValidation: "" })
+
+      }
+
+    return (name.trim() === "" || surname.trim() === "" || personalCode.trim() === "" || phone.trim() === "" || address.trim() === ""
+      || city.trim() === "" || postalCode.trim() === "" || email.trim() === "")
+
+  }
+
+  checkEmptySecondGuardianInputs = (name, surname, personalCode, phone, address, city, postalCode, email) => {
+
+    if(name.trim() === ""){
+
+      this.setState({ secondGuardianNameValidation: "is-invalid" })
+
+      } else {
+
+        this.setState({ secondGuardianNameValidation: "" })
+
+      }
+
+    if(surname.trim() === ""){
+
+      this.setState({ secondGuardianSurnameValidation: "is-invalid" })
+
+      } else {
+
+        this.setState({ secondGuardianSurnameValidation: "" })
+
+      }
+
+    if(personalCode.trim() === ""){
+
+      this.setState({ secondGuardianIdValidation: "is-invalid" })
+
+      } else {
+
+        this.setState({ secondGuardianIdValidation: "" })
+
+      }
+
+    if(phone.trim() === ""){
+
+      this.setState({ secondGuardianPhoneValidation: "is-invalid" })
+
+      } else {
+
+        this.setState({ secondGuardianPhoneValidation: "" })
+
+      }
+
+    if(address.trim() === ""){
+
+      this.setState({ secondGuardianAddressValidation: "is-invalid" })
+
+      } else {
+
+        this.setState({ secondGuardianAddressValidation: "" })
+
+      }
+    
+    if(city.trim() === ""){
+
+      this.setState({ secondGuardianCityValidation: "is-invalid" })
+
+      } else {
+
+        this.setState({ secondGuardianCityValidation: "" })
+
+      }
+
+    if(postalCode.trim() === ""){
+
+      this.setState({ secondGuardianPostalCodeValidation: "is-invalid" })
+
+      } else {
+
+        this.setState({ secondGuardianPostalCodeValidation: "" })
+
+      }
+
+    if(email.trim() === ""){
+
+      this.setState({ secondGuardianEmailValidation: "is-invalid" })
+
+      } else {
+
+        this.setState({ secondGuardianEmailValidation: "" })
+
+      }
+
     return (name.trim() === "" || surname.trim() === "" || personalCode.trim() === "" || phone.trim() === "" || address.trim() === ""
       || city.trim() === "" || postalCode.trim() === "" || email.trim() === "")
 
   }
 
   checkEmptyChildInputs = (name, surname, personalCode, address, city) => {
+
+    if(name.trim() === ""){
+
+      this.setState({ childNameValidation: "is-invalid" })
+
+      } else {
+
+        this.setState({ childNameValidation: "" })
+
+      }
+
+    if(surname.trim() === ""){
+
+      this.setState({ childSurnameValidation: "is-invalid" })
+
+      } else {
+
+        this.setState({ childSurnameValidation: "" })
+
+      }
+
+    if(personalCode.trim() === ""){
+
+      this.setState({ childIdValidation: "is-invalid" })
+
+      } else {
+
+        this.setState({ childIdValidation: "" })
+
+      }
+
+    if(address.trim() === ""){
+
+      this.setState({ childStreetValidation: "is-invalid" })
+
+      } else {
+
+        this.setState({ childStreetValidation: "" })
+
+      }
+    
+    if(city.trim() === ""){
+
+      this.setState({ childCityValidation: "is-invalid" })
+
+      } else {
+
+        this.setState({ childCityValidation: "" })
+
+      }
+      
 
     return (name.trim() === "" || surname.trim() === "" || personalCode.trim() === "" || address.trim() === "" || city.trim() === "")
   }

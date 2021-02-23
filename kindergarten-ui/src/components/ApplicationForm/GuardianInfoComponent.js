@@ -56,7 +56,7 @@ let GuardianInfoComponent = (props) =>{
                         className={"form-control " + props.guardianEmailValidation} name="guardianEmail" value={props.email} onChange={props.onDetailsChange} placeholder="El. paštas" disabled={props.isDisabled}></input>
                         <div className="invalid-feedback">Šis laukas privalomas. E.paštas privalo turėti @ simbolį.</div>
                 </div>
-                <button className={props.isDisabled === true ? "btn btn-yellow" : "btn btn-green"} onClick={props.saveGuardian}>{props.guardianButtonText}</button>
+                <button className={props.isDisabled === true ? "btn btn-info" : "btn btn-info"} onClick={props.saveGuardian}>{props.guardianButtonText}</button>
                 </div>
 
                <div className={props.messageStyle + " mt-2"}>

@@ -43,7 +43,7 @@ let ChildInfoComponent = (props) =>{
               className={"form-control " + props.childCityValidation} name="childCity" value={props.city} onChange={props.onDetailsChange} placeholder="Miestas"></input>
               <div className="invalid-feedback">Šis laukas privalomas. Miesto pavadinimas turi būti 4-19 simbolių ilgio. </div>
         </div>
-        <button className="btn btn-green" onClick={props.saveChild}>Išsaugoti</button>
+        <button className="btn btn-info" onClick={props.saveChild}>Išsaugoti</button>
         <div className={props.messageStyle + " mt-2"}>
         <span>{props.message}</span>
         </div>
