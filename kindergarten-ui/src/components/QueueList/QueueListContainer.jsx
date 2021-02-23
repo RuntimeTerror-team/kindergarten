@@ -11,14 +11,13 @@ class QueueListContainer extends Component {
         super(props);
         this.state = {
             queues: [],
-            queue: { openingDate: "" },
-            errors: {},
+            isActiveQueue: false,
             message: "",
-            messageStyle: "",
-            isCreating: false,
-            isActiveQueue: false
+            messageStyle: ""
         }
     }
+
+    alertTimer = null;
 
     componentDidMount = () => {
         axios
@@ -37,60 +36,26 @@ class QueueListContainer extends Component {
             .catch((err) => console.log(err));
     }
 
-    toggleCreation = () => {
-        this.setState({ isCreating: !this.state.isCreating })
-    }
-
-    handleChange = ({ target: input }) => {
-        const errors = { ...this.state.errors };
-        const errorMessage = this.validateProperty(input);
-        if (errorMessage) { errors[input.name] = errorMessage; }
-        else { delete errors[input.name]; }
-
-        const queue = { ...this.state.queue };
-        queue[input.name] = input.value;
-        this.setState({ queue, errors });
-
-        this.setState({ message: "", messageStyle: "" });
-    }
-
-    validateProperty = ({ name, value }) => {
-        if (name === "openingDate") {
-            return "";
+    componentWillUnmount = () => {
+        if (this.alertTimer) {
+            clearTimeout(this.alertTimer);
         }
-    }
-
-    validate = () => {
-        const errors = {};
-
-        const { queue } = this.state;
-        if (queue.openingDate.trim() === '')
-            errors.openingDate = "is-invalid"
-
-        return Object.keys(errors).length === 0 ? null : errors;
     }
 
     handleSubmit = (e) => {
         e.preventDefault();
-        let { queue } = this.state;
-
-        const errors = this.validate();
-        this.setState({ errors: errors || {} });
-        if (errors) {
-            this.setState({ message: "Eilės sukurti nepavyko" })
-            this.setState({ messageStyle: "alert alert-danger" })
-            return;
-        }
 
         axios
             .post(`${baseUrl}/api/queues`, {
-                "openingDate": new Date(queue.openingDate).toISOString()
+                "openingDate": new Date().toISOString()
             })
             .then(() => {
                 this.setState({ message: "Eilė sukurta sėkmingai" })
                 this.setState({ messageStyle: "alert alert-success" })
-                queue = { openingDate: "" };
-                this.setState({ queue })
+                this.alertTimer = setTimeout(() => {
+                    this.setState({ message: "" })
+                    this.setState({ messageStyle: "" })
+                }, 1500);
                 axios
                     .get(`${baseUrl}/api/queues`)
                     .then((res) => {
@@ -109,6 +74,10 @@ class QueueListContainer extends Component {
             .catch((err) => {
                 this.setState({ message: "Klaida. Eilės sukurti nepavyko" })
                 this.setState({ messageStyle: "alert alert-danger" })
+                this.alertTimer = setTimeout(() => {
+                    this.setState({ message: "" })
+                    this.setState({ messageStyle: "" })
+                }, 1500);
                 console.log(err);
             });
     }
@@ -124,18 +93,10 @@ class QueueListContainer extends Component {
                             <h1 className="mb-5 text-center">Eilių administravimas</h1>
                             {<QueueListComponent
                                 queues={this.state.queues}
-                                toggleCreation={this.toggleCreation}
-                                isCreating={this.state.isCreating}
-                                queue={this.state.queue}
-                                errors={this.state.errors}
                                 handleSubmit={this.handleSubmit}
-                                handleChange={this.handleChange}
-                                userRole={this.state.userRole}
-                                toggleUpdate={this.toggleUpdate}
-                                isUpdating={this.state.isUpdating}
+                                isActiveQueue={this.state.isActiveQueue}
                                 message={this.state.message}
                                 messageStyle={this.state.messageStyle}
-                                isActiveQueue={this.state.isActiveQueue}
                             />}
                         </div>
                     </div>
