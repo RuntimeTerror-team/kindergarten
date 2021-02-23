@@ -7,8 +7,10 @@ import lt.vtmc.kindergarten.dto.QueueDtoClosingDate;
 import lt.vtmc.kindergarten.dto.QueueDtoWithOpeningDate;
 import lt.vtmc.kindergarten.dto.QueueDtoRegistrationClosingDate;
 import lt.vtmc.kindergarten.service.QueueService;
+import lt.vtmc.kindergarten.service.exceptions.RegistrationClosingValidationExeption;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -24,24 +26,24 @@ public class QueueController {
     @ResponseStatus(HttpStatus.OK)
     public QueueDto getQueue(
             @PathVariable final Long queue_id
-    ){
+    ) {
         return queueService.getQueue(queue_id);
     }
 
     @RequestMapping(method = RequestMethod.GET, value = "/api/queues")
-    @ApiOperation(value="Get queues",notes ="Returns all queues")
+    @ApiOperation(value = "Get queues", notes = "Returns all queues")
     @ResponseStatus(HttpStatus.OK)
-    public List<QueueDto> getQueues(){
+    public List<QueueDto> getQueues() {
         return queueService.getQueues();
     }
 
 
-    @RequestMapping(value="/api/queues", method = RequestMethod.POST)
+    @RequestMapping(value = "/api/queues", method = RequestMethod.POST)
     @ResponseStatus(HttpStatus.CREATED)
     @ApiOperation(value = "Create queue with opening Date", notes = "Creates new queue with opening date")
     public void addQueueOpeningDate(
             @ApiParam(value = "", required = true)
-            @RequestBody QueueDtoWithOpeningDate queueDtoWithOpeningDate){
+            @RequestBody QueueDtoWithOpeningDate queueDtoWithOpeningDate) {
         queueService.addQueueWithOpeningDate(queueDtoWithOpeningDate);
     }
 
@@ -49,12 +51,17 @@ public class QueueController {
     @RequestMapping(value = "/api/queues/{id}", method = RequestMethod.PUT)
     @ApiOperation(value = "Update queue registration closing date", notes = "Updates queue closing registration date by id")
     @ResponseStatus(HttpStatus.OK)
-    public void updateQueueWithRegistrationClosingDate(
+    public ResponseEntity updateQueueWithRegistrationClosingDate(
             @ApiParam(value = "", required = true)
             @PathVariable Long id,
             @RequestBody QueueDtoRegistrationClosingDate queueDtoRegistrationClosingDate
-            ){
-        queueService.updateQueueWithRegistrationClosingDate(id, queueDtoRegistrationClosingDate);
+    ) {
+        try {
+            queueService.updateQueueWithRegistrationClosingDate(id, queueDtoRegistrationClosingDate);
+            return new ResponseEntity<>("Registracijos uždarymo data sėkmingai įvesta", HttpStatus.OK);
+        } catch (RegistrationClosingValidationExeption exception) {
+            return new ResponseEntity("Registracijos uždarymo data turi būti ne senesnė nei eilės atidarymo data", HttpStatus.CONFLICT);
+        }
     }
 
 
@@ -65,7 +72,7 @@ public class QueueController {
             @ApiParam(value = "", required = true)
             @PathVariable Long id,
             @RequestBody QueueDtoClosingDate queueDtoClosingDate
-            ){
+    ) {
         queueService.updateQueueWithClosingDate(id, queueDtoClosingDate);
     }
 
