@@ -10,6 +10,7 @@ import lt.vtmc.kindergarten.dto.QueueDto;
 import lt.vtmc.kindergarten.dto.QueueDtoClosingDate;
 import lt.vtmc.kindergarten.dto.QueueDtoWithOpeningDate;
 import lt.vtmc.kindergarten.dto.QueueDtoRegistrationClosingDate;
+import lt.vtmc.kindergarten.service.exceptions.RegistrationClosingValidationExeption;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
 import org.springframework.scheduling.annotation.EnableScheduling;
@@ -54,8 +55,12 @@ public class QueueService {
         Queue queue = queueDao.getOne(id);
 
         if (queue.getStatus() == QueueStatusEnum.ACTIVE) {
-            queue.setRegistrationClosingDate(queueDto.getRegistrationClosingDate());
-            queueDao.save(queue);
+            if (checkIfQueueRegistrationClosingDateIsAfterOpeningDate(id, queueDto)) {
+                queue.setRegistrationClosingDate(queueDto.getRegistrationClosingDate());
+                queueDao.save(queue);
+            } else {
+                throw new RegistrationClosingValidationExeption("Registration closing date should be after queue opening date");
+            }
         }
     }
 
@@ -80,6 +85,14 @@ public class QueueService {
         List<Queue> queues = queueDao.findAll(Sort.by(Sort.Direction.ASC, "openingDate"));
         List<QueueDto> queueList = queues.stream().map(queue -> new QueueDto(queue)).collect(Collectors.toList());
         return queueList;
+    }
+
+    public boolean checkIfQueueRegistrationClosingDateIsAfterOpeningDate(Long id, QueueDtoRegistrationClosingDate queueDto) {
+        if (queueDto.getRegistrationClosingDate().after(queueDao.getOne(id).getOpeningDate())) {
+            return true;
+        } else {
+            return false;
+        }
     }
 
     /**

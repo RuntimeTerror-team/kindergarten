@@ -9,7 +9,7 @@ import lt.vtmc.kindergarten.service.ApplicationService;
 
 import java.util.List;
 
-import lt.vtmc.kindergarten.service.QueueDoesntExistException;
+import lt.vtmc.kindergarten.service.exceptions.QueueDoesntExistException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

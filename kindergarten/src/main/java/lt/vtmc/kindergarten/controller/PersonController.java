@@ -4,7 +4,7 @@ import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 import lt.vtmc.kindergarten.dto.PersonDto;
 import lt.vtmc.kindergarten.dto.PersonUserDto;
-import lt.vtmc.kindergarten.service.FamilyMemberValidationException;
+import lt.vtmc.kindergarten.service.exceptions.FamilyMemberValidationException;
 import lt.vtmc.kindergarten.service.PersonService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;

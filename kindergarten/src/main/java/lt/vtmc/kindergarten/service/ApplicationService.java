@@ -7,6 +7,7 @@ import lt.vtmc.kindergarten.dto.ApplicationDto;
 import lt.vtmc.kindergarten.dto.ApplicationInfoDto;
 import lt.vtmc.kindergarten.dto.PersonDto;
 
+import lt.vtmc.kindergarten.service.exceptions.QueueDoesntExistException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
