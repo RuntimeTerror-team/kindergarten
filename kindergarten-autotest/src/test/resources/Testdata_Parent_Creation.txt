@@ -1,0 +1,6 @@
+Vardas
+Pavardė
+Vardenis
+Pavardenis
+Vardytė
+Pavardytė
