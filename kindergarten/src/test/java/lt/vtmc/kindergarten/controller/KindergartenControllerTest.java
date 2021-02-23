@@ -62,7 +62,6 @@ public class KindergartenControllerTest {
         group.setAgeRange(ageRange);
         group.setKindergartenId(kindergarten);
         group.setChildrenCount(10);
-        group.setTitle("Pukelis");
         kindergarten.addGroup(group);
 
         districtDao.save(district);
@@ -81,15 +80,22 @@ public class KindergartenControllerTest {
         Kindergarten kindergarten = TestUtils.createDefaultKindergarten("132456778");
         kindergarten.setDistrict(districtDao.findByTitle("Antakalnis"));
 
-        Group group = TestUtils.createDefaultGroup(kindergarten, "Zuikučiai");
-        Group group2 = TestUtils.createDefaultGroup(kindergarten, "Meškučiai");
+
+        Group group = TestUtils.createDefaultGroup(kindergarten);
+        Group group3 = new Group();
+        AgeRange ageRange = new AgeRange();
+        ageRange.setAgeMin(2);
+        ageRange.setAgeMax(3);
+        group3.setAgeRange(ageRange);
+        group3.setKindergartenId(kindergarten);
+        group3.setChildrenCount(13);
 
         kindergarten.addGroup(group);
-        kindergarten.addGroup(group2);
+        kindergarten.addGroup(group3);
 
         kindergartenDao.save(kindergarten);
 
-        assertEquals("Meškučiai", kindergartenController.getGroup(kindergarten.getId(), group2.getId()).getTitle(), "Should get single group by kindergarten id");
+        assertEquals(group3.getChildrenCount(), kindergartenController.getGroup(kindergarten.getId(), group3.getId()).getChildrenCount(), "Should get single group by kindergarten id");
     }
 
     @Test
