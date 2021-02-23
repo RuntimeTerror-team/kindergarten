@@ -31,7 +31,7 @@ const EsQueueListComponent = ({
                             &&
                             queues.filter(q => q.status === "ACTIVE").length > 0
                             &&
-                            <th scope="col">Veiksmai</th>}
+                            <th scope="col">Registracijos stabdymo veiksmai</th>}
                     </tr>
                 </thead>
 
@@ -41,13 +41,11 @@ const EsQueueListComponent = ({
                             <tr key={id}>
                                 <th scope="row">{index + 1}</th>
                                 <td>
-                                    {openingDate ? new Date(openingDate).toLocaleDateString() : "-"}<br />
-                                    {openingDate && new Date(openingDate).toLocaleTimeString()}
+                                    {openingDate ? new Intl.DateTimeFormat('lt-LT', { dateStyle: 'medium', timeStyle: 'short' }).format(new Date(openingDate)) : "-"}
                                 </td>
                                 {!isUpdating
                                     && <td>
-                                        {registrationClosingDate ? new Date(registrationClosingDate).toLocaleDateString() : "-"}<br />
-                                        {registrationClosingDate && new Date(registrationClosingDate).toLocaleTimeString()}
+                                        {registrationClosingDate ? new Intl.DateTimeFormat('lt-LT', { dateStyle: 'medium', timeStyle: 'short' }).format(new Date(registrationClosingDate)) : "-"}
                                     </td>}
                                 {(isUpdating && status === "ACTIVE")
                                     && <td>
@@ -59,17 +57,18 @@ const EsQueueListComponent = ({
                                             name="registrationClosingDt"
                                             value={registrationClosingDt}
                                             errorMessage="Šis laukas privalomas"
+                                            min={new Intl.DateTimeFormat('lt-LT', { dateStyle: 'medium', timeStyle: 'short' }).format(new Date(openingDate)).split(" ")[0]
+                                                + "T"
+                                                + new Intl.DateTimeFormat('lt-LT', { dateStyle: 'medium', timeStyle: 'short' }).format(new Date(openingDate)).split(" ")[1]}
                                         />
                                     </td>}
                                 {(isUpdating && status !== "ACTIVE")
                                     && <td>
-                                        {registrationClosingDate ? new Date(registrationClosingDate).toLocaleDateString() : "-"}<br />
-                                        {registrationClosingDate && new Date(registrationClosingDate).toLocaleTimeString()}
+                                        {registrationClosingDate ? new Intl.DateTimeFormat('lt-LT', { dateStyle: 'medium', timeStyle: 'short' }).format(new Date(registrationClosingDate)) : "-"}
                                     </td>}
                                 {closingDate
                                     ? <td>
-                                        {closingDate && new Date(closingDate).toLocaleDateString()}<br />
-                                        {closingDate && new Date(closingDate).toLocaleTimeString()}
+                                        {closingDate && new Intl.DateTimeFormat('lt-LT', { dateStyle: 'medium', timeStyle: 'short' }).format(new Date(closingDate))}
                                     </td>
                                     : status === "LOCKED"
                                         ? <td>

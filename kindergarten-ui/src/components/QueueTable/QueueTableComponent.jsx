@@ -5,12 +5,10 @@ const QueueTableComponent = ({ queues }) => {
         <table className="table col-10 mx-auto mt-3 fixedTable text-center">
             <thead>
                 <tr>
-                    <th scope="col" style={{ width: "30px" }}>
-                        #
-                        </th>
+                    <th scope="col" style={{ width: "30px" }}>#</th>
                     <th scope="col">Eilės atidarymas</th>
                     <th scope="col">Registracijos stabdymas</th>
-                    <th scope="col">Eilės atidarymas</th>
+                    <th scope="col">Eilės uždarymas</th>
                     <th scope="col">Būsena</th>
                 </tr>
             </thead>
@@ -19,16 +17,13 @@ const QueueTableComponent = ({ queues }) => {
                     <tr key={index}>
                         <th scope="row">{index + 1}</th>
                         <td>
-                            {openingDate ? new Date(openingDate).toLocaleDateString() : "-"}<br />
-                            {openingDate && new Date(openingDate).toLocaleTimeString()}
+                            {openingDate ? new Intl.DateTimeFormat('lt-LT', { dateStyle: 'medium', timeStyle: 'short' }).format(new Date(openingDate)) : "-"}
                         </td>
                         <td>
-                            {registrationClosingDate ? new Date(registrationClosingDate).toLocaleDateString() : "-"}<br />
-                            {registrationClosingDate && new Date(registrationClosingDate).toLocaleTimeString()}
+                            {registrationClosingDate ? new Intl.DateTimeFormat('lt-LT', { dateStyle: 'medium', timeStyle: 'short' }).format(new Date(registrationClosingDate)) : "-"}
                         </td>
                         <td>
-                            {closingDate ? new Date(closingDate).toLocaleDateString() : "-"}<br />
-                            {closingDate && new Date(closingDate).toLocaleTimeString()}
+                            {closingDate ? new Intl.DateTimeFormat('lt-LT', { dateStyle: 'medium', timeStyle: 'short' }).format(new Date(closingDate)) : "-"}
                         </td>
                         <td>{(status === "ACTIVE")
                             ? "Aktyvi"
