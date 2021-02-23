@@ -80,4 +80,12 @@ public class UserController {
             return new ResponseEntity(exception.getMessage(), HttpStatus.BAD_REQUEST);
         }
     }
+    
+    @RequestMapping(method = RequestMethod.PUT)
+    @ResponseStatus(HttpStatus.OK)
+    @ApiOperation(value ="Change user password")
+    public void changePassword(@Valid @RequestBody UserDto userDto){
+    	
+    	userService.changePassword(userDto);
+    }
 }
