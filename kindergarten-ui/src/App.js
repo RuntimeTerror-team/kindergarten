@@ -19,6 +19,7 @@ import urls from './constants/urls'
 import GuardianPrimaryDataFormContainer from './components/GuardianPrimaryDataForm/GuardianPrimaryDataFormContainer';
 import QueueListContainer from './components/QueueList/QueueListContainer';
 import EsQueueListContainer from './components/EsQueueList/EsQueueListContainer';
+import HealthFormListContainer from './components/HealthFormList/HealthFormListContainer';
 
 function App(props) {
   return (
@@ -38,6 +39,7 @@ function App(props) {
         <Route exact path={`${urls.guardian.applicationBase}`} component={GuardianPageContainer} />
         <Route exact path={`${urls.guardian.applicationBase}/new`} component={ApplicationContainer} />
         <Route exact path={`${urls.guardian.primaryDataBase}`} component={GuardianPrimaryDataFormContainer} />
+        <Route exact path={`${urls.guardian.healthFormBase}`} component={HealthFormListContainer} />
         <Route exact path='/not-authorized' component={NotAuthorized} />
         <Route exact path='/forbidden' component={Forbidden} />
         <Route exact path='/error' component={Error} />

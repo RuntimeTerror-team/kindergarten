@@ -11,7 +11,8 @@ const urls = {
     },
     guardian: {
         applicationBase: '/guardian/applications',
-        primaryDataBase: '/guardian/primary-data'
+        primaryDataBase: '/guardian/primary-data',
+        healthFormBase: '/guardian/health-forms'
     }
 }
 
