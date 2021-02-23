@@ -47,18 +47,37 @@ public class DataSeeder {
     }
 
     public void cretePersons(){
+        Role guardian = new Role();
+        guardian.setType(RoleType.GUARDIAN);
 
-        Person person = new Person();
-        person.setFirstName("Edgaras");
-        person.setLastName("Bujonauskas");
-        person.setEmail("tadasbujonauskas@gmail.com");
-        person.setCity(CityEnum.VILNIUS);
-        person.setAddress("Kanklių g. 4");
-        person.setPersonalCode("39004180111");
-        person.setPhoneNumber("862412323");
-        person.setPostalCode("10321");
-        person.setTribeId("fam1");
-        personService.addPerson(new PersonDto(person));
+
+        UserDtoFromAdmin edgarasUserForAdm = new UserDtoFromAdmin();
+        edgarasUserForAdm.setFirstName("Edgaras");
+        edgarasUserForAdm.setLastName("Bujonauskas");
+        edgarasUserForAdm.setRole("GUARDIAN");
+
+        userService.createUserFromAdmin(edgarasUserForAdm);
+        User edgarasUser = userDao.findAll().stream().filter(user -> user.getUsername().contains("Edgaras")).findFirst().get();
+
+
+        Person personEdgaras = new Person();
+        personEdgaras.setFirstName("Edgaras");
+        personEdgaras.setLastName("Bujonauskas");
+        personEdgaras.setEmail("tadasbujonauskas@gmail.com");
+        personEdgaras.setCity(CityEnum.VILNIUS);
+        personEdgaras.setAddress("Kanklių g. 4");
+        personEdgaras.setPersonalCode("39004180111");
+        personEdgaras.setPhoneNumber("862412323");
+        personEdgaras.setPostalCode("10321");
+        personEdgaras.setTribeId("fam1");
+        personEdgaras.setUser(edgarasUser);
+
+        PersonDto personEdgarasDto = new PersonDto(personEdgaras);
+
+        PersonUserDto personEdgarasUser = new PersonUserDto(personEdgarasDto , edgarasUser.getUsername());
+        personService.addPersonWithUsername(personEdgarasUser);
+
+
 
         Person child = new Person();
         child.setFirstName("Jonukas");
@@ -72,6 +91,16 @@ public class DataSeeder {
         child.setTribeId("fam1");
         personService.addPerson(new PersonDto(child));
 
+
+        UserDtoFromAdmin monikaUserForAdmin = new UserDtoFromAdmin();
+        monikaUserForAdmin.setFirstName("Monika");
+        monikaUserForAdmin.setLastName("Bujonauskienė");
+        monikaUserForAdmin.setRole("GUARDIAN");
+
+        userService.createUserFromAdmin(monikaUserForAdmin);
+        User monikaUser = userDao.findAll().stream().filter(user -> user.getUsername().contains("Monika")).findFirst().get();
+        guardian.addUser(monikaUser);
+
         Person person2 = new Person();
         person2.setFirstName("Monika");
         person2.setLastName("Bujonauskienė");
@@ -81,8 +110,15 @@ public class DataSeeder {
         person2.setPersonalCode("49004170458");
         person2.setPhoneNumber("862412322");
         person2.setPostalCode("10321");
-        person2.setTribeId("fam1");;
-        personService.addPerson(new PersonDto(person2));
+        person2.setTribeId("fam1");
+        person2.setUser(monikaUser);
+
+
+        PersonDto monikaUserDto = new PersonDto(person2);
+
+        PersonUserDto personMonikaUser = new PersonUserDto(monikaUserDto , monikaUser.getUsername());
+        personService.addPersonWithUsername(personMonikaUser);
+
 
         Application application = new Application();
         Person person3 = new Person();
@@ -108,6 +144,7 @@ public class DataSeeder {
         child2.setPostalCode("10321");
         child2.setTribeId("fam2");
         personService.addPerson(new PersonDto(child2));
+
 
         Person person4 = new Person();
         person4.setFirstName("Simas");
