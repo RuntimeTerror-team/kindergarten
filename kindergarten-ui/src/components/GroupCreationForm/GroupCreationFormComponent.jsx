@@ -5,33 +5,17 @@ import urls from "../../constants/urls";
 
 const GroupCreationFComponent = ({
     ageRanges,
-    title,
     childrenCount,
     handleFormChange,
     handleGroupCreation,
     kindergartenId,
     message,
     messageStyle,
-    titleValidation,
     ageRangeValidation,
     childrenCountValidation
 }) => {
     return (
         <form className="mt-4" onSubmit={handleGroupCreation}>
-            <div className="form-group row">
-                <label htmlFor="title" className="col-3 pt-2 text-right">
-                    Pavadinimas
-                </label>
-                <input
-                    type="text"
-                    className={`form-control col-9 ${titleValidation}`}
-                    id="title"
-                    name="title"
-                    value={title}
-                    onChange={handleFormChange}
-                />
-                <div className="invalid-feedback offset-3 col-9">Šis laukas privalomas. Pavadinimo ilgis turi būti 5-20 ženklų.</div>
-            </div>
             <div className="form-group row">
                 <label htmlFor="ageRange" className="col-3 mt-2 text-right">
                     Amžiaus grupės
@@ -85,14 +69,12 @@ const GroupCreationFComponent = ({
 
 GroupCreationFComponent.propTypes = {
     ageRanges: Proptypes.array.isRequired,
-    title: Proptypes.string,
     childrenCount: Proptypes.string,
     handleFormChange: Proptypes.func.isRequired,
     handleGroupCreation: Proptypes.func.isRequired,
     kindergartenId: Proptypes.string.isRequired,
     message: Proptypes.string.isRequired,
     messageStyle: Proptypes.string.isRequired,
-    titleValidation: Proptypes.string.isRequired,
     ageRangeValidation: Proptypes.string.isRequired,
     childrenCountValidation: Proptypes.string.isRequired
 }

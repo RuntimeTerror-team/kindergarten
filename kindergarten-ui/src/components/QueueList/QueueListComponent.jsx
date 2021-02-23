@@ -1,55 +1,27 @@
 import React from "react";
 import Proptypes from "prop-types";
-import Input from "../common/Input";
 import QueueTableComponent from "../QueueTable/QueueTableComponent";
 
 const QueueListComponent = ({
     queues,
     handleSubmit,
-    handleChange,
-    toggleCreation,
-    isCreating,
-    queue,
-    errors,
+    isActiveQueue,
     message,
-    messageStyle,
-    isActiveQueue
+    messageStyle
 }) => {
-    const { openingDate } = queue;
     return (
-        <div className="col-12 clearfix mb-3">
-            {!isCreating && !isActiveQueue &&
-                <div className="col text-center">
-                    <button className="btn btn-green mx-auto" onClick={toggleCreation}>Sukurti naują eilę</button>
+        <div className="col-12 clearfix mb-3 row">
+            {  !isActiveQueue &&
+                <div className="offset-4 col-4 text-center">
+                    <button className="btn btn-green mx-auto" onClick={handleSubmit}>Pradėti naują eilę</button>
                 </div>}
-            {!isCreating && isActiveQueue
-                && <div className="alert alert-warning text-center" role="alert">
+            { isActiveQueue
+                && <div className="alert alert-warning text-center col-12" role="alert">
                     Galite kurti naują eilę, kai eilės yra neaktyvios.
               </div>}
-            {isCreating
-                &&
-                <div className="clearfix">
-                    <form onSubmit={handleSubmit}>
-                        <Input
-                            name="openingDate"
-                            value={openingDate}
-                            label="Eilės atsidarymo data ir laikas"
-                            mandatory={false}
-                            type="datetime-local"
-                            error={errors.openingDate}
-                            placeholder=""
-                            onChange={handleChange}
-                            errorMessage="Šis laukas privalomas."
-                            labelStyle="col-5 pt-2 text-right"
-                            inputStyle="col-7"
-                            invalidStyle="offset-3 col-9"
-                        />
-                        <button className="btn btn-green float-right">Išsaugoti</button>
-                    </form>
-                    <button className="btn btn-yellow float-right mr-2" onClick={toggleCreation}>Baigti kūrimą</button>
-                    <span className={`float-right mr-2 ${messageStyle}`} style={{ width: "23em" }}>
-                        {message}
-                    </span>
+            {message
+                && <div className={`float-right col-12 text-center ${messageStyle}`} style={{ width: "23em" }}>
+                    {message}
                 </div>}
             {queues.length > 0 && <QueueTableComponent queues={queues} />}
         </div>
@@ -59,11 +31,7 @@ const QueueListComponent = ({
 QueueListComponent.propTypes = {
     queues: Proptypes.array.isRequired,
     handleSubmit: Proptypes.func.isRequired,
-    handleChange: Proptypes.func.isRequired,
-    toggleCreation: Proptypes.func.isRequired,
-    isCreating: Proptypes.bool.isRequired,
-    queue: Proptypes.object.isRequired,
-    errors: Proptypes.object.isRequired
+    isActiveQueue: Proptypes.bool.isRequired
 };
 
 export default QueueListComponent;

@@ -13,10 +13,8 @@ class GroupCreationFormContainer extends Component {
             kindergartenId: "",
             groups: [],
             ageRanges: [],
-            title: "",
             ageRangeId: "",
             childrenCount: "",
-            titleValidation: "",
             ageRangeValidation: "",
             childrenCountValidation: "",
             message: "",
@@ -54,13 +52,6 @@ class GroupCreationFormContainer extends Component {
         const { name, value } = e.target;
         this.setState({ [name]: value });
 
-        if (name === "title") {
-            if (value.trim().length < 5 || value.trim().length > 20) {
-                this.setState({ titleValidation: "is-invalid" })
-            } else {
-                this.setState({ titleValidation: "" })
-            }
-        }
         if (name === "ageRangeId") {
             if (value !== "Pasirinkti...") {
                 this.setState({ ageRangeValidation: "" })
@@ -81,9 +72,6 @@ class GroupCreationFormContainer extends Component {
     }
 
     validateBlank = () => {
-        if (this.state.title.trim().length === 0) {
-            this.setState({ titleValidation: "is-invalid" })
-        }
         if (this.state.ageRangeId.length === 0) {
             this.setState({ ageRangeValidation: "is-invalid" })
         }
@@ -97,14 +85,12 @@ class GroupCreationFormContainer extends Component {
 
         this.validateBlank();
 
-        if ((this.state.titleValidation === "" && this.state.title.trim().length !== 0)
-            && (this.state.ageRangeValidation === "" && this.state.ageRangeId.length !== 0)
+        if ((this.state.ageRangeValidation === "" && this.state.ageRangeId.length !== 0)
             && (this.state.childrenCountValidation === "" && this.state.childrenCount.trim().length !== 0)) {
             Axios
                 .post(`${baseUrl}/api/kindergartens/${this.state.kindergartenId}/groups/${e.target.ageRangeId.value}`, {
                     childrenCount: e.target.childrenCount.value,
-                    id: 0,
-                    title: e.target.title.value
+                    id: 0
                 })
                 .then(() => {
                     Axios
@@ -148,7 +134,6 @@ class GroupCreationFormContainer extends Component {
                                     otherProps={this.state}
                                     handleFormChange={this.handleFormChange}
                                     handleGroupCreation={this.handleGroupCreation}
-                                    titleValidation={this.state.titleValidation}
                                     ageRangeValidation={this.state.ageRangeValidation}
                                     childrenCountValidation={this.state.childrenCountValidation}
                                     kindergartenId={this.state.kindergartenId}
