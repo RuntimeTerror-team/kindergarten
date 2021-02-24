@@ -13,5 +13,5 @@ import java.util.Set;
 public interface ApplicationDao extends JpaRepository<Application, Long> {
     Application findApplicationByChild(Person child);
     Set<Application> findByParent(Person person);
-//    List<Application> findByApplicationStatus(ApplicationStatusEnum status);
+    List<Application> findByApplicationStatus(ApplicationStatusEnum status);
 }

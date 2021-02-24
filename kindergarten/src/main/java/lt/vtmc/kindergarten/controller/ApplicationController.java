@@ -88,8 +88,7 @@ public class ApplicationController {
         return applicationService.getApplicationsInfo(username);
     }
 
-
-
+//FIXME - method might not be needed .
 //    @RequestMapping(method = RequestMethod.GET, value = "/api/applications/sorted")
 //    @ApiOperation(value="Get sorted applications",notes ="Returns all sorted applications by score, then by child age, then by child lastname")
 //    @ResponseStatus(HttpStatus.OK)
