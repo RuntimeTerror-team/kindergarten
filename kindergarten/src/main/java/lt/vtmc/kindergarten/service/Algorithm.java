@@ -1,14 +1,18 @@
 package lt.vtmc.kindergarten.service;
 
 
-
 import lt.vtmc.kindergarten.dao.ApplicationDao;
+import lt.vtmc.kindergarten.domain.Application;
+import lt.vtmc.kindergarten.domain.ApplicationStatusEnum;
+import lt.vtmc.kindergarten.dto.ApplicationCreationDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
-import java.util.Date;
+import java.util.*;
+import java.util.stream.Collectors;
+
 
 @Service
 public class Algorithm {
@@ -17,24 +21,57 @@ public class Algorithm {
     private ApplicationDao applicationDao;
 
 
+    @Transactional
+    public List<ApplicationCreationDto> getApplications() {
+        List<Application> applications = applicationDao.findByApplicationStatus(ApplicationStatusEnum.WAITING);
 
-    public void countChildAge(){
-        String personalCode = "4904180333";
+        applications.sort(Comparator.comparing(Application::getScore).thenComparing((o1, o2) -> {
+            int age1 = countChildAge(o1.getChild().getPersonalCode());
+            int age2 = countChildAge(o2.getChild().getPersonalCode());
+            if (age1 == age2) {
+                return o1.getChild().getLastName().compareTo(o2.getChild().getLastName());
+            } else {
+                if (age1 > age2) {
+                    return 1;
+                } else {
+                    return -1;
+                }
+            }
+        }));
 
-        String birthdayYear = personalCode.substring(1,3);
-        String birthdayMonth = personalCode.substring(4,5);
-        String birthdayDay = personalCode.substring(6,7);
+        List<ApplicationCreationDto> applicationList = applications
+                .stream()
+                .map(application -> new ApplicationCreationDto(application))
+                .collect(Collectors.toList());
 
-        LocalDate localDate = LocalDate.now();
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-        String formattedString = localDate.format(formatter);
-        String year = formattedString.substring(4,8);
-        String day = formattedString.substring(0,1);
-        String month = formattedString.substring(4,5);
-
-
-
+        return applicationList;
     }
 
+
+//    static class compareByAgeThenChildLastName implements Comparator<Application> {
+//        @Override
+//        public int compare(Application o1, Application o2) {
+//            int age1 = countChildAge(o1.getChild().getPersonalCode());
+//            int age2 = countChildAge(o2.getChild().getPersonalCode());
+//
+//            if (age1 == age2) {
+//                return o1.getChild().getLastName().compareTo(o2.getChild().getLastName());
+//            } else {
+//                if (age1 > age2) {
+//                    return 1;
+//                } else {
+//                    return -1;
+//                }
+//            }
+//        }
+//    }
+
+
+    public static int countChildAge(String personalCode) {
+        int birthdayYear = Integer.parseInt(personalCode.substring(1, 3));
+        LocalDate localDate = LocalDate.now();
+        int currentYear = localDate.getYear() - 2000;
+        return currentYear - birthdayYear;
+    }
 
 }
