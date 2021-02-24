@@ -1,6 +1,7 @@
 package lt.vtmc.kindergarten.controller;
 
 import lt.vtmc.kindergarten.dto.UserDetailsDto;
+import lt.vtmc.kindergarten.service.PersonService;
 import lt.vtmc.kindergarten.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AnonymousAuthenticationToken;
@@ -12,6 +13,9 @@ import org.springframework.web.bind.annotation.*;
 public class LoginController {
     @Autowired
     private UserService userService;
+
+    @Autowired
+    private PersonService personService;
 
     @RequestMapping(path = "/loggedUsername", method = RequestMethod.GET)
     public String getLoggedInUsername() {

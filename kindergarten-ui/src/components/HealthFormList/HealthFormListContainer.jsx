@@ -10,26 +10,24 @@ class HealthFormListContainer extends Component {
     constructor() {
         super();
         this.state = {
-            tribeId: '',
             children: []
         }
     }
 
     componentDidMount = () => {
         axios
-            .get(`${baseUrl}/api/loggedTribeId}`)
+            .get(`${baseUrl}/loggedUsername`)
             .then((res) => {
-                this.setState({ tribeId: res.tribeId });
-
+                console.log(res.data);
                 axios
-                    .get(`${baseUrl}/api/persons/childrenOfTribe/${res.tribeId}`)
+                    .get(`${baseUrl}/api/persons/childrenOfTribe/${res.data}`)
                     .then(res => {
-                        this.setState({ children: res.children })
+                        this.setState({ children: res.data })
+                        console.log(res);
                     })
                     .catch(e => console.log(e))
             })
             .catch(e => console.log(e))
-
     }
 
     render() {
@@ -41,7 +39,15 @@ class HealthFormListContainer extends Component {
                         <GuardianNavigationComponent />
                         <div className="col-8">
                             <h1 className="mb-5 text-center">Sveikatos pažymos</h1>
-                            <HealthFormListComponent />
+                            {this.state.children.length > 0
+                                && <HealthFormListComponent
+                                    children={this.state.children}
+                                    handleSubmit={this.handleSubmit}
+                                />}
+                            {this.state.children.length === 0
+                                && <div className="alert alert-warning text-center col-6 offset-3" role="alert">
+                                    Sistemoje nėra išsaugotų vaikų
+                             </div>}
                         </div>
                     </div>
                 </div>
