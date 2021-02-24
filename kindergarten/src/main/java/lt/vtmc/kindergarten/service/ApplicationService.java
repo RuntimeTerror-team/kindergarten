@@ -20,6 +20,7 @@ import javax.validation.Valid;
 
 import java.time.LocalDate;
 
+import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -91,7 +92,7 @@ public class ApplicationService {
             application.setIsGuardianDisabled(applicationCreationDto.isGuardianDisabled());
 
             if (child.getCity() == CityEnum.VILNIUS) {
-                application.setScore(countScore(applicationCreationDto) + 1);
+                application.setScore(countScore(applicationCreationDto) + 10);
             } else {
                 application.setScore(countScore(applicationCreationDto));
             }
@@ -116,7 +117,6 @@ public class ApplicationService {
 
     @Transactional
     public List<ApplicationDto> getApplicationsList() {
-
         List<Application> applications = applicationDao.findAll();
         return applications.stream().map(application -> new ApplicationDto(application.getId(), application.getApplicationStatus(),
                 application.getChild(), new PersonDto(application.getParent()),
@@ -190,7 +190,7 @@ public class ApplicationService {
             application.setIsGuardianDisabled(applicationCreationDto.isGuardianDisabled());
 
             if (child.getCity() == CityEnum.VILNIUS) {
-                application.setScore(countScore(applicationCreationDto) + 1);
+                application.setScore(countScore(applicationCreationDto) + 10);
             } else {
                 application.setScore(countScore(applicationCreationDto));
             }
@@ -267,5 +267,71 @@ public class ApplicationService {
         userService.createGuardian(firstName, lastName);
     }
 
+
+
+
+
+
+
+
+
+
+//TODO UZBAIGTI SU SITUO REIKALIUKUS!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+//TODO UZBAIGTI SU SITUO REIKALIUKUS!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+// TODO UZBAIGTI SU SITUO REIKALIUKUS!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+//
+//
+//    @Transactional
+//    public List<ApplicationCreationDto> getSortedApplications() {
+//        List<Application> applications = applicationDao.findByApplicationStatus(ApplicationStatusEnum.WAITING);
+//
+//        applications.sort(Comparator.comparing(Application::getScore).thenComparing((o1, o2) -> {
+//            int age1 = countChildAge(o1.getChild().getPersonalCode());
+//            int age2 = countChildAge(o2.getChild().getPersonalCode());
+//            if (age1 == age2) {
+//                return o1.getChild().getLastName().compareTo(o2.getChild().getLastName());
+//            } else {
+//                if (age1 > age2) {
+//                    return 1;
+//                } else {
+//                    return -1;
+//                }
+//            }
+//        }));
+//
+//        List<ApplicationCreationDto> applicationList = applications
+//                .stream()
+//                .map(application -> new ApplicationCreationDto(application))
+//                .collect(Collectors.toList());
+//
+//        return applicationList;
+//    }
+//
+//
+////    static class compareByAgeThenChildLastName implements Comparator<Application> {
+////        @Override
+////        public int compare(Application o1, Application o2) {
+////            int age1 = countChildAge(o1.getChild().getPersonalCode());
+////            int age2 = countChildAge(o2.getChild().getPersonalCode());
+////
+////            if (age1 == age2) {
+////                return o1.getChild().getLastName().compareTo(o2.getChild().getLastName());
+////            } else {
+////                if (age1 > age2) {
+////                    return 1;
+////                } else {
+////                    return -1;
+////                }
+////            }
+////        }
+////    }
+//
+//
+//    public static int countChildAge(String personalCode) {
+//        int birthdayYear = Integer.parseInt(personalCode.substring(1, 3));
+//        LocalDate localDate = LocalDate.now();
+//        int currentYear = localDate.getYear() - 2000;
+//        return currentYear - birthdayYear;
+//    }
 
 }

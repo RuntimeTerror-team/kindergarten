@@ -89,6 +89,14 @@ public class ApplicationController {
     }
 
 
+
+//    @RequestMapping(method = RequestMethod.GET, value = "/api/applications/sorted")
+//    @ApiOperation(value="Get sorted applications",notes ="Returns all sorted applications by score, then by child age, then by child lastname")
+//    @ResponseStatus(HttpStatus.OK)
+//    public List<ApplicationCreationDto> getSortedApplications(){
+//        return applicationService.getSortedApplications();
+//    }
+
     public void setApplicationService(ApplicationService applicationService) {
         this.applicationService = applicationService;
     }

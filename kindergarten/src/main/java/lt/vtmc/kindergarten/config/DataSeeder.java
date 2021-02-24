@@ -80,7 +80,7 @@ public class DataSeeder {
 
 
         Person child = new Person();
-        child.setFirstName("Jonukas");
+        child.setFirstName("JONUKAS");
         child.setLastName("Bujonauskas");
         child.setEmail(null);
         child.setCity(CityEnum.VILNIUS);
@@ -90,6 +90,19 @@ public class DataSeeder {
         child.setPostalCode("10321");
         child.setTribeId("fam1");
         personService.addPerson(new PersonDto(child));
+
+
+        Person child2 = new Person();
+        child2.setFirstName("MARYTE");
+        child2.setLastName("Bujonauskaitė");
+        child2.setEmail(null);
+        child2.setCity(CityEnum.VILNIUS);
+        child2.setAddress("Kanklių g. 4");
+        child2.setPersonalCode("61602221111");
+        child2.setPhoneNumber(null);
+        child2.setPostalCode("10321");
+        child2.setTribeId("fam1");
+        personService.addPerson(new PersonDto(child2));
 
 
         UserDtoFromAdmin monikaUserForAdmin = new UserDtoFromAdmin();
@@ -133,18 +146,29 @@ public class DataSeeder {
         person3.setTribeId("fam2");
         personService.addPerson(new PersonDto(person3));
 
-        Person child2 = new Person();
-        child2.setFirstName("Marytė");
-        child2.setLastName("Urbelytė");
-        child2.setEmail(null);
-        child2.setCity(CityEnum.OTHER);
-        child2.setAddress("Vėjų g. 16");
-        child2.setPersonalCode("61607120444");
-        child2.setPhoneNumber(null);
-        child2.setPostalCode("10321");
-        child2.setTribeId("fam2");
-        personService.addPerson(new PersonDto(child2));
+        Person child3 = new Person();
+        child3.setFirstName("IGLUTė");
+        child3.setLastName("Urbelytė");
+        child3.setEmail(null);
+        child3.setCity(CityEnum.OTHER);
+        child3.setAddress("Vėjų g. 16");
+        child3.setPersonalCode("61707120444");
+        child3.setPhoneNumber(null);
+        child3.setPostalCode("10321");
+        child3.setTribeId("fam2");
+        personService.addPerson(new PersonDto(child3));
 
+        Person child4 = new Person();
+        child4.setFirstName("IGLUTė");
+        child4.setLastName("ZBIGNAITė");
+        child4.setEmail(null);
+        child4.setCity(CityEnum.OTHER);
+        child4.setAddress("Vėjų g. 16");
+        child4.setPersonalCode("61707120478");
+        child4.setPhoneNumber(null);
+        child4.setPostalCode("10321");
+        child4.setTribeId("fam2");
+        personService.addPerson(new PersonDto(child4));
 
         Person person4 = new Person();
         person4.setFirstName("Simas");
