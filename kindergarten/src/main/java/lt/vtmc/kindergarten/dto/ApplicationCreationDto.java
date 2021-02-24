@@ -35,7 +35,7 @@ public class ApplicationCreationDto {
     public ApplicationCreationDto(Application application) {
         this.firstParentId = application.getParent().getId();
         this.childId = application.getChild().getId();
-        this.secondParentId = application.getSecondParent().getId();
+        this.secondParentId = application.getSecondParent() == null ? null : application.getSecondParent().getId();
         this.date = application.getDate();
         this.priorityForKindergartenID = parseApplicationMetadata(application);
         this.isAdopted = application.isAdopted();
