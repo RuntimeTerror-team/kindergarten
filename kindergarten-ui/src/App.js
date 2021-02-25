@@ -3,6 +3,7 @@ import { Route, Switch } from 'react-router-dom';
 import LoginContainer from './components/Login/LoginContainer';
 import GuardianPageContainer from './components/GuardianPage/GuardianPageContainer';
 import ApplicationContainer from './components/ApplicationForm/ApplicationContainer'
+import PasswordChangeContainer from './components/PasswordChange/PasswordChangeContainer'
 import NoMatchComponent from './components/ErrorHandling/NoMatchComponent';
 import AdminUserFormContainer from './components/AdminUserForm/AdminUserFormContainer';
 import AdminDistrictFormContainer from './components/AdminDistrictForm/AdminDistrictFormContainer';
@@ -37,6 +38,7 @@ function App(props) {
         <Route exact path={`${urls.educationSpecialist.queueBase}`} component={EsQueueListContainer} />
         <Route exact path={`${urls.guardian.applicationBase}`} component={GuardianPageContainer} />
         <Route exact path={`${urls.guardian.applicationBase}/new`} component={ApplicationContainer} />
+        <Route exact path={`${urls.guardian.applicationBase}/passwordChange`} component={PasswordChangeContainer} />
         <Route exact path={`${urls.guardian.primaryDataBase}`} component={GuardianPrimaryDataFormContainer} />
         <Route exact path='/not-authorized' component={NotAuthorized} />
         <Route exact path='/forbidden' component={Forbidden} />
