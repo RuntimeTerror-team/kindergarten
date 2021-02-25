@@ -102,6 +102,10 @@ public class DataSeeder {
         child.setPostalCode("10321");
         personService.addPerson(new PersonDto(child));
 
+        Person jonukas = personDao.findByPersonalCode("51504180332");
+        jonukas.setTribeId(personDao.findByPersonalCode("39004180111").getTribeId());
+        personDao.save(jonukas);
+
 
         Person child2 = new Person();
         child2.setFirstName("MARYTE");
@@ -166,6 +170,10 @@ public class DataSeeder {
         person3.setTribeId("fam2");
         personService.addPerson(new PersonDto(person3));
 
+        Person person3FromDb = personDao.findByPersonalCode("48901110222");
+        person3FromDb.setTribeId("FAMILY_2");
+        personDao.save(person3FromDb);
+
         Person child3 = new Person();
         child3.setFirstName("IGLUTė");
         child3.setLastName("Urbelytė");
@@ -177,6 +185,10 @@ public class DataSeeder {
         child3.setPostalCode("10321");
         child3.setTribeId("fam2");
         personService.addPerson(new PersonDto(child3));
+
+        Person child3FromDb = personDao.findByPersonalCode("61707120444");
+        child3FromDb.setTribeId("FAMILY_2");
+        personDao.save(child3FromDb);
 
         Person child4 = new Person();
         child4.setFirstName("IGLUTė");
