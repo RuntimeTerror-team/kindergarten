@@ -1,19 +1,16 @@
 package testdata;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
-
 import java.io.IOException;
 import java.util.List;
 
-import org.junit.Test;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
-
+import static org.testng.Assert.assertEquals;
 import basetest.BaseTest;
 import org.openqa.selenium.support.ui.WebDriverWait;
+import org.testng.annotations.Test;
 import pages.AdminPage;
 import pages.LoginPage;
 import pages.SpecialistPage;
@@ -23,13 +20,14 @@ import utilities.WaitUtils;
 public class SpecialistTest extends BaseTest {
 
 
-    private AdminPage adminPage = new AdminPage(driver);
-    private LoginPage loginPage = new LoginPage(driver);
-    private SpecialistPage specialistPage = new SpecialistPage(driver);
-    private WaitUtils waitUtils = new WaitUtils();
 
     @Test
     public void testFromTestdataFileSpecialistCreate() throws IOException, InterruptedException {
+
+        AdminPage adminPage = new AdminPage(driver);
+        LoginPage loginPage = new LoginPage(driver);
+        SpecialistPage specialistPage = new SpecialistPage(driver);
+        WaitUtils waitUtils = new WaitUtils();
 
         List<String> adminTestdata = FileReaderUtils.getTestData("src/test/resources/TestData_Admin_Login.txt");
         String adminUsername = adminTestdata.get(0);
