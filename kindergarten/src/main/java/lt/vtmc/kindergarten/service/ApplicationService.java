@@ -4,7 +4,7 @@ import lt.vtmc.kindergarten.dao.*;
 import lt.vtmc.kindergarten.domain.*;
 import lt.vtmc.kindergarten.dto.*;
 
-import lt.vtmc.kindergarten.service.exceptions.QueueDoesntExistException;
+import lt.vtmc.kindergarten.exception.QueueDoesntExistException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
@@ -17,7 +17,6 @@ import javax.validation.Valid;
 
 import java.time.LocalDate;
 
-import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;

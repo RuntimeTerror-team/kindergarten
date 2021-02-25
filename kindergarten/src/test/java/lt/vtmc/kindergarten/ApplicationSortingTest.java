@@ -55,7 +55,7 @@ public class ApplicationSortingTest {
     }
 
     @Test
-    @DisplayName("")
+    @DisplayName("when running application sorting test")
     @Transactional
     public void testSortingOfApplications(){
         District district =TestUtils.createDefaultDistrict("Antakalnis");

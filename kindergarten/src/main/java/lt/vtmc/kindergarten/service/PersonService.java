@@ -5,7 +5,7 @@ import lt.vtmc.kindergarten.dao.UserDao;
 import lt.vtmc.kindergarten.domain.*;
 import lt.vtmc.kindergarten.dto.PersonDto;
 import lt.vtmc.kindergarten.dto.PersonUserDto;
-import lt.vtmc.kindergarten.service.exceptions.FamilyMemberValidationException;
+import lt.vtmc.kindergarten.exception.FamilyMemberValidationException;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;

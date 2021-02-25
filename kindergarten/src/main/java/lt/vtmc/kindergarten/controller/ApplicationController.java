@@ -2,7 +2,6 @@ package lt.vtmc.kindergarten.controller;
 
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
-import lt.vtmc.kindergarten.domain.ApprovedApplication;
 import lt.vtmc.kindergarten.dto.ApplicationCreationDto;
 import lt.vtmc.kindergarten.dto.ApplicationDto;
 import lt.vtmc.kindergarten.dto.ApplicationInfoDto;
@@ -11,7 +10,7 @@ import lt.vtmc.kindergarten.service.ApplicationService;
 
 import java.util.List;
 
-import lt.vtmc.kindergarten.service.exceptions.QueueDoesntExistException;
+import lt.vtmc.kindergarten.exception.QueueDoesntExistException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

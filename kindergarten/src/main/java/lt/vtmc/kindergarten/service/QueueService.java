@@ -10,7 +10,7 @@ import lt.vtmc.kindergarten.dto.QueueDto;
 import lt.vtmc.kindergarten.dto.QueueDtoClosingDate;
 import lt.vtmc.kindergarten.dto.QueueDtoWithOpeningDate;
 import lt.vtmc.kindergarten.dto.QueueDtoRegistrationClosingDate;
-import lt.vtmc.kindergarten.service.exceptions.RegistrationClosingValidationExeption;
+import lt.vtmc.kindergarten.exception.RegistrationClosingValidationExeption;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
 import org.springframework.scheduling.annotation.EnableScheduling;
