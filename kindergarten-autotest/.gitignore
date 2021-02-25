@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # Project exclude paths
 /target/
 
@@ -5,4 +6,13 @@
 .idea
 *.iws
 *.iml
+=======
+# Project exclude paths
+/target/
+
+### IntelliJ IDEA ###
+.idea
+*.iws
+*.iml
+>>>>>>> f9a9e83a19d113259fd57e5b172d7659990e306f
 *.ipr
