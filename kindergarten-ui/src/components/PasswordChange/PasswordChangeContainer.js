@@ -20,7 +20,11 @@ class PasswordChangeContainer extends Component {
             password2: "",
             role:"",
             passwordValidation: "",
-            password2Validation: ""
+            password2Validation: "",
+            notMatchingMessage: "",
+            notMatchingMessageStyle: "",
+            successMessage: "",
+            successMessageStyle: ""
         }
     }
 
@@ -50,12 +54,20 @@ class PasswordChangeContainer extends Component {
 
         this.setState({ [name]: value });
 
-        if (this.state.passwordValidation !== "" && name === "password") {
+        if(this.state.passwordValidation !== "" && name === "password") {
             this.setState({ passwordValidation: "" });
         }
 
-        if (this.state.password2Validation !== "" && name === "password2") {
+        if(this.state.password2Validation !== "" && name === "password2") {
             this.setState({ password2Validation: "" });
+        }
+
+        if(!/^(?=.*[a-ząčęėįšųū])(?=.*[A-ZĄČĘĖĮŠŲŪ])(?=.*\d)[a-ząčęėįšųūA-ZĄČĘĖĮŠŲŪ\d]{8,}$/.test(value) && name === "password"){
+            this.setState({passwordValidation: "is-invalid"})
+        }
+
+        if(!/^(?=.*[a-ząčęėįšųū])(?=.*[A-ZĄČĘĖĮŠŲŪ])(?=.*\d)[a-ząčęėįšųūA-ZĄČĘĖĮŠŲŪ\d]{8,}$/.test(value) && name === "password2"){
+            this.setState({password2Validation: "is-invalid"})
         }
 
     }
@@ -70,12 +82,23 @@ class PasswordChangeContainer extends Component {
     handleSubmit = (e) => {
         e.preventDefault();
 
+        this.setState({notMatchingMessage: ""})
+        this.setState({notMatchingMessageStyle: ""})
+        this.setState({successMessage: ""})
+        this.setState({successMessageStyle: ""})
         let passwordFromUser = e.target.password.value;
         let password2FromUser = e.target.password2.value;
 
         this.doValidation(passwordFromUser, password2FromUser);
 
-        if (passwordFromUser.trim().length !== 0 && password2FromUser.trim().length !== 0) {
+        if(passwordFromUser !== password2FromUser){
+
+            console.log("Slaptazodziai nesutampa")
+            this.setState({notMatchingMessage: "Slaptažodžiai nesutampa. Prašome bandyti vėl"})
+            this.setState({notMatchingMessageStyle: "alert alert-danger mt-4"})
+        }
+
+        else if (passwordFromUser.trim().length !== 0 && password2FromUser.trim().length !== 0 && /^(?=.*[a-ząčęėįšųū])(?=.*[A-ZĄČĘĖĮŠŲŪ])(?=.*\d)[a-ząčęėįšųūA-ZĄČĘĖĮŠŲŪ\d]{8,}$/.test(passwordFromUser)) {
             let userDto = {
                 username: this.state.username,
                 password: this.state.password,
@@ -84,11 +107,22 @@ class PasswordChangeContainer extends Component {
 
             axios
                 .put(`${baseUrl}/api/users`,userDto)
-                .then(() => {
+                .then((res) => {
+
+                    if(res.status === 200 ){
+
+                    this.setState({successMessage: "Slaptažodis sėkmingai pakeistas"})
+                    this.setState({successMessageStyle: "alert alert-success mt-4"})
+                    this.timer = setTimeout(() => {
+                        this.props.history.push(urls.guardian.applicationBase)
+                    }, 3000);
+                    }
                 })
                 .catch((e) => {console.log(e)});
 
         }
+
+        
     }
 
     doValidation = (password, password2) => {
@@ -118,6 +152,10 @@ class PasswordChangeContainer extends Component {
                     password2={this.state.password2}
                     passwordValidation={this.state.passwordValidation}
                     password2Validation={this.state.password2Validation}
+                    notMatchingMessage={this.state.notMatchingMessage}
+                    notMatchingMessageStyle={this.state.notMatchingMessageStyle}
+                    successMessage={this.state.successMessage}
+                    successMessageStyle={this.state.successMessageStyle}
                     onSubmit={this.handleSubmit}
                     onPasswordChange={this.handleChange}
                     onPassword2Change={this.handleChange}
