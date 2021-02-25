@@ -273,37 +273,46 @@ public class ApplicationService {
     //TODO HAVE NO CLUE IF IS IT USEFUL
     @Transactional
     public List<ApprovedApplicationDto> getApprovedApplications() {
-        List<Application> applications = applicationDao.findAll();
+        List<ApprovedApplication> applications = approvedApplicationDao.findAll();
+
         List<ApprovedApplicationDto> approvedApplicationList = applications.stream().map(application -> {
 
             ApprovedApplicationDto approvedApplicationDto = new ApprovedApplicationDto();
 
-            approvedApplicationDto.setChildFirstName(application.getChild().getFirstName());
-            approvedApplicationDto.setChildLastName(application.getChild().getLastName());
-            approvedApplicationDto.setParentFirstName(application.getParent().getFirstName());
-            approvedApplicationDto.setParentLastName(application.getParent().getLastName());
+            approvedApplicationDto.setChildFirstName(application.getChildFirstName());
+            approvedApplicationDto.setChildLastName(application.getChildLastName());
+            approvedApplicationDto.setParentFirstName(application.getParentFirstName());
+            approvedApplicationDto.setParentLastName(application.getParentLastName());
             approvedApplicationDto.setDate(application.getDate());
             approvedApplicationDto.setScore(application.getScore());
-            approvedApplicationDto.setStatus(application.getApplicationStatus().toString());
-
-            ApprovedApplication approvedApplication = new ApprovedApplication();
-
-            approvedApplication.setChildFirstName(approvedApplicationDto.getChildFirstName());
-            approvedApplication.setChildLastName(approvedApplicationDto.getChildLastName());
-            approvedApplication.setParentFirstName(approvedApplicationDto.getParentFirstName());
-            approvedApplication.setChildLastName(approvedApplicationDto.getParentLastName());
-            approvedApplication.setDate(approvedApplicationDto.getDate());
-            approvedApplication.setScore(approvedApplicationDto.getScore());
-            approvedApplication.setStatus(approvedApplicationDto.getStatus());
-
-            approvedApplicationDao.save(approvedApplication);
+            approvedApplicationDto.setStatus(application.getStatus());
 
             return approvedApplicationDto;
         })
                 .collect(Collectors.toList());
+
         return approvedApplicationList;
     }
 
+    private void persistApprovedApplications(){
+        List<Application> applications = applicationDao.findAll();
+
+        applications.stream().forEach(application -> {
+            ApprovedApplication approvedApplication = new ApprovedApplication();
+
+            approvedApplication.setChildFirstName(application.getChild().getFirstName());
+            approvedApplication.setChildLastName(application.getChild().getLastName());
+            approvedApplication.setParentFirstName(application.getParent().getFirstName());
+            approvedApplication.setParentLastName(application.getParent().getLastName());
+            approvedApplication.setDate(application.getDate());
+            approvedApplication.setScore(application.getScore());
+            approvedApplication.setStatus(application.getApplicationStatus().toString());
+
+            approvedApplicationDao.save(approvedApplication);
+        });
+    }
+
+    @Transactional
     public void assignKindergartensToApplications() {
 
         List<Application> applications = getSortedApplications();
@@ -334,6 +343,7 @@ public class ApplicationService {
             });
         });
 
+        persistApprovedApplications();
     }
 
     public Map<Integer, Long> parseApplicationMetadata(Application application) {

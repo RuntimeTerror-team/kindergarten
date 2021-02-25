@@ -99,11 +99,12 @@ public class QueueService {
     }
 
     /**
-     * Checks for queue closing date and triggers lockdown if the deadline is met
-     * Check happens every minute
+     * Checks for queue closing date and triggers lockdown if the deadline is met.
+     * After lockdown is triggered - applications are parsed and queued.
+     * Check for closing date happens every minute
      */
     @Scheduled(cron = "1 * * * * *")
-    protected void lockQueueOnRegistrationClosingTime() {
+    protected void startKindergartenRegistrations() {
         Queue queue = queueDao.findByStatus(QueueStatusEnum.ACTIVE);
         List<Application> applicationList = applicationDao.findAll();
 
