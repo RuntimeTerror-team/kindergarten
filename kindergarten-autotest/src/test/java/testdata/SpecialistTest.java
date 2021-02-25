@@ -27,7 +27,6 @@ public class SpecialistTest extends BaseTest {
         AdminPage adminPage = new AdminPage(driver);
         LoginPage loginPage = new LoginPage(driver);
         SpecialistPage specialistPage = new SpecialistPage(driver);
-        WaitUtils waitUtils = new WaitUtils();
 
         List<String> adminTestdata = FileReaderUtils.getTestData("src/test/resources/TestData_Admin_Login.txt");
         String adminUsername = adminTestdata.get(0);
@@ -35,8 +34,10 @@ public class SpecialistTest extends BaseTest {
         loginPage.enterUsername(adminUsername);
         loginPage.enterPassword(adminPassword);
         loginPage.clickLoginButton();
-        //Thread.sleep(2000);
-        waitUtils.verifyAdminLoginText(driver);
+        WebDriverWait wait = new WebDriverWait(driver, 5);
+        WebElement element = wait.until(
+                ExpectedConditions.presenceOfElementLocated(By.xpath("//*[@id=\"root\"]/div/div/div/div[1]/div/div[2]/p/strong")));
+
         String specialistFirstName = "Vardas";
         String specialistLastName = "Pavardė";
 
@@ -47,26 +48,22 @@ public class SpecialistTest extends BaseTest {
         roleDropdown.selectByIndex(1);
 
         adminPage.clickSaveAccountButton();
-        //	Thread.sleep(2000);
-        WebDriverWait wait = new WebDriverWait(driver, 5);
-        WebElement element = wait.until(
-                ExpectedConditions.presenceOfElementLocated(By.xpath("//*[@id=\"root\"]/div/div/div/div[1]/div/div[2]/p/strong")));
 
-        //waitUtils.verifyAdminLoginText(driver);
-
-        adminPage.clickAdminLogoutButton();
-
+              adminPage.clickAdminLogoutButton();
+        WebElement element1 = wait.until(
+                ExpectedConditions.presenceOfElementLocated(By.id("loginh1")));
         String specialistUsername = "ŠvietimoSpecialistas1";
         String specialistPassword = "ŠvietimoSpecialistas1";
         //Thread.sleep(2000);
-        waitUtils.verifyAdminLoginText(driver);
+
         loginPage.enterUsername(specialistUsername);
         loginPage.enterPassword(specialistPassword);
         loginPage.clickLoginButton();
-        //Thread.sleep(2000);
-        waitUtils.verifyAdminLoginText(driver);
+        WebElement element3 = wait.until(
+                ExpectedConditions.presenceOfElementLocated(By.xpath("//*[@id=\"root\"]/div/div/div/div[1]/div/div[2]/p/strong")));
+
         String actualResultSpec = specialistPage.findSpecialistLoginText();
-        assertEquals("Text is not as expected: ", actualResultSpec, "Švietimo specialistas");
+        assertEquals( actualResultSpec, "Švietimo specialistas", "Text is not as expected: ");
         specialistPage.clickSpecialistLogoutButton();
 
 
