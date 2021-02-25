@@ -2,10 +2,7 @@ package lt.vtmc.kindergarten.service;
 
 import lt.vtmc.kindergarten.dao.*;
 import lt.vtmc.kindergarten.domain.*;
-import lt.vtmc.kindergarten.dto.ApplicationCreationDto;
-import lt.vtmc.kindergarten.dto.ApplicationDto;
-import lt.vtmc.kindergarten.dto.ApplicationInfoDto;
-import lt.vtmc.kindergarten.dto.PersonDto;
+import lt.vtmc.kindergarten.dto.*;
 
 import lt.vtmc.kindergarten.service.exceptions.QueueDoesntExistException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,6 +21,7 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.concurrent.ConcurrentHashMap;
 import java.util.stream.Collectors;
 
 @Service
@@ -49,6 +47,9 @@ public class ApplicationService {
 
     @Autowired
     private UserDao userDao;
+
+    @Autowired
+    private ApprovedApplicationDao approvedApplicationDao;
 
 
     @Transactional
@@ -268,18 +269,87 @@ public class ApplicationService {
     }
 
 
-
-
-
-
-
-
-
-
 //TODO UZBAIGTI SU SITUO REIKALIUKUS!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-//TODO UZBAIGTI SU SITUO REIKALIUKUS!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-// TODO UZBAIGTI SU SITUO REIKALIUKUS!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
+
+//    @Transactional
+//    public List<ApplicationCreationDto> getApplications() {
+//        List<Application> applications = applicationDao.findAll(Sort.by(Sort.Direction.ASC, "date"));
+//        List<ApplicationCreationDto> applicationList = applications.stream().map(application -> new ApplicationCreationDto(application))
+//                .collect(Collectors.toList());
+//        return applicationList;
+//    }
+
+    //TODO HAVE NO CLUE IF IS IT USEFUL
+    @Transactional
+    public List<ApprovedApplicationDto> getApprovedApplications() {
+        List<Application> applications = applicationDao.findAll();
+        List<ApprovedApplicationDto> approvedApplicationList = applications.stream().map(application -> {
+
+            ApprovedApplicationDto approvedApplicationDto = new ApprovedApplicationDto();
+
+            approvedApplicationDto.setChildFirstName(application.getChild().getFirstName());
+            approvedApplicationDto.setChildLastName(application.getChild().getLastName());
+            approvedApplicationDto.setParentFirstName(application.getParent().getFirstName());
+            approvedApplicationDto.setParentLastName(application.getParent().getLastName());
+            approvedApplicationDto.setDate(application.getDate());
+            approvedApplicationDto.setScore(application.getScore());
+            approvedApplicationDto.setStatus(application.getApplicationStatus().toString());
+
+            ApprovedApplication approvedApplication = new ApprovedApplication();
+
+            approvedApplication.setChildFirstName(approvedApplicationDto.getChildFirstName());
+            approvedApplication.setChildLastName(approvedApplicationDto.getChildLastName());
+            approvedApplication.setParentFirstName(approvedApplicationDto.getParentFirstName());
+            approvedApplication.setChildLastName(approvedApplicationDto.getParentLastName());
+            approvedApplication.setDate(approvedApplicationDto.getDate());
+            approvedApplication.setScore(approvedApplicationDto.getScore());
+            approvedApplication.setStatus(approvedApplicationDto.getStatus());
+
+            approvedApplicationDao.save(approvedApplication);
+
+            return approvedApplicationDto;
+        })
+                .collect(Collectors.toList());
+        return approvedApplicationList;
+    }
+
+//    public void assignKindergartensToApplications() {
+//        List<Application> applications = applicationDao.findAll();
 //
+//        List<Kindergarten> kindergartens = kindergartenDao.findAll();
+//
+//        applications.stream().forEach(application -> {
+//            int age = countChildAge(application.getChild().getPersonalCode());
+//
+//            Map<Integer, Long> prioritiesAndKindergartens = parseApplicationMetadata(application);
+//
+//            for (Long value : prioritiesAndKindergartens.values()) {
+//            }
+//
+//
+//        });
+//
+//
+//        kindergartens.stream().forEach(kindergarten -> {
+//            Set<Group> groups = kindergarten.getGroups();
+//            groups.stream().forEach(group -> {
+//                group.getAgeRange();
+//                group.getChildrenCount();
+//            });
+//        });
+//
+//    }
+
+    public Map<Integer, Long> parseApplicationMetadata(Application application){
+        Set<KindergartenApplicationForm> kindergartenApplications = application.getKindergartenApplicationForms();
+        Map<Integer, Long> applicationToPriority = new ConcurrentHashMap<>();
+        kindergartenApplications.stream()
+                .forEach(item -> applicationToPriority.put(item.getPriority(),item.getKindergarten().getId()));
+
+        return applicationToPriority;
+    }
+
 
     @Transactional
     public List<Application> getSortedApplications() {
@@ -301,34 +371,8 @@ public class ApplicationService {
             }
         });
 
-//        List<ApplicationCreationDto> applicationList = applications
-//                .stream()
-//                .map(application -> new ApplicationCreationDto(application))
-//                .collect(Collectors.toList());
-
-//        return applicationList;
         return applications;
     }
-
-
-//    static class compareByAgeThenChildLastName implements Comparator<Application> {
-//        @Override
-//        public int compare(Application o1, Application o2) {
-//            int age1 = countChildAge(o1.getChild().getPersonalCode());
-//            int age2 = countChildAge(o2.getChild().getPersonalCode());
-//
-//            if (age1 == age2) {
-//                return o1.getChild().getLastName().compareTo(o2.getChild().getLastName());
-//            } else {
-//                if (age1 > age2) {
-//                    return 1;
-//                } else {
-//                    return -1;
-//                }
-//            }
-//        }
-//    }
-
 
     public static int countChildAge(String personalCode) {
         int birthdayYear = Integer.parseInt(personalCode.substring(1, 3));

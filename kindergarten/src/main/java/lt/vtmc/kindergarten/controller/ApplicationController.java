@@ -2,9 +2,11 @@ package lt.vtmc.kindergarten.controller;
 
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
+import lt.vtmc.kindergarten.domain.ApprovedApplication;
 import lt.vtmc.kindergarten.dto.ApplicationCreationDto;
 import lt.vtmc.kindergarten.dto.ApplicationDto;
 import lt.vtmc.kindergarten.dto.ApplicationInfoDto;
+import lt.vtmc.kindergarten.dto.ApprovedApplicationDto;
 import lt.vtmc.kindergarten.service.ApplicationService;
 
 import java.util.List;
@@ -88,13 +90,12 @@ public class ApplicationController {
         return applicationService.getApplicationsInfo(username);
     }
 
-//FIXME - method might not be needed .
-//    @RequestMapping(method = RequestMethod.GET, value = "/api/applications/sorted")
-//    @ApiOperation(value="Get sorted applications",notes ="Returns all sorted applications by score, then by child age, then by child lastname")
-//    @ResponseStatus(HttpStatus.OK)
-//    public List<ApplicationCreationDto> getSortedApplications(){
-//        return applicationService.getSortedApplications();
-//    }
+    @RequestMapping(method = RequestMethod.GET, value = "/api/applications/sorted")
+    @ApiOperation(value="Get sorted applications",notes ="Returns all sorted applications by score, then by child age, then by child lastname")
+    @ResponseStatus(HttpStatus.OK)
+    public List<ApprovedApplicationDto> getApprovedApplications(){
+        return applicationService.getApprovedApplications();
+    }
 
     public void setApplicationService(ApplicationService applicationService) {
         this.applicationService = applicationService;
