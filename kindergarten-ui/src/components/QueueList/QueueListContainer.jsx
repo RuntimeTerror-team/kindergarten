@@ -55,7 +55,7 @@ class QueueListContainer extends Component {
                 this.alertTimer = setTimeout(() => {
                     this.setState({ message: "" })
                     this.setState({ messageStyle: "" })
-                }, 1500);
+                }, 3000);
                 axios
                     .get(`${baseUrl}/api/queues`)
                     .then((res) => {
@@ -77,7 +77,7 @@ class QueueListContainer extends Component {
                 this.alertTimer = setTimeout(() => {
                     this.setState({ message: "" })
                     this.setState({ messageStyle: "" })
-                }, 1500);
+                }, 3000);
                 console.log(err);
             });
     }
