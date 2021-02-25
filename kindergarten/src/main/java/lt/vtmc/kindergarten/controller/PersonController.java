@@ -2,6 +2,7 @@ package lt.vtmc.kindergarten.controller;
 
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
+import lt.vtmc.kindergarten.domain.Person;
 import lt.vtmc.kindergarten.dto.PersonDto;
 import lt.vtmc.kindergarten.dto.PersonUserDto;
 import lt.vtmc.kindergarten.service.exceptions.FamilyMemberValidationException;
@@ -89,5 +90,12 @@ public class PersonController {
     @ApiOperation(value = "Get person by personalCode", notes = "Returns a person by personalCode")
     public PersonDto getPersonById(@PathVariable final String personalCode){
         return personService.getPersonByPersonalCode(personalCode);
+    }
+
+    @RequestMapping(value="/api/persons/childrenOfTribe/{username}", method = RequestMethod.GET)
+    @ResponseStatus(HttpStatus.OK)
+    @ApiOperation(value = "Get children of a person", notes = "Returns a list of children of a person by username")
+    public List<Person> getChildrenByParentUsername(@PathVariable final String username){
+        return personService.getChildrenByParentUsername(username);
     }
 }

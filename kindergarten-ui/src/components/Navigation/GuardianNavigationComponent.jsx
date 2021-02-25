@@ -35,13 +35,16 @@ class ESNavigationComponent extends Component {
             <nav className="nav flex-column col-4">
                 <Link to={`${urls.guardian.applicationBase}`} className={`btn btn-main mb-2 w-100 ${window.location.pathname === `/kindergarten${urls.guardian.applicationBase}` ? "btn-active" : ""}`} >
                     Prašymai
-            </Link>
+                </Link>
                 {this.state.isActiveQueue
                     &&
                     <Link to={`${urls.guardian.applicationBase}/new`} className={`btn btn-main mb-2 w-100 ${window.location.pathname === `/kindergarten${urls.guardian.applicationBase}/new`
                         ? "btn-active" : ""}`} >
                         Prašymo pildymas
                 </Link>}
+                <Link to={`${urls.guardian.healthFormBase}`} className={`btn btn-main mb-2 w-100 ${window.location.pathname === `/kindergarten${urls.guardian.healthFormBase}` ? "btn-active" : ""}`} >
+                    Sveikatos pažymos
+                </Link>
                 <Link to={`${urls.guardian.applicationBase}/passwordChange`} className={`btn btn-main mb-2 w-100 ${window.location.pathname === `/kindergarten${urls.guardian.applicationBase}/passwordChange` ? "btn-active" : ""}`} >
                     Mano paskyra
             </Link>
