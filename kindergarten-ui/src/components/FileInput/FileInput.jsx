@@ -9,7 +9,7 @@ class FileInput extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            files: [],
+            file: null,
             message: "",
             messageStyle: ""
         };
@@ -24,54 +24,53 @@ class FileInput extends Component {
     }
 
     onChange = (e) => {
-        let files = e.target.files;
-        console.log(files);
-        let filesArr = Array.prototype.slice.call(files);
-        console.log(filesArr);
-        this.setState({ files: [...this.state.files, ...filesArr] });
+        let selectedFile = e.target.files[0];
+        if (selectedFile.type === "application/pdf") {
+            this.setState({ file: e.target.files[0] });
+        } else {
+            this.showAlert("Prašome pasirinkti pdf formato failą", "warning");
+        }
+
     }
 
-    removeFile = (f) => {
-        this.setState({ files: this.state.files.filter(x => x !== f) });
+    showAlert = (msg, style) => {
+        this.setState({ message: msg })
+        this.setState({ messageStyle: `alert alert-${style}` })
+        this.alertTimer = setTimeout(() => {
+            this.setState({ message: "" })
+            this.setState({ messageStyle: "" })
+        }, 3000);
     }
 
     handleSubmit = (e) => {
         e.preventDefault();
-        console.log("Submitted");
-        console.log("Selected child: " + this.props.selectedChildId);
-        console.log(e);
 
         const formData = new FormData();
 
-        formData.append('file', this.state.files[0]);
+        formData.append('file', this.state.file);
 
-        axios
-            .post(`${baseUrl}/api/health-forms/${this.props.selectedChildId}`, formData, {
-                headers: {
-                    'Content-Type': 'multipart/form-data'
-                }
-            })
-            .then((res) => {
-                this.setState({ message: res.data.message })
-                this.setState({ messageStyle: "alert alert-success" })
-                this.setState({ files: [] })
-                this.alertTimer = setTimeout(() => {
-                    this.setState({ message: "" })
-                    this.setState({ messageStyle: "" })
-                }, 3000);
-            })
-            .catch((err) => {
-                if (err.response.status && err.response.status === 417) {
-                    this.setState({ message: err.response.data })
-                    this.setState({ messageStyle: "alert alert-danger" })
-                    this.alertTimer = setTimeout(() => {
-                        this.setState({ message: "" })
-                        this.setState({ messageStyle: "" })
-                    }, 3000);
-                } else {
-                    console.log(err);
-                }
-            })
+        if (this.props.selectedChildId !== "Pasirinkite vaiką") {
+            axios
+                .post(`${baseUrl}/api/health-forms/${this.props.selectedChildId}`, formData, {
+                    headers: {
+                        'Content-Type': 'multipart/form-data'
+                    }
+                })
+                .then((res) => {
+                    this.setState({ file: null })
+                    this.showAlert(res.data.message, "success")
+                    this.props.updateForms();
+                })
+                .catch((err) => {
+                    if (err.response && err.response.status && err.response.status === 417) {
+                        this.showAlert(err.response.data.message, "danger")
+                    } else {
+                        console.log(err);
+                    }
+                })
+        } else {
+            this.showAlert("Pasirinkite vaiką, kurio pažymą saugosite.", "danger");
+        }
     }
 
     render() {
@@ -82,10 +81,10 @@ class FileInput extends Component {
                         <input type="file" multiple onChange={this.onChange} />
                         <FontAwesomeIcon icon={faCloudUploadAlt} /> Ieškoti
                     </label>
-                    {this.state.files.map((x, index) =>
-                        <div key={index} className="file-preview my-auto col-6" style={{ overflow: "hidden" }} onClick={this.removeFile.bind(this, x)}>{x.name}</div>
-                    )}
-                    {this.state.files.length > 0 && <button type="submit" className="btn btn-green col ml-2">Išsaugoti</button>}
+                    {this.state.file &&
+                        <div className="file-preview my-auto col-6" style={{ overflow: "hidden" }} >{this.state.file.name}</div>
+                    }
+                    {this.state.file && <button type="submit" className="btn btn-green col ml-2">Išsaugoti</button>}
                 </form>
                 {this.state.message
                     && <span className={`float-right mt-2 offset-1 ${this.state.messageStyle}`} style={{ width: "23em" }}>

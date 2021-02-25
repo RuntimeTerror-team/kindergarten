@@ -14,6 +14,7 @@ import lt.vtmc.kindergarten.domain.Person;
 import lt.vtmc.kindergarten.dto.HealthFileResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.StringUtils;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
@@ -25,30 +26,36 @@ public class HealthFormService {
     @Autowired
     private PersonDao personDao;
 
-
+    @Transactional
     public HealthForm store(MultipartFile file, Long childId) throws IOException {
         HealthForm healthForm = healthFormRepository.getHealthFormByChildId(childId);
         String fileName = StringUtils.cleanPath(file.getOriginalFilename());
 
-        if (healthForm == null) {
-            healthForm = new HealthForm(fileName, file.getContentType(), file.getBytes());
-            Person child = personDao.getOne(childId);
-            healthForm.setChild(child);
+        if (file.getContentType().equals("application/pdf")) {
+            if (healthForm == null) {
+                healthForm = new HealthForm(fileName, file.getContentType(), file.getBytes());
+                Person child = personDao.getOne(childId);
+                healthForm.setChild(child);
+            } else {
+                healthForm.setName(fileName);
+                healthForm.setType(file.getContentType());
+                healthForm.setData(file.getBytes());
+            }
         } else {
-            healthForm.setName(fileName);
-            healthForm.setType(file.getContentType());
-            healthForm.setData(file.getBytes());
+            return null;
         }
 
         healthForm.setDate(java.sql.Date.valueOf(LocalDate.now()));
-        
+
         return healthFormRepository.save(healthForm);
     }
 
+    @Transactional(readOnly = true)
     public HealthForm getFile(String id) {
         return healthFormRepository.findById(id).get();
     }
 
+    @Transactional(readOnly = true)
     public List<HealthFileResponse> getAllFiles() {
        return healthFormRepository
                 .findAll()
@@ -64,7 +71,10 @@ public class HealthFormService {
                             dbFile.getName(),
                             fileDownloadUri,
                             dbFile.getType(),
-                            dbFile.getData().length);
+                            dbFile.getData().length,
+                            dbFile.getChild().getFirstName() + " " + dbFile.getChild().getLastName(),
+                            dbFile.getDate()
+                            );
                 }).collect(Collectors.toList());
     }
 }

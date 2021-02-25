@@ -29,7 +29,13 @@ public class HealthFormController {
         try {
             storageService.store(file, childId);
             message = "Failas sėkmingai išsaugotas: " + file.getOriginalFilename();
-            return ResponseEntity.status(HttpStatus.OK).body(new ResponseMessage(message));
+            var returnObj = ResponseEntity.status(HttpStatus.OK).body(new ResponseMessage(message));
+
+            if (returnObj == null) {
+                message = "Netinkamas failo formatas: " + file.getOriginalFilename() + "!";
+                return ResponseEntity.status(HttpStatus.EXPECTATION_FAILED).body(new ResponseMessage(message));
+            }
+            return returnObj;
         } catch (Exception e) {
             message = "Failo išsaugoti nepavyko: " + file.getOriginalFilename() + "!";
             return ResponseEntity.status(HttpStatus.EXPECTATION_FAILED).body(new ResponseMessage(message));

@@ -1,11 +1,12 @@
 import React, { useState } from 'react';
 import FileInput from '../FileInput/FileInput';
 
-const HealthFormListComponent = ({ children }) => {
+const HealthFormListComponent = ({ children, updateForms }) => {
     const [selectedChildId, setSelectedChildId] = useState("");
     return (
         <div>
             <div className="row">
+                <p className="ml-4">Pasirinkite vaiką, kurio sveikatos pažymą norite išsaugoti, ir pasirinkite pdf formato failą.</p>
                 <div className="form-group col-4 text-center">
                     <select className="form-control" onChange={(e) => setSelectedChildId(e.target.value)} >
                         <option defaultValue>Pasirinkite vaiką</option>
@@ -16,6 +17,7 @@ const HealthFormListComponent = ({ children }) => {
                 </div>
                 <FileInput
                     selectedChildId={selectedChildId}
+                    updateForms={updateForms}
                 />
             </div>
         </div>
