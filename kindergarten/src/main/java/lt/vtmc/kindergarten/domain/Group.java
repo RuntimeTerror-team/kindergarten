@@ -21,7 +21,7 @@ public class Group {
 
     @ManyToOne
     @JoinColumn(name = "ageRange_id")
-    @Cascade(org.hibernate.annotations.CascadeType.ALL)
+    @Cascade(org.hibernate.annotations.CascadeType.MERGE)
     private AgeRange ageRange;
 
     public Group() {

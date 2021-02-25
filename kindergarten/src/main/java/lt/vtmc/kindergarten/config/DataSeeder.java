@@ -1,7 +1,7 @@
 package lt.vtmc.kindergarten.config;
 
 
-import lt.vtmc.kindergarten.dao.UserDao;
+import lt.vtmc.kindergarten.dao.*;
 import lt.vtmc.kindergarten.domain.*;
 import lt.vtmc.kindergarten.dto.*;
 import lt.vtmc.kindergarten.service.*;
@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.util.Date;
+import java.util.HashMap;
 
 
 @Component
@@ -18,27 +19,40 @@ public class DataSeeder {
     private DistrictService districtService;
 
     @Autowired
-    KindergartenService kindergartenService;
+    private KindergartenService kindergartenService;
 
     @Autowired
-    PersonService personService;
+    private KindergartenDao kindergartenDao;
 
     @Autowired
-    AgeRangeService ageRangeService;
+    private PersonService personService;
 
     @Autowired
-    UserService userService;
+    private AgeRangeService ageRangeService;
 
     @Autowired
-    QueueService queueService;
+    private UserService userService;
 
     @Autowired
-    ApplicationService applicationService;
+    private QueueService queueService;
+
+    @Autowired
+    private ApplicationService applicationService;
 
     @Autowired
     private UserDao userDao;
 
-    public District createDistrict(String title, Long id){
+    @Autowired
+    private PersonDao personDao;
+
+    @Autowired
+    private GroupDao groupDao;
+
+    @Autowired
+    private AgeRangeDao ageRangeDao;
+
+
+    public District createDistrict(String title, Long id) {
         District district = new District();
         district.setTitle(title);
         district.setId(id);
@@ -46,11 +60,11 @@ public class DataSeeder {
         return district;
     }
 
-    public void cretePersons(){
+    public void cretePersons() {
         Role guardian = new Role();
         guardian.setType(RoleType.GUARDIAN);
 
-
+        //Useris
         UserDtoFromAdmin edgarasUserForAdm = new UserDtoFromAdmin();
         edgarasUserForAdm.setFirstName("Edgaras");
         edgarasUserForAdm.setLastName("Bujonauskas");
@@ -69,14 +83,12 @@ public class DataSeeder {
         personEdgaras.setPersonalCode("39004180111");
         personEdgaras.setPhoneNumber("862412323");
         personEdgaras.setPostalCode("10321");
-        personEdgaras.setTribeId("fam1");
         personEdgaras.setUser(edgarasUser);
 
         PersonDto personEdgarasDto = new PersonDto(personEdgaras);
 
-        PersonUserDto personEdgarasUser = new PersonUserDto(personEdgarasDto , edgarasUser.getUsername());
+        PersonUserDto personEdgarasUser = new PersonUserDto(personEdgarasDto, edgarasUser.getUsername());
         personService.addPersonWithUsername(personEdgarasUser);
-
 
 
         Person child = new Person();
@@ -88,7 +100,6 @@ public class DataSeeder {
         child.setPersonalCode("51504180332");
         child.setPhoneNumber(null);
         child.setPostalCode("10321");
-        child.setTribeId("fam1");
         personService.addPerson(new PersonDto(child));
 
 
@@ -105,6 +116,7 @@ public class DataSeeder {
         personService.addPerson(new PersonDto(child2));
 
 
+        //Useris
         UserDtoFromAdmin monikaUserForAdmin = new UserDtoFromAdmin();
         monikaUserForAdmin.setFirstName("Monika");
         monikaUserForAdmin.setLastName("Bujonauskienė");
@@ -123,17 +135,25 @@ public class DataSeeder {
         person2.setPersonalCode("49004170458");
         person2.setPhoneNumber("862412322");
         person2.setPostalCode("10321");
-        person2.setTribeId("fam1");
         person2.setUser(monikaUser);
 
 
         PersonDto monikaUserDto = new PersonDto(person2);
 
-        PersonUserDto personMonikaUser = new PersonUserDto(monikaUserDto , monikaUser.getUsername());
+        PersonUserDto personMonikaUser = new PersonUserDto(monikaUserDto, monikaUser.getUsername());
         personService.addPersonWithUsername(personMonikaUser);
 
 
-        Application application = new Application();
+        //Useris
+        UserDtoFromAdmin ievaUserForAdmin = new UserDtoFromAdmin();
+        ievaUserForAdmin.setFirstName("Ieva");
+        ievaUserForAdmin.setLastName("Urbelienė");
+        ievaUserForAdmin.setRole("GUARDIAN");
+
+        userService.createUserFromAdmin(ievaUserForAdmin);
+        User ievaUser = userDao.findAll().stream().filter(user -> user.getUsername().contains("Ieva")).findFirst().get();
+        guardian.addUser(ievaUser);
+
         Person person3 = new Person();
         person3.setFirstName("Ieva");
         person3.setLastName("Urbelienė");
@@ -183,31 +203,17 @@ public class DataSeeder {
         personService.addPerson(new PersonDto(person4));
     }
 
-    public void createAgeRanges(){
+    public void createAgeRanges(int min, int max) {
         AgeRange ageRange = new AgeRange();
-        ageRange.setAgeMin(1);
-        ageRange.setAgeMax(2);
-
-        AgeRange ageRange2 = new AgeRange();
-        ageRange2.setAgeMin(2);
-        ageRange2.setAgeMax(3);
-
-        AgeRange ageRange3 = new AgeRange();
-        ageRange3.setAgeMin(3);
-        ageRange3.setAgeMax(4);
-
-        AgeRange ageRange4 = new AgeRange();
-        ageRange4.setAgeMin(4);
-        ageRange4.setAgeMax(5);
-
+        ageRange.setAgeMin(min);
+        ageRange.setAgeMax(max);
 
         ageRangeService.addAgeRange(new AgeRangeDto(ageRange));
-        ageRangeService.addAgeRange(new AgeRangeDto(ageRange2));
-        ageRangeService.addAgeRange(new AgeRangeDto(ageRange3));
-        ageRangeService.addAgeRange(new AgeRangeDto(ageRange4));
     }
 
-    public void createKindergartens(District district, District district2){
+
+
+    public void createKindergartens(District district, District district2) {
         Kindergarten kindergarten = new Kindergarten();
         kindergarten.setTitle("Pušaitė");
         kindergarten.setAddress("Gatvės g. 56");
@@ -248,15 +254,55 @@ public class DataSeeder {
         kindergartenService.addKindergarten(new KindergartenDto(kindergarten3));
     }
 
-    public void createUsers(){
+    public void createGroupForKindergarten(String kindergartenCompanyCode, int minAgeRange, int maxAgeRange){
+        Kindergarten kindergarten = kindergartenDao.findByCompanyCode(kindergartenCompanyCode);
+        AgeRange ageRange = ageRangeDao.findByAgeMinAndAgeMax(minAgeRange,maxAgeRange);
+
+        Group group = new Group();
+        group.setChildrenCount(10);
+        group.setKindergartenId(kindergarten);
+        group.setAgeRange(ageRange);
+
+        groupDao.save(group);
+
+        kindergartenDao.save(kindergarten);
+
+    }
+
+    public void createUsers() {
         userService.createGuardian("Petras", "Petrauskas");
         userService.createGuardian("Marija", "Pūkienė");
         userService.createGuardian("Justinas", "Bingelis");
     }
 
-    public void createQueueWithOpeningDate(){
+    public void createQueueWithOpeningDate() {
         Date date = new Date();
         queueService.addQueueWithOpeningDate(new QueueDtoWithOpeningDate(date));
+    }
+
+    public void createApplication(String parentPersonalCode, String childPersonalCode, String kindergarten1CompanyCode,
+                                  Boolean isAdopted, Boolean isGuardianStudent, Boolean isMultiChild, Boolean isDisabled) {
+
+        Person parent1 = personDao.findByPersonalCode(parentPersonalCode);
+        Person child = personDao.findByPersonalCode(childPersonalCode);
+        Kindergarten kindergarten1 = kindergartenDao.findByCompanyCode(kindergarten1CompanyCode);
+
+        ApplicationCreationDto application = new ApplicationCreationDto();
+        application.setDate(new Date());
+        application.setIsAdopted(isAdopted);
+        application.setIsGuardianStudent(isGuardianStudent);
+        application.setIsMultiChild(isMultiChild);
+        application.setIsGuardianDisabled(isDisabled);
+
+        application.setFirstParentId(parent1.getId());
+        application.setChildId(child.getId());
+
+        application.setPriorityForKindergartenID(new HashMap<>() {{
+            put(1, kindergarten1.getId());
+        }});
+
+        applicationService.addApplication(application);
+
     }
 
 }

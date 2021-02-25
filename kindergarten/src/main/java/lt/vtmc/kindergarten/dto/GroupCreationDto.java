@@ -1,5 +1,7 @@
 package lt.vtmc.kindergarten.dto;
 
+import lt.vtmc.kindergarten.domain.Group;
+
 import javax.validation.constraints.NotNull;
 
 public class GroupCreationDto{
@@ -10,7 +12,6 @@ public class GroupCreationDto{
     private int childrenCount;
 
     private Long ageRangeId;
-
 
 
     public GroupCreationDto(@NotNull Long id, int childrenCount, Long ageRangeId) {

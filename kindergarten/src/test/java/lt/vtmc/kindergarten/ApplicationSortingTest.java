@@ -1,13 +1,10 @@
 package lt.vtmc.kindergarten;
 
-import lt.vtmc.kindergarten.controller.ApplicationController;
-import lt.vtmc.kindergarten.controller.DistrictController;
-import lt.vtmc.kindergarten.controller.KindergartenController;
-import lt.vtmc.kindergarten.dao.ApplicationDao;
 import lt.vtmc.kindergarten.dao.PersonDao;
 import lt.vtmc.kindergarten.domain.*;
 import lt.vtmc.kindergarten.dto.*;
 import lt.vtmc.kindergarten.service.*;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,10 +13,12 @@ import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
+
 
 @DirtiesContext(classMode = DirtiesContext.ClassMode.AFTER_EACH_TEST_METHOD)
 @SpringBootTest
@@ -94,6 +93,7 @@ public class ApplicationSortingTest {
         ApplicationCreationDto application1 = TestUtils.createDefaultApplicationDto();
         application1.setFirstParentId(parentPerson.getId());
         application1.setChildId(child1Id.getId());
+
         application1.setPriorityForKindergartenID(new HashMap<>(){{
             put(1,kindergartenId);
         }});
@@ -133,7 +133,6 @@ public class ApplicationSortingTest {
         assertTrue(sortedApplications.get(2).getChild().getPersonalCode() == "61702300198");
         assertTrue(sortedApplications.get(3).getChild().getPersonalCode() == "61702300188");
     }
-
 
     public int countChildAge(String personalCode) {
 
