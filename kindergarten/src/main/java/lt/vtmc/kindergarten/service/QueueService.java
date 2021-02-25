@@ -33,6 +33,9 @@ public class QueueService {
     @Autowired
     private ApplicationDao applicationDao;
 
+    @Autowired
+    private ApplicationService applicationService;
+
 
     @Transactional
     public void addQueueWithOpeningDate(QueueDtoWithOpeningDate queueDtoWithOpeningDate) {
@@ -108,6 +111,7 @@ public class QueueService {
             System.out.println("Queue is after due date. Closing queue.");
             queue.setStatus(QueueStatusEnum.LOCKED);
             queueDao.save(queue);
+//            applicationService.assignKindergartensToApplications();
             applicationList.stream().forEach(application ->
                     {
                         application.setApplicationStatus(ApplicationStatusEnum.WAITING);

@@ -271,15 +271,6 @@ public class ApplicationService {
 
 //TODO UZBAIGTI SU SITUO REIKALIUKUS!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
-
-//    @Transactional
-//    public List<ApplicationCreationDto> getApplications() {
-//        List<Application> applications = applicationDao.findAll(Sort.by(Sort.Direction.ASC, "date"));
-//        List<ApplicationCreationDto> applicationList = applications.stream().map(application -> new ApplicationCreationDto(application))
-//                .collect(Collectors.toList());
-//        return applicationList;
-//    }
-
     //TODO HAVE NO CLUE IF IS IT USEFUL
     @Transactional
     public List<ApprovedApplicationDto> getApprovedApplications() {
@@ -314,38 +305,43 @@ public class ApplicationService {
         return approvedApplicationList;
     }
 
-//    public void assignKindergartensToApplications() {
-//        List<Application> applications = applicationDao.findAll();
-//
-//        List<Kindergarten> kindergartens = kindergartenDao.findAll();
-//
-//        applications.stream().forEach(application -> {
-//            int age = countChildAge(application.getChild().getPersonalCode());
-//
-//            Map<Integer, Long> prioritiesAndKindergartens = parseApplicationMetadata(application);
-//
-//            for (Long value : prioritiesAndKindergartens.values()) {
-//            }
-//
-//
-//        });
-//
-//
-//        kindergartens.stream().forEach(kindergarten -> {
-//            Set<Group> groups = kindergarten.getGroups();
-//            groups.stream().forEach(group -> {
-//                group.getAgeRange();
-//                group.getChildrenCount();
-//            });
-//        });
-//
-//    }
+    public void assignKindergartensToApplications() {
 
-    public Map<Integer, Long> parseApplicationMetadata(Application application){
+        List<Application> applications = getSortedApplications();
+
+//        List<Application> applications = applicationDao.findAll();
+
+        List<Kindergarten> kindergartens = kindergartenDao.findAll();
+
+        applications.stream().forEach(application -> {
+            int age = countChildAge(application.getChild().getPersonalCode());
+            Long approvedKindergartenId = 0L;
+
+            Map<Integer, Long> prioritiesAndKindergartens = parseApplicationMetadata(application);
+
+            prioritiesAndKindergartens.forEach((priority, kindergarten) ->{
+
+            });
+
+
+        });
+
+
+        kindergartens.stream().forEach(kindergarten -> {
+            Set<Group> groups = kindergarten.getGroups();
+            groups.stream().forEach(group -> {
+                group.getAgeRange();
+                group.getChildrenCount();
+            });
+        });
+
+    }
+
+    public Map<Integer, Long> parseApplicationMetadata(Application application) {
         Set<KindergartenApplicationForm> kindergartenApplications = application.getKindergartenApplicationForms();
         Map<Integer, Long> applicationToPriority = new ConcurrentHashMap<>();
         kindergartenApplications.stream()
-                .forEach(item -> applicationToPriority.put(item.getPriority(),item.getKindergarten().getId()));
+                .forEach(item -> applicationToPriority.put(item.getPriority(), item.getKindergarten().getId()));
 
         return applicationToPriority;
     }
