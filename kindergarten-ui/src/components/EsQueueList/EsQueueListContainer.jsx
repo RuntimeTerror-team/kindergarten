@@ -37,7 +37,7 @@ class EsQueueListContainer extends Component {
                 if (active.length > 0) {
                     this.refreshtTimer = setTimeout(() => {
                         this.refresh();
-                    }, new Date(active[0].registrationClosingDate) - new Date());
+                    }, new Date(active[0].registrationClosingDate) - new Date() + 30000);
                 }
             })
             .catch((err) => console.log(err));
@@ -130,7 +130,7 @@ class EsQueueListContainer extends Component {
 
                         this.refreshtTimer = setTimeout(() => {
                             this.refresh();
-                        }, new Date(active) - new Date());
+                        }, new Date(active) - new Date() + 30000);
                     })
                     .catch((err) => console.log(err));
             })
