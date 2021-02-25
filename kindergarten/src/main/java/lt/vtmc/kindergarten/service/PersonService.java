@@ -173,4 +173,8 @@ public class PersonService {
         }
 
     }
+
+    public List<Person> getChildrenByParentUsername(String username) {
+        return personDao.getChildrenOfParentByUsername(username);
+    }
 }

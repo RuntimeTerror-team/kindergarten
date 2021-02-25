@@ -1,21 +1,21 @@
 import React from 'react';
-import Proptypes from 'prop-types';
+// import Proptypes from 'prop-types';
 
-let NoApplicationsComponent = (props) =>{
+let NoApplicationsComponent = (props) => {
 
   if (props.currentStep !== 5) {
     return null
   }
 
-    return(
+  return (
 
-        <div className="alert alert-danger mt-4">
-               <span>Prašymų pildymas šiuo metu negalimas</span>
-               </div>
+    <div className="alert alert-danger mt-4">
+      <span>Prašymų pildymas šiuo metu negalimas</span>
+    </div>
 
 
 
-    )
+  )
 
 }
 
