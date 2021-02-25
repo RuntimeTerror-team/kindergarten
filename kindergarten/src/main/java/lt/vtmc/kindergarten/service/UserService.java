@@ -143,6 +143,16 @@ public class UserService implements UserDetailsService {
 
         return new UserDetailsDto(person, username);
     }
+    
+    @Transactional
+    public void changePassword(UserDto userDto) {
+    	
+    	User user = userDao.findByUsername(userDto.getUsername());
+    	
+    	if(user != null) {
+    		user.setPassword(passwordEncoder.encode(userDto.getPassword()));
+    	}
+    }
 
     private String assembleUsername(String firstName, String lastName) {
         return checkUsernameLength(sanitizeNameToPascalCase(firstName)+sanitizeNameToPascalCase(lastName));

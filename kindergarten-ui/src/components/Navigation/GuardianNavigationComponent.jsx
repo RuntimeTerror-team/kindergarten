@@ -45,6 +45,9 @@ class ESNavigationComponent extends Component {
                 <Link to={`${urls.guardian.healthFormBase}`} className={`btn btn-main mb-2 w-100 ${window.location.pathname === `/kindergarten${urls.guardian.healthFormBase}` ? "btn-active" : ""}`} >
                     Sveikatos pažymos
                 </Link>
+                <Link to={`${urls.guardian.applicationBase}/passwordChange`} className={`btn btn-main mb-2 w-100 ${window.location.pathname === `/kindergarten${urls.guardian.applicationBase}/passwordChange` ? "btn-active" : ""}`} >
+                    Mano paskyra
+            </Link>
             </nav>
         )
     }
