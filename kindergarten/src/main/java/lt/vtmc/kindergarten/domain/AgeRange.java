@@ -1,5 +1,7 @@
 package lt.vtmc.kindergarten.domain;
 
+import org.hibernate.annotations.Cascade;
+
 import javax.persistence.*;
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;

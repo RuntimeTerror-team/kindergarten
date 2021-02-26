@@ -5,11 +5,12 @@ import io.swagger.annotations.ApiParam;
 import lt.vtmc.kindergarten.dto.ApplicationCreationDto;
 import lt.vtmc.kindergarten.dto.ApplicationDto;
 import lt.vtmc.kindergarten.dto.ApplicationInfoDto;
+import lt.vtmc.kindergarten.dto.ApprovedApplicationDto;
 import lt.vtmc.kindergarten.service.ApplicationService;
 
 import java.util.List;
 
-import lt.vtmc.kindergarten.service.exceptions.QueueDoesntExistException;
+import lt.vtmc.kindergarten.exception.QueueDoesntExistException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -88,6 +89,12 @@ public class ApplicationController {
         return applicationService.getApplicationsInfo(username);
     }
 
+    @RequestMapping(method = RequestMethod.GET, value = "/api/applications/sorted")
+    @ApiOperation(value="Get sorted applications",notes ="Returns all sorted applications by score, then by child age, then by child lastname")
+    @ResponseStatus(HttpStatus.OK)
+    public List<ApprovedApplicationDto> getApprovedApplications(){
+        return applicationService.getApprovedApplications();
+    }
 
     public void setApplicationService(ApplicationService applicationService) {
         this.applicationService = applicationService;

@@ -2,12 +2,10 @@ package lt.vtmc.kindergarten.service;
 
 import lt.vtmc.kindergarten.dao.*;
 import lt.vtmc.kindergarten.domain.*;
-import lt.vtmc.kindergarten.dto.ApplicationCreationDto;
-import lt.vtmc.kindergarten.dto.ApplicationDto;
-import lt.vtmc.kindergarten.dto.ApplicationInfoDto;
-import lt.vtmc.kindergarten.dto.PersonDto;
+import lt.vtmc.kindergarten.domain.Queue;
+import lt.vtmc.kindergarten.dto.*;
 
-import lt.vtmc.kindergarten.service.exceptions.QueueDoesntExistException;
+import lt.vtmc.kindergarten.exception.QueueDoesntExistException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
@@ -20,9 +18,8 @@ import javax.validation.Valid;
 
 import java.time.LocalDate;
 
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
+import java.util.concurrent.ConcurrentHashMap;
 import java.util.stream.Collectors;
 
 @Service
@@ -48,6 +45,9 @@ public class ApplicationService {
 
     @Autowired
     private UserDao userDao;
+
+    @Autowired
+    private ApprovedApplicationDao approvedApplicationDao;
 
 
     @Transactional
@@ -91,7 +91,7 @@ public class ApplicationService {
             application.setIsGuardianDisabled(applicationCreationDto.isGuardianDisabled());
 
             if (child.getCity() == CityEnum.VILNIUS) {
-                application.setScore(countScore(applicationCreationDto) + 1);
+                application.setScore(countScore(applicationCreationDto) + 10);
             } else {
                 application.setScore(countScore(applicationCreationDto));
             }
@@ -116,7 +116,6 @@ public class ApplicationService {
 
     @Transactional
     public List<ApplicationDto> getApplicationsList() {
-
         List<Application> applications = applicationDao.findAll();
         return applications.stream().map(application -> new ApplicationDto(application.getId(), application.getApplicationStatus(),
                 application.getChild(), new PersonDto(application.getParent()),
@@ -163,7 +162,7 @@ public class ApplicationService {
         if (applicationCreationDto.isGuardianDisabled()) {
             sumOfPriorities = sumOfPriorities + 1;
         }
-        if (applicationCreationDto.isAdopted()) {
+        if (applicationCreationDto.isMultiChild()) {
             sumOfPriorities = sumOfPriorities + 1;
         }
         if (applicationCreationDto.isGuardianStudent()) {
@@ -190,7 +189,7 @@ public class ApplicationService {
             application.setIsGuardianDisabled(applicationCreationDto.isGuardianDisabled());
 
             if (child.getCity() == CityEnum.VILNIUS) {
-                application.setScore(countScore(applicationCreationDto) + 1);
+                application.setScore(countScore(applicationCreationDto) + 10);
             } else {
                 application.setScore(countScore(applicationCreationDto));
             }
@@ -267,5 +266,130 @@ public class ApplicationService {
         userService.createGuardian(firstName, lastName);
     }
 
+
+    //******************************************************************************************************************************************
+    @Transactional
+    public List<ApprovedApplicationDto> getApprovedApplications() {
+        List<ApprovedApplication> applications = approvedApplicationDao.findAll();
+
+        List<ApprovedApplicationDto> approvedApplicationList = applications.stream().map(application -> {
+
+            ApprovedApplicationDto approvedApplicationDto = new ApprovedApplicationDto();
+
+            approvedApplicationDto.setChildFirstName(application.getChildFirstName());
+            approvedApplicationDto.setChildLastName(application.getChildLastName());
+            approvedApplicationDto.setParentFirstName(application.getParentFirstName());
+            approvedApplicationDto.setParentLastName(application.getParentLastName());
+            approvedApplicationDto.setDate(application.getDate());
+            approvedApplicationDto.setScore(application.getScore());
+            approvedApplicationDto.setStatus(application.getStatus());
+
+            return approvedApplicationDto;
+        })
+                .collect(Collectors.toList());
+
+        return approvedApplicationList;
+    }
+
+    @Transactional
+    public void persistApprovedApplications(List<Application> applications) {
+        applications.stream().forEach(application -> {
+            ApprovedApplication approvedApplication = new ApprovedApplication();
+
+            approvedApplication.setChildFirstName(application.getChild().getFirstName());
+            approvedApplication.setChildLastName(application.getChild().getLastName());
+            approvedApplication.setParentFirstName(application.getParent().getFirstName());
+            approvedApplication.setParentLastName(application.getParent().getLastName());
+            approvedApplication.setDate(application.getDate());
+            approvedApplication.setScore(application.getScore());
+            approvedApplication.setStatus(application.getApplicationStatus().toString());
+
+            approvedApplicationDao.save(approvedApplication);
+        });
+    }
+
+@Transactional
+    public void calculateApplicationStatus() {
+        // TODO could I sort them here?
+        List<Application> applications = getSortedApplications();
+
+        applications.stream()
+                // Only check applications that are not yet approved
+                .filter(application -> application.getApplicationStatus() == ApplicationStatusEnum.WAITING)
+                .forEachOrdered(application -> {
+                    application
+                            .getKindergartenApplicationForms()
+                            .stream()
+                            .sorted(Comparator.comparing(KindergartenApplicationForm::getPriority))
+                            .forEachOrdered(applicationForm -> {
+                                applicationForm
+                                        .getKindergarten()
+                                        .getGroups()
+                                        .stream()
+                                        .sorted(Comparator.comparing(group -> group.getAgeRange().getAgeMin()))
+                                        .forEachOrdered(group -> {
+                                            boolean wasAccepted = application.getKindergartenApplicationForms().stream().filter(item -> item.isAccepted() == true)
+                                                    .count() > 0;
+                                            Integer age = PersonService.countChildAge(application.getChild().getPersonalCode());
+                                            AgeRange ageRange = group.getAgeRange();
+                                            // Check if there is a group that kid fits in by his age
+                                            if (!wasAccepted && ageRange.getAgeMin() <= age && age <= ageRange.getAgeMax()) {
+                                                Integer childCount = group.getChildrenCount();
+                                                // Check if following group has available seat
+                                                if (childCount > 0) {
+                                                    System.out.println("XXX"+applicationForm.getKindergarten().getCompanyCode()+"  "+childCount);
+                                                    group.setChildrenCount(childCount - 1);
+                                                    applicationForm.setAccepted(true);
+                                                    application.setApplicationStatus(ApplicationStatusEnum.APPROVED);
+                                                    return;
+                                                }
+                                            }
+                                        });
+                            });
+
+                });
+        // TODO check if it application should be REJECTED,UNCONFIRMED or put back to WAITING list
+        applications.stream().filter(application -> application.getApplicationStatus() != ApplicationStatusEnum.APPROVED)
+                .forEach(application -> application.setApplicationStatus(ApplicationStatusEnum.UNCONFIRMED));
+
+        persistApprovedApplications(applications);
+    }
+
+    public Map<Integer, Long> parseApplicationMetadata(Application application) {
+        Set<KindergartenApplicationForm> kindergartenApplications = application.getKindergartenApplicationForms();
+        Map<Integer, Long> applicationToPriority = new ConcurrentHashMap<>();
+        kindergartenApplications.stream()
+                .forEach(item -> applicationToPriority.put(item.getPriority(), item.getKindergarten().getId()));
+
+        return applicationToPriority;
+    }
+
+
+    @Transactional
+    public List<Application> getSortedApplications() {
+
+        List<Application> applications = applicationDao.findByApplicationStatus(ApplicationStatusEnum.WAITING);
+        applications.sort((o1, o2) -> {
+            if(o1.getScore()==o2.getScore()){
+                int age1 = PersonService.countChildAge(o1.getChild().getPersonalCode());
+                int age2 = PersonService.countChildAge(o2.getChild().getPersonalCode());
+                if (age1 == age2) {
+                    return o1.getChild().getLastName().compareTo(o2.getChild().getLastName());
+                } else {
+                    if (age1 < age2) {
+                        return 1;
+                    } else {
+                        return -1;
+                    }
+                }
+            } else if (o1.getScore()<o2.getScore()){
+                return 1;
+            }else {
+                return -1;
+            }
+        });
+
+        return applications;
+    }
 
 }

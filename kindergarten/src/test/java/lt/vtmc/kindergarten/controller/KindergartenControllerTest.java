@@ -1,11 +1,12 @@
 package lt.vtmc.kindergarten.controller;
 
 import lt.vtmc.kindergarten.TestUtils;
+import lt.vtmc.kindergarten.dao.AgeRangeDao;
 import lt.vtmc.kindergarten.dao.DistrictDao;
+import lt.vtmc.kindergarten.dao.GroupDao;
 import lt.vtmc.kindergarten.dao.KindergartenDao;
 import lt.vtmc.kindergarten.domain.*;
 import lt.vtmc.kindergarten.dto.KindergartenDto;
-import lt.vtmc.kindergarten.service.KindergartenService;
 import org.junit.jupiter.api.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -31,7 +32,10 @@ public class KindergartenControllerTest {
     private KindergartenDao kindergartenDao;
 
     @Autowired
-    private KindergartenService kindergartenService;
+    private AgeRangeDao ageRangeDao;
+
+    @Autowired
+    private GroupDao groupDao;
 
     @Test
     @Order(1)
@@ -52,19 +56,24 @@ public class KindergartenControllerTest {
     @DirtiesContext(methodMode = DirtiesContext.MethodMode.AFTER_METHOD)
     void testGetAllGroupsByKindergartenId() {
         District district = TestUtils.createDefaultDistrict("Antakalnis");
+        districtDao.save(district);
         Kindergarten kindergarten = TestUtils.createDefaultKindergarten("12345678");
         kindergarten.setDistrict(district);
 
-        Group group = new Group();
         AgeRange ageRange = new AgeRange();
         ageRange.setAgeMin(1);
         ageRange.setAgeMax(2);
+        ageRangeDao.save(ageRange);
+
+        Group group = new Group();
         group.setAgeRange(ageRange);
         group.setKindergartenId(kindergarten);
         group.setChildrenCount(10);
+        kindergartenDao.save(kindergarten);
+        groupDao.save(group);
+
         kindergarten.addGroup(group);
 
-        districtDao.save(district);
         kindergartenDao.save(kindergarten);
 
         assertEquals(1, kindergartenController.getGroups(kindergarten.getId()).size(), "Should get all groups by kindergarten id");
@@ -75,27 +84,37 @@ public class KindergartenControllerTest {
     @DisplayName("get one group by kindergarten id")
     @DirtiesContext(methodMode = DirtiesContext.MethodMode.AFTER_METHOD)
     void testGetSingleGroupByKindergartenId() {
-        districtDao.save(TestUtils.createDefaultDistrict("Antakalnis"));
+        District district = TestUtils.createDefaultDistrict("Antakalnis");
+        districtDao.save(district);
+        Kindergarten kindergarten = TestUtils.createDefaultKindergarten("12345678");
+        kindergarten.setDistrict(district);
 
-        Kindergarten kindergarten = TestUtils.createDefaultKindergarten("132456778");
-        kindergarten.setDistrict(districtDao.findByTitle("Antakalnis"));
-
-
-        Group group = TestUtils.createDefaultGroup(kindergarten);
-        Group group3 = new Group();
         AgeRange ageRange = new AgeRange();
-        ageRange.setAgeMin(2);
-        ageRange.setAgeMax(3);
-        group3.setAgeRange(ageRange);
-        group3.setKindergartenId(kindergarten);
-        group3.setChildrenCount(13);
+        ageRange.setAgeMin(1);
+        ageRange.setAgeMax(2);
+        ageRangeDao.save(ageRange);
+
+        Group group = new Group();
+        group.setAgeRange(ageRange);
+        group.setKindergartenId(kindergarten);
+        group.setChildrenCount(10);
+        kindergartenDao.save(kindergarten);
+        groupDao.save(group);
 
         kindergarten.addGroup(group);
-        kindergarten.addGroup(group3);
-
         kindergartenDao.save(kindergarten);
 
-        assertEquals(group3.getChildrenCount(), kindergartenController.getGroup(kindergarten.getId(), group3.getId()).getChildrenCount(), "Should get single group by kindergarten id");
+        Group group2 = new Group();
+        group2.setAgeRange(ageRange);
+        group2.setKindergartenId(kindergarten);
+        group2.setChildrenCount(13);
+        kindergartenDao.save(kindergarten);
+        groupDao.save(group2);
+
+        kindergarten.addGroup(group2);
+        kindergartenDao.save(kindergarten);
+
+        assertEquals(group2.getChildrenCount(), kindergartenController.getGroup(kindergarten.getId(), group2.getId()).getChildrenCount(), "Should get single group by kindergarten id");
     }
 
     @Test

@@ -2,6 +2,7 @@ package lt.vtmc.kindergarten.dto;
 
 import java.util.Date;
 import java.util.LinkedHashSet;
+import java.util.Map;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -11,7 +12,6 @@ import lt.vtmc.kindergarten.domain.Person;
 
 
 public class ApplicationDto {
-
 
     private Long id;
     private Date date;

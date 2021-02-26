@@ -1,5 +1,6 @@
 package lt.vtmc.kindergarten.domain;
 
+import lt.vtmc.kindergarten.dto.UserDto;
 import org.hibernate.validator.constraints.Length;
 
 import javax.persistence.*;
@@ -35,7 +36,7 @@ public class User {
         this.password = password;
         this.role = role;
     }
-    
+
     public String getUsername() {
         return username;
     }

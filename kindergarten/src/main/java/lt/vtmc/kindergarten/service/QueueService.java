@@ -10,7 +10,7 @@ import lt.vtmc.kindergarten.dto.QueueDto;
 import lt.vtmc.kindergarten.dto.QueueDtoClosingDate;
 import lt.vtmc.kindergarten.dto.QueueDtoWithOpeningDate;
 import lt.vtmc.kindergarten.dto.QueueDtoRegistrationClosingDate;
-import lt.vtmc.kindergarten.service.exceptions.RegistrationClosingValidationExeption;
+import lt.vtmc.kindergarten.exception.RegistrationClosingValidationExeption;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
 import org.springframework.scheduling.annotation.EnableScheduling;
@@ -32,6 +32,9 @@ public class QueueService {
 
     @Autowired
     private ApplicationDao applicationDao;
+
+    @Autowired
+    private ApplicationService applicationService;
 
 
     @Transactional
@@ -96,11 +99,12 @@ public class QueueService {
     }
 
     /**
-     * Checks for queue closing date and triggers lockdown if the deadline is met
-     * Check happens every minute
+     * Checks for queue closing date and triggers lockdown if the deadline is met.
+     * After lockdown is triggered - applications are parsed and queued.
+     * Check for closing date happens every minute
      */
     @Scheduled(cron = "1 * * * * *")
-    protected void lockQueueOnRegistrationClosingTime() {
+    protected void startKindergartenRegistrations() {
         Queue queue = queueDao.findByStatus(QueueStatusEnum.ACTIVE);
         List<Application> applicationList = applicationDao.findAll();
 
@@ -108,12 +112,14 @@ public class QueueService {
             System.out.println("Queue is after due date. Closing queue.");
             queue.setStatus(QueueStatusEnum.LOCKED);
             queueDao.save(queue);
+
             applicationList.stream().forEach(application ->
                     {
                         application.setApplicationStatus(ApplicationStatusEnum.WAITING);
                         applicationDao.save(application);
                     }
             );
+            applicationService.calculateApplicationStatus();
         }
     }
 
