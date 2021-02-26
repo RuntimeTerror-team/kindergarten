@@ -77,4 +77,33 @@ public class HealthFormService {
                             );
                 }).collect(Collectors.toList());
     }
+
+    public List<HealthFileResponse> getListFilesByUserFamily(String username) {
+        List<Person> children = personDao.getChildrenOfParentByUsername(username);
+        List<Long> childrenId = children
+                .stream()
+                .map(c -> c.getId())
+                .collect(Collectors.toList());
+
+
+        return healthFormRepository
+                .findAllByChildren(childrenId)
+                .stream()
+                .map(dbFile -> {
+                    String fileDownloadUri = ServletUriComponentsBuilder
+                            .fromCurrentContextPath()
+                            .path("/api/health-forms/")
+                            .path(dbFile.getId())
+                            .toUriString();
+
+                    return new HealthFileResponse(
+                            dbFile.getName(),
+                            fileDownloadUri,
+                            dbFile.getType(),
+                            dbFile.getData().length,
+                            dbFile.getChild().getFirstName() + " " + dbFile.getChild().getLastName(),
+                            dbFile.getDate()
+                    );
+                }).collect(Collectors.toList());
+    }
 }

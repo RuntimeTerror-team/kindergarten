@@ -1,6 +1,8 @@
 package lt.vtmc.kindergarten.controller;
 
+import io.swagger.annotations.ApiOperation;
 import lt.vtmc.kindergarten.domain.HealthForm;
+import lt.vtmc.kindergarten.domain.Person;
 import lt.vtmc.kindergarten.dto.HealthFileResponse;
 import lt.vtmc.kindergarten.message.ResponseMessage;
 import lt.vtmc.kindergarten.service.HealthFormService;
@@ -43,8 +45,17 @@ public class HealthFormController {
     }
 
     @GetMapping
+    @ApiOperation(value = "Get all health forms", notes = "Returns a list of all health forms")
     public ResponseEntity<List<HealthFileResponse>> getListFiles() {
         List<HealthFileResponse> files = storageService.getAllFiles();
+
+        return ResponseEntity.status(HttpStatus.OK).body(files);
+    }
+
+    @GetMapping("/{username}")
+    @ApiOperation(value = "Get children of a person", notes = "Returns a list of children of a person by username")
+    public ResponseEntity<List<HealthFileResponse>> getListFilesByUserFamily(@PathVariable final String username) {
+        List<HealthFileResponse> files = storageService.getListFilesByUserFamily(username);
 
         return ResponseEntity.status(HttpStatus.OK).body(files);
     }
