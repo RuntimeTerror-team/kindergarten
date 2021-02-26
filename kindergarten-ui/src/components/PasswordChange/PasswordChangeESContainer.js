@@ -6,6 +6,8 @@ import ESNavigationComponent from '../Navigation/ESNavigationComponent'
 import HeaderComponent from '../Header/HeaderComponent';
 import Footer from '../Footer/Footer';
 import baseUrl from "../../AppConfig";
+import urls from '../../constants/urls';
+
 
 axios.defaults.withCredentials = true;
 
@@ -70,16 +72,16 @@ class PasswordChangeESContainer extends Component {
             this.setState({ oldPasswordValidation: "" });
         }
 
+        if(value.trim().length === 0 && name === "oldPassword") {
+            this.setState({ oldPasswordValidation: "is-invalid" });
+        }
+
         if(!/^(?=.*[a-ząčęėįšųū])(?=.*[A-ZĄČĘĖĮŠŲŪ])(?=.*\d)[a-ząčęėįšųūA-ZĄČĘĖĮŠŲŪ\d]{8,}$/.test(value) && name === "password"){
             this.setState({passwordValidation: "is-invalid"})
         }
 
         if(!/^(?=.*[a-ząčęėįšųū])(?=.*[A-ZĄČĘĖĮŠŲŪ])(?=.*\d)[a-ząčęėįšųūA-ZĄČĘĖĮŠŲŪ\d]{8,}$/.test(value) && name === "password2"){
             this.setState({password2Validation: "is-invalid"})
-        }
-
-        if(!/^(?=.*[a-ząčęėįšųū])(?=.*[A-ZĄČĘĖĮŠŲŪ])(?=.*\d)[a-ząčęėįšųūA-ZĄČĘĖĮŠŲŪ\d]{8,}$/.test(value) && name === "oldPassword"){
-            this.setState({oldPasswordValidation: "is-invalid"})
         }
 
     }
@@ -124,8 +126,7 @@ class PasswordChangeESContainer extends Component {
 
         if (this.state.passwordValidation === "" && this.state.password2Validation === "" && this.state.oldPasswordValidation === ""
         && /^(?=.*[a-ząčęėįšųū])(?=.*[A-ZĄČĘĖĮŠŲŪ])(?=.*\d)[a-ząčęėįšųūA-ZĄČĘĖĮŠŲŪ\d]{8,}$/.test(passwordFromUser)
-        && /^(?=.*[a-ząčęėįšųū])(?=.*[A-ZĄČĘĖĮŠŲŪ])(?=.*\d)[a-ząčęėįšųūA-ZĄČĘĖĮŠŲŪ\d]{8,}$/.test(password2FromUser)
-        && /^(?=.*[a-ząčęėįšųū])(?=.*[A-ZĄČĘĖĮŠŲŪ])(?=.*\d)[a-ząčęėįšųūA-ZĄČĘĖĮŠŲŪ\d]{8,}$/.test(oldPasswordFromUser))
+        && /^(?=.*[a-ząčęėįšųū])(?=.*[A-ZĄČĘĖĮŠŲŪ])(?=.*\d)[a-ząčęėįšųūA-ZĄČĘĖĮŠŲŪ\d]{8,}$/.test(password2FromUser))
         {
 
             if(passwordFromUser !== password2FromUser){
@@ -163,7 +164,23 @@ class PasswordChangeESContainer extends Component {
             
                                 this.setState({successMessage: "Slaptažodis sėkmingai pakeistas"})
                                 this.setState({successMessageStyle: "alert alert-success mt-4"})
+
+                                let destitation = ""
+                                
+                                if(this.state.role === "ROLE_GUARDIAN"){
+                                    destitation = urls.guardian.applicationBase;
                                 }
+
+                                if(this.state.role === "ROLE_EDUCATION_SPECIALIST"){
+                                    destitation = urls.educationSpecialist.kindergartenBase;
+                                }
+
+                                this.timer = setTimeout(() => {
+                                    this.props.history.push(destitation)
+                                }, 3000);
+
+                                }
+                                
                             })
                             .catch((e) => {console.log(e)});
                     }
@@ -195,7 +212,7 @@ class PasswordChangeESContainer extends Component {
             
         }
 
-        if (oldPassword.trim().length === 0 || !/^(?=.*[a-ząčęėįšųū])(?=.*[A-ZĄČĘĖĮŠŲŪ])(?=.*\d)[a-ząčęėįšųūA-ZĄČĘĖĮŠŲŪ\d]{8,}$/.test(oldPassword)) {
+        if (oldPassword.trim().length === 0) {
             this.setState({ oldPasswordValidation: "is-invalid" });
             
         }
