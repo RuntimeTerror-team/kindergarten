@@ -35,9 +35,7 @@ class EsQueueListContainer extends Component {
             .then(() => {
                 let active = this.state.queues.filter(q => q.status === "ACTIVE" && q.registrationClosingDate);
                 if (active.length > 0) {
-                    this.refreshtTimer = setTimeout(() => {
-                        this.refresh();
-                    }, new Date(active[0].registrationClosingDate) - new Date() + 30000);
+                    this.refreshData(active[0].registrationClosingDate);
                 }
             })
             .catch((err) => console.log(err));
@@ -128,9 +126,7 @@ class EsQueueListContainer extends Component {
                     .then(() => {
                         let active = this.state.queues.filter(q => q.status === "ACTIVE" && q.registrationClosingDate)[0].registrationClosingDate;
 
-                        this.refreshtTimer = setTimeout(() => {
-                            this.refresh();
-                        }, new Date(active) - new Date() + 30000);
+                        this.refreshData(active);
                     })
                     .catch((err) => console.log(err));
             })
@@ -148,8 +144,21 @@ class EsQueueListContainer extends Component {
             });
     }
 
+    refreshData = (timeDateWhenUpdating) => {
+        const TIME_TO_WAIT_AFTER_SERVER_TIME = 5000; //miliseconds
+
+        this.refreshTimer = setTimeout(() => {
+            this.refresh();
+        }, new Date(timeDateWhenUpdating) - new Date() + TIME_TO_WAIT_AFTER_SERVER_TIME);
+    }
+
     refresh = () => {
-        window.location.reload()
+        axios
+            .get(`${baseUrl}/api/queues`)
+            .then((res) => {
+                this.setState({ queues: res.data })
+            })
+            .catch((err) => console.log(err));
     }
 
     handleApprove = (e) => {
