@@ -268,6 +268,7 @@ public class DataSeeder {
 
     public void createGroupForKindergarten(String kindergartenCompanyCode, int minAgeRange, int maxAgeRange){
         Kindergarten kindergarten = kindergartenDao.findByCompanyCode(kindergartenCompanyCode);
+
         AgeRange ageRange = ageRangeDao.findByAgeMinAndAgeMax(minAgeRange,maxAgeRange);
 
         Group group = new Group();

@@ -32,6 +32,7 @@ public class Group {
     }
 
     public void setKindergartenId(Kindergarten kindergarten) {
+        kindergarten.addGroup(this);
         this.kindergarten = kindergarten;
     }
 

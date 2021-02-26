@@ -2,6 +2,7 @@ package lt.vtmc.kindergarten.service;
 
 import lt.vtmc.kindergarten.dao.*;
 import lt.vtmc.kindergarten.domain.*;
+import lt.vtmc.kindergarten.domain.Queue;
 import lt.vtmc.kindergarten.dto.*;
 
 import lt.vtmc.kindergarten.exception.QueueDoesntExistException;
@@ -17,9 +18,7 @@ import javax.validation.Valid;
 
 import java.time.LocalDate;
 
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.stream.Collectors;
 
@@ -294,9 +293,8 @@ public class ApplicationService {
         return approvedApplicationList;
     }
 
-    private void persistApprovedApplications(){
-        List<Application> applications = applicationDao.findAll();
-
+    @Transactional
+    public void persistApprovedApplications(List<Application> applications){
         applications.stream().forEach(application -> {
             ApprovedApplication approvedApplication = new ApprovedApplication();
 
@@ -312,38 +310,49 @@ public class ApplicationService {
         });
     }
 
-    @Transactional
-    public void assignKindergartensToApplications() {
 
+    public void calculateApplicationStatus() {
+        // TODO could I sort them here?
         List<Application> applications = getSortedApplications();
 
-//        List<Application> applications = applicationDao.findAll();
-
-        List<Kindergarten> kindergartens = kindergartenDao.findAll();
-
-        applications.stream().forEach(application -> {
-            int age = countChildAge(application.getChild().getPersonalCode());
-            Long approvedKindergartenId = 0L;
-
-            Map<Integer, Long> prioritiesAndKindergartens = parseApplicationMetadata(application);
-
-            prioritiesAndKindergartens.forEach((priority, kindergarten) ->{
-
-            });
-
+        applications.stream()
+            // Only check applications that are not yet approved
+                //FIXME change SUBMITTED to WAITING
+            .filter(application -> application.getApplicationStatus() == ApplicationStatusEnum.SUBMITTED)
+                .forEachOrdered(application -> {
+                    application
+                        .getKindergartenApplicationForms()
+                        .stream()
+                        .sorted(Comparator.comparing(KindergartenApplicationForm::getPriority))
+                        .forEachOrdered(applicationForm -> {
+                            applicationForm
+                                .getKindergarten()
+                                .getGroups()
+                                .stream()
+                                .sorted(Comparator.comparing(group -> group.getAgeRange().getAgeMin()))
+                                .forEachOrdered(group -> {
+                                    boolean wasAccepted = application.getKindergartenApplicationForms().stream().filter(item -> item.isAccepted()==true).count()>0;
+                                    Integer age = PersonService.countChildAge(application.getChild().getPersonalCode());
+                                    AgeRange ageRange = group.getAgeRange();
+                                    // Check if there is a group that kid fits in by his age
+                                    if(!wasAccepted && ageRange.getAgeMin()<=age && age <= ageRange.getAgeMax()) {
+                                        Integer childCount = group.getChildrenCount();
+                                        // Check if following group has available seat
+                                        if(childCount>0){
+                                            group.setChildrenCount(childCount-1);
+                                            applicationForm.setAccepted(true);
+                                            application.setApplicationStatus(ApplicationStatusEnum.APPROVED);
+                                            return;
+                                        }
+                                    }
+                                });
+                        });
 
         });
+        // TODO check if it application should be REJECTED or put back to WAITING list
+        applications.stream().filter(application -> application.getApplicationStatus()!=ApplicationStatusEnum.APPROVED).forEach(application -> application.setApplicationStatus(ApplicationStatusEnum.REJECTED));
 
-
-        kindergartens.stream().forEach(kindergarten -> {
-            Set<Group> groups = kindergarten.getGroups();
-            groups.stream().forEach(group -> {
-                group.getAgeRange();
-                group.getChildrenCount();
-            });
-        });
-
-        persistApprovedApplications();
+        persistApprovedApplications(applications);
     }
 
     public Map<Integer, Long> parseApplicationMetadata(Application application) {
@@ -363,8 +372,8 @@ public class ApplicationService {
         List<Application> applications = applicationDao.findAll(Sort.by(Sort.Direction.DESC, "score"));
 
         applications.sort((o1, o2) -> {
-            int age1 = countChildAge(o1.getChild().getPersonalCode());
-            int age2 = countChildAge(o2.getChild().getPersonalCode());
+            int age1 = PersonService.countChildAge(o1.getChild().getPersonalCode());
+            int age2 = PersonService.countChildAge(o2.getChild().getPersonalCode());
             if (age1 == age2) {
                 return o1.getChild().getLastName().compareTo(o2.getChild().getLastName());
             } else {
@@ -377,13 +386,6 @@ public class ApplicationService {
         });
 
         return applications;
-    }
-
-    public static int countChildAge(String personalCode) {
-        int birthdayYear = Integer.parseInt(personalCode.substring(1, 3));
-        LocalDate localDate = LocalDate.now();
-        int currentYear = localDate.getYear() - 2000;
-        return currentYear - birthdayYear;
     }
 
 }

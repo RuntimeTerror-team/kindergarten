@@ -84,6 +84,7 @@ public class Kindergarten {
     }
 
     public void addGroup(Group group){
+        group.setKindergarten(this);
         this.groups.add(group);
     }
 

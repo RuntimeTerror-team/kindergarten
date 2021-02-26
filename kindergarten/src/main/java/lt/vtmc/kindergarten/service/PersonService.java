@@ -16,6 +16,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.validation.annotation.Validated;
 
 import javax.validation.Valid;
+import java.time.LocalDate;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -158,11 +159,12 @@ public class PersonService {
         return person.getTribeId();
     }
 
-
-
-
-
-
+    public static int countChildAge(String personalCode) {
+        int birthdayYear = Integer.parseInt(personalCode.substring(1, 3));
+        LocalDate localDate = LocalDate.now();
+        int currentYear = localDate.getYear() - 2000;
+        return currentYear - birthdayYear;
+    }
 
     private boolean isPersonFamilyMember(Person person){
         String tribeId = getLoggedInUserTribeId();
