@@ -23,7 +23,7 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-
+@Disabled
 @DirtiesContext(classMode = DirtiesContext.ClassMode.AFTER_EACH_TEST_METHOD)
 @SpringBootTest
 @DisplayName("When running algorithm")
@@ -226,6 +226,7 @@ public class ApplicationSortingTest {
         }});
 
 
+
         ApplicationCreationDto application2 = TestUtils.createDefaultApplicationDto();
         application2.setFirstParentId(parentPerson.getId());
         application2.setChildId(child2Id.getId());
@@ -261,7 +262,6 @@ public class ApplicationSortingTest {
         assertTrue(sortedApplications.get(2).getChild().getPersonalCode() == "61702300198");
         assertTrue(sortedApplications.get(3).getChild().getPersonalCode() == "61702300188");
 
-        applicationService.calculateApplicationStatus();
         applicationService.calculateApplicationStatus();
     }
 }

@@ -315,7 +315,6 @@ public class ApplicationService {
 
         applications.stream()
                 // Only check applications that are not yet approved
-                //FIXME change SUBMITTED to WAITING
                 .filter(application -> application.getApplicationStatus() == ApplicationStatusEnum.WAITING)
                 .forEachOrdered(application -> {
                     application
@@ -349,7 +348,7 @@ public class ApplicationService {
                             });
 
                 });
-        // TODO check if it application should be REJECTED or put back to WAITING list
+        // TODO check if it application should be REJECTED,UNCONFIRMED or put back to WAITING list
         applications.stream().filter(application -> application.getApplicationStatus() != ApplicationStatusEnum.APPROVED)
                 .forEach(application -> application.setApplicationStatus(ApplicationStatusEnum.UNCONFIRMED));
 
@@ -368,8 +367,6 @@ public class ApplicationService {
 
     @Transactional
     public List<Application> getSortedApplications() {
-//        List<Application> applications = applicationDao.findAll(Sort.by(Sort.Direction.DESC, "score"));
-
 
         List<Application> applications = applicationDao.findByApplicationStatus(ApplicationStatusEnum.WAITING);
         applications.sort((o1, o2) -> {
@@ -391,20 +388,6 @@ public class ApplicationService {
                 return -1;
             }
         });
-
-//        applications.sort((o1, o2) -> {
-//            int age1 = PersonService.countChildAge(o1.getChild().getPersonalCode());
-//            int age2 = PersonService.countChildAge(o2.getChild().getPersonalCode());
-//            if (age1 == age2) {
-//                return o1.getChild().getLastName().compareTo(o2.getChild().getLastName());
-//            } else {
-//                if (age1 < age2) {
-//                    return 1;
-//                } else {
-//                    return -1;
-//                }
-//            }
-//        });
 
         return applications;
     }

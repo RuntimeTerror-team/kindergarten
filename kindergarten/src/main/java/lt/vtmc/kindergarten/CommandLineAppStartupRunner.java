@@ -2,7 +2,7 @@ package lt.vtmc.kindergarten;
 
 import lt.vtmc.kindergarten.config.DataSeeder;
 import lt.vtmc.kindergarten.dao.QueueDao;
-import lt.vtmc.kindergarten.domain.AgeRange;
+
 import lt.vtmc.kindergarten.domain.District;
 import lt.vtmc.kindergarten.dto.*;
 import lt.vtmc.kindergarten.service.*;
@@ -54,16 +54,16 @@ public class CommandLineAppStartupRunner implements CommandLineRunner {
             dataSeeder.createQueueWithOpeningDate();
 
             //Darželis Pušaitė
-//            dataSeeder.createGroupForKindergarten("19555587", 4, 5,0);
-//            dataSeeder.createGroupForKindergarten("19555587", 5, 6,0);
+            dataSeeder.createGroupForKindergarten("19555587", 4, 5,0);
+            dataSeeder.createGroupForKindergarten("19555587", 5, 6,0);
             dataSeeder.createGroupForKindergarten("19555587", 6, 7,3);
 
-//            //Darželis Smalsučiai
-//            dataSeeder.createGroupForKindergarten("19555888", 1, 2,0);
-//            dataSeeder.createGroupForKindergarten("19555888", 4, 5,0);
-//
-//            //Darželis Nykštukai
-//            dataSeeder.createGroupForKindergarten("19555333", 1, 2,0);
+            //Darželis Smalsučiai
+            dataSeeder.createGroupForKindergarten("19555888", 1, 2,0);
+            dataSeeder.createGroupForKindergarten("19555888", 4, 5,0);
+
+            //Darželis Nykštukai
+            dataSeeder.createGroupForKindergarten("19555333", 1, 2,0);
 
 
             //Jonukas
@@ -95,7 +95,7 @@ public class CommandLineAppStartupRunner implements CommandLineRunner {
             dataSeeder.createApplication("48901110222", "62001011211", "19555587",
                     true, true, true, false);
 
-
+//************************************************************************************************************************************************** var2
 //            //Jonukas
 //            dataSeeder.createApplication("39004180111", "51504180332", "19555587",
 //                    false, false, true, true);
