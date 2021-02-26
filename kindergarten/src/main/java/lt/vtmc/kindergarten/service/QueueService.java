@@ -112,13 +112,14 @@ public class QueueService {
             System.out.println("Queue is after due date. Closing queue.");
             queue.setStatus(QueueStatusEnum.LOCKED);
             queueDao.save(queue);
-//            applicationService.assignKindergartensToApplications();
+
             applicationList.stream().forEach(application ->
                     {
                         application.setApplicationStatus(ApplicationStatusEnum.WAITING);
                         applicationDao.save(application);
                     }
             );
+            applicationService.calculateApplicationStatus();
         }
     }
 

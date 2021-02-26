@@ -113,18 +113,18 @@ public class DataSeeder {
         kindergartenService.addKindergarten(new KindergartenDto(kindergarten3));
     }
 
-    public void createGroupForKindergarten(String kindergartenCompanyCode, int minAgeRange, int maxAgeRange) {
+    public void createGroupForKindergarten(String kindergartenCompanyCode, int minAgeRange, int maxAgeRange, int childrenCount) {
         Kindergarten kindergarten = kindergartenDao.findByCompanyCode(kindergartenCompanyCode);
 
         AgeRange ageRange = ageRangeDao.findByAgeMinAndAgeMax(minAgeRange, maxAgeRange);
 
         Group group = new Group();
-        group.setChildrenCount(1);
+        group.setChildrenCount(childrenCount);
         group.setKindergartenId(kindergarten);
         group.setAgeRange(ageRange);
 
-        kindergartenDao.save(kindergarten);
-        groupDao.save(group);
+//        kindergartenDao.save(kindergarten);
+//        groupDao.save(group);
 
         kindergarten.addGroup(group);
         kindergartenDao.save(kindergarten);

@@ -267,7 +267,7 @@ public class ApplicationService {
     }
 
 
-//******************************************************************************************************************************************
+    //******************************************************************************************************************************************
     @Transactional
     public List<ApprovedApplicationDto> getApprovedApplications() {
         List<ApprovedApplication> applications = approvedApplicationDao.findAll();
@@ -292,7 +292,7 @@ public class ApplicationService {
     }
 
     @Transactional
-    public void persistApprovedApplications(List<Application> applications){
+    public void persistApprovedApplications(List<Application> applications) {
         applications.stream().forEach(application -> {
             ApprovedApplication approvedApplication = new ApprovedApplication();
 
@@ -308,47 +308,50 @@ public class ApplicationService {
         });
     }
 
-
+@Transactional
     public void calculateApplicationStatus() {
         // TODO could I sort them here?
         List<Application> applications = getSortedApplications();
 
         applications.stream()
-            // Only check applications that are not yet approved
+                // Only check applications that are not yet approved
                 //FIXME change SUBMITTED to WAITING
-            .filter(application -> application.getApplicationStatus() == ApplicationStatusEnum.SUBMITTED)
+                .filter(application -> application.getApplicationStatus() == ApplicationStatusEnum.WAITING)
                 .forEachOrdered(application -> {
                     application
-                        .getKindergartenApplicationForms()
-                        .stream()
-                        .sorted(Comparator.comparing(KindergartenApplicationForm::getPriority))
-                        .forEachOrdered(applicationForm -> {
-                            applicationForm
-                                .getKindergarten()
-                                .getGroups()
-                                .stream()
-                                .sorted(Comparator.comparing(group -> group.getAgeRange().getAgeMin()))
-                                .forEachOrdered(group -> {
-                                    boolean wasAccepted = application.getKindergartenApplicationForms().stream().filter(item -> item.isAccepted()==true).count()>0;
-                                    Integer age = PersonService.countChildAge(application.getChild().getPersonalCode());
-                                    AgeRange ageRange = group.getAgeRange();
-                                    // Check if there is a group that kid fits in by his age
-                                    if(!wasAccepted && ageRange.getAgeMin()<=age && age <= ageRange.getAgeMax()) {
-                                        Integer childCount = group.getChildrenCount();
-                                        // Check if following group has available seat
-                                        if(childCount>0){
-                                            group.setChildrenCount(childCount-1);
-                                            applicationForm.setAccepted(true);
-                                            application.setApplicationStatus(ApplicationStatusEnum.APPROVED);
-                                            return;
-                                        }
-                                    }
-                                });
-                        });
+                            .getKindergartenApplicationForms()
+                            .stream()
+                            .sorted(Comparator.comparing(KindergartenApplicationForm::getPriority))
+                            .forEachOrdered(applicationForm -> {
+                                applicationForm
+                                        .getKindergarten()
+                                        .getGroups()
+                                        .stream()
+                                        .sorted(Comparator.comparing(group -> group.getAgeRange().getAgeMin()))
+                                        .forEachOrdered(group -> {
+                                            boolean wasAccepted = application.getKindergartenApplicationForms().stream().filter(item -> item.isAccepted() == true)
+                                                    .count() > 0;
+                                            Integer age = PersonService.countChildAge(application.getChild().getPersonalCode());
+                                            AgeRange ageRange = group.getAgeRange();
+                                            // Check if there is a group that kid fits in by his age
+                                            if (!wasAccepted && ageRange.getAgeMin() <= age && age <= ageRange.getAgeMax()) {
+                                                Integer childCount = group.getChildrenCount();
+                                                // Check if following group has available seat
+                                                if (childCount > 0) {
+                                                    System.out.println("XXX"+applicationForm.getKindergarten().getCompanyCode()+"  "+childCount);
+                                                    group.setChildrenCount(childCount - 1);
+                                                    applicationForm.setAccepted(true);
+                                                    application.setApplicationStatus(ApplicationStatusEnum.APPROVED);
+                                                    return;
+                                                }
+                                            }
+                                        });
+                            });
 
-        });
+                });
         // TODO check if it application should be REJECTED or put back to WAITING list
-        applications.stream().filter(application -> application.getApplicationStatus()!=ApplicationStatusEnum.APPROVED).forEach(application -> application.setApplicationStatus(ApplicationStatusEnum.REJECTED));
+        applications.stream().filter(application -> application.getApplicationStatus() != ApplicationStatusEnum.APPROVED)
+                .forEach(application -> application.setApplicationStatus(ApplicationStatusEnum.UNCONFIRMED));
 
         persistApprovedApplications(applications);
     }
@@ -365,23 +368,43 @@ public class ApplicationService {
 
     @Transactional
     public List<Application> getSortedApplications() {
-        //paskui pakeisti i WAITING db testavimuisi aproved palieku
-//        List<Application> applications = applicationDao.findByApplicationStatus(ApplicationStatusEnum.APPROVED);
-        List<Application> applications = applicationDao.findAll(Sort.by(Sort.Direction.DESC, "score"));
+//        List<Application> applications = applicationDao.findAll(Sort.by(Sort.Direction.DESC, "score"));
 
+
+        List<Application> applications = applicationDao.findByApplicationStatus(ApplicationStatusEnum.WAITING);
         applications.sort((o1, o2) -> {
-            int age1 = PersonService.countChildAge(o1.getChild().getPersonalCode());
-            int age2 = PersonService.countChildAge(o2.getChild().getPersonalCode());
-            if (age1 == age2) {
-                return o1.getChild().getLastName().compareTo(o2.getChild().getLastName());
-            } else {
-                if (age1 < age2) {
-                    return 1;
+            if(o1.getScore()==o2.getScore()){
+                int age1 = PersonService.countChildAge(o1.getChild().getPersonalCode());
+                int age2 = PersonService.countChildAge(o2.getChild().getPersonalCode());
+                if (age1 == age2) {
+                    return o1.getChild().getLastName().compareTo(o2.getChild().getLastName());
                 } else {
-                    return -1;
+                    if (age1 < age2) {
+                        return 1;
+                    } else {
+                        return -1;
+                    }
                 }
+            } else if (o1.getScore()<o2.getScore()){
+                return 1;
+            }else {
+                return -1;
             }
         });
+
+//        applications.sort((o1, o2) -> {
+//            int age1 = PersonService.countChildAge(o1.getChild().getPersonalCode());
+//            int age2 = PersonService.countChildAge(o2.getChild().getPersonalCode());
+//            if (age1 == age2) {
+//                return o1.getChild().getLastName().compareTo(o2.getChild().getLastName());
+//            } else {
+//                if (age1 < age2) {
+//                    return 1;
+//                } else {
+//                    return -1;
+//                }
+//            }
+//        });
 
         return applications;
     }
