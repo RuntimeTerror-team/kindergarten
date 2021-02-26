@@ -1,6 +1,6 @@
 import React from 'react';
 
-const HealthFormTableComponent = ({ files, handleDownload }) => (
+const HealthFormTableComponent = ({ familyFiles, handleDownload }) => (
     <div className="col-12 mt-3 text-center">
         <table id="groupTable" className='table col-12'>
             <thead>
@@ -14,15 +14,16 @@ const HealthFormTableComponent = ({ files, handleDownload }) => (
             </thead>
 
             <tbody>
-                {files.map(({ id, name, childFullName, date, url }, index) =>
-                    <tr key={id} >
-                        <th scope='row'>{index + 1}</th>
-                        <td>{childFullName}</td>
-                        <td>{date}</td>
-                        <td>{name}</td>
-                        <td><button className="btn btn-link" value={url} onClick={handleDownload}>Atsisiųsti</button></td>
-                    </tr>
-                )}
+                {familyFiles.length > 0
+                    && familyFiles.map(({ id, name, childFullName, date, url }, index) =>
+                        <tr key={id} >
+                            <th scope='row'>{index + 1}</th>
+                            <td>{childFullName}</td>
+                            <td>{date}</td>
+                            <td>{name}</td>
+                            <td><button className="btn btn-link" value={url} onClick={handleDownload}>Atsisiųsti</button></td>
+                        </tr>
+                    )}
             </tbody>
         </table>
     </div>
