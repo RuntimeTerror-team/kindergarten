@@ -52,7 +52,7 @@ public class HealthFormController {
         return ResponseEntity.status(HttpStatus.OK).body(files);
     }
 
-    @GetMapping("/{username}")
+    @GetMapping("/family/{username}")
     @ApiOperation(value = "Get children of a person", notes = "Returns a list of children of a person by username")
     public ResponseEntity<List<HealthFileResponse>> getListFilesByUserFamily(@PathVariable final String username) {
         List<HealthFileResponse> files = storageService.getListFilesByUserFamily(username);
@@ -61,6 +61,7 @@ public class HealthFormController {
     }
 
     @GetMapping("/{id}")
+    @ApiOperation(value = "Get one file", notes = "Returns a file by id")
     public ResponseEntity<byte[]> getFile(@PathVariable String id) {
         HealthForm healthForm = storageService.getFile(id);
 

@@ -78,13 +78,13 @@ public class HealthFormService {
                 }).collect(Collectors.toList());
     }
 
+    @Transactional(readOnly = true)
     public List<HealthFileResponse> getListFilesByUserFamily(String username) {
         List<Person> children = personDao.getChildrenOfParentByUsername(username);
         List<Long> childrenId = children
                 .stream()
                 .map(c -> c.getId())
                 .collect(Collectors.toList());
-
 
         return healthFormRepository
                 .findAllByChildren(childrenId)
