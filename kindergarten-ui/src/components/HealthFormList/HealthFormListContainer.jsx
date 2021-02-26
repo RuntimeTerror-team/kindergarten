@@ -73,14 +73,18 @@ class HealthFormListContainer extends Component {
                                     updateForms={this.updateForms}
                                 />}
                             {this.state.children.length === 0
-                                && <div className="alert alert-warning text-center col-6 offset-3" role="alert">
-                                    Sistemoje nėra išsaugotų vaikų
+                                && <div className="alert alert-warning text-center col-6 offset-3 my-1" role="alert">
+                                    Galimybė įkelti pažymą turite tik pateikę prašymą į darželį.
                              </div>}
                             {this.state.files.length > 0
                                 && <HealthFormTableComponent
                                     files={this.state.files}
                                     handleDownload={this.handleDownload}
                                 />}
+                            {this.state.files.length === 0
+                                && <div className="alert alert-warning text-center col-6 offset-3 my-1" role="alert">
+                                    Jūs dar nesate pridėję sveikatos pažymų.
+                             </div>}
                         </div>
                     </div>
                 </div>
