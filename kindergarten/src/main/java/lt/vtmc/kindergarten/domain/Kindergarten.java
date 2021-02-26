@@ -55,7 +55,7 @@ public class Kindergarten {
     private District district;
 
 
-    @OneToMany(mappedBy = "kindergarten")
+    @OneToMany(mappedBy = "kindergarten", fetch = FetchType.EAGER)
     @Cascade(CascadeType.ALL)
     private Set<Group> groups = new HashSet<Group>();
 

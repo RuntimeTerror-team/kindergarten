@@ -39,21 +39,60 @@ public class CommandLineAppStartupRunner implements CommandLineRunner {
         if (seedData) {
             District districtAntakalnis = dataSeeder.createDistrict("Antakalnis", 1L);
             District districtZirmunai = dataSeeder.createDistrict("Žirmūnai", 2L);
-            dataSeeder.createUsers();
+//            dataSeeder.createUsers();
+
             dataSeeder.cretePersons();
-            dataSeeder.createAgeRanges(1,2);
-            dataSeeder.createAgeRanges(3,4);
+
+            dataSeeder.createAgeRanges(1, 2);
+            dataSeeder.createAgeRanges(3, 4);
+            dataSeeder.createAgeRanges(4, 5);
+            dataSeeder.createAgeRanges(5, 6);
+            dataSeeder.createAgeRanges(6, 7);
+
             dataSeeder.createKindergartens(districtAntakalnis, districtZirmunai);
+
             dataSeeder.createQueueWithOpeningDate();
-            dataSeeder.createGroupForKindergarten("19555587", 1, 2);
-            dataSeeder.createGroupForKindergarten("19555587", 3, 4);
-            dataSeeder.createApplication("39004180111","51504180332", "19555587",
+
+            //Darželis Pušaitė
+            dataSeeder.createGroupForKindergarten("19555587", 4, 5);
+            dataSeeder.createGroupForKindergarten("19555587", 5, 6);
+
+            //Darželis Smalsučiai
+            dataSeeder.createGroupForKindergarten("19555888", 1, 2);
+            dataSeeder.createGroupForKindergarten("19555888", 4, 5);
+
+            //Darželis Nykštukai
+            dataSeeder.createGroupForKindergarten("19555333", 1, 2);
+
+
+
+            //Jonukas
+            dataSeeder.createApplication("39004180111", "51504180332", "19555587",
                     false, false, true, true);
-            dataSeeder.createApplication("39004180111","61602221111", "19555587",
+            //Maryte
+            dataSeeder.createApplication("39004180111", "61602221111", "19555587",
                     false, false, true, false);
-            dataSeeder.createApplication("48901110222","61707120444", "19555587",
+
+            //Gabrielius
+            dataSeeder.createApplication("38406160121", "51910280322", "19555888",
                     true, true, true, false);
-            dataSeeder.createApplication("48901110222","61707120478", "19555587",
+            //Atene
+            dataSeeder.createApplication("38406160121", "51910281112", "19555888",
+                    true, true, true, false);
+
+            //Iglute
+            dataSeeder.createApplication("49004170458", "61507120478", "19555587",
+                    true, true, true, false);
+            //Erikas
+            dataSeeder.createApplication("49004170458", "51512218211", "19555587",
+                    true, true, true, false);
+
+
+            //Iglute2
+            dataSeeder.createApplication("48901110222", "61507120444", "19555587",
+                    true, true, true, false);
+            //Poviliukas
+            dataSeeder.createApplication("48901110222", "62001011211", "19555333",
                     true, true, true, false);
         }
 

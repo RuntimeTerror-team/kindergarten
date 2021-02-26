@@ -162,7 +162,7 @@ public class ApplicationService {
         if (applicationCreationDto.isGuardianDisabled()) {
             sumOfPriorities = sumOfPriorities + 1;
         }
-        if (applicationCreationDto.isAdopted()) {
+        if (applicationCreationDto.isMultiChild()) {
             sumOfPriorities = sumOfPriorities + 1;
         }
         if (applicationCreationDto.isGuardianStudent()) {
@@ -267,9 +267,7 @@ public class ApplicationService {
     }
 
 
-//TODO UZBAIGTI SU SITUO REIKALIUKUS!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-
-    //TODO HAVE NO CLUE IF IS IT USEFUL
+//******************************************************************************************************************************************
     @Transactional
     public List<ApprovedApplicationDto> getApprovedApplications() {
         List<ApprovedApplication> applications = approvedApplicationDao.findAll();

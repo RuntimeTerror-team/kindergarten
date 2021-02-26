@@ -200,6 +200,7 @@ public class ApplicationSortingTest {
 //        groupDao.save(group1);
 //        kindergarten.addGroup(group1);
         kindergartenService.addKindergarten(new KindergartenDto(kindergarten));
+        //FIXME replace with TestUtils group creation
         dataSeeder.createGroupForKindergarten("12355456",1,7);
 
 
@@ -209,6 +210,7 @@ public class ApplicationSortingTest {
 //        groupDao.save(group2);
 //        kindergarten2.addGroup(group2);
         kindergartenService.addKindergarten(new KindergartenDto(kindergarten2));
+        //FIXME replace with TestUtils group creation
         dataSeeder.createGroupForKindergarten("33355456",1,7);
 
         Long kindergartenId = kindergartenService.getKindergartens().get(0).getId();
