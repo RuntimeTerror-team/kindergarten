@@ -67,6 +67,21 @@ public final class TestUtils {
         return group;
     }
 
+    public static Group createDefaultGroup(Kindergarten kindergarten, int minAge, int maxAge, int childrenCount) {
+        Group group = new Group();
+
+        AgeRange ageRange = new AgeRange();
+
+        ageRange.setAgeMin(minAge);
+        ageRange.setAgeMax(maxAge);
+
+        group.setAgeRange(ageRange);
+        group.setKindergartenId(kindergarten);
+        group.setChildrenCount(childrenCount);
+
+        return group;
+    }
+
     public static QueueDtoWithOpeningDate createDefaultQueue() {
         QueueDtoWithOpeningDate queue = new QueueDtoWithOpeningDate();
         queue.setOpeningDate(new Date());
