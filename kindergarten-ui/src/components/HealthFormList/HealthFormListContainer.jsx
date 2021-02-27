@@ -12,7 +12,8 @@ class HealthFormListContainer extends Component {
         super();
         this.state = {
             children: [],
-            files: []
+            familyFiles: [],
+            username: ""
         }
     }
 
@@ -20,7 +21,8 @@ class HealthFormListContainer extends Component {
         axios
             .get(`${baseUrl}/loggedUsername`)
             .then((res) => {
-                console.log(res.data);
+                this.setState({ username: res.data })
+                this.updateForms(res.data)
                 axios
                     .get(`${baseUrl}/api/persons/childrenOfTribe/${res.data}`)
                     .then(res => {
@@ -30,21 +32,16 @@ class HealthFormListContainer extends Component {
             })
             .catch(e => console.log(e))
 
-        axios
-            .get(`${baseUrl}/api/health-forms`)
-            .then((res) => {
-                this.setState({ files: res.data })
-            })
-            .catch((err) => {
-                console.log(err);
-            })
+
     }
 
-    updateForms = () => {
+    updateForms = (username) => {
+        username = typeof username !== 'undefined' ? username : this.state.username;
         axios
-            .get(`${baseUrl}/api/health-forms`)
+            .get(`${baseUrl}/api/health-forms/family/${username}`)
             .then((res) => {
-                this.setState({ files: res.data })
+                this.setState({ familyFiles: res.data })
+                console.log(res);
             })
             .catch((err) => {
                 console.log(err);
@@ -73,14 +70,18 @@ class HealthFormListContainer extends Component {
                                     updateForms={this.updateForms}
                                 />}
                             {this.state.children.length === 0
-                                && <div className="alert alert-warning text-center col-6 offset-3" role="alert">
-                                    Sistemoje nėra išsaugotų vaikų
+                                && <div className="alert alert-warning text-center col-6 offset-3 my-1" role="alert">
+                                    Galimybė įkelti pažymą turite tik pateikę prašymą į darželį.
                              </div>}
-                            {this.state.files.length > 0
+                            {this.state.familyFiles.length > 0
                                 && <HealthFormTableComponent
-                                    files={this.state.files}
+                                    familyFiles={this.state.familyFiles}
                                     handleDownload={this.handleDownload}
                                 />}
+                            {this.state.familyFiles.length === 0
+                                && <div className="alert alert-warning text-center col-6 offset-3 my-1" role="alert">
+                                    Jūs dar nesate pridėję sveikatos pažymų.
+                             </div>}
                         </div>
                     </div>
                 </div>

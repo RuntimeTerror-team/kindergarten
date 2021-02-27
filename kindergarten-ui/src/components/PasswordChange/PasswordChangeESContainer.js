@@ -2,7 +2,7 @@ import axios from 'axios';
 import React, { Component } from 'react';
 import { withRouter } from "react-router-dom";
 import PasswordChangeComponent from './PasswordChangeComponent';
-import GuardianNavigationComponent from '../Navigation/GuardianNavigationComponent'
+import ESNavigationComponent from '../Navigation/ESNavigationComponent'
 import HeaderComponent from '../Header/HeaderComponent';
 import Footer from '../Footer/Footer';
 import baseUrl from "../../AppConfig";
@@ -11,7 +11,7 @@ import urls from '../../constants/urls';
 
 axios.defaults.withCredentials = true;
 
-class PasswordChangeContainer extends Component {
+class PasswordChangeESContainer extends Component {
     constructor() {
         super();
         this.state = {
@@ -164,10 +164,9 @@ class PasswordChangeContainer extends Component {
             
                                 this.setState({successMessage: "Slaptažodis sėkmingai pakeistas"})
                                 this.setState({successMessageStyle: "alert alert-success mt-4"})
-                                }
 
                                 let destitation = ""
-
+                                
                                 if(this.state.role === "ROLE_GUARDIAN"){
                                     destitation = urls.guardian.applicationBase;
                                 }
@@ -180,6 +179,8 @@ class PasswordChangeContainer extends Component {
                                     this.props.history.push(destitation)
                                 }, 3000);
 
+                                }
+                                
                             })
                             .catch((e) => {console.log(e)});
                     }
@@ -222,15 +223,13 @@ class PasswordChangeContainer extends Component {
 
     render() {
 
-        return(
-    
+          return (
             <div className="footerBottom">
-              <HeaderComponent
-               userRole="ROLE_GUARDIAN"/>
-              <div className="container py-4">
-                <div className="row">
-                  <GuardianNavigationComponent />
-                  <div className="col-8">
+                <HeaderComponent userRole="ROLE_EDUCATION_SPECIALIST" />
+                <div className="container py-4">
+                    <div className="row">
+                        <ESNavigationComponent />
+                        <div className="col-8">
                   <PasswordChangeComponent
                     password={this.state.password}
                     password2={this.state.password2}
@@ -250,14 +249,14 @@ class PasswordChangeContainer extends Component {
                     onOldPasswordChange={this.handleChange}
                 />
                   </div>
+                    </div>
                 </div>
-              </div>
-              <Footer />
+                <Footer />
             </div>
-          )
+        )
 
-    
+          
         }    
 }
 
-export default withRouter(PasswordChangeContainer);
+export default withRouter(PasswordChangeESContainer);

@@ -1,8 +1,8 @@
 import React from "react";
 import Proptypes from "prop-types";
 
-let PasswordChangeComponent = ({ password, password2, passwordValidation, password2Validation, notMatchingMessage, notMatchingMessageStyle,
-  successMessage, successMessageStyle, onSubmit, onPasswordChange, onPassword2Change }) => {
+let PasswordChangeComponent = ({ password, password2, oldPassword, passwordValidation, password2Validation, oldPasswordValidation, notMatchingMessage, notMatchingMessageStyle,
+  successMessage, successMessageStyle, wrongOldPasswordMessage, wrongOldPasswordMessageStyle, onSubmit, onPasswordChange, onPassword2Change , onOldPasswordChange}) => {
 
   return (
 
@@ -10,6 +10,12 @@ let PasswordChangeComponent = ({ password, password2, passwordValidation, passwo
       <div style={{width: "300px"}}>
         <h2 className="mb-3  mt-5">Pakeisti slaptažodį</h2>
         <form className="form" onSubmit={onSubmit}>
+        <div className="form-group">
+            <input className={`largeInput form-control  ${oldPasswordValidation}`} type="password" id="oldPassword" value={oldPassword} onChange={onOldPasswordChange} name="oldPassword" placeholder="Senas slaptažodis"></input>
+            <div className="invalid-feedback">
+              Šis laukas privalomas.
+                        </div>
+          </div>
           <div className="form-group">
             <input className={`largeInput form-control  ${passwordValidation}`} type="password" id="password" value={password} onChange={onPasswordChange} name="password" placeholder="Naujas slaptažodis"></input>
             <div className="invalid-feedback">
@@ -33,6 +39,10 @@ let PasswordChangeComponent = ({ password, password2, passwordValidation, passwo
         <span>{successMessage}</span>
         </div>
 
+        <div className={wrongOldPasswordMessageStyle + " mt-2"}>
+        <span>{wrongOldPasswordMessage}</span>
+        </div>
+
         </div>
         
       </div>
@@ -46,14 +56,19 @@ PasswordChangeComponent.propTypes = {
 
   password: Proptypes.string.isRequired,
   password2: Proptypes.string.isRequired,
+  oldPassword: Proptypes.string.isRequired,
   passwordValidation: Proptypes.string.isRequired,
   password2Validation: Proptypes.string.isRequired,
+  oldPasswordValidation: Proptypes.string.isRequired,
   notMatchingMessage: Proptypes.string.isRequired,
   notMatchingMessageStyle: Proptypes.string.isRequired,
   successMessage: Proptypes.string.isRequired,
   successMessageStyle: Proptypes.string.isRequired,
+  wrongOldPasswordMessage: Proptypes.string.isRequired,
+  wrongOldPasswordMessageStyle: Proptypes.string.isRequired,
   onPasswordChange: Proptypes.func.isRequired,
   onPassword2Change: Proptypes.func.isRequired,
+  onOldPasswordChange: Proptypes.func.isRequired,
   onSubmit: Proptypes.func.isRequired
 
 }

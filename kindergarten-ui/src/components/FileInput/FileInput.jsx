@@ -45,11 +45,11 @@ class FileInput extends Component {
     handleSubmit = (e) => {
         e.preventDefault();
 
-        const formData = new FormData();
+        if (this.props.selectedChildId !== "Pasirinkti vaiką") {
+            const formData = new FormData();
 
-        formData.append('file', this.state.file);
+            formData.append('file', this.state.file);
 
-        if (this.props.selectedChildId !== "Pasirinkite vaiką") {
             axios
                 .post(`${baseUrl}/api/health-forms/${this.props.selectedChildId}`, formData, {
                     headers: {
@@ -62,14 +62,11 @@ class FileInput extends Component {
                     this.props.updateForms();
                 })
                 .catch((err) => {
-                    if (err.response && err.response.status && err.response.status === 417) {
-                        this.showAlert(err.response.data.message, "danger")
-                    } else {
-                        console.log(err);
-                    }
+                    this.showAlert("Pasirinktas failas per didelis!", "danger")
+                    console.log(err);
                 })
         } else {
-            this.showAlert("Pasirinkite vaiką, kurio pažymą saugosite.", "danger");
+            this.showAlert("Pasirinkite vaiką, kurio pažymą saugosite.", "danger")
         }
     }
 
@@ -77,19 +74,19 @@ class FileInput extends Component {
         return (
             <div className="col-8 row">
                 <form className="col-12 row" onSubmit={this.handleSubmit} style={{ height: "40px" }}>
-                    <label className="m-0 btn btn-main col-3">
+                    <label className="m-0 btn btn-main col-3 h-100">
                         <input type="file" multiple onChange={this.onChange} />
                         <FontAwesomeIcon icon={faCloudUploadAlt} /> Ieškoti
                     </label>
                     {this.state.file &&
-                        <div className="file-preview my-auto col-6" style={{ overflow: "hidden" }} >{this.state.file.name}</div>
+                        <div className="file-preview my-auto col-6 h-100" style={{ overflow: "hidden" }} >{this.state.file.name}</div>
                     }
-                    {this.state.file && <button type="submit" className="btn btn-green col ml-2">Išsaugoti</button>}
+                    {this.state.file && <button type="submit" className="btn btn-green col ml-2 h-100">Išsaugoti</button>}
                 </form>
                 {this.state.message
-                    && <span className={`float-right mt-2 offset-1 ${this.state.messageStyle}`} style={{ width: "23em" }}>
+                    && <div className={`my-3 offset-1 ${this.state.messageStyle}`} style={{ width: "23em" }}>
                         {this.state.message}
-                    </span>}
+                    </div>}
             </div>
         );
     }
