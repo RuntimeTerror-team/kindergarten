@@ -5,7 +5,7 @@ import LoginComponent from "./LoginComponent";
 import baseUrl from "../../AppConfig";
 import urls from "../../constants/urls";
 import xxx from "../../image/xxx.png";
-import "../../styles/xxx.css";
+import "../../styles/login-logo.css";
 
 axios.defaults.withCredentials = true;
 
@@ -129,11 +129,11 @@ class LoginContainer extends Component {
 
   render() {
     return (
-      <div id="loginPage" className="row container-fluid ">
-        <div className="col-5 col-xl-5 col-lg-5 col-md-5 col-sm-5 col-xs-5  ">
-          <img className="xxx " src={xxx} alt="xxx" />
+      <div id="loginPage" className="row container-fluid">
+        <div className="col-xl-5 col-lg-5 col-md-5 col-sm-5 col-xs-5">
+          <img className="img-fluid login-logo" src={xxx} alt="xxx" />
         </div>
-        <div className="col-7 col-xl-7 col-lg-7 col-md-7 col-sm-7 col-xs-7">
+        <div className="col-xl-7 col-lg-7 col-md-7 col-sm-7 col-xs-7">
           <LoginComponent
             username={this.state.username}
             password={this.state.password}

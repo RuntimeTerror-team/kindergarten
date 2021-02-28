@@ -1,7 +1,5 @@
 import React from "react";
 import Proptypes from "prop-types";
-import xxx from "../../image/xxx.png";
-import "../../styles/xxx.css";
 
 let LoginComponent = ({
   username,
