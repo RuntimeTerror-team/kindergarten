@@ -130,10 +130,13 @@ class LoginContainer extends Component {
   render() {
     return (
       <div id="loginPage" className="row container-fluid">
-        <div className="col-xl-5 col-lg-5 col-md-5 col-sm-5 col-xs-5">
-          <img className="img-fluid login-logo" src={xxx} alt="xxx" />
+        <div className="col-xl-5 col-lg-5 col-md-5 col-sm-5 col-xs-5 loginPadding2">
+          <div className="row">
+            <div className="col-xl-2 col-lg-2 col-md-2 col-sm-2 col-xs-2"></div>
+            <img className="col-6 img-fluid login-logo" src={xxx} alt="xxx" />
+          </div>
         </div>
-        <div className="col-xl-7 col-lg-7 col-md-7 col-sm-7 col-xs-7">
+        <div className="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-xs-6 loginPadding">
           <LoginComponent
             username={this.state.username}
             password={this.state.password}
@@ -148,28 +151,6 @@ class LoginContainer extends Component {
       </div>
     );
   }
-
-  //   render() {
-  //     return (
-  //       <div id="loginPage" className="justify-content-center align-items-center">
-  //         <h1 className="text-center text-info pt-4">
-  //           {" "}
-  //           <img className="logo" src={logo} alt="Logo" />
-  //           Vaikų darželių informacinė sistema
-  //         </h1>
-  //         <LoginComponent
-  //           username={this.state.username}
-  //           password={this.state.password}
-  //           usernameValidation={this.state.usernameValidation}
-  //           passwordValidation={this.state.passwordValidation}
-  //           areCredentialsIncorrect={this.state.areCredentialsIncorrect}
-  //           onSubmit={this.handleSubmit}
-  //           onUsernameChange={this.handleChange}
-  //           onPasswordChange={this.handleChange}
-  //         />
-  //       </div>
-  //     );
-  //   }
 }
 
 export default withRouter(LoginContainer);

@@ -1,8 +1,7 @@
 .login-logo {
-    width: 60%;
-    height: 60%;
     position: relative;
     top: 45%;
     left: 50%;
     transform: translate(-50%, -50%);
+    padding-top: 10%;
 }
