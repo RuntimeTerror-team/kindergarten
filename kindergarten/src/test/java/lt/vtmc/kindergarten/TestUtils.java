@@ -44,7 +44,7 @@ public final class TestUtils {
     public static ApplicationCreationDto createDefaultApplicationDto() {
         ApplicationCreationDto applicationDto = new ApplicationCreationDto();
         applicationDto.setDate(new Date());
-        applicationDto.setIsAdopted(true);
+        applicationDto.setIsAdopted(false);
         applicationDto.setIsGuardianDisabled(false);
         applicationDto.setIsMultiChild(false);
         applicationDto.setIsGuardianStudent(false);
@@ -67,6 +67,8 @@ public final class TestUtils {
         return group;
     }
 
+
+    //FIXME not using
     public static Group createDefaultGroup(Kindergarten kindergarten, int minAge, int maxAge, int childrenCount) {
         Group group = new Group();
 

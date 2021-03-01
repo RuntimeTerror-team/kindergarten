@@ -55,6 +55,9 @@ public class ApplicationSortingTest {
     private AgeRangeDao ageRangeDao;
 
     @Autowired
+    private AgeRangeService ageRangeService;
+
+    @Autowired
     private ApplicationDao applicationDao;
 
     @Test
@@ -335,19 +338,29 @@ public class ApplicationSortingTest {
 
 
     @Test
-    @Disabled
+//    @Disabled
     @DisplayName("when running application sorting test")
     @Transactional
+    @DirtiesContext(classMode = DirtiesContext.ClassMode.BEFORE_CLASS)
     public void testApplicationSubmission() {
-        //TODO should be shortened in the future
+        QueueDtoWithOpeningDate queue = TestUtils.createDefaultQueue();
+        queueService.addQueueWithOpeningDate(queue);
 
-        Person parent = TestUtils.createDefaultPerson("12346578910");
-        Person child1 = TestUtils.createDefaultPerson("61602300444");
-        Person child2 = TestUtils.createDefaultPerson("61502300333");
-        Person child3 = TestUtils.createDefaultPerson("61702300222");
-        child3.setLastName("Zukazandyte");
-        Person child4 = TestUtils.createDefaultPerson("61702300111");
-        child4.setLastName("Abudabudaite");
+        districtService.addDistrict(new DistrictDto(TestUtils.createDefaultDistrict("Antakalnis")));
+        createKindergartens();
+
+        Long kindergartenId = kindergartenService.getKindergartens().get(0).getId();
+        Long kindergarten2Id = kindergartenService.getKindergartens().get(1).getId();
+
+
+
+
+        //TODO should be shortened in the future
+        Person parent = TestUtils.createDefaultPerson("48501158913");
+        Person child1 = TestUtils.createDefaultPerson("61902124144");
+        Person child2 = TestUtils.createDefaultPerson("61902123133");
+        Person child3 = TestUtils.createDefaultPerson("61902122122");
+        Person child4 = TestUtils.createDefaultPerson("61902121011");
 
         personDao.save(parent);
         personDao.save(child1);
@@ -361,37 +374,17 @@ public class ApplicationSortingTest {
         Person child3Id = personDao.findByPersonalCode(child3.getPersonalCode());
         Person child4Id = personDao.findByPersonalCode(child4.getPersonalCode());
 
-        QueueDtoWithOpeningDate queue = TestUtils.createDefaultQueue();
-        queueService.addQueueWithOpeningDate(queue);
-
-
-        districtService.addDistrict(new DistrictDto(TestUtils.createDefaultDistrict("Antakalnis")));
-
-        //Kindergarten 1
-        Kindergarten kindergarten = TestUtils.createDefaultKindergarten("12355456");
-        kindergarten.setDistrict(districtService.findDistrict("Antakalnis"));
-        kindergartenService.addKindergarten(new KindergartenDto(kindergarten));
-
-        Group group = TestUtils.createDefaultGroup(kindergarten, 1, 7, 3);
-        groupDao.save(group);
-//        kindergarten.addGroup(group);//??????????????????????
-        Long kindergartenId = kindergartenService.getKindergartens().get(0).getId();
-
-        //Kindergarten 2
-        Kindergarten kindergarten2 = TestUtils.createDefaultKindergarten("33355456");
-        kindergarten2.setDistrict(districtService.findDistrict("Antakalnis"));
-        kindergartenService.addKindergarten(new KindergartenDto(kindergarten2));
-
-        Group group2 = TestUtils.createDefaultGroup(kindergarten2, 1, 7, 3);
-        groupDao.save(group2);
-//        kindergarten.addGroup(group2);//??????????????????????
-        Long kindergarten2Id = kindergartenService.getKindergartens().get(1).getId();
-
 
         //1 application
-        ApplicationCreationDto application1 = TestUtils.createDefaultApplicationDto();
+        ApplicationCreationDto application1 = new ApplicationCreationDto();
+        application1.setDate(new Date());
+        application1.setIsAdopted(false);
+        application1.setIsGuardianDisabled(false);
+        application1.setIsMultiChild(false);
+        application1.setIsGuardianStudent(false);
         application1.setFirstParentId(parentPerson.getId());
         application1.setChildId(child1Id.getId());
+
         application1.setPriorityForKindergartenID(new HashMap<>() {{
             put(1, kindergartenId);
             put(2, kindergarten2Id);
@@ -399,31 +392,52 @@ public class ApplicationSortingTest {
 
 
         //2 application
-        ApplicationCreationDto application2 = TestUtils.createDefaultApplicationDto();
+
+        ApplicationCreationDto application2 = new ApplicationCreationDto();
+        application2.setDate(new Date());
+        application2.setIsAdopted(true);
+        application2.setIsGuardianDisabled(true);
+        application2.setIsMultiChild(false);
+        application2.setIsGuardianStudent(false);
         application2.setFirstParentId(parentPerson.getId());
         application2.setChildId(child2Id.getId());
+
         application2.setPriorityForKindergartenID(new HashMap<>() {{
             put(1, kindergartenId);
+            put(2, kindergarten2Id);
         }});
 
         //3 application
-        ApplicationCreationDto application3 = TestUtils.createDefaultApplicationDto();
+
+        ApplicationCreationDto application3 = new ApplicationCreationDto();
+        application3.setDate(new Date());
+        application3.setIsAdopted(true);
+        application3.setIsGuardianDisabled(true);
+        application3.setIsMultiChild(true);
+        application3.setIsGuardianStudent(false);
         application3.setFirstParentId(parentPerson.getId());
         application3.setChildId(child3Id.getId());
+
         application3.setPriorityForKindergartenID(new HashMap<>() {{
             put(1, kindergartenId);
+            put(2, kindergarten2Id);
         }});
 
         //4 application
-        ApplicationCreationDto application4 = TestUtils.createDefaultApplicationDto();
+
+        ApplicationCreationDto application4 = new ApplicationCreationDto();
+        application4.setDate(new Date());
+        application4.setIsAdopted(true);
+        application4.setIsGuardianDisabled(true);
+        application4.setIsMultiChild(true);
+        application4.setIsGuardianStudent(true);
         application4.setFirstParentId(parentPerson.getId());
         application4.setChildId(child4Id.getId());
+
         application4.setPriorityForKindergartenID(new HashMap<>() {{
             put(1, kindergartenId);
+            put(2, kindergarten2Id);
         }});
-
-
-
 
 
         applicationService.addApplication(application1);
@@ -431,21 +445,74 @@ public class ApplicationSortingTest {
         applicationService.addApplication(application3);
         applicationService.addApplication(application4);
 
+
         List<Application> applicationList = applicationDao.findAll();
+
         applicationList.stream().forEach(application ->
                 {
                     application.setApplicationStatus(ApplicationStatusEnum.WAITING);
                     applicationDao.save(application);
                 }
         );
-        List<Application> sortedApplications = applicationService.getSortedApplications();
+
+        applicationService.calculateApplicationStatus();
+
+        List<ApprovedApplicationDto> approvedApplications = applicationService.getApprovedApplications();
 
 
-        assertTrue(sortedApplications.get(0).getChild().getPersonalCode() == "61502300333");
-        assertTrue(sortedApplications.get(1).getChild().getPersonalCode() == "61602300444");
-        assertTrue(sortedApplications.get(2).getChild().getPersonalCode() == "61702300111");
-        assertTrue(sortedApplications.get(3).getChild().getPersonalCode() == "61702300222");
+        assertEquals(14,approvedApplications.get(0).getScore());
+        assertEquals(13,approvedApplications.get(1).getScore());
+        assertEquals(12,approvedApplications.get(2).getScore());
+        assertEquals(10,approvedApplications.get(3).getScore());
+
+        assertEquals("APPROVED",approvedApplications.get(0).getStatus());
+        assertEquals("APPROVED",approvedApplications.get(1).getStatus());
+        assertEquals("UNCONFIRMED",approvedApplications.get(2).getStatus());
+        assertEquals("UNCONFIRMED",approvedApplications.get(3).getStatus());
+
 
 
     }
+
+    private void createKindergartens(){
+
+        //Kindergarten 1
+        Kindergarten kindergarten = TestUtils.createDefaultKindergarten("32155451");
+        kindergarten.setDistrict(districtService.findDistrict("Antakalnis"));
+
+        AgeRange ageRange = new AgeRange();
+        ageRange.setAgeMin(1);
+        ageRange.setAgeMax(7);
+        ageRangeDao.save(ageRange);
+
+        Group group = new Group();
+        group.setAgeRange(ageRange);
+        group.setKindergartenId(kindergarten);
+        group.setChildrenCount(1);
+
+        kindergarten.addGroup(group);
+        kindergartenDao.save(kindergarten);
+
+//        //Kindergarten 2
+        Kindergarten kindergarten2 = TestUtils.createDefaultKindergarten("15855458");
+        kindergarten2.setDistrict(districtService.findDistrict("Antakalnis"));
+
+        AgeRange ageRange2 = new AgeRange();
+        ageRange2.setAgeMin(1);
+        ageRange2.setAgeMax(7);
+        ageRangeDao.save(ageRange2);
+
+        Group group2 = new Group();
+        group2.setAgeRange(ageRange2);
+        group2.setKindergartenId(kindergarten2);
+        group2.setChildrenCount(1);
+
+        kindergarten2.addGroup(group2);
+        kindergartenDao.save(kindergarten2);
+
+
+    }
+
+
+
 }
