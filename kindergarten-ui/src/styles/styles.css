@@ -1,23 +1,27 @@
 #loginPage {
     height: 100vh;
-    background: linear-gradient(45deg, rgba(66, 183, 245, 0.8) 0%, rgba(66, 245, 189, 0.4) 100%);
+    /* background: linear-gradient(45deg, rgba(66, 183, 245, 0.8) 0%, rgba(66, 245, 189, 0.4) 100%); */
 }
 
-#loginForm, #groupForm {
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
+.loginPadding {
+    padding-top: 10%;
+}
+
+.loginPadding2 {
+    padding-top: 18%;
+}
+
+#loginForm,
+#groupForm {
     background-color: white;
-    border-radius: 2%;
+    border-radius: 1%;
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
     color: rgba(0, 0, 0, 0.6);
-    padding: 3% 3% 3% 3%;
+    padding: 4% 6% 4% 6%;
 }
 
 #loginh1 {
     color: #4285F4;
-    margin-bottom: 15%;
 }
 
 #grouph1 {
@@ -27,7 +31,7 @@
 
 #loginButton {
     background-color: #4285F4;
-    margin-top: 10%;
+    margin-top: 2%;
 }
 
 #groupButton {
@@ -60,14 +64,18 @@
     background-color: #FFCC42;
 }
 
+
 /*not to show arrows on input of type number */
+
 
 /* Chrome, Safari, Edge, Opera */
 
-input::-webkit-outer-spin-button, input::-webkit-inner-spin-button {
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
     -webkit-appearance: none;
     margin: 0;
 }
+
 
 /* Firefox */
 
@@ -81,4 +89,14 @@ input[type=number] {
 
 .btn-active {
     border-color: rgb(0, 122, 201);
+}
+
+html {
+    height: 100%;
+}
+
+body {
+    min-height: 100%;
+    position: relative;
+    /* padding-bottom: 50px; */
 }
