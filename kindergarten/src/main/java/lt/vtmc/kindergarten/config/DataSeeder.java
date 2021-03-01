@@ -187,7 +187,7 @@ public class DataSeeder {
         personEdgaras.setCity(CityEnum.VILNIUS);
         personEdgaras.setAddress("Kanklių g. 4");
         personEdgaras.setPersonalCode("39004180111");
-        personEdgaras.setPhoneNumber("862412323");
+        personEdgaras.setPhoneNumber("+37062412323");
         personEdgaras.setPostalCode("10321");
         personEdgaras.setUser(edgarasUser);
 
@@ -246,7 +246,7 @@ public class DataSeeder {
         personAlvydas.setCity(CityEnum.VILNIUS);
         personAlvydas.setAddress("Giedraičių g. 69");
         personAlvydas.setPersonalCode("38406160121");
-        personAlvydas.setPhoneNumber("862412180");
+        personAlvydas.setPhoneNumber("+37062412180");
         personAlvydas.setPostalCode("22822");
         personAlvydas.setUser(alvydasUser);
 
@@ -304,7 +304,7 @@ public class DataSeeder {
         person2.setCity(CityEnum.OTHER);
         person2.setAddress("Krokuvos g. 51");
         person2.setPersonalCode("49004170458");
-        person2.setPhoneNumber("862412322");
+        person2.setPhoneNumber("+37062412322");
         person2.setPostalCode("11185");
         person2.setUser(monikaUser);
 
@@ -363,7 +363,7 @@ public class DataSeeder {
         person3.setCity(CityEnum.OTHER);
         person3.setAddress("Vėjų g. 16");
         person3.setPersonalCode("48901110222");
-        person3.setPhoneNumber("862412111");
+        person3.setPhoneNumber("+37062412111");
         person3.setPostalCode("98334");
         person3.setUser(ievaUser);
 
@@ -412,7 +412,7 @@ public class DataSeeder {
         personSimas.setCity(CityEnum.OTHER);
         personSimas.setAddress("Vėjų g. 16");
         personSimas.setPersonalCode("38905200112");
-        personSimas.setPhoneNumber("862414444");
+        personSimas.setPhoneNumber("+37062414444");
         personSimas.setPostalCode("98334");
         personService.addPerson(new PersonDto(personSimas));
 
