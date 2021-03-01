@@ -159,13 +159,13 @@ public class ApplicationControllerTest {
     }
 
     private void createDefaultChildFirstAndSecondParent(String childPersonalCode, String firstParentPersonalCode, String secondParentPersonalCode) {
-        Person child = TestUtils.createDefaultPerson(childPersonalCode);
+        Person child = TestUtils.createDefaultPerson(childPersonalCode, "Antanas", "Antanaitis");
         personDao.save(child);
 
-        Person firstParent = TestUtils.createDefaultPerson(firstParentPersonalCode);
+        Person firstParent = TestUtils.createDefaultPerson(firstParentPersonalCode,  "Antanas", "Antanaitis");
         personDao.save(firstParent);
 
-        Person secondParent = TestUtils.createDefaultPerson(secondParentPersonalCode);
+        Person secondParent = TestUtils.createDefaultPerson(secondParentPersonalCode, "Antanas", "Antanaitis");
         personDao.save(secondParent);
     }
 

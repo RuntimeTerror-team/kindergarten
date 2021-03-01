@@ -29,10 +29,10 @@ public final class TestUtils {
         return kindergarten;
     }
 
-    public static Person createDefaultPerson(String personalCode) {
+    public static Person createDefaultPerson(String personalCode, String firstName, String lastName) {
         Person person = new Person();
-        person.setFirstName("Antanas");
-        person.setLastName("Antanaitis");
+        person.setFirstName(firstName);
+        person.setLastName(lastName);
         person.setPersonalCode(personalCode);
         person.setAddress("Kanklių g.4");
         person.setCity(CityEnum.VILNIUS);
@@ -67,22 +67,6 @@ public final class TestUtils {
         return group;
     }
 
-
-    //FIXME not using
-    public static Group createDefaultGroup(Kindergarten kindergarten, int minAge, int maxAge, int childrenCount) {
-        Group group = new Group();
-
-        AgeRange ageRange = new AgeRange();
-
-        ageRange.setAgeMin(minAge);
-        ageRange.setAgeMax(maxAge);
-
-        group.setAgeRange(ageRange);
-        group.setKindergartenId(kindergarten);
-        group.setChildrenCount(childrenCount);
-
-        return group;
-    }
 
     public static QueueDtoWithOpeningDate createDefaultQueue() {
         QueueDtoWithOpeningDate queue = new QueueDtoWithOpeningDate();
