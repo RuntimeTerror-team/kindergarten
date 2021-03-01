@@ -3,7 +3,8 @@ import React, { Component } from 'react';
 import { withRouter } from "react-router-dom";
 import PasswordChangeComponent from './PasswordChangeComponent';
 import GuardianNavigationComponent from '../Navigation/GuardianNavigationComponent'
-import HeaderComponent from '../Header/HeaderComponent';
+import EditableGuardianInfoComponent from './EditableGuardianInfoComponent'
+import ApplicationFormHeader from '../Header/ApplicationFormHeader';
 import Footer from '../Footer/Footer';
 import baseUrl from "../../AppConfig";
 import urls from '../../constants/urls';
@@ -15,21 +16,45 @@ class PasswordChangeContainer extends Component {
     constructor() {
         super();
         this.state = {
+            currentStep: 1,
             username:"",
             password: "",
             password2: "",
             oldPassword: "",
             role:"",
             detailsGot: false,
+            userPerson: {},
+            userName: "",
+            userSurname: "",
+            guardianName: "",
+            guardianSurname: "",
+            guardianId: "",
+            guardianPhone: "",
+            guardianAddress: "",
+            guardianCity: "",
+            guardianPostalCode: "",
+            guardianEmail: "",
             passwordValidation: "",
             password2Validation: "",
             oldPasswordValidation: "",
+            guardianNameValidation: "",
+            guardianSurnameValidation: "",
+            guardianIdValidation: "",
+            guardianPhoneValidation: "",
+            guardianAddressValidation: "",
+            guardianCityValidation: "",
+            guardianPostalCodeValidation: "",
+            guardianEmailValidation: "",
+            emptyInputsMessage: "",
+            emptyInputsMessageStyle: "",
             notMatchingMessage: "",
             notMatchingMessageStyle: "",
             successMessage: "",
             successMessageStyle: "",
             wrongOldPasswordMessage: "",
-            wrongOldPasswordMessageStyle: ""
+            wrongOldPasswordMessageStyle: "",
+            guardianButtonText: "Redaguoti",
+            isDisabled: true,
         }
     }
 
@@ -39,7 +64,22 @@ class PasswordChangeContainer extends Component {
           .get(`${baseUrl}/loggedUsername`)
           .then((res) => {
             this.setState({ username: res.data })
-            
+            axios
+              .get(baseUrl + "/api/users/" + this.state.username + "/details")
+              .then((res) => {
+                this.setState({ userPerson: res.data.personDetails });
+                this.setState({ guardianName: this.state.userPerson.firstName })
+                this.setState({ guardianSurname: this.state.userPerson.lastName })
+                this.setState({ guardianId: this.state.userPerson.personalCode })
+                this.setState({ guardianPhone: this.state.userPerson.phoneNumber })
+                this.setState({ guardianAddress: this.state.userPerson.address })
+                this.setState({ guardianCity: this.state.userPerson.cityEnum })
+                this.setState({ guardianPostalCode: this.state.userPerson.postalCode })
+                this.setState({ guardianEmail: this.state.userPerson.email })
+                this.setState({userName: this.state.guardianName})
+                this.setState({userSurname: this.state.guardianSurname})
+              })
+              .catch((err) => console.log(err))
               })
               .catch((err) => console.log(err))
 
@@ -94,6 +134,317 @@ class PasswordChangeContainer extends Component {
         this.setState({ password2Validation: "" });
         this.setState({oldPasswordValidation: ""})
     }
+
+    handleDetails = (e) => {
+
+        e.preventDefault();
+    
+        let { name, value } = e.target;
+        this.setState({ [name]: value });
+        this.checkInputs(name, value)
+    
+    
+      }
+
+      checkInputs = (name, value) => {
+
+
+        if (name === "guardianName") {
+    
+          if (value.trim().length < 3 || value.length > 20 || /\d/.test(value)) {
+    
+            this.setState({ guardianNameValidation: "is-invalid" })
+    
+          } else {
+    
+            this.setState({ guardianNameValidation: "" })
+    
+          }
+    
+        }
+    
+        if (name === "guardianSurname") {
+    
+          if (value.trim().length < 3 || value.length > 30 || /\d/.test(value)) {
+    
+            this.setState({ guardianSurnameValidation: "is-invalid" })
+    
+          } else {
+    
+            this.setState({ guardianSurnameValidation: "" })
+    
+          }
+    
+        }
+    
+        if (name === "guardianId") {
+    
+          if (value.trim().length !== 11 || /[^\d]/.test(value)) {
+    
+            this.setState({ guardianIdValidation: "is-invalid" })
+    
+          } else {
+    
+            this.setState({ guardianIdValidation: "" })
+    
+          }
+    
+        }
+    
+        if (name === "guardianPhone") {
+    
+          if (value.trim().length === 12 && /^\+?370[0-9]*$/.test(value)) {
+    
+            this.setState({ guardianPhoneValidation: "" })
+    
+          } else {
+    
+            this.setState({ guardianPhoneValidation: "is-invalid" })
+    
+          }
+    
+        }
+    
+        if (name === "guardianAddress") {
+    
+          if (value.trim().length < 8 || value.trim().length > 50) {
+    
+            this.setState({ guardianAddressValidation: "is-invalid" })
+    
+          } else {
+    
+            this.setState({ guardianAddressValidation: "" })
+    
+          }
+    
+        }
+    
+        if (name === "guardianCity") {
+    
+          if (value.trim().length < 4 || value.trim().length > 19) {
+    
+            this.setState({ guardianCityValidation: "is-invalid" })
+    
+          } else {
+    
+            this.setState({ guardianCityValidation: "" })
+    
+          }
+    
+        }
+    
+        if (name === "guardianPostalCode") {
+    
+          if (value.trim().length === 5 && /^[0-9]*$/.test(value)) {
+    
+            this.setState({ guardianPostalCodeValidation: "" })
+    
+          } else {
+    
+            this.setState({ guardianPostalCodeValidation: "is-invalid" })
+    
+          }
+    
+        }
+    
+        if (name === "guardianEmail") {
+    
+          if (/^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/.test(value)) {
+    
+            this.setState({ guardianEmailValidation: "" })
+    
+          } else {
+    
+            this.setState({ guardianEmailValidation: "is-invalid" })
+    
+          }
+    
+        }
+
+    }
+
+    checkEmptyGuardianInputs = (name, surname, personalCode, phone, address, city, postalCode, email) => {
+
+        if(name.trim() === ""){
+    
+          this.setState({ guardianNameValidation: "is-invalid" })
+    
+          } else {
+    
+            this.setState({ guardianNameValidation: "" })
+    
+          }
+    
+        if(surname.trim() === ""){
+    
+          this.setState({ guardianSurnameValidation: "is-invalid" })
+    
+          } else {
+    
+            this.setState({ guardianSurnameValidation: "" })
+    
+          }
+    
+        if(personalCode.trim() === ""){
+    
+          this.setState({ guardianIdValidation: "is-invalid" })
+    
+          } else {
+    
+            this.setState({ guardianIdValidation: "" })
+    
+          }
+    
+        if(phone.trim() === ""){
+    
+          this.setState({ guardianPhoneValidation: "is-invalid" })
+    
+          } else {
+    
+            this.setState({ guardianPhoneValidation: "" })
+    
+          }
+    
+        if(address.trim() === ""){
+    
+          this.setState({ guardianAddressValidation: "is-invalid" })
+    
+          } else {
+    
+            this.setState({ guardianAddressValidation: "" })
+    
+          }
+        
+        if(city.trim() === ""){
+    
+          this.setState({ guardianCityValidation: "is-invalid" })
+    
+          } else {
+    
+            this.setState({ guardianCityValidation: "" })
+    
+          }
+    
+        if(postalCode.trim() === ""){
+    
+          this.setState({ guardianPostalCodeValidation: "is-invalid" })
+    
+          } else {
+    
+            this.setState({ sguardianPostalCodeValidation: "" })
+    
+          }
+    
+        if(email.trim() === ""){
+    
+          this.setState({ guardianEmailValidation: "is-invalid" })
+    
+          } else {
+    
+            this.setState({ guardianEmailValidation: "" })
+    
+          }
+    
+        return (name.trim() === "" || surname.trim() === "" || personalCode.trim() === "" || phone.trim() === "" || address.trim() === ""
+          || city.trim() === "" || postalCode.trim() === "" || email.trim() === "")
+    
+      }
+
+      guardiansValidation = (name, surname, personalCode, phone, address, city, postalCode, email) => {
+
+        return (name.length >= 3 && name.length <= 30)
+          && (surname.length >= 2 && surname.length <= 30)
+          && (personalCode.length === 11 && /^[0-9]*$/.test(personalCode))
+          && (phone.length === 12 && /^\+?370[0-9]*$/.test(phone))
+          && (address.length >= 8 && address.length <= 50)
+          && (city.length >= 4 && city.length <= 19)
+          && (postalCode.length === 5 && /^[0-9]*$/.test(postalCode))
+          && (email.length && /(?=.@)/.test(email))
+    
+      }
+
+    handleGuardianSave = (e) => {
+
+        e.preventDefault();
+    
+        if (this.state.isDisabled) {
+    
+          this.setState({ isDisabled: false });
+          this.setState({ guardianButtonText: "Išsaugoti" })
+    
+        } else if (!this.state.isDisabled) {
+    
+          if (this.checkEmptyGuardianInputs(this.state.guardianName, this.state.guardianSurname, this.state.guardianId, this.state.guardianPhone,
+            this.state.guardianAddress, this.state.guardianCity, this.state.guardianPostalCode, this.state.guardianEmail)) {
+    
+            this.setState({ emptyInputsMessage: "Užpildykite privalomus laukus" })
+            this.setState({ emptyInputsMessageStyle: "alert alert-danger mt-4" })
+            this.setState({ applicationMessage: "" })
+            this.setState({ applicationMessageStyle: "" })
+            this.setState({ isDisabled: false });
+            this.setState({ guardianButtonText: "Išsaugoti" })
+            return;
+    
+          } else {
+    
+            if (this.guardiansValidation(this.state.guardianName, this.state.guardianSurname, this.state.guardianId, this.state.guardianPhone,
+              this.state.guardianAddress, this.state.guardianCity, this.state.guardianPostalCode, this.state.guardianEmail)) {
+    
+              let city = this.state.guardianCity.toUpperCase();
+    
+              if (city !== "VILNIUS") {
+    
+                city = "OTHER";
+              }
+    
+    
+              let guardian = {
+    
+                firstName: this.state.guardianName,
+                lastName: this.state.guardianSurname,
+                personalCode: this.state.guardianId,
+                phoneNumber: this.state.guardianPhone,
+                address: this.state.guardianAddress,
+                cityEnum: city,
+                postalCode: this.state.guardianPostalCode,
+                email: this.state.guardianEmail
+              }
+    
+    
+              console.log("person id" + this.state.userPerson.id)
+              axios.put(baseUrl + "/api/persons/" + this.state.userPerson.id, guardian)
+                .then(res => {
+    
+                  if (res.status === 201 || res.status === 200) {
+                    this.setState({ guardianMessage: "Sėkmingai atnaujinti duomenys" })
+                    this.setState({ guardianMessageStyle: "alert alert-success mt-4" })
+                    this.setState({ emptyInputsMessage: "" })
+                    this.setState({ emptyInputsMessageStyle: "" })
+                    this.setState({ guardianAdded: true })
+                    this.setState({ noGuardianMessage: "" })
+                    this.setState({ noGuardianMessageStyle: "" })
+                    this.setState({ applicationMessage: "" })
+                    this.setState({ applicationMessageStyle: "" })
+                    this.setState({ userName: this.state.guardianName })
+                    this.setState({ userSurname: this.state.guardianSurname })
+    
+    
+                  }
+    
+                })
+                .catch(err => console.log(err));
+    
+    
+            }
+    
+          }
+    
+          this.setState({ isDisabled: true });
+          this.setState({ guardianButtonText: "Redaguoti" })
+    
+        }
+    
+      }
 
     handleSubmit = (e) => {
         e.preventDefault();
@@ -225,12 +576,18 @@ class PasswordChangeContainer extends Component {
         return(
     
             <div className="footerBottom">
-              <HeaderComponent
-               userRole="ROLE_GUARDIAN"/>
+              <ApplicationFormHeader
+               userRole="ROLE_GUARDIAN"
+               name={this.state.userName}
+               surname={this.state.userSurname} />
               <div className="container py-4">
                 <div className="row">
                   <GuardianNavigationComponent />
                   <div className="col-8">
+
+                      <div className="row">
+
+                 <div className="col-6">
                   <PasswordChangeComponent
                     password={this.state.password}
                     password2={this.state.password2}
@@ -249,6 +606,36 @@ class PasswordChangeContainer extends Component {
                     onPassword2Change={this.handleChange}
                     onOldPasswordChange={this.handleChange}
                 />
+                </div>
+                <div className="col-6 pt-5 pl-5">
+                <EditableGuardianInfoComponent
+                  name={this.state.guardianName}
+                  surname={this.state.guardianSurname}
+                  id={this.state.guardianId}
+                  phone={this.state.guardianPhone}
+                  address={this.state.guardianAddress}
+                  city={this.state.guardianCity}
+                  postalCode={this.state.guardianPostalCode}
+                  email={this.state.guardianEmail}
+                  message={this.state.guardianMessage}
+                  messageStyle={this.state.guardianMessageStyle}
+                  guardianButtonText={this.state.guardianButtonText}
+                  isDisabled={this.state.isDisabled}
+                  guardianNameValidation={this.state.guardianNameValidation}
+                  guardianSurnameValidation={this.state.guardianSurnameValidation}
+                  guardianIdValidation={this.state.guardianIdValidation}
+                  guardianPhoneValidation={this.state.guardianPhoneValidation}
+                  guardianAddressValidation={this.state.guardianAddressValidation}
+                  guardianCityValidation={this.state.guardianCityValidation}
+                  guardianPostalCodeValidation={this.state.guardianPostalCodeValidation}
+                  guardianEmailValidation={this.state.guardianEmailValidation}
+                  emptyInputsMessage={this.state.emptyInputsMessage}
+                  emptyInputsMessageStyle={this.state.emptyInputsMessageStyle}
+                  onDetailsChange={this.handleDetails}
+                  saveGuardian={this.handleGuardianSave}
+                />
+                </div>
+                </div>
                   </div>
                 </div>
               </div>

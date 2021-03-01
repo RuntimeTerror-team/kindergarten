@@ -90,3 +90,13 @@ input[type=number] {
 .btn-active {
     border-color: rgb(0, 122, 201);
 }
+
+html {
+    height: 100%;
+}
+
+body {
+    min-height: 100%;
+    position: relative;
+    padding-bottom: 50px;
+}

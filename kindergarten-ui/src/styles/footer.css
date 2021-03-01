@@ -3,7 +3,7 @@
     padding: 1rem;
     background-color: rgb(0, 0, 0);
     bottom: 0;
-    position: fixed;
+    position: absolute;
     left: 0;
     width: 100%;
 }
