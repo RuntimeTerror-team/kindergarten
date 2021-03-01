@@ -268,26 +268,25 @@ public class ApplicationService {
     }
 
 
-    //******************************************************************************************************************************************
     @Transactional
-    public List<ApprovedApplicationDto> getApprovedApplications() {
-        List<ApprovedApplication> applications = approvedApplicationDao.findAll();
+    public List<ApplicationAfterDistributionDto> getApplicationsAfterDistribution() {
+        List<ApplicationAfterDistribution> applications = approvedApplicationDao.findAll();
 
-        List<ApprovedApplicationDto> approvedApplicationList = applications.stream().map(application -> {
+        List<ApplicationAfterDistributionDto> approvedApplicationList = applications.stream().map(application -> {
 
-            ApprovedApplicationDto approvedApplicationDto = new ApprovedApplicationDto();
+            ApplicationAfterDistributionDto applicationAfterDistributionDto = new ApplicationAfterDistributionDto();
 
-            approvedApplicationDto.setChildFirstName(application.getChildFirstName());
-            approvedApplicationDto.setChildLastName(application.getChildLastName());
-            approvedApplicationDto.setParentFirstName(application.getParentFirstName());
-            approvedApplicationDto.setParentLastName(application.getParentLastName());
-            approvedApplicationDto.setDate(application.getDate());
-            approvedApplicationDto.setScore(application.getScore());
-            approvedApplicationDto.setStatus(application.getStatus());
-            approvedApplicationDto.setApprovedKindergartenTitle(application.getApprovedKindergarten());
-            approvedApplicationDto.setWaitingNumber(application.getWaitingNumber());
+            applicationAfterDistributionDto.setChildFirstName(application.getChildFirstName());
+            applicationAfterDistributionDto.setChildLastName(application.getChildLastName());
+            applicationAfterDistributionDto.setParentFirstName(application.getParentFirstName());
+            applicationAfterDistributionDto.setParentLastName(application.getParentLastName());
+            applicationAfterDistributionDto.setDate(application.getDate());
+            applicationAfterDistributionDto.setScore(application.getScore());
+            applicationAfterDistributionDto.setStatus(application.getStatus());
+            applicationAfterDistributionDto.setApprovedKindergartenTitle(application.getApprovedKindergarten());
+            applicationAfterDistributionDto.setWaitingNumber(application.getWaitingNumber());
 
-            return approvedApplicationDto;
+            return applicationAfterDistributionDto;
         })
                 .collect(Collectors.toList());
 
@@ -295,26 +294,28 @@ public class ApplicationService {
     }
 
     @Transactional
-    public void persistApprovedApplications(List<Application> applications) {
+    public void persistApplicationsAfterDistribution(List<Application> applications) {
         applications.stream().forEach(application -> {
-            ApprovedApplication approvedApplication = new ApprovedApplication();
+            ApplicationAfterDistribution applicationAfterDistribution = new ApplicationAfterDistribution();
 
-            approvedApplication.setChildFirstName(application.getChild().getFirstName());
-            approvedApplication.setChildLastName(application.getChild().getLastName());
-            approvedApplication.setParentFirstName(application.getParent().getFirstName());
-            approvedApplication.setParentLastName(application.getParent().getLastName());
-            approvedApplication.setDate(application.getDate());
-            approvedApplication.setScore(application.getScore());
-            approvedApplication.setStatus(application.getApplicationStatus().toString());
-            approvedApplication.setApprovedKindergarten(application.getApprovedKindergarten());
-            approvedApplication.setWaitingNumber(application.getWaitingNumber());
-            approvedApplicationDao.save(approvedApplication);
+            applicationAfterDistribution.setChildFirstName(application.getChild().getFirstName());
+            applicationAfterDistribution.setChildLastName(application.getChild().getLastName());
+            applicationAfterDistribution.setParentFirstName(application.getParent().getFirstName());
+            applicationAfterDistribution.setParentLastName(application.getParent().getLastName());
+            applicationAfterDistribution.setDate(application.getDate());
+            applicationAfterDistribution.setScore(application.getScore());
+            applicationAfterDistribution.setStatus(application.getApplicationStatus().toString());
+            applicationAfterDistribution.setApprovedKindergarten(application.getApprovedKindergarten());
+            applicationAfterDistribution.setWaitingNumber(application.getWaitingNumber());
+            approvedApplicationDao.save(applicationAfterDistribution);
         });
     }
 
+    /**
+     * Assigns kindergartens according to the order of priority provided in the application
+     */
     @Transactional
     public void calculateApplicationStatus() {
-        // TODO could I sort them here?
         List<Application> applications = getSortedApplications();
 
         applications.stream()
@@ -350,10 +351,7 @@ public class ApplicationService {
                                             }
                                         });
                             });
-
                 });
-//        applications.stream().filter(application -> application.getApplicationStatus() != ApplicationStatusEnum.APPROVED)
-//                .forEach(application -> application.setApplicationStatus(ApplicationStatusEnum.UNCONFIRMED));
 
         AtomicReference<Long> waitingNum = new AtomicReference<>(1L);
         applications.stream().filter(application -> application.getApplicationStatus() != ApplicationStatusEnum.APPROVED)
@@ -364,9 +362,13 @@ public class ApplicationService {
                 });
 
 
-        persistApprovedApplications(applications);
+        persistApplicationsAfterDistribution(applications);
     }
 
+
+    /**
+     * @return Map where key is Integer(priority number) and value Long (id of kindergarten)
+     */
     public Map<Integer, Long> parseApplicationMetadata(Application application) {
         Set<KindergartenApplicationForm> kindergartenApplications = application.getKindergartenApplicationForms();
         Map<Integer, Long> applicationToPriority = new ConcurrentHashMap<>();
@@ -377,6 +379,10 @@ public class ApplicationService {
     }
 
 
+    /**
+     * Sorts application by score. If score is equal, then sorts by child age. If age is equal
+     * then sorts by child last name.
+     */
     @Transactional
     public List<Application> getSortedApplications() {
 

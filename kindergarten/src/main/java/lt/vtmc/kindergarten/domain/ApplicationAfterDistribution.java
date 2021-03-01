@@ -1,47 +1,43 @@
-package lt.vtmc.kindergarten.dto;
+package lt.vtmc.kindergarten.domain;
 
-import lt.vtmc.kindergarten.domain.Application;
-
-
+import javax.persistence.*;
 import java.util.Date;
 
-public class ApprovedApplicationDto {
+@Entity
+public class ApplicationAfterDistribution {
 
-
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
+    @Temporal(TemporalType.DATE)
     private Date date;
 
+    @Column
     private String childFirstName;
 
+    @Column
     private String childLastName;
 
+    @Column
     private String parentFirstName;
 
+    @Column
     private String parentLastName;
 
+    @Column
     private int score;
 
+    @Column
     private String status;
 
-    private String approvedKindergartenTitle;
+    @Column(name = "kindergarten")
+    private String approvedKindergarten;
 
+    @Column
     private Long waitingNumber;
 
-    public ApprovedApplicationDto() {
-    }
-
-    public ApprovedApplicationDto(Application application) {
-        this.id = application.getId();
-        this.date = application.getDate();
-        this.childFirstName = application.getChild().getFirstName();
-        this.childLastName = application.getChild().getLastName();
-        this.parentFirstName = application.getParent().getFirstName();
-        this.parentLastName = application.getParent().getLastName();
-        this.score = application.getScore();
-        this.status = application.getApplicationStatus().toString();
-        this.approvedKindergartenTitle = application.getApprovedKindergarten();
-        this.waitingNumber = application.getWaitingNumber();
+    public ApplicationAfterDistribution() {
     }
 
     public Long getWaitingNumber() {
@@ -52,12 +48,12 @@ public class ApprovedApplicationDto {
         this.waitingNumber = waitingNumber;
     }
 
-    public String getApprovedKindergartenTitle() {
-        return approvedKindergartenTitle;
+    public String getApprovedKindergarten() {
+        return approvedKindergarten;
     }
 
-    public void setApprovedKindergartenTitle(String approvedKindergartenTitle) {
-        this.approvedKindergartenTitle = approvedKindergartenTitle;
+    public void setApprovedKindergarten(String approvedKindergarten) {
+        this.approvedKindergarten = approvedKindergarten;
     }
 
     public Long getId() {

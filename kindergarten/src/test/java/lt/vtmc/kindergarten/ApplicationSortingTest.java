@@ -197,28 +197,29 @@ public class ApplicationSortingTest {
         );
 
         applicationService.calculateApplicationStatus();
-        List<ApprovedApplicationDto> approvedApplications = applicationService.getApprovedApplications();
+        List<ApplicationAfterDistributionDto> appplicationsAfterDistribution = applicationService.getApplicationsAfterDistribution();
 
-        assertEquals(14, approvedApplications.get(0).getScore());
-        assertEquals(14, approvedApplications.get(1).getScore());
-        assertEquals(13, approvedApplications.get(2).getScore());
-        assertEquals(12, approvedApplications.get(3).getScore());
-        assertEquals(12, approvedApplications.get(4).getScore());
-        assertEquals(4, approvedApplications.get(5).getScore());
+        assertEquals(14, appplicationsAfterDistribution.get(0).getScore());
+        assertEquals(14, appplicationsAfterDistribution.get(1).getScore());
+        assertEquals(13, appplicationsAfterDistribution.get(2).getScore());
 
-        assertEquals("APPROVED", approvedApplications.get(0).getStatus());
-        assertEquals("APPROVED", approvedApplications.get(1).getStatus());
-        assertEquals("APPROVED", approvedApplications.get(2).getStatus());
-        assertEquals("APPROVED", approvedApplications.get(3).getStatus());
-        assertEquals("UNCONFIRMED", approvedApplications.get(4).getStatus());
-        assertEquals("UNCONFIRMED", approvedApplications.get(5).getStatus());
+        assertEquals(12, appplicationsAfterDistribution.get(3).getScore());
+        assertEquals(12, appplicationsAfterDistribution.get(4).getScore());
+        assertEquals(4, appplicationsAfterDistribution.get(5).getScore());
 
-        assertEquals("Morkevičiūtė", approvedApplications.get(0).getChildLastName());
-        assertEquals("Liepatė", approvedApplications.get(1).getChildLastName());
-        assertEquals("Kurmytė", approvedApplications.get(2).getChildLastName());
-        assertEquals("Adomaitytė", approvedApplications.get(3).getChildLastName());
-        assertEquals("Zbignaitė", approvedApplications.get(4).getChildLastName());
-        assertEquals("NEvilnietytė", approvedApplications.get(5).getChildLastName());
+        assertEquals("APPROVED", appplicationsAfterDistribution.get(0).getStatus());
+        assertEquals("APPROVED", appplicationsAfterDistribution.get(1).getStatus());
+        assertEquals("APPROVED", appplicationsAfterDistribution.get(2).getStatus());
+        assertEquals("APPROVED", appplicationsAfterDistribution.get(3).getStatus());
+        assertEquals("UNCONFIRMED", appplicationsAfterDistribution.get(4).getStatus());
+        assertEquals("UNCONFIRMED", appplicationsAfterDistribution.get(5).getStatus());
+
+        assertEquals("Morkevičiūtė", appplicationsAfterDistribution.get(0).getChildLastName());
+        assertEquals("Liepatė", appplicationsAfterDistribution.get(1).getChildLastName());
+        assertEquals("Kurmytė", appplicationsAfterDistribution.get(2).getChildLastName());
+        assertEquals("Adomaitytė", appplicationsAfterDistribution.get(3).getChildLastName());
+        assertEquals("Zbignaitė", appplicationsAfterDistribution.get(4).getChildLastName());
+        assertEquals("NEvilnietytė", appplicationsAfterDistribution.get(5).getChildLastName());
     }
 
     private void createKindergartens() {
