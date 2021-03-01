@@ -4,7 +4,7 @@ import { withRouter } from "react-router-dom";
 import LoginComponent from "./LoginComponent";
 import baseUrl from "../../AppConfig";
 import urls from "../../constants/urls";
-import xxx from "../../image/xxx.png";
+import loginLogo from "../../image/loginLogo.png";
 import "../../styles/login-logo.css";
 
 axios.defaults.withCredentials = true;
@@ -133,7 +133,7 @@ class LoginContainer extends Component {
         <div className="col-xl-5 col-lg-5 col-md-5 col-sm-5 col-xs-5 loginPadding2">
           <div className="row">
             <div className="col-xl-2 col-lg-2 col-md-2 col-sm-2 col-xs-2"></div>
-            <img className="col-6 img-fluid login-logo" src={xxx} alt="xxx" />
+            <img className="col-6 img-fluid login-logo" src={loginLogo} alt="loginLogo" />
           </div>
         </div>
         <div className="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-xs-6 loginPadding">
