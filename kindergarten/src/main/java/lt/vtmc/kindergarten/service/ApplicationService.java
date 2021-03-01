@@ -20,6 +20,7 @@ import java.time.LocalDate;
 
 import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.atomic.AtomicReference;
 import java.util.stream.Collectors;
 
 @Service
@@ -306,7 +307,7 @@ public class ApplicationService {
             approvedApplication.setScore(application.getScore());
             approvedApplication.setStatus(application.getApplicationStatus().toString());
             approvedApplication.setApprovedKindergarten(application.getApprovedKindergarten());
-            approvedApplication.setWaitingNumber(application.getId());
+            approvedApplication.setWaitingNumber(application.getWaitingNumber());
             approvedApplicationDao.save(approvedApplication);
         });
     }
@@ -354,9 +355,12 @@ public class ApplicationService {
 //        applications.stream().filter(application -> application.getApplicationStatus() != ApplicationStatusEnum.APPROVED)
 //                .forEach(application -> application.setApplicationStatus(ApplicationStatusEnum.UNCONFIRMED));
 
+        AtomicReference<Long> waitingNum = new AtomicReference<>(1L);
         applications.stream().filter(application -> application.getApplicationStatus() != ApplicationStatusEnum.APPROVED)
                 .forEach(application -> {
                     application.setApplicationStatus(ApplicationStatusEnum.UNCONFIRMED);
+                    application.setWaitingNumber(waitingNum.get());
+                    waitingNum.getAndSet(waitingNum.get() + 1);
                 });
 
 
