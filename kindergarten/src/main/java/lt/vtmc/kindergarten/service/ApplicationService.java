@@ -303,7 +303,8 @@ public class ApplicationService {
             approvedApplication.setDate(application.getDate());
             approvedApplication.setScore(application.getScore());
             approvedApplication.setStatus(application.getApplicationStatus().toString());
-
+            approvedApplication.setApprovedKindergarten(application.getApprovedKindergarten());
+      //            application.getKindergartenApplicationForms().stream().filter(applicationForm -> applicationForm.isAccepted()==true);
             approvedApplicationDao.save(approvedApplication);
         });
     }
@@ -337,9 +338,9 @@ public class ApplicationService {
                                                 Integer childCount = group.getChildrenCount();
                                                 // Check if following group has available seat
                                                 if (childCount > 0) {
-                                                    System.out.println("XXX"+applicationForm.getKindergarten().getCompanyCode()+"  "+childCount);
                                                     group.setChildrenCount(childCount - 1);
                                                     applicationForm.setAccepted(true);
+                                                    application.setApprovedKindergarten(applicationForm.getKindergarten().getTitle());
                                                     application.setApplicationStatus(ApplicationStatusEnum.APPROVED);
                                                     return;
                                                 }
@@ -348,7 +349,6 @@ public class ApplicationService {
                             });
 
                 });
-        // TODO check if it application should be REJECTED,UNCONFIRMED or put back to WAITING list
         applications.stream().filter(application -> application.getApplicationStatus() != ApplicationStatusEnum.APPROVED)
                 .forEach(application -> application.setApplicationStatus(ApplicationStatusEnum.UNCONFIRMED));
 

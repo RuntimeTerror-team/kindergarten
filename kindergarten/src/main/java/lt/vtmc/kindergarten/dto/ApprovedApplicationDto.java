@@ -1,7 +1,7 @@
 package lt.vtmc.kindergarten.dto;
 
 import lt.vtmc.kindergarten.domain.Application;
-import lt.vtmc.kindergarten.domain.ApprovedApplication;
+
 
 import java.util.Date;
 
@@ -24,6 +24,8 @@ public class ApprovedApplicationDto {
 
     private String status;
 
+    private String approvedKindergartenTitle;
+
     public ApprovedApplicationDto() {
     }
 
@@ -36,19 +38,16 @@ public class ApprovedApplicationDto {
         this.parentLastName = application.getParent().getLastName();
         this.score = application.getScore();
         this.status = application.getApplicationStatus().toString();
+        this.approvedKindergartenTitle = application.getApprovedKindergarten();
     }
 
+    public String getApprovedKindergartenTitle() {
+        return approvedKindergartenTitle;
+    }
 
-//    public ApprovedApplicationDto(ApprovedApplication approvedApplication) {
-//        this.id = approvedApplication.getId();
-//        this.date = approvedApplication.getDate();
-//        this.childFirstName = approvedApplication.getChildFirstName();
-//        this.childLastName = approvedApplication.getParentLastName();
-//        this.parentFirstName = approvedApplication.getParentFirstName();
-//        this.parentLastName = approvedApplication.getParentLastName();
-//        this.score = approvedApplication.getScore();
-//        this.status = approvedApplication.getStatus();
-//    }
+    public void setApprovedKindergartenTitle(String approvedKindergartenTitle) {
+        this.approvedKindergartenTitle = approvedKindergartenTitle;
+    }
 
     public Long getId() {
         return id;

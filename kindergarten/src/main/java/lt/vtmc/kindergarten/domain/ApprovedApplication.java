@@ -31,7 +31,18 @@ public class ApprovedApplication {
     @Column
     private String status;
 
+    @Column
+    private String approvedKindergarten;
+
     public ApprovedApplication() {
+    }
+
+    public String getApprovedKindergarten() {
+        return approvedKindergarten;
+    }
+
+    public void setApprovedKindergarten(String approvedKindergarten) {
+        this.approvedKindergarten = approvedKindergarten;
     }
 
     public Long getId() {

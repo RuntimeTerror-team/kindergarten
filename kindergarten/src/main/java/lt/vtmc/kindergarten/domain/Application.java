@@ -55,7 +55,19 @@ public class Application {
     @JoinColumn(name = "queue_id")
     private Queue queue;
 
+
+    @Column
+    private String approvedKindergarten;
+
     public Application() {
+    }
+
+    public String getApprovedKindergarten() {
+        return approvedKindergarten;
+    }
+
+    public void setApprovedKindergarten(String approvedKindergarten) {
+        this.approvedKindergarten = approvedKindergarten;
     }
 
     public Date getDate() {
