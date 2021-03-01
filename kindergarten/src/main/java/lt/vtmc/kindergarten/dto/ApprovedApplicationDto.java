@@ -26,6 +26,8 @@ public class ApprovedApplicationDto {
 
     private String approvedKindergartenTitle;
 
+    private Long waitingNumber;
+
     public ApprovedApplicationDto() {
     }
 
@@ -39,6 +41,15 @@ public class ApprovedApplicationDto {
         this.score = application.getScore();
         this.status = application.getApplicationStatus().toString();
         this.approvedKindergartenTitle = application.getApprovedKindergarten();
+        this.waitingNumber = application.getWaitingNumber();
+    }
+
+    public Long getWaitingNumber() {
+        return waitingNumber;
+    }
+
+    public void setWaitingNumber(Long waitingNumber) {
+        this.waitingNumber = waitingNumber;
     }
 
     public String getApprovedKindergartenTitle() {

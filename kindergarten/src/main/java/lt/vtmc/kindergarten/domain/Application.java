@@ -55,9 +55,12 @@ public class Application {
     @JoinColumn(name = "queue_id")
     private Queue queue;
 
-
     @Column
     private String approvedKindergarten;
+
+    @Column
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Long waitingNumber;
 
     public Application() {
     }
@@ -68,6 +71,14 @@ public class Application {
 
     public void setApprovedKindergarten(String approvedKindergarten) {
         this.approvedKindergarten = approvedKindergarten;
+    }
+
+    public Long getWaitingNumber() {
+        return waitingNumber;
+    }
+
+    public void setWaitingNumber(Long waitingNumber) {
+        this.waitingNumber = waitingNumber;
     }
 
     public Date getDate() {

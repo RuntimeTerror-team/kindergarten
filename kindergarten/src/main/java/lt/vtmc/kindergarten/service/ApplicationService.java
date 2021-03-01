@@ -283,6 +283,8 @@ public class ApplicationService {
             approvedApplicationDto.setDate(application.getDate());
             approvedApplicationDto.setScore(application.getScore());
             approvedApplicationDto.setStatus(application.getStatus());
+            approvedApplicationDto.setApprovedKindergartenTitle(application.getApprovedKindergarten());
+            approvedApplicationDto.setWaitingNumber(application.getWaitingNumber());
 
             return approvedApplicationDto;
         })
@@ -304,12 +306,12 @@ public class ApplicationService {
             approvedApplication.setScore(application.getScore());
             approvedApplication.setStatus(application.getApplicationStatus().toString());
             approvedApplication.setApprovedKindergarten(application.getApprovedKindergarten());
-      //            application.getKindergartenApplicationForms().stream().filter(applicationForm -> applicationForm.isAccepted()==true);
+            approvedApplication.setWaitingNumber(application.getId());
             approvedApplicationDao.save(approvedApplication);
         });
     }
 
-@Transactional
+    @Transactional
     public void calculateApplicationStatus() {
         // TODO could I sort them here?
         List<Application> applications = getSortedApplications();
@@ -349,8 +351,14 @@ public class ApplicationService {
                             });
 
                 });
+//        applications.stream().filter(application -> application.getApplicationStatus() != ApplicationStatusEnum.APPROVED)
+//                .forEach(application -> application.setApplicationStatus(ApplicationStatusEnum.UNCONFIRMED));
+
         applications.stream().filter(application -> application.getApplicationStatus() != ApplicationStatusEnum.APPROVED)
-                .forEach(application -> application.setApplicationStatus(ApplicationStatusEnum.UNCONFIRMED));
+                .forEach(application -> {
+                    application.setApplicationStatus(ApplicationStatusEnum.UNCONFIRMED);
+                });
+
 
         persistApprovedApplications(applications);
     }
@@ -370,7 +378,7 @@ public class ApplicationService {
 
         List<Application> applications = applicationDao.findByApplicationStatus(ApplicationStatusEnum.WAITING);
         applications.sort((o1, o2) -> {
-            if(o1.getScore()==o2.getScore()){
+            if (o1.getScore() == o2.getScore()) {
                 int age1 = PersonService.countChildAge(o1.getChild().getPersonalCode());
                 int age2 = PersonService.countChildAge(o2.getChild().getPersonalCode());
                 if (age1 == age2) {
@@ -382,9 +390,9 @@ public class ApplicationService {
                         return -1;
                     }
                 }
-            } else if (o1.getScore()<o2.getScore()){
+            } else if (o1.getScore() < o2.getScore()) {
                 return 1;
-            }else {
+            } else {
                 return -1;
             }
         });

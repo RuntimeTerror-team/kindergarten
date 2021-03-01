@@ -31,10 +31,21 @@ public class ApprovedApplication {
     @Column
     private String status;
 
-    @Column
+    @Column(name = "kindergarten")
     private String approvedKindergarten;
 
+    @Column
+    private Long waitingNumber;
+
     public ApprovedApplication() {
+    }
+
+    public Long getWaitingNumber() {
+        return waitingNumber;
+    }
+
+    public void setWaitingNumber(Long waitingNumber) {
+        this.waitingNumber = waitingNumber;
     }
 
     public String getApprovedKindergarten() {
