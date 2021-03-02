@@ -19,6 +19,8 @@ class GroupCreationFormContainer extends Component {
             childrenCountValidation: "",
             message: "",
             messageStyle: "",
+            duplicateMessage: "",
+            duplicateMessageStyle: "",
             kindergarten: ""
         }
     }
@@ -80,12 +82,27 @@ class GroupCreationFormContainer extends Component {
         }
     }
 
+    findAgeRangeById = (id) => {
+
+        return this.state.groups.find((group) => {
+            return group.ageRange.id == id})
+    }
+
     handleGroupCreation = (e) => {
         e.preventDefault();
 
         this.validateBlank();
 
-        if ((this.state.ageRangeValidation === "" && this.state.ageRangeId.length !== 0)
+        this.setState({duplicateMessage: ""})
+        this.setState({duplicateMessageStyle: "" })
+
+        if(this.findAgeRangeById(this.state.ageRangeId)){
+
+            this.setState({duplicateMessage: "Toks amžiaus intervalas jau išsaugotas kitoje grupėje"})
+            this.setState({duplicateMessageStyle: "alert alert-danger" })
+        }
+
+        else if ((this.state.ageRangeValidation === "" && this.state.ageRangeId.length !== 0)
             && (this.state.childrenCountValidation === "" && this.state.childrenCount.trim().length !== 0)) {
             Axios
                 .post(`${baseUrl}/api/kindergartens/${this.state.kindergartenId}/groups/${e.target.ageRangeId.value}`, {
@@ -139,6 +156,8 @@ class GroupCreationFormContainer extends Component {
                                     kindergartenId={this.state.kindergartenId}
                                     message={this.state.message}
                                     messageStyle={this.state.messageStyle}
+                                    duplicateMessage={this.state.duplicateMessage}
+                                    duplicateMessageStyle={this.state.duplicateMessageStyle}
                                 />
                             </div>
                         </div>

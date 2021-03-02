@@ -11,6 +11,8 @@ const GroupCreationFComponent = ({
     kindergartenId,
     message,
     messageStyle,
+    duplicateMessage,
+    duplicateMessageStyle,
     ageRangeValidation,
     childrenCountValidation
 }) => {
@@ -56,6 +58,9 @@ const GroupCreationFComponent = ({
             </div>
             {<div className={`${messageStyle} offset-4 col-8 mt-4`}>
                 {message}
+            </div>}
+            {<div className={`${duplicateMessageStyle} offset-4 col-8 mt-4`}>
+                {duplicateMessage}
             </div>}
             <button type="submit" className="btn btn-green float-right">
                 Išsaugoti
