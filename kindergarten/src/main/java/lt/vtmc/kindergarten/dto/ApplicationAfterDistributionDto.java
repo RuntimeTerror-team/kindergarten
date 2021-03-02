@@ -29,6 +29,8 @@ public class ApplicationAfterDistributionDto {
 
     private Long waitingNumber;
 
+    private Long applicationId;
+
     public ApplicationAfterDistributionDto() {
     }
 
@@ -40,13 +42,22 @@ public class ApplicationAfterDistributionDto {
         this.parentFirstName = application.getParentFirstName();
         this.parentLastName = application.getParentLastName();
         this.score = application.getScore();
-        this.status = application.getStatus();
+        this.status = application.getStatus().toString();
         this.approvedKindergartenTitle = application.getApprovedKindergarten();
         this.waitingNumber = application.getWaitingNumber();
+        this.applicationId = application.getApplicationId();
     }
 
     public Long getWaitingNumber() {
         return waitingNumber;
+    }
+
+    public Long getApplicationId() {
+        return applicationId;
+    }
+
+    public void setApplicationId(Long applicationId) {
+        this.applicationId = applicationId;
     }
 
     public void setWaitingNumber(Long waitingNumber) {

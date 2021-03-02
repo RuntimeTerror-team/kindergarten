@@ -270,12 +270,10 @@ public class ApplicationService {
 
     @Transactional
     public List<ApplicationAfterDistributionDto> getApplicationsAfterDistribution() {
-
         List<ApplicationAfterDistribution> applications = applicationAfterDistributionDao.findAll(Sort.by(Sort.Direction.ASC, "status"));
         List<ApplicationAfterDistributionDto> applicationListAfterDistribution = applications.stream().map(application -> new ApplicationAfterDistributionDto(application))
                 .collect(Collectors.toList());
         return applicationListAfterDistribution;
-
     }
 
 
@@ -293,7 +291,8 @@ public class ApplicationService {
                 applicationAfterDistribution.setParentLastName(application.getParent().getLastName());
                 applicationAfterDistribution.setDate(application.getDate());
                 applicationAfterDistribution.setScore(application.getScore());
-                applicationAfterDistribution.setStatus(application.getApplicationStatus().toString());
+                applicationAfterDistribution.setApplicationId(application.getId());
+                applicationAfterDistribution.setStatus(application.getApplicationStatus());
                 applicationAfterDistribution.setWaitingNumber(waitingNum.get());
                 waitingNum.getAndSet(waitingNum.get() + 1);
                 applicationAfterDistributionDao.save(applicationAfterDistribution);
@@ -308,7 +307,8 @@ public class ApplicationService {
                 applicationAfterDistribution.setParentLastName(application.getParent().getLastName());
                 applicationAfterDistribution.setDate(application.getDate());
                 applicationAfterDistribution.setScore(application.getScore());
-                applicationAfterDistribution.setStatus(application.getApplicationStatus().toString());
+                applicationAfterDistribution.setStatus(application.getApplicationStatus());
+                applicationAfterDistribution.setApplicationId(application.getId());
                 applicationAfterDistribution.setApprovedKindergarten(application.getKindergartenApplicationForms().stream()
                         .filter(item -> item.isAccepted())
                         .map(applicationForm -> applicationForm.getKindergarten().getTitle())

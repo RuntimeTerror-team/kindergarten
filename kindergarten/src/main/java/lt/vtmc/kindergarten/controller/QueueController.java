@@ -73,7 +73,7 @@ public class QueueController {
             @PathVariable Long id,
             @RequestBody QueueDtoClosingDate queueDtoClosingDate
     ) {
-        queueService.updateQueueWithClosingDate(id, queueDtoClosingDate);
+        queueService.updateQueueWithClosingDateAndApplicationsStatus(id, queueDtoClosingDate);
     }
 
 }

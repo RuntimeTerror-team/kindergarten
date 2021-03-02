@@ -29,7 +29,11 @@ public class ApplicationAfterDistribution {
     private int score;
 
     @Column
-    private String status;
+    @Enumerated(EnumType.STRING)
+    private ApplicationStatusEnum status;
+
+    @Column
+    private Long applicationId;
 
     @Column(name = "kindergarten")
     private String approvedKindergarten;
@@ -38,6 +42,14 @@ public class ApplicationAfterDistribution {
     private Long waitingNumber;
 
     public ApplicationAfterDistribution() {
+    }
+
+    public Long getApplicationId() {
+        return applicationId;
+    }
+
+    public void setApplicationId(Long applicationId) {
+        this.applicationId = applicationId;
     }
 
     public Long getWaitingNumber() {
@@ -112,11 +124,11 @@ public class ApplicationAfterDistribution {
         this.score = score;
     }
 
-    public String getStatus() {
+    public ApplicationStatusEnum getStatus() {
         return status;
     }
 
-    public void setStatus(String status) {
+    public void setStatus(ApplicationStatusEnum status) {
         this.status = status;
     }
 }
