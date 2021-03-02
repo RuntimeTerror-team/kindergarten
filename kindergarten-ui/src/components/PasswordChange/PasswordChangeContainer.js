@@ -427,6 +427,10 @@ class PasswordChangeContainer extends Component {
                     this.setState({ applicationMessageStyle: "" })
                     this.setState({ userName: this.state.guardianName })
                     this.setState({ userSurname: this.state.guardianSurname })
+                    this.timer = setTimeout(() => {
+                      this.setState({ guardianMessage: "" })
+                      this.setState({ guardianMessageStyle: "" })
+                  }, 3000);
     
     
                   }
