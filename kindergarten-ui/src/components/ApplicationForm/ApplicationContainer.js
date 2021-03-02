@@ -362,7 +362,9 @@ class ApplicationContainer extends Component {
     } else if (!this.state.isDisabled) {
 
       if (this.checkEmptyGuardianInputs(this.state.guardianName, this.state.guardianSurname, this.state.guardianId, this.state.guardianPhone,
-        this.state.guardianAddress, this.state.guardianCity, this.state.guardianPostalCode, this.state.guardianEmail)) {
+        this.state.guardianAddress, this.state.guardianCity, this.state.guardianPostalCode, this.state.guardianEmail)
+        || !this.guardiansValidation(this.state.guardianName, this.state.guardianSurname, this.state.guardianId, this.state.guardianPhone,
+          this.state.guardianAddress, this.state.guardianCity, this.state.guardianPostalCode, this.state.guardianEmail)) {
 
         this.setState({ emptyInputsMessage: "Užpildykite privalomus laukus" })
         this.setState({ emptyInputsMessageStyle: "alert alert-danger mt-4" })
@@ -370,6 +372,7 @@ class ApplicationContainer extends Component {
         this.setState({ applicationMessageStyle: "" })
         this.setState({ isDisabled: false });
         this.setState({ guardianButtonText: "Išsaugoti" })
+        this.checkFieldsValidation();
         return;
 
       } else {
@@ -414,6 +417,10 @@ class ApplicationContainer extends Component {
                 this.setState({ applicationMessageStyle: "" })
                 this.setState({ userName: this.state.guardianName })
                 this.setState({ userSurname: this.state.guardianSurname })
+                this.timer = setTimeout(() => {
+                  this.setState({ guardianMessage: "" })
+                  this.setState({ guardianMessageStyle: "" })
+              }, 3000);
 
 
               }
@@ -1074,6 +1081,89 @@ class ApplicationContainer extends Component {
     await new Promise(r => setTimeout(1000));
 
   }
+
+  checkFieldsValidation = () => {
+
+    if (this.state.guardianName.trim().length < 3 || this.state.guardianName.length > 20 || /\d/.test(this.state.guardianName)) {
+
+      this.setState({ guardianNameValidation: "is-invalid" })
+
+    } else {
+
+      this.setState({ guardianNameValidation: "" })
+
+    }
+
+    if (this.state.guardianSurname.trim().length < 3 || this.state.guardianSurname.length > 30 || /\d/.test(this.state.guardianSurname)) {
+
+      this.setState({ guardianSurnameValidation: "is-invalid" })
+
+    } else {
+
+      this.setState({ guardianSurnameValidation: "" })
+
+    }
+
+    if (this.state.guardianId.trim().length !== 11 || /[^\d]/.test(this.state.guardianId)) {
+
+      this.setState({ guardianIdValidation: "is-invalid" })
+
+    } else {
+
+      this.setState({ guardianIdValidation: "" })
+
+    }
+
+    if (this.state.guardianPhone.trim().length === 12 && /^\+?370[0-9]*$/.test(this.state.guardianPhone)) {
+
+      this.setState({ guardianPhoneValidation: "" })
+
+    } else {
+
+      this.setState({ guardianPhoneValidation: "is-invalid" })
+
+    }
+
+    if (this.state.guardianAddress.trim().length < 8 || this.state.guardianAddress.trim().length > 50) {
+
+      this.setState({ guardianAddressValidation: "is-invalid" })
+
+    } else {
+
+      this.setState({ guardianAddressValidation: "" })
+
+    }
+
+    if (this.state.guardianCity.trim().length < 4 || this.state.guardianCity.trim().length > 19) {
+
+      this.setState({ guardianCityValidation: "is-invalid" })
+
+    } else {
+
+      this.setState({ guardianCityValidation: "" })
+
+    }
+
+    if (this.state.guardianPostalCode.trim().length === 5 && /^[0-9]*$/.test(this.state.guardianPostalCode)) {
+
+      this.setState({ guardianPostalCodeValidation: "" })
+
+    } else {
+
+      this.setState({ guardianPostalCodeValidation: "is-invalid" })
+
+    }
+
+    if (/^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/.test(this.state.guardianEmail)) {
+
+      this.setState({ guardianEmailValidation: "" })
+
+    } else {
+
+      this.setState({ guardianEmailValidation: "is-invalid" })
+
+    }
+}
 
   handleSubmit = (e) => {
 

@@ -146,12 +146,9 @@ class PasswordChangeContainer extends Component {
     
       }
 
-      checkInputs = (name, value) => {
+      checkFieldsValidation = () => {
 
-
-        if (name === "guardianName") {
-    
-          if (value.trim().length < 3 || value.length > 20 || /\d/.test(value)) {
+          if (this.state.guardianName.trim().length < 3 || this.state.guardianName.length > 20 || /\d/.test(this.state.guardianName)) {
     
             this.setState({ guardianNameValidation: "is-invalid" })
     
@@ -161,11 +158,7 @@ class PasswordChangeContainer extends Component {
     
           }
     
-        }
-    
-        if (name === "guardianSurname") {
-    
-          if (value.trim().length < 3 || value.length > 30 || /\d/.test(value)) {
+          if (this.state.guardianSurname.trim().length < 3 || this.state.guardianSurname.length > 30 || /\d/.test(this.state.guardianSurname)) {
     
             this.setState({ guardianSurnameValidation: "is-invalid" })
     
@@ -175,11 +168,7 @@ class PasswordChangeContainer extends Component {
     
           }
     
-        }
-    
-        if (name === "guardianId") {
-    
-          if (value.trim().length !== 11 || /[^\d]/.test(value)) {
+          if (this.state.guardianId.trim().length !== 11 || /[^\d]/.test(this.state.guardianId)) {
     
             this.setState({ guardianIdValidation: "is-invalid" })
     
@@ -189,11 +178,7 @@ class PasswordChangeContainer extends Component {
     
           }
     
-        }
-    
-        if (name === "guardianPhone") {
-    
-          if (value.trim().length === 12 && /^\+?370[0-9]*$/.test(value)) {
+          if (this.state.guardianPhone.trim().length === 12 && /^\+?370[0-9]*$/.test(this.state.guardianPhone)) {
     
             this.setState({ guardianPhoneValidation: "" })
     
@@ -203,11 +188,7 @@ class PasswordChangeContainer extends Component {
     
           }
     
-        }
-    
-        if (name === "guardianAddress") {
-    
-          if (value.trim().length < 8 || value.trim().length > 50) {
+          if (this.state.guardianAddress.trim().length < 8 || this.state.guardianAddress.trim().length > 50) {
     
             this.setState({ guardianAddressValidation: "is-invalid" })
     
@@ -217,11 +198,7 @@ class PasswordChangeContainer extends Component {
     
           }
     
-        }
-    
-        if (name === "guardianCity") {
-    
-          if (value.trim().length < 4 || value.trim().length > 19) {
+          if (this.state.guardianCity.trim().length < 4 || this.state.guardianCity.trim().length > 19) {
     
             this.setState({ guardianCityValidation: "is-invalid" })
     
@@ -231,11 +208,7 @@ class PasswordChangeContainer extends Component {
     
           }
     
-        }
-    
-        if (name === "guardianPostalCode") {
-    
-          if (value.trim().length === 5 && /^[0-9]*$/.test(value)) {
+          if (this.state.guardianPostalCode.trim().length === 5 && /^[0-9]*$/.test(this.state.guardianPostalCode)) {
     
             this.setState({ guardianPostalCodeValidation: "" })
     
@@ -245,11 +218,7 @@ class PasswordChangeContainer extends Component {
     
           }
     
-        }
-    
-        if (name === "guardianEmail") {
-    
-          if (/^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/.test(value)) {
+          if (/^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/.test(this.state.guardianEmail)) {
     
             this.setState({ guardianEmailValidation: "" })
     
@@ -258,10 +227,124 @@ class PasswordChangeContainer extends Component {
             this.setState({ guardianEmailValidation: "is-invalid" })
     
           }
-    
-        }
-
     }
+
+    checkInputs = (name, value) => {
+
+
+      if (name === "guardianName") {
+  
+        if (value.trim().length < 3 || value.length > 20 || /\d/.test(value)) {
+  
+          this.setState({ guardianNameValidation: "is-invalid" })
+  
+        } else {
+  
+          this.setState({ guardianNameValidation: "" })
+  
+        }
+  
+      }
+  
+      if (name === "guardianSurname") {
+  
+        if (value.trim().length < 3 || value.length > 30 || /\d/.test(value)) {
+  
+          this.setState({ guardianSurnameValidation: "is-invalid" })
+  
+        } else {
+  
+          this.setState({ guardianSurnameValidation: "" })
+  
+        }
+  
+      }
+  
+      if (name === "guardianId") {
+  
+        if (value.trim().length !== 11 || /[^\d]/.test(value)) {
+  
+          this.setState({ guardianIdValidation: "is-invalid" })
+  
+        } else {
+  
+          this.setState({ guardianIdValidation: "" })
+  
+        }
+  
+      }
+  
+      if (name === "guardianPhone") {
+  
+        if (value.trim().length === 12 && /^\+?370[0-9]*$/.test(value)) {
+  
+          this.setState({ guardianPhoneValidation: "" })
+  
+        } else {
+  
+          this.setState({ guardianPhoneValidation: "is-invalid" })
+  
+        }
+  
+      }
+  
+      if (name === "guardianAddress") {
+  
+        if (value.trim().length < 8 || value.trim().length > 50) {
+  
+          this.setState({ guardianAddressValidation: "is-invalid" })
+  
+        } else {
+  
+          this.setState({ guardianAddressValidation: "" })
+  
+        }
+  
+      }
+  
+      if (name === "guardianCity") {
+  
+        if (value.trim().length < 4 || value.trim().length > 19) {
+  
+          this.setState({ guardianCityValidation: "is-invalid" })
+  
+        } else {
+  
+          this.setState({ guardianCityValidation: "" })
+  
+        }
+  
+      }
+  
+      if (name === "guardianPostalCode") {
+  
+        if (value.trim().length === 5 && /^[0-9]*$/.test(value)) {
+  
+          this.setState({ guardianPostalCodeValidation: "" })
+  
+        } else {
+  
+          this.setState({ guardianPostalCodeValidation: "is-invalid" })
+  
+        }
+  
+      }
+  
+      if (name === "guardianEmail") {
+  
+        if (/^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/.test(value)) {
+  
+          this.setState({ guardianEmailValidation: "" })
+  
+        } else {
+  
+          this.setState({ guardianEmailValidation: "is-invalid" })
+  
+        }
+  
+      }
+
+  }
 
     checkEmptyGuardianInputs = (name, surname, personalCode, phone, address, city, postalCode, email) => {
 
@@ -375,14 +458,17 @@ class PasswordChangeContainer extends Component {
         } else if (!this.state.isDisabled) {
     
           if (this.checkEmptyGuardianInputs(this.state.guardianName, this.state.guardianSurname, this.state.guardianId, this.state.guardianPhone,
-            this.state.guardianAddress, this.state.guardianCity, this.state.guardianPostalCode, this.state.guardianEmail)) {
-    
+            this.state.guardianAddress, this.state.guardianCity, this.state.guardianPostalCode, this.state.guardianEmail)
+            || !this.guardiansValidation(this.state.guardianName, this.state.guardianSurname, this.state.guardianId, this.state.guardianPhone,
+              this.state.guardianAddress, this.state.guardianCity, this.state.guardianPostalCode, this.state.guardianEmail)) {
+
             this.setState({ emptyInputsMessage: "Užpildykite privalomus laukus" })
             this.setState({ emptyInputsMessageStyle: "alert alert-danger mt-4" })
             this.setState({ applicationMessage: "" })
             this.setState({ applicationMessageStyle: "" })
             this.setState({ isDisabled: false });
             this.setState({ guardianButtonText: "Išsaugoti" })
+            this.checkFieldsValidation();
             return;
     
           } else {
