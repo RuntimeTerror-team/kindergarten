@@ -514,14 +514,14 @@ class ApplicationContainer extends Component {
 
   guardiansValidation = (name, surname, personalCode, phone, address, city, postalCode, email) => {
 
-    return (name.length >= 3 && name.length <= 30)
-      && (surname.length >= 2 && surname.length <= 30)
-      && (personalCode.length === 11 && /^[0-9]*$/.test(personalCode))
-      && (phone.length === 12 && /^\+?370[0-9]*$/.test(phone))
-      && (address.length >= 8 && address.length <= 50)
-      && (city.length >= 4 && city.length <= 19)
-      && (postalCode.length === 5 && /^[0-9]*$/.test(postalCode))
-      && (email.length && /(?=.@)/.test(email))
+    return (name.length >= 3 && name.length <= 20)
+          && (surname.length >= 3 && surname.length <= 30)
+          && (personalCode.length === 11 && /^[0-9]*$/.test(personalCode))
+          && (phone.length === 12 && /^\+?370[0-9]*$/.test(phone))
+          && (address.length >= 8 && address.length <= 50)
+          && (city.length >= 4 && city.length <= 19)
+          && (postalCode.length === 5 && /^[0-9]*$/.test(postalCode))
+          && (email.length && /^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/.test(email))
 
   }
 
