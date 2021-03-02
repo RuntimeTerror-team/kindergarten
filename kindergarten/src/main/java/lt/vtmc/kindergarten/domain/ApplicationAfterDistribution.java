@@ -4,7 +4,7 @@ import javax.persistence.*;
 import java.util.Date;
 
 @Entity
-public class ApprovedApplication {
+public class ApplicationAfterDistribution {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -29,9 +29,43 @@ public class ApprovedApplication {
     private int score;
 
     @Column
-    private String status;
+    @Enumerated(EnumType.STRING)
+    private ApplicationStatusEnum status;
 
-    public ApprovedApplication() {
+    @Column
+    private Long applicationId;
+
+    @Column(name = "kindergarten")
+    private String approvedKindergarten;
+
+    @Column
+    private Long waitingNumber;
+
+    public ApplicationAfterDistribution() {
+    }
+
+    public Long getApplicationId() {
+        return applicationId;
+    }
+
+    public void setApplicationId(Long applicationId) {
+        this.applicationId = applicationId;
+    }
+
+    public Long getWaitingNumber() {
+        return waitingNumber;
+    }
+
+    public void setWaitingNumber(Long waitingNumber) {
+        this.waitingNumber = waitingNumber;
+    }
+
+    public String getApprovedKindergarten() {
+        return approvedKindergarten;
+    }
+
+    public void setApprovedKindergarten(String approvedKindergarten) {
+        this.approvedKindergarten = approvedKindergarten;
     }
 
     public Long getId() {
@@ -90,11 +124,11 @@ public class ApprovedApplication {
         this.score = score;
     }
 
-    public String getStatus() {
+    public ApplicationStatusEnum getStatus() {
         return status;
     }
 
-    public void setStatus(String status) {
+    public void setStatus(ApplicationStatusEnum status) {
         this.status = status;
     }
 }
