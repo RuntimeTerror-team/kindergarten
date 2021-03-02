@@ -1,6 +1,7 @@
 package lt.vtmc.kindergarten.dto;
 
 import lt.vtmc.kindergarten.domain.Application;
+import lt.vtmc.kindergarten.domain.ApplicationAfterDistribution;
 
 
 import java.util.Date;
@@ -31,15 +32,15 @@ public class ApplicationAfterDistributionDto {
     public ApplicationAfterDistributionDto() {
     }
 
-    public ApplicationAfterDistributionDto(Application application) {
+    public ApplicationAfterDistributionDto(ApplicationAfterDistribution application) {
         this.id = application.getId();
         this.date = application.getDate();
-        this.childFirstName = application.getChild().getFirstName();
-        this.childLastName = application.getChild().getLastName();
-        this.parentFirstName = application.getParent().getFirstName();
-        this.parentLastName = application.getParent().getLastName();
+        this.childFirstName = application.getChildFirstName();
+        this.childLastName = application.getChildLastName();
+        this.parentFirstName = application.getParentFirstName();
+        this.parentLastName = application.getParentLastName();
         this.score = application.getScore();
-        this.status = application.getApplicationStatus().toString();
+        this.status = application.getStatus();
         this.approvedKindergartenTitle = application.getApprovedKindergarten();
         this.waitingNumber = application.getWaitingNumber();
     }

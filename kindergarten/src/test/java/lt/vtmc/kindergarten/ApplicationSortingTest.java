@@ -4,6 +4,7 @@ import lt.vtmc.kindergarten.dao.*;
 import lt.vtmc.kindergarten.domain.*;
 import lt.vtmc.kindergarten.dto.*;
 import lt.vtmc.kindergarten.service.*;
+
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -211,8 +212,8 @@ public class ApplicationSortingTest {
         assertEquals("APPROVED", appplicationsAfterDistribution.get(1).getStatus());
         assertEquals("APPROVED", appplicationsAfterDistribution.get(2).getStatus());
         assertEquals("APPROVED", appplicationsAfterDistribution.get(3).getStatus());
-        assertEquals("UNCONFIRMED", appplicationsAfterDistribution.get(4).getStatus());
-        assertEquals("UNCONFIRMED", appplicationsAfterDistribution.get(5).getStatus());
+        assertEquals("WAITING", appplicationsAfterDistribution.get(4).getStatus());
+        assertEquals("WAITING", appplicationsAfterDistribution.get(5).getStatus());
 
         assertEquals("Morkevičiūtė", appplicationsAfterDistribution.get(0).getChildLastName());
         assertEquals("Liepatė", appplicationsAfterDistribution.get(1).getChildLastName());

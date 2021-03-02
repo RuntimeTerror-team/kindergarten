@@ -75,6 +75,9 @@ public class QueueService {
             queue.setStatus(QueueStatusEnum.INACTIVE);
             queueDao.save(queue);
         }
+        if(queue.getStatus()==QueueStatusEnum.INACTIVE){
+
+        }
     }
 
     @Transactional(readOnly = true)

@@ -48,7 +48,7 @@ public class ApplicationService {
     private UserDao userDao;
 
     @Autowired
-    private ApprovedApplicationDao approvedApplicationDao;
+    private ApplicationAfterDistributionDao applicationAfterDistributionDao;
 
 
     @Transactional
@@ -270,44 +270,52 @@ public class ApplicationService {
 
     @Transactional
     public List<ApplicationAfterDistributionDto> getApplicationsAfterDistribution() {
-        List<ApplicationAfterDistribution> applications = approvedApplicationDao.findAll();
 
-        List<ApplicationAfterDistributionDto> approvedApplicationList = applications.stream().map(application -> {
-
-            ApplicationAfterDistributionDto applicationAfterDistributionDto = new ApplicationAfterDistributionDto();
-
-            applicationAfterDistributionDto.setChildFirstName(application.getChildFirstName());
-            applicationAfterDistributionDto.setChildLastName(application.getChildLastName());
-            applicationAfterDistributionDto.setParentFirstName(application.getParentFirstName());
-            applicationAfterDistributionDto.setParentLastName(application.getParentLastName());
-            applicationAfterDistributionDto.setDate(application.getDate());
-            applicationAfterDistributionDto.setScore(application.getScore());
-            applicationAfterDistributionDto.setStatus(application.getStatus());
-            applicationAfterDistributionDto.setApprovedKindergartenTitle(application.getApprovedKindergarten());
-            applicationAfterDistributionDto.setWaitingNumber(application.getWaitingNumber());
-
-            return applicationAfterDistributionDto;
-        })
+        List<ApplicationAfterDistribution> applications = applicationAfterDistributionDao.findAll(Sort.by(Sort.Direction.ASC, "status"));
+        List<ApplicationAfterDistributionDto> applicationListAfterDistribution = applications.stream().map(application -> new ApplicationAfterDistributionDto(application))
                 .collect(Collectors.toList());
+        return applicationListAfterDistribution;
 
-        return approvedApplicationList;
     }
+
 
     @Transactional
     public void persistApplicationsAfterDistribution(List<Application> applications) {
+        AtomicReference<Long> waitingNum = new AtomicReference<>(1L);
         applications.stream().forEach(application -> {
-            ApplicationAfterDistribution applicationAfterDistribution = new ApplicationAfterDistribution();
+            if(application.getApplicationStatus() != ApplicationStatusEnum.APPROVED){
 
-            applicationAfterDistribution.setChildFirstName(application.getChild().getFirstName());
-            applicationAfterDistribution.setChildLastName(application.getChild().getLastName());
-            applicationAfterDistribution.setParentFirstName(application.getParent().getFirstName());
-            applicationAfterDistribution.setParentLastName(application.getParent().getLastName());
-            applicationAfterDistribution.setDate(application.getDate());
-            applicationAfterDistribution.setScore(application.getScore());
-            applicationAfterDistribution.setStatus(application.getApplicationStatus().toString());
-            applicationAfterDistribution.setApprovedKindergarten(application.getApprovedKindergarten());
-            applicationAfterDistribution.setWaitingNumber(application.getWaitingNumber());
-            approvedApplicationDao.save(applicationAfterDistribution);
+                ApplicationAfterDistribution applicationAfterDistribution = new ApplicationAfterDistribution();
+
+                applicationAfterDistribution.setChildFirstName(application.getChild().getFirstName());
+                applicationAfterDistribution.setChildLastName(application.getChild().getLastName());
+                applicationAfterDistribution.setParentFirstName(application.getParent().getFirstName());
+                applicationAfterDistribution.setParentLastName(application.getParent().getLastName());
+                applicationAfterDistribution.setDate(application.getDate());
+                applicationAfterDistribution.setScore(application.getScore());
+                applicationAfterDistribution.setStatus(application.getApplicationStatus().toString());
+                applicationAfterDistribution.setWaitingNumber(waitingNum.get());
+                waitingNum.getAndSet(waitingNum.get() + 1);
+                applicationAfterDistributionDao.save(applicationAfterDistribution);
+
+            } else if (application.getApplicationStatus() == ApplicationStatusEnum.APPROVED){
+
+                ApplicationAfterDistribution applicationAfterDistribution = new ApplicationAfterDistribution();
+
+                applicationAfterDistribution.setChildFirstName(application.getChild().getFirstName());
+                applicationAfterDistribution.setChildLastName(application.getChild().getLastName());
+                applicationAfterDistribution.setParentFirstName(application.getParent().getFirstName());
+                applicationAfterDistribution.setParentLastName(application.getParent().getLastName());
+                applicationAfterDistribution.setDate(application.getDate());
+                applicationAfterDistribution.setScore(application.getScore());
+                applicationAfterDistribution.setStatus(application.getApplicationStatus().toString());
+                applicationAfterDistribution.setApprovedKindergarten(application.getKindergartenApplicationForms().stream()
+                        .filter(item -> item.isAccepted())
+                        .map(applicationForm -> applicationForm.getKindergarten().getTitle())
+                        .collect(Collectors.joining(application.toString())));
+
+                applicationAfterDistributionDao.save(applicationAfterDistribution);
+            }
         });
     }
 
@@ -344,7 +352,7 @@ public class ApplicationService {
                                                 if (childCount > 0) {
                                                     group.setChildrenCount(childCount - 1);
                                                     applicationForm.setAccepted(true);
-                                                    application.setApprovedKindergarten(applicationForm.getKindergarten().getTitle());
+//                                                    application.setApprovedKindergarten(applicationForm.getKindergarten().getTitle());
                                                     application.setApplicationStatus(ApplicationStatusEnum.APPROVED);
                                                     return;
                                                 }
@@ -353,16 +361,17 @@ public class ApplicationService {
                             });
                 });
 
-        AtomicReference<Long> waitingNum = new AtomicReference<>(1L);
-        applications.stream().filter(application -> application.getApplicationStatus() != ApplicationStatusEnum.APPROVED)
-                .forEach(application -> {
-                    application.setApplicationStatus(ApplicationStatusEnum.UNCONFIRMED);
-                    application.setWaitingNumber(waitingNum.get());
-                    waitingNum.getAndSet(waitingNum.get() + 1);
-                });
-
+//        AtomicReference<Long> waitingNum = new AtomicReference<>(1L);
+//        applications.stream().filter(application -> application.getApplicationStatus() != ApplicationStatusEnum.APPROVED)
+//                .forEachOrdered(application -> {
+//                    application.setApplicationStatus(ApplicationStatusEnum.WAITING);
+//                    application.setWaitingNumber(waitingNum.get());
+//                    waitingNum.getAndSet(waitingNum.get() + 1);
+//                });
 
         persistApplicationsAfterDistribution(applications);
+
+        applications.stream().forEach(application -> application.setApplicationStatus(ApplicationStatusEnum.SUBMITTED));
     }
 
 
