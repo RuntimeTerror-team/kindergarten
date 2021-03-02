@@ -21,7 +21,8 @@ class GroupCreationFormContainer extends Component {
             messageStyle: "",
             duplicateMessage: "",
             duplicateMessageStyle: "",
-            kindergarten: ""
+            kindergarten: "",
+            group: null
         }
     }
 
@@ -46,6 +47,14 @@ class GroupCreationFormContainer extends Component {
             .get(`${baseUrl}/api/kindergartens/${this.props.match.params.id}`)
             .then((res) => {
                 this.setState({ kindergarten: res.data })
+            })
+            .catch((err) => console.log(err));
+
+        Axios
+            .get(`${baseUrl}/api/kindergartens/${this.props.match.params.id}/groups/${this.props.match.params.groupId}`)
+            .then((res) => {
+                this.setState({ group: res.data });
+                this.setState({ childrenCount: res.data.childrenCount.toString() });
             })
             .catch((err) => console.log(err));
     }
@@ -83,9 +92,9 @@ class GroupCreationFormContainer extends Component {
     }
 
     findAgeRangeById = (id) => {
-
         return this.state.groups.find((group) => {
-            return group.ageRange.id == id})
+            return group.ageRange.id === +id
+        })
     }
 
     handleGroupCreation = (e) => {
@@ -93,44 +102,59 @@ class GroupCreationFormContainer extends Component {
 
         this.validateBlank();
 
-        this.setState({duplicateMessage: ""})
-        this.setState({duplicateMessageStyle: "" })
 
-        if(this.findAgeRangeById(this.state.ageRangeId)){
 
-            this.setState({duplicateMessage: "Toks amžiaus intervalas jau išsaugotas kitoje grupėje"})
-            this.setState({duplicateMessageStyle: "alert alert-danger" })
-        }
+        this.setState({ duplicateMessage: "" })
+        this.setState({ duplicateMessageStyle: "" })
 
-        else if ((this.state.ageRangeValidation === "" && this.state.ageRangeId.length !== 0)
-            && (this.state.childrenCountValidation === "" && this.state.childrenCount.trim().length !== 0)) {
+
+        if (this.props.match.params && (this.state.childrenCountValidation === "" && this.state.childrenCount.trim().length !== 0)) {
             Axios
-                .post(`${baseUrl}/api/kindergartens/${this.state.kindergartenId}/groups/${e.target.ageRangeId.value}`, {
-                    childrenCount: e.target.childrenCount.value,
-                    id: 0
+                .put(`${baseUrl}/api/kindergartens/${this.state.kindergartenId}/groups/${this.props.match.params.groupId}/update`, {
+                    childrenCount: e.target.childrenCount.value
                 })
-                .then(() => {
-                    Axios
-                        .get(`${baseUrl}/api/kindergartens/${this.state.kindergartenId}/groups`)
-                        .then((res) => {
-                            this.setState({ groups: res.data })
-                        })
-                        .catch((err) => console.log(err));
-                })
-                .then(() => {
-                    this.setState({ message: "Darželio grupė sėkmingai išsaugota" })
+                .then((res) => {
+                    this.setState({ group: res.data });
+                    this.setState({ message: "Grupė sėkmingai atnaujinta" })
                     this.setState({ messageStyle: "alert alert-success" })
-                    e.target.reset();
                 })
-                .catch((err) => {
-                    // we can put a message from backend why saving not succeeded
-                    this.setState({ message: "Darželio grupės sukurti nepavyko. Pasitikrinkite duomenis." })
-                    this.setState({ messageStyle: "alert alert-danger" })
-                    console.log(err)
-                });
         } else {
-            this.setState({ message: "Darželio grupės sukurti nepavyko. Pasitikrinkite duomenis." })
-            this.setState({ messageStyle: "alert alert-danger" })
+            if (this.findAgeRangeById(this.state.ageRangeId)) {
+
+                this.setState({ duplicateMessage: "Toks amžiaus intervalas jau išsaugotas kitoje grupėje" })
+                this.setState({ duplicateMessageStyle: "alert alert-danger" })
+            }
+
+            else if ((this.state.ageRangeValidation === "" && this.state.ageRangeId.length !== 0)
+                && (this.state.childrenCountValidation === "" && this.state.childrenCount.trim().length !== 0)) {
+                Axios
+                    .post(`${baseUrl}/api/kindergartens/${this.state.kindergartenId}/groups/${e.target.ageRangeId.value}`, {
+                        childrenCount: e.target.childrenCount.value,
+                        id: 0
+                    })
+                    .then(() => {
+                        Axios
+                            .get(`${baseUrl}/api/kindergartens/${this.state.kindergartenId}/groups`)
+                            .then((res) => {
+                                this.setState({ groups: res.data })
+                            })
+                            .catch((err) => console.log(err));
+                    })
+                    .then(() => {
+                        this.setState({ message: "Darželio grupė sėkmingai išsaugota" })
+                        this.setState({ messageStyle: "alert alert-success" })
+                        e.target.reset();
+                    })
+                    .catch((err) => {
+                        // we can put a message from backend why saving not succeeded
+                        this.setState({ message: "Darželio grupės sukurti nepavyko. Pasitikrinkite duomenis." })
+                        this.setState({ messageStyle: "alert alert-danger" })
+                        console.log(err)
+                    });
+            } else {
+                this.setState({ message: "Darželio grupės sukurti/atnaujinti nepavyko. Pasitikrinkite duomenis." })
+                this.setState({ messageStyle: "alert alert-danger" })
+            }
         }
     }
 
@@ -158,6 +182,8 @@ class GroupCreationFormContainer extends Component {
                                     messageStyle={this.state.messageStyle}
                                     duplicateMessage={this.state.duplicateMessage}
                                     duplicateMessageStyle={this.state.duplicateMessageStyle}
+                                    group={this.state.group}
+                                    childrenCount={this.state.childrenCount}
                                 />
                             </div>
                         </div>

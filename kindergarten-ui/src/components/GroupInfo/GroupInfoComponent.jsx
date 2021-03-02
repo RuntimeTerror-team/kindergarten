@@ -15,7 +15,7 @@ const GroupInfoComponent = ({ groups, kindergartenId }) => {
         </Link>
       </div>
 
-      {groups.length > 0 && <GroupTableComponent groups={groups} />}
+      {groups.length > 0 && <GroupTableComponent groups={groups} kindergartenId={kindergartenId} />}
       <Link to={`${urls.educationSpecialist.kindergartenBase}`} className="btn btn-yellow float-right mx-2">
         Atgal
       </Link>

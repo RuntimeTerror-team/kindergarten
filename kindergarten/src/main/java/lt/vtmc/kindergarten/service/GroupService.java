@@ -6,6 +6,7 @@ import lt.vtmc.kindergarten.dao.KindergartenDao;
 import lt.vtmc.kindergarten.domain.AgeRange;
 import lt.vtmc.kindergarten.domain.Group;
 import lt.vtmc.kindergarten.domain.Kindergarten;
+import lt.vtmc.kindergarten.dto.ChildrenCountDto;
 import lt.vtmc.kindergarten.dto.GroupCreationDto;
 import lt.vtmc.kindergarten.dto.GroupDto;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -76,5 +77,15 @@ public class GroupService {
 
     public void setKindergartenDao(KindergartenDao kindergartenDao) {
         this.kindergartenDao = kindergartenDao;
+    }
+
+    @Transactional
+    public GroupDto updateGroupChildrenCount(Long group_id, ChildrenCountDto childrenCount) {
+        Group group = groupDao.getOne(group_id);
+
+        group.setChildrenCount(childrenCount.getChildrenCount());
+
+        groupDao.save(group);
+        return new GroupDto(group);
     }
 }

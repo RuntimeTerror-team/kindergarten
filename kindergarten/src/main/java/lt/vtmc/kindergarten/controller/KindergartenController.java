@@ -2,10 +2,7 @@ package lt.vtmc.kindergarten.controller;
 
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
-import lt.vtmc.kindergarten.dto.GroupCreationDto;
-import lt.vtmc.kindergarten.dto.GroupDto;
-import lt.vtmc.kindergarten.dto.KindergartenDto;
-import lt.vtmc.kindergarten.dto.KindergartenInfoDto;
+import lt.vtmc.kindergarten.dto.*;
 import lt.vtmc.kindergarten.service.GroupService;
 import lt.vtmc.kindergarten.service.KindergartenService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -94,6 +91,16 @@ public class KindergartenController {
             @PathVariable final Long group_id
     ){
         return groupService.getGroup(kindergartenId, group_id);
+    }
+
+    @RequestMapping(value = "/api/kindergartens/{kindergartenId}/groups/{group_id}/update", method = RequestMethod.PUT)
+    @ApiOperation(value = "Update group by id", notes = "Updates group by id")
+    @ResponseStatus(HttpStatus.OK)
+    public GroupDto updateGroup(
+            @PathVariable final Long group_id,
+            @RequestBody ChildrenCountDto childrenCount
+            ) {
+        return groupService.updateGroupChildrenCount(group_id, childrenCount);
     }
 
 
