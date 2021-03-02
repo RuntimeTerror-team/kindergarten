@@ -148,7 +148,7 @@ class PasswordChangeContainer extends Component {
 
       checkFieldsValidation = () => {
 
-          if (this.state.guardianName.trim().length < 3 || this.state.guardianName.length > 20 || /\d/.test(this.state.guardianName)) {
+          if (this.state.guardianName.trim().length < 3 || this.state.guardianName.trim().length > 20 || /\d/.test(this.state.guardianName)) {
     
             this.setState({ guardianNameValidation: "is-invalid" })
     
@@ -158,7 +158,7 @@ class PasswordChangeContainer extends Component {
     
           }
     
-          if (this.state.guardianSurname.trim().length < 3 || this.state.guardianSurname.length > 30 || /\d/.test(this.state.guardianSurname)) {
+          if (this.state.guardianSurname.trim().length < 3 || this.state.guardianSurname.trim().length > 30 || /\d/.test(this.state.guardianSurname)) {
     
             this.setState({ guardianSurnameValidation: "is-invalid" })
     
@@ -234,7 +234,7 @@ class PasswordChangeContainer extends Component {
 
       if (name === "guardianName") {
   
-        if (value.trim().length < 3 || value.length > 20 || /\d/.test(value)) {
+        if (value.trim().length < 3 || value.trim().length > 20 || /\d/.test(value)) {
   
           this.setState({ guardianNameValidation: "is-invalid" })
   
@@ -248,7 +248,7 @@ class PasswordChangeContainer extends Component {
   
       if (name === "guardianSurname") {
   
-        if (value.trim().length < 3 || value.length > 30 || /\d/.test(value)) {
+        if (value.trim().length < 3 || value.trim().length > 30 || /\d/.test(value)) {
   
           this.setState({ guardianSurnameValidation: "is-invalid" })
   
@@ -435,14 +435,14 @@ class PasswordChangeContainer extends Component {
 
       guardiansValidation = (name, surname, personalCode, phone, address, city, postalCode, email) => {
 
-        return (name.length >= 3 && name.length <= 30)
-          && (surname.length >= 2 && surname.length <= 30)
+        return (name.trim().length >= 3 && name.trim().length <= 20)
+          && (surname.trim().length >= 3 && surname.trim().length <= 30)
           && (personalCode.length === 11 && /^[0-9]*$/.test(personalCode))
           && (phone.length === 12 && /^\+?370[0-9]*$/.test(phone))
           && (address.length >= 8 && address.length <= 50)
           && (city.length >= 4 && city.length <= 19)
           && (postalCode.length === 5 && /^[0-9]*$/.test(postalCode))
-          && (email.length && /(?=.@)/.test(email))
+          && (email.length && /^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/.test(email))
     
       }
 
