@@ -45,7 +45,7 @@ class FileInput extends Component {
     handleSubmit = (e) => {
         e.preventDefault();
 
-        if (this.props.selectedChildId !== "Pasirinkti vaiką") {
+        if (this.props.selectedChildId !== "Pasirinkti vaiką" && this.props.selectedChildId.length !== 0) {
             const formData = new FormData();
 
             formData.append('file', this.state.file);
