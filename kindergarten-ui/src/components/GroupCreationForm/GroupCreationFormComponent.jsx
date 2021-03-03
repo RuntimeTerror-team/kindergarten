@@ -14,11 +14,12 @@ const GroupCreationFComponent = ({
     duplicateMessage,
     duplicateMessageStyle,
     ageRangeValidation,
-    childrenCountValidation
+    childrenCountValidation,
+    group
 }) => {
     return (
         <form className="mt-4" onSubmit={handleGroupCreation}>
-            <div className="form-group row">
+            {!group && <div className="form-group row">
                 <label htmlFor="ageRange" className="col-3 mt-2 text-right">
                     Amžiaus grupės
                 </label>
@@ -39,7 +40,21 @@ const GroupCreationFComponent = ({
                 <div className="invalid-feedback offset-3 col-9">
                     Šis laukas privalomas. Pasirinkite amžiaus grupę.
                 </div>
-            </div>
+            </div>}
+
+            {group && <div className="form-group row">
+                <label htmlFor="ageRange" className="col-3 mt-2 text-right">
+                    Amžiaus grupės
+                </label>
+                <select
+                    className={`form-control col-9`}
+                    id="ageRange" name="ageRangeId"
+                    disabled={group}
+                >
+                    <option defaultValue>{group.ageRange.ageMin} - {group.ageRange.ageMax}</option>
+                </select>
+            </div>}
+
             <div className="form-group row">
                 <label htmlFor="childrenCount" className="col-3 pt-2 text-right">
                     Vaikų skaičius
