@@ -3,6 +3,7 @@ import { Route, Switch } from 'react-router-dom';
 import LoginContainer from './components/Login/LoginContainer';
 import GuardianPageContainer from './components/GuardianPage/GuardianPageContainer';
 import ApplicationContainer from './components/ApplicationForm/ApplicationContainer'
+import ESApprovedApplicationListContainer from './components/ApprovedApplicationList/ESApprovedApplicationListContainer'
 import PasswordChangeContainer from './components/PasswordChange/PasswordChangeContainer'
 import PasswordChangeESContainer from './components/PasswordChange/PasswordChangeESContainer'
 import NoMatchComponent from './components/ErrorHandling/NoMatchComponent';
@@ -38,6 +39,7 @@ function App(props) {
         <Route exact path={`${urls.educationSpecialist.kindergartenBase}/:id/groups/new`} component={GroupCreationFormContainer} />
         <Route exact path={`${urls.educationSpecialist.ageRangeBase}`} component={AgeRangeFormContainer} />
         <Route exact path={`${urls.educationSpecialist.queueBase}`} component={EsQueueListContainer} />
+        <Route exact path={`${urls.educationSpecialist.applicationsBase}`} component={ESApprovedApplicationListContainer} />
         <Route exact path={`${urls.educationSpecialist.queueBase}/passwordChange`} component={PasswordChangeESContainer} />
         <Route exact path={`${urls.guardian.applicationBase}`} component={GuardianPageContainer} />
         <Route exact path={`${urls.guardian.applicationBase}/new`} component={ApplicationContainer} />

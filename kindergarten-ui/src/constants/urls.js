@@ -7,7 +7,8 @@ const urls = {
     educationSpecialist: {
         kindergartenBase: '/education-specialist/kindergartens',
         ageRangeBase: '/education-specialist/age-ranges',
-        queueBase: '/education-specialist/queues'
+        queueBase: '/education-specialist/queues',
+        applicationsBase: '/education-specialist/applications'
     },
     guardian: {
         applicationBase: '/guardian/applications',

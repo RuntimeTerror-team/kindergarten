@@ -14,6 +14,9 @@ const ESNavigationComponent = () => {
             <Link to={`${urls.educationSpecialist.queueBase}`} className={`btn btn-main mb-2 w-100 ${window.location.pathname === `/kindergarten${urls.educationSpecialist.queueBase}` ? "btn-active" : ""}`}>
                 Eilių administravimas
             </Link>
+            <Link to={`${urls.educationSpecialist.applicationsBase}`} className={`btn btn-main mb-2 w-100 ${window.location.pathname === `/kindergarten${urls.educationSpecialist.applicationsBase}` ? "btn-active" : ""}`} >
+                Prašymų sąrašas
+            </Link>
             <Link to={`${urls.educationSpecialist.queueBase}/passwordChange`} className={`btn btn-main mb-2 w-100 ${window.location.pathname === `/kindergarten${urls.educationSpecialist.queueBase}/passwordChange` ? "btn-active" : ""}`} >
                     Mano paskyra
             </Link>
