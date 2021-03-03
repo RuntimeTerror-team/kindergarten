@@ -19,7 +19,7 @@ public class LoginPage extends AbstractPage {
 
     // text
     @FindBy(xpath = "//*[@id=\"loginPage\"]/h1")
-    public WebElement loginText;
+    public WebElement loginTitleText;
 
     public LoginPage(WebDriver driver) {
         super(driver);
@@ -37,8 +37,8 @@ public class LoginPage extends AbstractPage {
         buttonLogin.click();
     }
 
-    public String checkLoginPageName() {
-        return loginText.getText();
+    public String checkLoginPageTitleName() {
+        return loginTitleText.getText();
     }
 
 }
