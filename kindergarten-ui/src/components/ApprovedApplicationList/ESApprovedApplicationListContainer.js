@@ -32,29 +32,29 @@ translateStatus(){
     this.state.applications.forEach(application => {
 
         if(application.status === "SUBMITTED"){
-            application.applicationStatus = 'Pateiktas'
+            application.status = 'Pateiktas'
             this.forceUpdate()
         }
 
         else if(application.status === "UNCOMFIRMED"){
-            application.applicationStatus = 'Nepatvirtintas'
+            application.status = 'Nepatvirtintas'
             this.forceUpdate()
         }
 
         else if(application.status === "REJECTED"){
-            application.applicationStatus = 'Atmestas'
+            application.status = 'Atmestas'
             this.forceUpdate()
         }
 
         else if(application.status === "APPROVED"){
 
             console.log("Approved")
-            application.applicationStatus = 'Patvirtintas'
+            application.status = 'Patvirtintas'
             this.forceUpdate()
         }
 
         else if(application.status === "WAITING"){
-            application.applicationStatus = 'Eilėje'
+            application.status = 'Eilėje'
             this.forceUpdate()
         }
     })
