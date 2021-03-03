@@ -166,6 +166,33 @@ public class DataSeeder {
 
     }
 
+    public void createApplication(String parentPersonalCode, String childPersonalCode, String kindergarten1CompanyCode,  String kindergarten2CompanyCode,
+                                  Boolean isAdopted, Boolean isGuardianStudent, Boolean isMultiChild, Boolean isDisabled) {
+
+        Person parent1 = personDao.findByPersonalCode(parentPersonalCode);
+        Person child = personDao.findByPersonalCode(childPersonalCode);
+        Kindergarten kindergarten1 = kindergartenDao.findByCompanyCode(kindergarten1CompanyCode);
+        Kindergarten kindergarten2 = kindergartenDao.findByCompanyCode(kindergarten2CompanyCode);
+
+        ApplicationCreationDto application = new ApplicationCreationDto();
+        application.setDate(new Date());
+        application.setIsAdopted(isAdopted);
+        application.setIsGuardianStudent(isGuardianStudent);
+        application.setIsMultiChild(isMultiChild);
+        application.setIsGuardianDisabled(isDisabled);
+
+        application.setFirstParentId(parent1.getId());
+        application.setChildId(child.getId());
+
+        application.setPriorityForKindergartenID(new HashMap<>() {{
+            put(1, kindergarten1.getId());
+            put(2, kindergarten2.getId());
+        }});
+
+        applicationService.addApplication(application);
+
+    }
+
 /*
     public void cretePersons() {
         Role guardian = new Role();

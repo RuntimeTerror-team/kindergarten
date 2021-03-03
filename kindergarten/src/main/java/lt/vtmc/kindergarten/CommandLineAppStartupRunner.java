@@ -64,7 +64,7 @@ public class CommandLineAppStartupRunner implements CommandLineRunner {
 //            dataSeeder.createGroupForKindergarten("19555587", 5, 7,1);
 
             //Darželis Smalsučiai
-//            dataSeeder.createGroupForKindergarten("19555888", 1, 2,0);
+            dataSeeder.createGroupForKindergarten("19555888", 1, 2,1);
 //            dataSeeder.createGroupForKindergarten("19555888", 4, 5,0);
 //
 //            //Darželis Nykštukai
@@ -72,17 +72,17 @@ public class CommandLineAppStartupRunner implements CommandLineRunner {
 
 
             //Jonukas
-            dataSeeder.createApplication("39004180111", "52001180332", "19555587",
+            dataSeeder.createApplication("39004180111", "52001180332", "19555587", "19555888",
                     false, false, true, true);
             //Maryte
-            dataSeeder.createApplication("39004180111", "62002221111", "19555587",
+            dataSeeder.createApplication("39004180111", "62002221111", "19555587","19555888",
                     false, false, true, false);
 
             //Gabrielius
-            dataSeeder.createApplication("38406160121", "52003280322", "19555587",
+            dataSeeder.createApplication("38406160121", "52003280322", "19555587","19555888",
                     true, true, true, false);
             //Atene
-            dataSeeder.createApplication("38406160121", "52004281112", "19555587",
+            dataSeeder.createApplication("38406160121", "52004281112", "19555587","19555888",
                     true, true, true, false);
 
 //            //Iglute

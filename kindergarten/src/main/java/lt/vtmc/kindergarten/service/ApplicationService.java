@@ -319,6 +319,7 @@ public class ApplicationService {
         });
     }
 
+
     @Transactional
     public void recalculateApplicationOrderInQueue() {
         applicationAfterDistributionDao.deleteAll();
@@ -327,14 +328,6 @@ public class ApplicationService {
                 .forEachOrdered(application -> {
                     application.setApplicationStatus(ApplicationStatusEnum.WAITING);
                 });
-
-//        applications.stream().forEach(application -> {
-//            application.getKindergartenApplicationForms().stream().forEach(applicationForm -> {
-//                applicationForm.getKindergarten().getGroups().forEach(group -> group.setOccupiedSpace(0));
-//                applicationForm.setAccepted(false);
-//            });
-//        });
-
         calculateApplicationStatus();
     }
 
@@ -345,23 +338,12 @@ public class ApplicationService {
     public void calculateApplicationStatus() {
         List<Application> applications = getSortedApplications();
 
-//        applications.stream()
-//                // Only check applications that are not yet approved
-//                .filter(application -> application.getApplicationStatus() == ApplicationStatusEnum.WAITING)
-//                .forEachOrdered(application -> {
-//                            application
-//                                    .getKindergartenApplicationForms()
-//                                    .stream()
-//                                    .forEach(applicationForm -> applicationForm.getKindergarten().getGroups().forEach(group -> group.setOccupiedSpace(0)));
-//                        });
-
         applications.stream().forEach(application -> {
             application.getKindergartenApplicationForms().stream().forEach(applicationForm -> {
                 applicationForm.getKindergarten().getGroups().forEach(group -> group.setOccupiedSpace(0));
                 applicationForm.setAccepted(false);
             });
         });
-
 
         applications.stream()
                 // Only check applications that are not yet approved
@@ -385,7 +367,6 @@ public class ApplicationService {
                                             // Check if there is a group that kid fits in by his age
                                             if (!wasAccepted && ageRange.getAgeMin() <= age && age <= ageRange.getAgeMax()) {
                                                 Integer seatsAvailable = group.getChildrenCount() - group.getOccupiedSpace();
-
                                                 // Check if following group has available seat
                                                 if (seatsAvailable > 0) {
                                                     group.setOccupiedSpace(group.getOccupiedSpace() + 1);
@@ -397,14 +378,6 @@ public class ApplicationService {
                                         });
                             });
                 });
-
-//        applications.stream().forEach(application -> {
-//            application.getKindergartenApplicationForms().stream().forEach(applicationForm -> {
-//                applicationForm.getKindergarten().getGroups().forEach(group -> group.setOccupiedSpace(0));
-//                applicationForm.setAccepted(false);
-//            });
-//        });
-
 
         persistApplicationsAfterDistribution(applications);
 
