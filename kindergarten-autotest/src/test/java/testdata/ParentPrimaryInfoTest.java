@@ -21,14 +21,14 @@ public class ParentPrimaryInfoTest extends BaseTest {
 
 
     @Test(groups = "smoke")
-    public void parentCreationTest() throws IOException {
+    public void parentCreationTest() throws IOException, InterruptedException {
 
         AdminPage adminPage = new AdminPage(driver);
         LoginPage loginPage = new LoginPage(driver);
         SpecialistPage specialistPage = new SpecialistPage(driver);
         AdminTest adminTest = new AdminTest();
         ParentPrimaryInputPage parentPrimaryInputPage = new ParentPrimaryInputPage(driver);
-        ParentPage parentPage =new ParentPage(driver);
+        ParentPage parentPage = new ParentPage(driver);
 
         adminTest.adminLoginTest();
 
@@ -47,14 +47,14 @@ public class ParentPrimaryInfoTest extends BaseTest {
                 ExpectedConditions.presenceOfElementLocated(By.xpath("//*[@id=\"root\"]/div/div/div/div[2]/div/div/div/div")));
 
         String actualSuccessfulAccountSave = adminPage.findSuccesfulAccountSaveText();
-        assertTrue(actualSuccessfulAccountSave.contains(parentFirstName+parentLastName), "Text is not as expected: ");
+        assertTrue(actualSuccessfulAccountSave.contains(parentFirstName + parentLastName), "Text is not as expected: ");
 
-       adminPage.clickAdminLogoutButton();
+        adminPage.clickAdminLogoutButton();
 
-               WebElement loginh1 = wait.until(
+        WebElement loginh1 = wait.until(
                 ExpectedConditions.presenceOfElementLocated(By.id("loginh1")));
-        String parentUsename = parentFirstName + parentLastName + "17";
-        String parentPassword = parentFirstName + parentLastName + "17";
+        String parentUsename = parentFirstName + parentLastName + "7";
+        String parentPassword = parentFirstName + parentLastName + "7";
 
         loginPage.enterUsername(parentUsename);
         loginPage.enterPassword(parentPassword);
@@ -68,7 +68,7 @@ public class ParentPrimaryInfoTest extends BaseTest {
         parentPrimaryInputPage.enterFirstName(parentFirstName);
         parentPrimaryInputPage.enterLastName(parentLastName);
 
-        String personalCode = "37112220010";
+        String personalCode = "37112220028";
         String address = "Antakalnio g. 34-12";
         String postalCode = "12345";
         String phoneNo = "60606060";
@@ -85,16 +85,161 @@ public class ParentPrimaryInfoTest extends BaseTest {
         parentPrimaryInputPage.enterEmail(email);
 
         parentPrimaryInputPage.clickParentPrimaryInputSaveButton();
+        Thread.sleep(10000);
+        parentPage.clickParentLogoutButton();
 
+        Thread.sleep(2000);
 
-//        WebDriverWait wait1 = new WebDriverWait(driver, 30);
-//        WebElement parentpageMainpageText = wait1.until(
-//                ExpectedConditions.presenceOfElementLocated(By.xpath("//*[@id=\"root\"]/div/div/div[2]/div/div/h1")));
-//
-        String actualURL = "http://akademijait.vtmc.lt:8181/kindergarten/guardian/applications";
-               assertEquals(actualURL, driver.getCurrentUrl(), "Text is not as expected: ");
+        loginPage.enterUsername(parentUsename);
+        loginPage.enterPassword(parentPassword);
+        loginPage.clickLoginButton();
+        Thread.sleep(5000);
+        String actualParentName = parentPage.findParentName();
+        assertEquals(actualParentName, parentFirstName + " " + parentLastName, "Text is not as expected: ");
+        parentPage.clickParentLogoutButton();
 
+        Thread.sleep(2000);
 
+        adminTest.adminLoginTest();
+
+        parentFirstName = "Marija";
+        parentLastName = "Pūkienė";
+
+        adminPage.enterFirstName(parentFirstName);
+        adminPage.enterLastName(parentLastName);
+
+        roleDropdown = new Select(driver.findElement(By.id("inputGroupSelect01")));
+        roleDropdown.selectByIndex(0);
+
+        adminPage.clickSaveAccountButton();
+        wait = new WebDriverWait(driver, 10);
+        successfulText = wait.until(
+                ExpectedConditions.presenceOfElementLocated(By.xpath("//*[@id=\"root\"]/div/div/div/div[2]/div/div/div/div")));
+
+        actualSuccessfulAccountSave = adminPage.findSuccesfulAccountSaveText();
+        assertTrue(actualSuccessfulAccountSave.contains(parentFirstName + parentLastName), "Text is not as expected: ");
+
+        adminPage.clickAdminLogoutButton();
+
+        loginh1 = wait.until(
+                ExpectedConditions.presenceOfElementLocated(By.id("loginh1")));
+        parentUsename = parentFirstName + parentLastName + "1";
+        parentPassword = parentFirstName + parentLastName + "1";
+
+        loginPage.enterUsername(parentUsename);
+        loginPage.enterPassword(parentPassword);
+        loginPage.clickLoginButton();
+        parentPrimaryInfoInputTitle = wait.until(
+                ExpectedConditions.presenceOfElementLocated(By.xpath("//*[@id=\"root\"]/div/div/div[2]/div/div[2]/h1")));
+
+        actualResultParentPrimaryInfoInputTitle = parentPrimaryInputPage.findPrimaryInfoInputTitle();
+        assertEquals(actualResultParentPrimaryInfoInputTitle, "Pirminių duomenų anketa", "Text is not as expected: ");
+
+        parentPrimaryInputPage.enterFirstName(parentFirstName);
+        parentPrimaryInputPage.enterLastName(parentLastName);
+
+        personalCode = "47112220025";
+        address = "Antakalnio g. 34-1";
+        postalCode = "12345";
+        phoneNo = "60606060";
+        email = "marija@pukiene.lt";
+
+        parentPrimaryInputPage.enterPersonalCode(personalCode);
+        parentPrimaryInputPage.enterAddress(address);
+
+        townDropdown = new Select(driver.findElement(By.id("city")));
+        townDropdown.selectByIndex(1);
+
+        parentPrimaryInputPage.enterPostalCode(postalCode);
+        parentPrimaryInputPage.enterPhoneNo(phoneNo);
+        parentPrimaryInputPage.enterEmail(email);
+
+        parentPrimaryInputPage.clickParentPrimaryInputSaveButton();
+
+        Thread.sleep(10000);
+        parentPage.clickParentLogoutButton();
+
+        Thread.sleep(2000);
+
+        loginPage.enterUsername(parentUsename);
+        loginPage.enterPassword(parentPassword);
+        loginPage.clickLoginButton();
+        Thread.sleep(5000);
+        actualParentName = parentPage.findParentName();
+        assertEquals(actualParentName, parentFirstName + " " + parentLastName, "Text is not as expected: ");
+        parentPage.clickParentLogoutButton();
+        Thread.sleep(5000);
+        adminTest.adminLoginTest();
+
+        parentFirstName = "Alana";
+        parentLastName = "Wu";
+
+        adminPage.enterFirstName(parentFirstName);
+        adminPage.enterLastName(parentLastName);
+
+        roleDropdown = new Select(driver.findElement(By.id("inputGroupSelect01")));
+        roleDropdown.selectByIndex(0);
+
+        adminPage.clickSaveAccountButton();
+        wait = new WebDriverWait(driver, 10);
+        successfulText = wait.until(
+                ExpectedConditions.presenceOfElementLocated(By.xpath("//*[@id=\"root\"]/div/div/div/div[2]/div/div/div/div")));
+
+        actualSuccessfulAccountSave = adminPage.findSuccesfulAccountSaveText();
+        assertTrue(actualSuccessfulAccountSave.contains(parentFirstName + parentLastName), "Text is not as expected: ");
+
+        adminPage.clickAdminLogoutButton();
+
+        loginh1 = wait.until(
+                ExpectedConditions.presenceOfElementLocated(By.id("loginh1")));
+        parentUsename = parentFirstName + parentLastName + "1";
+        parentPassword = parentFirstName + parentLastName + "1";
+
+        loginPage.enterUsername(parentUsename);
+        loginPage.enterPassword(parentPassword);
+        loginPage.clickLoginButton();
+        Thread.sleep(5000);
+        parentPrimaryInfoInputTitle = wait.until(
+                ExpectedConditions.presenceOfElementLocated(By.xpath("//*[@id=\"root\"]/div/div/div[2]/div/div[2]/h1")));
+
+        actualResultParentPrimaryInfoInputTitle = parentPrimaryInputPage.findPrimaryInfoInputTitle();
+        assertEquals(actualResultParentPrimaryInfoInputTitle, "Pirminių duomenų anketa", "Text is not as expected: ");
+        parentFirstName = "Alana Marija";
+        parentLastName = "Juodyte-Wu"
+        ;
+        parentPrimaryInputPage.enterFirstName(parentFirstName);
+        parentPrimaryInputPage.enterLastName(parentLastName);
+
+        personalCode = "09876543210";
+        address = "Antakalnio g. 34-1";
+        postalCode = "12345";
+        phoneNo = "60606060";
+        email = "alana@wu.lt";
+
+        parentPrimaryInputPage.enterPersonalCode(personalCode);
+        parentPrimaryInputPage.enterAddress(address);
+
+        townDropdown = new Select(driver.findElement(By.id("city")));
+        townDropdown.selectByIndex(1);
+
+        parentPrimaryInputPage.enterPostalCode(postalCode);
+        parentPrimaryInputPage.enterPhoneNo(phoneNo);
+        parentPrimaryInputPage.enterEmail(email);
+
+        parentPrimaryInputPage.clickParentPrimaryInputSaveButton();
+
+        Thread.sleep(10000);
+        parentPage.clickParentLogoutButton();
+
+        Thread.sleep(2000);
+
+        loginPage.enterUsername(parentUsename);
+        loginPage.enterPassword(parentPassword);
+        loginPage.clickLoginButton();
+        Thread.sleep(5000);
+        actualParentName = parentPage.findParentName();
+        assertEquals(actualParentName, parentFirstName + " " + parentLastName, "Text is not as expected: ");
+        parentPage.clickParentLogoutButton();
 
     }
 }
