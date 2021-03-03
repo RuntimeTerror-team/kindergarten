@@ -12,7 +12,8 @@ class GroupInfoContainer extends Component {
         this.state = {
             kindergartenId: "",
             groups: [],
-            kindergarten: ""
+            kindergarten: "",
+            buttonStatus: ""
         }
     }
 
@@ -32,6 +33,27 @@ class GroupInfoContainer extends Component {
                 this.setState({ kindergarten: res.data })
             })
             .catch((err) => console.log(err));
+
+
+        Axios
+            .get(`${baseUrl}/api/queues`)
+            .then((res) => {
+                let thisYearQueues = res.data.filter(q => new Date(q.openingDate).getFullYear() === new Date().getFullYear());
+
+                if (thisYearQueues.length === 1) {
+                    if (thisYearQueues[0].status === "ACTIVE") {
+                        this.setState({ buttonStatus: "Keisti skaičių" })
+                    } else if (thisYearQueues[0].status === "LOCKED") {
+                        this.setState({ buttonStatus: "Didinti skaičių" })
+                    } else {
+                        this.setState({ buttonStatus: "Negalima keisti dydžio" })
+                    }
+                } else {
+                    this.setState({ buttonStatus: "Negalima keisti dydžio" })
+                }
+
+            })
+            .catch((err) => console.log(err));
     }
 
     render() {
@@ -49,6 +71,7 @@ class GroupInfoContainer extends Component {
                                 <GroupInfoComponent
                                     groups={this.state.groups}
                                     kindergartenId={this.state.kindergartenId}
+                                    buttonStatus={this.state.buttonStatus}
                                 />
                             </div>
                         </div>

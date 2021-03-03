@@ -37,6 +37,7 @@ function App(props) {
         <Route exact path={`${urls.educationSpecialist.kindergartenBase}/:id`} component={KindergartenInfoFormContainer} />
         <Route exact path={`${urls.educationSpecialist.kindergartenBase}/:id/groups`} component={GroupInfoContainer} />
         <Route exact path={`${urls.educationSpecialist.kindergartenBase}/:id/groups/new`} component={GroupCreationFormContainer} />
+        <Route exact path={`${urls.educationSpecialist.kindergartenBase}/:id/groups/:groupId`} component={GroupCreationFormContainer} />
         <Route exact path={`${urls.educationSpecialist.ageRangeBase}`} component={AgeRangeFormContainer} />
         <Route exact path={`${urls.educationSpecialist.queueBase}`} component={EsQueueListContainer} />
         <Route exact path={`${urls.educationSpecialist.applicationsBase}`} component={ESApprovedApplicationListContainer} />
