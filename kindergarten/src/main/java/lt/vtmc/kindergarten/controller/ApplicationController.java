@@ -96,6 +96,13 @@ public class ApplicationController {
         return applicationService.getApplicationsAfterDistribution();
     }
 
+    @RequestMapping(method = RequestMethod.POST, value = "/api/applications/recalculation")
+    @ApiOperation(value = "Trigers applications queuing", notes = "Trigers sorting algorithm and applications are queued again")
+    @ResponseStatus(HttpStatus.OK)
+    public void recalculateApplicationsOrdered(){
+        applicationService.recalculateApplicationStatus();
+    }
+
     public void setApplicationService(ApplicationService applicationService) {
         this.applicationService = applicationService;
     }

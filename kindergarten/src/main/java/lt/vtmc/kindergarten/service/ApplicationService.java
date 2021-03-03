@@ -319,6 +319,16 @@ public class ApplicationService {
         });
     }
 
+    @Transactional
+    public void recalculateApplicationStatus(){
+        List<Application> applications = applicationDao.findAll();
+        applications.stream().filter(application -> application.getApplicationStatus() != ApplicationStatusEnum.REJECTED)
+                .forEachOrdered(application -> {
+                    application.setApplicationStatus(ApplicationStatusEnum.WAITING);
+                });
+        calculateApplicationStatus();
+    }
+
     /**
      * Assigns kindergartens according to the order of priority provided in the application
      */
@@ -360,14 +370,6 @@ public class ApplicationService {
                                         });
                             });
                 });
-
-//        AtomicReference<Long> waitingNum = new AtomicReference<>(1L);
-//        applications.stream().filter(application -> application.getApplicationStatus() != ApplicationStatusEnum.APPROVED)
-//                .forEachOrdered(application -> {
-//                    application.setApplicationStatus(ApplicationStatusEnum.WAITING);
-//                    application.setWaitingNumber(waitingNum.get());
-//                    waitingNum.getAndSet(waitingNum.get() + 1);
-//                });
 
         persistApplicationsAfterDistribution(applications);
 
