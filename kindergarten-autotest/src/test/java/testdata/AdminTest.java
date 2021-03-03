@@ -17,7 +17,7 @@ import utilities.FileReaderUtils;
 
 public class AdminTest extends BaseTest {
 
-    @Test
+    @Test (groups = "smoke")
     public void adminLoginTest() throws IOException {
         AdminPage adminPage = new AdminPage(driver);
         LoginPage loginPage = new LoginPage(driver);

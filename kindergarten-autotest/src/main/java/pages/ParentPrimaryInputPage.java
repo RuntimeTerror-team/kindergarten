@@ -9,6 +9,10 @@ public class ParentPrimaryInputPage extends AbstractPage {
 	// text
 	@FindBy(xpath = "//*[@id=\"root\"]/div/div/div[2]/div/div[2]/h1")
 	public WebElement parentPrimaryInfoInputTitle;
+
+	//@FindBy(xpath = "//*[@id=\"root\"]/div/div/div[2]/div/div[2]/h1")
+	public WebElement parentSuccesfulPrimaryInformationSaveText;
+
 	// input
 	@FindBy(id = "firstname")
 	public WebElement inputFirstName;
@@ -39,7 +43,9 @@ public class ParentPrimaryInputPage extends AbstractPage {
 	public String findPrimaryInfoInputTitle() {
 		return parentPrimaryInfoInputTitle.getText();
 	}
-
+	public String findPrimaryInfoSuccesfullSaveText() {
+		return parentSuccesfulPrimaryInformationSaveText.getText();
+	}
 	public void enterFirstName(String firstName) {
 		inputFirstName.sendKeys(firstName);
 	}

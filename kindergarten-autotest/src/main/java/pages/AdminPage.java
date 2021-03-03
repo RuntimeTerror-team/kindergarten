@@ -21,9 +21,12 @@ public class AdminPage extends AbstractPage {
     @FindBy(xpath = "//*[@id=\"root\"]/div/div/div/div[1]/div/div[2]/button")
     public WebElement buttonAdminLogout;
 
+    //text
     @FindBy(xpath = "//*[@id=\"root\"]/div/div/div/div[1]/div/div[2]/p/strong")
     public WebElement adminAccountText;
 
+    @FindBy (xpath = "//*[@id=\"root\"]/div/div/div/div[2]/div/div/div/div")
+    public WebElement succesfulAccountSave;
 
     public AdminPage(WebDriver driver) {
         super(driver);
@@ -46,7 +49,9 @@ public class AdminPage extends AbstractPage {
     public String findAdminLoginText() {
         return adminAccountText.getText();
     }
-
+public String findSuccesfulAccountSaveText(){
+        return succesfulAccountSave.getText();
+}
     public void clickAdminLogoutButton() {
         buttonAdminLogout.click();
 
