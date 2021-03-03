@@ -22,7 +22,8 @@ class GroupCreationFormContainer extends Component {
             duplicateMessage: "",
             duplicateMessageStyle: "",
             kindergarten: "",
-            group: null
+            group: null,
+            buttonStatus: ""
         }
     }
 
@@ -50,11 +51,35 @@ class GroupCreationFormContainer extends Component {
             })
             .catch((err) => console.log(err));
 
+        let path = window.location.pathname;
+
+        if (path.split("/")[path.split("/").length - 1] !== "new") {
+            Axios
+                .get(`${baseUrl}/api/kindergartens/${this.props.match.params.id}/groups/${this.props.match.params.groupId}`)
+                .then((res) => {
+                    this.setState({ group: res.data });
+                    this.setState({ childrenCount: res.data.childrenCount.toString() });
+                })
+                .catch((err) => console.log(err));
+        }
+
         Axios
-            .get(`${baseUrl}/api/kindergartens/${this.props.match.params.id}/groups/${this.props.match.params.groupId}`)
+            .get(`${baseUrl}/api/queues`)
             .then((res) => {
-                this.setState({ group: res.data });
-                this.setState({ childrenCount: res.data.childrenCount.toString() });
+                let thisYearQueues = res.data.filter(q => new Date(q.openingDate).getFullYear() === new Date().getFullYear());
+
+                if (thisYearQueues.length === 1) {
+                    if (thisYearQueues[0].status === "ACTIVE") {
+                        this.setState({ buttonStatus: "Keisti skaičių" })
+                    } else if (thisYearQueues[0].status === "LOCKED") {
+                        this.setState({ buttonStatus: "Didinti skaičių" })
+                    } else {
+                        this.setState({ buttonStatus: "Negalima keisti dydžio" })
+                    }
+                } else {
+                    this.setState({ buttonStatus: "Negalima keisti dydžio" })
+                }
+
             })
             .catch((err) => console.log(err));
     }
@@ -102,10 +127,14 @@ class GroupCreationFormContainer extends Component {
 
         this.validateBlank();
 
-
-
         this.setState({ duplicateMessage: "" })
         this.setState({ duplicateMessageStyle: "" })
+
+        if (this.state.buttonStatus === "Didinti skaičių" && this.state.childrenCount <= this.state.group.childrenCount) {
+            this.setState({ duplicateMessage: "Galite tik didinti vaikų skaičių grupėje" })
+            this.setState({ duplicateMessageStyle: "alert alert-danger" })
+            return;
+        }
 
         if (this.findAgeRangeById(this.state.ageRangeId)) {
 
@@ -122,6 +151,8 @@ class GroupCreationFormContainer extends Component {
                     this.setState({ message: "Grupė sėkmingai atnaujinta" })
                     this.setState({ messageStyle: "alert alert-success" })
                 })
+                .catch((err) => console.log(err))
+
         } else if ((this.state.ageRangeValidation === "" && this.state.ageRangeId.length !== 0)
             && (this.state.childrenCountValidation === "" && this.state.childrenCount.trim().length !== 0)) {
             Axios

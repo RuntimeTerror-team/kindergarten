@@ -3,9 +3,9 @@ import Proptypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import urls from '../../constants/urls';
 
-const GroupTableComponent = ({ groups, kindergartenId }) => {
+const GroupTableComponent = ({ groups, kindergartenId, buttonStatus }) => {
     return (
-        <div className="col-8 offset-2 mt-3 text-center">
+        <div className="col-12 mt-3 text-center">
             <table id="groupTable" className='table col-12'>
                 <thead>
                     <tr>
@@ -23,10 +23,12 @@ const GroupTableComponent = ({ groups, kindergartenId }) => {
                             <td>{ageRange.ageMin} - {ageRange.ageMax}</td>
                             <td>{childrenCount}</td>
                             <td>
-                                <Link className="btn btn-main"
-                                    to={`${urls.educationSpecialist.kindergartenBase}/${kindergartenId}/groups/${id}`}>
-                                    Keisti skaičių
-                                </Link>
+                                {buttonStatus !== "Negalima keisti dydžio"
+                                    ? <Link className="btn btn-main"
+                                        to={`${urls.educationSpecialist.kindergartenBase}/${kindergartenId}/groups/${id}`}>
+                                        {buttonStatus}
+                                    </Link>
+                                    : <button className="btn btn-main" disabled>{buttonStatus}</button>}
                             </td>
                         </tr>
                     )}

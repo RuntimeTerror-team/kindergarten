@@ -4,7 +4,7 @@ import Proptypes from "prop-types";
 import { Link } from "react-router-dom";
 import urls from "../../constants/urls";
 
-const GroupInfoComponent = ({ groups, kindergartenId }) => {
+const GroupInfoComponent = ({ groups, kindergartenId, buttonStatus }) => {
   return (
     <div>
       <div className="text-center">
@@ -15,7 +15,7 @@ const GroupInfoComponent = ({ groups, kindergartenId }) => {
         </Link>
       </div>
 
-      {groups.length > 0 && <GroupTableComponent groups={groups} kindergartenId={kindergartenId} />}
+      {groups.length > 0 && <GroupTableComponent groups={groups} kindergartenId={kindergartenId} buttonStatus={buttonStatus} />}
       <Link to={`${urls.educationSpecialist.kindergartenBase}`} className="btn btn-yellow float-right mx-2">
         Atgal
       </Link>
