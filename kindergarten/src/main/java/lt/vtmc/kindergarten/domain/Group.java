@@ -15,6 +15,9 @@ public class Group {
     @Column
     private int childrenCount;
 
+    @Column
+    private int occupiedSpace;
+
     @ManyToOne
     @JoinColumn(name = "kindergarten_id")
     private Kindergarten kindergarten;
@@ -25,6 +28,14 @@ public class Group {
     private AgeRange ageRange;
 
     public Group() {
+    }
+
+    public int getOccupiedSpace() {
+        return occupiedSpace;
+    }
+
+    public void setOccupiedSpace(int occupiedSpace) {
+        this.occupiedSpace = occupiedSpace;
     }
 
     public Kindergarten getKindergarten() {
