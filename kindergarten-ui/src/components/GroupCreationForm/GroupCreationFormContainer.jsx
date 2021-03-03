@@ -107,8 +107,12 @@ class GroupCreationFormContainer extends Component {
         this.setState({ duplicateMessage: "" })
         this.setState({ duplicateMessageStyle: "" })
 
+        if (this.findAgeRangeById(this.state.ageRangeId)) {
 
-        if (this.props.match.params && (this.state.childrenCountValidation === "" && this.state.childrenCount.trim().length !== 0)) {
+            this.setState({ duplicateMessage: "Toks amžiaus intervalas jau išsaugotas kitoje grupėje" })
+            this.setState({ duplicateMessageStyle: "alert alert-danger" })
+
+        } else if (this.props.match.params && (this.state.childrenCountValidation === "" && this.state.childrenCount.trim().length !== 0)) {
             Axios
                 .put(`${baseUrl}/api/kindergartens/${this.state.kindergartenId}/groups/${this.props.match.params.groupId}/update`, {
                     childrenCount: e.target.childrenCount.value
@@ -118,44 +122,37 @@ class GroupCreationFormContainer extends Component {
                     this.setState({ message: "Grupė sėkmingai atnaujinta" })
                     this.setState({ messageStyle: "alert alert-success" })
                 })
+        } else if ((this.state.ageRangeValidation === "" && this.state.ageRangeId.length !== 0)
+            && (this.state.childrenCountValidation === "" && this.state.childrenCount.trim().length !== 0)) {
+            Axios
+                .post(`${baseUrl}/api/kindergartens/${this.state.kindergartenId}/groups/${e.target.ageRangeId.value}`, {
+                    childrenCount: e.target.childrenCount.value,
+                    id: 0
+                })
+                .then(() => {
+                    Axios
+                        .get(`${baseUrl}/api/kindergartens/${this.state.kindergartenId}/groups`)
+                        .then((res) => {
+                            this.setState({ groups: res.data })
+                        })
+                        .catch((err) => console.log(err));
+                })
+                .then(() => {
+                    this.setState({ message: "Darželio grupė sėkmingai išsaugota" })
+                    this.setState({ messageStyle: "alert alert-success" })
+                    e.target.reset();
+                })
+                .catch((err) => {
+                    // we can put a message from backend why saving not succeeded
+                    this.setState({ message: "Darželio grupės sukurti nepavyko. Pasitikrinkite duomenis." })
+                    this.setState({ messageStyle: "alert alert-danger" })
+                    console.log(err)
+                });
         } else {
-            if (this.findAgeRangeById(this.state.ageRangeId)) {
-
-                this.setState({ duplicateMessage: "Toks amžiaus intervalas jau išsaugotas kitoje grupėje" })
-                this.setState({ duplicateMessageStyle: "alert alert-danger" })
-            }
-
-            else if ((this.state.ageRangeValidation === "" && this.state.ageRangeId.length !== 0)
-                && (this.state.childrenCountValidation === "" && this.state.childrenCount.trim().length !== 0)) {
-                Axios
-                    .post(`${baseUrl}/api/kindergartens/${this.state.kindergartenId}/groups/${e.target.ageRangeId.value}`, {
-                        childrenCount: e.target.childrenCount.value,
-                        id: 0
-                    })
-                    .then(() => {
-                        Axios
-                            .get(`${baseUrl}/api/kindergartens/${this.state.kindergartenId}/groups`)
-                            .then((res) => {
-                                this.setState({ groups: res.data })
-                            })
-                            .catch((err) => console.log(err));
-                    })
-                    .then(() => {
-                        this.setState({ message: "Darželio grupė sėkmingai išsaugota" })
-                        this.setState({ messageStyle: "alert alert-success" })
-                        e.target.reset();
-                    })
-                    .catch((err) => {
-                        // we can put a message from backend why saving not succeeded
-                        this.setState({ message: "Darželio grupės sukurti nepavyko. Pasitikrinkite duomenis." })
-                        this.setState({ messageStyle: "alert alert-danger" })
-                        console.log(err)
-                    });
-            } else {
-                this.setState({ message: "Darželio grupės sukurti/atnaujinti nepavyko. Pasitikrinkite duomenis." })
-                this.setState({ messageStyle: "alert alert-danger" })
-            }
+            this.setState({ message: "Darželio grupės sukurti/atnaujinti nepavyko. Pasitikrinkite duomenis." })
+            this.setState({ messageStyle: "alert alert-danger" })
         }
+
     }
 
     render() {
