@@ -62,7 +62,7 @@ class FileInput extends Component {
                     this.props.updateForms();
                 })
                 .catch((err) => {
-                    this.showAlert("Pasirinktas failas per didelis!", "danger")
+                    this.showAlert("Klaida. Gali būti, kad pasirinkote per didelį failą (iki 2MB).", "danger")
                     console.log(err);
                 })
         } else {

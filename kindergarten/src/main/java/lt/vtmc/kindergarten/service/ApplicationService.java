@@ -20,6 +20,7 @@ import java.time.LocalDate;
 
 import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.atomic.AtomicReference;
 import java.util.stream.Collectors;
 
 @Service
@@ -47,7 +48,7 @@ public class ApplicationService {
     private UserDao userDao;
 
     @Autowired
-    private ApprovedApplicationDao approvedApplicationDao;
+    private ApplicationAfterDistributionDao applicationAfterDistributionDao;
 
 
     @Transactional
@@ -267,50 +268,62 @@ public class ApplicationService {
     }
 
 
-    //******************************************************************************************************************************************
     @Transactional
-    public List<ApprovedApplicationDto> getApprovedApplications() {
-        List<ApprovedApplication> applications = approvedApplicationDao.findAll();
-
-        List<ApprovedApplicationDto> approvedApplicationList = applications.stream().map(application -> {
-
-            ApprovedApplicationDto approvedApplicationDto = new ApprovedApplicationDto();
-
-            approvedApplicationDto.setChildFirstName(application.getChildFirstName());
-            approvedApplicationDto.setChildLastName(application.getChildLastName());
-            approvedApplicationDto.setParentFirstName(application.getParentFirstName());
-            approvedApplicationDto.setParentLastName(application.getParentLastName());
-            approvedApplicationDto.setDate(application.getDate());
-            approvedApplicationDto.setScore(application.getScore());
-            approvedApplicationDto.setStatus(application.getStatus());
-
-            return approvedApplicationDto;
-        })
+    public List<ApplicationAfterDistributionDto> getApplicationsAfterDistribution() {
+        List<ApplicationAfterDistribution> applications = applicationAfterDistributionDao.findAll(Sort.by(Sort.Direction.ASC, "status"));
+        List<ApplicationAfterDistributionDto> applicationListAfterDistribution = applications.stream().map(application -> new ApplicationAfterDistributionDto(application))
                 .collect(Collectors.toList());
-
-        return approvedApplicationList;
+        return applicationListAfterDistribution;
     }
 
+
     @Transactional
-    public void persistApprovedApplications(List<Application> applications) {
+    public void persistApplicationsAfterDistribution(List<Application> applications) {
+        AtomicReference<Long> waitingNum = new AtomicReference<>(1L);
         applications.stream().forEach(application -> {
-            ApprovedApplication approvedApplication = new ApprovedApplication();
+            if(application.getApplicationStatus() != ApplicationStatusEnum.APPROVED){
 
-            approvedApplication.setChildFirstName(application.getChild().getFirstName());
-            approvedApplication.setChildLastName(application.getChild().getLastName());
-            approvedApplication.setParentFirstName(application.getParent().getFirstName());
-            approvedApplication.setParentLastName(application.getParent().getLastName());
-            approvedApplication.setDate(application.getDate());
-            approvedApplication.setScore(application.getScore());
-            approvedApplication.setStatus(application.getApplicationStatus().toString());
+                ApplicationAfterDistribution applicationAfterDistribution = new ApplicationAfterDistribution();
 
-            approvedApplicationDao.save(approvedApplication);
+                applicationAfterDistribution.setChildFirstName(application.getChild().getFirstName());
+                applicationAfterDistribution.setChildLastName(application.getChild().getLastName());
+                applicationAfterDistribution.setParentFirstName(application.getParent().getFirstName());
+                applicationAfterDistribution.setParentLastName(application.getParent().getLastName());
+                applicationAfterDistribution.setDate(application.getDate());
+                applicationAfterDistribution.setScore(application.getScore());
+                applicationAfterDistribution.setApplicationId(application.getId());
+                applicationAfterDistribution.setStatus(application.getApplicationStatus());
+                applicationAfterDistribution.setWaitingNumber(waitingNum.get());
+                waitingNum.getAndSet(waitingNum.get() + 1);
+                applicationAfterDistributionDao.save(applicationAfterDistribution);
+
+            } else if (application.getApplicationStatus() == ApplicationStatusEnum.APPROVED){
+
+                ApplicationAfterDistribution applicationAfterDistribution = new ApplicationAfterDistribution();
+
+                applicationAfterDistribution.setChildFirstName(application.getChild().getFirstName());
+                applicationAfterDistribution.setChildLastName(application.getChild().getLastName());
+                applicationAfterDistribution.setParentFirstName(application.getParent().getFirstName());
+                applicationAfterDistribution.setParentLastName(application.getParent().getLastName());
+                applicationAfterDistribution.setDate(application.getDate());
+                applicationAfterDistribution.setScore(application.getScore());
+                applicationAfterDistribution.setStatus(application.getApplicationStatus());
+                applicationAfterDistribution.setApplicationId(application.getId());
+                applicationAfterDistribution.setApprovedKindergarten(application.getKindergartenApplicationForms().stream()
+                        .filter(item -> item.isAccepted())
+                        .map(applicationForm -> applicationForm.getKindergarten().getTitle())
+                        .collect(Collectors.joining(application.toString())));
+
+                applicationAfterDistributionDao.save(applicationAfterDistribution);
+            }
         });
     }
 
-@Transactional
+    /**
+     * Assigns kindergartens according to the order of priority provided in the application
+     */
+    @Transactional
     public void calculateApplicationStatus() {
-        // TODO could I sort them here?
         List<Application> applications = getSortedApplications();
 
         applications.stream()
@@ -337,24 +350,34 @@ public class ApplicationService {
                                                 Integer childCount = group.getChildrenCount();
                                                 // Check if following group has available seat
                                                 if (childCount > 0) {
-                                                    System.out.println("XXX"+applicationForm.getKindergarten().getCompanyCode()+"  "+childCount);
                                                     group.setChildrenCount(childCount - 1);
                                                     applicationForm.setAccepted(true);
+//                                                    application.setApprovedKindergarten(applicationForm.getKindergarten().getTitle());
                                                     application.setApplicationStatus(ApplicationStatusEnum.APPROVED);
                                                     return;
                                                 }
                                             }
                                         });
                             });
-
                 });
-        // TODO check if it application should be REJECTED,UNCONFIRMED or put back to WAITING list
-        applications.stream().filter(application -> application.getApplicationStatus() != ApplicationStatusEnum.APPROVED)
-                .forEach(application -> application.setApplicationStatus(ApplicationStatusEnum.UNCONFIRMED));
 
-        persistApprovedApplications(applications);
+//        AtomicReference<Long> waitingNum = new AtomicReference<>(1L);
+//        applications.stream().filter(application -> application.getApplicationStatus() != ApplicationStatusEnum.APPROVED)
+//                .forEachOrdered(application -> {
+//                    application.setApplicationStatus(ApplicationStatusEnum.WAITING);
+//                    application.setWaitingNumber(waitingNum.get());
+//                    waitingNum.getAndSet(waitingNum.get() + 1);
+//                });
+
+        persistApplicationsAfterDistribution(applications);
+
+        applications.stream().forEach(application -> application.setApplicationStatus(ApplicationStatusEnum.SUBMITTED));
     }
 
+
+    /**
+     * @return Map where key is Integer(priority number) and value Long (id of kindergarten)
+     */
     public Map<Integer, Long> parseApplicationMetadata(Application application) {
         Set<KindergartenApplicationForm> kindergartenApplications = application.getKindergartenApplicationForms();
         Map<Integer, Long> applicationToPriority = new ConcurrentHashMap<>();
@@ -365,12 +388,16 @@ public class ApplicationService {
     }
 
 
+    /**
+     * Sorts application by score. If score is equal, then sorts by child age. If age is equal
+     * then sorts by child last name.
+     */
     @Transactional
     public List<Application> getSortedApplications() {
 
         List<Application> applications = applicationDao.findByApplicationStatus(ApplicationStatusEnum.WAITING);
         applications.sort((o1, o2) -> {
-            if(o1.getScore()==o2.getScore()){
+            if (o1.getScore() == o2.getScore()) {
                 int age1 = PersonService.countChildAge(o1.getChild().getPersonalCode());
                 int age2 = PersonService.countChildAge(o2.getChild().getPersonalCode());
                 if (age1 == age2) {
@@ -382,9 +409,9 @@ public class ApplicationService {
                         return -1;
                     }
                 }
-            } else if (o1.getScore()<o2.getScore()){
+            } else if (o1.getScore() < o2.getScore()) {
                 return 1;
-            }else {
+            } else {
                 return -1;
             }
         });

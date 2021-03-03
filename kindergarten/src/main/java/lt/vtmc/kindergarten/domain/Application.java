@@ -55,6 +55,7 @@ public class Application {
     @JoinColumn(name = "queue_id")
     private Queue queue;
 
+
     public Application() {
     }
 

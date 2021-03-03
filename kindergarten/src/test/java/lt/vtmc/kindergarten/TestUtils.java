@@ -29,10 +29,10 @@ public final class TestUtils {
         return kindergarten;
     }
 
-    public static Person createDefaultPerson(String personalCode) {
+    public static Person createDefaultPerson(String personalCode, String firstName, String lastName) {
         Person person = new Person();
-        person.setFirstName("Antanas");
-        person.setLastName("Antanaitis");
+        person.setFirstName(firstName);
+        person.setLastName(lastName);
         person.setPersonalCode(personalCode);
         person.setAddress("Kanklių g.4");
         person.setCity(CityEnum.VILNIUS);
@@ -44,7 +44,7 @@ public final class TestUtils {
     public static ApplicationCreationDto createDefaultApplicationDto() {
         ApplicationCreationDto applicationDto = new ApplicationCreationDto();
         applicationDto.setDate(new Date());
-        applicationDto.setIsAdopted(true);
+        applicationDto.setIsAdopted(false);
         applicationDto.setIsGuardianDisabled(false);
         applicationDto.setIsMultiChild(false);
         applicationDto.setIsGuardianStudent(false);
@@ -66,6 +66,7 @@ public final class TestUtils {
 
         return group;
     }
+
 
     public static QueueDtoWithOpeningDate createDefaultQueue() {
         QueueDtoWithOpeningDate queue = new QueueDtoWithOpeningDate();

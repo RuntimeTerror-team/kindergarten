@@ -1,11 +1,12 @@
 package lt.vtmc.kindergarten.dto;
 
 import lt.vtmc.kindergarten.domain.Application;
-import lt.vtmc.kindergarten.domain.ApprovedApplication;
+import lt.vtmc.kindergarten.domain.ApplicationAfterDistribution;
+
 
 import java.util.Date;
 
-public class ApprovedApplicationDto {
+public class ApplicationAfterDistributionDto {
 
 
     private Long id;
@@ -24,31 +25,52 @@ public class ApprovedApplicationDto {
 
     private String status;
 
-    public ApprovedApplicationDto() {
+    private String approvedKindergartenTitle;
+
+    private Long waitingNumber;
+
+    private Long applicationId;
+
+    public ApplicationAfterDistributionDto() {
     }
 
-    public ApprovedApplicationDto(Application application) {
+    public ApplicationAfterDistributionDto(ApplicationAfterDistribution application) {
         this.id = application.getId();
         this.date = application.getDate();
-        this.childFirstName = application.getChild().getFirstName();
-        this.childLastName = application.getChild().getLastName();
-        this.parentFirstName = application.getParent().getFirstName();
-        this.parentLastName = application.getParent().getLastName();
+        this.childFirstName = application.getChildFirstName();
+        this.childLastName = application.getChildLastName();
+        this.parentFirstName = application.getParentFirstName();
+        this.parentLastName = application.getParentLastName();
         this.score = application.getScore();
-        this.status = application.getApplicationStatus().toString();
+        this.status = application.getStatus().toString();
+        this.approvedKindergartenTitle = application.getApprovedKindergarten();
+        this.waitingNumber = application.getWaitingNumber();
+        this.applicationId = application.getApplicationId();
     }
 
+    public Long getWaitingNumber() {
+        return waitingNumber;
+    }
 
-//    public ApprovedApplicationDto(ApprovedApplication approvedApplication) {
-//        this.id = approvedApplication.getId();
-//        this.date = approvedApplication.getDate();
-//        this.childFirstName = approvedApplication.getChildFirstName();
-//        this.childLastName = approvedApplication.getParentLastName();
-//        this.parentFirstName = approvedApplication.getParentFirstName();
-//        this.parentLastName = approvedApplication.getParentLastName();
-//        this.score = approvedApplication.getScore();
-//        this.status = approvedApplication.getStatus();
-//    }
+    public Long getApplicationId() {
+        return applicationId;
+    }
+
+    public void setApplicationId(Long applicationId) {
+        this.applicationId = applicationId;
+    }
+
+    public void setWaitingNumber(Long waitingNumber) {
+        this.waitingNumber = waitingNumber;
+    }
+
+    public String getApprovedKindergartenTitle() {
+        return approvedKindergartenTitle;
+    }
+
+    public void setApprovedKindergartenTitle(String approvedKindergartenTitle) {
+        this.approvedKindergartenTitle = approvedKindergartenTitle;
+    }
 
     public Long getId() {
         return id;

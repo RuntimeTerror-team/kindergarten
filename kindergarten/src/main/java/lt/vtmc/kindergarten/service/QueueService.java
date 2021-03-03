@@ -1,11 +1,9 @@
 package lt.vtmc.kindergarten.service;
 
+import lt.vtmc.kindergarten.dao.ApplicationAfterDistributionDao;
 import lt.vtmc.kindergarten.dao.ApplicationDao;
 import lt.vtmc.kindergarten.dao.QueueDao;
-import lt.vtmc.kindergarten.domain.Application;
-import lt.vtmc.kindergarten.domain.ApplicationStatusEnum;
-import lt.vtmc.kindergarten.domain.Queue;
-import lt.vtmc.kindergarten.domain.QueueStatusEnum;
+import lt.vtmc.kindergarten.domain.*;
 import lt.vtmc.kindergarten.dto.QueueDto;
 import lt.vtmc.kindergarten.dto.QueueDtoClosingDate;
 import lt.vtmc.kindergarten.dto.QueueDtoWithOpeningDate;
@@ -20,6 +18,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 
@@ -35,6 +34,9 @@ public class QueueService {
 
     @Autowired
     private ApplicationService applicationService;
+
+    @Autowired
+    private ApplicationAfterDistributionDao applicationAfterDistributionDao;
 
 
     @Transactional
@@ -68,13 +70,21 @@ public class QueueService {
     }
 
     @Transactional
-    public void updateQueueWithClosingDate(Long id, QueueDtoClosingDate queueDto) {
+    public void updateQueueWithClosingDateAndApplicationsStatus(Long id, QueueDtoClosingDate queueDto) {
         Queue queue = queueDao.getOne(id);
         if (queue.getStatus() == QueueStatusEnum.LOCKED) {
             queue.setClosingDate(queueDto.getClosingDate());
             queue.setStatus(QueueStatusEnum.INACTIVE);
             queueDao.save(queue);
+            if (queue.getStatus() == QueueStatusEnum.INACTIVE) {
+                List<Application> applications = applicationDao.findAll();
+                applications.stream().forEachOrdered(application -> {
+                    ApplicationAfterDistribution applicationAfterDistribution = applicationAfterDistributionDao.findApplicationByApplicationId(application.getId());
+                    application.setApplicationStatus(applicationAfterDistribution.getStatus());
+                });
+            }
         }
+
     }
 
     @Transactional(readOnly = true)

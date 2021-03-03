@@ -24,7 +24,7 @@ const KindergartenTableComponent = ({ kindergartens }) => {
                             <td>{address}</td>
                             <td>
                                 <Link to={`${urls.educationSpecialist.kindergartenBase}/${id}`} className="btn btn-info mr-2">
-                                    Kontaktai
+                                    Peržiūrėti
                                 </Link>
                                 <Link to={`${urls.educationSpecialist.kindergartenBase}/${id}/groups`} className="btn btn-info" >Grupės</Link>
                             </td>
