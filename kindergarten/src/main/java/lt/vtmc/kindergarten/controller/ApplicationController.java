@@ -100,7 +100,7 @@ public class ApplicationController {
     @ApiOperation(value = "Trigers applications queuing", notes = "Trigers sorting algorithm and applications are queued again")
     @ResponseStatus(HttpStatus.OK)
     public void recalculateApplicationsOrdered(){
-        applicationService.recalculateApplicationStatus();
+        applicationService.recalculateApplicationOrderInQueue();
     }
 
     public void setApplicationService(ApplicationService applicationService) {

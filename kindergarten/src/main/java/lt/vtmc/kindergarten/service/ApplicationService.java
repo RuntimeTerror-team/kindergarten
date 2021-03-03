@@ -281,7 +281,7 @@ public class ApplicationService {
     public void persistApplicationsAfterDistribution(List<Application> applications) {
         AtomicReference<Long> waitingNum = new AtomicReference<>(1L);
         applications.stream().forEach(application -> {
-            if(application.getApplicationStatus() != ApplicationStatusEnum.APPROVED){
+            if (application.getApplicationStatus() != ApplicationStatusEnum.APPROVED) {
 
                 ApplicationAfterDistribution applicationAfterDistribution = new ApplicationAfterDistribution();
 
@@ -297,7 +297,7 @@ public class ApplicationService {
                 waitingNum.getAndSet(waitingNum.get() + 1);
                 applicationAfterDistributionDao.save(applicationAfterDistribution);
 
-            } else if (application.getApplicationStatus() == ApplicationStatusEnum.APPROVED){
+            } else if (application.getApplicationStatus() == ApplicationStatusEnum.APPROVED) {
 
                 ApplicationAfterDistribution applicationAfterDistribution = new ApplicationAfterDistribution();
 
@@ -320,12 +320,21 @@ public class ApplicationService {
     }
 
     @Transactional
-    public void recalculateApplicationStatus(){
+    public void recalculateApplicationOrderInQueue() {
+        applicationAfterDistributionDao.deleteAll();
         List<Application> applications = applicationDao.findAll();
         applications.stream().filter(application -> application.getApplicationStatus() != ApplicationStatusEnum.REJECTED)
                 .forEachOrdered(application -> {
                     application.setApplicationStatus(ApplicationStatusEnum.WAITING);
                 });
+
+//        applications.stream().forEach(application -> {
+//            application.getKindergartenApplicationForms().stream().forEach(applicationForm -> {
+//                applicationForm.getKindergarten().getGroups().forEach(group -> group.setOccupiedSpace(0));
+//                applicationForm.setAccepted(false);
+//            });
+//        });
+
         calculateApplicationStatus();
     }
 
@@ -335,6 +344,24 @@ public class ApplicationService {
     @Transactional
     public void calculateApplicationStatus() {
         List<Application> applications = getSortedApplications();
+
+//        applications.stream()
+//                // Only check applications that are not yet approved
+//                .filter(application -> application.getApplicationStatus() == ApplicationStatusEnum.WAITING)
+//                .forEachOrdered(application -> {
+//                            application
+//                                    .getKindergartenApplicationForms()
+//                                    .stream()
+//                                    .forEach(applicationForm -> applicationForm.getKindergarten().getGroups().forEach(group -> group.setOccupiedSpace(0)));
+//                        });
+
+        applications.stream().forEach(application -> {
+            application.getKindergartenApplicationForms().stream().forEach(applicationForm -> {
+                applicationForm.getKindergarten().getGroups().forEach(group -> group.setOccupiedSpace(0));
+                applicationForm.setAccepted(false);
+            });
+        });
+
 
         applications.stream()
                 // Only check applications that are not yet approved
@@ -357,12 +384,12 @@ public class ApplicationService {
                                             AgeRange ageRange = group.getAgeRange();
                                             // Check if there is a group that kid fits in by his age
                                             if (!wasAccepted && ageRange.getAgeMin() <= age && age <= ageRange.getAgeMax()) {
-                                                Integer childCount = group.getChildrenCount();
+                                                Integer seatsAvailable = group.getChildrenCount() - group.getOccupiedSpace();
+
                                                 // Check if following group has available seat
-                                                if (childCount > 0) {
-                                                    group.setChildrenCount(childCount - 1);
+                                                if (seatsAvailable > 0) {
+                                                    group.setOccupiedSpace(group.getOccupiedSpace() + 1);
                                                     applicationForm.setAccepted(true);
-//                                                    application.setApprovedKindergarten(applicationForm.getKindergarten().getTitle());
                                                     application.setApplicationStatus(ApplicationStatusEnum.APPROVED);
                                                     return;
                                                 }
@@ -370,6 +397,14 @@ public class ApplicationService {
                                         });
                             });
                 });
+
+//        applications.stream().forEach(application -> {
+//            application.getKindergartenApplicationForms().stream().forEach(applicationForm -> {
+//                applicationForm.getKindergarten().getGroups().forEach(group -> group.setOccupiedSpace(0));
+//                applicationForm.setAccepted(false);
+//            });
+//        });
+
 
         persistApplicationsAfterDistribution(applications);
 
