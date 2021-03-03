@@ -10,9 +10,8 @@ public class ParentPage extends AbstractPage {
 	@FindBy(xpath = "//*[@id=\"root\"]/div/div/div[2]/div/div/h1")
 	public WebElement parentpageMainpageTitle;
 
-	//@FindBy(xpath = "//*[@id=\"root\"]/div/div/div[2]/div/div[2]/h1")
-//	public WebElement parentSuccesfulPrimaryInformationSaveText;
-
+	@FindBy (xpath = "//p[@class='lead']/strong")
+	public WebElement getParentName;
 	// input
 //	@FindBy(id = "firstname")
 //	public WebElement inputFirstName;
@@ -43,9 +42,10 @@ public class ParentPage extends AbstractPage {
 	public String findParentpageMainpageTitle() {
 		return parentpageMainpageTitle.getText();
 	}
-//	public String findPrimaryInfoSuccesfullSaveText() {
-//		return parentSuccesfulPrimaryInformationSaveText.getText();
-//	}
+	public String findParentName() {
+		return getParentName.getText();
+	}
+
 //	public void enterFirstName(String firstName) {
 //		inputFirstName.sendKeys(firstName);
 //	}
