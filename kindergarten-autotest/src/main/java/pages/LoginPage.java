@@ -18,7 +18,7 @@ public class LoginPage extends AbstractPage {
     public WebElement buttonLogin;
 
     // text
-    @FindBy(xpath = "//*[@id=\"loginPage\"]/h1")
+    @FindBy(xpath = "//*[@id=\"loginForm\"]/h3[1]")
     public WebElement loginTitleText;
 
     public LoginPage(WebDriver driver) {
