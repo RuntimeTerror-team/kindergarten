@@ -99,7 +99,7 @@ public class ApplicationController {
     @RequestMapping(method = RequestMethod.POST, value = "/api/applications/recalculation")
     @ApiOperation(value = "Trigers applications queuing", notes = "Trigers sorting algorithm and applications are queued again")
     @ResponseStatus(HttpStatus.OK)
-    public void recalculateApplicationsOrdered(){
+    public void recalculateApplicationsOrder(){
         applicationService.recalculateApplicationOrderInQueue();
     }
 
