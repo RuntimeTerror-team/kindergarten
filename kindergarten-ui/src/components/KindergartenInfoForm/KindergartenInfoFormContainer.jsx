@@ -160,10 +160,6 @@ class KindergartenInfoFormContainer extends Component {
             return;
         }
 
-        console.log(kindergarten);
-        // console.log(typeof kindergarten.district === 'string' && kindergarten.district.split[1]);
-        // console.log(kindergarten.district.split("+")[0]);
-
         axios
             .put(`${baseUrl}/api/kindergartens/${kindergarten.id}`, {
                 "address": kindergarten.address,
