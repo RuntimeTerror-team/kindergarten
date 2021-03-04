@@ -67,7 +67,7 @@ public class CommandLineAppStartupRunner implements CommandLineRunner {
 //            dataSeeder.createGroupForKindergarten("19555888", 4, 5,0);
 //
             //Darželis Nykštukai
-            dataSeeder.createGroupForKindergarten("19555333", 6, 7,10);
+            dataSeeder.createGroupForKindergarten("19555333", 6, 7,1);
 
 
             //Jonukas
