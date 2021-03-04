@@ -281,7 +281,7 @@ class ApplicationContainer extends Component {
 
   handleChildSave = (e) => {
 
-    e.preventDefault();
+   e.preventDefault();
 
     if (this.checkEmptyChildInputs(this.state.childName, this.state.childSurname, this.state.childId, this.state.childStreet, this.state.childCity)) {
 

@@ -1,7 +1,7 @@
 import React from 'react'
 import Proptypes from 'prop-types';
 
-const ESApprovedApplicationListComponent = ({ applications }) => {
+const ESApprovedApplicationListComponent = ({ applications, permission, onStatusChange }) => {
 
     let table = (
         <div className="col-12 mt-3">
@@ -10,12 +10,13 @@ const ESApprovedApplicationListComponent = ({ applications }) => {
                     <tr>
                         {/* <th scope='col' style={{ width: "30px" }}>#</th> */}
                         <th scope='col' style={{"width": "60px"}}>Balas</th>
-                        <th scope='col'>Vaikas</th>
-                        <th scope='col'>Tėvelis</th>
+                        <th scope='col' style={{"width": "115px"}}>Vaikas</th>
+                        <th scope='col' style={{"width": "115px"}}>Tėvelis</th>
                         <th scope='col' style={{"width": "115px"}}>Data</th>
-                        <th scope='col'>Statusas</th>
-                        <th scope='col'>Darželis</th>
+                        <th scope='col' style={{"width": "115px"}}>Statusas</th>
+                        <th scope='col' style={{"width": "115px"}}>Darželis</th>
                         <th scope='col' style={{"width": "115px"}}>Laukimo Nr</th>
+                        {permission ? <th scope='col'></th> : null}
                     </tr>
                 </thead>
 
@@ -42,6 +43,7 @@ const ESApprovedApplicationListComponent = ({ applications }) => {
                             <td>{status}</td>
                             <td>{approvedKindergartenTitle}</td>
                             <td>{waitingNumber}</td>
+                            {permission ? <td><button className="btn btn-info" value={id} onClick={onStatusChange}>Atšaukti</button></td> : null}
                         </tr>
                         )
 

@@ -1,10 +1,13 @@
 package lt.vtmc.kindergarten.service;
 
+import lt.vtmc.kindergarten.dao.PermissionForESDao;
 import lt.vtmc.kindergarten.dao.PersonDao;
+import lt.vtmc.kindergarten.domain.PermissionForES;
 import lt.vtmc.kindergarten.domain.Person;
 import lt.vtmc.kindergarten.domain.Role;
 import lt.vtmc.kindergarten.domain.RoleType;
 import lt.vtmc.kindergarten.domain.User;
+import lt.vtmc.kindergarten.dto.PermissionForESDto;
 import lt.vtmc.kindergarten.dto.UserDetailsDto;
 import lt.vtmc.kindergarten.dto.UserDto;
 import lt.vtmc.kindergarten.dto.UserDtoFromAdmin;
@@ -34,6 +37,9 @@ public class UserService implements UserDetailsService {
 
     @Autowired
     private PersonDao personDao;
+    
+    @Autowired
+    private PermissionForESDao permissionForESDao;
 
     @Autowired
     private PasswordEncoder passwordEncoder;
@@ -257,5 +263,18 @@ public class UserService implements UserDetailsService {
 
     private String sanitizeNameToPascalCase(String word) {
         return word.substring(0, 1).toUpperCase() + word.substring(1).toLowerCase();
+    }
+    
+    @Transactional
+    public void setESPermision(PermissionForESDto permissionForESDto) {
+    	Optional<PermissionForES> permission = permissionForESDao.findById(1L);
+    	permission.get().setIsAllowed(permissionForESDto.getIsAllowed());
+    }
+    
+    @Transactional
+    public boolean getESPermisionStatus() {
+    	Optional<PermissionForES> permission = permissionForESDao.findById(1L);
+    	return permission.get().getIsAllowed();
+    	
     }
 }

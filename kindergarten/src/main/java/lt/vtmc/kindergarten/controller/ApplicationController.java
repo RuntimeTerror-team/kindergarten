@@ -95,6 +95,13 @@ public class ApplicationController {
     public List<ApplicationAfterDistributionDto> getApplicationsAfterDistribution() {
         return applicationService.getApplicationsAfterDistribution();
     }
+    
+    @RequestMapping(method = RequestMethod.PUT, value = "/api/applications/{id}/{status}")
+    @ApiOperation(value = "Change application status", notes = "Changes application status after distribution")
+    @ResponseStatus(HttpStatus.OK)
+    public void changeApplicationAfterDistributionStatus(@PathVariable final Long id, @PathVariable final String status) {
+    	applicationService.changeApplicationAfterDistributionStatus(id, status);
+    }
 
     public void setApplicationService(ApplicationService applicationService) {
         this.applicationService = applicationService;

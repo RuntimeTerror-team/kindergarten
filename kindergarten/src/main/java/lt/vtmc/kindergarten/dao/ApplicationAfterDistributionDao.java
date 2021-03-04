@@ -6,5 +6,5 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface ApplicationAfterDistributionDao extends JpaRepository<ApplicationAfterDistribution, Long> {
-    ApplicationAfterDistribution findApplicationByApplicationId(Long applicationId);
+    ApplicationAfterDistribution findByApplicationId(Long applicationId);
 }

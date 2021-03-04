@@ -13,6 +13,8 @@ class ESApprovedApplicationListContainer extends Component{
         this.state = {
 
             applications: [],
+            permission: false,
+            changeStatus: ""
         }
 }
 
@@ -23,6 +25,13 @@ componentDidMount(){
        .then(res => {
            this.setState({applications: res.data});
            this.translateStatus();
+        })
+       .catch(err => {console.log(err)})
+
+       Axios
+    .get(baseUrl + "/api/users/ES/permission")
+       .then(res => {
+           this.setState({permission: res.data});
         })
        .catch(err => {console.log(err)})
 }
@@ -60,8 +69,26 @@ translateStatus(){
     })
 }
 
-render(){
+handleStatusChange = (e) =>{
 
+    e.preventDefault();
+
+    Axios.put(baseUrl + "/api/applications/" + e.target.value + "/REJECTED").then(
+
+        Axios
+        .get(baseUrl + "/api/applications/sorted")
+           .then(res => {
+               this.setState({applications: res.data});
+               this.translateStatus();
+            })
+           .catch(err => {console.log(err)})
+        
+
+    ).catch(e => console.log(e));
+
+}
+
+render(){
 
     return (
         <div className="footerBottom">
@@ -72,7 +99,10 @@ render(){
                     <div className="col-8">
                         <h1 className="mb-5 text-center">Prašymai</h1>
                         <ESApprovedApplicationListComponent
-                         applications={this.state.applications}/>
+                         applications={this.state.applications}
+                         permission={this.state.permission}
+                         changeStatus={this.state.changeStatus}
+                         onStatusChange={this.handleStatusChange}/>
                     </div>
                 </div>
             </div>

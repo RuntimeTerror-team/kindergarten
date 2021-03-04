@@ -275,6 +275,13 @@ public class ApplicationService {
                 .collect(Collectors.toList());
         return applicationListAfterDistribution;
     }
+    
+    @Transactional
+    public void changeApplicationAfterDistributionStatus(Long id, String status) {
+    	Optional<ApplicationAfterDistribution> application = applicationAfterDistributionDao.findById(id);
+    	System.out.println(status);
+    	application.get().setStatus(ApplicationStatusEnum.valueOf(status));	
+    }
 
 
     @Transactional

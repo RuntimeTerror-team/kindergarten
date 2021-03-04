@@ -21,6 +21,7 @@ import NotAuthorized from './components/ErrorHandling/NotAuthorized';
 import urls from './constants/urls'
 import GuardianPrimaryDataFormContainer from './components/GuardianPrimaryDataForm/GuardianPrimaryDataFormContainer';
 import QueueListContainer from './components/QueueList/QueueListContainer';
+import PermissionsContainer from './components/Permissions/PermissionsContainer'
 import EsQueueListContainer from './components/EsQueueList/EsQueueListContainer';
 import HealthFormListContainer from './components/HealthFormList/HealthFormListContainer';
 
@@ -32,6 +33,7 @@ function App(props) {
         <Route exact path={`${urls.admin.userBase}`} component={AdminUserFormContainer} />
         <Route exact path={`${urls.admin.districtBase}`} component={AdminDistrictFormContainer} />
         <Route exact path={`${urls.admin.queueBase}`} component={QueueListContainer} />
+        <Route exact path={`${urls.admin.permissionsBase}`} component={PermissionsContainer} />
         <Route exact path={`${urls.educationSpecialist.kindergartenBase}`} component={KindergartenAdministrationContainer} />
         <Route exact path={`${urls.educationSpecialist.kindergartenBase}/new`} component={KindergartenCreationFormContainer} />
         <Route exact path={`${urls.educationSpecialist.kindergartenBase}/:id`} component={KindergartenInfoFormContainer} />

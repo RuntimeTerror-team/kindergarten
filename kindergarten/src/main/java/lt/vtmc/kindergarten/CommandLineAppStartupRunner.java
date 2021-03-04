@@ -1,9 +1,11 @@
 package lt.vtmc.kindergarten;
 
 import lt.vtmc.kindergarten.config.DataSeeder;
+import lt.vtmc.kindergarten.dao.PermissionForESDao;
 import lt.vtmc.kindergarten.dao.QueueDao;
 
 import lt.vtmc.kindergarten.domain.District;
+import lt.vtmc.kindergarten.domain.PermissionForES;
 import lt.vtmc.kindergarten.dto.*;
 import lt.vtmc.kindergarten.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,6 +31,9 @@ public class CommandLineAppStartupRunner implements CommandLineRunner {
 
     @Autowired
     QueueDao queueDao;
+    
+    @Autowired
+    PermissionForESDao permissionForESDao;
 
 
     @Override
@@ -94,6 +99,7 @@ public class CommandLineAppStartupRunner implements CommandLineRunner {
             //Poviliukas
             dataSeeder.createApplication("48901110222", "62001011211", "19555587",
                     true, true, true, false);
+            
 
 //************************************************************************************************************************************************** var2
 //            //Jonukas
@@ -125,6 +131,11 @@ public class CommandLineAppStartupRunner implements CommandLineRunner {
 //            dataSeeder.createApplication("48901110222", "62001011211", "19555333",
 //                    true, true, true, false);
         }
+        
+        PermissionForES permission = new PermissionForES();
+        permission.setId();
+        permission.setIsAllowed(false);
+        permissionForESDao.save(permission);
 
 
     }

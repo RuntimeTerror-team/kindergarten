@@ -79,7 +79,7 @@ public class QueueService {
             if (queue.getStatus() == QueueStatusEnum.INACTIVE) {
                 List<Application> applications = applicationDao.findAll();
                 applications.stream().forEachOrdered(application -> {
-                    ApplicationAfterDistribution applicationAfterDistribution = applicationAfterDistributionDao.findApplicationByApplicationId(application.getId());
+                    ApplicationAfterDistribution applicationAfterDistribution = applicationAfterDistributionDao.findByApplicationId(application.getId());
                     application.setApplicationStatus(applicationAfterDistribution.getStatus());
                 });
             }
