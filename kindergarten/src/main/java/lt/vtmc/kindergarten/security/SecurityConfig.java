@@ -45,7 +45,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http
-                .cors().and()//is Stasausko
+                .cors().and()
                 .authorizeRequests()
                 .antMatchers("/", "/console/**", "/api/**").permitAll()
                 .antMatchers("/admin/**").hasRole("ADMIN")
