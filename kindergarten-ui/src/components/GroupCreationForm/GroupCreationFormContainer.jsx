@@ -130,7 +130,7 @@ class GroupCreationFormContainer extends Component {
         this.setState({ duplicateMessage: "" })
         this.setState({ duplicateMessageStyle: "" })
 
-        if (this.state.buttonStatus === "Didinti skaičių" && this.state.childrenCount <= this.state.group.childrenCount) {
+        if (this.state.buttonStatus === "Didinti skaičių" && this.props.match.params.groupId && this.state.childrenCount <= this.state.group.childrenCount) {
             this.setState({ duplicateMessage: "Galite tik didinti vaikų skaičių grupėje" })
             this.setState({ duplicateMessageStyle: "alert alert-danger" })
             return;
@@ -141,7 +141,7 @@ class GroupCreationFormContainer extends Component {
             this.setState({ duplicateMessage: "Toks amžiaus intervalas jau išsaugotas kitoje grupėje" })
             this.setState({ duplicateMessageStyle: "alert alert-danger" })
 
-        } else if (this.props.match.params && (this.state.childrenCountValidation === "" && this.state.childrenCount.trim().length !== 0)) {
+        } else if (this.props.match.params.groupId && (this.state.childrenCountValidation === "" && this.state.childrenCount.trim().length !== 0)) {
             Axios
                 .put(`${baseUrl}/api/kindergartens/${this.state.kindergartenId}/groups/${this.props.match.params.groupId}/update`, {
                     childrenCount: e.target.childrenCount.value
