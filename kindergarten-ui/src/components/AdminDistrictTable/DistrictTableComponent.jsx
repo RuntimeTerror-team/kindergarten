@@ -15,8 +15,8 @@ const DistrictTableComponent = ({
   titleValidationInUpdate,
 }) => {
   return (
-    <div className="col-12 mt-3">
-      <table id="districtTable" className="table col-8 mx-auto">
+    <div className="col-12 mt-3 text-left">
+      <table id="districtTable" className="table col-6 mx-auto">
         <thead>
           <tr>
             <th scope="col" style={{ width: "30px" }}>

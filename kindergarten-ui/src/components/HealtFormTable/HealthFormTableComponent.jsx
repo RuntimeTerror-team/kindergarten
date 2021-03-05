@@ -1,7 +1,7 @@
 import React from 'react';
 
 const HealthFormTableComponent = ({ familyFiles, handleDownload }) => (
-    <div className="col-12 mt-3 text-center">
+    <div className="col-12 mt-3">
         <table id="groupTable" className='table col-12'>
             <thead>
                 <tr>

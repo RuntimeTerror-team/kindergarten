@@ -4,6 +4,11 @@ import Proptypes from "prop-types";
 const ESApprovedApplicationListComponent = ({ applications, recalculation }) => {
   let table = (
     <div className="col-12 mt-3">
+      <div className="pb-5">
+        <button type="submit" className="btn btn-yellow float-right" onClick={recalculation}>
+          Perūšiuoti prašymus
+        </button>
+      </div>
       <table id="groupTable" className="table col-12">
         <thead>
           <tr>
@@ -65,11 +70,6 @@ const ESApprovedApplicationListComponent = ({ applications, recalculation }) => 
           )}
         </tbody>
       </table>
-      <div className="pb-5">
-        <button type="submit" className="btn btn-yellow float-right" onClick={recalculation}>
-          Perūšiuoti prašymus
-        </button>
-      </div>
     </div>
   );
 

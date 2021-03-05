@@ -12,7 +12,7 @@ const QueueListComponent = ({
     return (
         <div className="col-12 clearfix mb-3 row">
             {  !isActiveQueue &&
-                <div className="offset-4 col-4 text-center">
+                <div className="offset-1 col-4">
                     <button className="btn btn-green mx-auto" onClick={handleSubmit}>Pradėti naują eilę</button>
                 </div>}
             { isActiveQueue
