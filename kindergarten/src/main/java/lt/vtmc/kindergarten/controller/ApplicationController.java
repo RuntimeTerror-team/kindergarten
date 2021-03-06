@@ -2,6 +2,8 @@ package lt.vtmc.kindergarten.controller;
 
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
+import lt.vtmc.kindergarten.domain.Application;
+import lt.vtmc.kindergarten.domain.ApplicationAfterDistribution;
 import lt.vtmc.kindergarten.dto.ApplicationCreationDto;
 import lt.vtmc.kindergarten.dto.ApplicationDto;
 import lt.vtmc.kindergarten.dto.ApplicationInfoDto;
@@ -12,13 +14,15 @@ import java.util.List;
 
 import lt.vtmc.kindergarten.exception.QueueDoesntExistException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 
 @RestController
-public class ApplicationController {
+public class ApplicationController{
 
     @Autowired
     private ApplicationService applicationService;
@@ -89,12 +93,12 @@ public class ApplicationController {
         return applicationService.getApplicationsInfo(username);
     }
 
-    @RequestMapping(method = RequestMethod.GET, value = "/api/applications/sorted")
-    @ApiOperation(value = "Get sorted applications", notes = "Returns all application after distribution")
-    @ResponseStatus(HttpStatus.OK)
-    public List<ApplicationAfterDistributionDto> getApplicationsAfterDistribution() {
-        return applicationService.getApplicationsAfterDistribution();
-    }
+//    @RequestMapping(method = RequestMethod.GET, value = "/api/applications/sorted")
+//    @ApiOperation(value = "Get sorted applications", notes = "Returns all application after distribution")
+//    @ResponseStatus(HttpStatus.OK)
+//    public List<ApplicationAfterDistributionDto> getApplicationsAfterDistribution() {
+//        return applicationService.getApplicationsAfterDistribution();
+//    }
 
     @RequestMapping(method = RequestMethod.POST, value = "/api/applications/recalculation")
     @ApiOperation(value = "Trigers applications queuing", notes = "Trigers sorting algorithm and applications are queued again")
@@ -106,4 +110,19 @@ public class ApplicationController {
     public void setApplicationService(ApplicationService applicationService) {
         this.applicationService = applicationService;
     }
+
+//    @RequestMapping(method = RequestMethod.GET, value = "/api/applications/sorted")
+//    @ApiOperation(value = "Get sorted applications", notes = "Returns all application after distribution")
+//    @ResponseStatus(HttpStatus.OK)
+//    public List<ApplicationAfterDistributionDto> getApplicationsAfterDistribution() {
+//        return applicationService.getApplicationsAfterDistribution();
+//    }
+
+    @RequestMapping(method = RequestMethod.GET, value = "/api/applications/sorted")
+    @ApiOperation(value = "Get sorted applications", notes = "Returns all application after distribution")
+    @ResponseStatus(HttpStatus.OK)
+    public ResponseEntity<Page<ApplicationAfterDistribution>> getApplicationsAfterDistribution(Pageable pageable) {
+        return new ResponseEntity<>(applicationService.findAll(pageable), HttpStatus.OK);
+    }
+
 }
