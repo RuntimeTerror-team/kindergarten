@@ -18,8 +18,7 @@ public class MigrationConfig {
     }
 
     @Autowired
-    public MigrationConfig(Environment environment) {
-        this.environment=environment;
+    public void flywayConfig() {
         Flyway flyway = Flyway
                 .configure()
                 .baselineOnMigrate(true)
