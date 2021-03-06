@@ -14,3 +14,17 @@ CREATE TABLE IF NOT EXISTS `logging_event` (
                                `caller_method` VARCHAR(256),
                                `caller_line` CHAR(4),
                                `event_id` IDENTITY NOT NULL);
+
+CREATE TABLE IF NOT EXISTS logging_event_property (
+                                        event_id BIGINT NOT NULL,
+                                        mapped_key  VARCHAR(254) NOT NULL,
+                                        mapped_value LONGVARCHAR,
+                                        PRIMARY KEY(event_id, mapped_key),
+                                        FOREIGN KEY (event_id) REFERENCES logging_event(event_id));
+
+CREATE TABLE IF NOT EXISTS logging_event_exception (
+                                         event_id BIGINT NOT NULL,
+                                         i SMALLINT NOT NULL,
+                                         trace_line VARCHAR(256) NOT NULL,
+                                         PRIMARY KEY(event_id, i),
+                                         FOREIGN KEY (event_id) REFERENCES logging_event(event_id));
