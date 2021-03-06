@@ -1,12 +1,15 @@
 package lt.vtmc.kindergarten.controller;
 
+import ch.qos.logback.classic.Logger;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
+import lt.vtmc.kindergarten.KindergartenApplication;
 import lt.vtmc.kindergarten.dto.UserDetailsDto;
 import lt.vtmc.kindergarten.dto.UserDtoFromAdmin;
 import lt.vtmc.kindergarten.dto.UserDto;
 import lt.vtmc.kindergarten.dto.UserValidateCommandDto;
 import lt.vtmc.kindergarten.service.UserService;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -14,11 +17,15 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.Date;
 import java.util.List;
 
 @RestController
 @RequestMapping(value = "/api/users")
 public class UserController {
+    private static final Logger logger
+            = (Logger) LoggerFactory.getLogger(UserController.class);
+
     @Autowired
     private UserService userService;
 
@@ -34,6 +41,7 @@ public class UserController {
     @ApiOperation(value = "Create user", notes = "Creates user with data")
     public void createUser(@ApiParam(value = "User Data", required = true) @Valid @RequestBody UserDto userDto) {
         userService.createUser(userDto);
+        logger.info("User {} with role {} created at {}", userDto.getUsername(), userDto.getRole(), new Date());
     }
 
     @RequestMapping(path = "/{username}", method = RequestMethod.GET)
@@ -49,7 +57,9 @@ public class UserController {
     @ResponseStatus(HttpStatus.CREATED)
     @ApiOperation(value = "Create user from admin page", notes = "Creates user with data from admin page")
     public String createUserFromAdmin(@ApiParam(value = "User Data", required = true) @Valid @RequestBody UserDtoFromAdmin userDtoFromAdmin) {
-        return userService.createUserFromAdmin(userDtoFromAdmin);
+        String user = userService.createUserFromAdmin(userDtoFromAdmin);
+        logger.info("User for person {} {} with role {} created at {}", userDtoFromAdmin.getFirstName(), userDtoFromAdmin.getLastName(), userDtoFromAdmin.getRole(), new Date());
+        return user;
     }
 
     @RequestMapping(path = "/{username}/details", method = RequestMethod.GET)
@@ -85,7 +95,7 @@ public class UserController {
     @ResponseStatus(HttpStatus.OK)
     @ApiOperation(value ="Change user password")
     public void changePassword(@Valid @RequestBody UserDto userDto){
-    	
     	userService.changePassword(userDto);
+        logger.info("User {} with role {} password changed at {}", userDto.getUsername(), userDto.getRole(), new Date());
     }
 }
