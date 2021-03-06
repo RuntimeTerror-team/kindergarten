@@ -1,5 +1,7 @@
 import React from "react";
 import Proptypes from "prop-types";
+import { GrNext } from "react-icons/gr";
+import { GrPrevious } from "react-icons/gr";
 
 const ESApprovedApplicationListComponent = ({
   applications,
@@ -80,15 +82,15 @@ const ESApprovedApplicationListComponent = ({
         </tbody>
       </table>
 
-      <div className="btn-toolbar pt-5" role="toolbar" aria-label="Toolbar with button groups">
+      <div className="float-right btn-toolbar pt-5" role="toolbar" aria-label="Toolbar with button groups">
         <div className="btn-group mr-2" role="group" aria-label="First group">
-          <div>
-            <div style={{ float: "left" }}>
-              Rodoma {currentPage} iš {totalPages} puslapių
-            </div>
-            <div style={{ float: "right" }}></div>
+          <div className="pr-3" style={{ color: "#AFAFAF", alignItems: "center" }}>
+            <p>
+              Rodoma {currentPage} iš {totalPages} puslapių{" "}
+            </p>
           </div>
         </div>
+
         <div className="btn-group mr-2" role="group" aria-label="First group">
           <button type="button mr-2" className="btn btn-main " onClick={firstPage}>
             Pirmas
@@ -97,17 +99,17 @@ const ESApprovedApplicationListComponent = ({
 
         <div className="btn-group mr-2" role="group" aria-label="Second group">
           <button type="button mr-2" className="btn btn-main " onClick={prevPage}>
-            &lt;&lt;
+            <GrPrevious />
           </button>
         </div>
 
         <div className="btn-group mr-2" role="group" aria-label="Second group">
           <button type="button mr-2" className="btn btn-main " onClick={nextPage}>
-            &gt;&gt;
+            <GrNext />
           </button>
         </div>
 
-        <div className="btn-group mr-2" role="group" aria-label="Second group">
+        <div className="btn-group" role="group" aria-label="Second group">
           <button type="button" className="btn btn-main" onClick={lastPage}>
             Paskutinis
           </button>
