@@ -1,4 +1,4 @@
-const urls = {
+export const urls = {
     admin: {
         userBase: '/admin/users',
         districtBase: '/admin/districts',

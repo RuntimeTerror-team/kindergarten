@@ -1,6 +1,7 @@
 import axios from 'axios';
 import React, { Component } from 'react';
 import baseUrl from '../../AppConfig';
+import positions from '../../constants/positions';
 import Footer from '../Footer/Footer';
 import HeaderComponent from '../Header/HeaderComponent';
 import HealthFormTableComponent from '../HealtFormTable/HealthFormTableComponent';
@@ -58,10 +59,10 @@ class HealthFormListContainer extends Component {
         return (
             <div className="footerBottom">
                 <HeaderComponent userRole="ROLE_GUARDIAN" />
-                <div className="container py-4">
+                <div className={`${positions.bodyContainer}`}>
                     <div className="row">
                         <GuardianNavigationComponent />
-                        <div className="col-8">
+                        <div className={`${positions.userPagePosition}`}>
                             <h1 className="mb-5 text-center">Sveikatos pažymos</h1>
                             {this.state.children.length > 0
                                 && <HealthFormListComponent
@@ -70,7 +71,7 @@ class HealthFormListContainer extends Component {
                                     updateForms={this.updateForms}
                                 />}
                             {this.state.children.length === 0
-                                && <div className="alert alert-warning text-center col-6 offset-3 my-1" role="alert">
+                                && <div className="alert alert-warning text-center offset-1 col-6 my-1" role="alert">
                                     Galimybė įkelti pažymą turite tik pateikę prašymą į darželį.
                              </div>}
                             {this.state.familyFiles.length > 0
@@ -79,7 +80,7 @@ class HealthFormListContainer extends Component {
                                     handleDownload={this.handleDownload}
                                 />}
                             {this.state.familyFiles.length === 0
-                                && <div className="alert alert-warning text-center col-6 offset-3 my-1" role="alert">
+                                && <div className="alert alert-warning text-center col-6 offset-1 my-1" role="alert">
                                     Jūs dar nesate pridėję sveikatos pažymų.
                              </div>}
                         </div>

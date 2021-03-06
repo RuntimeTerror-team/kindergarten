@@ -5,6 +5,7 @@ import ESNavigationComponent from "../Navigation/ESNavigationComponent";
 import HeaderComponent from "../Header/HeaderComponent";
 import ESApprovedApplicationListComponent from "./ESApprovedApplicationListComponent";
 import Footer from "../Footer/Footer";
+import positions from "../../constants/positions";
 
 class ESApprovedApplicationListContainer extends Component {
   constructor(props) {
@@ -60,10 +61,10 @@ class ESApprovedApplicationListContainer extends Component {
     return (
       <div className="footerBottom">
         <HeaderComponent userRole="ROLE_EDUCATION_SPECIALIST" />
-        <div className="container py-4">
+        <div className={`${positions.bodyContainer}`}>
           <div className="row">
             <ESNavigationComponent />
-            <div className="col-8">
+            <div className={`${positions.userPagePosition}`}>
               <h1 className="mb-5 text-center">Prašymai</h1>
               <ESApprovedApplicationListComponent
                 applications={this.state.applications}

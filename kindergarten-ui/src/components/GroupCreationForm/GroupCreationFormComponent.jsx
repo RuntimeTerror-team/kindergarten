@@ -18,7 +18,7 @@ const GroupCreationFComponent = ({
     group
 }) => {
     return (
-        <form className="mt-4" onSubmit={handleGroupCreation}>
+        <form className="mt-4 col-8 mx-auto" onSubmit={handleGroupCreation}>
             {!group && <div className="form-group row">
                 <label htmlFor="ageRange" className="col-3 mt-2 text-right">
                     Amžiaus grupės

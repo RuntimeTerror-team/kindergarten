@@ -10,13 +10,13 @@ const QueueListComponent = ({
     messageStyle
 }) => {
     return (
-        <div className="col-12 clearfix mb-3 row">
+        <div className="col-12 clearfix mb-3 row offset-1">
             {  !isActiveQueue &&
-                <div className="offset-4 col-4 text-center">
+                <div className="offset-1 col-4">
                     <button className="btn btn-green mx-auto" onClick={handleSubmit}>Pradėti naują eilę</button>
                 </div>}
             { isActiveQueue
-                && <div className="alert alert-warning text-center col-12" role="alert">
+                && <div className="alert alert-warning text-center col-10" role="alert">
                     Galite kurti naują eilę, kai eilės yra neaktyvios.
               </div>}
             {message

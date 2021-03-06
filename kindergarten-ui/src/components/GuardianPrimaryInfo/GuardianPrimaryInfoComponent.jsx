@@ -2,7 +2,7 @@ import React from 'react';
 
 const GuardianPrimaryInfoComponent = () => {
     return (
-        <div className="col-4 mt-5">
+        <div className="offset-1 col-3 mt-5">
             <div className="alert alert-warning" role="alert">
                 <h4 className="alert-heading">Sveiki prisijungę!</h4>
                 <p> Prašome suvesti registracijos duomenis, kad galėtumėte pildyti prašymus ir naudotis kitomis svetainės funkcijomis. Jūsų duomenis tvarkysime tik prašymų į darželius ir susijusiais klausimais.</p>

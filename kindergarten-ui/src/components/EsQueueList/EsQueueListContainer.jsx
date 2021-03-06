@@ -5,6 +5,7 @@ import HeaderComponent from '../Header/HeaderComponent';
 import Footer from '../Footer/Footer';
 import EsQueueListComponent from './EsQueueListComponent';
 import ESNavigationComponent from '../Navigation/ESNavigationComponent';
+import positions from '../../constants/positions';
 
 class EsQueueListContainer extends Component {
     constructor(props) {
@@ -196,10 +197,10 @@ class EsQueueListContainer extends Component {
         return (
             <div className="footerBottom">
                 <HeaderComponent userRole="ROLE_EDUCATION_SPECIALIST" />
-                <div className="container py-4">
+                <div className={`${positions.bodyContainer}`}>
                     <div className="row">
                         <ESNavigationComponent />
-                        <div className="col-8">
+                        <div className={`${positions.userPagePosition}`}>
                             <h1 className="mb-5 text-center">Eilių administravimas</h1>
                             {<EsQueueListComponent
                                 queues={this.state.queues}

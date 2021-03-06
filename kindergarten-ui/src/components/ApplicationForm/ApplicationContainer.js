@@ -8,6 +8,7 @@ import Axios from 'axios';
 import baseUrl from '../../AppConfig';
 import ApplicationComponent from './ApplicationComponent'
 import '../../styles/pages.css';
+import positions from "../../constants/positions";
 
 class ApplicationContainer extends Component {
 
@@ -103,7 +104,8 @@ class ApplicationContainer extends Component {
       noGuardianMessageStyle: "",
       guardianButtonText: "Redaguoti",
       isDisabled: true,
-      isActiveQueue: true
+      isActiveQueue: true,
+      wantsSecondGuardian: false
     };
   }
 
@@ -159,8 +161,8 @@ class ApplicationContainer extends Component {
                 this.setState({ guardianCity: this.state.userPerson.cityEnum })
                 this.setState({ guardianPostalCode: this.state.userPerson.postalCode })
                 this.setState({ guardianEmail: this.state.userPerson.email })
-                this.setState({userName: this.state.guardianName})
-                this.setState({userSurname: this.state.guardianSurname})
+                this.setState({ userName: this.state.guardianName })
+                this.setState({ userSurname: this.state.guardianSurname })
               })
               .catch((err) => console.log(err))
           })
@@ -226,12 +228,14 @@ class ApplicationContainer extends Component {
     let currentStep = this.state.currentStep;
     if (currentStep === 1) {
       return (
-        <button
-          className="btn btn-info"
-          type="button"
-          onClick={this.next}>
-          Toliau
+        <div className="col-12 text-right p-0">
+          <button
+            className="btn btn-info"
+            type="button"
+            onClick={this.next}>
+            Toliau
         </button>
+        </div>
       )
     }
     return null;
@@ -420,7 +424,7 @@ class ApplicationContainer extends Component {
                 this.timer = setTimeout(() => {
                   this.setState({ guardianMessage: "" })
                   this.setState({ guardianMessageStyle: "" })
-              }, 3000);
+                }, 3000);
 
 
               }
@@ -515,98 +519,98 @@ class ApplicationContainer extends Component {
   guardiansValidation = (name, surname, personalCode, phone, address, city, postalCode, email) => {
 
     return (name.length >= 3 && name.length <= 20)
-          && (surname.length >= 3 && surname.length <= 30)
-          && (personalCode.length === 11 && /^[0-9]*$/.test(personalCode))
-          && (phone.length === 12 && /^\+?370[0-9]*$/.test(phone))
-          && (address.length >= 8 && address.length <= 50)
-          && (city.length >= 4 && city.length <= 19)
-          && (postalCode.length === 5 && /^[0-9]*$/.test(postalCode))
-          && (email.length && /^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/.test(email))
+      && (surname.length >= 3 && surname.length <= 30)
+      && (personalCode.length === 11 && /^[0-9]*$/.test(personalCode))
+      && (phone.length === 12 && /^\+?370[0-9]*$/.test(phone))
+      && (address.length >= 8 && address.length <= 50)
+      && (city.length >= 4 && city.length <= 19)
+      && (postalCode.length === 5 && /^[0-9]*$/.test(postalCode))
+      && (email.length && /^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/.test(email))
 
   }
 
 
   checkEmptyGuardianInputs = (name, surname, personalCode, phone, address, city, postalCode, email) => {
 
-    if(name.trim() === ""){
+    if (name.trim() === "") {
 
       this.setState({ guardianNameValidation: "is-invalid" })
 
-      } else {
+    } else {
 
-        this.setState({ guardianNameValidation: "" })
+      this.setState({ guardianNameValidation: "" })
 
-      }
+    }
 
-    if(surname.trim() === ""){
+    if (surname.trim() === "") {
 
       this.setState({ guardianSurnameValidation: "is-invalid" })
 
-      } else {
+    } else {
 
-        this.setState({ guardianSurnameValidation: "" })
+      this.setState({ guardianSurnameValidation: "" })
 
-      }
+    }
 
-    if(personalCode.trim() === ""){
+    if (personalCode.trim() === "") {
 
       this.setState({ guardianIdValidation: "is-invalid" })
 
-      } else {
+    } else {
 
-        this.setState({ guardianIdValidation: "" })
+      this.setState({ guardianIdValidation: "" })
 
-      }
+    }
 
-    if(phone.trim() === ""){
+    if (phone.trim() === "") {
 
       this.setState({ guardianPhoneValidation: "is-invalid" })
 
-      } else {
+    } else {
 
-        this.setState({ guardianPhoneValidation: "" })
+      this.setState({ guardianPhoneValidation: "" })
 
-      }
+    }
 
-    if(address.trim() === ""){
+    if (address.trim() === "") {
 
       this.setState({ guardianAddressValidation: "is-invalid" })
 
-      } else {
+    } else {
 
-        this.setState({ guardianAddressValidation: "" })
+      this.setState({ guardianAddressValidation: "" })
 
-      }
-    
-    if(city.trim() === ""){
+    }
+
+    if (city.trim() === "") {
 
       this.setState({ guardianCityValidation: "is-invalid" })
 
-      } else {
+    } else {
 
-        this.setState({ guardianCityValidation: "" })
+      this.setState({ guardianCityValidation: "" })
 
-      }
+    }
 
-    if(postalCode.trim() === ""){
+    if (postalCode.trim() === "") {
 
       this.setState({ guardianPostalCodeValidation: "is-invalid" })
 
-      } else {
+    } else {
 
-        this.setState({ sguardianPostalCodeValidation: "" })
+      this.setState({ sguardianPostalCodeValidation: "" })
 
-      }
+    }
 
-    if(email.trim() === ""){
+    if (email.trim() === "") {
 
       this.setState({ guardianEmailValidation: "is-invalid" })
 
-      } else {
+    } else {
 
-        this.setState({ guardianEmailValidation: "" })
+      this.setState({ guardianEmailValidation: "" })
 
-      }
+    }
 
     return (name.trim() === "" || surname.trim() === "" || personalCode.trim() === "" || phone.trim() === "" || address.trim() === ""
       || city.trim() === "" || postalCode.trim() === "" || email.trim() === "")
@@ -615,85 +619,85 @@ class ApplicationContainer extends Component {
 
   checkEmptySecondGuardianInputs = (name, surname, personalCode, phone, address, city, postalCode, email) => {
 
-    if(name.trim() === ""){
+    if (name.trim() === "") {
 
       this.setState({ secondGuardianNameValidation: "is-invalid" })
 
-      } else {
+    } else {
 
-        this.setState({ secondGuardianNameValidation: "" })
+      this.setState({ secondGuardianNameValidation: "" })
 
-      }
+    }
 
-    if(surname.trim() === ""){
+    if (surname.trim() === "") {
 
       this.setState({ secondGuardianSurnameValidation: "is-invalid" })
 
-      } else {
+    } else {
 
-        this.setState({ secondGuardianSurnameValidation: "" })
+      this.setState({ secondGuardianSurnameValidation: "" })
 
-      }
+    }
 
-    if(personalCode.trim() === ""){
+    if (personalCode.trim() === "") {
 
       this.setState({ secondGuardianIdValidation: "is-invalid" })
 
-      } else {
+    } else {
 
-        this.setState({ secondGuardianIdValidation: "" })
+      this.setState({ secondGuardianIdValidation: "" })
 
-      }
+    }
 
-    if(phone.trim() === ""){
+    if (phone.trim() === "") {
 
       this.setState({ secondGuardianPhoneValidation: "is-invalid" })
 
-      } else {
+    } else {
 
-        this.setState({ secondGuardianPhoneValidation: "" })
+      this.setState({ secondGuardianPhoneValidation: "" })
 
-      }
+    }
 
-    if(address.trim() === ""){
+    if (address.trim() === "") {
 
       this.setState({ secondGuardianAddressValidation: "is-invalid" })
 
-      } else {
+    } else {
 
-        this.setState({ secondGuardianAddressValidation: "" })
+      this.setState({ secondGuardianAddressValidation: "" })
 
-      }
-    
-    if(city.trim() === ""){
+    }
+
+    if (city.trim() === "") {
 
       this.setState({ secondGuardianCityValidation: "is-invalid" })
 
-      } else {
+    } else {
 
-        this.setState({ secondGuardianCityValidation: "" })
+      this.setState({ secondGuardianCityValidation: "" })
 
-      }
+    }
 
-    if(postalCode.trim() === ""){
+    if (postalCode.trim() === "") {
 
       this.setState({ secondGuardianPostalCodeValidation: "is-invalid" })
 
-      } else {
+    } else {
 
-        this.setState({ secondGuardianPostalCodeValidation: "" })
+      this.setState({ secondGuardianPostalCodeValidation: "" })
 
-      }
+    }
 
-    if(email.trim() === ""){
+    if (email.trim() === "") {
 
       this.setState({ secondGuardianEmailValidation: "is-invalid" })
 
-      } else {
+    } else {
 
-        this.setState({ secondGuardianEmailValidation: "" })
+      this.setState({ secondGuardianEmailValidation: "" })
 
-      }
+    }
 
     return (name.trim() === "" || surname.trim() === "" || personalCode.trim() === "" || phone.trim() === "" || address.trim() === ""
       || city.trim() === "" || postalCode.trim() === "" || email.trim() === "")
@@ -702,56 +706,56 @@ class ApplicationContainer extends Component {
 
   checkEmptyChildInputs = (name, surname, personalCode, address, city) => {
 
-    if(name.trim() === ""){
+    if (name.trim() === "") {
 
       this.setState({ childNameValidation: "is-invalid" })
 
-      } else {
+    } else {
 
-        this.setState({ childNameValidation: "" })
+      this.setState({ childNameValidation: "" })
 
-      }
+    }
 
-    if(surname.trim() === ""){
+    if (surname.trim() === "") {
 
       this.setState({ childSurnameValidation: "is-invalid" })
 
-      } else {
+    } else {
 
-        this.setState({ childSurnameValidation: "" })
+      this.setState({ childSurnameValidation: "" })
 
-      }
+    }
 
-    if(personalCode.trim() === ""){
+    if (personalCode.trim() === "") {
 
       this.setState({ childIdValidation: "is-invalid" })
 
-      } else {
+    } else {
 
-        this.setState({ childIdValidation: "" })
+      this.setState({ childIdValidation: "" })
 
-      }
+    }
 
-    if(address.trim() === ""){
+    if (address.trim() === "") {
 
       this.setState({ childStreetValidation: "is-invalid" })
 
-      } else {
+    } else {
 
-        this.setState({ childStreetValidation: "" })
+      this.setState({ childStreetValidation: "" })
 
-      }
-    
-    if(city.trim() === ""){
+    }
+
+    if (city.trim() === "") {
 
       this.setState({ childCityValidation: "is-invalid" })
 
-      } else {
+    } else {
 
-        this.setState({ childCityValidation: "" })
+      this.setState({ childCityValidation: "" })
 
-      }
-      
+    }
+
 
     return (name.trim() === "" || surname.trim() === "" || personalCode.trim() === "" || address.trim() === "" || city.trim() === "")
   }
@@ -1064,7 +1068,7 @@ class ApplicationContainer extends Component {
 
     e.preventDefault();
     this.setState({ showSecondGuardianForm: !this.state.showSecondGuardianForm });
-
+    this.setState({ wantsSecondGuardian: !this.state.wantsSecondGuardian })
   }
 
   handleCheckPriorities = (e) => {
@@ -1163,7 +1167,7 @@ class ApplicationContainer extends Component {
       this.setState({ guardianEmailValidation: "is-invalid" })
 
     }
-}
+  }
 
   handleSubmit = (e) => {
 
@@ -1184,7 +1188,7 @@ class ApplicationContainer extends Component {
 
     }
 
-    if(this.state.optionsValuesList.length !== 0 && this.state.childAdded ) {
+    if (this.state.optionsValuesList.length !== 0 && this.state.childAdded) {
 
       let selectedKindergartens = this.state.optionsValuesList.map(title => {
 
@@ -1218,10 +1222,10 @@ class ApplicationContainer extends Component {
 
             this.setState({ applicationMessage: "Prašymas sėkmingai pateiktas" })
             this.setState({ applicationMessageStyle: "alert alert-success mt-4" })
-            this.setState({currentStep: 2})
+            this.setState({ currentStep: 2 })
             this.timer = setTimeout(() => {
               this.props.history.push(urls.guardian.applicationBase)
-          }, 3000);
+            }, 3000);
 
           }
         })
@@ -1311,6 +1315,7 @@ class ApplicationContainer extends Component {
 
 
 
+
   render() {
     if (this.state.isActiveQueue) {
       return (
@@ -1319,10 +1324,10 @@ class ApplicationContainer extends Component {
             userRole="ROLE_GUARDIAN"
             name={this.state.userName}
             surname={this.state.userSurname} />
-          <div className="container py-4">
+          <div className={`${positions.bodyContainer}`}>
             <div className="row">
               <GuardianNavigationComponent />
-              <div className="col-8">
+              <div className={`${positions.userPagePosition}`}>
                 <ApplicationComponent
                   currentStep={this.state.currentStep}
                   kinderGartenList={this.state.kinderGartenList}
@@ -1414,6 +1419,7 @@ class ApplicationContainer extends Component {
                   next={this.next}
                   previousButton={this.previousButton}
                   nextButton={this.nextButton}
+                  wantsSecondGuardian={this.state.wantsSecondGuardian}
                 />
 
               </div>

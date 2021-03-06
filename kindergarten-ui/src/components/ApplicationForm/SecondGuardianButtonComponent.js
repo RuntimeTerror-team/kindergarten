@@ -1,20 +1,23 @@
 import React from 'react';
 import Proptypes from 'prop-types';
 
-let SecondGuardianButtonComponent = (props) =>{
+let SecondGuardianButtonComponent = (props) => {
 
   if (props.currentStep !== 1) {
     return null
   }
 
-    return(
+  return (
 
-        <div className="row">
-            <button className="btn btn-info" onClick={props.fillSecondGuardian}>Pridėti antrą vaiko atstovą</button>
-        </div>
+    <div>
+      <h3>Vaiko atstovas</h3>
+      <div className="col-12 text-right">
+        <button className="btn btn-info" onClick={props.fillSecondGuardian}>Pridėti</button>
+      </div>
+    </div>
 
 
-    )
+  )
 
 }
 

@@ -5,6 +5,7 @@ import ESNavigationComponent from '../Navigation/ESNavigationComponent';
 import HeaderComponent from '../Header/HeaderComponent';
 import Footer from '../Footer/Footer';
 import GroupCreationFormComponent from './GroupCreationFormComponent';
+import positions from '../../constants/positions';
 
 class GroupCreationFormContainer extends Component {
     constructor(props) {
@@ -191,10 +192,10 @@ class GroupCreationFormContainer extends Component {
             <div>
                 <div className="footerBottom">
                     <HeaderComponent userRole="ROLE_EDUCATION_SPECIALIST" />
-                    <div className="container py-4">
+                    <div className={`${positions.bodyContainer}`}>
                         <div className="row">
                             <ESNavigationComponent />
-                            <div className="col-8">
+                            <div className={`${positions.userPagePosition}`}>
                                 <h1 className="text-center">Kurti darželio grupę</h1>
                                 <p className="text-center"><strong>{this.state.kindergarten.title}</strong> {this.state.kindergarten.address}</p>
                                 <GroupCreationFormComponent

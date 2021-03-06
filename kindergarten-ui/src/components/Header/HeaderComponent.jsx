@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import Proptypes from "prop-types";
 import logo from "../../image/logo.png";
 import "../../styles/logo.css";
-import { IoMdLogOut } from "react-icons/io";
+import { IoMdExit } from "react-icons/io";
 import axios from "axios";
 import baseUrl from "../../AppConfig";
 import { useHistory } from "react-router";
@@ -43,7 +43,7 @@ const HeaderComponent = ({ userRole }) => {
   }
 
   return (
-    <div className="container-fluid p-3">
+    <div className="container-fluid p-3" id="header">
       <div className="row">
         <div className="offset-1 col-3 col-xs-3 col-sm-3 col-md-3 col-lg-3">
           <img className="logo" src={logo} alt="Logo" />
@@ -51,10 +51,10 @@ const HeaderComponent = ({ userRole }) => {
         <div className="offset-5 col-3 col-xs-3 col-sm-3 col-md-3 col-lg-3">
           {window.location.pathname === `/kindergarten${urls.guardian.primaryDataBase}` ? <p className="lead">
           </p> : <p className="lead">
-              <strong>{nameToShow}</strong>
-            </p>}
+            <strong>{nameToShow}</strong>
+          </p>}
           <button className="btn btn-yellow" onClick={handleLogout}>
-            Atsijungti <IoMdLogOut size={20} />
+            Atsijungti <IoMdExit size={20} />
           </button>
         </div>
       </div>

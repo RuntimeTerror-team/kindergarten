@@ -5,6 +5,7 @@ import baseUrl from '../../AppConfig';
 import ESNavigationComponent from '../Navigation/ESNavigationComponent';
 import HeaderComponent from '../Header/HeaderComponent';
 import Footer from '../Footer/Footer';
+import positions from '../../constants/positions';
 
 class KindergartenAdministrationContainer extends Component {
     constructor(props) {
@@ -40,10 +41,10 @@ class KindergartenAdministrationContainer extends Component {
             <div>
                 <div className="footerBottom">
                     <HeaderComponent userRole="ROLE_EDUCATION_SPECIALIST" />
-                    <div className="container py-4">
+                    <div className={`${positions.bodyContainer}`}>
                         <div className="row">
                             <ESNavigationComponent />
-                            <div className="col-8">
+                            <div className={`${positions.userPagePosition}`}>
                                 <h1 className="mb-5 text-center">Darželių sąrašas</h1>
                                 <KindergartenAdministrationComponent
                                     kindergartens={this.state.kindergartens}
