@@ -9,7 +9,7 @@ let SecondGuardianButtonComponent = (props) => {
 
   return (
 
-    <div className="row" style={{ width: "12em" }}>
+    <div>
       <h3>Vaiko atstovas</h3>
       <div className="col-12 text-right">
         <button className="btn btn-info" onClick={props.fillSecondGuardian}>Pridėti</button>

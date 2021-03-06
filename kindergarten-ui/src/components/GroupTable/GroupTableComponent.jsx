@@ -5,7 +5,7 @@ import urls from '../../constants/urls';
 
 const GroupTableComponent = ({ groups, kindergartenId, buttonStatus }) => {
     return (
-        <div className="col-10 mx-auto mt-3">
+        <div className="mx-auto col-10 mt-3">
             <table id="groupTable" className='table col-12'>
                 <thead>
                     <tr>
@@ -20,8 +20,8 @@ const GroupTableComponent = ({ groups, kindergartenId, buttonStatus }) => {
                     {groups.map(({ id, childrenCount, ageRange }, index) =>
                         <tr key={id}>
                             <th scope='row'>{index + 1}</th>
-                            <td className="text-right pr-5">{ageRange.ageMin} - {ageRange.ageMax}</td>
-                            <td className="text-right pr-5">{childrenCount}</td>
+                            <td>{ageRange.ageMin} - {ageRange.ageMax}</td>
+                            <td>{childrenCount}</td>
                             <td>
                                 {buttonStatus !== "Negalima keisti dydžio"
                                     ? <Link className="btn btn-main"

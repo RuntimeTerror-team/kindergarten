@@ -8,6 +8,7 @@ import GuardianPrimaryInfoComponent from '../GuardianPrimaryInfo/GuardianPrimary
 import axios from 'axios';
 import baseUrl from '../../AppConfig';
 import urls from '../../constants/urls';
+import positions from '../../constants/positions';
 
 class GuardianPrimaryDataFormContainer extends Component {
     constructor() {
@@ -206,10 +207,10 @@ class GuardianPrimaryDataFormContainer extends Component {
         return (
             <div className="footerBottom">
                 <HeaderComponent userRole="ROLE_GUARDIAN" />
-                <div className="container py-4">
+                <div className={`${positions.bodyContainer}`}>
                     <div className="row">
                         <GuardianPrimaryInfoComponent />
-                        <div className="col-8">
+                        <div className={`${positions.userPagePosition}`}>
                             <h1 className="mb-5 text-center">Pirminių duomenų anketa</h1>
                             <GuardianPrimaryDataFormComponent
                                 firstname={this.state.firstname}

@@ -8,6 +8,7 @@ import Axios from 'axios';
 import baseUrl from '../../AppConfig';
 import ApplicationComponent from './ApplicationComponent'
 import '../../styles/pages.css';
+import positions from "../../constants/positions";
 
 class ApplicationContainer extends Component {
 
@@ -1323,10 +1324,10 @@ class ApplicationContainer extends Component {
             userRole="ROLE_GUARDIAN"
             name={this.state.userName}
             surname={this.state.userSurname} />
-          <div className="container py-4">
+          <div className={`${positions.bodyContainer}`}>
             <div className="row">
               <GuardianNavigationComponent />
-              <div className="col-8">
+              <div className={`${positions.userPagePosition}`}>
                 <ApplicationComponent
                   currentStep={this.state.currentStep}
                   kinderGartenList={this.state.kinderGartenList}

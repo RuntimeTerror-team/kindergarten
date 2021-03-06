@@ -9,7 +9,7 @@ let PriorityListComponent = (props) => {
 
   return (
 
-    <div className="my-3 justify-content-start">
+    <div className="my-3 justify-content-start col-12">
 
       <h2 className="mb-4">Papildoma informacija</h2>
       {/* <label htmlFor="checkSelections">Pasirinkite prioritetus</label> */}

@@ -2,6 +2,7 @@ import axios from 'axios';
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import baseUrl from '../../AppConfig';
+import positions from '../../constants/positions';
 import urls from '../../constants/urls'
 
 class ESNavigationComponent extends Component {
@@ -32,7 +33,7 @@ class ESNavigationComponent extends Component {
 
     render() {
         return (
-            <nav className="nav flex-column col-4">
+            <nav className={`nav flex-column ${positions.navigationPosition}`}>
                 <Link to={`${urls.guardian.applicationBase}`} className={`btn btn-main mb-2 w-100 ${window.location.pathname === `/kindergarten${urls.guardian.applicationBase}` ? "btn-active" : ""}`} >
                     Prašymai
                 </Link>

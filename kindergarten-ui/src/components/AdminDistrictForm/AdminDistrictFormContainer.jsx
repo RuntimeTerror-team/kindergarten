@@ -5,6 +5,7 @@ import AdminDistrictFormComponent from './AdminDistrictFormComponent';
 import AdminNavigationComponent from '../Navigation/AdminNavigationComponent';
 import HeaderComponent from '../Header/HeaderComponent';
 import Footer from '../Footer/Footer';
+import positions from '../../constants/positions';
 
 class AdminDistrictFormContainer extends Component {
     constructor(props) {
@@ -154,10 +155,10 @@ class AdminDistrictFormContainer extends Component {
         return (
             <div className="footerBottom">
                 <HeaderComponent userRole="ROLE_ADMIN" />
-                <div className="container py-4">
+                <div className={`${positions.bodyContainer}`}>
                     <div className="row">
                         <AdminNavigationComponent />
-                        <div className="col-8">
+                        <div className={`${positions.userPagePosition}`}>
                             <h1 className="mb-5 text-center">Rajonų administravimas</h1>
                             <AdminDistrictFormComponent
                                 districts={this.state.districts}

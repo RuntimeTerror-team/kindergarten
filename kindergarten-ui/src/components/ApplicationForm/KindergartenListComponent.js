@@ -63,7 +63,7 @@ let KindergartenListComponent = (props) => {
 
     return (
 
-        <div className="form-group">
+        <div className="form-group col-12">
             <h2 className="my-3">Darželių pasirinkimas</h2>
             {/* <label className="my-3 ml-n5" htmlFor="kindergartens">Pridėkite bent vieną daržėlį iš sąrašo. Max 5</label> */}
             <select style={{ width: "40%" }} multiple={true} className="form-control mb-2" name="kindergartens" value={props.optionsValuesList} onChange={props.handleOnOptionsChange}>

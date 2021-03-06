@@ -3,12 +3,11 @@ import PropTypes from 'prop-types'
 import KindergartenTableComponent from "../KindergartenTable/KindergartenTableComponent";
 import { Link } from "react-router-dom";
 import urls from '../../constants/urls';
-import positions from '../../constants/positions';
 
 const KindergartenAdministrationComponent = ({ kindergartens }) => {
   return (
-    <div className="col-12">
-      <Link to={`${urls.educationSpecialist.kindergartenBase}/new`} className={`btn btn-yellow offset-${positions.leftButtonOffset}`} >
+    <div className="col-11 offset-1">
+      <Link to={`${urls.educationSpecialist.kindergartenBase}/new`} className={`btn btn-yellow`} >
         Pridėti naują darželį
         </Link>
       {kindergartens.length > 0 &&

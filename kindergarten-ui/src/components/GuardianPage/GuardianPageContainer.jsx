@@ -5,18 +5,19 @@ import ApplicationListContainer from './../ApplicationList/ApplicationListContai
 import Footer from '../Footer/Footer';
 
 import '../../styles/pages.css';
+import positions from '../../constants/positions';
 
 class GuardianPageContainer extends Component {
     render() {
         return (
             <div className="footerBottom">
                 <HeaderComponent userRole="ROLE_GUARDIAN" />
-                <div className="container py-4">
+                <div className={`${positions.bodyContainer}`}>
                     <div className="row">
                         <GuardianNavigationComponent />
-                        <div className="col-8">
+                        <div className={`${positions.userPagePosition}`}>
                             <h1 className="mb-5 text-center">Prašymai</h1>
-                            <ApplicationListContainer/>
+                            <ApplicationListContainer />
                         </div>
                     </div>
                 </div>

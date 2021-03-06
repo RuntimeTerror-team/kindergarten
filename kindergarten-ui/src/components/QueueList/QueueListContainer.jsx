@@ -5,6 +5,7 @@ import AdminNavigationComponent from '../Navigation/AdminNavigationComponent';
 import HeaderComponent from '../Header/HeaderComponent';
 import Footer from '../Footer/Footer';
 import QueueListComponent from './QueueListComponent';
+import positions from '../../constants/positions';
 
 class QueueListContainer extends Component {
     constructor(props) {
@@ -86,10 +87,10 @@ class QueueListContainer extends Component {
         return (
             <div className="footerBottom">
                 <HeaderComponent userRole="ROLE_ADMIN" />
-                <div className="container py-4">
+                <div className={`${positions.bodyContainer}`}>
                     <div className="row">
                         <AdminNavigationComponent />
-                        <div className="col-8">
+                        <div className={`${positions.userPagePosition}`}>
                             <h1 className="mb-5 text-center">Eilių administravimas</h1>
                             {<QueueListComponent
                                 queues={this.state.queues}

@@ -9,7 +9,7 @@ let ChildInfoComponent = (props) => {
 
   return (
 
-    <div style={{ width: "12em" }}>
+    <div>
 
       <h3>Vaikas</h3>
 

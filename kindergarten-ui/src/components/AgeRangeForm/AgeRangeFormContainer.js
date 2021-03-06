@@ -8,6 +8,7 @@ import Footer from "../Footer/Footer";
 import AgeRangeFormComponent from "./AgeRangeFormComponent";
 
 import "../../styles/groupsForm.css";
+import positions from "../../constants/positions";
 
 class AgeRangeFormContainer extends Component {
   constructor() {
@@ -139,10 +140,10 @@ class AgeRangeFormContainer extends Component {
     return (
       <div className="footerBottom">
         <HeaderComponent userRole="ROLE_EDUCATION_SPECIALIST" />
-        <div className="container py-4">
+        <div className={`${positions.bodyContainer}`}>
           <div className="row">
             <ESNavigationComponent />
-            <div className="col-8">
+            <div className={`${positions.userPagePosition}`}>
               <AgeRangeFormComponent
                 groups={this.state.groups}
                 fromAge={this.state.fromAge}

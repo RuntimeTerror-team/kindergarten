@@ -5,6 +5,7 @@ import baseUrl from '../../AppConfig'
 import ESNavigationComponent from '../Navigation/ESNavigationComponent';
 import HeaderComponent from '../Header/HeaderComponent';
 import Footer from '../Footer/Footer';
+import positions from '../../constants/positions';
 
 class GroupInfoContainer extends Component {
     constructor(props) {
@@ -61,13 +62,12 @@ class GroupInfoContainer extends Component {
             <div>
                 <div className="footerBottom">
                     <HeaderComponent userRole="ROLE_EDUCATION_SPECIALIST" />
-                    <div className="container py-4">
+                    <div className={`${positions.bodyContainer}`}>
                         <div className="row">
                             <ESNavigationComponent />
-                            <div className="col-8">
+                            <div className={`${positions.userPagePosition}`}>
                                 <h1 className="text-center">Darželio grupių sąrašas</h1>
                                 <p className="mb-5 text-center"><strong>{this.state.kindergarten.title}</strong> {this.state.kindergarten.address}</p>
-
                                 <GroupInfoComponent
                                     groups={this.state.groups}
                                     kindergartenId={this.state.kindergartenId}
