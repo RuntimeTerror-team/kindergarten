@@ -6,11 +6,13 @@ import lt.vtmc.kindergarten.dao.QueueDao;
 import lt.vtmc.kindergarten.domain.District;
 import lt.vtmc.kindergarten.dto.*;
 import lt.vtmc.kindergarten.service.*;
+import org.flywaydb.core.Flyway;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
+import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Component;
 
 
@@ -33,7 +35,6 @@ public class CommandLineAppStartupRunner implements CommandLineRunner {
 
     @Override
     public void run(String... args) throws Exception {
-
         userService.createUser(new UserDto("administratorius", "Administratorius1", "ADMIN"));
 
         if (seedData) {

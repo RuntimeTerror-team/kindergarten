@@ -2,12 +2,16 @@ package lt.vtmc.kindergarten;
 
 
 import ch.qos.logback.classic.Logger;
+import org.flywaydb.core.Flyway;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.boot.web.servlet.support.SpringBootServletInitializer;
 import org.springframework.context.annotation.Bean;
+import org.springframework.core.env.Environment;
 import springfox.documentation.builders.ApiInfoBuilder;
 import springfox.documentation.builders.RequestHandlerSelectors;
 import springfox.documentation.service.ApiInfo;
@@ -15,10 +19,13 @@ import springfox.documentation.spi.DocumentationType;
 import springfox.documentation.spring.web.plugins.Docket;
 import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
+import javax.annotation.PostConstruct;
+
 
 @EnableSwagger2
 @SpringBootApplication
 public class KindergartenApplication extends SpringBootServletInitializer {
+
 	private static final Logger logger
 			= (Logger) LoggerFactory.getLogger(KindergartenApplication.class);
 
@@ -30,6 +37,8 @@ public class KindergartenApplication extends SpringBootServletInitializer {
 	protected SpringApplicationBuilder configure(SpringApplicationBuilder builder) {
 		return builder.sources(KindergartenApplication.class);
 	}
+
+
 
 	@Bean
 	public Docket swaggerDocket() {
