@@ -227,7 +227,7 @@ class ApplicationContainer extends Component {
     let currentStep = this.state.currentStep;
     if (currentStep === 1) {
       return (
-        <div className="col-12 text-right">
+        <div className="col-12 text-right p-0">
           <button
             className="btn btn-info"
             type="button"

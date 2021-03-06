@@ -52,7 +52,6 @@ let ApplicationComponent = (props) => {
                 prev={props.prev}
                 next={props.next}
                 previousButton={props.previousButton}
-                nextButton={props.nextButton}
               />
             </div>
 
@@ -86,7 +85,6 @@ let ApplicationComponent = (props) => {
                 prev={props.prev}
                 next={props.next}
                 previousButton={props.previousButton}
-                nextButton={props.nextButton}
               />
             </div>
 
@@ -124,7 +122,10 @@ let ApplicationComponent = (props) => {
                 saveSecondGuardian={props.saveSecondGuardian}
               />
             </div>
-
+            <div className="row col-12 my-3">
+              {props.previousButton()}
+              {props.nextButton()}
+            </div>
           </div>
 
 
@@ -141,7 +142,6 @@ let ApplicationComponent = (props) => {
             prev={props.prev}
             next={props.next}
             previousButton={props.previousButton}
-            nextButton={props.nextButton}
           />
 
           <PriorityListComponent

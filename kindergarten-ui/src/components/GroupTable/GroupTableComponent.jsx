@@ -20,8 +20,8 @@ const GroupTableComponent = ({ groups, kindergartenId, buttonStatus }) => {
                     {groups.map(({ id, childrenCount, ageRange }, index) =>
                         <tr key={id}>
                             <th scope='row'>{index + 1}</th>
-                            <td>{ageRange.ageMin} - {ageRange.ageMax}</td>
-                            <td>{childrenCount}</td>
+                            <td className="text-right pr-5">{ageRange.ageMin} - {ageRange.ageMax}</td>
+                            <td className="text-right pr-5">{childrenCount}</td>
                             <td>
                                 {buttonStatus !== "Negalima keisti dydžio"
                                     ? <Link className="btn btn-main"

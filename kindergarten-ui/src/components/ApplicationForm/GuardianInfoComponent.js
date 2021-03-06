@@ -68,15 +68,6 @@ let GuardianInfoComponent = (props) => {
             <div className={props.emptyInputsMessageStyle + " mt-2"}>
                 <span>{props.emptyInputsMessage}</span>
             </div>
-
-
-            <div className="row my-3">
-                {props.previousButton()}
-                {props.nextButton()}
-            </div>
-
-
-
         </div>
 
     )
@@ -105,8 +96,7 @@ GuardianInfoComponent.propTypes = {
     saveGuardian: Proptypes.func.isRequired,
     prev: Proptypes.func.isRequired,
     next: Proptypes.func.isRequired,
-    previousButton: Proptypes.func.isRequired,
-    nextButton: Proptypes.func.isRequired
+    previousButton: Proptypes.func.isRequired
 }
 
 export default GuardianInfoComponent

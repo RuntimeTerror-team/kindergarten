@@ -87,8 +87,7 @@ ChildInfoComponent.propTypes = {
   saveChild: Proptypes.func.isRequired,
   prev: Proptypes.func.isRequired,
   next: Proptypes.func.isRequired,
-  previousButton: Proptypes.func.isRequired,
-  nextButton: Proptypes.func.isRequired
+  previousButton: Proptypes.func.isRequired
 }
 
 export default ChildInfoComponent
