@@ -11,17 +11,25 @@ class ESApprovedApplicationListContainer extends Component {
     super(props);
     this.state = {
       applications: [],
+      currentPage: 1,
+      applicationsPerPage: 2,
     };
   }
 
   componentDidMount() {
-    this.updateApplicationList();
+    this.updateApplicationList(this.state.currentPage);
   }
 
-  updateApplicationList() {
-    Axios.get(baseUrl + "/api/applications/sorted")
+  updateApplicationList(currentPage) {
+    currentPage -= 1;
+    Axios.get(baseUrl + "/api/applications/sorted/?page=" + currentPage + "&size=" + this.state.applicationsPerPage)
       .then((res) => {
-        this.setState({ applications: res.data });
+        this.setState({
+          applications: res.data.content,
+          totalPages: res.data.totalPages,
+          totalElements: res.data.totalElements,
+          currentPage: res.data.number + 1,
+        });
         this.translateStatus();
       })
       .catch((err) => {
@@ -56,7 +64,44 @@ class ESApprovedApplicationListContainer extends Component {
     this.updateApplicationList();
   };
 
+  firstPage = () => {
+    let firstPage = 1;
+    if (this.state.currentPage > firstPage) {
+      this.updateApplicationList(firstPage);
+    }
+  };
+
+  prevPage = () => {
+    let prevPage = 1;
+    if (this.state.currentPage > prevPage) {
+      this.updateApplicationList(this.state.currentPage - prevPage);
+    }
+  };
+
+  lastPage = () => {
+    let condition = Math.ceil(this.state.totalElements / this.state.applicationsPerPage);
+    if (this.state.currentPage < condition) {
+      this.updateApplicationList(condition);
+    }
+  };
+
+  nextPage = () => {
+    if (this.state.currentPage < Math.ceil(this.state.totalElements / this.state.applicationsPerPage)) {
+      this.updateApplicationList(this.state.currentPage + 1);
+    }
+  };
+
+  changePage = (event) => {
+    let targetPage = parseInt(event.target.value);
+    this.updateApplicationList(targetPage);
+    this.setState({
+      [event.target.name]: targetPage,
+    });
+  };
+
   render() {
+    const { applications, currentPage, totalPages } = this.state;
+
     return (
       <div className="footerBottom">
         <HeaderComponent userRole="ROLE_EDUCATION_SPECIALIST" />
@@ -66,8 +111,14 @@ class ESApprovedApplicationListContainer extends Component {
             <div className="col-8">
               <h1 className="mb-5 text-center">Prašymai</h1>
               <ESApprovedApplicationListComponent
-                applications={this.state.applications}
+                applications={applications}
                 recalculation={this.recalculateApplications}
+                currentPage={currentPage}
+                totalPages={totalPages}
+                firstPage={this.firstPage}
+                prevPage={this.prevPage}
+                lastPage={this.lastPage}
+                nextPage={this.nextPage}
               />
             </div>
           </div>

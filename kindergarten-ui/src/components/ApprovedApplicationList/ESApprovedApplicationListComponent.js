@@ -1,10 +1,24 @@
 import React from "react";
 import Proptypes from "prop-types";
 
-const ESApprovedApplicationListComponent = ({ applications, recalculation }) => {
+const ESApprovedApplicationListComponent = ({
+  applications,
+  recalculation,
+  currentPage,
+  totalPages,
+  firstPage,
+  prevPage,
+  lastPage,
+  nextPage,
+}) => {
   let table = (
     <div className="col-12 mt-3">
-      <table id="groupTable" className="table col-12">
+      <div className="pb-5">
+        <button type="submit" className="btn btn-main float-right" onClick={recalculation}>
+          Perrūšiuoti prašymus
+        </button>
+      </div>
+      <table id="groupTable" className="table col-12 pt-4">
         <thead>
           <tr>
             {/* <th scope='col' style={{ width: "30px" }}>#</th> */}
@@ -65,10 +79,39 @@ const ESApprovedApplicationListComponent = ({ applications, recalculation }) => 
           )}
         </tbody>
       </table>
-      <div className="pb-5">
-        <button type="submit" className="btn btn-yellow float-right" onClick={recalculation}>
-          Perūšiuoti prašymus
-        </button>
+
+      <div className="btn-toolbar pt-5" role="toolbar" aria-label="Toolbar with button groups">
+        <div className="btn-group mr-2" role="group" aria-label="First group">
+          <div>
+            <div style={{ float: "left" }}>
+              Rodoma {currentPage} iš {totalPages} puslapių
+            </div>
+            <div style={{ float: "right" }}></div>
+          </div>
+        </div>
+        <div className="btn-group mr-2" role="group" aria-label="First group">
+          <button type="button mr-2" className="btn btn-main " onClick={firstPage}>
+            Pirmas
+          </button>
+        </div>
+
+        <div className="btn-group mr-2" role="group" aria-label="Second group">
+          <button type="button mr-2" className="btn btn-main " onClick={prevPage}>
+            &lt;&lt;
+          </button>
+        </div>
+
+        <div className="btn-group mr-2" role="group" aria-label="Second group">
+          <button type="button mr-2" className="btn btn-main " onClick={nextPage}>
+            &gt;&gt;
+          </button>
+        </div>
+
+        <div className="btn-group mr-2" role="group" aria-label="Second group">
+          <button type="button" className="btn btn-main" onClick={lastPage}>
+            Paskutinis
+          </button>
+        </div>
       </div>
     </div>
   );
