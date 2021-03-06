@@ -7,6 +7,7 @@ import axios from "axios";
 import baseUrl from "../../AppConfig";
 import { useHistory } from "react-router";
 import urls from '../../constants/urls'
+import { logout } from "../../utils/utils";
 
 const HeaderComponent = ({ userRole }) => {
   let history = useHistory();
@@ -36,6 +37,7 @@ const HeaderComponent = ({ userRole }) => {
     axios
       .get(`${baseUrl}/logout`)
       .then(() => {
+        logout();
         setNameShow("");
         history.push("/");
       })

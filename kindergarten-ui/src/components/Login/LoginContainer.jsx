@@ -6,6 +6,7 @@ import baseUrl from "../../AppConfig";
 import urls from "../../constants/urls";
 import loginLogo from "../../image/loginLogo.png";
 import "../../styles/login-logo.css";
+import { login } from "../../utils/utils";
 
 axios.defaults.withCredentials = true;
 
@@ -88,6 +89,7 @@ class LoginContainer extends Component {
       axios
         .post(`${baseUrl}/login`, userData, { headers: { "Content-type": "application/x-www-form-urlencoded" } })
         .then(() => {
+          login();
           axios
             .get(`${baseUrl}/loggedRole`)
             .then((res) => {
@@ -96,7 +98,6 @@ class LoginContainer extends Component {
                 axios
                   .get(`${baseUrl}/loggedWithDetails`)
                   .then((res) => {
-                    console.log(res.data);
                     this.setState({ hasDetails: res.data });
                   })
                   .then(() => this.checkLoggedIn())
