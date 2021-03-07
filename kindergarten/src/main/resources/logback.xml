@@ -12,6 +12,13 @@
     </appender>
 
     <appender name="USER_EVENTS" class="ch.qos.logback.classic.db.DBAppender">
+        <filter class="ch.qos.logback.core.filter.EvaluatorFilter">
+            <evaluator class="ch.qos.logback.classic.boolex.OnMarkerEvaluator">
+                <marker>USER_EVENT</marker>
+            </evaluator>
+            <onMismatch>DENY</onMismatch>
+            <onMatch>ACCEPT</onMatch>
+        </filter>
         <connectionSource class="ch.qos.logback.core.db.DriverManagerConnectionSource">
             <driverClass>${spring.datasource.driverClassName}</driverClass>
             <url>${spring.datasource.url}</url>
@@ -22,6 +29,26 @@
 
     <logger name="lt.vtmc.kindergarten.controller.UserController" level="info">
         <appender-ref ref="USER_EVENTS" />
+    </logger>
+
+    <appender name="APPLICATION_EVENT" class="ch.qos.logback.classic.db.DBAppender">
+        <filter class="ch.qos.logback.core.filter.EvaluatorFilter">
+            <evaluator class="ch.qos.logback.classic.boolex.OnMarkerEvaluator">
+                <marker>APPLICATION_EVENT</marker>
+            </evaluator>
+            <onMismatch>DENY</onMismatch>
+            <onMatch>ACCEPT</onMatch>
+        </filter>
+        <connectionSource class="ch.qos.logback.core.db.DriverManagerConnectionSource">
+            <driverClass>${spring.datasource.driverClassName}</driverClass>
+            <url>${spring.datasource.url}</url>
+            <user>${spring.datasource.username}</user>
+            <password>${spring.datasource.password}</password>
+        </connectionSource>
+    </appender>
+
+    <logger name="lt.vtmc.kindergarten.controller.ApplicationController" level="info">
+        <appender-ref ref="APPLICATION_EVENT" />
     </logger>
 
     <root level="info">

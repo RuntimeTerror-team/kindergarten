@@ -1,5 +1,6 @@
 package lt.vtmc.kindergarten.controller;
 
+import ch.qos.logback.classic.Logger;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 import lt.vtmc.kindergarten.dto.ApplicationCreationDto;
@@ -8,17 +9,27 @@ import lt.vtmc.kindergarten.dto.ApplicationInfoDto;
 import lt.vtmc.kindergarten.dto.ApplicationAfterDistributionDto;
 import lt.vtmc.kindergarten.service.ApplicationService;
 
+import java.util.Date;
 import java.util.List;
 
 import lt.vtmc.kindergarten.exception.QueueDoesntExistException;
+import org.slf4j.LoggerFactory;
+import org.slf4j.Marker;
+import org.slf4j.MarkerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
 
 @RestController
 public class ApplicationController {
+
+    private Marker applicationEvent = MarkerFactory.getMarker("APPLICATION_EVENT");
+    private static final Logger logger
+            = (Logger) LoggerFactory.getLogger(ApplicationController.class);
 
     @Autowired
     private ApplicationService applicationService;
@@ -31,6 +42,7 @@ public class ApplicationController {
             @RequestBody ApplicationCreationDto applicationCreationDto) {
         try {
             applicationService.addApplication(applicationCreationDto);
+            logger.info(applicationEvent, "User {} created application at {}", getLoggedInUserName(), new Date());
             return new ResponseEntity(HttpStatus.OK);
         } catch (QueueDoesntExistException exception) {
             return new ResponseEntity("Nėra aktyvios eilės priskirti aplikacijai", HttpStatus.FORBIDDEN);
@@ -105,5 +117,10 @@ public class ApplicationController {
 
     public void setApplicationService(ApplicationService applicationService) {
         this.applicationService = applicationService;
+    }
+
+    private String getLoggedInUserName(){
+        Authentication context = SecurityContextHolder.getContext().getAuthentication();
+        return context.getName();
     }
 }

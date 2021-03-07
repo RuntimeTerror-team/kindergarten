@@ -9,6 +9,8 @@ import lt.vtmc.kindergarten.dto.UserDto;
 import lt.vtmc.kindergarten.dto.UserValidateCommandDto;
 import lt.vtmc.kindergarten.service.UserService;
 import org.slf4j.LoggerFactory;
+import org.slf4j.Marker;
+import org.slf4j.MarkerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -22,6 +24,7 @@ import java.util.List;
 @RestController
 @RequestMapping(value = "/api/users")
 public class UserController {
+    private Marker userEvent = MarkerFactory.getMarker("USER_EVENT");
     private static final Logger logger
             = (Logger) LoggerFactory.getLogger(UserController.class);
 
@@ -40,7 +43,7 @@ public class UserController {
     @ApiOperation(value = "Create user", notes = "Creates user with data")
     public void createUser(@ApiParam(value = "User Data", required = true) @Valid @RequestBody UserDto userDto) {
         userService.createUser(userDto);
-        logger.info("User {} with role {} created at {}", userDto.getUsername(), userDto.getRole(), new Date());
+        logger.info(userEvent, "User {} with role {} created at {}", userDto.getUsername(), userDto.getRole(), new Date());
     }
 
     @RequestMapping(path = "/{username}", method = RequestMethod.GET)
@@ -57,7 +60,7 @@ public class UserController {
     @ApiOperation(value = "Create user from admin page", notes = "Creates user with data from admin page")
     public String createUserFromAdmin(@ApiParam(value = "User Data", required = true) @Valid @RequestBody UserDtoFromAdmin userDtoFromAdmin) {
         String user = userService.createUserFromAdmin(userDtoFromAdmin);
-        logger.info("User for person {} {} with role {} created at {}", userDtoFromAdmin.getFirstName(), userDtoFromAdmin.getLastName(), userDtoFromAdmin.getRole(), new Date());
+        logger.info(userEvent, "User for person {} {} with role {} created at {}", userDtoFromAdmin.getFirstName(), userDtoFromAdmin.getLastName(), userDtoFromAdmin.getRole(), new Date());
         return user;
     }
 
@@ -95,6 +98,6 @@ public class UserController {
     @ApiOperation(value ="Change user password")
     public void changePassword(@Valid @RequestBody UserDto userDto){
     	userService.changePassword(userDto);
-        logger.info("User {} with role {} password changed at {}", userDto.getUsername(), userDto.getRole(), new Date());
+        logger.info(userEvent,"User {} with role {} password changed at {}", userDto.getUsername(), userDto.getRole(), new Date());
     }
 }

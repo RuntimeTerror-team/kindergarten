@@ -72,8 +72,8 @@ public class CommandLineAppStartupRunner implements CommandLineRunner {
 
 
             //Jonukas
-            dataSeeder.createApplication("39004180111", "52001180332", "19555587", "19555888",
-                    false, false, true, true);
+//            dataSeeder.createApplication("39004180111", "52001180332", "19555587", "19555888",
+//                    false, false, true, true);
             //Maryte
             dataSeeder.createApplication("39004180111", "62002221111", "19555587", "19555888",
                     false, false, true, false);
