@@ -99,3 +99,8 @@ body {
     position: relative;
     /* padding-bottom: 50px; */
 }
+
+.page-name {
+    color: #39ADB4;
+    font-family: 'Merriweather', serif;
+}

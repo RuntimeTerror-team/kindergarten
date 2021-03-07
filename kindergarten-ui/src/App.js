@@ -25,6 +25,9 @@ import EsQueueListContainer from './components/EsQueueList/EsQueueListContainer'
 import HealthFormListContainer from './components/HealthFormList/HealthFormListContainer';
 import PrivateRoute from './components/Route/PrivateRoute';
 import PublicRoute from './components/Route/PublicRoute';
+import "./styles/app.css";
+
+import AdminUserFormContainer2 from './components/AdminPage2/AdminUserFormContainer2';
 
 function App(props) {
   return (
@@ -32,6 +35,7 @@ function App(props) {
       <Switch>
         <PublicRoute restricted={false} exact path='/' component={LoginContainer} />
         <PrivateRoute userRole="ROLE_ADMIN" exact path={`${urls.admin.userBase}`} component={AdminUserFormContainer} />
+        <PrivateRoute userRole="ROLE_ADMIN" exact path={`${urls.admin.userBase}2`} component={AdminUserFormContainer2} />
         <PrivateRoute userRole="ROLE_ADMIN" exact path={`${urls.admin.districtBase}`} component={AdminDistrictFormContainer} />
         <PrivateRoute userRole="ROLE_ADMIN" exact path={`${urls.admin.queueBase}`} component={QueueListContainer} />
         <PrivateRoute userRole="ROLE_EDUCATION_SPECIALIST" exact path={`${urls.educationSpecialist.kindergartenBase}`} component={KindergartenAdministrationContainer} />
