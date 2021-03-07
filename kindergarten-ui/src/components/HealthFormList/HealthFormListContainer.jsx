@@ -32,8 +32,6 @@ class HealthFormListContainer extends Component {
                     .catch(e => console.log(e))
             })
             .catch(e => console.log(e))
-
-
     }
 
     updateForms = (username) => {
@@ -42,7 +40,6 @@ class HealthFormListContainer extends Component {
             .get(`${baseUrl}/api/health-forms/family/${username}`)
             .then((res) => {
                 this.setState({ familyFiles: res.data })
-                console.log(res);
             })
             .catch((err) => {
                 console.log(err);

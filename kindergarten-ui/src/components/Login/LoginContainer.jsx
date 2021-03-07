@@ -6,6 +6,7 @@ import baseUrl from "../../AppConfig";
 import urls from "../../constants/urls";
 import loginLogo from "../../image/loginLogo.png";
 import "../../styles/login-logo.css";
+import { login } from "../../utils/utils";
 
 axios.defaults.withCredentials = true;
 
@@ -91,12 +92,12 @@ class LoginContainer extends Component {
           axios
             .get(`${baseUrl}/loggedRole`)
             .then((res) => {
+              login(res.data);
               this.setState({ userRole: res.data });
               if (res.data === "ROLE_GUARDIAN") {
                 axios
                   .get(`${baseUrl}/loggedWithDetails`)
                   .then((res) => {
-                    console.log(res.data);
                     this.setState({ hasDetails: res.data });
                   })
                   .then(() => this.checkLoggedIn())
