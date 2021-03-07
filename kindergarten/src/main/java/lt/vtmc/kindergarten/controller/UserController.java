@@ -3,7 +3,6 @@ package lt.vtmc.kindergarten.controller;
 import ch.qos.logback.classic.Logger;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
-import lt.vtmc.kindergarten.KindergartenApplication;
 import lt.vtmc.kindergarten.dto.UserDetailsDto;
 import lt.vtmc.kindergarten.dto.UserDtoFromAdmin;
 import lt.vtmc.kindergarten.dto.UserDto;
