@@ -6,25 +6,30 @@ import org.openqa.selenium.support.FindBy;
 
 public class SpecialistPage extends AbstractPage {
 
-	// text
-	@FindBy(xpath = "//*[@id=\"root\"]/div/div/div/div[1]/div/div[2]/p/strong")
-	public WebElement specialistLoginText;
+    // text
+    @FindBy(xpath = "//*[@id=\"root\"]/div/div/div/div[1]/div/div[2]/p/strong")
+    public WebElement specialistLoginText;
 
-	// button
-	@FindBy(xpath = "//*[@id=\"root\"]/div/div/div/div[1]/div/div[2]/button")
-	public WebElement buttonSpecialistLogout;
+    // button
+    @FindBy(xpath = "//*[@id=\"root\"]/div/div/div/div[1]/div/div[2]/button")
+    public WebElement buttonSpecialistLogout;
 
-	public SpecialistPage(WebDriver driver) {
-		super(driver);
-		// TODO Auto-generated constructor stub
-	}
+    @FindBy(xpath = "//*[@id=\"root\"]/div/div/div/div[2]/div/nav/a[2]")
+	public  WebElement buttonAgeGroupCreation;
 
-	public String findSpecialistLoginText() {
-		return specialistLoginText.getText();
-	}
+    public SpecialistPage(WebDriver driver) {
+        super(driver);
+        // TODO Auto-generated constructor stub
+    }
 
-	public void clickSpecialistLogoutButton() {
-		buttonSpecialistLogout.click();
+    public String findSpecialistLoginText() {
+        return specialistLoginText.getText();
+    }
 
-	}
+    public void clickSpecialistLogoutButton() {
+        buttonSpecialistLogout.click();
+    }
+public void clickAgeGroupCreationButton(){
+    	buttonAgeGroupCreation.click();
+}
 }
