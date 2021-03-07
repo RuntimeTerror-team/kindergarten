@@ -89,10 +89,10 @@ class LoginContainer extends Component {
       axios
         .post(`${baseUrl}/login`, userData, { headers: { "Content-type": "application/x-www-form-urlencoded" } })
         .then(() => {
-          login();
           axios
             .get(`${baseUrl}/loggedRole`)
             .then((res) => {
+              login(res.data);
               this.setState({ userRole: res.data });
               if (res.data === "ROLE_GUARDIAN") {
                 axios

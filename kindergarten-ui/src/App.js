@@ -1,5 +1,5 @@
 import React from 'react';
-import { Route, Switch } from 'react-router-dom';
+import { Switch } from 'react-router-dom';
 import LoginContainer from './components/Login/LoginContainer';
 import GuardianPageContainer from './components/GuardianPage/GuardianPageContainer';
 import ApplicationContainer from './components/ApplicationForm/ApplicationContainer'
@@ -31,29 +31,29 @@ function App(props) {
     <div>
       <Switch>
         <PublicRoute restricted={false} exact path='/' component={LoginContainer} />
-        <PublicRoute restricted={true} exact path={`${urls.admin.userBase}`} component={AdminUserFormContainer} />
-        <PrivateRoute exact path={`${urls.admin.districtBase}`} component={AdminDistrictFormContainer} />
-        <PrivateRoute exact path={`${urls.admin.queueBase}`} component={QueueListContainer} />
-        <PrivateRoute exact path={`${urls.educationSpecialist.kindergartenBase}`} component={KindergartenAdministrationContainer} />
-        <PrivateRoute exact path={`${urls.educationSpecialist.kindergartenBase}/new`} component={KindergartenCreationFormContainer} />
-        <PrivateRoute exact path={`${urls.educationSpecialist.kindergartenBase}/:id`} component={KindergartenInfoFormContainer} />
-        <PrivateRoute exact path={`${urls.educationSpecialist.kindergartenBase}/:id/groups`} component={GroupInfoContainer} />
-        <PrivateRoute exact path={`${urls.educationSpecialist.kindergartenBase}/:id/groups/new`} component={GroupCreationFormContainer} />
-        <PrivateRoute exact path={`${urls.educationSpecialist.kindergartenBase}/:id/groups/:groupId`} component={GroupCreationFormContainer} />
-        <PrivateRoute exact path={`${urls.educationSpecialist.ageRangeBase}`} component={AgeRangeFormContainer} />
-        <PrivateRoute exact path={`${urls.educationSpecialist.queueBase}`} component={EsQueueListContainer} />
-        <PrivateRoute exact path={`${urls.educationSpecialist.applicationsBase}`} component={ESApprovedApplicationListContainer} />
-        <PrivateRoute exact path={`${urls.educationSpecialist.queueBase}/passwordChange`} component={PasswordChangeESContainer} />
-        <PrivateRoute exact path={`${urls.guardian.applicationBase}`} component={GuardianPageContainer} />
-        <PrivateRoute exact path={`${urls.guardian.applicationBase}/new`} component={ApplicationContainer} />
-        <PrivateRoute exact path={`${urls.guardian.applicationBase}/passwordChange`} component={PasswordChangeContainer} />
-        <PrivateRoute exact path={`${urls.guardian.primaryDataBase}`} component={GuardianPrimaryDataFormContainer} />
-        <PrivateRoute exact path={`${urls.guardian.healthFormBase}`} component={HealthFormListContainer} />
-        <Route exact path='/not-authorized' component={NotAuthorized} />
-        <Route exact path='/forbidden' component={Forbidden} />
-        <Route exact path='/error' component={Error} />
-        <Route path='*' component={NoMatchComponent} />
-        <Route component={NoMatchComponent} />
+        <PrivateRoute userRole="ROLE_ADMIN" exact path={`${urls.admin.userBase}`} component={AdminUserFormContainer} />
+        <PrivateRoute userRole="ROLE_ADMIN" exact path={`${urls.admin.districtBase}`} component={AdminDistrictFormContainer} />
+        <PrivateRoute userRole="ROLE_ADMIN" exact path={`${urls.admin.queueBase}`} component={QueueListContainer} />
+        <PrivateRoute userRole="ROLE_EDUCATION_SPECIALIST" exact path={`${urls.educationSpecialist.kindergartenBase}`} component={KindergartenAdministrationContainer} />
+        <PrivateRoute userRole="ROLE_EDUCATION_SPECIALIST" exact path={`${urls.educationSpecialist.kindergartenBase}/new`} component={KindergartenCreationFormContainer} />
+        <PrivateRoute userRole="ROLE_EDUCATION_SPECIALIST" exact path={`${urls.educationSpecialist.kindergartenBase}/:id`} component={KindergartenInfoFormContainer} />
+        <PrivateRoute userRole="ROLE_EDUCATION_SPECIALIST" exact path={`${urls.educationSpecialist.kindergartenBase}/:id/groups`} component={GroupInfoContainer} />
+        <PrivateRoute userRole="ROLE_EDUCATION_SPECIALIST" exact path={`${urls.educationSpecialist.kindergartenBase}/:id/groups/new`} component={GroupCreationFormContainer} />
+        <PrivateRoute userRole="ROLE_EDUCATION_SPECIALIST" exact path={`${urls.educationSpecialist.kindergartenBase}/:id/groups/:groupId`} component={GroupCreationFormContainer} />
+        <PrivateRoute userRole="ROLE_EDUCATION_SPECIALIST" exact path={`${urls.educationSpecialist.ageRangeBase}`} component={AgeRangeFormContainer} />
+        <PrivateRoute userRole="ROLE_EDUCATION_SPECIALIST" exact path={`${urls.educationSpecialist.queueBase}`} component={EsQueueListContainer} />
+        <PrivateRoute userRole="ROLE_EDUCATION_SPECIALIST" exact path={`${urls.educationSpecialist.applicationsBase}`} component={ESApprovedApplicationListContainer} />
+        <PrivateRoute userRole="ROLE_EDUCATION_SPECIALIST" exact path={`${urls.educationSpecialist.queueBase}/passwordChange`} component={PasswordChangeESContainer} />
+        <PrivateRoute userRole="ROLE_GUARDIAN" exact path={`${urls.guardian.applicationBase}`} component={GuardianPageContainer} />
+        <PrivateRoute userRole="ROLE_GUARDIAN" exact path={`${urls.guardian.applicationBase}/new`} component={ApplicationContainer} />
+        <PrivateRoute userRole="ROLE_GUARDIAN" exact path={`${urls.guardian.applicationBase}/passwordChange`} component={PasswordChangeContainer} />
+        <PrivateRoute userRole="ROLE_GUARDIAN" exact path={`${urls.guardian.primaryDataBase}`} component={GuardianPrimaryDataFormContainer} />
+        <PrivateRoute userRole="ROLE_GUARDIAN" exact path={`${urls.guardian.healthFormBase}`} component={HealthFormListContainer} />
+        <PublicRoute restricted={false} exact path='/not-authorized' component={NotAuthorized} />
+        <PublicRoute restricted={false} exact path='/forbidden' component={Forbidden} />
+        <PublicRoute restricted={false} exact path='/error' component={Error} />
+        <PublicRoute restricted={false} path='*' component={NoMatchComponent} />
+        <PublicRoute restricted={false} component={NoMatchComponent} />
       </Switch>
       {props.children}
     </div>
