@@ -1,9 +1,6 @@
 package lt.vtmc.kindergarten.service;
 
-import lt.vtmc.kindergarten.dto.LoggingDto;
 import org.springframework.beans.factory.annotation.Autowired;
-
-import org.springframework.stereotype.Repository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -18,15 +15,9 @@ public class LoggingService {
     @Autowired
     private EntityManager entityManager;
 
-
-
-//    @Transactional
-//    public List getLogs(){
-//
-//        List logs = entityManager.createNativeQuery("SELECT formatted_message FROM logging_event").getResultList();
-//        List<LoggingDto> logsss = logs.stream().map(message -> {
-//            return new LoggingDto(message).getLoggingMessage();
-//        });
-//        return logsss;
-//    }
+    @Transactional
+    public List<String> getLogs(){
+        List<String> logs = (List<String>) entityManager.createNativeQuery("SELECT formatted_message FROM logging_event").getResultList().stream().map(log -> (String) log).collect(Collectors.toList());
+        return logs;
+    }
 }

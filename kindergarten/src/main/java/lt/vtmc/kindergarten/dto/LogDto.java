@@ -1,14 +1,14 @@
 package lt.vtmc.kindergarten.dto;
 
-public class LoggingDto {
+public class LogDto {
 
     private String loggingMessage;
 
-    public LoggingDto(String loggingMessage) {
+    public LogDto(String loggingMessage) {
         this.loggingMessage = loggingMessage;
     }
 
-    public LoggingDto() {
+    public LogDto() {
 
     }
 
