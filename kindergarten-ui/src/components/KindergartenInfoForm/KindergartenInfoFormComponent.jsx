@@ -46,7 +46,6 @@ const KindergartenInfoFormComponent = ({
           label="Įmonės kodas"
           mandatory={true}
           type="number"
-          error={errors.companyCode}
           placeholder="Pvz.: 123456789"
           onChange={handleChange}
           errorMessage="Šis laukas privalomas. Įmonės kodo ilgis turi būti 7 arba 9 skaitmenų."
@@ -70,43 +69,28 @@ const KindergartenInfoFormComponent = ({
           invalidStyle={invalidStyle}
           disabled={isDisabled}
         />
-        {isDisabled
-          ?
-          <Input
+        <div className="form-group row">
+          <label htmlFor="district" className="col-3 pt-2 text-right">
+            Rajonas {!isDisabled && <span className="mandatory">*</span>}
+          </label>
+          <select
+            id="district"
+            className={`form-control ${inputStyle} ${errors.district}`}
             name="district"
-            value={district.title}
-            label="Rajonas"
-            mandatory={true}
-            type={type}
-            error={errors.district}
-            onChange={handleChange}
-            errorMessage="Šis laukas privalomas. Adreso ilgis turi būti 8-50 ženklų."
-            labelStyle={labelStyle}
-            inputStyle={inputStyle}
-            invalidStyle={invalidStyle}
             disabled={isDisabled}
-          />
-          : <div className="form-group row">
-            <label htmlFor="district" className="col-3 pt-2 text-right">
-              Rajonas <span className="mandatory">*</span>
-            </label>
-            <select
-              id="district"
-              className={`form-control ${inputStyle} ${errors.district}`}
-              name="district"
-              onChange={handleChange}>
-              <option>{district.title}</option>
-              {districts.filter(dis => dis.title !== district.title).map(dis => {
-                return (
-                  <option key={dis.id} value={`${dis.title}+${dis.id}`}>
-                    {dis.title}
-                  </option>
+            onChange={handleChange}>
+            <option>{district.title}</option>
+            {districts.filter(dis => dis.title !== district.title).map(dis => {
+              return (
+                <option key={dis.id} value={`${dis.title}+${dis.id}`}>
+                  {dis.title}
+                </option>
 
-                );
-              })}
-            </select>
-            <div className={`invalid-feedback ${invalidStyle}`}>Šis laukas privalomas. Pasirinkite rajoną.</div>
-          </div>}
+              );
+            })}
+          </select>
+          <div className={`invalid-feedback ${invalidStyle}`}>Šis laukas privalomas. Pasirinkite rajoną.</div>
+        </div>
         <div className="form-group row">
           <label htmlFor="city" className="col-3 pt-2 text-right">
             Miestas
@@ -185,15 +169,13 @@ const KindergartenInfoFormComponent = ({
           </div>}
         </div>
       </form>
-      {
-        isDisabled
-          ? <button type="button" className="btn btn-green float-right ml-2" onClick={toggleDisabled} >
-            Redaguoti
+      {isDisabled
+        ? <button type="button" className="btn btn-green float-right ml-2" onClick={toggleDisabled} >
+          Redaguoti
       </button>
-          : <button type="submit" className="btn btn-green float-right ml-2" onClick={handleSubmit}>
-            Išsaugoti
-    </button>
-      }
+        : <button type="submit" className="btn btn-green float-right ml-2" onClick={handleSubmit}>
+          Išsaugoti
+    </button>}
       <Link className="btn btn-warning float-right" to={`${urls.educationSpecialist.kindergartenBase}`}>
         Grįžti į darželių sąrašą
       </Link>

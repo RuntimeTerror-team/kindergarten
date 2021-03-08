@@ -23,7 +23,15 @@ class KindergartenInfoFormContainer extends Component {
                 website: "",
                 id: ""
             },
-            errors: {},
+            errors: {
+                title: "",
+                address: "",
+                district: "",
+                postalCode: "",
+                phoneNumber: "",
+                email: "",
+                website: ""
+            },
             message: "",
             messageStyle: "",
             isDisabled: true
@@ -118,22 +126,23 @@ class KindergartenInfoFormContainer extends Component {
         const errors = {};
 
         const { kindergarten } = this.state;
-        if (kindergarten.title.trim() === '')
+        if (kindergarten.title.trim() === ''
+            || kindergarten.title.trim().length < 8
+            || kindergarten.title.trim().length > 35)
             errors.title = "is-invalid"
-
-        if (kindergarten.companyCode.trim() === '')
-            errors.companyCode = "is-invalid"
 
         if (kindergarten.district === '' || kindergarten.district === 'Pasirinkti...')
             errors.district = "is-invalid"
 
-        if (kindergarten.address.trim() === '')
+        if (kindergarten.address.trim() === ''
+            || kindergarten.address.trim().length < 8
+            || kindergarten.address.trim().length > 50)
             errors.address = "is-invalid"
 
-        if (kindergarten.postalCode.trim() === '')
+        if (kindergarten.postalCode.trim() === '' || kindergarten.postalCode.trim().length !== 5)
             errors.postalCode = "is-invalid"
 
-        if (kindergarten.phoneNumber.trim() === '')
+        if (kindergarten.phoneNumber.trim() === '' || kindergarten.phoneNumber.trim().length !== 8)
             errors.phoneNumber = "is-invalid"
 
         const reEmail = /^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/g;
