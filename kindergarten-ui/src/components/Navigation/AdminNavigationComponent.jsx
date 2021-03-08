@@ -19,6 +19,9 @@ const AdminNavigationComponent = () => {
                 <Link to={`${urls.admin.districtBase}`}
                     className={`${window.location.pathname === `/kindergarten${urls.admin.districtBase}` ? "active" : ""} left-nav-link`}>
                     Rajonų administravimas</Link>
+                <Link to={`${urls.admin.permissionsBase}`}
+                    className={`${window.location.pathname === `/kindergarten${urls.admin.permissionsBase}` ? "active" : ""} left-nav-link`}>
+                    Leidimų suteikimas</Link>
                 <Link to={`${urls.admin.queueBase}`}
                     className={`${window.location.pathname === `/kindergarten${urls.admin.queueBase}` ? "active" : ""} left-nav-link`}>
                     Eilių administravimas </Link>

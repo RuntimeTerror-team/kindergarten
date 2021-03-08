@@ -113,3 +113,8 @@ body {
 .btn-text:hover {
     color: #4285F4;
 }
+
+.table-text {
+    font-size: 1.25rem;
+    text-transform: uppercase;
+}
