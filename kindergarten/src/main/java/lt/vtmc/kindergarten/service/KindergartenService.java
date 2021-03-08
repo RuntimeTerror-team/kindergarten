@@ -66,6 +66,7 @@ public class KindergartenService {
         kindergarten.setEmail(kindergartenDto.getEmail());
         kindergarten.setCompanyCode(kindergartenDto.getCompanyCode());
         kindergarten.setDistrict(kindergartenDto.getDistrict());
+        kindergarten.setWebsite(kindergartenDto.getWebsite());
 
         kindergartenDao.save(kindergarten);
     }

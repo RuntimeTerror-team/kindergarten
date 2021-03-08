@@ -23,7 +23,15 @@ class KindergartenInfoFormContainer extends Component {
                 website: "",
                 id: ""
             },
-            errors: {},
+            errors: {
+                title: "",
+                address: "",
+                district: "",
+                postalCode: "",
+                phoneNumber: "",
+                email: "",
+                website: ""
+            },
             message: "",
             messageStyle: "",
             isDisabled: true
@@ -82,7 +90,7 @@ class KindergartenInfoFormContainer extends Component {
         }
 
         if (name === "address") {
-            if (value.trim().length < 8 && value.trim().length > 50)
+            if (value.trim().length < 8 || value.trim().length > 50)
                 return "is-invalid";
         }
 
@@ -116,26 +124,36 @@ class KindergartenInfoFormContainer extends Component {
 
     validate = () => {
         const errors = {};
+        const reEmail = /^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/g;
+        const reWebsite = /^((https?):\/\/)?([w|W]{3}\.)+[a-zA-Z0-9\-.]{3,}\.[a-zA-Z]{2,}(\.[a-zA-Z]{2,})?$/;
 
         const { kindergarten } = this.state;
-        if (kindergarten.title.trim() === '')
+        if (kindergarten.title.trim() === ''
+            || kindergarten.title.trim().length < 8
+            || kindergarten.title.trim().length > 35)
             errors.title = "is-invalid"
-
-        if (kindergarten.companyCode.trim() === '')
-            errors.companyCode = "is-invalid"
 
         if (kindergarten.district === '' || kindergarten.district === 'Pasirinkti...')
             errors.district = "is-invalid"
 
-        if (kindergarten.address.trim() === '')
+        if (kindergarten.address.trim() === ''
+            || kindergarten.address.trim().length < 8
+            || kindergarten.address.trim().length > 50)
             errors.address = "is-invalid"
 
-        if (kindergarten.postalCode.trim() === '')
+        if (kindergarten.postalCode.trim() === '' || kindergarten.postalCode.trim().length !== 5)
             errors.postalCode = "is-invalid"
 
-        if (kindergarten.phoneNumber.trim() === '')
+        if (kindergarten.phoneNumber.trim() === '' || kindergarten.phoneNumber.trim().length !== 8)
             errors.phoneNumber = "is-invalid"
 
+        if (!reEmail.test(kindergarten.email.trim()) && kindergarten.email.trim() !== "")
+            errors.email = "is-invalid";
+
+        if (!reWebsite.test(kindergarten.website.trim()) && kindergarten.website.trim() !== "")
+            errors.website = "is-invalid";
+
+        console.log(errors);
         return Object.keys(errors).length === 0 ? null : errors;
     }
 
@@ -155,6 +173,7 @@ class KindergartenInfoFormContainer extends Component {
 
         const errors = this.validate();
         this.setState({ errors: errors || {} });
+
         if (errors) {
             this.setState({ message: "Darželio informacijos atnaujinti nepavyko. Pasitikrinkite duomenis." })
             this.setState({ messageStyle: "alert alert-danger" })
