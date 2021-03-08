@@ -5,14 +5,21 @@ import ESNavigationComponent from "../Navigation/ESNavigationComponent";
 import HeaderComponent from "../Header/HeaderComponent";
 import ESApprovedApplicationListComponent from "./ESApprovedApplicationListComponent";
 import Footer from "../Footer/Footer";
+import positions from "../../constants/positions";
 
 class ESApprovedApplicationListContainer extends Component {
   constructor(props) {
     super(props);
     this.state = {
       applications: [],
+
       currentPage: 1,
       applicationsPerPage: 2,
+
+      queues: [],
+      queueStatus: "",
+      permission: false,
+      changeStatus: "",
     };
   }
 
@@ -31,6 +38,21 @@ class ESApprovedApplicationListContainer extends Component {
           currentPage: res.data.number + 1,
         });
         this.translateStatus();
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+
+    Axios.get(`${baseUrl}/api/queues`)
+      .then((res) => {
+        this.setState({ queues: res.data });
+        this.setState({ queueStatus: this.state.queues[0].status });
+      })
+      .catch((err) => console.log(err));
+
+    Axios.get(baseUrl + "/api/users/ES/permission")
+      .then((res) => {
+        this.setState({ permission: res.data });
       })
       .catch((err) => {
         console.log(err);
@@ -99,16 +121,35 @@ class ESApprovedApplicationListContainer extends Component {
     });
   };
 
+  handleStatusChange = (e) => {
+    let child = e.target.value.split(",");
+    console.log("firstName:" + child[0]);
+    console.log("lastName: " + child[1]);
+
+    Axios.put(baseUrl + "/api/applications/" + child[0] + "/" + child[1] + "/REJECTED")
+      .then(
+        Axios.get(baseUrl + "/api/applications/sorted")
+          .then((res) => {
+            this.setState({ applications: res.data });
+            this.translateStatus();
+          })
+          .catch((err) => {
+            console.log(err);
+          })
+      )
+      .catch((e) => console.log(e));
+  };
+
   render() {
     const { applications, currentPage, totalPages } = this.state;
 
     return (
       <div className="footerBottom">
         <HeaderComponent userRole="ROLE_EDUCATION_SPECIALIST" />
-        <div className="container py-4">
+        <div className={`${positions.bodyContainer}`}>
           <div className="row">
             <ESNavigationComponent />
-            <div className="col-8">
+            <div className={`${positions.userPagePosition}`}>
               <h1 className="mb-5 text-center">Prašymai</h1>
               <ESApprovedApplicationListComponent
                 applications={applications}
@@ -119,6 +160,10 @@ class ESApprovedApplicationListContainer extends Component {
                 prevPage={this.prevPage}
                 lastPage={this.lastPage}
                 nextPage={this.nextPage}
+                queueStatus={this.state.queueStatus}
+                permission={this.state.permission}
+                changeStatus={this.state.changeStatus}
+                onStatusChange={this.handleStatusChange}
               />
             </div>
           </div>

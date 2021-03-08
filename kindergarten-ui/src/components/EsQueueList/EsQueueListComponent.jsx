@@ -17,7 +17,7 @@ const EsQueueListComponent = ({
     const { registrationClosingDt } = queue;
     return (
         <div className="col-12 clearfix mb-3">
-            <table className="table col-12 mt-3 fixedTable text-center">
+            <table className="table offset-1 col-10 mt-3 fixedTable">
                 <thead>
                     <tr>
                         <th scope="col" style={{ width: "30px" }}>

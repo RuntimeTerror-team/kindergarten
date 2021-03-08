@@ -12,6 +12,9 @@ const ESApprovedApplicationListComponent = ({
   prevPage,
   lastPage,
   nextPage,
+  queueStatus,
+  permission,
+  onStatusChange,
 }) => {
   let table = (
     <div className="col-12 mt-3">
@@ -37,6 +40,7 @@ const ESApprovedApplicationListComponent = ({
             <th scope="col" style={{ width: "115px" }}>
               Laukimo Nr
             </th>
+            {permission && queueStatus === "LOCKED" ? <th scope="col"></th> : null}
           </tr>
         </thead>
 
@@ -75,6 +79,16 @@ const ESApprovedApplicationListComponent = ({
                   <td>{status}</td>
                   <td>{approvedKindergartenTitle}</td>
                   <td>{waitingNumber}</td>
+                  {permission && queueStatus === "LOCKED" ? (
+                    <td>
+                      <button
+                        className="btn btn-info"
+                        value={childFirstName + "," + childLastName}
+                        onClick={onStatusChange}>
+                        Atšaukti
+                      </button>
+                    </td>
+                  ) : null}
                 </tr>
               );
             }
