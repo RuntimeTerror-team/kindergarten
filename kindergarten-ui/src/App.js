@@ -27,15 +27,12 @@ import PermissionsContainer from './components/Permissions/PermissionsContainer'
 import PrivateRoute from './components/Route/PrivateRoute';
 import PublicRoute from './components/Route/PublicRoute';
 
-import AdminUserFormContainer2 from './components/AdminPage2/AdminUserFormContainer2';
-
 function App(props) {
   return (
     <div>
       <Switch>
         <PublicRoute restricted={false} exact path='/' component={LoginContainer} />
         <PrivateRoute userRole="ROLE_ADMIN" exact path={`${urls.admin.userBase}`} component={AdminUserFormContainer} />
-        <PrivateRoute userRole="ROLE_ADMIN" exact path={`${urls.admin.userBase}2`} component={AdminUserFormContainer2} />
         <PrivateRoute userRole="ROLE_ADMIN" exact path={`${urls.admin.districtBase}`} component={AdminDistrictFormContainer} />
         <PrivateRoute userRole="ROLE_ADMIN" exact path={`${urls.admin.queueBase}`} component={QueueListContainer} />
         <PrivateRoute userRole="ROLE_ADMIN" exact path={`${urls.admin.permissionsBase}`} component={PermissionsContainer} />
