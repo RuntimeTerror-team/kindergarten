@@ -124,6 +124,8 @@ class KindergartenInfoFormContainer extends Component {
 
     validate = () => {
         const errors = {};
+        const reEmail = /^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/g;
+        const reWebsite = /^((https?):\/\/)?([w|W]{3}\.)+[a-zA-Z0-9\-.]{3,}\.[a-zA-Z]{2,}(\.[a-zA-Z]{2,})?$/;
 
         const { kindergarten } = this.state;
         if (kindergarten.title.trim() === ''
@@ -145,15 +147,13 @@ class KindergartenInfoFormContainer extends Component {
         if (kindergarten.phoneNumber.trim() === '' || kindergarten.phoneNumber.trim().length !== 8)
             errors.phoneNumber = "is-invalid"
 
-        const reEmail = /^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/g;
         if (!reEmail.test(kindergarten.email.trim()) && kindergarten.email.trim() !== "")
-            return "is-invalid";
+            errors.email = "is-invalid";
 
-        const reWebsite = /^((https?):\/\/)?([w|W]{3}\.)+[a-zA-Z0-9\-.]{3,}\.[a-zA-Z]{2,}(\.[a-zA-Z]{2,})?$/;
         if (!reWebsite.test(kindergarten.website.trim()) && kindergarten.website.trim() !== "")
-            return "is-invalid";
+            errors.website = "is-invalid";
 
-
+        console.log(errors);
         return Object.keys(errors).length === 0 ? null : errors;
     }
 
