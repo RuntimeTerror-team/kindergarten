@@ -3,12 +3,10 @@ package lt.vtmc.kindergarten.controller;
 import ch.qos.logback.classic.Logger;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
-import lt.vtmc.kindergarten.domain.Application;
 import lt.vtmc.kindergarten.domain.ApplicationAfterDistribution;
 import lt.vtmc.kindergarten.dto.ApplicationCreationDto;
 import lt.vtmc.kindergarten.dto.ApplicationDto;
 import lt.vtmc.kindergarten.dto.ApplicationInfoDto;
-import lt.vtmc.kindergarten.dto.ApplicationAfterDistributionDto;
 import lt.vtmc.kindergarten.service.ApplicationService;
 
 import java.util.Date;
@@ -46,7 +44,7 @@ public class ApplicationController{
             @RequestBody ApplicationCreationDto applicationCreationDto) {
         try {
             applicationService.addApplication(applicationCreationDto);
-            logger.info(applicationEvent, "User {} created application at {}", getLoggedInUserName(), new Date());
+            logger.info(applicationEvent, "Vartotojas {} sukūrė prašymą. Įvykio laikas: {}", getLoggedInUserName(), new Date());
             return new ResponseEntity(HttpStatus.OK);
         } catch (QueueDoesntExistException exception) {
             return new ResponseEntity("Nėra aktyvios eilės priskirti aplikacijai", HttpStatus.FORBIDDEN);
@@ -129,13 +127,6 @@ public class ApplicationController{
         Authentication context = SecurityContextHolder.getContext().getAuthentication();
         return context.getName();
     }
-
-//    @RequestMapping(method = RequestMethod.GET, value = "/api/applications/sorted")
-//    @ApiOperation(value = "Get sorted applications", notes = "Returns all application after distribution")
-//    @ResponseStatus(HttpStatus.OK)
-//    public List<ApplicationAfterDistributionDto> getApplicationsAfterDistribution() {
-//        return applicationService.getApplicationsAfterDistribution();
-//    }
 
     @RequestMapping(method = RequestMethod.GET, value = "/api/applications/sorted")
     @ApiOperation(value = "Get sorted applications", notes = "Returns all application after distribution")

@@ -44,7 +44,7 @@ public class UserController {
     @ApiOperation(value = "Create user", notes = "Creates user with data")
     public void createUser(@ApiParam(value = "User Data", required = true) @Valid @RequestBody UserDto userDto) {
         userService.createUser(userDto);
-        logger.info(userEvent, "User {} with role {} created at {}", userDto.getUsername(), userDto.getRole(), new Date());
+        logger.info(userEvent, "Sukurtas vartotojas. Vartotojo vardas: {}. Vartotojo rolė: {} Sukūrimo laikas {}", userDto.getUsername(), userDto.getRole(), new Date());
     }
 
     @RequestMapping(path = "/{username}", method = RequestMethod.GET)
@@ -61,7 +61,7 @@ public class UserController {
     @ApiOperation(value = "Create user from admin page", notes = "Creates user with data from admin page")
     public String createUserFromAdmin(@ApiParam(value = "User Data", required = true) @Valid @RequestBody UserDtoFromAdmin userDtoFromAdmin) {
         String user = userService.createUserFromAdmin(userDtoFromAdmin);
-        logger.info(userEvent, "User for person {} {} with role {} created at {}", userDtoFromAdmin.getFirstName(), userDtoFromAdmin.getLastName(), userDtoFromAdmin.getRole(), new Date());
+        logger.info(userEvent, "Administratorius sukūrė vartotoją {} {}. Vartotojo rolė: {}. Sukūrimo laikas: {}", userDtoFromAdmin.getFirstName(), userDtoFromAdmin.getLastName(), userDtoFromAdmin.getRole(), new Date());
         return user;
     }
 
@@ -99,7 +99,7 @@ public class UserController {
     @ApiOperation(value ="Change user password")
     public void changePassword(@Valid @RequestBody UserDto userDto){
     	userService.changePassword(userDto);
-        logger.info(userEvent,"User {} with role {} password changed at {}", userDto.getUsername(), userDto.getRole(), new Date());
+        logger.info(userEvent,"Vartotojas {} Vartotojo rolė: {} Pakeitė slaptažodį. Įvykio laikas: {}", userDto.getUsername(), userDto.getRole(), new Date());
     }
     
     @RequestMapping(method = RequestMethod.POST, value = "/ES/permission")
