@@ -1,8 +1,9 @@
-const urls = {
+export const urls = {
     admin: {
         userBase: '/admin/users',
         districtBase: '/admin/districts',
-        queueBase: '/admin/queues'
+        queueBase: '/admin/queues',
+        permissionsBase: '/admin/permission'
     },
     educationSpecialist: {
         kindergartenBase: '/education-specialist/kindergartens',

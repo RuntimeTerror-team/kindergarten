@@ -6,7 +6,7 @@ let AgeRangeFormComponent = (props) => {
   return (
     <div className="row justify-content-center align-items-center">
       <div>
-        <h1 className="mb-4 text-center">Amžiaus grupės sukūrimas</h1>
+        <h1 className="mb-4">Amžiaus grupės sukūrimas</h1>
         <form className="form ageRangeForm" onSubmit={props.onSubmit}>
           <div className="form-group">
             <select
@@ -42,10 +42,10 @@ let AgeRangeFormComponent = (props) => {
             </select>
             <div className="invalid-feedback">Prašome užpildyti amžių iki</div>
           </div>
-          <div className="row">
+          <div className="col-12 text-right">
             <button className="btn btn-green">Sukurti</button>
           </div>
-          <div className="row pt-3">
+          <div className="col-12 pt-3">
             {props.invalidInterval ? (
               <span className="alert alert-danger" style={{ width: "23em" }}>
                 Amžius nuo negali būti lygus arba didesnis už amžių iki

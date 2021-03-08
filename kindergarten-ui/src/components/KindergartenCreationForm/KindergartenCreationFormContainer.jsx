@@ -7,6 +7,7 @@ import ESNavigationComponent from '../Navigation/ESNavigationComponent';
 import HeaderComponent from '../Header/HeaderComponent';
 
 import "../../styles/forms.css";
+import positions from '../../constants/positions';
 
 class KindergartenCreationFormContainer extends Component {
     constructor(props) {
@@ -193,10 +194,10 @@ class KindergartenCreationFormContainer extends Component {
             <div>
                 <div className="footerBottom">
                     <HeaderComponent userRole="ROLE_EDUCATION_SPECIALIST" />
-                    <div className="container py-4">
+                    <div className={`${positions.bodyContainer}`}>
                         <div className="row">
                             <ESNavigationComponent />
-                            <div className="col-8">
+                            <div className={`${positions.userPagePosition}`}>
                                 <h1 className="mb-5 text-center">Pridėti naują darželį</h1>
                                 <KindergartenCreationFormComponent
                                     districts={this.state.districts}

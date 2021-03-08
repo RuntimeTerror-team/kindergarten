@@ -4,7 +4,7 @@ import Proptypes from 'prop-types';
 const ApplicationListComponent = ({ applications }) => {
 
     let table = (
-        <div className="col-12 mt-3">
+        <div className="offset-1 col-10 mt-3">
             <table id="groupTable" className='table col-12'>
                 <thead>
                     <tr>
@@ -36,7 +36,7 @@ const ApplicationListComponent = ({ applications }) => {
         applications.length === 0 ? <h6 className="text-center">Šiuo metu nesate pateikė jokio prašymo</h6> : table
     )
 
-     
+
 }
 
 ApplicationListComponent.propTypes = {

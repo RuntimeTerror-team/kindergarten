@@ -5,6 +5,7 @@ import HeaderComponent from '../Header/HeaderComponent';
 import Footer from '../Footer/Footer';
 import AdminUserFormComponent from './AdminUserFormComponent';
 import AdminNavigationComponent from '../Navigation/AdminNavigationComponent';
+import positions from "../../constants/positions";
 
 class AdminUserFormContainer extends Component {
     constructor() {
@@ -115,10 +116,10 @@ class AdminUserFormContainer extends Component {
             <div>
                 <div className="footerBottom">
                     <HeaderComponent userRole="ROLE_ADMIN" />
-                    <div className="container py-4">
+                    <div className={`${positions.bodyContainer}`}>
                         <div className="row">
                             <AdminNavigationComponent />
-                            <div className="col-8">
+                            <div className={`${positions.userPagePosition}`}>
                                 <h1 className="mb-5 text-center">Paskyrų administravimas</h1>
                                 <AdminUserFormComponent
                                     handleSubmit={this.handleSubmit}

@@ -5,7 +5,7 @@ import urls from '../../constants/urls';
 
 const GroupTableComponent = ({ groups, kindergartenId, buttonStatus }) => {
     return (
-        <div className="col-12 mt-3 text-center">
+        <div className="mx-auto col-10 mt-3">
             <table id="groupTable" className='table col-12'>
                 <thead>
                     <tr>

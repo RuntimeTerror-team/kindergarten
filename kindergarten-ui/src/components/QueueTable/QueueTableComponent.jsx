@@ -2,7 +2,7 @@ import React from 'react';
 
 const QueueTableComponent = ({ queues }) => {
     return (
-        <table className="table col-10 mx-auto mt-3 fixedTable text-center">
+        <table className="table col-10 mt-3 fixedTable">
             <thead>
                 <tr>
                     <th scope="col" style={{ width: "30px" }}>#</th>

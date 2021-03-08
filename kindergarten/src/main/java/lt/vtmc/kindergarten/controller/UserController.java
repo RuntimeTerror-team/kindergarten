@@ -3,6 +3,7 @@ package lt.vtmc.kindergarten.controller;
 import ch.qos.logback.classic.Logger;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
+import lt.vtmc.kindergarten.dto.PermissionForESDto;
 import lt.vtmc.kindergarten.dto.UserDetailsDto;
 import lt.vtmc.kindergarten.dto.UserDtoFromAdmin;
 import lt.vtmc.kindergarten.dto.UserDto;
@@ -99,5 +100,19 @@ public class UserController {
     public void changePassword(@Valid @RequestBody UserDto userDto){
     	userService.changePassword(userDto);
         logger.info(userEvent,"User {} with role {} password changed at {}", userDto.getUsername(), userDto.getRole(), new Date());
+    }
+    
+    @RequestMapping(method = RequestMethod.POST, value = "/ES/permission")
+    @ApiOperation(value = "set ES permission", notes = "set ES permission to edit applications status")
+    @ResponseStatus(HttpStatus.OK)
+    public void setESPermission(@Valid @RequestBody PermissionForESDto permission) {
+    	userService.setESPermision(permission);
+    }
+    
+    @RequestMapping(method = RequestMethod.GET, value = "/ES/permission")
+    @ApiOperation(value = "get ES permission status", notes = "gets ES permissions status")
+    @ResponseStatus(HttpStatus.OK)
+    public boolean getESPermissionStatus() {
+    	return userService.getESPermisionStatus();
     }
 }
