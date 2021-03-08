@@ -8,6 +8,10 @@ public class LoggingDto {
         this.loggingMessage = loggingMessage;
     }
 
+    public LoggingDto() {
+
+    }
+
     public String getLoggingMessage() {
         return loggingMessage;
     }

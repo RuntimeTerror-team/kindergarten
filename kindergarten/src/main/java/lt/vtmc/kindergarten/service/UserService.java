@@ -42,11 +42,6 @@ public class UserService implements UserDetailsService {
     @Autowired
     private PasswordEncoder passwordEncoder;
 
-    @Autowired
-    private EntityManager entityManager;
-
-
-
 
     @Transactional(readOnly = true)
     public List<UserDto> getUsers() {
@@ -283,4 +278,5 @@ public class UserService implements UserDetailsService {
     	return permission.get().getIsAllowed();
     	
     }
+
 }
