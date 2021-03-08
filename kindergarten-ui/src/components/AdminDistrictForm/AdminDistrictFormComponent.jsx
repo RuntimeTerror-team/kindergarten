@@ -37,7 +37,7 @@ const AdminDistrictFormComponent = ({
       </div>
       <div className="row">
         {
-          <span className={props.messageStyle} style={{ width: "23em" }}>
+          <span className={props.messageStyle}>
             {props.requestMessage}
           </span>
         }

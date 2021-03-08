@@ -53,11 +53,11 @@ let AdminUserFormComponent = ({ handleChange, handleSubmit, ...otherProps }) => 
       </div>
       {isCreated && createdUsername.length <= 30 && (
         <div
-          className="alert alert-success mt-4 col-10"
+          className="alert alert-success mt-4 col-12 text-center"
           role="alert">{`Naudotojas sukurtas. Prisijungimo vardas ir slaptažodis: ${createdUsername}`}</div>
       )}
       {isCreated && createdUsername.length > 30 && (
-        <div className="alert alert-warning mt-4 col-10" role="alert">
+        <div className="alert alert-warning mt-4 col-12 text-center" role="alert">
           {createdUsername}
         </div>
       )}
