@@ -31,14 +31,14 @@ const ESApprovedApplicationListComponent = ({
               Balas
             </th>
             <th scope="col">Vaikas</th>
-            <th scope="col">Tėvelis</th>
+            <th scope="col">Vaiko atstovas</th>
             <th scope="col" style={{ width: "115px" }}>
               Data
             </th>
             <th scope="col">Statusas</th>
             <th scope="col">Darželis</th>
             <th scope="col" style={{ width: "115px" }}>
-              Laukimo Nr
+              Laukimo Nr.
             </th>
             {permission && queueStatus === "LOCKED" ? <th scope="col"></th> : null}
           </tr>

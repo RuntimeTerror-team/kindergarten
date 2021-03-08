@@ -93,13 +93,6 @@ public class ApplicationController{
         return applicationService.getApplicationsInfo(username);
     }
 
-//    @RequestMapping(method = RequestMethod.GET, value = "/api/applications/sorted")
-//    @ApiOperation(value = "Get sorted applications", notes = "Returns all application after distribution")
-//    @ResponseStatus(HttpStatus.OK)
-//    public List<ApplicationAfterDistributionDto> getApplicationsAfterDistribution() {
-//        return applicationService.getApplicationsAfterDistribution();
-//    }
-
     @RequestMapping(method = RequestMethod.POST, value = "/api/applications/recalculation")
     @ApiOperation(value = "Trigers applications queuing", notes = "Trigers sorting algorithm and applications are queued again")
     @ResponseStatus(HttpStatus.OK)

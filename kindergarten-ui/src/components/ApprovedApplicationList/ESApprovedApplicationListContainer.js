@@ -121,16 +121,16 @@ class ESApprovedApplicationListContainer extends Component {
     });
   };
 
-  handleStatusChange = (e) => {
+  handleStatusChange = (e, currentPage) => {
     let child = e.target.value.split(",");
     console.log("firstName:" + child[0]);
     console.log("lastName: " + child[1]);
-
+    currentPage -= 1;
     Axios.put(baseUrl + "/api/applications/" + child[0] + "/" + child[1] + "/REJECTED")
       .then(
-        Axios.get(baseUrl + "/api/applications/sorted")
+        Axios.get(baseUrl + "/api/applications/sorted/?page=" + currentPage + "&size=" + this.state.applicationsPerPage)
           .then((res) => {
-            this.setState({ applications: res.data });
+            this.setState({ applications: res.data.content });
             this.translateStatus();
           })
           .catch((err) => {
@@ -142,7 +142,6 @@ class ESApprovedApplicationListContainer extends Component {
 
   render() {
     const { applications, currentPage, totalPages } = this.state;
-
     return (
       <div className="footerBottom">
         <HeaderComponent userRole="ROLE_EDUCATION_SPECIALIST" />
