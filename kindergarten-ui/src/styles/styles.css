@@ -99,3 +99,17 @@ body {
     position: relative;
     /* padding-bottom: 50px; */
 }
+
+.page-name {
+    /* color: #39ADB4; */
+    /* color: #4285F4; */
+    color: #1F2124;
+}
+
+.btn-text {
+    color: #212529;
+}
+
+.btn-text:hover {
+    color: #4285F4;
+}

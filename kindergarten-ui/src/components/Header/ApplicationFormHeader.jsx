@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import Proptypes from "prop-types";
-import logo from "../../image/logo.png";
+import logo from "../../images/logo.png";
 import "../../styles/logo.css";
 import { IoMdExit } from "react-icons/io";
 import axios from "axios";
