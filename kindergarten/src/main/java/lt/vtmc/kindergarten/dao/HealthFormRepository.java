@@ -14,6 +14,7 @@ import java.util.List;
 public interface HealthFormRepository extends JpaRepository<HealthForm, String> {
 
     HealthForm getHealthFormByChildId(Long childId);
+    HealthForm getHealthFormByChild(Person child);
 
     @Query("SELECT h FROM HealthForm h WHERE h.child.id IN :childrenId")
     List<HealthForm> findAllByChildren(List<Long> childrenId);

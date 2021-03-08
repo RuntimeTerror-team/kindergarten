@@ -383,6 +383,16 @@ public class ApplicationService {
 
         applications.stream().forEach(application -> application.setApplicationStatus(ApplicationStatusEnum.SUBMITTED));
     }
+    
+    @Transactional
+    public void changeApplicationStatus(String childFirstName, String childLastName, String status) {
+    	Person child = personDao.findByFirstNameAndLastName(childFirstName, childLastName);
+    	Application application = applicationDao.findApplicationByChild(child);
+    	application.setApplicationStatus(ApplicationStatusEnum.valueOf(status));
+    	ApplicationAfterDistribution applicationDistribution = applicationAfterDistributionDao.
+    			findApplicationByChildFirstNameAndChildLastName(childFirstName, childLastName);
+    	applicationDistribution.setStatus(ApplicationStatusEnum.valueOf(status));   	
+    }
 
 
     /**
