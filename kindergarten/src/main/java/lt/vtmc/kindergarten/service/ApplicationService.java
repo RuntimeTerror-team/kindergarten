@@ -7,6 +7,8 @@ import lt.vtmc.kindergarten.dto.*;
 
 import lt.vtmc.kindergarten.exception.QueueDoesntExistException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -25,7 +27,7 @@ import java.util.stream.Collectors;
 
 @Service
 @Validated
-public class ApplicationService {
+public class ApplicationService implements PagingLimit<ApplicationAfterDistribution>{
     @Autowired
     private ApplicationDao applicationDao;
 
@@ -439,4 +441,9 @@ public class ApplicationService {
         return applications;
     }
 
+
+    @Override
+    public Page<ApplicationAfterDistribution> findAll(Pageable pageable) {
+        return applicationAfterDistributionDao.findAll(pageable);
+    }
 }
