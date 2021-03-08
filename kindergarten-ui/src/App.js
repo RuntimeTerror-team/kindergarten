@@ -23,6 +23,7 @@ import GuardianPrimaryDataFormContainer from './components/GuardianPrimaryDataFo
 import QueueListContainer from './components/QueueList/QueueListContainer';
 import EsQueueListContainer from './components/EsQueueList/EsQueueListContainer';
 import HealthFormListContainer from './components/HealthFormList/HealthFormListContainer';
+import PermissionsContainer from './components/Permissions/PermissionsContainer'
 import PrivateRoute from './components/Route/PrivateRoute';
 import PublicRoute from './components/Route/PublicRoute';
 
@@ -37,6 +38,7 @@ function App(props) {
         <PrivateRoute userRole="ROLE_ADMIN" exact path={`${urls.admin.userBase}2`} component={AdminUserFormContainer2} />
         <PrivateRoute userRole="ROLE_ADMIN" exact path={`${urls.admin.districtBase}`} component={AdminDistrictFormContainer} />
         <PrivateRoute userRole="ROLE_ADMIN" exact path={`${urls.admin.queueBase}`} component={QueueListContainer} />
+        <PrivateRoute userRole="ROLE_ADMIN" exact path={`${urls.admin.permissionsBase}`} component={PermissionsContainer} />
         <PrivateRoute userRole="ROLE_EDUCATION_SPECIALIST" exact path={`${urls.educationSpecialist.kindergartenBase}`} component={KindergartenAdministrationContainer} />
         <PrivateRoute userRole="ROLE_EDUCATION_SPECIALIST" exact path={`${urls.educationSpecialist.kindergartenBase}/new`} component={KindergartenCreationFormContainer} />
         <PrivateRoute userRole="ROLE_EDUCATION_SPECIALIST" exact path={`${urls.educationSpecialist.kindergartenBase}/:id`} component={KindergartenInfoFormContainer} />

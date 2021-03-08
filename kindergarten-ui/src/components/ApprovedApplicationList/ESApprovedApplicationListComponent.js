@@ -1,15 +1,29 @@
 import React from "react";
 import Proptypes from "prop-types";
+import { GrNext } from "react-icons/gr";
+import { GrPrevious } from "react-icons/gr";
 
-const ESApprovedApplicationListComponent = ({ applications, recalculation }) => {
+const ESApprovedApplicationListComponent = ({
+  applications,
+  recalculation,
+  currentPage,
+  totalPages,
+  firstPage,
+  prevPage,
+  lastPage,
+  nextPage,
+  queueStatus,
+  permission,
+  onStatusChange,
+}) => {
   let table = (
     <div className="col-12 mt-3">
       <div className="pb-5">
-        <button type="submit" className="btn btn-yellow float-right" onClick={recalculation}>
-          Perūšiuoti prašymus
+        <button type="submit" className="btn btn-main float-right" onClick={recalculation}>
+          Perrūšiuoti prašymus
         </button>
       </div>
-      <table id="groupTable" className="table col-12">
+      <table id="groupTable" className="table col-12 pt-4">
         <thead>
           <tr>
             {/* <th scope='col' style={{ width: "30px" }}>#</th> */}
@@ -17,15 +31,16 @@ const ESApprovedApplicationListComponent = ({ applications, recalculation }) => 
               Balas
             </th>
             <th scope="col">Vaikas</th>
-            <th scope="col">Tėvelis</th>
+            <th scope="col">Vaiko atstovas</th>
             <th scope="col" style={{ width: "115px" }}>
               Data
             </th>
             <th scope="col">Statusas</th>
             <th scope="col">Darželis</th>
             <th scope="col" style={{ width: "115px" }}>
-              Laukimo Nr
+              Laukimo Nr.
             </th>
+            {permission && queueStatus === "LOCKED" ? <th scope="col"></th> : null}
           </tr>
         </thead>
 
@@ -64,12 +79,56 @@ const ESApprovedApplicationListComponent = ({ applications, recalculation }) => 
                   <td>{status}</td>
                   <td>{approvedKindergartenTitle}</td>
                   <td>{waitingNumber}</td>
+                  {permission && queueStatus === "LOCKED" ? (
+                    <td>
+                      <button
+                        className="btn btn-info"
+                        value={childFirstName + "," + childLastName}
+                        onClick={onStatusChange}>
+                        Atšaukti
+                      </button>
+                    </td>
+                  ) : null}
                 </tr>
               );
             }
           )}
         </tbody>
       </table>
+
+      <div className="float-right btn-toolbar pt-5" role="toolbar" aria-label="Toolbar with button groups">
+        <div className="btn-group mr-2" role="group" aria-label="First group">
+          <div className="pr-3" style={{ color: "#AFAFAF", alignItems: "center" }}>
+            <p>
+              Rodoma {currentPage} iš {totalPages} puslapių{" "}
+            </p>
+          </div>
+        </div>
+
+        <div className="btn-group mr-2" role="group" aria-label="First group">
+          <button type="button mr-2" className="btn btn-main " onClick={firstPage}>
+            Pirmas
+          </button>
+        </div>
+
+        <div className="btn-group mr-2" role="group" aria-label="Second group">
+          <button type="button mr-2" className="btn btn-main " onClick={prevPage}>
+            <GrPrevious />
+          </button>
+        </div>
+
+        <div className="btn-group mr-2" role="group" aria-label="Second group">
+          <button type="button mr-2" className="btn btn-main " onClick={nextPage}>
+            <GrNext />
+          </button>
+        </div>
+
+        <div className="btn-group" role="group" aria-label="Second group">
+          <button type="button" className="btn btn-main" onClick={lastPage}>
+            Paskutinis
+          </button>
+        </div>
+      </div>
     </div>
   );
 
