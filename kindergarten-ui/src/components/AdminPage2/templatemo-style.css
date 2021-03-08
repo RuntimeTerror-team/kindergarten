@@ -329,7 +329,9 @@ footer {
 
 .templatemo-left-nav a.active, .templatemo-left-nav a:hover {
 	background: #18191b;
-	border-left: 8px solid #13895F;
+	/* border-left: 8px solid #13895F; */
+	border-left: 8px solid #4285F4;
+	text-decoration: none;
 }
 
 .templatemo-left-nav a {
@@ -372,7 +374,8 @@ footer {
 }
 
 .templatemo-top-nav a:hover, .templatemo-top-nav a.active, .templatemo-top-nav button:hover {
-	color: #39ADB4;
+	/* color: #39ADB4; */
+	color: #4285F4;
 }
 
 /* Main Content Area */
@@ -596,7 +599,7 @@ footer {
 }
 
 .btn-primary:hover {
-	background-color: #2A858B;
+	background-color: #007AC9;
 }
 
 .templatemo-blue-button, .templatemo-white-button {
@@ -607,13 +610,14 @@ footer {
 }
 
 .templatemo-blue-button {
-	background-color: #39ADB4;
+	/* background-color: #39ADB4; */
+	background-color: #4285F4;
 	border: none;
 	color: white;
 }
 
 .templatemo-blue-button:hover {
-	background-color: #2A858B;
+	background-color: #007AC9;
 }
 
 .templatemo-white-button {
@@ -717,7 +721,8 @@ input[type="radio"]:checked+label span {
 }
 
 .templatemo-user-table thead {
-	background-color: #39ADB4;
+	/* background-color: #39ADB4; */
+	background-color: #4285F4;
 	color: white;
 }
 

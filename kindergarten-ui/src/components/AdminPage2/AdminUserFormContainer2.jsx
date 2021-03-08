@@ -119,7 +119,7 @@ class AdminUserFormContainer extends Component {
                 <div className="templatemo-content col light-gray-bg">
                     <HeaderComponent userRole="ROLE_ADMIN" />
                     <div className="templatemo-content-container">
-                        <h1 className="mb-5 text-center page-name">Paskyrų administravimas</h1>
+                        <h1 className="mb-5 text-center page-name"><strong>Paskyrų administravimas</strong></h1>
                         <AdminUserFormComponent
                             handleSubmit={this.handleSubmit}
                             handleChange={this.handleChange}

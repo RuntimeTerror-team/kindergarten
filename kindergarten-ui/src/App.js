@@ -25,7 +25,6 @@ import EsQueueListContainer from './components/EsQueueList/EsQueueListContainer'
 import HealthFormListContainer from './components/HealthFormList/HealthFormListContainer';
 import PrivateRoute from './components/Route/PrivateRoute';
 import PublicRoute from './components/Route/PublicRoute';
-import "./styles/app.css";
 
 import AdminUserFormContainer2 from './components/AdminPage2/AdminUserFormContainer2';
 

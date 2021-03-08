@@ -15,7 +15,7 @@ const AdminNavigationComponent = () => {
                 <ul>
                     <li>
                         <a href={`${urls.admin.userBase}`}
-                            className={`${window.location.pathname === `/kindergarten${urls.admin.userBase}` ? "btn-active" : ""}`}>
+                            className={`${window.location.pathname === `/kindergarten${urls.admin.userBase}2` ? "active" : ""}`}>
                             Paskyrų administravimas</a>
                     </li>
                     <li>
