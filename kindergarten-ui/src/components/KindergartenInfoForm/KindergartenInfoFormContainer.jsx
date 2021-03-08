@@ -82,7 +82,7 @@ class KindergartenInfoFormContainer extends Component {
         }
 
         if (name === "address") {
-            if (value.trim().length < 8 && value.trim().length > 50)
+            if (value.trim().length < 8 || value.trim().length > 50)
                 return "is-invalid";
         }
 
@@ -136,6 +136,15 @@ class KindergartenInfoFormContainer extends Component {
         if (kindergarten.phoneNumber.trim() === '')
             errors.phoneNumber = "is-invalid"
 
+        const reEmail = /^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/g;
+        if (!reEmail.test(kindergarten.email.trim()) && kindergarten.email.trim() !== "")
+            return "is-invalid";
+
+        const reWebsite = /^((https?):\/\/)?([w|W]{3}\.)+[a-zA-Z0-9\-.]{3,}\.[a-zA-Z]{2,}(\.[a-zA-Z]{2,})?$/;
+        if (!reWebsite.test(kindergarten.website.trim()) && kindergarten.website.trim() !== "")
+            return "is-invalid";
+
+
         return Object.keys(errors).length === 0 ? null : errors;
     }
 
@@ -155,6 +164,7 @@ class KindergartenInfoFormContainer extends Component {
 
         const errors = this.validate();
         this.setState({ errors: errors || {} });
+
         if (errors) {
             this.setState({ message: "Darželio informacijos atnaujinti nepavyko. Pasitikrinkite duomenis." })
             this.setState({ messageStyle: "alert alert-danger" })
