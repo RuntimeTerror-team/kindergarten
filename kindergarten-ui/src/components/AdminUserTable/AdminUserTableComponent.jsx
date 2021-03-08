@@ -3,7 +3,7 @@ import Proptypes from "prop-types";
 
 const AdminUserTableComponent = ({ users }) => {
     return (
-        <div className="templatemo-content-widget no-padding col-12">
+        <div className="templatemo-content-widget no-padding col-12 mb-4">
             <div className="panel panel-default table-responsive">
                 <table className="table table-striped table-bordered templatemo-user-table">
                     <thead>

@@ -200,12 +200,13 @@ footer {
 
 .templatemo-sidebar {
 	width: 300px;
+	min-height: 100vh;
 }
 
 .square {
 	width: 25px;
 	height: 25px;
-	border: 3px solid #13895F;
+	border: 3px solid #4285F4;
 	display: inline-block;
 	vertical-align: middle;
 }
@@ -269,7 +270,7 @@ footer {
 }
 
 .form-control:focus {
-	border-color: #13895F;
+	border-color: #4285F4;
 	outline: 0;
 	box-shadow: inset 0 1px 1px rgba(19, 137, 95, .075), 0 0 8px rgba(19, 137, 95, .6);
 }
@@ -329,7 +330,7 @@ footer {
 
 .templatemo-left-nav a.active, .templatemo-left-nav a:hover {
 	background: #18191b;
-	/* border-left: 8px solid #13895F; */
+	/* border-left: 8px solid #4285F4; */
 	border-left: 8px solid #4285F4;
 	text-decoration: none;
 }
@@ -831,11 +832,11 @@ input[type="radio"]:checked+label span {
 -------------------------------*/
 
 .has-success .checkbox, .has-success .checkbox-inline, .has-success .control-label, .has-success .help-block, .has-success .radio, .has-success .radio-inline, .has-success.checkbox label, .has-success.checkbox-inline label, .has-success.radio label, .has-success.radio-inline label {
-	color: #13895F;
+	color: #4285F4;
 }
 
 .has-success .form-control {
-	border-color: #13895F;
+	border-color: #4285F4;
 }
 
 .has-warning .checkbox, .has-warning .checkbox-inline, .has-warning .control-label, .has-warning .help-block, .has-warning .radio, .has-warning .radio-inline, .has-warning.checkbox label, .has-warning.checkbox-inline label, .has-warning.radio label, .has-warning.radio-inline label {
@@ -869,6 +870,7 @@ input[type="radio"]:checked+label span {
 	}
 	.templatemo-sidebar {
 		width: 250px;
+		min-height: 100vh;
 	}
 	.templatemo-search-form {
 		margin: 20px;
@@ -896,6 +898,7 @@ input[type="radio"]:checked+label span {
 	}
 	.templatemo-sidebar {
 		width: 200px;
+		min-height: 100vh;
 	}
 	.templatemo-site-header h1 {
 		font-size: 1.6em;
@@ -905,7 +908,7 @@ input[type="radio"]:checked+label span {
 		height: 20px;
 	}
 	.templatemo-left-nav a.active, .templatemo-left-nav a:hover {
-		border-left: 6px solid #13895F;
+		border-left: 6px solid #4285F4;
 	}
 	.templatemo-top-nav-container {
 		padding: 17px 30px;
@@ -972,7 +975,7 @@ input[type="radio"]:checked+label span {
 		z-index: 999;
 	}
 	.templatemo-left-nav a.active, .templatemo-left-nav a:hover {
-		border-left: 4px solid #13895F;
+		border-left: 4px solid #4285F4;
 	}
 	.mobile-menu-icon {
 		cursor: pointer;

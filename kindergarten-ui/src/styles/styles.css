@@ -104,3 +104,11 @@ body {
     /* color: #39ADB4; */
     color: #4285F4;
 }
+
+.btn-text {
+    color: #212529;
+}
+
+.btn-text:hover {
+    color: #4285F4;
+}

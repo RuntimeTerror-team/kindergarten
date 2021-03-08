@@ -17,10 +17,10 @@ const AdminNavigationComponent = () => {
                     className={`${window.location.pathname === `/kindergarten${urls.admin.userBase}` ? "active" : ""}`}>
                     Paskyrų administravimas</Link>
                 <Link to={`${urls.admin.districtBase}`}
-                    className={`${window.location.pathname === `/kindergarten${urls.admin.districtBase}` ? "btn-active" : ""}`}>
+                    className={`${window.location.pathname === `/kindergarten${urls.admin.districtBase}` ? "active" : ""}`}>
                     Rajonų administravimas</Link>
                 <Link to={`${urls.admin.queueBase}`}
-                    className={`${window.location.pathname === `/kindergarten${urls.admin.queueBase}` ? "btn-active" : ""}`}>
+                    className={`${window.location.pathname === `/kindergarten${urls.admin.queueBase}` ? "active" : ""}`}>
                     Eilių administravimas </Link>
             </nav>
         </div >

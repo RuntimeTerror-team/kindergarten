@@ -6,8 +6,6 @@ import Footer from '../Footer/Footer';
 import AdminUserFormComponent from './AdminUserFormComponent';
 import AdminNavigationComponent from '../Navigation/AdminNavigationComponent';
 
-import '../../styles/templatemo-style.css'
-
 class AdminUserFormContainer extends Component {
     constructor() {
         super();
