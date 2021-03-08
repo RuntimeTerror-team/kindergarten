@@ -1,7 +1,7 @@
 import React from "react";
 import Proptypes from "prop-types";
 
-const ESApprovedApplicationListComponent = ({ applications, recalculation }) => {
+const ESApprovedApplicationListComponent = ({ applications, recalculation, queueStatus, permission, onStatusChange }) => {
   let table = (
     <div className="col-12 mt-3">
       <div className="pb-5">
@@ -26,6 +26,7 @@ const ESApprovedApplicationListComponent = ({ applications, recalculation }) => 
             <th scope="col" style={{ width: "115px" }}>
               Laukimo Nr
             </th>
+            {permission  && queueStatus === "LOCKED" ? <th scope='col'></th> : null}
           </tr>
         </thead>
 
@@ -64,6 +65,7 @@ const ESApprovedApplicationListComponent = ({ applications, recalculation }) => 
                   <td>{status}</td>
                   <td>{approvedKindergartenTitle}</td>
                   <td>{waitingNumber}</td>
+                  {permission && queueStatus === "LOCKED"? <td><button className="btn btn-info" value={childFirstName + "," + childLastName} onClick={onStatusChange}>Atšaukti</button></td> : null}
                 </tr>
               );
             }

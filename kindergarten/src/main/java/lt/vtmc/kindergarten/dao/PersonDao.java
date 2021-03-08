@@ -12,6 +12,7 @@ import java.util.List;
 public interface PersonDao extends JpaRepository<Person,Long> {
     Person findByUser(User user);
     Person findByPersonalCode(String personalCode);
+    Person findByFirstNameAndLastName(String firstName, String lastName);
 
     @Query("SELECT p FROM Person p WHERE p.tribeId="
             + "(SELECT p.tribeId FROM Person p WHERE p.user.username = :username) "
