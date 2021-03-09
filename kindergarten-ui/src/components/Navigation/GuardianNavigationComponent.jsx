@@ -2,8 +2,8 @@ import axios from 'axios';
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import baseUrl from '../../AppConfig';
-import positions from '../../constants/positions';
-import urls from '../../constants/urls'
+import urls from '../../constants/urls';
+import logo from '../../images/logo.png';
 
 class ESNavigationComponent extends Component {
     constructor() {
@@ -33,23 +33,25 @@ class ESNavigationComponent extends Component {
 
     render() {
         return (
-            <nav className={`nav flex-column ${positions.navigationPosition}`}>
-                <Link to={`${urls.guardian.applicationBase}`} className={`btn btn-main mb-2 w-100 ${window.location.pathname === `/kindergarten${urls.guardian.applicationBase}` ? "btn-active" : ""}`} >
-                    Prašymai
-                </Link>
-                {this.state.isActiveQueue
-                    &&
-                    <Link to={`${urls.guardian.applicationBase}/new`} className={`btn btn-main mb-2 w-100 ${window.location.pathname === `/kindergarten${urls.guardian.applicationBase}/new`
-                        ? "btn-active" : ""}`} >
-                        Prašymo pildymas
-                </Link>}
-                <Link to={`${urls.guardian.healthFormBase}`} className={`btn btn-main mb-2 w-100 ${window.location.pathname === `/kindergarten${urls.guardian.healthFormBase}` ? "btn-active" : ""}`} >
-                    Sveikatos pažymos
-                </Link>
-                <Link to={`${urls.guardian.applicationBase}/passwordChange`} className={`btn btn-main mb-2 w-100 ${window.location.pathname === `/kindergarten${urls.guardian.applicationBase}/passwordChange` ? "btn-active" : ""}`} >
-                    Mano paskyra
-            </Link>
-            </nav>
+            <div className="templatemo-sidebar">
+                <header className="templatemo-site-header">
+                    <img src={logo} alt="logo" className="logo img-responsive" />
+                </header>
+                <nav className="templatemo-left-nav">
+                    <Link to={`${urls.guardian.applicationBase}`}
+                        className={`${window.location.pathname === `/kindergarten${urls.guardian.applicationBase}` ? "active" : ""} left-nav-link`}>
+                        Prašymai</Link>
+                    <Link to={`${urls.guardian.applicationBase}/new`}
+                        className={`${window.location.pathname === `/kindergarten${urls.guardian.applicationBase}/new` ? "active" : ""} left-nav-link`}>
+                        Prašymo pildymas</Link>
+                    <Link to={`${urls.guardian.healthFormBase}`}
+                        className={`${window.location.pathname === `/kindergarten${urls.guardian.healthFormBase}` ? "active" : ""} left-nav-link`}>
+                        Sveikatos pažymos</Link>
+                    <Link to={`${urls.guardian.applicationBase}/passwordChange`}
+                        className={`${window.location.pathname === `/kindergarten${urls.guardian.applicationBase}/passwordChange` ? "active" : ""} left-nav-link`}>
+                        Mano paskyra</Link>
+                </nav>
+            </div >
         )
     }
 }

@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import Proptypes from "prop-types";
-import logo from "../../image/logo.png";
 import "../../styles/logo.css";
 import { IoMdExit } from "react-icons/io";
 import axios from "axios";
@@ -45,22 +44,19 @@ const HeaderComponent = ({ userRole }) => {
   }
 
   return (
-    <div className="container-fluid p-3" id="header">
+    <div className="templatemo-top-nav-container">
       <div className="row">
-        <div className="offset-1 col-3 col-xs-3 col-sm-3 col-md-3 col-lg-3">
-          <img className="logo" src={logo} alt="Logo" />
-        </div>
-        <div className="offset-5 col-3 col-xs-3 col-sm-3 col-md-3 col-lg-3">
-          {window.location.pathname === `/kindergarten${urls.guardian.primaryDataBase}` ? <p className="lead">
-          </p> : <p className="lead">
-            <strong>{nameToShow}</strong>
-          </p>}
-          <button className="btn btn-yellow" onClick={handleLogout}>
-            Atsijungti <IoMdExit size={20} />
-          </button>
-        </div>
+        <nav className="templatemo-top-nav col-lg-12 col-md-12">
+          <ul className="text-uppercase">
+            <li><button className="btn" onClick={handleLogout}>ATSIJUNGTI <IoMdExit size={20} /></button></li>
+            <li>{window.location.pathname === `/kindergarten${urls.guardian.primaryDataBase}` ? <p className="lead">
+            </p> : <p className="lead mb-0">
+              <strong>{nameToShow}</strong>
+            </p>}</li>
+          </ul>
+        </nav>
       </div>
-    </div>
+    </div >
   );
 };
 

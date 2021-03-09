@@ -5,7 +5,6 @@ import ESNavigationComponent from '../Navigation/ESNavigationComponent';
 import HeaderComponent from '../Header/HeaderComponent';
 import Footer from '../Footer/Footer';
 import GroupCreationFormComponent from './GroupCreationFormComponent';
-import positions from '../../constants/positions';
 
 class GroupCreationFormContainer extends Component {
     constructor(props) {
@@ -189,38 +188,32 @@ class GroupCreationFormContainer extends Component {
 
     render() {
         return (
-            <div>
-                <div className="footerBottom">
+            <div className="templatemo-flex-row">
+                <ESNavigationComponent />
+                <div className="templatemo-content light-gray-bg col px-0">
                     <HeaderComponent userRole="ROLE_EDUCATION_SPECIALIST" />
-                    <div className={`${positions.bodyContainer}`}>
-                        <div className="row">
-                            <ESNavigationComponent />
-                            <div className={`${positions.userPagePosition}`}>
-                                <h1 className="text-center">Kurti darželio grupę</h1>
-                                <p className="text-center"><strong>{this.state.kindergarten.title}</strong> {this.state.kindergarten.address}</p>
-                                <GroupCreationFormComponent
-                                    groups={this.state.groups}
-                                    ageRanges={this.state.ageRanges}
-                                    otherProps={this.state}
-                                    handleFormChange={this.handleFormChange}
-                                    handleGroupCreation={this.handleGroupCreation}
-                                    ageRangeValidation={this.state.ageRangeValidation}
-                                    childrenCountValidation={this.state.childrenCountValidation}
-                                    kindergartenId={this.state.kindergartenId}
-                                    message={this.state.message}
-                                    messageStyle={this.state.messageStyle}
-                                    duplicateMessage={this.state.duplicateMessage}
-                                    duplicateMessageStyle={this.state.duplicateMessageStyle}
-                                    group={this.state.group}
-                                    childrenCount={this.state.childrenCount}
-                                />
-                            </div>
-                        </div>
+                    <div className="templatemo-content-container">
+                        <h1 className="mb-5 text-center page-name"><strong>Kurti darželio grupę</strong></h1>
+                        <GroupCreationFormComponent
+                            groups={this.state.groups}
+                            ageRanges={this.state.ageRanges}
+                            otherProps={this.state}
+                            handleFormChange={this.handleFormChange}
+                            handleGroupCreation={this.handleGroupCreation}
+                            ageRangeValidation={this.state.ageRangeValidation}
+                            childrenCountValidation={this.state.childrenCountValidation}
+                            kindergartenId={this.state.kindergartenId}
+                            message={this.state.message}
+                            messageStyle={this.state.messageStyle}
+                            duplicateMessage={this.state.duplicateMessage}
+                            duplicateMessageStyle={this.state.duplicateMessageStyle}
+                            group={this.state.group}
+                            childrenCount={this.state.childrenCount}
+                        />
+                        <Footer />
                     </div>
-                    <Footer />
                 </div>
             </div>
-
         )
     }
 

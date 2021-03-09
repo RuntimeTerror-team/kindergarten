@@ -5,7 +5,6 @@ import AdminNavigationComponent from '../Navigation/AdminNavigationComponent';
 import HeaderComponent from '../Header/HeaderComponent';
 import Footer from '../Footer/Footer';
 import QueueListComponent from './QueueListComponent';
-import positions from '../../constants/positions';
 
 class QueueListContainer extends Component {
     constructor(props) {
@@ -85,24 +84,22 @@ class QueueListContainer extends Component {
 
     render() {
         return (
-            <div className="footerBottom">
-                <HeaderComponent userRole="ROLE_ADMIN" />
-                <div className={`${positions.bodyContainer}`}>
-                    <div className="row">
-                        <AdminNavigationComponent />
-                        <div className={`${positions.userPagePosition}`}>
-                            <h1 className="mb-5 text-center">Eilių administravimas</h1>
-                            {<QueueListComponent
-                                queues={this.state.queues}
-                                handleSubmit={this.handleSubmit}
-                                isActiveQueue={this.state.isActiveQueue}
-                                message={this.state.message}
-                                messageStyle={this.state.messageStyle}
-                            />}
-                        </div>
+            <div className="templatemo-flex-row">
+                <AdminNavigationComponent />
+                <div className="templatemo-content light-gray-bg col px-0">
+                    <HeaderComponent userRole="ROLE_ADMIN" />
+                    <div className="templatemo-content-container">
+                        <h1 className="mb-5 text-center page-name"><strong>Eilių administravimas</strong></h1>
+                        <QueueListComponent
+                            queues={this.state.queues}
+                            handleSubmit={this.handleSubmit}
+                            isActiveQueue={this.state.isActiveQueue}
+                            message={this.state.message}
+                            messageStyle={this.state.messageStyle}
+                        />
+                        <Footer />
                     </div>
                 </div>
-                <Footer />
             </div>
         )
     }

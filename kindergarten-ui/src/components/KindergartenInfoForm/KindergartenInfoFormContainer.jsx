@@ -5,7 +5,6 @@ import baseUrl from '../../AppConfig';
 import Footer from '../Footer/Footer';
 import ESNavigationComponent from '../Navigation/ESNavigationComponent';
 import HeaderComponent from '../Header/HeaderComponent';
-import positions from '../../constants/positions';
 
 class KindergartenInfoFormContainer extends Component {
     constructor(props) {
@@ -23,7 +22,15 @@ class KindergartenInfoFormContainer extends Component {
                 website: "",
                 id: ""
             },
-            errors: {},
+            errors: {
+                title: "",
+                address: "",
+                district: "",
+                postalCode: "",
+                phoneNumber: "",
+                email: "",
+                website: ""
+            },
             message: "",
             messageStyle: "",
             isDisabled: true
@@ -82,7 +89,7 @@ class KindergartenInfoFormContainer extends Component {
         }
 
         if (name === "address") {
-            if (value.trim().length < 8 && value.trim().length > 50)
+            if (value.trim().length < 8 || value.trim().length > 50)
                 return "is-invalid";
         }
 
@@ -116,26 +123,36 @@ class KindergartenInfoFormContainer extends Component {
 
     validate = () => {
         const errors = {};
+        const reEmail = /^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/g;
+        const reWebsite = /^((https?):\/\/)?([w|W]{3}\.)+[a-zA-Z0-9\-.]{3,}\.[a-zA-Z]{2,}(\.[a-zA-Z]{2,})?$/;
 
         const { kindergarten } = this.state;
-        if (kindergarten.title.trim() === '')
+        if (kindergarten.title.trim() === ''
+            || kindergarten.title.trim().length < 8
+            || kindergarten.title.trim().length > 35)
             errors.title = "is-invalid"
-
-        if (kindergarten.companyCode.trim() === '')
-            errors.companyCode = "is-invalid"
 
         if (kindergarten.district === '' || kindergarten.district === 'Pasirinkti...')
             errors.district = "is-invalid"
 
-        if (kindergarten.address.trim() === '')
+        if (kindergarten.address.trim() === ''
+            || kindergarten.address.trim().length < 8
+            || kindergarten.address.trim().length > 50)
             errors.address = "is-invalid"
 
-        if (kindergarten.postalCode.trim() === '')
+        if (kindergarten.postalCode.trim() === '' || kindergarten.postalCode.trim().length !== 5)
             errors.postalCode = "is-invalid"
 
-        if (kindergarten.phoneNumber.trim() === '')
+        if (kindergarten.phoneNumber.trim() === '' || kindergarten.phoneNumber.trim().length !== 8)
             errors.phoneNumber = "is-invalid"
 
+        if (!reEmail.test(kindergarten.email.trim()) && kindergarten.email.trim() !== "")
+            errors.email = "is-invalid";
+
+        if (!reWebsite.test(kindergarten.website.trim()) && kindergarten.website.trim() !== "")
+            errors.website = "is-invalid";
+
+        console.log(errors);
         return Object.keys(errors).length === 0 ? null : errors;
     }
 
@@ -155,6 +172,7 @@ class KindergartenInfoFormContainer extends Component {
 
         const errors = this.validate();
         this.setState({ errors: errors || {} });
+
         if (errors) {
             this.setState({ message: "Darželio informacijos atnaujinti nepavyko. Pasitikrinkite duomenis." })
             this.setState({ messageStyle: "alert alert-danger" })
@@ -213,55 +231,32 @@ class KindergartenInfoFormContainer extends Component {
     }
 
     render() {
-        if (this.state.kindergarten !== null) {
-            return (
-                <div>
-                    <div className="footerBottom">
-                        <HeaderComponent userRole="ROLE_EDUCATION_SPECIALIST" />
-                        <div className={`${positions.bodyContainer}`}>
-                            <div className="row">
-                                <ESNavigationComponent />
-                                <div className={`${positions.userPagePosition}`}>
-                                    <h1 className="mb-5 text-center">Darželio kontaktinė informacija</h1>
-                                    <KindergartenInfoFormComponent
-                                        districts={this.state.districts}
-                                        kindergarten={this.state.kindergarten}
-                                        errors={this.state.errors}
-                                        handleChange={this.handleChange}
-                                        handleSubmit={this.handleSubmit}
-                                        message={this.state.message}
-                                        messageStyle={this.state.messageStyle}
-                                        isDisabled={this.state.isDisabled}
-                                        toggleDisabled={this.toggleDisabled}
-                                    />
-                                </div>
-                            </div>
-                        </div>
+        return (
+            <div className="templatemo-flex-row">
+                <ESNavigationComponent />
+                <div className="templatemo-content light-gray-bg col px-0">
+                    <HeaderComponent userRole="ROLE_EDUCATION_SPECIALIST" />
+                    <div className="templatemo-content-container">
+                        <h1 className="mb-5 text-center page-name"><strong>Darželio kontaktinė informacija</strong></h1>
+                        {this.state.kindergarten !== null
+                            && <KindergartenInfoFormComponent
+                                districts={this.state.districts}
+                                kindergarten={this.state.kindergarten}
+                                errors={this.state.errors}
+                                handleChange={this.handleChange}
+                                handleSubmit={this.handleSubmit}
+                                message={this.state.message}
+                                messageStyle={this.state.messageStyle}
+                                isDisabled={this.state.isDisabled}
+                                toggleDisabled={this.toggleDisabled}
+                            />}
+                        {this.state.kindergarten === null
+                            && <div>Duomenys kraunasi...</div>}
                         <Footer />
                     </div>
                 </div>
-            )
-        } else {
-            return (
-                <div>
-                    <div className="footerBottom">
-                        <HeaderComponent userRole="ROLE_EDUCATION_SPECIALIST" />
-                        <div className="container py-4">
-                            <div className="row">
-                                <ESNavigationComponent />
-                                <div className="col-8">
-                                    <h1 className="mb-5 text-center">Darželio kontaktinė informacija</h1>
-                                    <div>Duomenys kraunasi...</div>
-                                </div>
-                            </div>
-                        </div>
-                        <Footer />
-                    </div>
-                </div>
-
-            )
-        }
-
+            </div>
+        )
     }
 }
 

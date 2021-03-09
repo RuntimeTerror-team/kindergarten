@@ -7,7 +7,6 @@ import ESNavigationComponent from '../Navigation/ESNavigationComponent';
 import HeaderComponent from '../Header/HeaderComponent';
 
 import "../../styles/forms.css";
-import positions from '../../constants/positions';
 
 class KindergartenCreationFormContainer extends Component {
     constructor(props) {
@@ -191,35 +190,31 @@ class KindergartenCreationFormContainer extends Component {
 
     render() {
         return (
-            <div>
-                <div className="footerBottom">
+            <div className="templatemo-flex-row">
+                <ESNavigationComponent />
+                <div className="templatemo-content light-gray-bg col px-0">
                     <HeaderComponent userRole="ROLE_EDUCATION_SPECIALIST" />
-                    <div className={`${positions.bodyContainer}`}>
-                        <div className="row">
-                            <ESNavigationComponent />
-                            <div className={`${positions.userPagePosition}`}>
-                                <h1 className="mb-5 text-center">Pridėti naują darželį</h1>
-                                <KindergartenCreationFormComponent
-                                    districts={this.state.districts}
-                                    handleChange={this.handleChange}
-                                    handleSubmit={this.handleSubmit}
-                                    stopCreatingKindergarten={this.props.stopCreatingKindergarten}
-                                    otherProps={this.state}
-                                    message={this.state.message}
-                                    messageStyle={this.state.messageStyle}
-                                    titleValidation={this.state.titleValidation}
-                                    companyCodeValidation={this.state.companyCodeValidation}
-                                    addressValidation={this.state.addressValidation}
-                                    districtValidation={this.state.districtValidation}
-                                    postalCodeValidation={this.state.postalCodeValidation}
-                                    phoneNoValidation={this.state.phoneNoValidation}
-                                    emailValidation={this.state.emailValidation}
-                                    websiteValidation={this.state.websiteValidation}
-                                />
-                            </div>
-                        </div>
+                    <div className="templatemo-content-container">
+                        <h1 className="mb-5 text-center page-name"><strong>Pridėti naują darželį</strong></h1>
+                        <KindergartenCreationFormComponent
+                            districts={this.state.districts}
+                            handleChange={this.handleChange}
+                            handleSubmit={this.handleSubmit}
+                            stopCreatingKindergarten={this.props.stopCreatingKindergarten}
+                            otherProps={this.state}
+                            message={this.state.message}
+                            messageStyle={this.state.messageStyle}
+                            titleValidation={this.state.titleValidation}
+                            companyCodeValidation={this.state.companyCodeValidation}
+                            addressValidation={this.state.addressValidation}
+                            districtValidation={this.state.districtValidation}
+                            postalCodeValidation={this.state.postalCodeValidation}
+                            phoneNoValidation={this.state.phoneNoValidation}
+                            emailValidation={this.state.emailValidation}
+                            websiteValidation={this.state.websiteValidation}
+                        />
+                        <Footer />
                     </div>
-                    <Footer />
                 </div>
             </div>
         )

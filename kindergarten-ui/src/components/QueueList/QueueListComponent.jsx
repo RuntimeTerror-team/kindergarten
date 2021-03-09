@@ -10,17 +10,15 @@ const QueueListComponent = ({
     messageStyle
 }) => {
     return (
-        <div className="col-12 clearfix mb-3 row offset-1">
+        <div>
             {  !isActiveQueue &&
-                <div className="col-4">
-                    <button className="btn btn-green" onClick={handleSubmit}>Pradėti naują eilę</button>
-                </div>}
+                <button className="templatemo-blue-button" onClick={handleSubmit}>Pradėti naują eilę</button>}
             { isActiveQueue
-                && <div className="alert alert-warning text-center col-10" role="alert">
+                && <div className="alert alert-warning text-center" role="alert">
                     Galite kurti naują eilę, kai eilės yra neaktyvios.
               </div>}
             {message
-                && <div className={`col-10 text-center ${messageStyle}`} style={{ width: "23em" }}>
+                && <div className={`text-center ${messageStyle}`}>
                     {message}
                 </div>}
             {queues.length > 0 && <QueueTableComponent queues={queues} />}
