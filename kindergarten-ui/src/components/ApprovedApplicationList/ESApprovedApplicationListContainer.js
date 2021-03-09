@@ -21,7 +21,6 @@ class ESApprovedApplicationListContainer extends Component {
       permission: false,
       noPDF: false,
       statusRejected: false,
-      changeStatus: ""
     };
   }
 
@@ -186,7 +185,6 @@ class ESApprovedApplicationListContainer extends Component {
               permission={this.state.permission}
               statusRejected={this.state.statusRejected}
               noPDF={this.state.noPDF}
-              changeStatus={this.state.changeStatus}
               onStatusChange={this.handleStatusChange}
               onOpenPDF={this.handleOpenPDF}
               closeAlert={this.closeAlert}
