@@ -67,8 +67,7 @@ const ESApprovedApplicationListComponent = ({
                 status,
                 approvedKindergartenTitle,
                 waitingNumber,
-                applicationId,
-                healthForm,
+                applicationId
                 
               },
               index
