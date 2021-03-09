@@ -611,10 +611,6 @@ class PasswordChangeContainer extends Component {
                 onDetailsChange={this.handleDetails}
                 saveGuardian={this.handleGuardianSave}
               />
-<<<<<<< HEAD
-=======
-
->>>>>>> 5737fef26870b1eed050aa4520ddca18367c7f16
             </div>
             <Footer />
           </div>
