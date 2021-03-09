@@ -332,6 +332,8 @@ public class ApplicationService implements PagingLimit<ApplicationAfterDistribut
                 });
         calculateApplicationStatus();
     }
+    
+    
 
     /**
      * Assigns kindergartens according to the order of priority provided in the application
@@ -387,13 +389,15 @@ public class ApplicationService implements PagingLimit<ApplicationAfterDistribut
     }
     
     @Transactional
-    public void changeApplicationStatus(String childFirstName, String childLastName, String status) {
-    	Person child = personDao.findByFirstNameAndLastName(childFirstName, childLastName);
-    	Application application = applicationDao.findApplicationByChild(child);
-    	application.setApplicationStatus(ApplicationStatusEnum.valueOf(status));
-    	ApplicationAfterDistribution applicationDistribution = applicationAfterDistributionDao.
-    			findApplicationByChildFirstNameAndChildLastName(childFirstName, childLastName);
-    	applicationDistribution.setStatus(ApplicationStatusEnum.valueOf(status));   	
+    public void changeApplicationStatus(Long id, String status) {
+    
+    	Optional<Application> application = applicationDao.findById(id);
+    	application.get().setApplicationStatus(ApplicationStatusEnum.valueOf(status));
+    	applicationDao.save(application.get());
+    	ApplicationAfterDistribution applicationDistribution = applicationAfterDistributionDao.findApplicationByApplicationId(id);
+    	applicationDistribution.setStatus(ApplicationStatusEnum.valueOf(status));
+    	applicationAfterDistributionDao.save(applicationDistribution);
+    		
     }
 
 

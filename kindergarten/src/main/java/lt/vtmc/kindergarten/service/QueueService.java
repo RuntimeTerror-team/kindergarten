@@ -80,7 +80,9 @@ public class QueueService {
                 List<Application> applications = applicationDao.findAll();
                 applications.stream().forEachOrdered(application -> {
                     ApplicationAfterDistribution applicationAfterDistribution = applicationAfterDistributionDao.findApplicationByApplicationId(application.getId());
-                    application.setApplicationStatus(applicationAfterDistribution.getStatus());
+                    if(applicationAfterDistribution != null) {
+                       application.setApplicationStatus(applicationAfterDistribution.getStatus());
+                    }
                 });
             }
         }
