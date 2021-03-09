@@ -2,7 +2,6 @@ package lt.vtmc.kindergarten.controller;
 
 import io.swagger.annotations.ApiOperation;
 import lt.vtmc.kindergarten.domain.HealthForm;
-import lt.vtmc.kindergarten.domain.Person;
 import lt.vtmc.kindergarten.dto.HealthFileResponse;
 import lt.vtmc.kindergarten.message.ResponseMessage;
 import lt.vtmc.kindergarten.service.HealthFormService;
@@ -10,13 +9,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import java.util.List;
-import java.util.stream.Collectors;
+
 
 @RestController
 @RequestMapping(value = "/api/health-forms")

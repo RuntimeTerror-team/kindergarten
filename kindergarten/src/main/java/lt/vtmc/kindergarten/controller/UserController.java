@@ -1,5 +1,6 @@
 package lt.vtmc.kindergarten.controller;
 
+import ch.qos.logback.classic.Logger;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 import lt.vtmc.kindergarten.dto.PermissionForESDto;
@@ -8,6 +9,9 @@ import lt.vtmc.kindergarten.dto.UserDtoFromAdmin;
 import lt.vtmc.kindergarten.dto.UserDto;
 import lt.vtmc.kindergarten.dto.UserValidateCommandDto;
 import lt.vtmc.kindergarten.service.UserService;
+import org.slf4j.LoggerFactory;
+import org.slf4j.Marker;
+import org.slf4j.MarkerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -15,11 +19,16 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.Date;
 import java.util.List;
 
 @RestController
 @RequestMapping(value = "/api/users")
 public class UserController {
+    private Marker userEvent = MarkerFactory.getMarker("AUDIT_EVENT");
+    private static final Logger logger
+            = (Logger) LoggerFactory.getLogger(UserController.class);
+
     @Autowired
     private UserService userService;
 
@@ -35,6 +44,7 @@ public class UserController {
     @ApiOperation(value = "Create user", notes = "Creates user with data")
     public void createUser(@ApiParam(value = "User Data", required = true) @Valid @RequestBody UserDto userDto) {
         userService.createUser(userDto);
+        logger.info(userEvent, "Sukurtas vartotojas. Vartotojo vardas: {}. Vartotojo rolė: {} Sukūrimo laikas {}", userDto.getUsername(), userDto.getRole(), new Date());
     }
 
     @RequestMapping(path = "/{username}", method = RequestMethod.GET)
@@ -50,7 +60,9 @@ public class UserController {
     @ResponseStatus(HttpStatus.CREATED)
     @ApiOperation(value = "Create user from admin page", notes = "Creates user with data from admin page")
     public String createUserFromAdmin(@ApiParam(value = "User Data", required = true) @Valid @RequestBody UserDtoFromAdmin userDtoFromAdmin) {
-        return userService.createUserFromAdmin(userDtoFromAdmin);
+        String user = userService.createUserFromAdmin(userDtoFromAdmin);
+        logger.info(userEvent, "Administratorius sukūrė vartotoją {} {}. Vartotojo rolė: {}. Sukūrimo laikas: {}", userDtoFromAdmin.getFirstName(), userDtoFromAdmin.getLastName(), userDtoFromAdmin.getRole(), new Date());
+        return user;
     }
 
     @RequestMapping(path = "/{username}/details", method = RequestMethod.GET)
@@ -86,8 +98,8 @@ public class UserController {
     @ResponseStatus(HttpStatus.OK)
     @ApiOperation(value ="Change user password")
     public void changePassword(@Valid @RequestBody UserDto userDto){
-    	
     	userService.changePassword(userDto);
+        logger.info(userEvent,"Vartotojas {} Vartotojo rolė: {} Pakeitė slaptažodį. Įvykio laikas: {}", userDto.getUsername(), userDto.getRole(), new Date());
     }
     
     @RequestMapping(method = RequestMethod.POST, value = "/ES/permission")
@@ -95,6 +107,11 @@ public class UserController {
     @ResponseStatus(HttpStatus.OK)
     public void setESPermission(@Valid @RequestBody PermissionForESDto permission) {
     	userService.setESPermision(permission);
+        if(permission.getIsAllowed()){
+            logger.info(userEvent,"Administratorius suteikė leidimą prašymų sąrašo redagavimui švietimo specialistui. Įvykio laikas: {}", new Date());
+        } else {
+            logger.info(userEvent,"Administratorius atšaukė leidimą prašymų sąrašo redagavimui švietimo specialistui. Įvykio laikas: {}", new Date());
+        }
     }
     
     @RequestMapping(method = RequestMethod.GET, value = "/ES/permission")

@@ -25,6 +25,8 @@ const AdminNavigationComponent = () => {
                 <Link to={`${urls.admin.queueBase}`}
                     className={`${window.location.pathname === `/kindergarten${urls.admin.queueBase}` ? "active" : ""} left-nav-link`}>
                     Eilių administravimas </Link>
+                <Link to={`${urls.admin.loggingBase}`}
+                    className={`${window.location.pathname === `/kindergarten${urls.admin.loggingBase}` ? "active" : ""} left-nav-link`}>Įvykių žurnalas </Link>
             </nav>
         </div >
     )
