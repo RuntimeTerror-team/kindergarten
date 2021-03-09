@@ -1,7 +1,7 @@
 import React from 'react';
 import { Switch } from 'react-router-dom';
 import LoginContainer from './components/Login/LoginContainer';
-import GuardianPageContainer from './components/GuardianPage/GuardianPageContainer';
+import ApplicationListContainer from './components/ApplicationList/ApplicationListContainer';
 import ApplicationContainer from './components/ApplicationForm/ApplicationContainer'
 import ESApprovedApplicationListContainer from './components/ApprovedApplicationList/ESApprovedApplicationListContainer'
 import PasswordChangeContainer from './components/PasswordChange/PasswordChangeContainer'
@@ -46,7 +46,7 @@ function App(props) {
         <PrivateRoute userRole="ROLE_EDUCATION_SPECIALIST" exact path={`${urls.educationSpecialist.queueBase}`} component={EsQueueListContainer} />
         <PrivateRoute userRole="ROLE_EDUCATION_SPECIALIST" exact path={`${urls.educationSpecialist.applicationsBase}`} component={ESApprovedApplicationListContainer} />
         <PrivateRoute userRole="ROLE_EDUCATION_SPECIALIST" exact path={`${urls.educationSpecialist.queueBase}/passwordChange`} component={PasswordChangeESContainer} />
-        <PrivateRoute userRole="ROLE_GUARDIAN" exact path={`${urls.guardian.applicationBase}`} component={GuardianPageContainer} />
+        <PrivateRoute userRole="ROLE_GUARDIAN" exact path={`${urls.guardian.applicationBase}`} component={ApplicationListContainer} />
         <PrivateRoute userRole="ROLE_GUARDIAN" exact path={`${urls.guardian.applicationBase}/new`} component={ApplicationContainer} />
         <PrivateRoute userRole="ROLE_GUARDIAN" exact path={`${urls.guardian.applicationBase}/passwordChange`} component={PasswordChangeContainer} />
         <PrivateRoute userRole="ROLE_GUARDIAN" exact path={`${urls.guardian.primaryDataBase}`} component={GuardianPrimaryDataFormContainer} />

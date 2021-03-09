@@ -5,7 +5,6 @@ import AdminNavigationComponent from '../Navigation/AdminNavigationComponent'
 import HeaderComponent from '../Header/HeaderComponent';
 import PermissionsComponent from './PermissionsComponent'
 import Footer from '../Footer/Footer';
-import positions from "../../constants/positions";
 
 class PermissionsContainer extends Component {
 

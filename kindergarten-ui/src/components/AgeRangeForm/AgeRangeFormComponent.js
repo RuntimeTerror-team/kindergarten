@@ -6,7 +6,6 @@ let AgeRangeFormComponent = (props) => {
   return (
     <div className="row justify-content-center align-items-center">
       <div>
-        <h1 className="mb-4">Amžiaus grupės sukūrimas</h1>
         <form className="form ageRangeForm" onSubmit={props.onSubmit}>
           <div className="form-group">
             <select

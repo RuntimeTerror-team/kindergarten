@@ -5,8 +5,6 @@ import AdminNavigationComponent from '../Navigation/AdminNavigationComponent';
 import HeaderComponent from '../Header/HeaderComponent';
 import Footer from '../Footer/Footer';
 import QueueListComponent from './QueueListComponent';
-import positions from '../../constants/positions';
-import QueueTableComponent from '../QueueTable/QueueTableComponent';
 
 class QueueListContainer extends Component {
     constructor(props) {
@@ -92,17 +90,13 @@ class QueueListContainer extends Component {
                     <HeaderComponent userRole="ROLE_ADMIN" />
                     <div className="templatemo-content-container">
                         <h1 className="mb-5 text-center page-name"><strong>Eilių administravimas</strong></h1>
-                        {!this.state.isActiveQueue &&
-                            <button className="templatemo-blue-button" onClick={this.handleSubmit}>Pradėti naują eilę</button>}
-                        {this.state.isActiveQueue
-                            && <div className="alert alert-warning text-center" role="alert">
-                                Galite kurti naują eilę, kai eilės yra neaktyvios.
-                        </div>}
-                        {this.state.message
-                            && <div className={`text-center ${this.state.messageStyle}`}>
-                                {this.state.message}
-                            </div>}
-                        {this.state.queues.length > 0 && <QueueTableComponent queues={this.state.queues} />}
+                        <QueueListComponent
+                            queues={this.state.queues}
+                            handleSubmit={this.handleSubmit}
+                            isActiveQueue={this.state.isActiveQueue}
+                            message={this.state.message}
+                            messageStyle={this.state.messageStyle}
+                        />
                         <Footer />
                     </div>
                 </div>

@@ -20,8 +20,8 @@ const DistrictTableComponent = ({
         <table className="table table-striped table-bordered templatemo-user-table">
           <thead>
             <tr>
-              <td><button className="btn text-white templatemo-sort-by"># <span className="caret"></span></button></td>
-              <td><button className="btn text-white templatemo-sort-by">Pavadinimas <span className="caret"></span></button></td>
+              <td>#</td>
+              <td>Pavadinimas</td>
             </tr>
           </thead>
           <tbody>

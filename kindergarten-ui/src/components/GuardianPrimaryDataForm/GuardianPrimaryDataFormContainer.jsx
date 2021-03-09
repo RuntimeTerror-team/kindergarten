@@ -1,14 +1,12 @@
 import React, { Component } from 'react';
 import HeaderComponent from '../Header/HeaderComponent';
 import Footer from '../Footer/Footer';
-
 import '../../styles/pages.css';
 import GuardianPrimaryDataFormComponent from './GuardianPrimaryDataComponent';
 import GuardianPrimaryInfoComponent from '../GuardianPrimaryInfo/GuardianPrimaryInfoComponent';
 import axios from 'axios';
 import baseUrl from '../../AppConfig';
 import urls from '../../constants/urls';
-import positions from '../../constants/positions';
 
 class GuardianPrimaryDataFormContainer extends Component {
     constructor() {
@@ -205,39 +203,37 @@ class GuardianPrimaryDataFormContainer extends Component {
 
     render() {
         return (
-            <div className="footerBottom">
-                <HeaderComponent userRole="ROLE_GUARDIAN" />
-                <div className={`${positions.bodyContainer}`}>
-                    <div className="row">
-                        <GuardianPrimaryInfoComponent />
-                        <div className={`${positions.userPagePosition}`}>
-                            <h1 className="mb-5 text-center">Pirminių duomenų anketa</h1>
-                            <GuardianPrimaryDataFormComponent
-                                firstname={this.state.firstname}
-                                lastname={this.state.lastname}
-                                personalCode={this.state.personalCode}
-                                phoneNo={this.state.phoneNo}
-                                address={this.state.address}
-                                city={this.state.city}
-                                postalCode={this.state.postalCode}
-                                email={this.state.email}
-                                firstnameValidation={this.state.firstnameValidation}
-                                lastnameValidation={this.state.lastnameValidation}
-                                personalCodeValidation={this.state.personalCodeValidation}
-                                phoneNoValidation={this.state.phoneNoValidation}
-                                addressValidation={this.state.addressValidation}
-                                cityValidation={this.state.cityValidation}
-                                postalCodeValidation={this.state.postalCodeValidation}
-                                emailValidation={this.state.emailValidation}
-                                handleSubmit={this.handleSubmit}
-                                handleChange={this.handleChange}
-                                message={this.state.message}
-                                messageStyle={this.state.messageStyle}
-                            />
-                        </div>
+            <div className="templatemo-flex-row">
+                <GuardianPrimaryInfoComponent />
+                <div className="templatemo-content light-gray-bg col px-0">
+                    <HeaderComponent userRole="ROLE_GUARDIAN" />
+                    <div className="templatemo-content-container">
+                        <h1 className="mb-5 text-center page-name"><strong>Pirminių duomenų anketa</strong></h1>
+                        <GuardianPrimaryDataFormComponent
+                            firstname={this.state.firstname}
+                            lastname={this.state.lastname}
+                            personalCode={this.state.personalCode}
+                            phoneNo={this.state.phoneNo}
+                            address={this.state.address}
+                            city={this.state.city}
+                            postalCode={this.state.postalCode}
+                            email={this.state.email}
+                            firstnameValidation={this.state.firstnameValidation}
+                            lastnameValidation={this.state.lastnameValidation}
+                            personalCodeValidation={this.state.personalCodeValidation}
+                            phoneNoValidation={this.state.phoneNoValidation}
+                            addressValidation={this.state.addressValidation}
+                            cityValidation={this.state.cityValidation}
+                            postalCodeValidation={this.state.postalCodeValidation}
+                            emailValidation={this.state.emailValidation}
+                            handleSubmit={this.handleSubmit}
+                            handleChange={this.handleChange}
+                            message={this.state.message}
+                            messageStyle={this.state.messageStyle}
+                        />
+                        <Footer />
                     </div>
                 </div>
-                <Footer />
             </div>
         )
     }

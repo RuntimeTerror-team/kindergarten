@@ -18,9 +18,9 @@ const PermissionsComponent = ({ permission, buttonText, changedPermissionMessage
                 <table className="table table-striped table-bordered templatemo-user-table">
                     <thead>
                         <tr>
-                            <td><button className="btn text-white templatemo-sort-by">Pavadinimas</button></td>
-                            <td><button className="btn text-white templatemo-sort-by">Statusas</button></td>
-                            <td><button className="btn text-white templatemo-sort-by"></button></td>
+                            <td>Pavadinimas</td>
+                            <td>Statusas</td>
+                            <td></td>
                         </tr>
                     </thead>
 
