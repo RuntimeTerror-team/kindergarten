@@ -8,6 +8,7 @@ import {Modal, Button} from "react-bootstrap";
 
 const ESApprovedApplicationListComponent = ({
   applications,
+  queues,
   recalculation,
   currentPage,
   totalPages,
@@ -102,12 +103,16 @@ const ESApprovedApplicationListComponent = ({
                     </button> */}
                   {permission && queueStatus === "LOCKED" ? (
                     <td>
+                      {
+                        status !== "Atmestas" ?
                       <button
                         className="btn btn-link"
                         value={applicationId}
                         onClick={onStatusChange}>
                         Atšaukti prašymą
                       </button>
+                      : null
+                      }
                     </td>
                   ) : null}
                 </tr>
@@ -171,7 +176,7 @@ const ESApprovedApplicationListComponent = ({
   );
 
   
-  return applications.length === 0 ? <h6 className="text-center">Prašymų registracija nėra sustabdyta</h6> : table;
+  return queues.find(queue => queue.status === "ACTIVE") ? <h6 className="text-center">Prašymų registracija nėra sustabdyta</h6> : table;
 
   
 };
