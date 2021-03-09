@@ -29,7 +29,7 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 public class ApplicationController{
 
-    private Marker applicationEvent = MarkerFactory.getMarker("APPLICATION_EVENT");
+    private Marker applicationEvent = MarkerFactory.getMarker("AUDIT_EVENT");
     private static final Logger logger
             = (Logger) LoggerFactory.getLogger(ApplicationController.class);
 
@@ -71,6 +71,7 @@ public class ApplicationController{
     ) {
         try {
             applicationService.updateApplication(id, applicationDto);
+            logger.info(applicationEvent, "Vartotojas {} atnaujino prašymą. Įvykio laikas: {}", getLoggedInUserName(), new Date());
             return new ResponseEntity(HttpStatus.OK);
         } catch (QueueDoesntExistException exception) {
             return new ResponseEntity("Prašymo, negalima redaguoti, nes nėra aktyvios eilės", HttpStatus.FORBIDDEN);

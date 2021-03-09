@@ -5,7 +5,6 @@ import AdminNavigationComponent from "../Navigation/AdminNavigationComponent";
 import HeaderComponent from "../Header/HeaderComponent";
 import Footer from "../Footer/Footer";
 import LoggingComponent from "./LoggingComponent";
-import positions from "../../constants/positions";
 
 class LoggingContainer extends Component {
   constructor(props) {
@@ -25,22 +24,22 @@ class LoggingContainer extends Component {
   };
 
   render() {
+
     return (
-      <div className="footerBottom">
-        <HeaderComponent userRole="ROLE_ADMIN" />
-        <div className={`${positions.bodyContainer}`}>
-          <div className="row">
+        <div className="templatemo-flex-row">
             <AdminNavigationComponent />
-            <div className={`${positions.userPagePosition}`}>
-              <h1 className="mb-5 text-center">Įvykių žurnalas</h1>
-              {<LoggingComponent logs={this.state.logs} />}
+            <div className="templatemo-content light-gray-bg col px-0">
+                <HeaderComponent userRole="ROLE_ADMIN" />
+                <div className="templatemo-content-container">
+                    <h1 className="mb-5 text-center page-name"><strong>Įvykių žurnalas</strong></h1>
+                    <LoggingComponent logs={this.state.logs} />
+                    <Footer />
+                </div>
             </div>
-          </div>
         </div>
-        <Footer />
-      </div>
-    );
+    )
   }
-}
+  
+  }
 
 export default LoggingContainer;
