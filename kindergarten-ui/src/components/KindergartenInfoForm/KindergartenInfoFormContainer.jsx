@@ -5,7 +5,6 @@ import baseUrl from '../../AppConfig';
 import Footer from '../Footer/Footer';
 import ESNavigationComponent from '../Navigation/ESNavigationComponent';
 import HeaderComponent from '../Header/HeaderComponent';
-import positions from '../../constants/positions';
 
 class KindergartenInfoFormContainer extends Component {
     constructor(props) {
@@ -232,55 +231,32 @@ class KindergartenInfoFormContainer extends Component {
     }
 
     render() {
-        if (this.state.kindergarten !== null) {
-            return (
-                <div>
-                    <div className="footerBottom">
-                        <HeaderComponent userRole="ROLE_EDUCATION_SPECIALIST" />
-                        <div className={`${positions.bodyContainer}`}>
-                            <div className="row">
-                                <ESNavigationComponent />
-                                <div className={`${positions.userPagePosition}`}>
-                                    <h1 className="mb-5 text-center">Darželio kontaktinė informacija</h1>
-                                    <KindergartenInfoFormComponent
-                                        districts={this.state.districts}
-                                        kindergarten={this.state.kindergarten}
-                                        errors={this.state.errors}
-                                        handleChange={this.handleChange}
-                                        handleSubmit={this.handleSubmit}
-                                        message={this.state.message}
-                                        messageStyle={this.state.messageStyle}
-                                        isDisabled={this.state.isDisabled}
-                                        toggleDisabled={this.toggleDisabled}
-                                    />
-                                </div>
-                            </div>
-                        </div>
+        return (
+            <div className="templatemo-flex-row">
+                <ESNavigationComponent />
+                <div className="templatemo-content light-gray-bg col px-0">
+                    <HeaderComponent userRole="ROLE_EDUCATION_SPECIALIST" />
+                    <div className="templatemo-content-container">
+                        <h1 className="mb-5 text-center page-name"><strong>Darželio kontaktinė informacija</strong></h1>
+                        {this.state.kindergarten !== null
+                            && <KindergartenInfoFormComponent
+                                districts={this.state.districts}
+                                kindergarten={this.state.kindergarten}
+                                errors={this.state.errors}
+                                handleChange={this.handleChange}
+                                handleSubmit={this.handleSubmit}
+                                message={this.state.message}
+                                messageStyle={this.state.messageStyle}
+                                isDisabled={this.state.isDisabled}
+                                toggleDisabled={this.toggleDisabled}
+                            />}
+                        {this.state.kindergarten === null
+                            && <div>Duomenys kraunasi...</div>}
                         <Footer />
                     </div>
                 </div>
-            )
-        } else {
-            return (
-                <div>
-                    <div className="footerBottom">
-                        <HeaderComponent userRole="ROLE_EDUCATION_SPECIALIST" />
-                        <div className="container py-4">
-                            <div className="row">
-                                <ESNavigationComponent />
-                                <div className="col-8">
-                                    <h1 className="mb-5 text-center">Darželio kontaktinė informacija</h1>
-                                    <div>Duomenys kraunasi...</div>
-                                </div>
-                            </div>
-                        </div>
-                        <Footer />
-                    </div>
-                </div>
-
-            )
-        }
-
+            </div>
+        )
     }
 }
 

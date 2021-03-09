@@ -5,7 +5,6 @@ import ESNavigationComponent from "../Navigation/ESNavigationComponent";
 import HeaderComponent from "../Header/HeaderComponent";
 import ESApprovedApplicationListComponent from "./ESApprovedApplicationListComponent";
 import Footer from "../Footer/Footer";
-import positions from "../../constants/positions";
 
 class ESApprovedApplicationListContainer extends Component {
   constructor(props) {
@@ -17,9 +16,12 @@ class ESApprovedApplicationListContainer extends Component {
       applicationsPerPage: 2,
 
       queues: [],
+      pdf: {},
       queueStatus: "",
       permission: false,
-      changeStatus: "",
+      noPDF: false,
+      statusRejected: false,
+      changeStatus: ""
     };
   }
 
@@ -71,7 +73,6 @@ class ESApprovedApplicationListContainer extends Component {
         application.status = "Atmestas";
         this.forceUpdate();
       } else if (application.status === "APPROVED") {
-        console.log("Approved");
         application.status = "Patvirtintas";
         this.forceUpdate();
       } else if (application.status === "WAITING") {
@@ -122,16 +123,15 @@ class ESApprovedApplicationListContainer extends Component {
   };
 
   handleStatusChange = (e, currentPage) => {
-    let child = e.target.value.split(",");
-    console.log("firstName:" + child[0]);
-    console.log("lastName: " + child[1]);
     currentPage -= 1;
-    Axios.put(baseUrl + "/api/applications/" + child[0] + "/" + child[1] + "/REJECTED")
+    Axios.put(baseUrl + "/api/applications/" + e.target.value +  "/REJECTED")
       .then(
         Axios.get(baseUrl + "/api/applications/sorted/?page=" + currentPage + "&size=" + this.state.applicationsPerPage)
           .then((res) => {
             this.setState({ applications: res.data.content });
             this.translateStatus();
+            this.updateApplicationList(this.state.currentPage);
+            this.setState({statusRejected: true})
           })
           .catch((err) => {
             console.log(err);
@@ -140,34 +140,60 @@ class ESApprovedApplicationListContainer extends Component {
       .catch((e) => console.log(e));
   };
 
+  handleOpenPDF = (e) => {
+
+    Axios.get(baseUrl + "/api/health-forms/singleForm/" + e.target.value)
+    .then(res => {
+      this.setState({pdf: res.data})
+
+      if(this.state.pdf === ""){
+        this.setState({noPDF: true})
+      } else{
+        this.setState({noPDF: false})
+        window.open(this.state.pdf.url)
+      }
+
+    }).catch(err => console.log(err))
+
+  }
+
+  closeAlert = (e) => {
+
+    this.setState({noPDF: false})
+    this.setState({statusRejected: false})
+
+  }
+
   render() {
     const { applications, currentPage, totalPages } = this.state;
     return (
-      <div className="footerBottom">
-        <HeaderComponent userRole="ROLE_EDUCATION_SPECIALIST" />
-        <div className={`${positions.bodyContainer}`}>
-          <div className="row">
-            <ESNavigationComponent />
-            <div className={`${positions.userPagePosition}`}>
-              <h1 className="mb-5 text-center">Prašymai</h1>
-              <ESApprovedApplicationListComponent
-                applications={applications}
-                recalculation={this.recalculateApplications}
-                currentPage={currentPage}
-                totalPages={totalPages}
-                firstPage={this.firstPage}
-                prevPage={this.prevPage}
-                lastPage={this.lastPage}
-                nextPage={this.nextPage}
-                queueStatus={this.state.queueStatus}
-                permission={this.state.permission}
-                changeStatus={this.state.changeStatus}
-                onStatusChange={this.handleStatusChange}
-              />
-            </div>
+      <div className="templatemo-flex-row">
+        <ESNavigationComponent />
+        <div className="templatemo-content light-gray-bg col px-0">
+          <HeaderComponent userRole="ROLE_EDUCATION_SPECIALIST" />
+          <div className="templatemo-content-container">
+            <h1 className="mb-5 text-center page-name"><strong>Prašymai</strong></h1>
+            <ESApprovedApplicationListComponent
+              applications={applications}
+              recalculation={this.recalculateApplications}
+              currentPage={currentPage}
+              totalPages={totalPages}
+              firstPage={this.firstPage}
+              prevPage={this.prevPage}
+              lastPage={this.lastPage}
+              nextPage={this.nextPage}
+              queueStatus={this.state.queueStatus}
+              permission={this.state.permission}
+              statusRejected={this.state.statusRejected}
+              noPDF={this.state.noPDF}
+              changeStatus={this.state.changeStatus}
+              onStatusChange={this.handleStatusChange}
+              onOpenPDF={this.handleOpenPDF}
+              closeAlert={this.closeAlert}
+            />
+            <Footer />
           </div>
         </div>
-        <Footer />
       </div>
     );
   }

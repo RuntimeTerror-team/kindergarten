@@ -5,7 +5,6 @@ import AdminDistrictFormComponent from './AdminDistrictFormComponent';
 import AdminNavigationComponent from '../Navigation/AdminNavigationComponent';
 import HeaderComponent from '../Header/HeaderComponent';
 import Footer from '../Footer/Footer';
-import positions from '../../constants/positions';
 
 class AdminDistrictFormContainer extends Component {
     constructor(props) {
@@ -153,33 +152,31 @@ class AdminDistrictFormContainer extends Component {
 
     render() {
         return (
-            <div className="footerBottom">
-                <HeaderComponent userRole="ROLE_ADMIN" />
-                <div className={`${positions.bodyContainer}`}>
-                    <div className="row">
-                        <AdminNavigationComponent />
-                        <div className={`${positions.userPagePosition}`}>
-                            <h1 className="mb-5 text-center">Rajonų administravimas</h1>
-                            <AdminDistrictFormComponent
-                                districts={this.state.districts}
-                                addDistrict={this.addDistrict}
-                                updateDistrict={this.updateDistrict}
-                                startUpdate={this.startUpdate}
-                                updatingId={this.state.updatingId}
-                                onDistrictNameChange={this.onDistrictNameChange}
-                                updatingTitle={this.updatingTitle}
-                                titleValidation={this.state.titleValidation}
-                                onCreatingDistrictNameChange={this.onCreatingDistrictNameChange}
-                                titleValidationInUpdate={this.state.titleValidationInUpdate}
-                                requestMessage={this.state.requestMessage}
-                                messageStyle={this.state.messageStyle}
-                                updatingMessage={this.state.updatingMessage}
-                                updatingMessageStyle={this.state.updatingMessageStyle}
-                            />
-                        </div>
+            <div className="templatemo-flex-row">
+                <AdminNavigationComponent />
+                <div className="templatemo-content light-gray-bg col px-0">
+                    <HeaderComponent userRole="ROLE_ADMIN" />
+                    <div className="templatemo-content-container">
+                        <h1 className="mb-5 text-center page-name"><strong>Rajonų administravimas</strong></h1>
+                        <AdminDistrictFormComponent
+                            districts={this.state.districts}
+                            addDistrict={this.addDistrict}
+                            updateDistrict={this.updateDistrict}
+                            startUpdate={this.startUpdate}
+                            updatingId={this.state.updatingId}
+                            onDistrictNameChange={this.onDistrictNameChange}
+                            updatingTitle={this.updatingTitle}
+                            titleValidation={this.state.titleValidation}
+                            onCreatingDistrictNameChange={this.onCreatingDistrictNameChange}
+                            titleValidationInUpdate={this.state.titleValidationInUpdate}
+                            requestMessage={this.state.requestMessage}
+                            messageStyle={this.state.messageStyle}
+                            updatingMessage={this.state.updatingMessage}
+                            updatingMessageStyle={this.state.updatingMessageStyle}
+                        />
+                        <Footer />
                     </div>
                 </div>
-                <Footer />
             </div>
         )
     }

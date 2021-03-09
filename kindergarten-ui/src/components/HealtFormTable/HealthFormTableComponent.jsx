@@ -15,8 +15,8 @@ const HealthFormTableComponent = ({ familyFiles, handleDownload }) => (
 
             <tbody>
                 {familyFiles.length > 0
-                    && familyFiles.map(({ id, name, childFullName, date, url }, index) =>
-                        <tr key={id} >
+                    && familyFiles.map(({ name, childFullName, date, url }, index) =>
+                        <tr key={childFullName} >
                             <th scope='row'>{index + 1}</th>
                             <td>{childFullName}</td>
                             <td>{date}</td>

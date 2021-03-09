@@ -4,10 +4,7 @@ import Proptypes from 'prop-types';
 let GuardianInfoComponent = (props) => {
 
     return (
-
-        <div>
-
-
+        <div className="col-6">
             <div style={{ width: "20em" }}>
                 <h3>Duomenų redagavimas</h3>
 

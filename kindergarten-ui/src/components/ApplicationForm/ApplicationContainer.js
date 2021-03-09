@@ -8,7 +8,6 @@ import Axios from 'axios';
 import baseUrl from '../../AppConfig';
 import ApplicationComponent from './ApplicationComponent'
 import '../../styles/pages.css';
-import positions from "../../constants/positions";
 
 class ApplicationContainer extends Component {
 
@@ -1317,132 +1316,121 @@ class ApplicationContainer extends Component {
 
 
   render() {
-    if (this.state.isActiveQueue) {
-      return (
-        <div className="footerBottom">
+    return (
+      <div className="templatemo-flex-row">
+        <GuardianNavigationComponent />
+        <div className="templatemo-content light-gray-bg col px-0">
           <ApplicationFormHeader
             userRole="ROLE_GUARDIAN"
             name={this.state.userName}
             surname={this.state.userSurname} />
-          <div className={`${positions.bodyContainer}`}>
-            <div className="row">
-              <GuardianNavigationComponent />
-              <div className={`${positions.userPagePosition}`}>
-                <ApplicationComponent
-                  currentStep={this.state.currentStep}
-                  kinderGartenList={this.state.kinderGartenList}
-                  optionsValuesList={this.state.optionsValuesList}
-                  showChoices={this.state.showChoices}
-                  guardianName={this.state.guardianName}
-                  guardianSurname={this.state.guardianSurname}
-                  guardianId={this.state.guardianId}
-                  guardianPhone={this.state.guardianPhone}
-                  guardianAddress={this.state.guardianAddress}
-                  guardianCity={this.state.guardianCity}
-                  guardianPostalCode={this.state.guardianPostalCode}
-                  guardianEmail={this.state.guardianEmail}
-                  secondGuardianName={this.state.secondGuardianName}
-                  secondGuardianSurname={this.state.secondGuardianSurname}
-                  secondGuardianId={this.state.secondGuardianId}
-                  secondGuardianPhone={this.state.secondGuardianPhone}
-                  secondGuardianAddress={this.state.secondGuardianAddress}
-                  secondGuardianCity={this.state.secondGuardianCity}
-                  secondGuardianPostalCode={this.state.secondGuardianPostalCode}
-                  secondGuardianEmail={this.state.secondGuardianEmail}
-                  childName={this.state.childName}
-                  childSurname={this.state.childSurname}
-                  childBirthDate={this.state.childBirthDate}
-                  childId={this.state.childId}
-                  childStreet={this.state.childStreet}
-                  childCity={this.state.childCity}
-                  priorities={this.state.priorities}
-                  childMessage={this.state.childMessage}
-                  childMessageStyle={this.state.childMessageStyle}
-                  guardianMessage={this.state.guardianMessage}
-                  guardianMessageStyle={this.state.guardianMessageStyle}
-                  secondGuardianMessage={this.state.secondGuardianMessage}
-                  secondGuardianMessageStyle={this.state.secondGuardianMessageStyle}
-                  childAdded={this.state.childAdded}
-                  noChildMessage={this.state.noChildMessage}
-                  noChildMessageStyle={this.state.noChildMessageStyle}
-                  guardianAdded={this.state.guardianAdded}
-                  noGuardianMessage={this.state.noGuardianMessage}
-                  noGuardianMessageStyle={this.state.noGuardianMessageStyle}
-                  guardianNameValidation={this.state.guardianNameValidation}
-                  guardianSurnameValidation={this.state.guardianSurnameValidation}
-                  guardianIdValidation={this.state.guardianIdValidation}
-                  guardianPhoneValidation={this.state.guardianPhoneValidation}
-                  guardianAddressValidation={this.state.guardianAddressValidation}
-                  guardianCityValidation={this.state.guardianCityValidation}
-                  guardianPostalCodeValidation={this.state.guardianPostalCodeValidation}
-                  guardianEmailValidation={this.state.guardianEmailValidation}
-                  secondGuardianNameValidation={this.state.secondGuardianNameValidation}
-                  secondGuardianSurnameValidation={this.state.secondGuardianSurnameValidation}
-                  secondGuardianIdValidation={this.state.secondGuardianIdValidation}
-                  secondGuardianPhoneValidation={this.state.secondGuardianPhoneValidation}
-                  secondGuardianAddressValidation={this.state.secondGuardianAddressValidation}
-                  secondGuardianCityValidation={this.state.secondGuardianCityValidation}
-                  secondGuardianPostalCodeValidation={this.state.secondGuardianPostalCodeValidation}
-                  secondGuardianEmailValidation={this.state.secondGuardianEmailValidation}
-                  childNameValidation={this.state.childNameValidation}
-                  childSurnameValidation={this.state.childSurnameValidation}
-                  childBirthDateValidation={this.state.childBirthDateValidation}
-                  childIdValidation={this.state.childIdValidation}
-                  childStreetValidation={this.state.childStreetValidation}
-                  childCityValidation={this.state.childCityValidation}
-                  emptyInputsMessage={this.state.emptyInputsMessage}
-                  emptyInputsMessageStyle={this.state.emptyInputsMessageStyle}
-                  emptyChildInputsMessage={this.state.emptyChildInputsMessage}
-                  emptyChildInputsMessageStyle={this.state.emptyChildInputsMessageStyle}
-                  emptyGuardianInputsMessage={this.state.emptyGuardianInputsMessage}
-                  emptyGuardianInputsMessageStyle={this.state.emptyGuardianInputsMessageStyle}
-                  noneKindergartenSelectedMessage={this.state.noneKindergartenSelectedMessage}
-                  noneKindergartenSelectedMessageStyle={this.state.noneKindergartenSelectedMessageStyle}
-                  applicationMessage={this.state.applicationMessage}
-                  applicationMessageStyle={this.state.applicationMessageStyle}
-                  childRegistratedMessage={this.state.childRegistratedMessage}
-                  childRegistratedMessageStyle={this.state.childRegistratedMessageStyle}
-                  guardianButtonText={this.state.guardianButtonText}
-                  isDisabled={this.state.isDisabled}
-                  showSecondGuardianForm={this.state.showSecondGuardianForm}
-                  handleOnOptionsChange={this.handleChangeOptions}
-                  onChosenKindergartens={this.handleChosenKindergartens}
-                  onDeleteSelection={this.handleDeleteSelection}
-                  onDetailsChange={this.handleDetails}
-                  saveChild={this.handleChildSave}
-                  saveGuardian={this.handleGuardianSave}
-                  saveSecondGuardian={this.handleSecondGuardianSave}
-                  fillSecondGuardian={this.fillSecondGuardian}
-                  onPrioritiesChange={this.handleCheckPriorities}
-                  onSubmit={this.handleSubmit}
-                  prev={this.prev}
-                  next={this.next}
-                  previousButton={this.previousButton}
-                  nextButton={this.nextButton}
-                  wantsSecondGuardian={this.state.wantsSecondGuardian}
-                />
-
-              </div>
-            </div>
-          </div>
-          <Footer />
-        </div>
-      )
-    } else {
-      const goApp = () => this.props.history.push(`${urls.guardian.applicationBase}`);
-      return (
-        <div className="container">
-          <div className='m-5'>
-            <div className="alert alert-warning" role="alert">
-              Šiuo metu eilės yra uždarytos ir nėra galimybės pildyti prašymų.
-            </div>
-            <button className='btn btn-primary mt-3' onClick={goApp}>Eiti į pagrindinį puslapį</button>
+          <div className="templatemo-content-container">
+            <h1 className="mb-5 text-center page-name"><strong>Prašymo pildymas</strong></h1>
+            {this.state.isActiveQueue
+              && <ApplicationComponent
+                currentStep={this.state.currentStep}
+                kinderGartenList={this.state.kinderGartenList}
+                optionsValuesList={this.state.optionsValuesList}
+                showChoices={this.state.showChoices}
+                guardianName={this.state.guardianName}
+                guardianSurname={this.state.guardianSurname}
+                guardianId={this.state.guardianId}
+                guardianPhone={this.state.guardianPhone}
+                guardianAddress={this.state.guardianAddress}
+                guardianCity={this.state.guardianCity}
+                guardianPostalCode={this.state.guardianPostalCode}
+                guardianEmail={this.state.guardianEmail}
+                secondGuardianName={this.state.secondGuardianName}
+                secondGuardianSurname={this.state.secondGuardianSurname}
+                secondGuardianId={this.state.secondGuardianId}
+                secondGuardianPhone={this.state.secondGuardianPhone}
+                secondGuardianAddress={this.state.secondGuardianAddress}
+                secondGuardianCity={this.state.secondGuardianCity}
+                secondGuardianPostalCode={this.state.secondGuardianPostalCode}
+                secondGuardianEmail={this.state.secondGuardianEmail}
+                childName={this.state.childName}
+                childSurname={this.state.childSurname}
+                childBirthDate={this.state.childBirthDate}
+                childId={this.state.childId}
+                childStreet={this.state.childStreet}
+                childCity={this.state.childCity}
+                priorities={this.state.priorities}
+                childMessage={this.state.childMessage}
+                childMessageStyle={this.state.childMessageStyle}
+                guardianMessage={this.state.guardianMessage}
+                guardianMessageStyle={this.state.guardianMessageStyle}
+                secondGuardianMessage={this.state.secondGuardianMessage}
+                secondGuardianMessageStyle={this.state.secondGuardianMessageStyle}
+                childAdded={this.state.childAdded}
+                noChildMessage={this.state.noChildMessage}
+                noChildMessageStyle={this.state.noChildMessageStyle}
+                guardianAdded={this.state.guardianAdded}
+                noGuardianMessage={this.state.noGuardianMessage}
+                noGuardianMessageStyle={this.state.noGuardianMessageStyle}
+                guardianNameValidation={this.state.guardianNameValidation}
+                guardianSurnameValidation={this.state.guardianSurnameValidation}
+                guardianIdValidation={this.state.guardianIdValidation}
+                guardianPhoneValidation={this.state.guardianPhoneValidation}
+                guardianAddressValidation={this.state.guardianAddressValidation}
+                guardianCityValidation={this.state.guardianCityValidation}
+                guardianPostalCodeValidation={this.state.guardianPostalCodeValidation}
+                guardianEmailValidation={this.state.guardianEmailValidation}
+                secondGuardianNameValidation={this.state.secondGuardianNameValidation}
+                secondGuardianSurnameValidation={this.state.secondGuardianSurnameValidation}
+                secondGuardianIdValidation={this.state.secondGuardianIdValidation}
+                secondGuardianPhoneValidation={this.state.secondGuardianPhoneValidation}
+                secondGuardianAddressValidation={this.state.secondGuardianAddressValidation}
+                secondGuardianCityValidation={this.state.secondGuardianCityValidation}
+                secondGuardianPostalCodeValidation={this.state.secondGuardianPostalCodeValidation}
+                secondGuardianEmailValidation={this.state.secondGuardianEmailValidation}
+                childNameValidation={this.state.childNameValidation}
+                childSurnameValidation={this.state.childSurnameValidation}
+                childBirthDateValidation={this.state.childBirthDateValidation}
+                childIdValidation={this.state.childIdValidation}
+                childStreetValidation={this.state.childStreetValidation}
+                childCityValidation={this.state.childCityValidation}
+                emptyInputsMessage={this.state.emptyInputsMessage}
+                emptyInputsMessageStyle={this.state.emptyInputsMessageStyle}
+                emptyChildInputsMessage={this.state.emptyChildInputsMessage}
+                emptyChildInputsMessageStyle={this.state.emptyChildInputsMessageStyle}
+                emptyGuardianInputsMessage={this.state.emptyGuardianInputsMessage}
+                emptyGuardianInputsMessageStyle={this.state.emptyGuardianInputsMessageStyle}
+                noneKindergartenSelectedMessage={this.state.noneKindergartenSelectedMessage}
+                noneKindergartenSelectedMessageStyle={this.state.noneKindergartenSelectedMessageStyle}
+                applicationMessage={this.state.applicationMessage}
+                applicationMessageStyle={this.state.applicationMessageStyle}
+                childRegistratedMessage={this.state.childRegistratedMessage}
+                childRegistratedMessageStyle={this.state.childRegistratedMessageStyle}
+                guardianButtonText={this.state.guardianButtonText}
+                isDisabled={this.state.isDisabled}
+                showSecondGuardianForm={this.state.showSecondGuardianForm}
+                handleOnOptionsChange={this.handleChangeOptions}
+                onChosenKindergartens={this.handleChosenKindergartens}
+                onDeleteSelection={this.handleDeleteSelection}
+                onDetailsChange={this.handleDetails}
+                saveChild={this.handleChildSave}
+                saveGuardian={this.handleGuardianSave}
+                saveSecondGuardian={this.handleSecondGuardianSave}
+                fillSecondGuardian={this.fillSecondGuardian}
+                onPrioritiesChange={this.handleCheckPriorities}
+                onSubmit={this.handleSubmit}
+                prev={this.prev}
+                next={this.next}
+                previousButton={this.previousButton}
+                nextButton={this.nextButton}
+                wantsSecondGuardian={this.state.wantsSecondGuardian}
+              />}
+            {!this.state.isActiveQueue
+              &&
+              <h6 className="mt-5 text-center">
+                Šiuo metu eilės yra uždarytos ir nėra galimybės pildyti prašymų.
+                </h6>}
+            <Footer />
           </div>
         </div>
-      )
-    }
+      </div>
+    )
   }
 }
-
 
 export default withRouter(ApplicationContainer);
