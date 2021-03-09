@@ -1,5 +1,6 @@
 package lt.vtmc.kindergarten.controller;
 
+import ch.qos.logback.classic.Logger;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 import lt.vtmc.kindergarten.domain.Person;
@@ -7,16 +8,24 @@ import lt.vtmc.kindergarten.dto.PersonDto;
 import lt.vtmc.kindergarten.dto.PersonUserDto;
 import lt.vtmc.kindergarten.exception.FamilyMemberValidationException;
 import lt.vtmc.kindergarten.service.PersonService;
+import org.slf4j.LoggerFactory;
+import org.slf4j.Marker;
+import org.slf4j.MarkerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.ConstraintViolationException;
+import java.util.Date;
 import java.util.List;
 
 @RestController
 public class PersonController {
+
+    private Marker personEvent = MarkerFactory.getMarker("PERSON_EVENT");
+    private static final Logger logger
+            = (Logger) LoggerFactory.getLogger(PersonController.class);
 
     @Autowired
     private PersonService personService;
@@ -67,6 +76,7 @@ public class PersonController {
             @RequestBody PersonDto personDto
     ){
         personService.updatePerson(id, personDto);
+        logger.info(personEvent,"Atnaujinti {} {} duomenys. Įvykio laikas: {}", personDto.getFirstName(), personDto.getFirstName(), new Date());
     }
 
     @ApiOperation(value = "Get single person by id", notes = "Returns a single person by id")

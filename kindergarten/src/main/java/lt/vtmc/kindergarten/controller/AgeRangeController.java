@@ -1,13 +1,18 @@
 package lt.vtmc.kindergarten.controller;
 
+import ch.qos.logback.classic.Logger;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 import lt.vtmc.kindergarten.dto.AgeRangeDto;
 import lt.vtmc.kindergarten.dto.MessageResponse;
 import lt.vtmc.kindergarten.service.AgeRangeService;
 
+import java.util.Date;
 import java.util.List;
 
+import org.slf4j.LoggerFactory;
+import org.slf4j.Marker;
+import org.slf4j.MarkerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -18,6 +23,10 @@ import javax.validation.Valid;
 
 @RestController
 public class AgeRangeController {
+
+    private Marker ageRangeEvent = MarkerFactory.getMarker("AGE_RANGE_EVENT");
+    private static final Logger logger
+            = (Logger) LoggerFactory.getLogger(AgeRangeController.class);
 
     @Autowired
     private AgeRangeService ageRangeService;
@@ -46,6 +55,7 @@ public class AgeRangeController {
             @RequestBody AgeRangeDto ageRangeDto){
     	
         ageRangeService.addAgeRange(ageRangeDto);
+        logger.info(ageRangeEvent, "Sukurtas {}-{} amžiaus intervalas. Sukūrimo laikas {}",ageRangeDto.getMinAge(), ageRangeDto.getMaxAge(), new Date());
         return new ResponseEntity<>(HttpStatus.OK);
     }
     
@@ -59,6 +69,7 @@ public class AgeRangeController {
             @RequestBody AgeRangeDto ageRangeDto){
     	
         boolean addedAgeRange = ageRangeService.addAgeInterval(ageRangeDto);
+        logger.info(ageRangeEvent, "Sukurtas {}-{} amžiaus intervalas. Sukūrimo laikas {}",ageRangeDto.getMinAge(), ageRangeDto.getMaxAge(), new Date());
         
         if(!addedAgeRange) {
         	
@@ -78,6 +89,7 @@ public class AgeRangeController {
             @RequestBody AgeRangeDto ageRangeDto
     ){
         ageRangeService.updateAgeRange(id, ageRangeDto);
+        logger.info(ageRangeEvent, "Atnaujintas amžiaus intervalas. Amžiaus intervalo id: {} Sukūrimo laikas {}",ageRangeDto.getId(), new Date());
     }
     
     @RequestMapping(value = "/api/ageRanges/{ageMin}/{ageMax}", method = RequestMethod.DELETE)

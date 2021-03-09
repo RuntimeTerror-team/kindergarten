@@ -51,6 +51,112 @@
         <appender-ref ref="APPLICATION_EVENT" />
     </logger>
 
+    <appender name="QUEUE_EVENT" class="ch.qos.logback.classic.db.DBAppender">
+        <filter class="ch.qos.logback.core.filter.EvaluatorFilter">
+            <evaluator class="ch.qos.logback.classic.boolex.OnMarkerEvaluator">
+                <marker>QUEUE_EVENT</marker>
+            </evaluator>
+            <onMismatch>DENY</onMismatch>
+            <onMatch>ACCEPT</onMatch>
+        </filter>
+        <connectionSource class="ch.qos.logback.core.db.DriverManagerConnectionSource">
+            <driverClass>${spring.datasource.driverClassName}</driverClass>
+            <url>${spring.datasource.url}</url>
+            <user>${spring.datasource.username}</user>
+            <password>${spring.datasource.password}</password>
+        </connectionSource>
+    </appender>
+
+    <logger name="lt.vtmc.kindergarten.controller.QueueController" level="info">
+        <appender-ref ref="QUEUE_EVENT" />
+    </logger>
+
+
+    <appender name="PERSON_EVENT" class="ch.qos.logback.classic.db.DBAppender">
+        <filter class="ch.qos.logback.core.filter.EvaluatorFilter">
+            <evaluator class="ch.qos.logback.classic.boolex.OnMarkerEvaluator">
+                <marker>PERSON_EVENT</marker>
+            </evaluator>
+            <onMismatch>DENY</onMismatch>
+            <onMatch>ACCEPT</onMatch>
+        </filter>
+        <connectionSource class="ch.qos.logback.core.db.DriverManagerConnectionSource">
+            <driverClass>${spring.datasource.driverClassName}</driverClass>
+            <url>${spring.datasource.url}</url>
+            <user>${spring.datasource.username}</user>
+            <password>${spring.datasource.password}</password>
+        </connectionSource>
+    </appender>
+
+    <logger name="lt.vtmc.kindergarten.controller.PersonController" level="info">
+        <appender-ref ref="PERSON_EVENT" />
+    </logger>
+
+
+    <appender name="KINDERGARTEN_EVENT" class="ch.qos.logback.classic.db.DBAppender">
+        <filter class="ch.qos.logback.core.filter.EvaluatorFilter">
+            <evaluator class="ch.qos.logback.classic.boolex.OnMarkerEvaluator">
+                <marker>KINDERGARTEN_EVENT</marker>
+            </evaluator>
+            <onMismatch>DENY</onMismatch>
+            <onMatch>ACCEPT</onMatch>
+        </filter>
+        <connectionSource class="ch.qos.logback.core.db.DriverManagerConnectionSource">
+            <driverClass>${spring.datasource.driverClassName}</driverClass>
+            <url>${spring.datasource.url}</url>
+            <user>${spring.datasource.username}</user>
+            <password>${spring.datasource.password}</password>
+        </connectionSource>
+    </appender>
+
+    <logger name="lt.vtmc.kindergarten.controller.KindergartenController" level="info">
+        <appender-ref ref="KINDERGARTEN_EVENT" />
+    </logger>
+
+
+    <appender name="DISTRICT_EVENT" class="ch.qos.logback.classic.db.DBAppender">
+        <filter class="ch.qos.logback.core.filter.EvaluatorFilter">
+            <evaluator class="ch.qos.logback.classic.boolex.OnMarkerEvaluator">
+                <marker>DISTRICT_EVENT</marker>
+            </evaluator>
+            <onMismatch>DENY</onMismatch>
+            <onMatch>ACCEPT</onMatch>
+        </filter>
+        <connectionSource class="ch.qos.logback.core.db.DriverManagerConnectionSource">
+            <driverClass>${spring.datasource.driverClassName}</driverClass>
+            <url>${spring.datasource.url}</url>
+            <user>${spring.datasource.username}</user>
+            <password>${spring.datasource.password}</password>
+        </connectionSource>
+    </appender>
+
+    <logger name="lt.vtmc.kindergarten.controller.DistrictController" level="info">
+        <appender-ref ref="DISTRICT_EVENT" />
+    </logger>
+
+
+    <appender name="AGE_RANGE_EVENT" class="ch.qos.logback.classic.db.DBAppender">
+        <filter class="ch.qos.logback.core.filter.EvaluatorFilter">
+            <evaluator class="ch.qos.logback.classic.boolex.OnMarkerEvaluator">
+                <marker>AGE_RANGE_EVENT</marker>
+            </evaluator>
+            <onMismatch>DENY</onMismatch>
+            <onMatch>ACCEPT</onMatch>
+        </filter>
+        <connectionSource class="ch.qos.logback.core.db.DriverManagerConnectionSource">
+            <driverClass>${spring.datasource.driverClassName}</driverClass>
+            <url>${spring.datasource.url}</url>
+            <user>${spring.datasource.username}</user>
+            <password>${spring.datasource.password}</password>
+        </connectionSource>
+    </appender>
+
+    <logger name="lt.vtmc.kindergarten.controller.AgeRangeController" level="info">
+        <appender-ref ref="AGE_RANGE_EVENT" />
+    </logger>
+
+
+
     <root level="info">
         <appender-ref ref="STDOUT" />
     </root>

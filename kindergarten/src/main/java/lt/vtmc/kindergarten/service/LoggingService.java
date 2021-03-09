@@ -20,4 +20,5 @@ public class LoggingService {
         List<String> logs = (List<String>) entityManager.createNativeQuery("SELECT formatted_message FROM logging_event").getResultList().stream().map(log -> (String) log).collect(Collectors.toList());
         return logs;
     }
+
 }

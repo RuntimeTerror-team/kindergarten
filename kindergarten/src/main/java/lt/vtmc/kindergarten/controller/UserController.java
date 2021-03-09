@@ -107,6 +107,12 @@ public class UserController {
     @ResponseStatus(HttpStatus.OK)
     public void setESPermission(@Valid @RequestBody PermissionForESDto permission) {
     	userService.setESPermision(permission);
+    	if(permission.getIsAllowed()){
+            logger.info(userEvent,"Administratorius suteikė leidimą prašymų sąrašo redagavimui švietimo specialistui. Įvykio laikas: {}", new Date());
+        } else {
+            logger.info(userEvent,"Administratorius atšaukė leidimą prašymų sąrašo redagavimui švietimo specialistui. Įvykio laikas: {}", new Date());
+        }
+
     }
     
     @RequestMapping(method = RequestMethod.GET, value = "/ES/permission")
