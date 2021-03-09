@@ -27,16 +27,11 @@ const ApplicationListComponent = ({ applications }) => {
                 </tbody>
             </table>
         </div>
-
     )
-
 
     return (
-
         applications.length === 0 ? <h6 className="text-center">Šiuo metu nesate pateikė jokio prašymo</h6> : table
     )
-
-
 }
 
 ApplicationListComponent.propTypes = {

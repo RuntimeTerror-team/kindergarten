@@ -8,7 +8,6 @@ import Footer from "../Footer/Footer";
 import AgeRangeFormComponent from "./AgeRangeFormComponent";
 
 import "../../styles/groupsForm.css";
-import positions from "../../constants/positions";
 
 class AgeRangeFormContainer extends Component {
   constructor() {
@@ -138,30 +137,29 @@ class AgeRangeFormContainer extends Component {
 
   render() {
     return (
-      <div className="footerBottom">
-        <HeaderComponent userRole="ROLE_EDUCATION_SPECIALIST" />
-        <div className={`${positions.bodyContainer}`}>
-          <div className="row">
-            <ESNavigationComponent />
-            <div className={`${positions.userPagePosition}`}>
-              <AgeRangeFormComponent
-                groups={this.state.groups}
-                fromAge={this.state.fromAge}
-                toAge={this.state.toAge}
-                fromAgeFieldValidation={this.state.fromAgeFieldValidation}
-                toAgeFieldValidation={this.state.toAgeFieldValidation}
-                invalidInterval={this.state.invalidInterval}
-                requestMessage={this.state.requestMessage}
-                messageStyle={this.state.messageStyle}
-                onSubmit={this.handleSubmit}
-                onDelete={this.handleDelete}
-                onFromAgeChange={this.handleChangeFromAge}
-                onToAgeChange={this.handleChangeToAge}
-              />
-            </div>
+      <div className="templatemo-flex-row">
+        <ESNavigationComponent />
+        <div className="templatemo-content light-gray-bg col px-0">
+          <HeaderComponent userRole="ROLE_EDUCATION_SPECIALIST" />
+          <div className="templatemo-content-container">
+            <h1 className="mb-5 text-center page-name"><strong>Amžiaus grupės sukūrimas</strong></h1>
+            <AgeRangeFormComponent
+              groups={this.state.groups}
+              fromAge={this.state.fromAge}
+              toAge={this.state.toAge}
+              fromAgeFieldValidation={this.state.fromAgeFieldValidation}
+              toAgeFieldValidation={this.state.toAgeFieldValidation}
+              invalidInterval={this.state.invalidInterval}
+              requestMessage={this.state.requestMessage}
+              messageStyle={this.state.messageStyle}
+              onSubmit={this.handleSubmit}
+              onDelete={this.handleDelete}
+              onFromAgeChange={this.handleChangeFromAge}
+              onToAgeChange={this.handleChangeToAge}
+            />
+            <Footer />
           </div>
         </div>
-        <Footer />
       </div>
     );
   }

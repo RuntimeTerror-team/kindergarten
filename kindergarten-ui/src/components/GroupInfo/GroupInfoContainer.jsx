@@ -5,7 +5,6 @@ import baseUrl from '../../AppConfig'
 import ESNavigationComponent from '../Navigation/ESNavigationComponent';
 import HeaderComponent from '../Header/HeaderComponent';
 import Footer from '../Footer/Footer';
-import positions from '../../constants/positions';
 
 class GroupInfoContainer extends Component {
     constructor(props) {
@@ -59,30 +58,23 @@ class GroupInfoContainer extends Component {
 
     render() {
         return (
-            <div>
-                <div className="footerBottom">
+            <div className="templatemo-flex-row">
+                <ESNavigationComponent />
+                <div className="templatemo-content light-gray-bg col px-0">
                     <HeaderComponent userRole="ROLE_EDUCATION_SPECIALIST" />
-                    <div className={`${positions.bodyContainer}`}>
-                        <div className="row">
-                            <ESNavigationComponent />
-                            <div className={`${positions.userPagePosition}`}>
-                                <h1 className="text-center">Darželio grupių sąrašas</h1>
-                                <p className="mb-5 text-center"><strong>{this.state.kindergarten.title}</strong> {this.state.kindergarten.address}</p>
-                                <GroupInfoComponent
-                                    groups={this.state.groups}
-                                    kindergartenId={this.state.kindergartenId}
-                                    buttonStatus={this.state.buttonStatus}
-                                />
-                            </div>
-                        </div>
+                    <div className="templatemo-content-container">
+                        <h1 className="mb-5 text-center page-name"><strong>Darželio grupių sąrašas</strong></h1>
+                        <GroupInfoComponent
+                            groups={this.state.groups}
+                            kindergartenId={this.state.kindergartenId}
+                            buttonStatus={this.state.buttonStatus}
+                        />
+                        <Footer />
                     </div>
-                    <Footer />
                 </div>
             </div>
-
         )
     }
-
 }
 
 export default GroupInfoContainer;
