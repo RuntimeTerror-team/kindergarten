@@ -1,7 +1,6 @@
 import axios from 'axios';
 import React, { Component } from 'react';
 import baseUrl from '../../AppConfig';
-import positions from '../../constants/positions';
 import Footer from '../Footer/Footer';
 import HeaderComponent from '../Header/HeaderComponent';
 import HealthFormTableComponent from '../HealtFormTable/HealthFormTableComponent';
@@ -54,36 +53,34 @@ class HealthFormListContainer extends Component {
 
     render() {
         return (
-            <div className="footerBottom">
-                <HeaderComponent userRole="ROLE_GUARDIAN" />
-                <div className={`${positions.bodyContainer}`}>
-                    <div className="row">
-                        <GuardianNavigationComponent />
-                        <div className={`${positions.userPagePosition}`}>
-                            <h1 className="mb-5 text-center">Sveikatos pažymos</h1>
-                            {this.state.children.length > 0
-                                && <HealthFormListComponent
-                                    children={this.state.children}
-                                    handleSubmit={this.handleSubmit}
-                                    updateForms={this.updateForms}
-                                />}
-                            {this.state.children.length === 0
-                                && <div className="alert alert-warning text-center mx-auto col-6 my-1" role="alert">
-                                    Galimybė įkelti pažymą turite tik pateikę prašymą į darželį.
+            <div className="templatemo-flex-row">
+                <GuardianNavigationComponent />
+                <div className="templatemo-content light-gray-bg col px-0">
+                    <HeaderComponent userRole="ROLE_GUARDIAN" />
+                    <div className="templatemo-content-container">
+                        <h1 className="mb-5 text-center page-name"><strong>Sveikatos pažymos</strong></h1>
+                        {this.state.children.length > 0
+                            && <HealthFormListComponent
+                                children={this.state.children}
+                                handleSubmit={this.handleSubmit}
+                                updateForms={this.updateForms}
+                            />}
+                        {this.state.children.length === 0
+                            && <div className="alert alert-warning text-center mx-auto col my-1" role="alert">
+                                Galimybė įkelti pažymą turite tik pateikę prašymą į darželį.
                              </div>}
-                            {this.state.familyFiles.length > 0
-                                && <HealthFormTableComponent
-                                    familyFiles={this.state.familyFiles}
-                                    handleDownload={this.handleDownload}
-                                />}
-                            {this.state.familyFiles.length === 0
-                                && <div className="alert alert-warning text-center mx-auto col-6 my-1" role="alert">
-                                    Jūs dar nesate pridėję sveikatos pažymų.
+                        {this.state.familyFiles.length > 0
+                            && <HealthFormTableComponent
+                                familyFiles={this.state.familyFiles}
+                                handleDownload={this.handleDownload}
+                            />}
+                        {this.state.familyFiles.length === 0
+                            && <div className="alert alert-warning text-center mx-auto col my-1" role="alert">
+                                Jūs dar nesate pridėję sveikatos pažymų.
                              </div>}
-                        </div>
+                        <Footer />
                     </div>
                 </div>
-                <Footer />
             </div>
         )
     }

@@ -8,9 +8,9 @@ const AdminUserTableComponent = ({ users }) => {
                 <table className="table table-striped table-bordered templatemo-user-table">
                     <thead>
                         <tr>
-                            <td><button className="btn text-white templatemo-sort-by"># <span className="caret"></span></button></td>
-                            <td><button className="btn text-white templatemo-sort-by">Prisijungimo vardas <span className="caret"></span></button></td>
-                            <td><button className="btn text-white templatemo-sort-by">Rolė<span className="caret"></span></button></td>
+                            <td>#</td>
+                            <td>Prisijungimo vardas</td>
+                            <td>Rolė</td>
                         </tr>
                     </thead>
                     <tbody>

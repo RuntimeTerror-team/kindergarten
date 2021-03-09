@@ -8,8 +8,6 @@ import ApplicationFormHeader from '../Header/ApplicationFormHeader';
 import Footer from '../Footer/Footer';
 import baseUrl from "../../AppConfig";
 import urls from '../../constants/urls';
-import positions from '../../constants/positions';
-
 
 axios.defaults.withCredentials = true;
 
@@ -664,76 +662,66 @@ class PasswordChangeContainer extends Component {
   render() {
 
     return (
-
-      <div className="footerBottom">
-        <ApplicationFormHeader
-          userRole="ROLE_GUARDIAN"
-          name={this.state.userName}
-          surname={this.state.userSurname} />
-        <div className={`${positions.bodyContainer}`}>
-          <div className="row">
-            <GuardianNavigationComponent />
-            <div className={`${positions.userPagePosition}`}>
-
-              <div className="row">
-
-                <div className="col-6">
-                  <PasswordChangeComponent
-                    password={this.state.password}
-                    password2={this.state.password2}
-                    oldPassword={this.state.oldPassword}
-                    passwordValidation={this.state.passwordValidation}
-                    password2Validation={this.state.password2Validation}
-                    oldPasswordValidation={this.state.oldPasswordValidation}
-                    notMatchingMessage={this.state.notMatchingMessage}
-                    notMatchingMessageStyle={this.state.notMatchingMessageStyle}
-                    successMessage={this.state.successMessage}
-                    successMessageStyle={this.state.successMessageStyle}
-                    wrongOldPasswordMessage={this.state.wrongOldPasswordMessage}
-                    wrongOldPasswordMessageStyle={this.state.wrongOldPasswordMessageStyle}
-                    onSubmit={this.handleSubmit}
-                    onPasswordChange={this.handleChange}
-                    onPassword2Change={this.handleChange}
-                    onOldPasswordChange={this.handleChange}
-                  />
-                </div>
-                <div className="col-6 pt-5 pl-5">
-                  <EditableGuardianInfoComponent
-                    name={this.state.guardianName}
-                    surname={this.state.guardianSurname}
-                    id={this.state.guardianId}
-                    phone={this.state.guardianPhone}
-                    address={this.state.guardianAddress}
-                    city={this.state.guardianCity}
-                    postalCode={this.state.guardianPostalCode}
-                    email={this.state.guardianEmail}
-                    message={this.state.guardianMessage}
-                    messageStyle={this.state.guardianMessageStyle}
-                    guardianButtonText={this.state.guardianButtonText}
-                    isDisabled={this.state.isDisabled}
-                    guardianNameValidation={this.state.guardianNameValidation}
-                    guardianSurnameValidation={this.state.guardianSurnameValidation}
-                    guardianIdValidation={this.state.guardianIdValidation}
-                    guardianPhoneValidation={this.state.guardianPhoneValidation}
-                    guardianAddressValidation={this.state.guardianAddressValidation}
-                    guardianCityValidation={this.state.guardianCityValidation}
-                    guardianPostalCodeValidation={this.state.guardianPostalCodeValidation}
-                    guardianEmailValidation={this.state.guardianEmailValidation}
-                    emptyInputsMessage={this.state.emptyInputsMessage}
-                    emptyInputsMessageStyle={this.state.emptyInputsMessageStyle}
-                    onDetailsChange={this.handleDetails}
-                    saveGuardian={this.handleGuardianSave}
-                  />
-                </div>
-              </div>
+      <div className="templatemo-flex-row">
+        <GuardianNavigationComponent />
+        <div className="templatemo-content light-gray-bg col px-0">
+          <ApplicationFormHeader
+            userRole="ROLE_GUARDIAN"
+            name={this.state.userName}
+            surname={this.state.userSurname} />
+          <div className="templatemo-content-container">
+            <h1 className="mb-5 text-center page-name"><strong>Sveikatos pažymos</strong></h1>
+            <div className="row">
+              <PasswordChangeComponent
+                password={this.state.password}
+                password2={this.state.password2}
+                oldPassword={this.state.oldPassword}
+                passwordValidation={this.state.passwordValidation}
+                password2Validation={this.state.password2Validation}
+                oldPasswordValidation={this.state.oldPasswordValidation}
+                notMatchingMessage={this.state.notMatchingMessage}
+                notMatchingMessageStyle={this.state.notMatchingMessageStyle}
+                successMessage={this.state.successMessage}
+                successMessageStyle={this.state.successMessageStyle}
+                wrongOldPasswordMessage={this.state.wrongOldPasswordMessage}
+                wrongOldPasswordMessageStyle={this.state.wrongOldPasswordMessageStyle}
+                onSubmit={this.handleSubmit}
+                onPasswordChange={this.handleChange}
+                onPassword2Change={this.handleChange}
+                onOldPasswordChange={this.handleChange}
+              />
+              <EditableGuardianInfoComponent
+                name={this.state.guardianName}
+                surname={this.state.guardianSurname}
+                id={this.state.guardianId}
+                phone={this.state.guardianPhone}
+                address={this.state.guardianAddress}
+                city={this.state.guardianCity}
+                postalCode={this.state.guardianPostalCode}
+                email={this.state.guardianEmail}
+                message={this.state.guardianMessage}
+                messageStyle={this.state.guardianMessageStyle}
+                guardianButtonText={this.state.guardianButtonText}
+                isDisabled={this.state.isDisabled}
+                guardianNameValidation={this.state.guardianNameValidation}
+                guardianSurnameValidation={this.state.guardianSurnameValidation}
+                guardianIdValidation={this.state.guardianIdValidation}
+                guardianPhoneValidation={this.state.guardianPhoneValidation}
+                guardianAddressValidation={this.state.guardianAddressValidation}
+                guardianCityValidation={this.state.guardianCityValidation}
+                guardianPostalCodeValidation={this.state.guardianPostalCodeValidation}
+                guardianEmailValidation={this.state.guardianEmailValidation}
+                emptyInputsMessage={this.state.emptyInputsMessage}
+                emptyInputsMessageStyle={this.state.emptyInputsMessageStyle}
+                onDetailsChange={this.handleDetails}
+                saveGuardian={this.handleGuardianSave}
+              />
             </div>
+            <Footer />
           </div>
         </div>
-        <Footer />
       </div>
     )
-
-
   }
 }
 

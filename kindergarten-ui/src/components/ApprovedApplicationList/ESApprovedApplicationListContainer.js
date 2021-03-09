@@ -5,7 +5,6 @@ import ESNavigationComponent from "../Navigation/ESNavigationComponent";
 import HeaderComponent from "../Header/HeaderComponent";
 import ESApprovedApplicationListComponent from "./ESApprovedApplicationListComponent";
 import Footer from "../Footer/Footer";
-import positions from "../../constants/positions";
 
 class ESApprovedApplicationListContainer extends Component {
   constructor(props) {
@@ -143,31 +142,29 @@ class ESApprovedApplicationListContainer extends Component {
   render() {
     const { applications, currentPage, totalPages } = this.state;
     return (
-      <div className="footerBottom">
-        <HeaderComponent userRole="ROLE_EDUCATION_SPECIALIST" />
-        <div className={`${positions.bodyContainer}`}>
-          <div className="row">
-            <ESNavigationComponent />
-            <div className={`${positions.userPagePosition}`}>
-              <h1 className="mb-5 text-center">Prašymai</h1>
-              <ESApprovedApplicationListComponent
-                applications={applications}
-                recalculation={this.recalculateApplications}
-                currentPage={currentPage}
-                totalPages={totalPages}
-                firstPage={this.firstPage}
-                prevPage={this.prevPage}
-                lastPage={this.lastPage}
-                nextPage={this.nextPage}
-                queueStatus={this.state.queueStatus}
-                permission={this.state.permission}
-                changeStatus={this.state.changeStatus}
-                onStatusChange={this.handleStatusChange}
-              />
-            </div>
+      <div className="templatemo-flex-row">
+        <ESNavigationComponent />
+        <div className="templatemo-content light-gray-bg col px-0">
+          <HeaderComponent userRole="ROLE_EDUCATION_SPECIALIST" />
+          <div className="templatemo-content-container">
+            <h1 className="mb-5 text-center page-name"><strong>Prašymai</strong></h1>
+            <ESApprovedApplicationListComponent
+              applications={applications}
+              recalculation={this.recalculateApplications}
+              currentPage={currentPage}
+              totalPages={totalPages}
+              firstPage={this.firstPage}
+              prevPage={this.prevPage}
+              lastPage={this.lastPage}
+              nextPage={this.nextPage}
+              queueStatus={this.state.queueStatus}
+              permission={this.state.permission}
+              changeStatus={this.state.changeStatus}
+              onStatusChange={this.handleStatusChange}
+            />
+            <Footer />
           </div>
         </div>
-        <Footer />
       </div>
     );
   }

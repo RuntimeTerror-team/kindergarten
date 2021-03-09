@@ -5,7 +5,6 @@ import HeaderComponent from '../Header/HeaderComponent';
 import Footer from '../Footer/Footer';
 import EsQueueListComponent from './EsQueueListComponent';
 import ESNavigationComponent from '../Navigation/ESNavigationComponent';
-import positions from '../../constants/positions';
 
 class EsQueueListContainer extends Component {
     constructor(props) {
@@ -195,30 +194,28 @@ class EsQueueListContainer extends Component {
 
     render() {
         return (
-            <div className="footerBottom">
-                <HeaderComponent userRole="ROLE_EDUCATION_SPECIALIST" />
-                <div className={`${positions.bodyContainer}`}>
-                    <div className="row">
-                        <ESNavigationComponent />
-                        <div className={`${positions.userPagePosition}`}>
-                            <h1 className="mb-5 text-center">Eilių administravimas</h1>
-                            {<EsQueueListComponent
-                                queues={this.state.queues}
-                                queue={this.state.queue}
-                                errors={this.state.errors}
-                                handleChange={this.handleChange}
-                                toggleUpdate={this.toggleUpdate}
-                                isUpdating={this.state.isUpdating}
-                                handleClosingRegistration={this.handleClosingRegistration}
-                                message={this.state.message}
-                                messageStyle={this.state.messageStyle}
-                                refresh={this.refresh}
-                                handleApprove={this.handleApprove}
-                            />}
-                        </div>
+            <div className="templatemo-flex-row">
+                <ESNavigationComponent />
+                <div className="templatemo-content light-gray-bg col px-0">
+                    <HeaderComponent userRole="ROLE_EDUCATION_SPECIALIST" />
+                    <div className="templatemo-content-container">
+                        <h1 className="mb-5 text-center page-name"><strong>Eilių administravimas</strong></h1>
+                        <EsQueueListComponent
+                            queues={this.state.queues}
+                            queue={this.state.queue}
+                            errors={this.state.errors}
+                            handleChange={this.handleChange}
+                            toggleUpdate={this.toggleUpdate}
+                            isUpdating={this.state.isUpdating}
+                            handleClosingRegistration={this.handleClosingRegistration}
+                            message={this.state.message}
+                            messageStyle={this.state.messageStyle}
+                            refresh={this.refresh}
+                            handleApprove={this.handleApprove}
+                        />
+                        <Footer />
                     </div>
                 </div>
-                <Footer />
             </div>
         )
     }
