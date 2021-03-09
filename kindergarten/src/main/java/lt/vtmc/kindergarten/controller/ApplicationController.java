@@ -110,12 +110,11 @@ public class ApplicationController{
         applicationService.recalculateApplicationOrderInQueue();
     }
     
-    @RequestMapping(method = RequestMethod.PUT, value = "/api/applications/{childFirstName}/{childLastName}/{status}")
+    @RequestMapping(method = RequestMethod.PUT, value = "/api/applications/{id}/{status}")
     @ApiOperation(value = "Change application status", notes = "Changes application status after distribution")
     @ResponseStatus(HttpStatus.OK)
-    public void changeApplicationAfterDistributionStatus(@PathVariable final String childFirstName, @PathVariable String childLastName,
-    		@PathVariable final String status) {
-    	applicationService.changeApplicationStatus(childFirstName, childLastName, status);
+    public void changeApplicationAfterDistributionStatus(@PathVariable final long id, @PathVariable final String status) {
+    	applicationService.changeApplicationStatus(id, status);
     }
 
     public void setApplicationService(ApplicationService applicationService) {

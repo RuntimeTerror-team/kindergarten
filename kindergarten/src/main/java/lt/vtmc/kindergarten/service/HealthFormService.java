@@ -7,8 +7,10 @@ import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
+import lt.vtmc.kindergarten.dao.ApplicationDao;
 import lt.vtmc.kindergarten.dao.HealthFormRepository;
 import lt.vtmc.kindergarten.dao.PersonDao;
+import lt.vtmc.kindergarten.domain.Application;
 import lt.vtmc.kindergarten.domain.HealthForm;
 import lt.vtmc.kindergarten.domain.Person;
 import lt.vtmc.kindergarten.dto.HealthFileResponse;
@@ -25,6 +27,8 @@ public class HealthFormService {
     private HealthFormRepository healthFormRepository;
     @Autowired
     private PersonDao personDao;
+    @Autowired
+    private ApplicationDao applicationDao;
 
     @Transactional
     public HealthForm store(MultipartFile file, Long childId) throws IOException {
@@ -105,5 +109,25 @@ public class HealthFormService {
                             dbFile.getDate()
                     );
                 }).collect(Collectors.toList());
+    }
+    
+    @Transactional(readOnly = true)
+    public HealthFileResponse getHealthFormByChildId(Long id) {
+    	Application application = applicationDao.getOne(id);
+        HealthForm healthForm = healthFormRepository.getHealthFormByChildId(application.getChild().getId());
+        String fileDownloadUri = ServletUriComponentsBuilder
+                .fromCurrentContextPath()
+                .path("/api/health-forms/")
+                .path(healthForm.getId())
+                .toUriString();
+
+                    return new HealthFileResponse(
+                    		healthForm.getName(),
+                            fileDownloadUri,
+                            healthForm.getType(),
+                            healthForm.getData().length,
+                            healthForm.getChild().getFirstName() + " " + healthForm.getChild().getLastName(),
+                            healthForm.getDate()
+                    );
     }
 }

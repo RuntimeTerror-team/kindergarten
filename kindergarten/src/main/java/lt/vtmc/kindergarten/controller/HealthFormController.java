@@ -56,6 +56,14 @@ public class HealthFormController {
 
         return ResponseEntity.status(HttpStatus.OK).body(files);
     }
+    
+    @GetMapping("/singleForm/{id}")
+    @ApiOperation(value = "Get healthForm by childId", notes = "Returns a healthForm by child id")
+    public ResponseEntity<HealthFileResponse> getHealthFormByChildId(@PathVariable final Long id) {
+        HealthFileResponse response = storageService.getHealthFormByChildId(id);
+
+        return ResponseEntity.status(HttpStatus.OK).body(response);
+    }
 
     @GetMapping("/{id}")
     @ApiOperation(value = "Get one file", notes = "Returns a file by id")
