@@ -2,6 +2,9 @@ import React from "react";
 import Proptypes from "prop-types";
 import { GrNext } from "react-icons/gr";
 import { GrPrevious } from "react-icons/gr";
+import {Modal, Button} from "react-bootstrap";
+// import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+// import { faFilePdf } from "@fortawesome/free-solid-svg-icons";
 
 const ESApprovedApplicationListComponent = ({
   applications,
@@ -14,8 +17,13 @@ const ESApprovedApplicationListComponent = ({
   nextPage,
   queueStatus,
   permission,
+  noPDF,
+  statusRejected,
+  closeAlert,
   onStatusChange,
+  onOpenPDF
 }) => {
+
   let table = (
     <div className="col-12 mt-3">
       <div className="pb-5">
@@ -40,7 +48,8 @@ const ESApprovedApplicationListComponent = ({
             <th scope="col" style={{ width: "115px" }}>
               Laukimo Nr.
             </th>
-            {permission && queueStatus === "LOCKED" ? <th scope="col"></th> : null}
+            <th scope="col">Sveikatos pažyma</th>
+            {permission && queueStatus === "LOCKED" ? <th scope="col">Redagavimas</th> : null}
           </tr>
         </thead>
 
@@ -58,9 +67,13 @@ const ESApprovedApplicationListComponent = ({
                 status,
                 approvedKindergartenTitle,
                 waitingNumber,
+                applicationId,
+                healthForm,
+                
               },
               index
             ) => {
+
               if (waitingNumber === null) {
                 waitingNumber = "-";
               }
@@ -79,13 +92,22 @@ const ESApprovedApplicationListComponent = ({
                   <td>{status}</td>
                   <td>{approvedKindergartenTitle}</td>
                   <td>{waitingNumber}</td>
+                  <td>
+                  <button className="btn btn-link" onClick={onOpenPDF} value={applicationId}>
+                    Atsisiųsti
+                  </button>
+                  </td>
+
+                  {/* <button className="btn btn-link" value={applicationId} onClick={onOpenPDF}>
+                  <FontAwesomeIcon color="black" icon={faFilePdf} />
+                    </button> */}
                   {permission && queueStatus === "LOCKED" ? (
                     <td>
                       <button
-                        className="btn btn-info"
-                        value={childFirstName + "," + childLastName}
+                        className="btn btn-link"
+                        value={applicationId}
                         onClick={onStatusChange}>
-                        Atšaukti
+                        Atšaukti prašymą
                       </button>
                     </td>
                   ) : null}
@@ -95,6 +117,23 @@ const ESApprovedApplicationListComponent = ({
           )}
         </tbody>
       </table>
+
+      <Modal show={noPDF} aria-labelledby="contained-modal-title-vcenter" centered>
+        <Modal.Body>Vaiko atstovas nėra pridėjęs sveikatos pažymos.</Modal.Body>
+        <Modal.Footer>
+        <Button variant="secondary" onClick={closeAlert}>
+            Uždaryti
+        </Button>
+        </Modal.Footer>
+      </Modal>
+      <Modal show={statusRejected} aria-labelledby="contained-modal-title-vcenter" centered>
+        <Modal.Body>Prašymas sėkmingai atmestas.</Modal.Body>
+        <Modal.Footer>
+        <Button variant="secondary" onClick={closeAlert}>
+            Uždaryti
+        </Button>
+        </Modal.Footer>
+      </Modal>
 
       <div className="float-right btn-toolbar pt-5" role="toolbar" aria-label="Toolbar with button groups">
         <div className="btn-group mr-2" role="group" aria-label="First group">
@@ -132,7 +171,10 @@ const ESApprovedApplicationListComponent = ({
     </div>
   );
 
+  
   return applications.length === 0 ? <h6 className="text-center">Prašymų registracija nėra sustabdyta</h6> : table;
+
+  
 };
 
 ESApprovedApplicationListComponent.propTypes = {
