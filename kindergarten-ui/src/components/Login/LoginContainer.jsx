@@ -4,7 +4,7 @@ import { withRouter } from "react-router-dom";
 import LoginComponent from "./LoginComponent";
 import baseUrl from "../../AppConfig";
 import urls from "../../constants/urls";
-import loginLogo from "../../image/loginLogo.png";
+import loginLogo from "../../images/loginLogo.png";
 import "../../styles/login-logo.css";
 import { login } from "../../utils/utils";
 

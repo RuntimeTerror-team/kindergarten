@@ -5,8 +5,7 @@ let PasswordChangeComponent = ({ password, password2, oldPassword, passwordValid
   successMessage, successMessageStyle, wrongOldPasswordMessage, wrongOldPasswordMessageStyle, onSubmit, onPasswordChange, onPassword2Change, onOldPasswordChange }) => {
 
   return (
-
-    <div className="row justify-content-center align-items-center">
+    <div className="col-6 justify-content-center align-items-center">
       <div style={{ width: "300px" }}>
         <h2 className="mb-3  mt-5 text-center">Pakeisti slaptažodį</h2>
         <form className="form row" onSubmit={onSubmit}>

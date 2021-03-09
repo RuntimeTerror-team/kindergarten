@@ -5,7 +5,6 @@ import HeaderComponent from '../Header/HeaderComponent';
 import Footer from '../Footer/Footer';
 import AdminUserFormComponent from './AdminUserFormComponent';
 import AdminNavigationComponent from '../Navigation/AdminNavigationComponent';
-import positions from "../../constants/positions";
 
 class AdminUserFormContainer extends Component {
     constructor() {
@@ -113,24 +112,20 @@ class AdminUserFormContainer extends Component {
 
     render() {
         return (
-            <div>
-                <div className="footerBottom">
+            <div className="templatemo-flex-row">
+                <AdminNavigationComponent />
+                <div className="templatemo-content light-gray-bg col px-0">
                     <HeaderComponent userRole="ROLE_ADMIN" />
-                    <div className={`${positions.bodyContainer}`}>
-                        <div className="row">
-                            <AdminNavigationComponent />
-                            <div className={`${positions.userPagePosition}`}>
-                                <h1 className="mb-5 text-center">Paskyrų administravimas</h1>
-                                <AdminUserFormComponent
-                                    handleSubmit={this.handleSubmit}
-                                    handleChange={this.handleChange}
-                                    isCreated={this.state.isCreated}
-                                    {...this.state}
-                                />
-                            </div>
-                        </div>
+                    <div className="templatemo-content-container">
+                        <h1 className="mb-5 text-center page-name"><strong>Paskyrų administravimas</strong></h1>
+                        <AdminUserFormComponent
+                            handleSubmit={this.handleSubmit}
+                            handleChange={this.handleChange}
+                            isCreated={this.state.isCreated}
+                            {...this.state}
+                        />
+                        <Footer />
                     </div>
-                    <Footer />
                 </div>
             </div>
         )
