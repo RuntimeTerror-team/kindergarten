@@ -46,9 +46,15 @@ class FileInput extends Component {
         e.preventDefault();
 
         if (this.props.selectedChildId !== "Pasirinkti vaiką" && this.props.selectedChildId.length !== 0) {
+
+            if (this.state.file.size >= 2000000) {
+                this.showAlert("Pasirinkote per didelį failą (iki 2MB).", "danger")
+                return;
+            }
+
             const formData = new FormData();
 
-            formData.append('file', this.state.file);
+            formData.append('file', this.state.file.size);
 
             axios
                 .post(`${baseUrl}/api/health-forms/${this.props.selectedChildId}`, formData, {
@@ -62,7 +68,7 @@ class FileInput extends Component {
                     this.props.updateForms();
                 })
                 .catch((err) => {
-                    this.showAlert("Klaida. Gali būti, kad pasirinkote per didelį failą (iki 2MB).", "danger")
+                    this.showAlert("Klaida. Failo nepavyko išsaugoti.", "danger")
                     console.log(err);
                 })
         } else {
