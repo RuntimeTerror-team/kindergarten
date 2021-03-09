@@ -1,6 +1,8 @@
 import React from "react";
 import Proptypes from "prop-types";
 import Input from "../common/Input";
+import 'bootstrap/dist/js/bootstrap.bundle.min';
+import Modal from "../common/Modal";
 
 const EsQueueListComponent = ({
     queues,
@@ -72,7 +74,15 @@ const EsQueueListComponent = ({
                                     </td>
                                     : status === "LOCKED"
                                         ? <td>
-                                            <button className="btn btn-red" id={id} onClick={handleApprove}>Uždaryti</button>
+                                            <button className="btn btn-red" id={id} data-toggle="modal" data-target="#exampleModal">Uždaryti</button>
+                                            <Modal
+                                                targetId={id}
+                                                modalTitle="Eilės uždarymas"
+                                                modalMessage="Jei uždarysite eilę, ji bus perskaičiuota ir bus išsiųstos galutinės prašymų į darželius būsenos vaikų atstovams."
+                                                modalApprove={handleApprove}
+                                                modalButtonMessage="Uždaryti eilę"
+                                                modalButtonStyle="danger"
+                                            />
                                         </td>
                                         : <td>-</td>}
                                 <td>{(status === "ACTIVE")
