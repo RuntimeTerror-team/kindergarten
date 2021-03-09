@@ -219,6 +219,12 @@ class PasswordChangeESContainer extends Component {
     }
 
 
+<<<<<<< HEAD
+=======
+    if (oldPassword.trim().length === 0) {
+      this.setState({ oldPasswordValidation: "is-invalid" });
+
+>>>>>>> 5737fef26870b1eed050aa4520ddca18367c7f16
     render() {
 
         return (

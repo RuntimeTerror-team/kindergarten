@@ -1,3 +1,7 @@
+<<<<<<< HEAD
+=======
+
+>>>>>>> 5737fef26870b1eed050aa4520ddca18367c7f16
 import Axios from "axios";
 import React, { Component } from "react";
 import baseUrl from "../../AppConfig";

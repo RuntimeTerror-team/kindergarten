@@ -57,6 +57,8 @@ function App(props) {
         <PublicRoute restricted={false} exact path='/forbidden' component={Forbidden} />
         <PublicRoute restricted={false} exact path='/error' component={Error} />
         <PublicRoute restricted={false} path='*' component={NoMatchComponent} />
+        <PrivateRoute userRole="ROLE_ADMIN" exact path={`${urls.admin.loggingBase}`} component={LoggingContainer} />
+
         <PublicRoute restricted={false} component={NoMatchComponent} />
       </Switch>
       {props.children}
