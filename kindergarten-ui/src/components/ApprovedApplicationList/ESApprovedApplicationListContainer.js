@@ -32,6 +32,7 @@ class ESApprovedApplicationListContainer extends Component {
     currentPage -= 1;
     Axios.get(baseUrl + "/api/applications/sorted/?page=" + currentPage + "&size=" + this.state.applicationsPerPage)
       .then((res) => {
+
         this.setState({
           applications: res.data.content,
           totalPages: res.data.totalPages,
@@ -46,7 +47,7 @@ class ESApprovedApplicationListContainer extends Component {
 
     Axios.get(`${baseUrl}/api/queues`)
       .then((res) => {
-        this.setState({ queues: res.data });
+        this.setState({ queues: res.data.filter(queue => queue.status !== "INACTIVE") });
         this.setState({ queueStatus: this.state.queues[0].status });
       })
       .catch((err) => console.log(err));
@@ -145,7 +146,7 @@ class ESApprovedApplicationListContainer extends Component {
     .then(res => {
       this.setState({pdf: res.data})
 
-      if(this.state.pdf === ""){
+      if(this.state.pdf.length === 0){
         this.setState({noPDF: true})
       } else{
         this.setState({noPDF: false})
@@ -174,6 +175,7 @@ class ESApprovedApplicationListContainer extends Component {
             <h1 className="mb-5 text-center page-name"><strong>Prašymai</strong></h1>
             <ESApprovedApplicationListComponent
               applications={applications}
+              queues={this.state.queues}
               recalculation={this.recalculateApplications}
               currentPage={currentPage}
               totalPages={totalPages}
