@@ -110,6 +110,25 @@ class AdminUserFormContainer extends Component {
         }
     }
 
+    downloadUserData = (e) => {
+        axios
+            .request({
+                url: `${baseUrl}/api/user-data/${e.target.id}`,
+                method: 'GET',
+                responseType: 'blob'
+            })
+            .then(({ data }) => {
+                const downloadUrl = window.URL.createObjectURL(new Blob([data]));
+                const link = document.createElement('a');
+                link.href = downloadUrl;
+                link.setAttribute('download', 'duomenys.zip');
+                document.body.appendChild(link);
+                link.click();
+                link.remove();
+            })
+            .catch((err) => console.log(err))
+    }
+
     render() {
         return (
             <div className="templatemo-flex-row">
@@ -122,6 +141,7 @@ class AdminUserFormContainer extends Component {
                             handleSubmit={this.handleSubmit}
                             handleChange={this.handleChange}
                             isCreated={this.state.isCreated}
+                            downloadUserData={this.downloadUserData}
                             {...this.state}
                         />
                         <Footer />

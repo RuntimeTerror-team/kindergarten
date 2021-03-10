@@ -2,7 +2,7 @@ import React from "react";
 import Proptypes from "prop-types";
 import AdminUserTableComponent from "../AdminUserTable/AdminUserTableComponent";
 
-let AdminUserFormComponent = ({ handleChange, handleSubmit, ...otherProps }) => {
+let AdminUserFormComponent = ({ handleChange, handleSubmit, downloadUserData, ...otherProps }) => {
   const { firstname, lastname, firstnameLength, lastnameLength, createdUsername, isCreated, users } = otherProps;
 
   return (
@@ -63,6 +63,7 @@ let AdminUserFormComponent = ({ handleChange, handleSubmit, ...otherProps }) => 
       )}
       {users.length > 0 && <AdminUserTableComponent
         users={users}
+        downloadUserData={downloadUserData}
       />}
     </div>
   )

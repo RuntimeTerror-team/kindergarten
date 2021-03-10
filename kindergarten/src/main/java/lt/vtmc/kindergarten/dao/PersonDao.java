@@ -18,4 +18,7 @@ public interface PersonDao extends JpaRepository<Person,Long> {
             + "(SELECT p.tribeId FROM Person p WHERE p.user.username = :username) "
             + "AND p.phoneNumber IS NULL")
     List<Person> getChildrenOfParentByUsername(String username);
+
+    @Query("SELECT p FROM Person p WHERE p.user.username = :username")
+    Person findPersonByUsername(String username);
 }
