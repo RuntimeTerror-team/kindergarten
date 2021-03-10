@@ -41,7 +41,7 @@ public class UserDataService {
             user.setMiestas(person.getCity().toString());
             user.setPašto_kodas(person.getPostalCode());
             user.setTelefono_numeris(person.getPhoneNumber());
-            user.setPašto_adresas(person.getEmail());
+            user.setEl_paštas(person.getEmail());
         }
         return user;
     }

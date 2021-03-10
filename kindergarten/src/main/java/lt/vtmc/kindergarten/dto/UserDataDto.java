@@ -10,7 +10,7 @@ private String prisijungimo_vardas;
     private String miestas;
     private String pašto_kodas;
     private String telefono_numeris;
-    private String pašto_adresas;
+    private String el_paštas;
 
     public UserDataDto() {
         this.prisijungimo_vardas = "";
@@ -21,7 +21,7 @@ private String prisijungimo_vardas;
         this.miestas = "";
         this.pašto_kodas = "";
         this.telefono_numeris = "";
-        this.pašto_adresas = "";
+        this.el_paštas = "";
     }
 
     public String getPrisijungimo_vardas() {
@@ -88,11 +88,11 @@ private String prisijungimo_vardas;
         this.telefono_numeris = telefono_numeris;
     }
 
-    public String getPašto_adresas() {
-        return pašto_adresas;
+    public String getEl_paštas() {
+        return el_paštas;
     }
 
-    public void setPašto_adresas(String pašto_adresas) {
-        this.pašto_adresas = pašto_adresas;
+    public void setEl_paštas(String el_paštas) {
+        this.el_paštas = el_paštas;
     }
 }
