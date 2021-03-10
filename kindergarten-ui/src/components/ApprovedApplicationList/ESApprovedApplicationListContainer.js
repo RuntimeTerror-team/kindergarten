@@ -16,9 +16,11 @@ class ESApprovedApplicationListContainer extends Component {
       applicationsPerPage: 2,
 
       queues: [],
+      pdf: {},
       queueStatus: "",
       permission: false,
-      changeStatus: "",
+      noPDF: false,
+      statusRejected: false,
     };
   }
 
@@ -30,6 +32,7 @@ class ESApprovedApplicationListContainer extends Component {
     currentPage -= 1;
     Axios.get(baseUrl + "/api/applications/sorted/?page=" + currentPage + "&size=" + this.state.applicationsPerPage)
       .then((res) => {
+
         this.setState({
           applications: res.data.content,
           totalPages: res.data.totalPages,
@@ -44,7 +47,7 @@ class ESApprovedApplicationListContainer extends Component {
 
     Axios.get(`${baseUrl}/api/queues`)
       .then((res) => {
-        this.setState({ queues: res.data });
+        this.setState({ queues: res.data.filter(queue => queue.status !== "INACTIVE") });
         this.setState({ queueStatus: this.state.queues[0].status });
       })
       .catch((err) => console.log(err));
@@ -70,7 +73,6 @@ class ESApprovedApplicationListContainer extends Component {
         application.status = "Atmestas";
         this.forceUpdate();
       } else if (application.status === "APPROVED") {
-        console.log("Approved");
         application.status = "Patvirtintas";
         this.forceUpdate();
       } else if (application.status === "WAITING") {
@@ -121,16 +123,15 @@ class ESApprovedApplicationListContainer extends Component {
   };
 
   handleStatusChange = (e, currentPage) => {
-    let child = e.target.value.split(",");
-    console.log("firstName:" + child[0]);
-    console.log("lastName: " + child[1]);
     currentPage -= 1;
-    Axios.put(baseUrl + "/api/applications/" + child[0] + "/" + child[1] + "/REJECTED")
+    Axios.put(baseUrl + "/api/applications/" + e.target.value +  "/REJECTED")
       .then(
         Axios.get(baseUrl + "/api/applications/sorted/?page=" + currentPage + "&size=" + this.state.applicationsPerPage)
           .then((res) => {
             this.setState({ applications: res.data.content });
             this.translateStatus();
+            this.updateApplicationList(this.state.currentPage);
+            this.setState({statusRejected: true})
           })
           .catch((err) => {
             console.log(err);
@@ -138,6 +139,30 @@ class ESApprovedApplicationListContainer extends Component {
       )
       .catch((e) => console.log(e));
   };
+
+  handleOpenPDF = (e) => {
+
+    Axios.get(baseUrl + "/api/health-forms/singleForm/" + e.target.value)
+    .then(res => {
+      this.setState({pdf: res.data})
+
+      if(this.state.pdf.length === 0){
+        this.setState({noPDF: true})
+      } else{
+        this.setState({noPDF: false})
+        window.open(this.state.pdf.url)
+      }
+
+    }).catch(err => console.log(err))
+
+  }
+
+  closeAlert = (e) => {
+
+    this.setState({noPDF: false})
+    this.setState({statusRejected: false})
+
+  }
 
   render() {
     const { applications, currentPage, totalPages } = this.state;
@@ -150,6 +175,7 @@ class ESApprovedApplicationListContainer extends Component {
             <h1 className="mb-5 text-center page-name"><strong>Prašymai</strong></h1>
             <ESApprovedApplicationListComponent
               applications={applications}
+              queues={this.state.queues}
               recalculation={this.recalculateApplications}
               currentPage={currentPage}
               totalPages={totalPages}
@@ -159,8 +185,11 @@ class ESApprovedApplicationListContainer extends Component {
               nextPage={this.nextPage}
               queueStatus={this.state.queueStatus}
               permission={this.state.permission}
-              changeStatus={this.state.changeStatus}
+              statusRejected={this.state.statusRejected}
+              noPDF={this.state.noPDF}
               onStatusChange={this.handleStatusChange}
+              onOpenPDF={this.handleOpenPDF}
+              closeAlert={this.closeAlert}
             />
             <Footer />
           </div>

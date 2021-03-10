@@ -7,13 +7,10 @@ import lt.vtmc.kindergarten.domain.Person;
 import lt.vtmc.kindergarten.domain.Role;
 import lt.vtmc.kindergarten.domain.RoleType;
 import lt.vtmc.kindergarten.domain.User;
-import lt.vtmc.kindergarten.dto.PermissionForESDto;
-import lt.vtmc.kindergarten.dto.UserDetailsDto;
-import lt.vtmc.kindergarten.dto.UserDto;
-import lt.vtmc.kindergarten.dto.UserDtoFromAdmin;
+import lt.vtmc.kindergarten.dto.*;
 import lt.vtmc.kindergarten.dao.UserDao;
-import lt.vtmc.kindergarten.dto.UserValidateCommandDto;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.security.core.authority.AuthorityUtils;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -24,6 +21,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.validation.annotation.Validated;
 
+import javax.persistence.EntityManager;
 import javax.validation.Valid;
 import java.util.List;
 import java.util.Optional;
@@ -43,6 +41,7 @@ public class UserService implements UserDetailsService {
 
     @Autowired
     private PasswordEncoder passwordEncoder;
+
 
     @Transactional(readOnly = true)
     public List<UserDto> getUsers() {
@@ -279,4 +278,5 @@ public class UserService implements UserDetailsService {
     	return permission.get().getIsAllowed();
     	
     }
+
 }

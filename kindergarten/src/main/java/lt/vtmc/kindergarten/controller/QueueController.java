@@ -1,5 +1,6 @@
 package lt.vtmc.kindergarten.controller;
 
+import ch.qos.logback.classic.Logger;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 import lt.vtmc.kindergarten.dto.QueueDto;
@@ -8,15 +9,24 @@ import lt.vtmc.kindergarten.dto.QueueDtoWithOpeningDate;
 import lt.vtmc.kindergarten.dto.QueueDtoRegistrationClosingDate;
 import lt.vtmc.kindergarten.service.QueueService;
 import lt.vtmc.kindergarten.exception.RegistrationClosingValidationExeption;
+import org.slf4j.LoggerFactory;
+import org.slf4j.Marker;
+import org.slf4j.MarkerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Date;
 import java.util.List;
 
 @RestController
 public class QueueController {
+
+    private Marker queueEvent = MarkerFactory.getMarker("AUDIT_EVENT");
+    private static final Logger logger
+            = (Logger) LoggerFactory.getLogger(QueueController.class);
+
 
     @Autowired
     private QueueService queueService;
@@ -45,6 +55,7 @@ public class QueueController {
             @ApiParam(value = "", required = true)
             @RequestBody QueueDtoWithOpeningDate queueDtoWithOpeningDate) {
         queueService.addQueueWithOpeningDate(queueDtoWithOpeningDate);
+        logger.info(queueEvent,"Administratorius sukūrė eilę. Įvykio laikas: {}", new Date());
     }
 
 
@@ -58,6 +69,7 @@ public class QueueController {
     ) {
         try {
             queueService.updateQueueWithRegistrationClosingDate(id, queueDtoRegistrationClosingDate);
+            logger.info(queueEvent,"Eilės registracijos stabdymas. Įvykio laikas: {}", new Date());
             return new ResponseEntity<>("Registracijos uždarymo data sėkmingai įvesta", HttpStatus.OK);
         } catch (RegistrationClosingValidationExeption exception) {
             return new ResponseEntity("Registracijos uždarymo data turi būti ne senesnė nei eilės atidarymo data", HttpStatus.CONFLICT);
@@ -74,6 +86,7 @@ public class QueueController {
             @RequestBody QueueDtoClosingDate queueDtoClosingDate
     ) {
         queueService.updateQueueWithClosingDateAndApplicationsStatus(id, queueDtoClosingDate);
+        logger.info(queueEvent,"Eilės uždarymas. Įvykio laikas: {}", new Date());
     }
 
 }

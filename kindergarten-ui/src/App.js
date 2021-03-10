@@ -26,6 +26,7 @@ import HealthFormListContainer from './components/HealthFormList/HealthFormListC
 import PermissionsContainer from './components/Permissions/PermissionsContainer'
 import PrivateRoute from './components/Route/PrivateRoute';
 import PublicRoute from './components/Route/PublicRoute';
+import LoggingContainer from "./components/Logging/LoggingContainer";
 
 function App(props) {
   return (
@@ -36,6 +37,7 @@ function App(props) {
         <PrivateRoute userRole="ROLE_ADMIN" exact path={`${urls.admin.districtBase}`} component={AdminDistrictFormContainer} />
         <PrivateRoute userRole="ROLE_ADMIN" exact path={`${urls.admin.queueBase}`} component={QueueListContainer} />
         <PrivateRoute userRole="ROLE_ADMIN" exact path={`${urls.admin.permissionsBase}`} component={PermissionsContainer} />
+        <PrivateRoute userRole="ROLE_ADMIN" exact path={`${urls.admin.loggingBase}`} component={LoggingContainer} />
         <PrivateRoute userRole="ROLE_EDUCATION_SPECIALIST" exact path={`${urls.educationSpecialist.kindergartenBase}`} component={KindergartenAdministrationContainer} />
         <PrivateRoute userRole="ROLE_EDUCATION_SPECIALIST" exact path={`${urls.educationSpecialist.kindergartenBase}/new`} component={KindergartenCreationFormContainer} />
         <PrivateRoute userRole="ROLE_EDUCATION_SPECIALIST" exact path={`${urls.educationSpecialist.kindergartenBase}/:id`} component={KindergartenInfoFormContainer} />
