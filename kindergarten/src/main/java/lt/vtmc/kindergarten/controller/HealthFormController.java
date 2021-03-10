@@ -50,7 +50,7 @@ public class HealthFormController {
     }
 
     @GetMapping("/family/{username}")
-    @ApiOperation(value = "Get children of a person", notes = "Returns a list of children of a person by username")
+    @ApiOperation(value = "Get children health forms of a person", notes = "Returns a list of of health forms for children of a person by username")
     public ResponseEntity<List<HealthFileResponse>> getListFilesByUserFamily(@PathVariable final String username) {
         List<HealthFileResponse> files = storageService.getListFilesByUserFamily(username);
 

@@ -9,7 +9,7 @@ import PasswordChangeESContainer from './components/PasswordChange/PasswordChang
 import NoMatchComponent from './components/ErrorHandling/NoMatchComponent';
 import AdminUserFormContainer from './components/AdminUserForm/AdminUserFormContainer';
 import AdminDistrictFormContainer from './components/AdminDistrictForm/AdminDistrictFormContainer';
-import KindergartenAdministrationContainer from './components/KindergartenAdministration/KindergartenAdministrationContainer';
+import KindergartenListContainer from './components/KindergartenList/KindergartenListContainer';
 import KindergartenCreationFormContainer from './components/KindergartenCreationForm/KindergartenCreationFormContainer';
 import AgeRangeFormContainer from './components/AgeRangeForm/AgeRangeFormContainer';
 import KindergartenInfoFormContainer from './components/KindergartenInfoForm/KindergartenInfoFormContainer';
@@ -38,7 +38,7 @@ function App(props) {
         <PrivateRoute userRole="ROLE_ADMIN" exact path={`${urls.admin.queueBase}`} component={QueueListContainer} />
         <PrivateRoute userRole="ROLE_ADMIN" exact path={`${urls.admin.permissionsBase}`} component={PermissionsContainer} />
         <PrivateRoute userRole="ROLE_ADMIN" exact path={`${urls.admin.loggingBase}`} component={LoggingContainer} />
-        <PrivateRoute userRole="ROLE_EDUCATION_SPECIALIST" exact path={`${urls.educationSpecialist.kindergartenBase}`} component={KindergartenAdministrationContainer} />
+        <PrivateRoute userRole="ROLE_EDUCATION_SPECIALIST" exact path={`${urls.educationSpecialist.kindergartenBase}`} component={KindergartenListContainer} />
         <PrivateRoute userRole="ROLE_EDUCATION_SPECIALIST" exact path={`${urls.educationSpecialist.kindergartenBase}/new`} component={KindergartenCreationFormContainer} />
         <PrivateRoute userRole="ROLE_EDUCATION_SPECIALIST" exact path={`${urls.educationSpecialist.kindergartenBase}/:id`} component={KindergartenInfoFormContainer} />
         <PrivateRoute userRole="ROLE_EDUCATION_SPECIALIST" exact path={`${urls.educationSpecialist.kindergartenBase}/:id/groups`} component={GroupInfoContainer} />

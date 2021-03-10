@@ -4,12 +4,11 @@ import KindergartenTableComponent from "../KindergartenTable/KindergartenTableCo
 import { Link } from "react-router-dom";
 import urls from '../../constants/urls';
 
-const KindergartenAdministrationComponent = ({ kindergartens }) => {
+const KindergartenListComponent = ({ kindergartens }) => {
   return (
-    <div className="col-11 offset-1">
-      <Link to={`${urls.educationSpecialist.kindergartenBase}/new`} className={`btn btn-yellow`} >
-        Pridėti naują darželį
-        </Link>
+    <div>
+      <Link to={`${urls.educationSpecialist.kindergartenBase}/new`} className="templatemo-blue-button" >
+        Pridėti naują darželį</Link>
       {kindergartens.length > 0 &&
         <KindergartenTableComponent
           kindergartens={kindergartens}
@@ -18,8 +17,8 @@ const KindergartenAdministrationComponent = ({ kindergartens }) => {
   );
 };
 
-KindergartenAdministrationComponent.propTypes = {
+KindergartenListComponent.propTypes = {
   kindergartens: PropTypes.array.isRequired
 }
 
-export default KindergartenAdministrationComponent;
+export default KindergartenListComponent;

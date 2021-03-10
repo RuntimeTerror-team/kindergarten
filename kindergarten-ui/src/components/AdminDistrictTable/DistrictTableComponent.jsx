@@ -15,13 +15,13 @@ const DistrictTableComponent = ({
   titleValidationInUpdate,
 }) => {
   return (
-    <div className="templatemo-content-widget no-padding col-12 my-4">
+    <div className="templatemo-content-widget no-padding col-12 my-4 mx-0">
       <div className="panel panel-default table-responsive">
         <table className="table table-striped table-bordered templatemo-user-table">
           <thead>
             <tr>
-              <td>#</td>
-              <td>Pavadinimas</td>
+              <th>#</th>
+              <th>Pavadinimas</th>
             </tr>
           </thead>
           <tbody>

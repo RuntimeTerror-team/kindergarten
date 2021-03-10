@@ -9,11 +9,11 @@ const GroupInfoComponent = ({ groups, kindergartenId, buttonStatus }) => {
     <div>
       <Link
         to={`${urls.educationSpecialist.kindergartenBase}/${kindergartenId}/groups/new`}
-        className={`btn btn-info mb-4 offset-1`}>
+        className="templatemo-blue-button">
         Kurti grupę
         </Link>
       {groups.length > 0 && <GroupTableComponent groups={groups} kindergartenId={kindergartenId} buttonStatus={buttonStatus} />}
-      <Link to={`${urls.educationSpecialist.kindergartenBase}`} className="btn btn-yellow offset-10 mr-5">
+      <Link to={`${urls.educationSpecialist.kindergartenBase}`} className="templatemo-blue-button float-right">
         Atgal
       </Link>
     </div>
