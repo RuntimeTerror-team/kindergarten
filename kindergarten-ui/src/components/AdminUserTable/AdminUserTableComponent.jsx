@@ -20,7 +20,7 @@ const AdminUserTableComponent = ({ users, downloadUserData }) => {
                                 <th scope="row">{index + 1}</th>
                                 <td>{username}</td>
                                 <td>{role}</td>
-                                <td><button className="templatemo-blue-button" id={username} onClick={downloadUserData}>Atsisiųsti duomenis</button></td>
+                                <td>{role === "GUARDIAN" && <button className="btn btn-link" id={username} onClick={downloadUserData}>Atsisiųsti duomenis</button>}</td>
                             </tr>
                         ))}
                     </tbody>

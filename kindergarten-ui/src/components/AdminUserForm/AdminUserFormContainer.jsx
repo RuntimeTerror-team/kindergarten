@@ -118,19 +118,15 @@ class AdminUserFormContainer extends Component {
                 responseType: 'blob'
             })
             .then(({ data }) => {
-                const downloadUrl = window.URL.createObjectURL(new Blob([data], { type: data.type }));
+                const downloadUrl = window.URL.createObjectURL(new Blob([data]));
                 const link = document.createElement('a');
                 link.href = downloadUrl;
-                link.setAttribute('download', 'duomenys.json');
+                link.setAttribute('download', 'duomenys.zip');
                 document.body.appendChild(link);
                 link.click();
                 link.remove();
             })
             .catch((err) => console.log(err))
-    }
-
-    handleDownload = (url) => {
-        window.open(url);
     }
 
     render() {
