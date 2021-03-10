@@ -4,28 +4,30 @@ import Proptypes from 'prop-types';
 const ApplicationListComponent = ({ applications }) => {
 
     let table = (
-        <div className="offset-1 col-10 mt-3">
-            <table id="groupTable" className='table col-12'>
-                <thead>
-                    <tr>
-                        <th scope='col' style={{ width: "30px" }}>#</th>
-                        <th scope='col'>Vaiko vardas ir pavardė</th>
-                        <th scope='col'>Data</th>
-                        <th scope='col'>Statusas</th>
-                    </tr>
-                </thead>
-
-                <tbody>
-                    {applications.map(({ id, childFirstName, childLastName, applicationCreationDate, applicationStatus }, index) =>
-                        <tr key={id}>
-                            <th scope='row'>{index + 1}</th>
-                            <td>{childFirstName + " " + childLastName}</td>
-                            <td>{applicationCreationDate}</td>
-                            <td>{applicationStatus}</td>
+        <div className="templatemo-content-widget no-padding col-12 my-4 mx-0">
+            <div className="panel panel-default table-responsive">
+                <table className="table table-striped table-bordered templatemo-user-table">
+                    <thead>
+                        <tr>
+                            <th scope='col'>#</th>
+                            <th scope='col'>Vaiko vardas ir pavardė</th>
+                            <th scope='col'>Data</th>
+                            <th scope='col'>Statusas</th>
                         </tr>
-                    )}
-                </tbody>
-            </table>
+                    </thead>
+
+                    <tbody>
+                        {applications.map(({ id, childFirstName, childLastName, applicationCreationDate, applicationStatus }, index) =>
+                            <tr key={id}>
+                                <th scope='row'>{index + 1}</th>
+                                <td>{childFirstName + " " + childLastName}</td>
+                                <td>{applicationCreationDate}</td>
+                                <td>{applicationStatus}</td>
+                            </tr>
+                        )}
+                    </tbody>
+                </table>
+            </div>
         </div>
     )
 

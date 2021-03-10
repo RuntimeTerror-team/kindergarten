@@ -2,7 +2,7 @@ import React from "react";
 import Proptypes from "prop-types";
 import { GrNext } from "react-icons/gr";
 import { GrPrevious } from "react-icons/gr";
-import {Modal, Button} from "react-bootstrap";
+import { Modal, Button } from "react-bootstrap";
 // import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 // import { faFilePdf } from "@fortawesome/free-solid-svg-icons";
 
@@ -26,106 +26,104 @@ const ESApprovedApplicationListComponent = ({
 }) => {
 
   let table = (
-    <div className="col-12 mt-3">
-      <div className="pb-5">
-        <button type="submit" className="btn btn-main float-right" onClick={recalculation}>
-          Perrūšiuoti prašymus
+
+    <div>
+      <button type="submit" className="templatemo-blue-button" onClick={recalculation}>
+        Perrūšiuoti prašymus
         </button>
-      </div>
-      <table id="groupTable" className="table col-12 pt-4">
-        <thead>
-          <tr>
-            {/* <th scope='col' style={{ width: "30px" }}>#</th> */}
-            <th scope="col" style={{ width: "60px" }}>
-              Balas
-            </th>
-            <th scope="col">Vaikas</th>
-            <th scope="col">Vaiko atstovas</th>
-            <th scope="col" style={{ width: "115px" }}>
-              Data
-            </th>
-            <th scope="col">Statusas</th>
-            <th scope="col">Darželis</th>
-            <th scope="col" style={{ width: "115px" }}>
-              Laukimo Nr.
-            </th>
-            <th scope="col">Sveikatos pažyma</th>
-            {permission && queueStatus === "LOCKED" ? <th scope="col">Redagavimas</th> : null}
-          </tr>
-        </thead>
 
-        <tbody>
-          {applications.map(
-            (
-              {
-                id,
-                score,
-                childFirstName,
-                childLastName,
-                parentFirstName,
-                parentLastName,
-                date,
-                status,
-                approvedKindergartenTitle,
-                waitingNumber,
-                applicationId
-                
-              },
-              index
-            ) => {
+      <div className="templatemo-content-widget no-padding col-12 my-4 mx-0">
+        <div className="panel panel-default table-responsive">
+          <table className="table table-striped table-bordered templatemo-user-table">
+            <thead>
+              <tr>
+                {/* <th scope='col' style={{ width: "30px" }}>#</th> */}
+                <th scope="col">Balas</th>
+                <th scope="col">Vaikas</th>
+                <th scope="col">Vaiko atstovas</th>
+                <th scope="col">Data</th>
+                <th scope="col">Statusas</th>
+                <th scope="col">Darželis</th>
+                <th scope="col">Laukimo Nr.</th>
+                <th scope="col">Sveikatos pažyma</th>
+                {permission && queueStatus === "LOCKED" ? <th scope="col">Redagavimas</th> : null}
+              </tr>
+            </thead>
 
-              if (waitingNumber === null) {
-                waitingNumber = "-";
-              }
+            <tbody>
+              {applications.map(
+                (
+                  {
+                    id,
+                    score,
+                    childFirstName,
+                    childLastName,
+                    parentFirstName,
+                    parentLastName,
+                    date,
+                    status,
+                    approvedKindergartenTitle,
+                    waitingNumber,
+                    applicationId
 
-              if (approvedKindergartenTitle === null) {
-                approvedKindergartenTitle = "-";
-              }
+                  },
+                  index
+                ) => {
 
-              return (
-                <tr key={id}>
-                  {/* <th scope='row'>{index + 1}</th> */}
-                  <td>{score}</td>
-                  <td>{childFirstName + " " + childLastName}</td>
-                  <td>{parentFirstName + " " + parentLastName}</td>
-                  <td>{date}</td>
-                  <td>{status}</td>
-                  <td>{approvedKindergartenTitle}</td>
-                  <td>{waitingNumber}</td>
-                  <td>
-                  <button className="btn btn-link" onClick={onOpenPDF} value={applicationId}>
-                    Atsisiųsti
+                  if (waitingNumber === null) {
+                    waitingNumber = "-";
+                  }
+
+                  if (approvedKindergartenTitle === null) {
+                    approvedKindergartenTitle = "-";
+                  }
+
+                  return (
+                    <tr key={id}>
+                      {/* <th scope='row'>{index + 1}</th> */}
+                      <td>{score}</td>
+                      <td>{childFirstName + " " + childLastName}</td>
+                      <td>{parentFirstName + " " + parentLastName}</td>
+                      <td>{date}</td>
+                      <td>{status}</td>
+                      <td>{approvedKindergartenTitle}</td>
+                      <td>{waitingNumber}</td>
+                      <td>
+                        <button className="btn btn-link" onClick={onOpenPDF} value={applicationId}>
+                          Atsisiųsti
                   </button>
-                  </td>
+                      </td>
 
-                  {/* <button className="btn btn-link" value={applicationId} onClick={onOpenPDF}>
+                      {/* <button className="btn btn-link" value={applicationId} onClick={onOpenPDF}>
                   <FontAwesomeIcon color="black" icon={faFilePdf} />
                     </button> */}
-                  {permission && queueStatus === "LOCKED" ? (
-                    <td>
-                      {
-                        status !== "Atmestas" ?
-                      <button
-                        className="btn btn-link"
-                        value={applicationId}
-                        onClick={onStatusChange}>
-                        Atšaukti prašymą
+                      {permission && queueStatus === "LOCKED" ? (
+                        <td>
+                          {
+                            status !== "Atmestas" ?
+                              <button
+                                className="btn btn-link"
+                                value={applicationId}
+                                onClick={onStatusChange}>
+                                Atšaukti prašymą
                       </button>
-                      : null
-                      }
-                    </td>
-                  ) : null}
-                </tr>
-              );
-            }
-          )}
-        </tbody>
-      </table>
+                              : null
+                          }
+                        </td>
+                      ) : null}
+                    </tr>
+                  );
+                }
+              )}
+            </tbody>
+          </table>
+        </div>
+      </div>
 
       <Modal show={noPDF} aria-labelledby="contained-modal-title-vcenter" centered>
         <Modal.Body>Vaiko atstovas nėra pridėjęs sveikatos pažymos.</Modal.Body>
         <Modal.Footer>
-        <Button variant="secondary" onClick={closeAlert}>
+          <Button variant="secondary" onClick={closeAlert}>
             Uždaryti
         </Button>
         </Modal.Footer>
@@ -133,7 +131,7 @@ const ESApprovedApplicationListComponent = ({
       <Modal show={statusRejected} aria-labelledby="contained-modal-title-vcenter" centered>
         <Modal.Body>Prašymas sėkmingai atmestas.</Modal.Body>
         <Modal.Footer>
-        <Button variant="secondary" onClick={closeAlert}>
+          <Button variant="secondary" onClick={closeAlert}>
             Uždaryti
         </Button>
         </Modal.Footer>
@@ -149,25 +147,25 @@ const ESApprovedApplicationListComponent = ({
         </div>
 
         <div className="btn-group mr-2" role="group" aria-label="First group">
-          <button type="button mr-2" className="btn btn-main " onClick={firstPage}>
+          <button type="button mr-2" className="templatemo-blue-button " onClick={firstPage}>
             Pirmas
           </button>
         </div>
 
         <div className="btn-group mr-2" role="group" aria-label="Second group">
-          <button type="button mr-2" className="btn btn-main " onClick={prevPage}>
+          <button type="button mr-2" className="templatemo-blue-button " onClick={prevPage}>
             <GrPrevious />
           </button>
         </div>
 
         <div className="btn-group mr-2" role="group" aria-label="Second group">
-          <button type="button mr-2" className="btn btn-main " onClick={nextPage}>
+          <button type="button mr-2" className="templatemo-blue-button " onClick={nextPage}>
             <GrNext />
           </button>
         </div>
 
         <div className="btn-group" role="group" aria-label="Second group">
-          <button type="button" className="btn btn-main" onClick={lastPage}>
+          <button type="button" className="templatemo-blue-button" onClick={lastPage}>
             Paskutinis
           </button>
         </div>
@@ -175,10 +173,10 @@ const ESApprovedApplicationListComponent = ({
     </div>
   );
 
-  
+
   return queues.find(queue => queue.status === "ACTIVE") ? <h6 className="text-center">Prašymų registracija nėra sustabdyta</h6> : table;
 
-  
+
 };
 
 ESApprovedApplicationListComponent.propTypes = {

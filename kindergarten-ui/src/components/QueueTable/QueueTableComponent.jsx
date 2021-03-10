@@ -2,7 +2,7 @@ import React from 'react';
 
 const QueueTableComponent = ({ queues }) => {
     return (
-        <div className="templatemo-content-widget no-padding col-12 mb-4 mx-0">
+        <div className="templatemo-content-widget no-padding col-12 my-4 mx-0">
             <div className="panel panel-default table-responsive">
                 <table className="table table-striped table-bordered templatemo-user-table">
                     <thead>

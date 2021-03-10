@@ -1,10 +1,10 @@
 import axios from 'axios';
 import React, { Component } from 'react';
-import KindergartenAdministrationComponent from './KindergartenAdministrationComponent';
 import baseUrl from '../../AppConfig';
 import ESNavigationComponent from '../Navigation/ESNavigationComponent';
 import HeaderComponent from '../Header/HeaderComponent';
 import Footer from '../Footer/Footer';
+import KindergartenListComponent from './KindergartenListComponent';
 
 class KindergartenAdministrationContainer extends Component {
     constructor(props) {
@@ -42,7 +42,7 @@ class KindergartenAdministrationContainer extends Component {
                     <HeaderComponent userRole="ROLE_EDUCATION_SPECIALIST" />
                     <div className="templatemo-content-container">
                         <h1 className="mb-5 text-center page-name"><strong>Darželių sąrašas</strong></h1>
-                        <KindergartenAdministrationComponent
+                        <KindergartenListComponent
                             kindergartens={this.state.kindergartens}
                             handleUpdateKindergartenList={this.handleUpdateKindergartenList}
                             kindergartenInfoId={this.state.kindergartenInfoId}

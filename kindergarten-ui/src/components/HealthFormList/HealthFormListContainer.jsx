@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 import baseUrl from '../../AppConfig';
 import Footer from '../Footer/Footer';
 import HeaderComponent from '../Header/HeaderComponent';
-import HealthFormTableComponent from '../HealtFormTable/HealthFormTableComponent';
+import HealthFormTableComponent from '../HealthFormTable/HealthFormTableComponent';
 import GuardianNavigationComponent from '../Navigation/GuardianNavigationComponent'
 import HealthFormListComponent from './HealthFormListComponent';
 
