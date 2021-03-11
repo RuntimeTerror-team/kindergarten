@@ -450,4 +450,9 @@ public class ApplicationService implements PagingLimit<ApplicationAfterDistribut
     public Page<ApplicationAfterDistribution> findAll(Pageable pageable) {
         return applicationAfterDistributionDao.findAll(pageable);
     }
+
+    @Override
+    public Page<ApplicationAfterDistribution> findByParentLastNameContaining(String parentLastName, Pageable pageable) {
+        return (Page<ApplicationAfterDistribution>) applicationAfterDistributionDao.findByParentLastNameContaining(parentLastName, pageable);
+    }
 }
