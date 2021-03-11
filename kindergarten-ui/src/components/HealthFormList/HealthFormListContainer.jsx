@@ -46,6 +46,7 @@ class HealthFormListContainer extends Component {
     }
 
     handleDownload = (e) => {
+        console.log(e.target.value);
         let url = e.target.value;
         window.open(url);
     }

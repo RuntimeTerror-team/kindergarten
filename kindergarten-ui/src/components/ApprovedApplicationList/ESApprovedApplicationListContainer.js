@@ -124,14 +124,14 @@ class ESApprovedApplicationListContainer extends Component {
 
   handleStatusChange = (e, currentPage) => {
     currentPage -= 1;
-    Axios.put(baseUrl + "/api/applications/" + e.target.value +  "/REJECTED")
+    Axios.put(baseUrl + "/api/applications/" + e.target.value + "/REJECTED")
       .then(
         Axios.get(baseUrl + "/api/applications/sorted/?page=" + currentPage + "&size=" + this.state.applicationsPerPage)
           .then((res) => {
             this.setState({ applications: res.data.content });
             this.translateStatus();
             this.updateApplicationList(this.state.currentPage);
-            this.setState({statusRejected: true})
+            this.setState({ statusRejected: true })
           })
           .catch((err) => {
             console.log(err);
@@ -143,26 +143,26 @@ class ESApprovedApplicationListContainer extends Component {
   handleOpenPDF = (e) => {
 
     Axios.get(baseUrl + "/api/health-forms/singleForm/" + e.target.value)
-    .then(res => {
-      this.setState({pdf: res.data}, () => {
+      .then(res => {
+        this.setState({ pdf: res.data }, () => {
 
-        if(this.state.pdf.length === 0){
-          this.setState({noPDF: true})
-        } else{
-          this.setState({noPDF: false})
-          window.open(this.state.pdf.url)
-        }
-        
-      })
+          if (this.state.pdf.length === 0) {
+            this.setState({ noPDF: true })
+          } else {
+            this.setState({ noPDF: false })
+            window.open(this.state.pdf.url)
+          }
 
-    }).catch(err => console.log(err))
+        })
+
+      }).catch(err => console.log(err))
 
   }
 
   closeAlert = (e) => {
 
-    this.setState({noPDF: false})
-    this.setState({statusRejected: false})
+    this.setState({ noPDF: false })
+    this.setState({ statusRejected: false })
 
   }
 
