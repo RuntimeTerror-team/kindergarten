@@ -1,6 +1,6 @@
 import React from "react";
 import Proptypes from "prop-types";
-import { Link } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 import urls from "../../constants/urls";
 import Input from "../common/Input";
 
@@ -15,6 +15,9 @@ const KindergartenInfoFormComponent = ({
   isDisabled,
   toggleDisabled
 }) => {
+  const history = useHistory();
+  const goToKindergartenList = () => history.push(`${urls.educationSpecialist.kindergartenBase}`);
+
   let { address, email, phoneNumber, postalCode, title, website, companyCode, district, id } = kindergarten;
 
   let labelStyle = "col-3 pt-2 text-right";
@@ -23,8 +26,8 @@ const KindergartenInfoFormComponent = ({
   let type = "text"
 
   return (
-    <div>
-      <form id={id} onSubmit={handleSubmit}>
+    <div className="templatemo-content-widget white-bg my-4 col-8 mx-auto">
+      <form id={id} className="templatemo-login-form" onSubmit={handleSubmit}>
         <Input
           name="title"
           value={title}
@@ -162,23 +165,21 @@ const KindergartenInfoFormComponent = ({
           invalidStyle={invalidStyle}
           disabled={isDisabled}
         />
-        <div className="col-12 row">
-          {!isDisabled && <div className="offset-3 col-9"><span className="mandatory">*</span> pažymėti laukai privalomi.</div>}
-          {message && <div className={`${messageStyle} offset-4 col-8 mt-4`}>
-            {message}
-          </div>}
+        {!isDisabled
+          && <div className="form-group offset-3"><span className="mandatory">*</span> pažymėti laukai privalomi.</div>}
+        <div className={`${messageStyle} offset-3 col-9`}>
+          {message}
         </div>
       </form>
-      {isDisabled
-        ? <button type="button" className="btn btn-green float-right ml-2" onClick={toggleDisabled} >
-          Redaguoti
-      </button>
-        : <button type="submit" className="btn btn-green float-right ml-2" onClick={handleSubmit}>
-          Išsaugoti
-    </button>}
-      <Link className="btn btn-warning float-right" to={`${urls.educationSpecialist.kindergartenBase}`}>
-        Grįžti į darželių sąrašą
-      </Link>
+      <div className="form-group text-right">
+        <button type="button" className="templatemo-blue-button mr-2" onClick={goToKindergartenList}>
+          Grįžti į darželių sąrašą</button>
+        {isDisabled
+          ? <button type="button" className="templatemo-blue-button" onClick={toggleDisabled} >
+            Redaguoti</button>
+          : <button type="submit" className="templatemo-blue-button" onClick={handleSubmit}>
+            Išsaugoti</button>}
+      </div>
     </div>
   );
 };

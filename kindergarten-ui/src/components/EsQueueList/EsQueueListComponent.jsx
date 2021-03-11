@@ -93,13 +93,13 @@ const EsQueueListComponent = ({
                                     {status === "ACTIVE"
                                         && !isUpdating
                                         && <td className="pl-1" id={id}>
-                                            <button className="templatemo-blue-button" id={id} onClick={toggleUpdate}>Keisti</button>
+                                            <button className="templatemo-edit-btn" id={id} onClick={toggleUpdate}>Keisti</button>
                                         </td>}
                                     {status === "ACTIVE"
                                         && isUpdating
                                         && <td className="pl-1 pt-1" id={id}>
-                                            <button className="templatemo-blue-button mr-1" id={id} onClick={toggleUpdate}>Atšaukti</button>
-                                            <button className="templatemo-blue-button" id={id} onClick={handleClosingRegistration}>Saugoti</button>
+                                            <button className="templatemo-edit-btn mr-1" id={id} onClick={toggleUpdate}>Atšaukti</button>
+                                            <button className="templatemo-edit-btn" id={id} onClick={handleClosingRegistration}>Saugoti</button>
                                         </td>}
                                 </tr>
                             ))}

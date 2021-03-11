@@ -26,7 +26,7 @@ const PermissionsComponent = ({ permission, buttonText, changedPermissionMessage
                     <tbody>
                         <td><span className="table-text">{"Prašymų sąrašo redagavimas Švietimo specialistui"}</span></td>
                         <td><span className="table-text">{permission ? "Suteiktas" : "Nesuteiktas"}</span></td>
-                        <td><button className="templatemo-blue-button" onClick={onPermissionChange}>{buttonText}</button></td>
+                        <td><button className="templatemo-edit-btn" onClick={onPermissionChange}>{buttonText}</button></td>
                     </tbody>
                 </table>
             </div>

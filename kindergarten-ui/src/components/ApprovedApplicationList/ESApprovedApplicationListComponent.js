@@ -89,7 +89,7 @@ const ESApprovedApplicationListComponent = ({
                       <td>{approvedKindergartenTitle}</td>
                       <td>{waitingNumber}</td>
                       <td>
-                        <button className="btn btn-link" onClick={onOpenPDF} value={applicationId}>
+                        <button className="templatemo-edit-btn" onClick={onOpenPDF} value={applicationId}>
                           Atsisiųsti
                   </button>
                       </td>
@@ -102,7 +102,7 @@ const ESApprovedApplicationListComponent = ({
                           {
                             status !== "Atmestas" ?
                               <button
-                                className="btn btn-link"
+                                className="templatemo-edit-btn"
                                 value={applicationId}
                                 onClick={onStatusChange}>
                                 Atšaukti prašymą

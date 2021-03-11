@@ -13,8 +13,7 @@ let LoginComponent = ({
 }) => {
   return (
     <div className="row">
-      <div className="col-2"></div>
-      <div id="loginForm" className="col-8">
+      <div id="loginForm" className="offset-2 col-8">
         <h3 className="text-info pt"> Vaikų darželių informacinė sistema</h3>
         <h3 id="loginh1">Prisijungimas</h3>
         <form className="form" onSubmit={onSubmit}>
