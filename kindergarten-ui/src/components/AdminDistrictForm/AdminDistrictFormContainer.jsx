@@ -53,10 +53,10 @@ class AdminDistrictFormContainer extends Component {
                     this.setState({ requestMessage: res.data.message });
                     if (!res.data.status) {
 
-                        this.setState({ messageStyle: "alert alert-danger mt-4" })
+                        this.setState({ messageStyle: "alert alert-danger" })
                     } else if (res.data.status) {
 
-                        this.setState({ messageStyle: "alert alert-success mt-4" })
+                        this.setState({ messageStyle: "alert alert-success" })
                     }
                     axios
                         .get(`${baseUrl}/api/districts`)
@@ -146,7 +146,7 @@ class AdminDistrictFormContainer extends Component {
             }
         } else {
             this.setState({ updatingMessage: "Toks rajonas jau yra įrašytas" })
-            this.setState({ updatingMessageStyle: "alert alert-danger mt-4" })
+            this.setState({ updatingMessageStyle: "alert alert-danger ml-2" })
         }
     }
 

@@ -19,6 +19,11 @@
     padding: 4% 6% 4% 6%;
 }
 
+#loginForm h3 {
+    font-size: 1.75rem;
+    margin-bottom: 0.5rem;
+}
+
 #loginh1 {
     color: #4285F4;
 }
@@ -116,4 +121,8 @@ body {
 
 .table-text {
     text-transform: uppercase;
+}
+
+label.label-form {
+    font-weight: 700;
 }

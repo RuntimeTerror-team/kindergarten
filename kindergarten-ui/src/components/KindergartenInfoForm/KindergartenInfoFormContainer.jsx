@@ -152,18 +152,19 @@ class KindergartenInfoFormContainer extends Component {
         if (!reWebsite.test(kindergarten.website.trim()) && kindergarten.website.trim() !== "")
             errors.website = "is-invalid";
 
-        console.log(errors);
         return Object.keys(errors).length === 0 ? null : errors;
     }
 
     toggleDisabled = () => {
+        console.log("disabling");
+
         if (this.state.isDisabled === true) {
             this.setState({
                 message: "",
                 messageStyle: ""
             })
         }
-        this.setState({ isDisabled: !this.state.isDisabled })
+        this.setState({ isDisabled: false });
     }
 
     handleSubmit = (e) => {
@@ -199,7 +200,7 @@ class KindergartenInfoFormContainer extends Component {
                 "website": kindergarten.website
             })
             .then(() => {
-                this.toggleDisabled();
+                this.setState({ isDisabled: true });
                 this.setState({ message: "Darželio informacija sėkmingai atnaujinta" })
                 this.setState({ messageStyle: "alert alert-success" })
                 axios
