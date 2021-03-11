@@ -7,5 +7,6 @@ import org.springframework.data.domain.Pageable;
 
 public interface PagingLimit<T>  {
     Page<T> findAll(Pageable pageable);
-    Page<T> findByParentLastNameContaining(String parentLastName, Pageable pageable);
+    Page<T> findAll(Pageable pageable, String searchText);
+//    Page<T> findByParentLastNameContaining(String parentLastName, Pageable pageable);
 }

@@ -5,6 +5,7 @@ import { GrPrevious } from "react-icons/gr";
 import { Modal, Button } from "react-bootstrap";
 // import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 // import { faFilePdf } from "@fortawesome/free-solid-svg-icons";
+import { BsSearch } from "react-icons/bs";
 
 const ESApprovedApplicationListComponent = ({
   applications,
@@ -22,16 +23,28 @@ const ESApprovedApplicationListComponent = ({
   statusRejected,
   closeAlert,
   onStatusChange,
-  onOpenPDF
+  onOpenPDF,
+  search,
+  searchData,
+  updateSearchInputValue
 }) => {
 
   let table = (
 
     <div>
-      <button type="submit" className="templatemo-blue-button" onClick={recalculation}>
-        Perrūšiuoti prašymus
-        </button>
-
+      <div className="row">
+        <div className="col-10">
+          <form className="form-inline" onSubmit={searchData}>
+            <input className="form-control mr-sm-2" type="search" placeholder="Ieškoti pagal ???" aria-label="Search" value={search} onChange={updateSearchInputValue}></input>
+            <button className="btn btn-outline-primary my-2 my-sm-0" type="submit" >Ieškoti <BsSearch/> </button>
+          </form>
+        </div>
+        <div className="col-2">
+          <button type="submit" className="templatemo-blue-button" onClick={recalculation}>
+            Perrūšiuoti prašymus
+          </button>
+        </div>
+      </div>
       <div className="templatemo-content-widget no-padding col-12 my-4 mx-0">
         <div className="panel panel-default table-responsive">
           <table className="table table-striped table-bordered templatemo-user-table">

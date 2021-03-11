@@ -143,36 +143,46 @@ public class ApplicationController{
         return new ResponseEntity<>(applicationService.findAll(pageable), HttpStatus.OK);
     }
 
-    @RequestMapping(method = RequestMethod.GET, value = "/api/applications/sorted/lastName")
-    @ApiOperation(value = "Get sorted applications by parent last name", notes = "Returns applications after distribution sorted by parent last name")
+    @RequestMapping(method = RequestMethod.GET, value = "/api/applications/sorted/search/{searchText}")
+    @ApiOperation(value = "Get sorted applications", notes = "Returns all applications after distribution")
     @ResponseStatus(HttpStatus.OK)
-    public ResponseEntity<Map<String, Object>> findByParentLastName(
-            @RequestParam(required = false) String parentLastName,
-            @RequestParam(defaultValue = "0") int page,
-            @RequestParam(defaultValue = "3") int size) {
-        try {
-            List<ApplicationAfterDistribution> applications = new ArrayList<ApplicationAfterDistribution>();
-            Pageable paging = PageRequest.of(page, size);
-
-            Page<ApplicationAfterDistribution> pageTuts;
-            if (parentLastName == null)
-                pageTuts =  applicationService.findAll(paging);
-            else
-                pageTuts = applicationService.findByParentLastNameContaining(parentLastName,paging);
-
-            applications = pageTuts.getContent();
-
-            Map<String, Object> response = new HashMap<>();
-            response.put("applications", applications);
-            response.put("currentPage", pageTuts.getNumber());
-            response.put("totalItems", pageTuts.getTotalElements());
-            response.put("totalPages", pageTuts.getTotalPages());
-
-            return new ResponseEntity<>(response, HttpStatus.OK);
-        } catch (Exception e) {
-            return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
-        }
+    public ResponseEntity<Page<ApplicationAfterDistribution>> findAll(
+            Pageable pageable,
+            @PathVariable final String searchText) {
+        return new ResponseEntity<>(applicationService.findAll(pageable, searchText), HttpStatus.OK);
     }
+
+//    @RequestMapping(method = RequestMethod.GET, value = "/api/applications/sorted/search")
+////    @RequestMapping(method = RequestMethod.GET, value = "/api/applications/sorted/{searchText}")
+//    @ApiOperation(value = "Get sorted applications by parent last name", notes = "Returns applications after distribution sorted by parent last name")
+//    @ResponseStatus(HttpStatus.OK)
+//    public ResponseEntity<Map<String, Object>> findByParentLastName(
+//            @RequestParam(required = false) String parentLastName,
+//            @RequestParam(defaultValue = "0") int page,
+//            @RequestParam(defaultValue = "3") int size) {
+//        try {
+//            List<ApplicationAfterDistribution> applications = new ArrayList<ApplicationAfterDistribution>();
+//            Pageable paging = PageRequest.of(page, size);
+//
+//            Page<ApplicationAfterDistribution> pageTuts;
+//            if (parentLastName == null)
+//                pageTuts =  applicationService.findAll(paging);
+//            else
+//                pageTuts = applicationService.findByParentLastNameContaining(parentLastName,paging);
+//
+//            applications = pageTuts.getContent();
+//
+//            Map<String, Object> response = new HashMap<>();
+//            response.put("applications", applications);
+//            response.put("currentPage", pageTuts.getNumber());
+//            response.put("totalItems", pageTuts.getTotalElements());
+//            response.put("totalPages", pageTuts.getTotalPages());
+//
+//            return new ResponseEntity<>(response, HttpStatus.OK);
+//        } catch (Exception e) {
+//            return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
+//        }
+//    }
 
 
 }
