@@ -144,16 +144,15 @@ class ESApprovedApplicationListContainer extends Component {
 
     Axios.get(baseUrl + "/api/health-forms/singleForm/" + e.target.value)
       .then(res => {
-        this.setState({ pdf: res.data }, () => {
-
-          if (this.state.pdf.length === 0) {
-            this.setState({ noPDF: true })
-          } else {
-            this.setState({ noPDF: false })
-            window.open(this.state.pdf.url)
-          }
-
-        })
+        this.setState({ pdf: res.data })
+      })
+      .then(() => {
+        if (typeof this.state.pdf === 'string') {
+          this.setState({ noPDF: true })
+        } else {
+          this.setState({ noPDF: false })
+          window.open(this.state.pdf.url)
+        }
 
       }).catch(err => console.log(err))
 

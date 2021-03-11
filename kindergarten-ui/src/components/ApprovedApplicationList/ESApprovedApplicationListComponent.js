@@ -128,6 +128,7 @@ const ESApprovedApplicationListComponent = ({
         </Button>
         </Modal.Footer>
       </Modal>
+
       <Modal show={statusRejected} aria-labelledby="contained-modal-title-vcenter" centered>
         <Modal.Body>Prašymas sėkmingai atmestas.</Modal.Body>
         <Modal.Footer>
