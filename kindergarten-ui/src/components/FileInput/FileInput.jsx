@@ -44,7 +44,7 @@ class FileInput extends Component {
 
     handleSubmit = (e) => {
         e.preventDefault();
-
+        console.log(this.props.selectedChildId);
         if (this.props.selectedChildId !== "Pasirinkti vaiką" && this.props.selectedChildId.length !== 0) {
 
             if (this.state.file.size >= 2000000) {
@@ -54,7 +54,7 @@ class FileInput extends Component {
 
             const formData = new FormData();
 
-            formData.append('file', this.state.file.size);
+            formData.append('file', this.state.file);
 
             axios
                 .post(`${baseUrl}/api/health-forms/${this.props.selectedChildId}`, formData, {
