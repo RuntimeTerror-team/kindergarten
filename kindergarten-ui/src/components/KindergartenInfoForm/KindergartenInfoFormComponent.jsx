@@ -26,7 +26,7 @@ const KindergartenInfoFormComponent = ({
   let type = "text"
 
   return (
-    <div className="templatemo-content-widget white-bg my-4 col-8 mx-auto">
+    <div className="templatemo-content-widget white-bg my-4 col-10 mx-auto">
       <form id={id} className="templatemo-login-form" onSubmit={handleSubmit}>
         <Input
           name="title"
@@ -173,7 +173,7 @@ const KindergartenInfoFormComponent = ({
       </form>
       <div className="form-group text-right">
         <button type="button" className="templatemo-blue-button mr-2" onClick={goToKindergartenList}>
-          Grįžti į darželių sąrašą</button>
+          Eiti į darželių sąrašą</button>
         {isDisabled
           ? <button type="button" className="templatemo-blue-button" onClick={toggleDisabled} >
             Redaguoti</button>

@@ -24,11 +24,11 @@ const GroupTableComponent = ({ groups, kindergartenId, buttonStatus }) => {
                                 <td>{childrenCount}</td>
                                 <td>
                                     {buttonStatus !== "Negalima keisti dydžio"
-                                        ? <Link className="templatemo-blue-button"
+                                        ? <Link className="templatemo-edit-btn"
                                             to={`${urls.educationSpecialist.kindergartenBase}/${kindergartenId}/groups/${id}`}>
                                             {buttonStatus}
                                         </Link>
-                                        : <button className="templatemo-blue-button-disabled" disabled>{buttonStatus}</button>}
+                                        : <button className="templatemo-edit-btn-disabled" disabled>{buttonStatus}</button>}
                                 </td>
                             </tr>
                         )}

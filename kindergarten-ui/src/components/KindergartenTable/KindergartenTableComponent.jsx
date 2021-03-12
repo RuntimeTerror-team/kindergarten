@@ -24,9 +24,9 @@ const KindergartenTableComponent = ({ kindergartens }) => {
                                 <td>{address}</td>
                                 <td>
                                     <Link to={`${urls.educationSpecialist.kindergartenBase}/${id}`} className="templatemo-edit-btn mr-2">
-                                        Peržiūrėti
-                                </Link>
-                                    <Link to={`${urls.educationSpecialist.kindergartenBase}/${id}/groups`} className="templatemo-edit-btn" >Grupės</Link>
+                                        Peržiūrėti</Link>
+                                    <Link to={`${urls.educationSpecialist.kindergartenBase}/${id}/groups`} className="templatemo-edit-btn" >
+                                        Grupės</Link>
                                 </td>
                             </tr>
                         )}

@@ -14,9 +14,10 @@ const AdminDistrictFormComponent = ({
 }) => {
   return (
     <div>
-      <div id="districtAdministrationComponent" className="col-12 row">
+      <div className="templatemo-content-widget white-bg my-4 col-6 mx-auto">
+        <h2 className="margin-bottom-10">Pridėti rajoną</h2>
         <form className="form-inline" onSubmit={addDistrict}>
-          <div className={`input-group mx-auto ${titleValidation}`}>
+          <div className={`input-group col-12 px-0 ${titleValidation}`}>
             <input
               type="text"
               className="form-control"
@@ -33,14 +34,10 @@ const AdminDistrictFormComponent = ({
             </div>
           </div>
           <div className="invalid-feedback">Pavadinimo ilgis turi būti 5-20 ženklų.</div>
-        </form>
-      </div>
-      <div className="row">
-        {
-          <span className={props.messageStyle}>
+          <span className={props.messageStyle + " col-12 mb-0 mt-2"}>
             {props.requestMessage}
           </span>
-        }
+        </form>
       </div>
       {districts.length > 0 && <DistrictTableComponent districts={districts} {...props} />}
     </div>
