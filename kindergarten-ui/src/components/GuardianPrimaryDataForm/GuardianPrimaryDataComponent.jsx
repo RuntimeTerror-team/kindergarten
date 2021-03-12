@@ -23,12 +23,11 @@ const GuardianPrimaryDataFormComponent = ({
     messageStyle
 }) => {
     return (
-        <div className="col-10 clearfix mb-3">
-            <form onSubmit={handleSubmit}>
+        <div className="templatemo-content-widget white-bg my-4 col-10 mx-auto">
+            <form className="templatemo-login-form" onSubmit={handleSubmit}>
                 <div className="form-group row">
                     <label htmlFor="firstname" className="col-3 pt-2 text-right">
-                        Vardas <span className="mandatory">*</span>
-                    </label>
+                        Vardas <span className="mandatory">*</span></label>
                     <input
                         type="text"
                         className={`form-control col-9 ${firstnameValidation}`}
@@ -147,11 +146,11 @@ const GuardianPrimaryDataFormComponent = ({
                     />
                     <div className="invalid-feedback offset-3 col-9">Šis laukas privalomas. Įveskite elektroninį paštą.</div>
                 </div>
-                <div className="col-12 row">
-                    <div className="offset-3 col-9"><span className="mandatory">*</span> pažymėti laukai privalomi.</div>
-                    {<div className={`${messageStyle} offset-4 col-8 mt-4`}>{message}</div>}
+                <div className="offset-3 col-9"><span className="mandatory">*</span> pažymėti laukai privalomi.</div>
+                <div className={`${messageStyle} offset-3 col-9 mt-4`}>{message}</div>
+                <div className="form-group text-right">
+                    <button type="submit" className="templatemo-blue-button">Išsaugoti</button>
                 </div>
-                <button type="submit" className="btn btn-green float-right">Išsaugoti</button>
             </form>
         </div>
     )

@@ -213,7 +213,7 @@ class ApplicationContainer extends Component {
     if (currentStep !== 1) {
       return (
         <button
-          className="btn btn-info float-right mr-1 mt-2"
+          className="templatemo-blue-button"
           type="button"
           onClick={this.prev}>
           Atgal
@@ -229,7 +229,7 @@ class ApplicationContainer extends Component {
       return (
         <div className="col-12 text-right p-0">
           <button
-            className="btn btn-info"
+            className="templatemo-blue-button"
             type="button"
             onClick={this.next}>
             Toliau

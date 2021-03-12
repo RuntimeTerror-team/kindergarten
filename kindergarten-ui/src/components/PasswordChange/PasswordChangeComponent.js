@@ -5,32 +5,33 @@ let PasswordChangeComponent = ({ password, password2, oldPassword, passwordValid
   successMessage, successMessageStyle, wrongOldPasswordMessage, wrongOldPasswordMessageStyle, onSubmit, onPasswordChange, onPassword2Change, onOldPasswordChange }) => {
 
   return (
-    <div className="templatemo-content-widget white-bg my-4 col-6 mx-auto">
-      <h2 className="margin-bottom-10">Pakeisti slaptažodį</h2>
-      <form className="form row" onSubmit={onSubmit}>
-        <div className="form-group col-12">
-          <input className={`form-control  ${oldPasswordValidation}`} type="password" id="oldPassword" value={oldPassword} onChange={onOldPasswordChange} name="oldPassword" placeholder="Senas slaptažodis"></input>
-          <div className="invalid-feedback">
-            Šis laukas privalomas.</div>
-        </div>
+    <div>
+      <div className="templatemo-content-widget white-bg">
+        <h3 className="margin-bottom-10">Pakeisti slaptažodį</h3>
+        <form className="form row" onSubmit={onSubmit}>
+          <div className="form-group col-12">
+            <input className={`form-control  ${oldPasswordValidation}`} type="password" id="oldPassword" value={oldPassword} onChange={onOldPasswordChange} name="oldPassword" placeholder="Senas slaptažodis"></input>
+            <div className="invalid-feedback">
+              Šis laukas privalomas.</div>
+          </div>
 
-        <div className="form-group col-12">
-          <input className={`form-control  ${passwordValidation}`} type="password" id="password" value={password} onChange={onPasswordChange} name="password" placeholder="Naujas slaptažodis"></input>
-          <div className="invalid-feedback">
-            Šis laukas privalomas. Mažiausiai 8 simbolių ilgio, bent viena didžioji raidė, bent viena mažioji raidė ir bent vienas skaičius.
+          <div className="form-group col-12">
+            <input className={`form-control  ${passwordValidation}`} type="password" id="password" value={password} onChange={onPasswordChange} name="password" placeholder="Naujas slaptažodis"></input>
+            <div className="invalid-feedback">
+              Šis laukas privalomas. Mažiausiai 8 simbolių ilgio, bent viena didžioji raidė, bent viena mažioji raidė ir bent vienas skaičius.
                         </div>
-        </div>
-        <div className="form-group col-12">
-          <input className={`form-control ${password2Validation}`} type="password" id="password2" value={password2} onChange={onPassword2Change} name="password2" placeholder="Pakartoti slaptažodį"></input>
-          <div className="invalid-feedback">
-            Šis laukas privalomas. Mažiausiai 8 simbolių ilgio, bent viena didžioji raidė, bent viena mažioji raidė ir bent vienas skaičius.
+          </div>
+          <div className="form-group col-12">
+            <input className={`form-control ${password2Validation}`} type="password" id="password2" value={password2} onChange={onPassword2Change} name="password2" placeholder="Pakartoti slaptažodį"></input>
+            <div className="invalid-feedback">
+              Šis laukas privalomas. Mažiausiai 8 simbolių ilgio, bent viena didžioji raidė, bent viena mažioji raidė ir bent vienas skaičius.
                         </div>
-        </div>
-        <div className="form-group col-12 text-right mb-0">
-          <button className="templatemo-blue-button">Išsaugoti</button>
-        </div>
-      </form>
-
+          </div>
+          <div className="form-group col-12 text-right mb-0">
+            <button className="templatemo-blue-button">Išsaugoti</button>
+          </div>
+        </form>
+      </div>
       <div className={notMatchingMessageStyle + " mt-2"}>
         <span>{notMatchingMessage}</span>
       </div>

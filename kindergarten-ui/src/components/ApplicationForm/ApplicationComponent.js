@@ -12,15 +12,12 @@ let ApplicationComponent = (props) => {
 
   return (
 
-    <div className="row justify-content-center align-items-center">
-      <div>
-        <h1 className="my-3">Registracijos į darželį forma</h1>
-      </div>
-      <form className="form row col-10 mt-3" onSubmit={props.onSubmit}>
+    <div className="col-12 my-4 mx-auto px-0">
+      <form className="form row col-12 px-0" onSubmit={props.onSubmit}>
         <NoApplicationsComponent
           currentStep={props.currentStep} />
 
-        <div className="col-4 px-3">
+        <div className="col-4 px-0">
           <ChildInfoComponent
             currentStep={props.currentStep}
             name={props.childName}
@@ -51,7 +48,7 @@ let ApplicationComponent = (props) => {
           />
         </div>
 
-        <div className="col-4 px-3">
+        <div className="col-4 px-0">
           <GuardianInfoComponent
             currentStep={props.currentStep}
             name={props.guardianName}
@@ -84,7 +81,7 @@ let ApplicationComponent = (props) => {
           />
         </div>
 
-        <div className="col-4 px-3">
+        <div className="col-4 px-0">
           {!props.wantsSecondGuardian
             &&
             <SecondGuardianButtonComponent
@@ -121,42 +118,67 @@ let ApplicationComponent = (props) => {
         <div className="row col-12 my-3">
           {props.nextButton()}
         </div>
+        <div className="col-6 px-0">
+          <KindergartenListComponent
+            currentStep={props.currentStep}
+            kinderGartenList={props.kinderGartenList}
+            optionsValuesList={props.optionsValuesList}
+            showChoices={props.showChoices}
+            handleOnOptionsChange={props.handleOnOptionsChange}
+            onChosenKindergartens={props.onChosenKindergartens}
+            onDeleteSelection={props.onDeleteSelection}
+            prev={props.prev}
+            next={props.next}
+            previousButton={props.previousButton}
+          />
+        </div>
+        <div className="col-6 px-0">
+          <PriorityListComponent
+            currentStep={props.currentStep}
+            onPrioritiesChange={props.onPrioritiesChange}
+            priorities={props.priorities}
+            emptyInputsMessage={props.emptyInputsMessage}
+            emptyInputsMessageStyle={props.emptyInputsMessageStyle}
+            noneKindergartenSelectedMessage={props.noneKindergartenSelectedMessage}
+            noneKindergartenSelectedMessageStyle={props.noneKindergartenSelectedMessageStyle}
+            noChildMessage={props.noChildMessage}
+            noChildMessageStyle={props.noChildMessageStyle}
+            applicationMessage={props.applicationMessage}
+            applicationMessageStyle={props.applicationMessageStyle}
+            prev={props.prev}
+            next={props.next}
+            previousButton={props.previousButton}
+          />
+        </div>
 
-        <KindergartenListComponent
-          currentStep={props.currentStep}
-          kinderGartenList={props.kinderGartenList}
-          optionsValuesList={props.optionsValuesList}
-          showChoices={props.showChoices}
-          handleOnOptionsChange={props.handleOnOptionsChange}
-          onChosenKindergartens={props.onChosenKindergartens}
-          onDeleteSelection={props.onDeleteSelection}
-          prev={props.prev}
-          next={props.next}
-          previousButton={props.previousButton}
-        />
+        <div className="col-12 px-0">
 
-        <PriorityListComponent
-          currentStep={props.currentStep}
-          onPrioritiesChange={props.onPrioritiesChange}
-          priorities={props.priorities}
-          emptyInputsMessage={props.emptyInputsMessage}
-          emptyInputsMessageStyle={props.emptyInputsMessageStyle}
-          noneKindergartenSelectedMessage={props.noneKindergartenSelectedMessage}
-          noneKindergartenSelectedMessageStyle={props.noneKindergartenSelectedMessageStyle}
-          noChildMessage={props.noChildMessage}
-          noChildMessageStyle={props.noChildMessageStyle}
-          applicationMessage={props.applicationMessage}
-          applicationMessageStyle={props.applicationMessageStyle}
-          prev={props.prev}
-          next={props.next}
-          previousButton={props.previousButton}
-        />
+          <div className={props.noneKindergartenSelectedMessageStyle}>
+            {props.noneKindergartenSelectedMessage}
+          </div>
+
+          <div className={props.noChildMessageStyle}>
+            {props.noChildMessage}
+          </div>
+
+          <div className={props.emptyInputsMessageStyle}>
+            {props.emptyInputsMessage}
+          </div>
+
+          <div className={props.applicationMessageStyle}>
+            {props.applicationMessage}
+          </div>
+
+        </div>
 
         {/* <div className={props.noChildMessageStyle + " mt-2"}>
                 <span>{props.noChildMessage}</span>
                 </div> */}
 
-
+        <div className="col-12 text-right p-0">
+          {props.previousButton()}
+          {props.currentStep === 2 && <button type="submit" className="templatemo-blue-button ml-2">Pateikti</button>}
+        </div>
       </form>
     </div>
 

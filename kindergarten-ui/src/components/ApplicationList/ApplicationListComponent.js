@@ -32,7 +32,7 @@ const ApplicationListComponent = ({ applications }) => {
     )
 
     return (
-        applications.length === 0 ? <h6 className="text-center">Šiuo metu nesate pateikė jokio prašymo</h6> : table
+        applications.length === 0 || applications === null ? <h6 className="text-center">Šiuo metu nesate pateikė jokio prašymo</h6> : table
     )
 }
 

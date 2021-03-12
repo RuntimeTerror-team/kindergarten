@@ -8,10 +8,9 @@ let PriorityListComponent = (props) => {
   }
 
   return (
+    <div className="templatemo-content-widget white-bg">
 
-    <div className="my-3 justify-content-start col-12">
-
-      <h2 className="mb-4">Papildoma informacija</h2>
+      <h3 className="margin-bottom-10">Papildoma informacija</h3>
       {/* <label htmlFor="checkSelections">Pasirinkite prioritetus</label> */}
       <div className="" name="checkSelections" style={{ textAlign: "left" }}>
         {/* <div className="form form-check">
@@ -19,14 +18,18 @@ let PriorityListComponent = (props) => {
             <label className="form-check-label" htmlFor="priority1">Vaiko deklaruojama gyvenamoji vieta yra miesto savivaldybė</label>
             </div> */}
 
-        <div className="form-check">
-          <input type="checkbox" className="form-check-input" name="priority2" checked={props.priorities[1].isChecked} value={props.priorities[1].value} onChange={props.onPrioritiesChange}></input>
-          <label className="form-check-label" htmlFor="priority2">Vaikas yra įvaikintas</label>
+        <div class="form-group">
+          <div class="checkbox squaredTwo">
+            <input type="checkbox" className="form-check-input" id="priority2" name="priority2" checked={props.priorities[1].isChecked} value={props.priorities[1].value} onChange={props.onPrioritiesChange}></input>
+            <label htmlFor="priority2"><span></span>Vaikas yra įvaikintas</label>
+          </div>
         </div>
 
-        <div className="form-check">
-          <input type="checkbox" className="form-check-input" name="priority3" checked={props.priorities[2].isChecked} value={props.priorities[2].value} onChange={props.onPrioritiesChange}></input>
-          <label className="form-check-label" htmlFor="priority3">Vaikas yra iš šeimos, turinčios tris ir daugiau vaikų</label>
+        <div class="form-group">
+          <div class="checkbox squaredTwo">
+            <input type="checkbox" className="form-check-input" id="priority3" name="priority3" checked={props.priorities[2].isChecked} value={props.priorities[2].value} onChange={props.onPrioritiesChange}></input>
+            <label htmlFor="priority3"><span></span>Vaikas yra iš šeimos, turinčios tris ir daugiau vaikų</label>
+          </div>
         </div>
 
         {/* <div class="form-check">
@@ -34,45 +37,48 @@ let PriorityListComponent = (props) => {
             <label class="form-check-label" htmlFor="priority4">Vaiko brolis ar sesuo lanko tą pačią įstaigą</label>
             </div> */}
 
-        <div className="form-check">
-          <input type="checkbox" className="form-check-input" name="priority4" checked={props.priorities[3].isChecked} value={props.priorities[3].value} onChange={props.onPrioritiesChange}></input>
-          <label className="form-check-label" htmlFor="priority4">Vienas iš tėvų  mokosi bendrojo ugdymo mokykloje</label>
+        <div class="form-group">
+          <div class="checkbox squaredTwo">
+            <input type="checkbox" className="form-check-input" id="priority4" name="priority4" checked={props.priorities[3].isChecked} value={props.priorities[3].value} onChange={props.onPrioritiesChange}></input>
+            <label htmlFor="priority4"><span></span>Vienas iš tėvų  mokosi bendrojo ugdymo mokykloje</label>
+          </div>
         </div>
 
-        <div className="form-check">
-          <input type="checkbox" className="form-check-input" name="priority5" checked={props.priorities[4].isChecked} value={props.priorities[4].value} onChange={props.onPrioritiesChange}></input>
-          <label className="form-check-label" htmlFor="priority5">Vienas iš tėvų turi ne daugiau kaip 40 procentų darbingumo
+        <div class="form-group">
+          <div class="checkbox squaredTwo">
+            <input type="checkbox" className="form-check-input" id="priority5" name="priority5" checked={props.priorities[4].isChecked} value={props.priorities[4].value} onChange={props.onPrioritiesChange}></input>
+            <label className="form-check-label" htmlFor="priority5"><span></span>Vienas iš tėvų turi ne daugiau kaip 40 procentų darbingumo
              lygio</label>
+          </div>
         </div>
       </div>
 
 
-      <button className="btn btn-info float-right my-2">Pateikti</button>
+      {/* <button className="templatemo-blue-button">Pateikti</button>
       {props.previousButton()}
-      <div className="row">
-
-        <span className={props.noneKindergartenSelectedMessageStyle + " mt-5"} style={{ width: "23em" }}>
-          {props.noneKindergartenSelectedMessage}
-        </span>
-
-      </div>
 
 
-      <div className={"row " + props.noChildMessageStyle + " ml-1"} style={{ width: "23em" }}>
+      <span className={props.noneKindergartenSelectedMessageStyle + " mt-5"} style={{ width: "23em" }}>
+        {props.noneKindergartenSelectedMessage}
+      </span>
+
+
+
+
+      <div className={" " + props.noChildMessageStyle + " ml-1"} style={{ width: "23em" }}>
         <span>{props.noChildMessage}</span>
       </div>
 
-      <div className="row">
-        <span className={props.emptyInputsMessageStyle} style={{ width: "23em" }}>
-          {props.emptyInputsMessage}
-        </span>
-      </div>
 
-      <div className="row mt-5">
-        <span className={props.applicationMessageStyle + ""} style={{ width: "23em" }}>
-          {props.applicationMessage}
-        </span>
-      </div>
+      <span className={props.emptyInputsMessageStyle} style={{ width: "23em" }}>
+        {props.emptyInputsMessage}
+      </span>
+
+
+      <span className={props.applicationMessageStyle + ""} style={{ width: "23em" }}>
+        {props.applicationMessage}
+      </span> */}
+
 
 
     </div>

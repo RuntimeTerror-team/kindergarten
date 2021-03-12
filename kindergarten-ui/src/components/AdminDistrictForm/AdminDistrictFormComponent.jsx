@@ -15,7 +15,7 @@ const AdminDistrictFormComponent = ({
   return (
     <div>
       <div className="templatemo-content-widget white-bg my-4 col-6 mx-auto">
-        <h2 className="margin-bottom-10">Pridėti rajoną</h2>
+        <h3 className="margin-bottom-10">Pridėti rajoną</h3>
         <form className="form-inline" onSubmit={addDistrict}>
           <div className={`input-group col-12 px-0 ${titleValidation}`}>
             <input
@@ -29,7 +29,7 @@ const AdminDistrictFormComponent = ({
             />
             <div className="input-group-append">
               <button type="submit" className="templatemo-blue-button">
-                Pridėti
+                Išsaugoti
             </button>
             </div>
           </div>
