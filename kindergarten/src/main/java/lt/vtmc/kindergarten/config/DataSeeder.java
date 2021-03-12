@@ -495,7 +495,7 @@ public class DataSeeder {
 
         //JONUKAS
         Person child = new Person();
-        child.setFirstName("JONUKAS");
+        child.setFirstName("Jonukas");
         child.setLastName("Bujonauskas");
         child.setEmail(null);
         child.setCity(CityEnum.VILNIUS);
@@ -511,7 +511,7 @@ public class DataSeeder {
 
         //MARYTĖ
         Person child2 = new Person();
-        child2.setFirstName("MARYTE");
+        child2.setFirstName("Marytė");
         child2.setLastName("Bujonauskaitė");
         child2.setEmail(null);
         child2.setCity(CityEnum.VILNIUS);
@@ -554,7 +554,7 @@ public class DataSeeder {
 
         //GABRIELIUS
         Person childGabrielius = new Person();
-        childGabrielius.setFirstName("GABRIELIUS");
+        childGabrielius.setFirstName("Gabrielius");
         childGabrielius.setLastName("Narkūnas");
         childGabrielius.setEmail(null);
         childGabrielius.setCity(CityEnum.VILNIUS);
@@ -570,7 +570,7 @@ public class DataSeeder {
 
         //ATĖNĖ
         Person childAtene = new Person();
-        childAtene.setFirstName("ATĖNĖ");
+        childAtene.setFirstName("Atėnė");
         childAtene.setLastName("Narkūnaitė");
         childAtene.setEmail(null);
         childAtene.setCity(CityEnum.VILNIUS);
@@ -612,7 +612,7 @@ public class DataSeeder {
 
         //IGLUTĖ ZUBRYTĖ
         Person child4 = new Person();
-        child4.setFirstName("IGLUTĖ");
+        child4.setFirstName("Iglutė");
         child4.setLastName("Zubrytė");
         child4.setEmail(null);
         child4.setCity(CityEnum.OTHER);
@@ -629,7 +629,7 @@ public class DataSeeder {
 
         //ERIKAS ZUBRUS
         Person erikasChild = new Person();
-        erikasChild.setFirstName("ERIKAS");
+        erikasChild.setFirstName("Erikas");
         erikasChild.setLastName("Zubrus");
         erikasChild.setEmail(null);
         erikasChild.setCity(CityEnum.OTHER);
@@ -671,7 +671,7 @@ public class DataSeeder {
 
         //IGLUTĖ URBELYTĖ
         Person child3 = new Person();
-        child3.setFirstName("IGLUTĖ");
+        child3.setFirstName("Iglutė");
         child3.setLastName("Urbelytė");
         child3.setEmail(null);
         child3.setCity(CityEnum.OTHER);
@@ -687,7 +687,7 @@ public class DataSeeder {
 
         //POVILIUKAS URBELIS
         Person poviliukasChild = new Person();
-        poviliukasChild.setFirstName("POVILIUKAS");
+        poviliukasChild.setFirstName("Poviliukas");
         poviliukasChild.setLastName("Urbelis");
         poviliukasChild.setEmail(null);
         poviliukasChild.setCity(CityEnum.OTHER);
