@@ -13,7 +13,9 @@ class ESApprovedApplicationListContainer extends Component {
       applications: [],
 
       currentPage: 1,
-      applicationsPerPage: 2,
+      applicationsPerPage: 5,
+
+      search: '',
 
       queues: [],
       pdf: {},
@@ -32,7 +34,6 @@ class ESApprovedApplicationListContainer extends Component {
     currentPage -= 1;
     Axios.get(baseUrl + "/api/applications/sorted/?page=" + currentPage + "&size=" + this.state.applicationsPerPage)
       .then((res) => {
-
         this.setState({
           applications: res.data.content,
           totalPages: res.data.totalPages,
@@ -165,8 +166,39 @@ class ESApprovedApplicationListContainer extends Component {
 
   }
 
+  searchData = (ev) => {
+    ev.preventDefault();
+
+    let currentPage = this.state.currentPage -1 ;
+
+    if (!this.state.search) {
+      this.updateApplicationList(this.state.currentPage);
+      return;
+    }
+
+    Axios.get(baseUrl + "/api/applications/sorted/search/" + this.state.search + "?page=" + currentPage + "&size=" + this.state.applicationsPerPage)
+      .then((res) => {
+        this.setState({
+          applications: res.data.content,
+          totalPages: res.data.totalPages,
+          totalElements: res.data.totalElements,
+          currentPage: res.data.number + 1
+        });
+        this.translateStatus();
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }
+
+  updateSearchInputValue = (letterToSearch) =>{
+    this.state.search =letterToSearch.target.value
+    this.searchData(letterToSearch);
+  }
+
   render() {
-    const { applications, currentPage, totalPages } = this.state;
+    const { applications, currentPage, totalPages, search } = this.state;
+
     return (
       <div className="templatemo-flex-row">
         <ESNavigationComponent />
@@ -191,6 +223,9 @@ class ESApprovedApplicationListContainer extends Component {
               onStatusChange={this.handleStatusChange}
               onOpenPDF={this.handleOpenPDF}
               closeAlert={this.closeAlert}
+              search={search}
+              searchData={this.searchData}
+              updateSearchInputValue={this.updateSearchInputValue}
             />
             <Footer />
           </div>

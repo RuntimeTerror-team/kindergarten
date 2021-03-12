@@ -26,6 +26,9 @@ public class ApplicationAfterDistribution {
     private String parentLastName;
 
     @Column
+    private String childPersonalCode;
+
+    @Column
     private int score;
 
     @Column
@@ -66,6 +69,14 @@ public class ApplicationAfterDistribution {
 
     public void setApprovedKindergarten(String approvedKindergarten) {
         this.approvedKindergarten = approvedKindergarten;
+    }
+
+    public String getChildPersonalCode() {
+        return childPersonalCode;
+    }
+
+    public void setChildPersonalCode(String childPersonalCode) {
+        this.childPersonalCode = childPersonalCode;
     }
 
     public Long getId() {

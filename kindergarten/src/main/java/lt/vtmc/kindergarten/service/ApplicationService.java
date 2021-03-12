@@ -294,6 +294,7 @@ public class ApplicationService implements PagingLimit<ApplicationAfterDistribut
                 applicationAfterDistribution.setDate(application.getDate());
                 applicationAfterDistribution.setScore(application.getScore());
                 applicationAfterDistribution.setApplicationId(application.getId());
+                applicationAfterDistribution.setChildPersonalCode(application.getChild().getPersonalCode());
                 applicationAfterDistribution.setStatus(application.getApplicationStatus());
                 applicationAfterDistribution.setWaitingNumber(waitingNum.get());
                 waitingNum.getAndSet(waitingNum.get() + 1);
@@ -311,6 +312,7 @@ public class ApplicationService implements PagingLimit<ApplicationAfterDistribut
                 applicationAfterDistribution.setScore(application.getScore());
                 applicationAfterDistribution.setStatus(application.getApplicationStatus());
                 applicationAfterDistribution.setApplicationId(application.getId());
+                applicationAfterDistribution.setChildPersonalCode(application.getChild().getPersonalCode());
                 applicationAfterDistribution.setApprovedKindergarten(application.getKindergartenApplicationForms().stream()
                         .filter(item -> item.isAccepted())
                         .map(applicationForm -> applicationForm.getKindergarten().getTitle())
@@ -449,5 +451,10 @@ public class ApplicationService implements PagingLimit<ApplicationAfterDistribut
     @Override
     public Page<ApplicationAfterDistribution> findAll(Pageable pageable) {
         return applicationAfterDistributionDao.findAll(pageable);
+    }
+
+    @Override
+    public Page<ApplicationAfterDistribution> findAll(Pageable pageable, String searchText) {
+        return applicationAfterDistributionDao.findAllApplications(pageable, searchText);
     }
 }

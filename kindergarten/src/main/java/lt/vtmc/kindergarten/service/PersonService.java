@@ -121,19 +121,6 @@ public class PersonService {
 
     }
 
-//    private String getLoggedInUserTribeId(){
-//        Authentication context = SecurityContextHolder.getContext().getAuthentication();
-//        // Used as a workaround for data seeding as it happens during app startup when no user is logged in.
-//        if (context == null ){
-//            return "swagger_family";
-//        }
-//        String username = context.getName();
-//        User user = userDao.findUserByUsername(username);
-//        Person person = personDao.findByUser(user);
-//        return person.getTribeId();
-//    }
-
-
     @Transactional
     public void addPerson(@Valid PersonDto personDto) {
         Person person = personDao.findByPersonalCode(personDto.getPersonalCode());
