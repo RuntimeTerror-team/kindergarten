@@ -166,21 +166,16 @@ class ESApprovedApplicationListContainer extends Component {
 
   }
 
+  searchData = (ev) => {
+    ev.preventDefault();
 
-  // searchChange = event => {
-  //   debugger;
-  //   this.setState({
-  //     [event.target.name] : event.target.value
-  //   });
-  // }
-
-  // cancelSearch = () => {
-  //   this.setState({"search" : ''});
-  //   this.updateApplicationList(this.state.currentPage);
-  // }
-
-  searchData = () => {
     let currentPage = this.state.currentPage -1 ;
+
+    if (!this.state.search) {
+      this.updateApplicationList(this.state.currentPage);
+      return;
+    }
+
     Axios.get(baseUrl + "/api/applications/sorted/search/" + this.state.search + "?page=" + currentPage + "&size=" + this.state.applicationsPerPage)
       .then((res) => {
         this.setState({
@@ -194,16 +189,16 @@ class ESApprovedApplicationListContainer extends Component {
       .catch((err) => {
         console.log(err);
       });
-
   }
 
   updateSearchInputValue = (letterToSearch) =>{
-    this.setState( {search: letterToSearch.target.value});
+    this.state.search =letterToSearch.target.value
+    this.searchData(letterToSearch);
   }
-
 
   render() {
     const { applications, currentPage, totalPages, search } = this.state;
+
     return (
       <div className="templatemo-flex-row">
         <ESNavigationComponent />

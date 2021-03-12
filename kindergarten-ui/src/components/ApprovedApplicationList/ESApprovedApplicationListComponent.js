@@ -3,8 +3,6 @@ import Proptypes from "prop-types";
 import { GrNext } from "react-icons/gr";
 import { GrPrevious } from "react-icons/gr";
 import { Modal, Button } from "react-bootstrap";
-// import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-// import { faFilePdf } from "@fortawesome/free-solid-svg-icons";
 import { BsSearch } from "react-icons/bs";
 
 const ESApprovedApplicationListComponent = ({
@@ -35,7 +33,7 @@ const ESApprovedApplicationListComponent = ({
       <div className="row">
         <div className="col-10">
           <form className="form-inline" onSubmit={searchData}>
-            <input className="form-control mr-sm-2" type="search" placeholder="Ieškoti pagal ???" aria-label="Search" value={search} onChange={updateSearchInputValue}></input>
+            <input className="form-control mr-sm-2" type="search" placeholder="Įveskite vardą ar pavardę" aria-label="Search" value={search} onChange={updateSearchInputValue}></input>
             <button className="btn btn-outline-primary my-2 my-sm-0" type="submit" >Ieškoti <BsSearch/> </button>
           </form>
         </div>
