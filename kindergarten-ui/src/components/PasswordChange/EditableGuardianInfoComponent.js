@@ -4,9 +4,9 @@ import Proptypes from 'prop-types';
 let GuardianInfoComponent = (props) => {
 
     return (
-        <div className="col-6">
-            <div style={{ width: "20em" }}>
-                <h3>Duomenų redagavimas</h3>
+        <div>
+            <div className="templatemo-content-widget white-bg">
+                <h3 className="margin-bottom-10">Duomenų redagavimas</h3>
 
                 <div className="form-group">
                     <input
@@ -49,7 +49,7 @@ let GuardianInfoComponent = (props) => {
                     <div className="invalid-feedback">Šis laukas privalomas. E.paštas privalo turėti @ simbolį.</div>
                 </div>
                 <div className="text-right">
-                    <button className={props.isDisabled === true ? "btn btn-info" : "btn btn-info"} onClick={props.saveGuardian}>{props.guardianButtonText}</button>
+                    <button className={props.isDisabled === true ? "templatemo-blue-button" : "templatemo-blue-button"} onClick={props.saveGuardian}>{props.guardianButtonText}</button>
                 </div>
             </div>
 

@@ -11,8 +11,8 @@ let GuardianInfoComponent = (props) => {
     return (
 
         <div>
-            <div>
-                <h3>Vaiko atstovas</h3>
+            <div className="templatemo-content-widget white-bg">
+                <h3 className="margin-bottom-10">Vaiko atstovas</h3>
 
                 <div className="form-group">
                     <input
@@ -55,7 +55,7 @@ let GuardianInfoComponent = (props) => {
                     <div className="invalid-feedback">Šis laukas privalomas. E.paštas privalo turėti @ simbolį.</div>
                 </div>
                 <div className="col-12 text-right p-0">
-                    <button className={props.isDisabled === true ? "btn btn-info" : "btn btn-info"} onClick={props.saveGuardian}>{props.guardianButtonText}</button>
+                    <button className={props.isDisabled === true ? "templatemo-blue-button" : "templatemo-blue-button"} onClick={props.saveGuardian}>{props.guardianButtonText}</button>
                 </div>
             </div>
 

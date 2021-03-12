@@ -8,8 +8,7 @@ let AdminUserFormComponent = ({ handleChange, handleSubmit, downloadUserData, ..
   return (
     <div>
       <div className="templatemo-content-widget white-bg my-4 col-6 mx-auto">
-        <h2 className="margin-bottom-10">Paskyros sukūrimas</h2>
-        <p>Įveskite duomenis pirminei paskyrai sukurti.</p>
+        <h3 className="margin-bottom-10">Paskyros sukūrimas</h3>
         <form className="form" onSubmit={handleSubmit}>
           <div className="form-group">
             <input

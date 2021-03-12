@@ -9,10 +9,10 @@ let SecondGuardianButtonComponent = (props) => {
 
   return (
 
-    <div>
-      <h3>Vaiko atstovas</h3>
+    <div className="templatemo-content-widget white-bg">
+      <h3 className="margin-bottom-10">Vaiko atstovas</h3>
       <div className="col-12 text-right">
-        <button className="btn btn-info" onClick={props.fillSecondGuardian}>Pridėti</button>
+        <button className="templatemo-blue-button" onClick={props.fillSecondGuardian}>Pridėti</button>
       </div>
     </div>
 

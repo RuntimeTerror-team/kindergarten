@@ -22,7 +22,7 @@ const HealthFormTableComponent = ({ familyFiles, handleDownload }) => (
                                 <td>{childFullName}</td>
                                 <td>{date}</td>
                                 <td>{name}</td>
-                                <td><button className="btn btn-link" value={url} onClick={handleDownload}>Atsisiųsti</button></td>
+                                <td><button className="templatemo-edit-btn" value={url} onClick={handleDownload}>Atsisiųsti</button></td>
                             </tr>
                         )}
                 </tbody>

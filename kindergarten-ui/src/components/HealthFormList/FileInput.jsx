@@ -78,21 +78,23 @@ class FileInput extends Component {
 
     render() {
         return (
-            <div className="col-8 row">
-                <form className="col-12 row" onSubmit={this.handleSubmit} style={{ height: "40px" }}>
-                    <label className="m-0 btn btn-main col-3 h-100">
-                        <input type="file" multiple onChange={this.onChange} />
-                        <FontAwesomeIcon icon={faCloudUploadAlt} /> Ieškoti
-                    </label>
-                    {this.state.file &&
-                        <div className="file-preview my-auto col-6 h-100" style={{ overflow: "hidden" }} >{this.state.file.name}</div>
-                    }
-                    {this.state.file && <button type="submit" className="btn btn-green col ml-2 h-100">Išsaugoti</button>}
-                </form>
-                {this.state.message
-                    && <div className={`my-3 offset-1 ${this.state.messageStyle}`} style={{ width: "23em" }}>
+            <div class="form-group col-lg-12 mb-0">
+                <form onSubmit={this.handleSubmit}>
+                    <input name="fileToUpload" id="fileToUpload" type="file" className="filestyle" onChange={this.onChange} />
+                    <div className="bootstrap-filestyle input-group">
+                        <span className="group-span-filestyle input-group col-12 px-0">
+                            <label className="templatemo-blue-button" htmlFor="fileToUpload"><FontAwesomeIcon icon={faCloudUploadAlt} /> Ieškoti</label>
+                            <input type="text" className="form-control" disabled value={this.state.file && this.state.file.name} />
+                        </span>
+                    </div>
+                    <p>Formatas PDF. Maksimalus failo dydis 2MB.</p>
+                    <div className={`my-3 ${this.state.messageStyle}`}>
                         {this.state.message}
-                    </div>}
+                    </div>
+                    <div className="form-group col-12 text-right mb-0 px-0">
+                        <button type="submit" className="templatemo-blue-button">Išsaugoti</button>
+                    </div>
+                </form>
             </div>
         );
     }

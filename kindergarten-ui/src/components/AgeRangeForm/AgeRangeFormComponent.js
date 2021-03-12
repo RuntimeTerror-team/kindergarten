@@ -6,6 +6,7 @@ let AgeRangeFormComponent = (props) => {
   return (
     <div>
       <div className="templatemo-content-widget white-bg my-4 col-6 mx-auto">
+        <h3 className="margin-bottom-10">Sukurti amžiaus grupę</h3>
         <form className="templatemo-login-form" onSubmit={props.onSubmit}>
           <div className="form-group">
             <select

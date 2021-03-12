@@ -121,7 +121,7 @@ class EsQueueListContainer extends Component {
                         this.alertTimer = setTimeout(() => {
                             this.setState({ message: "" })
                             this.setState({ messageStyle: "" })
-                        }, 300000);
+                        }, 3000);
                     })
                     .then(() => {
                         let active = this.state.queues.filter(q => q.status === "ACTIVE" && q.registrationClosingDate)[0].registrationClosingDate;
@@ -137,7 +137,7 @@ class EsQueueListContainer extends Component {
                     this.alertTimer = setTimeout(() => {
                         this.setState({ message: "" })
                         this.setState({ messageStyle: "" })
-                    }, 300000);
+                    }, 3000);
                 } else {
                     console.log(err);
                 }
@@ -177,7 +177,7 @@ class EsQueueListContainer extends Component {
                         this.alertTimer = setTimeout(() => {
                             this.setState({ message: "" })
                             this.setState({ messageStyle: "" })
-                        }, 300000);
+                        }, 3000);
                     })
                     .catch((err) => console.log(err));
             })
@@ -187,7 +187,7 @@ class EsQueueListContainer extends Component {
                 this.alertTimer = setTimeout(() => {
                     this.setState({ message: "" })
                     this.setState({ messageStyle: "" })
-                }, 300000);
+                }, 3000);
                 console.log(err);
             });
     }
