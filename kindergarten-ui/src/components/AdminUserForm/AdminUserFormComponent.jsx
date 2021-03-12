@@ -6,8 +6,8 @@ let AdminUserFormComponent = ({ handleChange, handleSubmit, downloadUserData, ..
   const { firstname, lastname, firstnameLength, lastnameLength, createdUsername, isCreated, users } = otherProps;
 
   return (
-    <div className="row justify-content-center align-items-center">
-      <div className="templatemo-content-widget white-bg">
+    <div>
+      <div className="templatemo-content-widget white-bg my-4 col-6 mx-auto">
         <h2 className="margin-bottom-10">Paskyros sukūrimas</h2>
         <p>Įveskite duomenis pirminei paskyrai sukurti.</p>
         <form className="form" onSubmit={handleSubmit}>
@@ -48,7 +48,9 @@ let AdminUserFormComponent = ({ handleChange, handleSubmit, downloadUserData, ..
               <option value="EDUCATION_SPECIALIST">Švietimo specialistas</option>
             </select>
           </div>
-          <button className="templatemo-blue-button float-right">Išsaugoti</button>
+          <div className="form-group col-12 text-right mb-0">
+            <button className="templatemo-blue-button">Išsaugoti</button>
+          </div>
         </form>
       </div>
       {isCreated && createdUsername.length <= 30 && (

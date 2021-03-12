@@ -1,8 +1,8 @@
 import React from 'react';
 
-const Input = ({ name, value, labelStyle, label, mandatory, type, inputStyle, error, placeholder, onChange, invalidStyle, errorMessage, min, disabled }) => {
+const Input = ({ name, value, labelStyle, label, mandatory, type, inputStyle, error, placeholder, onChange, invalidStyle, errorMessage, min, disabled, formGroupStyle }) => {
     return (
-        <div className="form-group row">
+        <div className={`form-group row ${formGroupStyle}`}>
             <label htmlFor={name} className={labelStyle}>{label}{mandatory && !disabled ? <span className="mandatory"> *</span> : ""}</label>
             <input
                 type={type}

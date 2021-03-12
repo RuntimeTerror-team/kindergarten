@@ -4,14 +4,13 @@ import AgeRangeTableComponent from "./AgeRangeTableComponent";
 
 let AgeRangeFormComponent = (props) => {
   return (
-    <div className="row justify-content-center align-items-center">
-      <div>
-        <form className="form ageRangeForm" onSubmit={props.onSubmit}>
+    <div>
+      <div className="templatemo-content-widget white-bg my-4 col-6 mx-auto">
+        <form className="templatemo-login-form" onSubmit={props.onSubmit}>
           <div className="form-group">
             <select
               className={"form-control " + props.fromAgeFieldValidation}
               name="fromAge"
-              style={{ width: "25em" }}
               value={props.fromAge}
               onChange={props.onFromAgeChange}>
               <option value="">Amžius nuo</option>
@@ -28,7 +27,6 @@ let AgeRangeFormComponent = (props) => {
             <select
               className={"form-control " + props.toAgeFieldValidation}
               name="toAge"
-              style={{ width: "25em" }}
               value={props.toAge}
               onChange={props.onToAgeChange}>
               <option value="">Amžius iki</option>
@@ -41,26 +39,20 @@ let AgeRangeFormComponent = (props) => {
             </select>
             <div className="invalid-feedback">Prašome užpildyti amžių iki</div>
           </div>
+          {props.invalidInterval ? (
+            <div className="alert alert-danger">
+              Amžius nuo negali būti lygus arba didesnis už amžių iki
+            </div>
+          ) : null}
+          <div className={props.messageStyle}>
+            {props.requestMessage}
+          </div>
           <div className="col-12 text-right">
-            <button className="btn btn-green">Sukurti</button>
-          </div>
-          <div className="col-12 pt-3">
-            {props.invalidInterval ? (
-              <span className="alert alert-danger" style={{ width: "23em" }}>
-                Amžius nuo negali būti lygus arba didesnis už amžių iki
-              </span>
-            ) : null}
-          </div>
-          <div className="row">
-            {
-              <span className={props.messageStyle} style={{ width: "23em" }}>
-                {props.requestMessage}
-              </span>
-            }
+            <button className="templatemo-blue-button">Sukurti</button>
           </div>
         </form>
-        {props.groups.length > 0 ? <AgeRangeTableComponent groups={props.groups} onDelete={props.onDelete} /> : null}
       </div>
+      {props.groups.length > 0 ? <AgeRangeTableComponent groups={props.groups} onDelete={props.onDelete} /> : null}
     </div>
   );
 };
