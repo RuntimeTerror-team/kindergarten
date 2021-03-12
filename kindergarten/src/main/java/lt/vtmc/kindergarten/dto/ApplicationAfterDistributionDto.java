@@ -31,6 +31,8 @@ public class ApplicationAfterDistributionDto {
 
     private Long applicationId;
 
+    private String childPersonalCode;
+
     public ApplicationAfterDistributionDto() {
     }
 
@@ -46,6 +48,15 @@ public class ApplicationAfterDistributionDto {
         this.approvedKindergartenTitle = application.getApprovedKindergarten();
         this.waitingNumber = application.getWaitingNumber();
         this.applicationId = application.getApplicationId();
+        this.childPersonalCode = application.getChildPersonalCode();
+    }
+
+    public String getChildPersonalCode() {
+        return childPersonalCode;
+    }
+
+    public void setChildPersonalCode(String childPersonalCode) {
+        this.childPersonalCode = childPersonalCode;
     }
 
     public Long getWaitingNumber() {

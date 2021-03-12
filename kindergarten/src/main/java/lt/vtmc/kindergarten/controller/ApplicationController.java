@@ -3,7 +3,6 @@ package lt.vtmc.kindergarten.controller;
 import ch.qos.logback.classic.Logger;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
-import lt.vtmc.kindergarten.dao.ApplicationAfterDistributionDao;
 import lt.vtmc.kindergarten.domain.ApplicationAfterDistribution;
 import lt.vtmc.kindergarten.dto.ApplicationCreationDto;
 import lt.vtmc.kindergarten.dto.ApplicationDto;
@@ -18,18 +17,16 @@ import org.slf4j.Marker;
 import org.slf4j.MarkerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
 
 @RestController
-public class ApplicationController{
+public class ApplicationController {
 
     private Marker applicationEvent = MarkerFactory.getMarker("AUDIT_EVENT");
     private static final Logger logger
@@ -37,9 +34,6 @@ public class ApplicationController{
 
     @Autowired
     private ApplicationService applicationService;
-
-//    @Autowired
-//    private ApplicationAfterDistributionDao applicationAfterDistributionDao;
 
     @RequestMapping(value = "/api/applications", method = RequestMethod.POST)
     @ResponseStatus(HttpStatus.CREATED)
@@ -112,15 +106,15 @@ public class ApplicationController{
     @RequestMapping(method = RequestMethod.POST, value = "/api/applications/recalculation")
     @ApiOperation(value = "Trigers applications queuing", notes = "Trigers sorting algorithm and applications are queued again")
     @ResponseStatus(HttpStatus.OK)
-    public void recalculateApplicationsOrder(){
+    public void recalculateApplicationsOrder() {
         applicationService.recalculateApplicationOrderInQueue();
     }
-    
+
     @RequestMapping(method = RequestMethod.PUT, value = "/api/applications/{id}/{status}")
     @ApiOperation(value = "Change application status", notes = "Changes application status after distribution")
     @ResponseStatus(HttpStatus.OK)
     public void changeApplicationAfterDistributionStatus(@PathVariable final long id, @PathVariable final String status) {
-    	applicationService.changeApplicationStatus(id, status);
+        applicationService.changeApplicationStatus(id, status);
     }
 
     public void setApplicationService(ApplicationService applicationService) {
@@ -130,7 +124,7 @@ public class ApplicationController{
 
     private String getLoggedInUserName() {
         SecurityContext securityContext = SecurityContextHolder.getContext();
-        if (securityContext != null && securityContext.getAuthentication() != null){
+        if (securityContext != null && securityContext.getAuthentication() != null) {
             return securityContext.getAuthentication().getName();
         }
         return "UNKNOWN";
@@ -151,38 +145,4 @@ public class ApplicationController{
             @PathVariable final String searchText) {
         return new ResponseEntity<>(applicationService.findAll(pageable, searchText), HttpStatus.OK);
     }
-
-//    @RequestMapping(method = RequestMethod.GET, value = "/api/applications/sorted/search")
-////    @RequestMapping(method = RequestMethod.GET, value = "/api/applications/sorted/{searchText}")
-//    @ApiOperation(value = "Get sorted applications by parent last name", notes = "Returns applications after distribution sorted by parent last name")
-//    @ResponseStatus(HttpStatus.OK)
-//    public ResponseEntity<Map<String, Object>> findByParentLastName(
-//            @RequestParam(required = false) String parentLastName,
-//            @RequestParam(defaultValue = "0") int page,
-//            @RequestParam(defaultValue = "3") int size) {
-//        try {
-//            List<ApplicationAfterDistribution> applications = new ArrayList<ApplicationAfterDistribution>();
-//            Pageable paging = PageRequest.of(page, size);
-//
-//            Page<ApplicationAfterDistribution> pageTuts;
-//            if (parentLastName == null)
-//                pageTuts =  applicationService.findAll(paging);
-//            else
-//                pageTuts = applicationService.findByParentLastNameContaining(parentLastName,paging);
-//
-//            applications = pageTuts.getContent();
-//
-//            Map<String, Object> response = new HashMap<>();
-//            response.put("applications", applications);
-//            response.put("currentPage", pageTuts.getNumber());
-//            response.put("totalItems", pageTuts.getTotalElements());
-//            response.put("totalPages", pageTuts.getTotalPages());
-//
-//            return new ResponseEntity<>(response, HttpStatus.OK);
-//        } catch (Exception e) {
-//            return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
-//        }
-//    }
-
-
 }

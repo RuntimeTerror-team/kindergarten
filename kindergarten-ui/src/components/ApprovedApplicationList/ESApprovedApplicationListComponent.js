@@ -51,6 +51,7 @@ const ESApprovedApplicationListComponent = ({
                 {/* <th scope='col' style={{ width: "30px" }}>#</th> */}
                 <th scope="col">Balas</th>
                 <th scope="col">Vaikas</th>
+                <th scope="col">Vaiko asmens kodas</th>
                 <th scope="col">Vaiko atstovas</th>
                 <th scope="col">Data</th>
                 <th scope="col">Statusas</th>
@@ -75,7 +76,8 @@ const ESApprovedApplicationListComponent = ({
                     status,
                     approvedKindergartenTitle,
                     waitingNumber,
-                    applicationId
+                    applicationId,
+                    childPersonalCode
 
                   },
                   index
@@ -94,6 +96,7 @@ const ESApprovedApplicationListComponent = ({
                       {/* <th scope='row'>{index + 1}</th> */}
                       <td>{score}</td>
                       <td>{childFirstName + " " + childLastName}</td>
+                      <td>{childPersonalCode}</td>
                       <td>{parentFirstName + " " + parentLastName}</td>
                       <td>{date}</td>
                       <td>{status}</td>
