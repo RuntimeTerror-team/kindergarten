@@ -4,13 +4,16 @@ import basetest.BaseTest;
 import org.openqa.selenium.By;
 
 
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
 
+import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.annotations.Test;
 
 import pages.AgeGroupCreationPage;
 import pages.LoginPage;
-import pages.SpecialistPage;
+import pages.EducationSpecialistPage;
 
 
 import static org.testng.Assert.assertEquals;
@@ -19,12 +22,12 @@ import static org.testng.Assert.assertEquals;
 public class AgeGroupCreationTest extends BaseTest {
 
 
-    @Test
+    @Test(groups = "smoke, regression")
     public void ageGroupCreationTest() throws InterruptedException {
 
 
         LoginPage loginPage = new LoginPage(driver);
-        SpecialistPage specialistPage = new SpecialistPage(driver);
+        EducationSpecialistPage educationSpecialistPage = new EducationSpecialistPage(driver);
         AgeGroupCreationPage ageGroupCreationPage = new AgeGroupCreationPage(driver);
 
         String specialistUsername = "ŠvietimoSpecialistas1";
@@ -33,27 +36,35 @@ public class AgeGroupCreationTest extends BaseTest {
         loginPage.enterUsername(specialistUsername);
         loginPage.enterPassword(specialistPassword);
         loginPage.clickLoginButton();
-        Thread.sleep(3000);
+        WebDriverWait wait = new WebDriverWait(driver, 10);
+        WebElement successfulText = wait.until(
+                ExpectedConditions.presenceOfElementLocated(By.xpath("//*[@id=\"root\"]/div/div/div[2]/div[1]/div/nav/ul/li[2]/p/strong")));
 
-        specialistPage.clickAgeGroupCreationButton();
+        educationSpecialistPage.clickAgeGroupCreationButton();
+        successfulText = wait.until(
+                ExpectedConditions.presenceOfElementLocated(By.xpath("//*[@id=\"root\"]/div/div/div[2]/div[2]/h1/strong")));
+
 
         Select AgeFromDropdown = new Select(driver.findElement(By.name("fromAge")));
         AgeFromDropdown.selectByIndex(1);
-        Thread.sleep(2000);
-        Select AgeToDropdown = new Select(driver.findElement(By.name("toAge")));
-        AgeToDropdown.selectByIndex(3);
-        ageGroupCreationPage.clickAgeGroupCreateButton();
-        Thread.sleep(2000);
-        String actualResultAgeGroupCreationText = ageGroupCreationPage.findSuccesfulAgeGroupCreationText();
-        assertEquals(actualResultAgeGroupCreationText, "Grupės intervalas sėkmingai išsaugotas", "Text is not as expected: ");
-        Thread.sleep(5000);
 
+        Select AgeToDropdown = new Select(driver.findElement(By.name("toAge")));
+        AgeToDropdown.selectByIndex(4);
+        ageGroupCreationPage.clickAgeGroupCreateButton();
+
+        String actualResultAgeGroupCreationText = ageGroupCreationPage.findSuccessfulAgeGroupCreationText();
+        assertEquals(actualResultAgeGroupCreationText, "Grupės intervalas sėkmingai išsaugotas", "Text is not as expected: ");
+
+        educationSpecialistPage.clickSpecialistLogoutButton();
     }
 
     @Test
     public void sameAgeGroupCreationTest() throws InterruptedException {
+        WebDriverWait wait = new WebDriverWait(driver, 5);
+        WebElement loginh1 = wait.until(
+                ExpectedConditions.presenceOfElementLocated(By.id("loginh1")));
         LoginPage loginPage = new LoginPage(driver);
-        SpecialistPage specialistPage = new SpecialistPage(driver);
+        EducationSpecialistPage educationSpecialistPage = new EducationSpecialistPage(driver);
         AgeGroupCreationPage ageGroupCreationPage = new AgeGroupCreationPage(driver);
 
         String specialistUsername = "ŠvietimoSpecialistas1";
@@ -62,20 +73,26 @@ public class AgeGroupCreationTest extends BaseTest {
         loginPage.enterUsername(specialistUsername);
         loginPage.enterPassword(specialistPassword);
         loginPage.clickLoginButton();
-        Thread.sleep(3000);
 
-        specialistPage.clickAgeGroupCreationButton();
+        wait = new WebDriverWait(driver, 10);
+        WebElement successfulText = wait.until(
+                ExpectedConditions.presenceOfElementLocated(By.xpath("//*[@id=\"root\"]/div/div/div[2]/div[1]/div/nav/ul/li[2]/p/strong")));
+
+        educationSpecialistPage.clickAgeGroupCreationButton();
+        successfulText = wait.until(
+                ExpectedConditions.presenceOfElementLocated(By.xpath("//*[@id=\"root\"]/div/div/div[2]/div[2]/h1/strong")));
         Select AgeFromDropdown = new Select(driver.findElement(By.name("fromAge")));
         AgeFromDropdown.selectByIndex(1);
-        Thread.sleep(2000);
+
         Select AgeToDropdown = new Select(driver.findElement(By.name("toAge")));
-        AgeToDropdown.selectByIndex(3);
+        AgeToDropdown.selectByIndex(4);
         ageGroupCreationPage.clickAgeGroupCreateButton();
-        Thread.sleep(2000);
-        String actualResultAgeGroupCreationText = ageGroupCreationPage.findUnsuccesfulSameAgeGroupCreationText();
+        successfulText = wait.until(
+                ExpectedConditions.presenceOfElementLocated(By.xpath("//*[@id=\"root\"]/div/div/div[2]/div[2]/div/div[1]/form/div[3]")));
+        String actualResultAgeGroupCreationText = ageGroupCreationPage.findUnsuccessfulSameAgeGroupCreationText();
         assertEquals(actualResultAgeGroupCreationText, "Toks amžiaus intervalas jau yra įrašytas", "Text is not as expected: ");
 
-//        specialistPage.clickSpecialistLogoutButton();
+        educationSpecialistPage.clickSpecialistLogoutButton();
 
 
     }

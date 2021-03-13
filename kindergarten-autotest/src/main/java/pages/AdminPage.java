@@ -15,20 +15,21 @@ public class AdminPage extends AbstractPage {
     public WebElement inputLastName;
 
     // buttons
-    @FindBy(xpath = "//*[@id=\"root\"]/div/div/div/div[2]/div/div/div/form/button")
+    @FindBy(xpath = "//*[@id=\"root\"]/div/div/div[2]/div[2]/div/div[1]/form/div[4]/button")
     public WebElement buttonSaveAccount;
 
-    @FindBy(xpath = "//*[@id=\"root\"]/div/div/div/div[1]/div/div[2]/button")
+    @FindBy(xpath = "//*[@id=\"root\"]/div/div/div[2]/div[1]/div/nav/ul/li[1]/button")
     public WebElement buttonAdminLogout;
-    @FindBy(linkText = "Rajonų administravimas")
+
+    @FindBy(xpath = "//*[@id=\"root\"]/div/div/div[1]/nav/a[2]")
     public WebElement buttonDistrictAdministration;
 
     //text
-    @FindBy(xpath = "//*[@id=\"root\"]/div/div/div/div[1]/div/div[2]/p/strong")
+    @FindBy(xpath = "//*[@id=\"root\"]/div/div/div[2]/div[1]/div/nav/ul/li[2]/p/strong")
     public WebElement adminAccountText;
 
-    @FindBy(xpath = "//*[@id=\"root\"]/div/div/div/div[2]/div/div/div/div")
-    public WebElement succesfulAccountSave;
+    @FindBy(xpath = "//*[@id=\"root\"]/div/div/div[2]/div[2]/div/div[2]")
+    public WebElement successfulAccountSave;
 
     public AdminPage(WebDriver driver) {
         super(driver);
@@ -36,10 +37,12 @@ public class AdminPage extends AbstractPage {
     }
 
     public void enterFirstName(String firstName) {
+
         inputFirstName.sendKeys(firstName);
     }
 
     public void enterLastName(String lastName) {
+
         inputLastName.sendKeys(lastName);
     }
 
@@ -49,11 +52,13 @@ public class AdminPage extends AbstractPage {
     }
 
     public String findAdminLoginText() {
+
         return adminAccountText.getText();
     }
 
-    public String findSuccesfulAccountSaveText() {
-        return succesfulAccountSave.getText();
+    public String findSuccessfulAccountSaveText() {
+
+        return successfulAccountSave.getText();
     }
 
     public void clickAdminLogoutButton() {

@@ -8,10 +8,8 @@ import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.annotations.Test;
 import pages.*;
-import utilities.FileReaderUtils;
 
 import java.io.IOException;
-import java.util.List;
 
 import static org.testng.Assert.assertEquals;
 import static org.testng.Assert.assertTrue;
@@ -25,7 +23,7 @@ public class ParentPrimaryInfoTest extends BaseTest {
 
         AdminPage adminPage = new AdminPage(driver);
         LoginPage loginPage = new LoginPage(driver);
-        SpecialistPage specialistPage = new SpecialistPage(driver);
+        EducationSpecialistPage educationSpecialistPage = new EducationSpecialistPage(driver);
         AdminTest adminTest = new AdminTest();
         ParentPrimaryInputPage parentPrimaryInputPage = new ParentPrimaryInputPage(driver);
         ParentPage parentPage = new ParentPage(driver);
@@ -46,7 +44,7 @@ public class ParentPrimaryInfoTest extends BaseTest {
         WebElement successfulText = wait.until(
                 ExpectedConditions.presenceOfElementLocated(By.xpath("//*[@id=\"root\"]/div/div/div/div[2]/div/div/div/div")));
 
-        String actualSuccessfulAccountSave = adminPage.findSuccesfulAccountSaveText();
+        String actualSuccessfulAccountSave = adminPage.findSuccessfulAccountSaveText();
         assertTrue(actualSuccessfulAccountSave.contains(parentFirstName + parentLastName), "Text is not as expected: ");
 
         adminPage.clickAdminLogoutButton();
@@ -116,7 +114,7 @@ public class ParentPrimaryInfoTest extends BaseTest {
         successfulText = wait.until(
                 ExpectedConditions.presenceOfElementLocated(By.xpath("//*[@id=\"root\"]/div/div/div/div[2]/div/div/div/div")));
 
-        actualSuccessfulAccountSave = adminPage.findSuccesfulAccountSaveText();
+        actualSuccessfulAccountSave = adminPage.findSuccessfulAccountSaveText();
         assertTrue(actualSuccessfulAccountSave.contains(parentFirstName + parentLastName), "Text is not as expected: ");
 
         adminPage.clickAdminLogoutButton();
@@ -185,7 +183,7 @@ public class ParentPrimaryInfoTest extends BaseTest {
         successfulText = wait.until(
                 ExpectedConditions.presenceOfElementLocated(By.xpath("//*[@id=\"root\"]/div/div/div/div[2]/div/div/div/div")));
 
-        actualSuccessfulAccountSave = adminPage.findSuccesfulAccountSaveText();
+        actualSuccessfulAccountSave = adminPage.findSuccessfulAccountSaveText();
         assertTrue(actualSuccessfulAccountSave.contains(parentFirstName + parentLastName), "Text is not as expected: ");
 
         adminPage.clickAdminLogoutButton();
