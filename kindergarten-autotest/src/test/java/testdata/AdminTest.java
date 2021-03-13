@@ -17,7 +17,7 @@ import utilities.FileReaderUtils;
 
 public class AdminTest extends BaseTest {
 
-    @Test (groups = "smoke")
+    @Test (groups = "smoke, regression")
     public void adminLoginTest() throws IOException {
         AdminPage adminPage = new AdminPage(driver);
         LoginPage loginPage = new LoginPage(driver);
@@ -34,9 +34,7 @@ public class AdminTest extends BaseTest {
         loginPage.clickLoginButton();
         WebDriverWait wait = new WebDriverWait(driver, 5);
         WebElement adminAccountText = wait.until(
-                ExpectedConditions.presenceOfElementLocated(By.xpath("//*[@id=\"root\"]/div/div/div/div[1]/div/div[2]/p/strong")));
-
-//      Thread.sleep(2000);
+                ExpectedConditions.presenceOfElementLocated(By.xpath("//*[@id=\"root\"]/div/div/div[2]/div[1]/div/nav/ul/li[2]/p/strong")));
 
 //		String adminLoginURL = "http://akademijait.vtmc.lt:8181/kindergarten/admin";
 //		assertEquals(adminLoginURL, driver.getCurrentUrl());
@@ -46,7 +44,6 @@ public class AdminTest extends BaseTest {
     }
 
     @Test
-
     public void adminLoginLogout() throws IOException {
         AdminPage adminPage = new AdminPage(driver);
         LoginPage loginPage = new LoginPage(driver);

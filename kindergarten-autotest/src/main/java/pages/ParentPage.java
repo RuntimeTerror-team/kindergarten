@@ -13,6 +13,7 @@ public class ParentPage extends AbstractPage {
     @FindBy(xpath = "//p[@class='lead']/strong")
     public WebElement getParentName;
     // input
+
 //	@FindBy(id = "firstname")
 //	public WebElement inputFirstName;
 //
@@ -31,7 +32,7 @@ public class ParentPage extends AbstractPage {
 //	public WebElement inputEmail;
 
     // button
-    @FindBy(xpath = "//*[@id=\"root\"]/div/div/div[1]/div/div[2]/button")
+    @FindBy(xpath = "//*[@id=\"root\"]/div/div/div[2]/div[1]/div/nav/ul/li[1]/button")
     public WebElement buttonParentLogout;
 
     public ParentPage(WebDriver driver) {

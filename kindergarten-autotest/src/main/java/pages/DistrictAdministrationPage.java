@@ -12,20 +12,23 @@ public class DistrictAdministrationPage extends AbstractPage {
 
     @FindBy(name = "districtTitle")
     public WebElement inputDistrictNameToEdit;
+
     // buttons
-    @FindBy(xpath = "//*[@id=\"districtAdministrationComponent\"]/form/div[1]/div/button")
-    public WebElement buttonAddDistrict;
+    @FindBy(xpath = "//*[@id=\"root\"]/div/div/div[2]/div[2]/div/div[1]/form/div[1]/div/button")
+    public WebElement buttonSaveDistrict;
 
-    @FindBy(id = "1")
-    public WebElement firstDistrictInTheList;
-    @FindBy(xpath = "//*[@id=\"districtTable\"]/tbody/tr[1]/td/form/div[1]/div/button")
-    public WebElement saveNewDistrictNameButton;
-    //text
-    @FindBy(xpath = "//*[@id=\"districtAdministrationComponent\"]/div[1]/span")
-    public WebElement succesfulDistrictCreationText;
     @FindBy(xpath = "//*[@id=\"1\"]")
-    public WebElement districtName;
+    public WebElement firstDistrictInTheListEditButton;
 
+    @FindBy(xpath = "/html/body/div/div/div/div[2]/div[2]/div/div[2]/div/table/tbody/tr[1]/td[2]/button")
+    public WebElement saveNewDistrictNameButton;
+
+    //text
+    @FindBy(xpath = "//*[@id=\"root\"]/div/div/div[2]/div[2]/div/div[1]/form/span")
+    public WebElement successfulDistrictCreationText;
+
+    @FindBy(xpath = "//*[@id=\"root\"]/div/div/div[2]/div[2]/div/div[2]/div/table/tbody/tr[1]/td[1]")
+    public WebElement getSuccessfulNewDistrictNameText;
 
     public DistrictAdministrationPage(WebDriver driver) {
         super(driver);
@@ -37,30 +40,36 @@ public class DistrictAdministrationPage extends AbstractPage {
     }
 
     public void clearDistrictName() {
+
         inputDistrictNameToEdit.clear();
     }
 
     public void enterNewDistrictName(String districtName) {
+
         inputDistrictNameToEdit.sendKeys(districtName);
     }
 
     public void clickAddDistrictButton() {
-        buttonAddDistrict.click();
+
+        buttonSaveDistrict.click();
     }
 
     public void clickFirstDistrictInTheListToEdit() {
-        firstDistrictInTheList.click();
+
+        firstDistrictInTheListEditButton.click();
     }
 
     public void clickToSaveNewDistrictName() {
+
         saveNewDistrictNameButton.click();
     }
 
-    public String findSuccesfulDistrictCreationText() {
-        return succesfulDistrictCreationText.getText();
-    }
+    public String findSuccessfulDistrictCreationText() {
 
-    public String findNewDistrictName() {
-        return districtName.getText();
+        return successfulDistrictCreationText.getText();
+    }
+    public String findSuccessfulNewDistrictNameSaveText() {
+
+        return getSuccessfulNewDistrictNameText.getText();
     }
 }
