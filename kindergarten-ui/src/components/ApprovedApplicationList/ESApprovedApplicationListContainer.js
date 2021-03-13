@@ -125,7 +125,7 @@ class ESApprovedApplicationListContainer extends Component {
 
   handleStatusChange = (e, currentPage) => {
     currentPage -= 1;
-    Axios.put(baseUrl + "/api/applications/" + e.target.value + "/REJECTED")
+    Axios.put(baseUrl + "/api/applications/" + e.target.id + "/REJECTED")
       .then(
         Axios.get(baseUrl + "/api/applications/sorted/?page=" + currentPage + "&size=" + this.state.applicationsPerPage)
           .then((res) => {
@@ -169,7 +169,7 @@ class ESApprovedApplicationListContainer extends Component {
   searchData = (ev) => {
     ev.preventDefault();
 
-    let currentPage = this.state.currentPage -1 ;
+    let currentPage = this.state.currentPage - 1;
 
     if (!this.state.search) {
       this.updateApplicationList(this.state.currentPage);
@@ -191,8 +191,8 @@ class ESApprovedApplicationListContainer extends Component {
       });
   }
 
-  updateSearchInputValue = (letterToSearch) =>{
-    this.state.search =letterToSearch.target.value
+  updateSearchInputValue = (letterToSearch) => {
+    this.setState({ search: letterToSearch.target.value });
     this.searchData(letterToSearch);
   }
 

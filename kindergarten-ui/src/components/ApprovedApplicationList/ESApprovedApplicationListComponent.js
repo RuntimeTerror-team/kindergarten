@@ -4,6 +4,7 @@ import { GrNext } from "react-icons/gr";
 import { GrPrevious } from "react-icons/gr";
 import { Modal, Button } from "react-bootstrap";
 import { BsSearch } from "react-icons/bs";
+import AppModal from "../common/AppModal";
 
 const ESApprovedApplicationListComponent = ({
   applications,
@@ -34,7 +35,7 @@ const ESApprovedApplicationListComponent = ({
         <div className="col-10">
           <form className="form-inline" onSubmit={searchData}>
             <input className="form-control mr-sm-2" type="search" placeholder="Įveskite vardą ar pavardę" aria-label="Search" value={search} onChange={updateSearchInputValue}></input>
-            <button className="btn btn-outline-primary my-2 my-sm-0" type="submit" >Ieškoti <BsSearch/> </button>
+            <button className="btn btn-outline-primary my-2 my-sm-0" type="submit" >Ieškoti <BsSearch /> </button>
           </form>
         </div>
         <div className="col-2">
@@ -82,7 +83,6 @@ const ESApprovedApplicationListComponent = ({
                   },
                   index
                 ) => {
-
                   if (waitingNumber === null) {
                     waitingNumber = "-";
                   }
@@ -104,26 +104,31 @@ const ESApprovedApplicationListComponent = ({
                       <td>{waitingNumber}</td>
                       <td>
                         <button className="templatemo-edit-btn" onClick={onOpenPDF} value={applicationId}>
-                          Atsisiųsti
-                  </button>
+                          Atsisiųsti</button>
                       </td>
 
                       {/* <button className="btn btn-link" value={applicationId} onClick={onOpenPDF}>
-                  <FontAwesomeIcon color="black" icon={faFilePdf} />
-                    </button> */}
+                      <FontAwesomeIcon color="black" icon={faFilePdf} /></button> */}
                       {permission && queueStatus === "LOCKED" ? (
-                        <td>
-                          {
-                            status !== "Atmestas" ?
-                              <button
-                                className="templatemo-edit-btn"
-                                value={applicationId}
-                                onClick={onStatusChange}>
-                                Atšaukti prašymą
-                      </button>
-                              : null
-                          }
-                        </td>
+                        status !== "Atmestas" ?
+                          <td>
+                            <button
+                              className="templatemo-edit-btn-danger"
+                              id={applicationId}
+                              data-toggle="modal"
+                              data-target={`#exampleModal${applicationId}`}>
+                              Atšaukti prašymą
+                            </button>
+                            <AppModal
+                              targetId={applicationId}
+                              modalTitle="Prašymo atšaukimas"
+                              modalMessage="Jei atšauksite prašymą, jo būsena negrįžtamai bus pakeista į atšauktą. Po to perrūšiuokite prašymus."
+                              modalApprove={onStatusChange}
+                              modalButtonMessage="Atšaukti prašymą"
+                              modalButtonStyle="danger"
+                            />
+                          </td>
+                          : <td></td>
                       ) : null}
                     </tr>
                   );
@@ -143,14 +148,14 @@ const ESApprovedApplicationListComponent = ({
         </Modal.Footer>
       </Modal>
 
-      <Modal show={statusRejected} aria-labelledby="contained-modal-title-vcenter" centered>
+      {/*  <Modal show={statusRejected} aria-labelledby="contained-modal-title-vcenter" centered>
         <Modal.Body>Prašymas sėkmingai atmestas.</Modal.Body>
         <Modal.Footer>
           <Button variant="secondary" onClick={closeAlert}>
             Uždaryti
         </Button>
         </Modal.Footer>
-      </Modal>
+      </Modal> */}
 
       <div className="float-right btn-toolbar pt-5" role="toolbar" aria-label="Toolbar with button groups">
         <div className="btn-group mr-2" role="group" aria-label="First group">

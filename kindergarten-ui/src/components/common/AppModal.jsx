@@ -1,7 +1,7 @@
 import React from "react";
 
-const Modal = ({ modalTitle, modalMessage, modalApprove, modalButtonMessage, modalButtonStyle, targetId }) => (
-    <div className="modal fade" id="exampleModal" tabIndex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+const AppModal = ({ modalTitle, modalMessage, modalApprove, modalButtonMessage, modalButtonStyle, targetId }) => (
+    <div className="modal fade" id={`exampleModal${targetId}`} tabIndex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div className="modal-dialog">
             <div className="modal-content">
                 <div className="modal-header">
@@ -22,4 +22,4 @@ const Modal = ({ modalTitle, modalMessage, modalApprove, modalButtonMessage, mod
     </div>
 )
 
-export default Modal;
+export default AppModal;
