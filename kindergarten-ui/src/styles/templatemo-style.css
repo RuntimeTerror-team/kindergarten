@@ -875,7 +875,7 @@ input[type="radio"]:checked+label span {
 /* 8. Media Queries
 ------------------------------*/
 
-@media screen and (max-width: 1199px) and (min-width: 991px) {
+/* @media screen and (max-width: 1199px) and (min-width: 991px) {
 	.templatemo-site-header {
 		margin: 25px;
 	}
@@ -895,15 +895,15 @@ input[type="radio"]:checked+label span {
 	.templatemo-top-nav a {
 		padding: 0 30px;
 	}
-}
+} */
 
-@media screen and (max-width: 1199px) {
+/* @media screen and (max-width: 1199px) {
 	.templatemo-flex-row.flex-content-row {
 		display: block;
 	}
-}
+} */
 
-@media screen and (max-width: 992px) and (min-width: 768px) {
+/* @media screen and (max-width: 992px) and (min-width: 768px) {
 	.templatemo-site-header, .templatemo-search-form {
 		margin: 15px;
 	}
@@ -927,9 +927,9 @@ input[type="radio"]:checked+label span {
 	.templatemo-top-nav a {
 		padding: 0 15px;
 	}
-}
+} */
 
-@media screen and (max-width: 992px) {
+/* @media screen and (max-width: 992px) {
 	nav li {
 		font-size: 1em;
 	}
@@ -939,15 +939,15 @@ input[type="radio"]:checked+label span {
 	.templatemo-content-container {
 		padding: 10px;
 	}
-}
+} */
 
-@media only screen and (min-width: 768px) {
+/* @media only screen and (min-width: 768px) {
 	.templatemo-left-nav {
 		display: block !important;
 	}
-}
+} */
 
-@media screen and (max-width: 767px) {
+/* @media screen and (max-width: 767px) {
 	.templatemo-flex-row {
 		display: block;
 	}
@@ -955,9 +955,11 @@ input[type="radio"]:checked+label span {
 		margin: 20px 15px;
 	}
 	.profile-photo-container {
-		display: none;
-		/* Hide profile photo on mobile view */
-	}
+		display: none; */
+
+/* Hide profile photo on mobile view */
+
+/* }
 	.templatemo-search-form {
 		margin: 10px;
 	}
@@ -973,9 +975,11 @@ input[type="radio"]:checked+label span {
 	}
 	.templatemo-content-widget {
 		padding: 15px;
-	}
-	/* Left column */
-	.templatemo-left-nav {
+	} */
+
+/* Left column */
+
+/* .templatemo-left-nav {
 		display: none;
 		position: fixed;
 		top: 10px;
@@ -1008,4 +1012,4 @@ input[type="radio"]:checked+label span {
 		padding-top: 9px;
 		padding-left: 11px;
 	}
-}
+} */
