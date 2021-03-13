@@ -2,7 +2,7 @@ import React from "react";
 import Proptypes from "prop-types";
 import Input from "../common/Input";
 import 'bootstrap/dist/js/bootstrap.bundle.min';
-import Modal from "../common/Modal";
+import AppModal from "../common/AppModal";
 
 const EsQueueListComponent = ({
     queues,
@@ -74,8 +74,14 @@ const EsQueueListComponent = ({
                                             </td>
                                             : status === "LOCKED"
                                                 ? <td>
-                                                    <button className="btn btn-danger" id={id} data-toggle="modal" data-target="#exampleModal">Uždaryti</button>
-                                                    <Modal
+                                                    <button
+                                                        className="templatemo-edit-btn-danger"
+                                                        id={id}
+                                                        data-toggle="modal"
+                                                        data-target={`#exampleModal${id}`}>
+                                                        Uždaryti
+                                                        </button>
+                                                    <AppModal
                                                         targetId={id}
                                                         modalTitle="Eilės uždarymas"
                                                         modalMessage="Jei uždarysite eilę, ji bus perskaičiuota ir bus išsiųstos galutinės prašymų į darželius būsenos vaikų atstovams."

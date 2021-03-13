@@ -699,7 +699,7 @@ input[type="radio"]:checked+label span {
 	color: #ded9d9;
 }
 
-.templatemo-edit-btn {
+.templatemo-edit-btn, .templatemo-edit-btn-danger {
 	border: 1px solid #ddd;
 	border-radius: 3px;
 	color: black;
@@ -710,6 +710,12 @@ input[type="radio"]:checked+label span {
 .templatemo-edit-btn:hover {
 	background-color: #4285F4;
 	border: 1px solid #4285F4;
+	color: white;
+}
+
+.templatemo-edit-btn-danger:hover {
+	background-color: #ff4444;
+	border: 1px solid #ff4444;
 	color: white;
 }
 
