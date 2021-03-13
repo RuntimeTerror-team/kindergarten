@@ -34,9 +34,9 @@ class ESNavigationComponent extends Component {
     render() {
         return (
             <div className="templatemo-sidebar">
-                <header className="templatemo-site-header">
-                    <img src={logo} alt="logo" className="logo img-responsive" />
-                </header>
+                <a className="navbar-brand text-center" href="/kindergarten/">
+                    <img src={logo} alt="logo" className="logo" />
+                </a>
                 <nav className="templatemo-left-nav">
                     <Link to={`${urls.guardian.applicationBase}`}
                         className={`${window.location.pathname === `/kindergarten${urls.guardian.applicationBase}` ? "active" : ""} left-nav-link`}>

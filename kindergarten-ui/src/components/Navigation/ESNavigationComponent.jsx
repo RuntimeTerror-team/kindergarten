@@ -6,9 +6,9 @@ import logo from '../../images/logo.png';
 const ESNavigationComponent = () => {
     return (
         <div className="templatemo-sidebar">
-            <header className="templatemo-site-header">
-                <img src={logo} alt="logo" className="logo img-responsive" />
-            </header>
+            <a className="navbar-brand text-center" href="/kindergarten/">
+                <img src={logo} alt="logo" className="logo" />
+            </a>
             <nav className="templatemo-left-nav">
                 <Link to={`${urls.educationSpecialist.kindergartenBase}`}
                     className={`${window.location.pathname === `/kindergarten${urls.educationSpecialist.kindergartenBase}` ? "active" : ""} left-nav-link`}>
