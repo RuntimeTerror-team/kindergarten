@@ -6,8 +6,8 @@ import logo from '../../images/logo.png';
 const ESNavigationComponent = () => {
     return (
         <div className="templatemo-sidebar">
-            <div className="text-center" href="/kindergarten/" style={{ width: "150px" }}>
-                <img src={logo} alt="logo" className="logo" />
+            <div className="text-center" href="/kindergarten/" style={{ height: "150px" }}>
+                <img src={logo} alt="logo" className="logo mx-auto" />
             </div>
             <nav className="templatemo-left-nav">
                 <Link to={`${urls.educationSpecialist.kindergartenBase}`}
