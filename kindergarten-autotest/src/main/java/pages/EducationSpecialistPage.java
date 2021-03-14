@@ -22,6 +22,8 @@ public class EducationSpecialistPage extends AbstractPage {
 
     @FindBy(xpath = "//*[@id=\"root\"]/div/div/div[2]/div[2]/div/div/div/table/tbody/tr[1]/td[3]/a[1]")
     public WebElement buttonKindergartenPreview;
+    @FindBy(xpath = "//*[@id=\"root\"]/div/div/div[1]/nav/a[5]")
+    public WebElement buttonMyAccount;
     @FindBy(xpath = "//*[@id=\"root\"]/div/div/div[2]/div[2]/div/div/div/table/tbody/tr[1]/td[3]/a[2]")
     public WebElement buttonKindergartenGroups;
 
@@ -46,13 +48,20 @@ public class EducationSpecialistPage extends AbstractPage {
     }
 
     public void clickKindergartenListButton() {
+
         buttonKindergartenList.click();
     }
     public void clickKindergartenPreviewButton() {
+
         buttonKindergartenPreview.click();
     }
     public void clickKindergartenGroupsButton() {
+
         buttonKindergartenGroups.click();
+    }
+    public void clickMyAccountButton() {
+
+        buttonMyAccount.click();
     }
 }
 

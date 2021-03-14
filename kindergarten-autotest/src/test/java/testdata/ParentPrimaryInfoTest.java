@@ -10,6 +10,7 @@ import org.testng.annotations.Test;
 import pages.*;
 
 import java.io.IOException;
+import java.util.Locale;
 
 import static org.testng.Assert.assertEquals;
 import static org.testng.Assert.assertTrue;
@@ -18,8 +19,8 @@ import static org.testng.Assert.assertTrue;
 public class ParentPrimaryInfoTest extends BaseTest {
 
 
-    @Test(groups = "smoke")
-    public void parentCreationTest() throws IOException, InterruptedException {
+    @Test
+    public void parentCreationTest() throws IOException {
 
         AdminPage adminPage = new AdminPage(driver);
         LoginPage loginPage = new LoginPage(driver);
@@ -42,7 +43,7 @@ public class ParentPrimaryInfoTest extends BaseTest {
         adminPage.clickSaveAccountButton();
         WebDriverWait wait = new WebDriverWait(driver, 10);
         WebElement successfulText = wait.until(
-                ExpectedConditions.presenceOfElementLocated(By.xpath("//*[@id=\"root\"]/div/div/div/div[2]/div/div/div/div")));
+                ExpectedConditions.presenceOfElementLocated(By.xpath("//*[@id=\"root\"]/div/div/div[2]/div[2]/div/div[2]")));
 
         String actualSuccessfulAccountSave = adminPage.findSuccessfulAccountSaveText();
         assertTrue(actualSuccessfulAccountSave.contains(parentFirstName + parentLastName), "Text is not as expected: ");
@@ -51,14 +52,14 @@ public class ParentPrimaryInfoTest extends BaseTest {
 
         WebElement loginh1 = wait.until(
                 ExpectedConditions.presenceOfElementLocated(By.id("loginh1")));
-        String parentUsename = parentFirstName + parentLastName + "7";
-        String parentPassword = parentFirstName + parentLastName + "7";
+        String parentUsername = parentFirstName + parentLastName + "11";
+        String parentPassword = parentFirstName + parentLastName + "11";
 
-        loginPage.enterUsername(parentUsename);
+        loginPage.enterUsername(parentUsername);
         loginPage.enterPassword(parentPassword);
         loginPage.clickLoginButton();
         WebElement parentPrimaryInfoInputTitle = wait.until(
-                ExpectedConditions.presenceOfElementLocated(By.xpath("//*[@id=\"root\"]/div/div/div[2]/div/div[2]/h1")));
+                ExpectedConditions.presenceOfElementLocated(By.xpath("//*[@id=\"root\"]/div/div/div[2]/div[2]/h1/strong")));
 
         String actualResultParentPrimaryInfoInputTitle = parentPrimaryInputPage.findPrimaryInfoInputTitle();
         assertEquals(actualResultParentPrimaryInfoInputTitle, "Pirminių duomenų anketa", "Text is not as expected: ");
@@ -66,7 +67,7 @@ public class ParentPrimaryInfoTest extends BaseTest {
         parentPrimaryInputPage.enterFirstName(parentFirstName);
         parentPrimaryInputPage.enterLastName(parentLastName);
 
-        String personalCode = "37112220028";
+        String personalCode = "37112220002";
         String address = "Antakalnio g. 34-12";
         String postalCode = "12345";
         String phoneNo = "60606060";
@@ -83,20 +84,26 @@ public class ParentPrimaryInfoTest extends BaseTest {
         parentPrimaryInputPage.enterEmail(email);
 
         parentPrimaryInputPage.clickParentPrimaryInputSaveButton();
-        Thread.sleep(10000);
+        WebElement parentPrimaryPageTitle = wait.until(
+                ExpectedConditions.presenceOfElementLocated(By.xpath("//*[@id=\"root\"]/div/div/div[2]/div[2]/h1/strong")));
         parentPage.clickParentLogoutButton();
 
-        Thread.sleep(2000);
+        loginh1 = wait.until(
+                ExpectedConditions.presenceOfElementLocated(By.id("loginh1")));
 
-        loginPage.enterUsername(parentUsename);
+        loginPage.enterUsername(parentUsername);
         loginPage.enterPassword(parentPassword);
         loginPage.clickLoginButton();
-        Thread.sleep(5000);
+        wait = new WebDriverWait(driver, 10);
+        parentPrimaryPageTitle = wait.until(
+                ExpectedConditions.presenceOfElementLocated(By.xpath("//*[@id=\"root\"]/div/div/div[2]/div[2]/h1/strong")));
+
         String actualParentName = parentPage.findParentName();
-        assertEquals(actualParentName, parentFirstName + " " + parentLastName, "Text is not as expected: ");
+        assertEquals(actualParentName, parentFirstName.toUpperCase() + " " + parentLastName.toUpperCase(), "Text is not as expected: ");
         parentPage.clickParentLogoutButton();
 
-        Thread.sleep(2000);
+        loginh1 = wait.until(
+                ExpectedConditions.presenceOfElementLocated(By.id("loginh1")));
 
         adminTest.adminLoginTest();
 
@@ -112,7 +119,7 @@ public class ParentPrimaryInfoTest extends BaseTest {
         adminPage.clickSaveAccountButton();
         wait = new WebDriverWait(driver, 10);
         successfulText = wait.until(
-                ExpectedConditions.presenceOfElementLocated(By.xpath("//*[@id=\"root\"]/div/div/div/div[2]/div/div/div/div")));
+                ExpectedConditions.presenceOfElementLocated(By.xpath("//*[@id=\"root\"]/div/div/div[2]/div[2]/div/div[2]")));
 
         actualSuccessfulAccountSave = adminPage.findSuccessfulAccountSaveText();
         assertTrue(actualSuccessfulAccountSave.contains(parentFirstName + parentLastName), "Text is not as expected: ");
@@ -121,14 +128,14 @@ public class ParentPrimaryInfoTest extends BaseTest {
 
         loginh1 = wait.until(
                 ExpectedConditions.presenceOfElementLocated(By.id("loginh1")));
-        parentUsename = parentFirstName + parentLastName + "1";
-        parentPassword = parentFirstName + parentLastName + "1";
+        parentUsername = parentFirstName + parentLastName + "7";
+        parentPassword = parentFirstName + parentLastName + "7";
 
-        loginPage.enterUsername(parentUsename);
+        loginPage.enterUsername(parentUsername);
         loginPage.enterPassword(parentPassword);
         loginPage.clickLoginButton();
         parentPrimaryInfoInputTitle = wait.until(
-                ExpectedConditions.presenceOfElementLocated(By.xpath("//*[@id=\"root\"]/div/div/div[2]/div/div[2]/h1")));
+                ExpectedConditions.presenceOfElementLocated(By.xpath("//*[@id=\"root\"]/div/div/div[2]/div[2]/h1/strong")));
 
         actualResultParentPrimaryInfoInputTitle = parentPrimaryInputPage.findPrimaryInfoInputTitle();
         assertEquals(actualResultParentPrimaryInfoInputTitle, "Pirminių duomenų anketa", "Text is not as expected: ");
@@ -136,7 +143,7 @@ public class ParentPrimaryInfoTest extends BaseTest {
         parentPrimaryInputPage.enterFirstName(parentFirstName);
         parentPrimaryInputPage.enterLastName(parentLastName);
 
-        personalCode = "47112220025";
+        personalCode = "47112220010";
         address = "Antakalnio g. 34-1";
         postalCode = "12345";
         phoneNo = "60606060";
@@ -154,20 +161,30 @@ public class ParentPrimaryInfoTest extends BaseTest {
 
         parentPrimaryInputPage.clickParentPrimaryInputSaveButton();
 
-        Thread.sleep(10000);
+        parentPrimaryPageTitle = wait.until(
+                ExpectedConditions.presenceOfElementLocated(By.xpath("//*[@id=\"root\"]/div/div/div[2]/div[2]/h1/strong")));
         parentPage.clickParentLogoutButton();
 
-        Thread.sleep(2000);
+        loginh1 = wait.until(
+                ExpectedConditions.presenceOfElementLocated(By.id("loginh1")));
 
-        loginPage.enterUsername(parentUsename);
+        loginPage.enterUsername(parentUsername);
         loginPage.enterPassword(parentPassword);
         loginPage.clickLoginButton();
-        Thread.sleep(5000);
+
+        parentPrimaryInfoInputTitle = wait.until(
+                ExpectedConditions.presenceOfElementLocated(By.xpath("//*[@id=\"root\"]/div/div/div[2]/div[2]/h1/strong")));
+
         actualParentName = parentPage.findParentName();
-        assertEquals(actualParentName, parentFirstName + " " + parentLastName, "Text is not as expected: ");
+        assertEquals(actualParentName, parentFirstName.toUpperCase() + " " + parentLastName.toUpperCase(), "Text is not as expected: ");
         parentPage.clickParentLogoutButton();
-        Thread.sleep(5000);
+
+        loginh1 = wait.until(
+                ExpectedConditions.presenceOfElementLocated(By.id("loginh1")));
+
         adminTest.adminLoginTest();
+        successfulText = wait.until(
+                ExpectedConditions.presenceOfElementLocated(By.xpath("//*[@id=\"root\"]/div/div/div[2]/div[1]/div/nav/ul/li[2]/p/strong")));
 
         parentFirstName = "Alana";
         parentLastName = "Wu";
@@ -181,7 +198,7 @@ public class ParentPrimaryInfoTest extends BaseTest {
         adminPage.clickSaveAccountButton();
         wait = new WebDriverWait(driver, 10);
         successfulText = wait.until(
-                ExpectedConditions.presenceOfElementLocated(By.xpath("//*[@id=\"root\"]/div/div/div/div[2]/div/div/div/div")));
+                ExpectedConditions.presenceOfElementLocated(By.xpath("//*[@id=\"root\"]/div/div/div[2]/div[2]/div/div[2]")));
 
         actualSuccessfulAccountSave = adminPage.findSuccessfulAccountSaveText();
         assertTrue(actualSuccessfulAccountSave.contains(parentFirstName + parentLastName), "Text is not as expected: ");
@@ -190,15 +207,15 @@ public class ParentPrimaryInfoTest extends BaseTest {
 
         loginh1 = wait.until(
                 ExpectedConditions.presenceOfElementLocated(By.id("loginh1")));
-        parentUsename = parentFirstName + parentLastName + "1";
-        parentPassword = parentFirstName + parentLastName + "1";
+        parentUsername = parentFirstName + parentLastName + "3";
+        parentPassword = parentFirstName + parentLastName + "3";
 
-        loginPage.enterUsername(parentUsename);
+        loginPage.enterUsername(parentUsername);
         loginPage.enterPassword(parentPassword);
         loginPage.clickLoginButton();
-        Thread.sleep(5000);
+
         parentPrimaryInfoInputTitle = wait.until(
-                ExpectedConditions.presenceOfElementLocated(By.xpath("//*[@id=\"root\"]/div/div/div[2]/div/div[2]/h1")));
+                ExpectedConditions.presenceOfElementLocated(By.xpath("//*[@id=\"root\"]/div/div/div[2]/div[2]/h1/strong")));
 
         actualResultParentPrimaryInfoInputTitle = parentPrimaryInputPage.findPrimaryInfoInputTitle();
         assertEquals(actualResultParentPrimaryInfoInputTitle, "Pirminių duomenų anketa", "Text is not as expected: ");
@@ -226,17 +243,21 @@ public class ParentPrimaryInfoTest extends BaseTest {
 
         parentPrimaryInputPage.clickParentPrimaryInputSaveButton();
 
-        Thread.sleep(10000);
+        parentPrimaryPageTitle = wait.until(
+                ExpectedConditions.presenceOfElementLocated(By.xpath("//*[@id=\"root\"]/div/div/div[2]/div[2]/h1/strong")));
         parentPage.clickParentLogoutButton();
 
-        Thread.sleep(2000);
+        loginh1 = wait.until(
+                ExpectedConditions.presenceOfElementLocated(By.id("loginh1")));
 
-        loginPage.enterUsername(parentUsename);
+        loginPage.enterUsername(parentUsername);
         loginPage.enterPassword(parentPassword);
         loginPage.clickLoginButton();
-        Thread.sleep(5000);
+
+        parentPrimaryInfoInputTitle = wait.until(
+                ExpectedConditions.presenceOfElementLocated(By.xpath("//*[@id=\"root\"]/div/div/div[2]/div[2]/h1/strong")));
         actualParentName = parentPage.findParentName();
-        assertEquals(actualParentName, parentFirstName + " " + parentLastName, "Text is not as expected: ");
+        assertEquals(actualParentName, parentFirstName.toUpperCase() + " " + parentLastName.toUpperCase(), "Text is not as expected: ");
         parentPage.clickParentLogoutButton();
 
     }

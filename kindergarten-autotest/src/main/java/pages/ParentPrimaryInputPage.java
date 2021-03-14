@@ -13,10 +13,8 @@ public class ParentPrimaryInputPage extends AbstractPage {
     // input
     @FindBy(id = "firstname")
     public WebElement inputFirstName;
-
     @FindBy(id = "lastname")
     public WebElement inputLastName;
-
     @FindBy(id = "personalCode")
     public WebElement inputPersonalCode;
     @FindBy(id = "address")
