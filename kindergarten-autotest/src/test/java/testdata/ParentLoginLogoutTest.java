@@ -15,7 +15,7 @@ import static org.testng.Assert.assertEquals;
 import static org.testng.Assert.assertTrue;
 
 
-public class ParentTest extends BaseTest {
+public class ParentLoginLogoutTest extends BaseTest {
 
 
     @Test(groups = "smoke, regression")
@@ -24,11 +24,11 @@ public class ParentTest extends BaseTest {
         AdminPage adminPage = new AdminPage(driver);
         LoginPage loginPage = new LoginPage(driver);
         EducationSpecialistPage educationSpecialistPage = new EducationSpecialistPage(driver);
-        AdminTest adminTest = new AdminTest();
+        AdminLoginLogoutTest adminLoginLogoutTest = new AdminLoginLogoutTest();
         ParentPrimaryInputPage parentPrimaryInputPage = new ParentPrimaryInputPage(driver);
         ParentPage parentPage = new ParentPage(driver);
 
-        adminTest.adminLoginTest();
+        adminLoginLogoutTest.adminLoginTest();
 
         String parentFirstName = "Nijolė";
         String parentLastName = "Grybienė";
@@ -73,14 +73,14 @@ public class ParentTest extends BaseTest {
         AdminPage adminPage = new AdminPage(driver);
         LoginPage loginPage = new LoginPage(driver);
         EducationSpecialistPage educationSpecialistPage = new EducationSpecialistPage(driver);
-        AdminTest adminTest = new AdminTest();
+        AdminLoginLogoutTest adminLoginLogoutTest = new AdminLoginLogoutTest();
         ParentPrimaryInputPage parentPrimaryInputPage = new ParentPrimaryInputPage(driver);
         ParentPage parentPage = new ParentPage(driver);
 
         WebDriverWait wait = new WebDriverWait(driver, 5);
         WebElement successfulText = wait.until(
                 ExpectedConditions.presenceOfElementLocated(By.xpath("//*[@id=\"loginForm\"]/h3[1]")));
-        adminTest.adminLoginTest();
+        adminLoginLogoutTest.adminLoginTest();
 
         String parentFirstName = "Alan";
         String parentLastName = "Wu";

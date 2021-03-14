@@ -21,8 +21,8 @@ public class KindergartenGroupCreationTest extends BaseTest {
 
         LoginPage loginPage = new LoginPage(driver);
         EducationSpecialistPage educationSpecialistPage = new EducationSpecialistPage(driver);
-        KindergartenListPage kindergartenListPage = new KindergartenListPage(driver);
-        KindergartenGroupsListPage kindergartenGroupsListPage = new KindergartenGroupsListPage(driver);
+        EducationSpecialistKindergartenListPage educationSpecialistKindergartenListPage = new EducationSpecialistKindergartenListPage(driver);
+        EducationSpecialistKindergartenGroupsListPage educationSpecialistKindergartenGroupsListPage = new EducationSpecialistKindergartenGroupsListPage(driver);
         String specialistUsername = "ŠvietimoSpecialistas1";
         String specialistPassword = "ŠvietimoSpecialistas1";
 
@@ -38,8 +38,8 @@ public class KindergartenGroupCreationTest extends BaseTest {
         successfulText = wait.until(
                 ExpectedConditions.presenceOfElementLocated(By.xpath("//*[@id=\"root\"]/div/div/div[2]/div[2]/h1/strong")));
 
-        kindergartenListPage.clickGroupsButton();
-        kindergartenGroupsListPage.clickGroupCreateButton();
+        educationSpecialistKindergartenListPage.clickGroupsButton();
+        educationSpecialistKindergartenGroupsListPage.clickGroupCreateButton();
 
         successfulText = wait.until(
                 ExpectedConditions.presenceOfElementLocated(By.xpath("//*[@id=\"root\"]/div/div/div[2]/div[2]/h1/strong")));
@@ -47,18 +47,18 @@ public class KindergartenGroupCreationTest extends BaseTest {
         Select ageGroupsDropdown = new Select(driver.findElement(By.id("ageRange")));
         ageGroupsDropdown.selectByIndex(5);
         String childrenAmount = "3";
-        kindergartenGroupsListPage.enterChildrenAmount(childrenAmount);
+        educationSpecialistKindergartenGroupsListPage.enterChildrenAmount(childrenAmount);
 
-        kindergartenGroupsListPage.clickGroupSaveButton();
+        educationSpecialistKindergartenGroupsListPage.clickGroupSaveButton();
 
         wait = new WebDriverWait(driver, 10);
         successfulText = wait.until(
                 ExpectedConditions.presenceOfElementLocated(By.xpath("//*[@id=\"root\"]/div/div/div[2]/div[2]/div/form/div[3]")));
 
-        String actualKindergartenGroupCreationText = kindergartenGroupsListPage.findSuccessfulGroupCreationText();
+        String actualKindergartenGroupCreationText = educationSpecialistKindergartenGroupsListPage.findSuccessfulGroupCreationText();
         assertEquals(actualKindergartenGroupCreationText, "Darželio grupė sėkmingai išsaugota", "Text is not as expected: ");
 
-        kindergartenGroupsListPage.clickBackToGroupListButton();
+        educationSpecialistKindergartenGroupsListPage.clickBackToGroupListButton();
 
         successfulText = wait.until(
                 ExpectedConditions.presenceOfElementLocated(By.xpath("//*[@id=\"root\"]/div/div/div[2]/div[2]/h1/strong")));
@@ -73,8 +73,8 @@ public class KindergartenGroupCreationTest extends BaseTest {
                 ExpectedConditions.presenceOfElementLocated(By.id("loginh1")));
         LoginPage loginPage = new LoginPage(driver);
         EducationSpecialistPage educationSpecialistPage = new EducationSpecialistPage(driver);
-        AgeGroupCreationPage ageGroupCreationPage = new AgeGroupCreationPage(driver);
-        KindergartenGroupsListPage kindergartenGroupsListPage = new KindergartenGroupsListPage(driver);
+        EducationSpecialistAgeGroupCreationPage educationSpecialistAgeGroupCreationPage = new EducationSpecialistAgeGroupCreationPage(driver);
+        EducationSpecialistKindergartenGroupsListPage educationSpecialistKindergartenGroupsListPage = new EducationSpecialistKindergartenGroupsListPage(driver);
         String specialistUsername = "ŠvietimoSpecialistas1";
         String specialistPassword = "ŠvietimoSpecialistas1";
 
@@ -90,7 +90,7 @@ public class KindergartenGroupCreationTest extends BaseTest {
         successfulText = wait.until(
                 ExpectedConditions.presenceOfElementLocated(By.xpath("//*[@id=\"root\"]/div/div/div[2]/div[2]/h1/strong")));
 
-        kindergartenGroupsListPage.clickGroupCreateButton();
+        educationSpecialistKindergartenGroupsListPage.clickGroupCreateButton();
 
         successfulText = wait.until(
                 ExpectedConditions.presenceOfElementLocated(By.xpath("//*[@id=\"root\"]/div/div/div[2]/div[2]/h1/strong")));
@@ -98,18 +98,18 @@ public class KindergartenGroupCreationTest extends BaseTest {
         Select ageGroupsDropdown = new Select(driver.findElement(By.id("ageRange")));
         ageGroupsDropdown.selectByIndex(3);
         String childrenAmount = "3";
-        kindergartenGroupsListPage.enterChildrenAmount(childrenAmount);
+        educationSpecialistKindergartenGroupsListPage.enterChildrenAmount(childrenAmount);
 
-        kindergartenGroupsListPage.clickGroupSaveButton();
+        educationSpecialistKindergartenGroupsListPage.clickGroupSaveButton();
 
         wait = new WebDriverWait(driver, 10);
         successfulText = wait.until(
                 ExpectedConditions.presenceOfElementLocated(By.xpath("//*[@id=\"root\"]/div/div/div[2]/div[2]/div/form/div[4]")));
 
-        String actualKindergartenGroupCreationText = kindergartenGroupsListPage.findUnsuccessfulSameGroupCreationText();
+        String actualKindergartenGroupCreationText = educationSpecialistKindergartenGroupsListPage.findUnsuccessfulSameGroupCreationText();
         assertEquals(actualKindergartenGroupCreationText, "Toks amžiaus intervalas jau išsaugotas kitoje grupėje", "Text is not as expected: ");
 
-        kindergartenGroupsListPage.clickBackToGroupListButton();
+        educationSpecialistKindergartenGroupsListPage.clickBackToGroupListButton();
 
         successfulText = wait.until(
                 ExpectedConditions.presenceOfElementLocated(By.xpath("//*[@id=\"root\"]/div/div/div[2]/div[2]/h1/strong")));
@@ -126,8 +126,8 @@ public class KindergartenGroupCreationTest extends BaseTest {
                 ExpectedConditions.presenceOfElementLocated(By.id("loginh1")));
         LoginPage loginPage = new LoginPage(driver);
         EducationSpecialistPage educationSpecialistPage = new EducationSpecialistPage(driver);
-        AgeGroupCreationPage ageGroupCreationPage = new AgeGroupCreationPage(driver);
-        KindergartenGroupsListPage kindergartenGroupsListPage = new KindergartenGroupsListPage(driver);
+        EducationSpecialistAgeGroupCreationPage educationSpecialistAgeGroupCreationPage = new EducationSpecialistAgeGroupCreationPage(driver);
+        EducationSpecialistKindergartenGroupsListPage educationSpecialistKindergartenGroupsListPage = new EducationSpecialistKindergartenGroupsListPage(driver);
         String specialistUsername = "ŠvietimoSpecialistas1";
         String specialistPassword = "ŠvietimoSpecialistas1";
 
@@ -143,25 +143,25 @@ public class KindergartenGroupCreationTest extends BaseTest {
         successfulText = wait.until(
                 ExpectedConditions.presenceOfElementLocated(By.xpath("//*[@id=\"root\"]/div/div/div[2]/div[2]/h1/strong")));
 
-        kindergartenGroupsListPage.clickAddChildrenToGroupButton();
+        educationSpecialistKindergartenGroupsListPage.clickAddChildrenToGroupButton();
 
         successfulText = wait.until(
                 ExpectedConditions.presenceOfElementLocated(By.xpath("//*[@id=\"root\"]/div/div/div[2]/div[2]/h1/strong")));
 
         String childrenAmount = "11";
-        kindergartenGroupsListPage.clearChildrenAmount();
-        kindergartenGroupsListPage.enterChildrenAmount(childrenAmount);
+        educationSpecialistKindergartenGroupsListPage.clearChildrenAmount();
+        educationSpecialistKindergartenGroupsListPage.enterChildrenAmount(childrenAmount);
 
-        kindergartenGroupsListPage.clickGroupSaveButton();
+        educationSpecialistKindergartenGroupsListPage.clickGroupSaveButton();
 
         wait = new WebDriverWait(driver, 10);
         successfulText = wait.until(
                 ExpectedConditions.presenceOfElementLocated(By.xpath("//*[@id=\"root\"]/div/div/div[2]/div[2]/div/form/div[3]")));
 
-        String actualKindergartenGroupCreationText = kindergartenGroupsListPage.findSuccessfulChildrenAmountUpdateText();
+        String actualKindergartenGroupCreationText = educationSpecialistKindergartenGroupsListPage.findSuccessfulChildrenAmountUpdateText();
         assertEquals(actualKindergartenGroupCreationText, "Grupė sėkmingai atnaujinta", "Text is not as expected: ");
 
-        kindergartenGroupsListPage.clickBackToGroupListButton();
+        educationSpecialistKindergartenGroupsListPage.clickBackToGroupListButton();
 
         successfulText = wait.until(
                 ExpectedConditions.presenceOfElementLocated(By.xpath("//*[@id=\"root\"]/div/div/div[2]/div[2]/h1/strong")));

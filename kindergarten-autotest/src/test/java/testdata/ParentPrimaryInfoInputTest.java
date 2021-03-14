@@ -10,13 +10,12 @@ import org.testng.annotations.Test;
 import pages.*;
 
 import java.io.IOException;
-import java.util.Locale;
 
 import static org.testng.Assert.assertEquals;
 import static org.testng.Assert.assertTrue;
 
 
-public class ParentPrimaryInfoTest extends BaseTest {
+public class ParentPrimaryInfoInputTest extends BaseTest {
 
 
     @Test
@@ -25,11 +24,11 @@ public class ParentPrimaryInfoTest extends BaseTest {
         AdminPage adminPage = new AdminPage(driver);
         LoginPage loginPage = new LoginPage(driver);
         EducationSpecialistPage educationSpecialistPage = new EducationSpecialistPage(driver);
-        AdminTest adminTest = new AdminTest();
+        AdminLoginLogoutTest adminLoginLogoutTest = new AdminLoginLogoutTest();
         ParentPrimaryInputPage parentPrimaryInputPage = new ParentPrimaryInputPage(driver);
         ParentPage parentPage = new ParentPage(driver);
 
-        adminTest.adminLoginTest();
+        adminLoginLogoutTest.adminLoginTest();
 
         String parentFirstName = "Petras";
         String parentLastName = "Petrauskas";
@@ -105,7 +104,7 @@ public class ParentPrimaryInfoTest extends BaseTest {
         loginh1 = wait.until(
                 ExpectedConditions.presenceOfElementLocated(By.id("loginh1")));
 
-        adminTest.adminLoginTest();
+        adminLoginLogoutTest.adminLoginTest();
 
         parentFirstName = "Marija";
         parentLastName = "Pūkienė";
@@ -182,7 +181,7 @@ public class ParentPrimaryInfoTest extends BaseTest {
         loginh1 = wait.until(
                 ExpectedConditions.presenceOfElementLocated(By.id("loginh1")));
 
-        adminTest.adminLoginTest();
+        adminLoginLogoutTest.adminLoginTest();
         successfulText = wait.until(
                 ExpectedConditions.presenceOfElementLocated(By.xpath("//*[@id=\"root\"]/div/div/div[2]/div[1]/div/nav/ul/li[2]/p/strong")));
 

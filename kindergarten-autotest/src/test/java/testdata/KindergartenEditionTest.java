@@ -4,12 +4,11 @@ import basetest.BaseTest;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.annotations.Test;
-import pages.AgeGroupCreationPage;
+import pages.EducationSpecialistAgeGroupCreationPage;
 import pages.EducationSpecialistPage;
-import pages.KindergartenListPage;
+import pages.EducationSpecialistKindergartenListPage;
 import pages.LoginPage;
 
 import static org.testng.Assert.assertEquals;
@@ -24,8 +23,8 @@ public class KindergartenEditionTest extends BaseTest {
                 ExpectedConditions.presenceOfElementLocated(By.id("loginh1")));
         LoginPage loginPage = new LoginPage(driver);
         EducationSpecialistPage educationSpecialistPage = new EducationSpecialistPage(driver);
-        AgeGroupCreationPage ageGroupCreationPage = new AgeGroupCreationPage(driver);
-        KindergartenListPage kindergartenListPage = new KindergartenListPage(driver);
+        EducationSpecialistAgeGroupCreationPage educationSpecialistAgeGroupCreationPage = new EducationSpecialistAgeGroupCreationPage(driver);
+        EducationSpecialistKindergartenListPage educationSpecialistKindergartenListPage = new EducationSpecialistKindergartenListPage(driver);
         String specialistUsername = "ŠvietimoSpecialistas1";
         String specialistPassword = "ŠvietimoSpecialistas1";
 
@@ -45,7 +44,7 @@ public class KindergartenEditionTest extends BaseTest {
 
         successfulText = wait.until(
                 ExpectedConditions.presenceOfElementLocated(By.xpath("//*[@id=\"root\"]/div/div/div[2]/div[2]/div/div[1]/form/div[3]")));
-        String actualResultAgeGroupCreationText = ageGroupCreationPage.findUnsuccessfulSameAgeGroupCreationText();
+        String actualResultAgeGroupCreationText = educationSpecialistAgeGroupCreationPage.findUnsuccessfulSameAgeGroupCreationText();
         assertEquals(actualResultAgeGroupCreationText, "Toks amžiaus intervalas jau yra įrašytas", "Text is not as expected: ");
 
         educationSpecialistPage.clickSpecialistLogoutButton();

@@ -15,7 +15,7 @@ import pages.AdminPage;
 import pages.LoginPage;
 import utilities.FileReaderUtils;
 
-public class AdminTest extends BaseTest {
+public class AdminLoginLogoutTest extends BaseTest {
 
     @Test (groups = "smoke, regression")
     public void adminLoginTest() throws IOException {

@@ -11,7 +11,7 @@ import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.annotations.Test;
 
-import pages.AgeGroupCreationPage;
+import pages.EducationSpecialistAgeGroupCreationPage;
 import pages.LoginPage;
 import pages.EducationSpecialistPage;
 
@@ -28,7 +28,7 @@ public class AgeGroupCreationTest extends BaseTest {
 
         LoginPage loginPage = new LoginPage(driver);
         EducationSpecialistPage educationSpecialistPage = new EducationSpecialistPage(driver);
-        AgeGroupCreationPage ageGroupCreationPage = new AgeGroupCreationPage(driver);
+        EducationSpecialistAgeGroupCreationPage educationSpecialistAgeGroupCreationPage = new EducationSpecialistAgeGroupCreationPage(driver);
 
         String specialistUsername = "ŠvietimoSpecialistas1";
         String specialistPassword = "ŠvietimoSpecialistas1";
@@ -50,9 +50,9 @@ public class AgeGroupCreationTest extends BaseTest {
 
         Select AgeToDropdown = new Select(driver.findElement(By.name("toAge")));
         AgeToDropdown.selectByIndex(4);
-        ageGroupCreationPage.clickAgeGroupCreateButton();
+        educationSpecialistAgeGroupCreationPage.clickAgeGroupCreateButton();
 
-        String actualResultAgeGroupCreationText = ageGroupCreationPage.findSuccessfulAgeGroupCreationText();
+        String actualResultAgeGroupCreationText = educationSpecialistAgeGroupCreationPage.findSuccessfulAgeGroupCreationText();
         assertEquals(actualResultAgeGroupCreationText, "Grupės intervalas sėkmingai išsaugotas", "Text is not as expected: ");
 
         educationSpecialistPage.clickSpecialistLogoutButton();
@@ -65,7 +65,7 @@ public class AgeGroupCreationTest extends BaseTest {
                 ExpectedConditions.presenceOfElementLocated(By.id("loginh1")));
         LoginPage loginPage = new LoginPage(driver);
         EducationSpecialistPage educationSpecialistPage = new EducationSpecialistPage(driver);
-        AgeGroupCreationPage ageGroupCreationPage = new AgeGroupCreationPage(driver);
+        EducationSpecialistAgeGroupCreationPage educationSpecialistAgeGroupCreationPage = new EducationSpecialistAgeGroupCreationPage(driver);
 
         String specialistUsername = "ŠvietimoSpecialistas1";
         String specialistPassword = "ŠvietimoSpecialistas1";
@@ -86,10 +86,10 @@ public class AgeGroupCreationTest extends BaseTest {
 
         Select AgeToDropdown = new Select(driver.findElement(By.name("toAge")));
         AgeToDropdown.selectByIndex(4);
-        ageGroupCreationPage.clickAgeGroupCreateButton();
+        educationSpecialistAgeGroupCreationPage.clickAgeGroupCreateButton();
         successfulText = wait.until(
                 ExpectedConditions.presenceOfElementLocated(By.xpath("//*[@id=\"root\"]/div/div/div[2]/div[2]/div/div[1]/form/div[3]")));
-        String actualResultAgeGroupCreationText = ageGroupCreationPage.findUnsuccessfulSameAgeGroupCreationText();
+        String actualResultAgeGroupCreationText = educationSpecialistAgeGroupCreationPage.findUnsuccessfulSameAgeGroupCreationText();
         assertEquals(actualResultAgeGroupCreationText, "Toks amžiaus intervalas jau yra įrašytas", "Text is not as expected: ");
 
         educationSpecialistPage.clickSpecialistLogoutButton();

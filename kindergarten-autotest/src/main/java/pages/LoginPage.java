@@ -25,20 +25,23 @@ public class LoginPage extends AbstractPage {
         super(driver);
     }
 
+    // input
     public void enterUsername(String username) {
         inputUsername.sendKeys(username);
     }
 
-    public void enterPassword(String password) {
-        inputPassword.sendKeys(password);
-    }
-
+    // buttons
     public void clickLoginButton() {
         buttonLogin.click();
     }
 
     public String checkLoginPageTitleName() {
         return loginTitleText.getText();
+    }
+
+    // text
+    public void enterPassword(String password) {
+        inputPassword.sendKeys(password);
     }
 
 }
