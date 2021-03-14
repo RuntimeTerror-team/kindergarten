@@ -672,7 +672,7 @@ class PasswordChangeContainer extends Component {
           <div className="templatemo-content-container">
             <h1 className="mb-5 text-center page-name"><strong>Mano paskyra</strong></h1>
             <div className="row col-12 px-0">
-              <div className="col-6 px-0">
+              <div className="col-6 px-0 mx-auto">
                 <PasswordChangeComponent
                   password={this.state.password}
                   password2={this.state.password2}
