@@ -6,7 +6,7 @@ import logo from '../../images/logo.png';
 const ESNavigationComponent = () => {
     return (
         <div className="templatemo-sidebar">
-            <div className="navbar-brand text-center" href="/kindergarten/" >
+            <div className="text-center" href="/kindergarten/" style={{ width: "150px" }}>
                 <img src={logo} alt="logo" className="logo" />
             </div>
             <nav className="templatemo-left-nav">
