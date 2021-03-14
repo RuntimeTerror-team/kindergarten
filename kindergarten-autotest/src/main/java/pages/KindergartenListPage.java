@@ -7,8 +7,8 @@ import org.openqa.selenium.support.FindBy;
 public class KindergartenListPage extends AbstractPage {
 
     // text
-@FindBy(xpath = "//*[@id=\"root\"]/div/div/div[2]/div[2]/div/form/div[11]")
-public WebElement successfulKindergartenSaveText;
+    @FindBy(xpath = "//*[@id=\"root\"]/div/div/div[2]/div[2]/div/form/div[11]")
+    public WebElement successfulKindergartenSaveText;
 
     // button
 
@@ -21,6 +21,9 @@ public WebElement successfulKindergartenSaveText;
     @FindBy(xpath = "//*[@id=\"root\"]/div/div/div[2]/div[2]/div/form/div[12]/button[1]")
     public WebElement buttonBackToKindergartenList;
 
+    @FindBy(xpath = "//*[@id=\"root\"]/div/div/div[2]/div[2]/div/div/div/table/tbody/tr[1]/td[3]/a[2]")
+
+public WebElement buttonGroups;
 
     //input
     @FindBy(id = "title")
@@ -66,6 +69,11 @@ public WebElement successfulKindergartenSaveText;
         buttonBackToKindergartenList.click();
     }
 
+    public void clickGroupsButton() {
+
+        buttonGroups.click();
+    }
+
     public void enterKindergartenName(String kindergartenName) {
 
         inputKindergartenName.sendKeys(kindergartenName);
@@ -96,7 +104,8 @@ public WebElement successfulKindergartenSaveText;
     public void enterKindergartenWebsite(String kindergartenWebsite) {
         inputKindergartenWebsite.sendKeys(kindergartenWebsite);
     }
-    public String getSuccessfulKindergartenSaveText(){
+
+    public String getSuccessfulKindergartenSaveText() {
         return successfulKindergartenSaveText.getText();
     }
 }

@@ -23,7 +23,7 @@ public class AgeGroupCreationTest extends BaseTest {
 
 
     @Test(groups = "smoke, regression")
-    public void ageGroupCreationTest() throws InterruptedException {
+    public void ageGroupCreationTest()  {
 
 
         LoginPage loginPage = new LoginPage(driver);
@@ -59,7 +59,7 @@ public class AgeGroupCreationTest extends BaseTest {
     }
 
     @Test
-    public void sameAgeGroupCreationTest() throws InterruptedException {
+    public void sameAgeGroupCreationTest() {
         WebDriverWait wait = new WebDriverWait(driver, 5);
         WebElement loginh1 = wait.until(
                 ExpectedConditions.presenceOfElementLocated(By.id("loginh1")));
