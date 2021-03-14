@@ -4,14 +4,13 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 
-public class KindergartenListPage extends AbstractPage {
+public class EducationSpecialistKindergartenListPage extends AbstractPage {
 
     // text
     @FindBy(xpath = "//*[@id=\"root\"]/div/div/div[2]/div[2]/div/form/div[11]")
     public WebElement successfulKindergartenSaveText;
 
     // button
-
     @FindBy(xpath = "//*[@id=\"root\"]/div/div/div[2]/div[2]/div/a")
     public WebElement buttonAddKindergarten;
 
@@ -22,8 +21,7 @@ public class KindergartenListPage extends AbstractPage {
     public WebElement buttonBackToKindergartenList;
 
     @FindBy(xpath = "//*[@id=\"root\"]/div/div/div[2]/div[2]/div/div/div/table/tbody/tr[1]/td[3]/a[2]")
-
-public WebElement buttonGroups;
+    public WebElement buttonGroups;
 
     //input
     @FindBy(id = "title")
@@ -47,40 +45,38 @@ public WebElement buttonGroups;
     @FindBy(id = "website")
     public WebElement inputKindergartenWebsite;
 
-
-    public KindergartenListPage(WebDriver driver) {
+    public EducationSpecialistKindergartenListPage(WebDriver driver) {
         super(driver);
-        // TODO Auto-generated constructor stub
     }
 
+    // text
+    public String getSuccessfulKindergartenSaveText() {
+        return successfulKindergartenSaveText.getText();
+    }
 
+    // button
     public void clickAddKindergartenButton() {
-
         buttonAddKindergarten.click();
     }
 
     public void clickKindergartenSaveButton() {
-
         buttonKindergartenSave.click();
     }
 
     public void clickBackToKindergartenListButton() {
-
         buttonBackToKindergartenList.click();
     }
 
     public void clickGroupsButton() {
-
         buttonGroups.click();
     }
 
+    //input
     public void enterKindergartenName(String kindergartenName) {
-
         inputKindergartenName.sendKeys(kindergartenName);
     }
 
     public void enterKindergartenCode(String kindergartenCode) {
-
         inputKindergartenCode.sendKeys(kindergartenCode);
     }
 
@@ -97,16 +93,11 @@ public WebElement buttonGroups;
     }
 
     public void enterKindergartenEmail(String kindergartenEmail) {
-
         inputKindergartenEmail.sendKeys(kindergartenEmail);
     }
 
     public void enterKindergartenWebsite(String kindergartenWebsite) {
         inputKindergartenWebsite.sendKeys(kindergartenWebsite);
-    }
-
-    public String getSuccessfulKindergartenSaveText() {
-        return successfulKindergartenSaveText.getText();
     }
 }
 

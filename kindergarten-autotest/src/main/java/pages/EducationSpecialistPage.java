@@ -22,46 +22,62 @@ public class EducationSpecialistPage extends AbstractPage {
 
     @FindBy(xpath = "//*[@id=\"root\"]/div/div/div[2]/div[2]/div/div/div/table/tbody/tr[1]/td[3]/a[1]")
     public WebElement buttonKindergartenPreview;
+
     @FindBy(xpath = "//*[@id=\"root\"]/div/div/div[1]/nav/a[5]")
     public WebElement buttonMyAccount;
+
     @FindBy(xpath = "//*[@id=\"root\"]/div/div/div[2]/div[2]/div/div/div/table/tbody/tr[1]/td[3]/a[2]")
     public WebElement buttonKindergartenGroups;
 
+    @FindBy(xpath = "//*[@id=\"root\"]/div/div/div[1]/nav/a[3]")
+    public WebElement buttonQueuesAdministration;
+
+    @FindBy(xpath = "//*[@id=\"root\"]/div/div/div[1]/nav/a[4]")
+    public WebElement buttonApplicationsList;
+
+    // input
+
     public EducationSpecialistPage(WebDriver driver) {
         super(driver);
-        // TODO Auto-generated constructor stub
-    }
+            }
 
+    // text
     public String findSpecialistLoginText() {
-
         return specialistLoginText.getText();
     }
 
+    // button
     public void clickSpecialistLogoutButton() {
-
         buttonSpecialistLogout.click();
     }
 
     public void clickAgeGroupCreationButton() {
-
         buttonAgeGroupCreation.click();
     }
 
     public void clickKindergartenListButton() {
-
         buttonKindergartenList.click();
     }
-    public void clickKindergartenPreviewButton() {
 
+    public void clickKindergartenPreviewButton() {
         buttonKindergartenPreview.click();
     }
-    public void clickKindergartenGroupsButton() {
 
+    public void clickKindergartenGroupsButton() {
         buttonKindergartenGroups.click();
     }
-    public void clickMyAccountButton() {
 
+    public void clickMyAccountButton() {
         buttonMyAccount.click();
     }
+    public void clickQueuesAdministrationButton() {
+        buttonQueuesAdministration.click();
+    }
+    public void clickApplicationListButton() {
+        buttonApplicationsList.click();
+    }
+    // input
+
+
 }
 

@@ -53,70 +53,64 @@ public class ParentMyAccountPage extends AbstractPage {
 
     public ParentMyAccountPage(WebDriver driver) {
         super(driver);
-        // TODO Auto-generated constructor stub
     }
 
+    // text
     public String findMyAccountText() {
-
         return myAccountText.getText();
     }
 
-
+    // button
     public void clickNewPasswordSaveButton() {
-
         buttonNewPasswordSave.click();
     }
 
     public void clickDataEditButton() {
-
         buttonDataEdit.click();
     }
 
     public void clickDataSaveButton() {
-
         buttonDataSave.click();
     }
 
+    // input
     public void enterOldPassword(String oldPassword) {
-
         inputOldPassword.sendKeys(oldPassword);
     }
 
     public void enterNewPassword(String newPassword) {
-
         inputNewPassword.sendKeys(newPassword);
     }
 
     public void enterNewPasswordConfirm(String newPassword) {
-
         inputConfirmNewPassword.sendKeys(newPassword);
     }
-    public void enterNewParentName(String newName) {
 
+    public void enterNewParentName(String newName) {
         inputNewParentName.sendKeys(newName);
     }
-    public void enterNewParentSurname(String newSurname) {
 
+    public void enterNewParentSurname(String newSurname) {
         inputNewParentName.sendKeys(newSurname);
     }
-    public void enterNewParentPhoneNo(String newPhoneNo) {
 
+    public void enterNewParentPhoneNo(String newPhoneNo) {
         inputNewParentPhoneNo.sendKeys(newPhoneNo);
     }
-    public void enterNewParentAddress(String newAddress) {
 
+    public void enterNewParentAddress(String newAddress) {
         inputNewParentAddress.sendKeys(newAddress);
     }
-    public void enterNewParentCity(String newCity) {
 
+    public void enterNewParentCity(String newCity) {
         inputNewParentCity.sendKeys(newCity);
     }
-    public void enterNewParentPostalCode(String newPostalCode) {
 
+    public void enterNewParentPostalCode(String newPostalCode) {
         inputNewParentPostalCode.sendKeys(newPostalCode);
     }
-    public void enterNewParentEmail(String newEmail) {
 
+    public void enterNewParentEmail(String newEmail) {
         inputNewParentEmail.sendKeys(newEmail);
     }
 }

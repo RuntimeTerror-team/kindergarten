@@ -19,8 +19,8 @@ public class EducationSpecialistPasswordChangeTest extends BaseTest {
                 ExpectedConditions.presenceOfElementLocated(By.id("loginh1")));
         LoginPage loginPage = new LoginPage(driver);
         EducationSpecialistPage educationSpecialistPage = new EducationSpecialistPage(driver);
-        AgeGroupCreationPage ageGroupCreationPage = new AgeGroupCreationPage(driver);
-        KindergartenListPage kindergartenListPage = new KindergartenListPage(driver);
+        EducationSpecialistAgeGroupCreationPage educationSpecialistAgeGroupCreationPage = new EducationSpecialistAgeGroupCreationPage(driver);
+        EducationSpecialistKindergartenListPage educationSpecialistKindergartenListPage = new EducationSpecialistKindergartenListPage(driver);
         EducationSpecialistMyAccountPage educationSpecialistMyAccountPage = new EducationSpecialistMyAccountPage(driver);
         String specialistUsername = "ŠvietimoSpecialistas1";
         String specialistPassword = "ŠvietimoSpecialistas1";

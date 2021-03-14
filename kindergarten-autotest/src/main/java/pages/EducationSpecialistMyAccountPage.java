@@ -21,36 +21,33 @@ public class EducationSpecialistMyAccountPage extends AbstractPage {
     @FindBy(id = "password")
     public WebElement inputNewPassword;
 
-
     @FindBy(id = "password2")
     public WebElement inputConfirmNewPassword;
 
     public EducationSpecialistMyAccountPage(WebDriver driver) {
         super(driver);
-        // TODO Auto-generated constructor stub
     }
 
+    // text
     public String findMyAccountText() {
-
         return myAccountText.getText();
     }
 
-
+    // button
     public void clickNewPasswordSaveButton() {
-
         buttonNewPasswordSave.click();
     }
 
+    // input
     public void enterOldPassword(String oldPassword) {
-
         inputOldPassword.sendKeys(oldPassword);
     }
-    public void enterNewPassword(String newPassword) {
 
+    public void enterNewPassword(String newPassword) {
         inputNewPassword.sendKeys(newPassword);
     }
-    public void enterNewPasswordConfirm(String newPassword) {
 
+    public void enterNewPasswordConfirm(String newPassword) {
         inputConfirmNewPassword.sendKeys(newPassword);
     }
 }

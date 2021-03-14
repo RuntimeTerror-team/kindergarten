@@ -20,27 +20,45 @@ public class ParentPage extends AbstractPage {
     @FindBy (xpath = "//*[@id=\"root\"]/div/div/div[1]/nav/a[4]")
     public WebElement buttonMyAccount;
 
+    @FindBy (xpath = "//*[@id=\"root\"]/div/div/div[1]/nav/a[2]")
+    public WebElement buttonApplicationFillUp;
+
+    @FindBy (xpath = "//*[@id=\"root\"]/div/div/div[1]/nav/a[3]")
+    public WebElement buttonHealthForms;
+
+    @FindBy(xpath = "//*[@id=\"root\"]/div/div/div[1]/nav/a[1]")
+    public WebElement buttonApplications;
+
     public ParentPage(WebDriver driver) {
         super(driver);
-        // TODO Auto-generated constructor stub
-    }
+           }
 
+    // text
     public String findParentpageMainpageTitle() {
-
         return parentpageMainpageTitle.getText();
     }
 
     public String findParentName() {
-
         return getParentName.getText();
     }
 
+    // button
     public void clickParentLogoutButton() {
-
         buttonParentLogout.click();
     }
-    public void clickMyAccountButton() {
 
+    public void clickApplicationFillUp() {
+        buttonApplicationFillUp.click();
+    }
+
+    public void clickHealthForms() {
+        buttonHealthForms.click();
+    }
+
+    public void clickMyAccountButton() {
         buttonMyAccount.click();
+    }
+    public void clickApplicationsButton() {
+        buttonApplications.click();
     }
 }

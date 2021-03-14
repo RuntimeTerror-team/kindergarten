@@ -4,11 +4,12 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 
-public class KindergartenGroupsListPage extends AbstractPage {
+public class EducationSpecialistKindergartenGroupsListPage extends AbstractPage {
 
     // input
     @FindBy(xpath = "//*[@id=\"childrenCount\"]")
     public WebElement inputChildrenCount;
+
     // buttons
     @FindBy(xpath = "//*[@id=\"root\"]/div/div/div[2]/div[2]/div/a[1]")
     public WebElement buttonGroupCreate;
@@ -28,7 +29,7 @@ public class KindergartenGroupsListPage extends AbstractPage {
     @FindBy(xpath = "//*[@id=\"root\"]/div/div/div[2]/div[2]/div/div/div/table/tbody/tr[1]/td[3]/a")
     public WebElement buttonAddChildrenToGroup;
 
-    //text
+    // text
     @FindBy(xpath = "//*[@id=\"root\"]/div/div/div[2]/div[2]/div/form/div[3]")
     public WebElement successfulGroupCreationText;
 
@@ -37,70 +38,61 @@ public class KindergartenGroupsListPage extends AbstractPage {
 
     @FindBy(xpath = "//*[@id=\"root\"]/div/div/div[2]/div[2]/h1/strong")
     public WebElement groupListText;
+
     @FindBy(xpath = "//*[@id=\"root\"]/div/div/div[2]/div[2]/h1/strong")
     public WebElement createGroupText;
 
     @FindBy(xpath = "//*[@id=\"root\"]/div/div/div[2]/div[2]/div/form/div[3]")
     public WebElement successfulChildrenAmountUpdateText;
 
-    public KindergartenGroupsListPage(WebDriver driver) {
+    public EducationSpecialistKindergartenGroupsListPage(WebDriver driver) {
         super(driver);
-
     }
 
+    // input
     public void enterChildrenAmount(String childrenAmount) {
-
         inputChildrenCount.sendKeys(childrenAmount);
     }
 
-    public void clickGroupCreateButton() {
+    public void clearChildrenAmount() {
+        inputChildrenCount.clear();
+    }
 
+    // buttons
+    public void clickGroupCreateButton() {
         buttonGroupCreate.click();
     }
 
     public void clickBackToKindergartenListButton() {
-
         buttonBackToKindergartenList.click();
     }
 
     public void clickBackToGroupListButton() {
-
         buttonBackToGroupList.click();
     }
 
     public void clickChangeAmountButton() {
-
         buttonChangeAmount.click();
-
     }
 
     public void clickGroupSaveButton() {
-
         buttonGroupSave.click();
     }
 
     public void clickAddChildrenToGroupButton() {
-
         buttonAddChildrenToGroup.click();
     }
 
-    public void clearChildrenAmount() {
-
-        inputChildrenCount.clear();
-    }
-
+    // text
     public String findSuccessfulGroupCreationText() {
-
         return successfulGroupCreationText.getText();
     }
 
     public String findUnsuccessfulSameGroupCreationText() {
-
         return unsuccessfulSameGroupCreationText.getText();
     }
 
     public String findSuccessfulChildrenAmountUpdateText() {
-
         return successfulChildrenAmountUpdateText.getText();
     }
 

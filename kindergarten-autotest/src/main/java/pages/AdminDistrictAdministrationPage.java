@@ -4,7 +4,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 
-public class DistrictAdministrationPage extends AbstractPage {
+public class AdminDistrictAdministrationPage extends AbstractPage {
 
     // input
     @FindBy(id = "inputDistrict")
@@ -30,46 +30,42 @@ public class DistrictAdministrationPage extends AbstractPage {
     @FindBy(xpath = "//*[@id=\"root\"]/div/div/div[2]/div[2]/div/div[2]/div/table/tbody/tr[1]/td[1]")
     public WebElement getSuccessfulNewDistrictNameText;
 
-    public DistrictAdministrationPage(WebDriver driver) {
+    public AdminDistrictAdministrationPage(WebDriver driver) {
         super(driver);
-
     }
 
+    // input
     public void enterDistrictName(String districtName) {
         inputDistrictName.sendKeys(districtName);
     }
 
     public void clearDistrictName() {
-
         inputDistrictNameToEdit.clear();
     }
 
     public void enterNewDistrictName(String districtName) {
-
         inputDistrictNameToEdit.sendKeys(districtName);
     }
 
+    // buttons
     public void clickAddDistrictButton() {
-
         buttonSaveDistrict.click();
     }
 
     public void clickFirstDistrictInTheListToEdit() {
-
         firstDistrictInTheListEditButton.click();
     }
 
     public void clickToSaveNewDistrictName() {
-
         saveNewDistrictNameButton.click();
     }
 
+    //text
     public String findSuccessfulDistrictCreationText() {
-
         return successfulDistrictCreationText.getText();
     }
-    public String findSuccessfulNewDistrictNameSaveText() {
 
+    public String findSuccessfulNewDistrictNameSaveText() {
         return getSuccessfulNewDistrictNameText.getText();
     }
 }

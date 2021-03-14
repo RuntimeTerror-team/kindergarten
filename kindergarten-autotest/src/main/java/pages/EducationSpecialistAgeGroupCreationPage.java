@@ -4,7 +4,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 
-public class AgeGroupCreationPage extends AbstractPage {
+public class EducationSpecialistAgeGroupCreationPage extends AbstractPage {
 
     // input
 
@@ -19,15 +19,17 @@ public class AgeGroupCreationPage extends AbstractPage {
     @FindBy(xpath = "//*[@id=\"root\"]/div/div/div[2]/div[2]/div/div[1]/form/div[3]")
     public WebElement unsuccessfulSameAgeCreationText;
 
-    public AgeGroupCreationPage(WebDriver driver) {
+    public EducationSpecialistAgeGroupCreationPage(WebDriver driver) {
         super(driver);
-
     }
+    // input
 
+    // buttons
     public void clickAgeGroupCreateButton() {
         buttonAgeGroupCreate.click();
     }
 
+    //text
     public String findSuccessfulAgeGroupCreationText() {
         return successfulAgeGroupCreationText.getText();
     }

@@ -17,7 +17,7 @@ import pages.LoginPage;
 import pages.EducationSpecialistPage;
 
 
-public class EducationSpecialistTest extends BaseTest {
+public class EducationSpecialistLoginLogoutTest extends BaseTest {
 
 
     @Test (groups = "smoke, regression")
@@ -26,9 +26,9 @@ public class EducationSpecialistTest extends BaseTest {
         AdminPage adminPage = new AdminPage(driver);
         LoginPage loginPage = new LoginPage(driver);
         EducationSpecialistPage educationSpecialistPage = new EducationSpecialistPage(driver);
-        AdminTest adminTest = new AdminTest();
+        AdminLoginLogoutTest adminLoginLogoutTest = new AdminLoginLogoutTest();
 
-        adminTest.adminLoginTest();
+        adminLoginLogoutTest.adminLoginTest();
 
         String specialistFirstName = "Vardas";
         String specialistLastName = "Pavardė";
