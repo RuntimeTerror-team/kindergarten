@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import urls from '../../constants/urls';
-import logo from '../../images/logo.png'
+// import logo from '../../images/logo.png'
 
 const AdminNavigationComponent = () => {
     return (
