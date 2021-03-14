@@ -6,9 +6,9 @@ import logo from '../../images/logo.png'
 const AdminNavigationComponent = () => {
     return (
         <div className="templatemo-sidebar">
-            <a className="navbar-brand text-center" href="/kindergarten/">
+            {/* <a className="navbar-brand text-center" href="/kindergarten/">
                 <img src={logo} alt="logo" className="logo" />
-            </a>
+            </a> */}
             <nav className="templatemo-left-nav">
                 <Link to={`${urls.admin.userBase}`}
                     className={`${window.location.pathname === `/kindergarten${urls.admin.userBase}` ? "active" : ""} left-nav-link`}>

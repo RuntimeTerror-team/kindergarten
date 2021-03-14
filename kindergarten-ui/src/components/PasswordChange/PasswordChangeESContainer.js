@@ -228,24 +228,28 @@ class PasswordChangeESContainer extends Component {
                     <HeaderComponent userRole="ROLE_EDUCATION_SPECIALIST" />
                     <div className="templatemo-content-container">
                         <h1 className="mb-5 text-center page-name"><strong>Mano paskyra</strong></h1>
-                        <PasswordChangeComponent
-                            password={this.state.password}
-                            password2={this.state.password2}
-                            oldPassword={this.state.oldPassword}
-                            passwordValidation={this.state.passwordValidation}
-                            password2Validation={this.state.password2Validation}
-                            oldPasswordValidation={this.state.oldPasswordValidation}
-                            notMatchingMessage={this.state.notMatchingMessage}
-                            notMatchingMessageStyle={this.state.notMatchingMessageStyle}
-                            successMessage={this.state.successMessage}
-                            successMessageStyle={this.state.successMessageStyle}
-                            wrongOldPasswordMessage={this.state.wrongOldPasswordMessage}
-                            wrongOldPasswordMessageStyle={this.state.wrongOldPasswordMessageStyle}
-                            onSubmit={this.handleSubmit}
-                            onPasswordChange={this.handleChange}
-                            onPassword2Change={this.handleChange}
-                            onOldPasswordChange={this.handleChange}
-                        />
+                        <div className="row col-12 px-0">
+                            <div className="col-6 px-0">
+                                <PasswordChangeComponent
+                                    password={this.state.password}
+                                    password2={this.state.password2}
+                                    oldPassword={this.state.oldPassword}
+                                    passwordValidation={this.state.passwordValidation}
+                                    password2Validation={this.state.password2Validation}
+                                    oldPasswordValidation={this.state.oldPasswordValidation}
+                                    notMatchingMessage={this.state.notMatchingMessage}
+                                    notMatchingMessageStyle={this.state.notMatchingMessageStyle}
+                                    successMessage={this.state.successMessage}
+                                    successMessageStyle={this.state.successMessageStyle}
+                                    wrongOldPasswordMessage={this.state.wrongOldPasswordMessage}
+                                    wrongOldPasswordMessageStyle={this.state.wrongOldPasswordMessageStyle}
+                                    onSubmit={this.handleSubmit}
+                                    onPasswordChange={this.handleChange}
+                                    onPassword2Change={this.handleChange}
+                                    onOldPasswordChange={this.handleChange}
+                                />
+                            </div>
+                        </div>
                         <Footer />
                     </div>
                 </div>
