@@ -34,8 +34,9 @@ const ESApprovedApplicationListComponent = ({
       <div className="row">
         <div className="col-10">
           <form className="form-inline" onSubmit={searchData}>
-            <input className="form-control mr-sm-2" type="search" placeholder="Įveskite vardą ar pavardę" aria-label="Search" value={search} onChange={updateSearchInputValue}></input>
-            <button className="btn btn-outline-primary my-2 my-sm-0" type="submit" >Ieškoti <BsSearch /> </button>
+            <div className="form-inline mr-sm-2"><BsSearch size="18px" color="#4285F4"/></div>
+            <input className="form-control mr-sm-2" type="search" style={{width: "350px"}} placeholder="Įveskite vaiko asmens kodą arba pavardę..." aria-label="Search" value={search} onChange={updateSearchInputValue}></input>
+            {/* <button className="btn btn-outline-primary my-2 my-sm-0" type="submit" >Ieškoti  </button> */}
           </form>
         </div>
         <div className="col-2">

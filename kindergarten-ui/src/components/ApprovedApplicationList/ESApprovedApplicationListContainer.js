@@ -176,13 +176,15 @@ class ESApprovedApplicationListContainer extends Component {
       return;
     }
 
+   
+
     Axios.get(baseUrl + "/api/applications/sorted/search/" + this.state.search + "?page=" + currentPage + "&size=" + this.state.applicationsPerPage)
       .then((res) => {
         this.setState({
           applications: res.data.content,
           totalPages: res.data.totalPages,
           totalElements: res.data.totalElements,
-          currentPage: res.data.number + 1
+          currentPage: res.data.number + 1,
         });
         this.translateStatus();
       })
