@@ -36,7 +36,6 @@ public class UserController {
     @Autowired
     private UserService userService;
 
-//    //FIXME check if this one if this is usefull anywhere
     @RequestMapping(method = RequestMethod.GET)
     @ApiOperation(value = "Get users", notes = "Returns registered users")
     public List<UserDto> getUsers() {

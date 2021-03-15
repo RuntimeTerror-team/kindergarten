@@ -13,7 +13,7 @@ class ESApprovedApplicationListContainer extends Component {
       applications: [],
 
       currentPage: 1,
-      applicationsPerPage: 5,
+      applicationsPerPage: 10,
 
       queues: [],
       pdf: {},
@@ -33,7 +33,7 @@ class ESApprovedApplicationListContainer extends Component {
     Axios.get(baseUrl + "/api/applications/sorted/?page=" + currentPage + "&size=" + this.state.applicationsPerPage)
       .then((res) => {
         this.setState({
-          applications: res.data,
+          applications: res.data.content,
           totalPages: res.data.totalPages,
           totalElements: res.data.totalElements,
           currentPage: res.data.number + 1,

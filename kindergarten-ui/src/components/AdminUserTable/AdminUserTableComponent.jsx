@@ -33,11 +33,11 @@ const AdminUserTableComponent = ({ users, downloadUserData, restoreOriginalPassw
                             <tr key={username}>
                                 <th scope="row">{index + 1}</th>
                                 <td>{username}</td>
-                                <td>{role === "GUARDIAN" ? "Vaiko atstovas" : role === "ADMIN" ? "Administratorius" : "Švietimo specialistas"}</td>
+                                <td>{role.type === "GUARDIAN" ? "Vaiko atstovas" : role.type === "ADMIN" ? "Administratorius" : "Švietimo specialistas"}</td>
                                 <td>
-                                    {(role === "GUARDIAN" || role === "EDUCATION_SPECIALIST")
+                                    {(role.type === "GUARDIAN" || role.type === "EDUCATION_SPECIALIST")
                                         && <button className="templatemo-edit-btn mr-2" value={username} onClick={restoreOriginalPassword}>Atstatyti slaptažodį</button>}
-                                    {role === "GUARDIAN" && <button className="templatemo-edit-btn" id={username} onClick={downloadUserData}>Atsisiųsti duomenis</button>}
+                                    {role.type === "GUARDIAN" && <button className="templatemo-edit-btn" id={username} onClick={downloadUserData}>Atsisiųsti duomenis</button>}
                                 </td>
                             </tr>
                         ))}
