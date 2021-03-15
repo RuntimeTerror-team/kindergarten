@@ -14,7 +14,7 @@ let AdminUserFormComponent = ({ handleChange, handleSubmit, changedPassword, clo
           <div className="form-group">
             <input
               type="text"
-              className={`largeInput form-control ${firstnameLength}`}
+              className={`form-control ${firstnameLength}`}
               id="firstname"
               value={firstname}
               onChange={handleChange}
@@ -26,7 +26,7 @@ let AdminUserFormComponent = ({ handleChange, handleSubmit, changedPassword, clo
           <div className="form-group">
             <input
               type="text"
-              className={`largeInput form-control ${lastnameLength}`}
+              className={`form-control ${lastnameLength}`}
               id="lastname"
               value={lastname}
               onChange={handleChange}

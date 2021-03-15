@@ -1,7 +1,14 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import urls from '../../constants/urls';
-import logo from '../../images/logo.png'
+import logo from '../../images/logo.png';
+import {
+    BsPeopleFill,
+    BsGeoAlt,
+    BsUnlockFill,
+    BsCalendar,
+    BsReverseLayoutTextSidebarReverse
+} from 'react-icons/bs';
 
 const AdminNavigationComponent = () => {
     return (
@@ -12,18 +19,19 @@ const AdminNavigationComponent = () => {
             <nav className="templatemo-left-nav">
                 <Link to={`${urls.admin.userBase}`}
                     className={`${window.location.pathname === `/kindergarten${urls.admin.userBase}` ? "active" : ""} left-nav-link`}>
-                    Paskyrų administravimas</Link>
+                    <BsPeopleFill className="fa" />Paskyrų administravimas</Link>
                 <Link to={`${urls.admin.districtBase}`}
                     className={`${window.location.pathname === `/kindergarten${urls.admin.districtBase}` ? "active" : ""} left-nav-link`}>
-                    Rajonų administravimas</Link>
+                    <BsGeoAlt className="fa" />Rajonų administravimas</Link>
                 <Link to={`${urls.admin.permissionsBase}`}
                     className={`${window.location.pathname === `/kindergarten${urls.admin.permissionsBase}` ? "active" : ""} left-nav-link`}>
-                    Leidimų suteikimas</Link>
+                    <BsUnlockFill className="fa" />Leidimų suteikimas</Link>
                 <Link to={`${urls.admin.queueBase}`}
                     className={`${window.location.pathname === `/kindergarten${urls.admin.queueBase}` ? "active" : ""} left-nav-link`}>
-                    Eilių administravimas </Link>
+                    <BsCalendar className="fa" />Eilių administravimas </Link>
                 <Link to={`${urls.admin.loggingBase}`}
-                    className={`${window.location.pathname === `/kindergarten${urls.admin.loggingBase}` ? "active" : ""} left-nav-link`}>Įvykių žurnalas </Link>
+                    className={`${window.location.pathname === `/kindergarten${urls.admin.loggingBase}` ? "active" : ""} left-nav-link`}>
+                    <BsReverseLayoutTextSidebarReverse className="fa" />Įvykių žurnalas </Link>
             </nav>
         </div >
     )
