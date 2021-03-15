@@ -5,9 +5,10 @@ const StatisticsComponent = ({ firstPlace, secondPlace, thirdPlace, fourthPlace,
     fifthPlaceAddress, fromEndFirstPlaceAddress, fromEndSecondPlaceAddress, fromEndThirdPlaceAddress, fromEndFourthPlaceAddress, fromEndFifthPlaceAddress,
     nrOfApplications, nrOfKindergartenSpots, nrOfWaitingApplications, nrOfApprovedApplications }) => {
     return (
-        <div className="mx-auto col-10 mt-3">
-            <h1 className="mb-3" style={{ marginLeft: "200px" }}>Populiariausių darželių Top 5</h1>
-            <table id="groupTable" className='table col-12 mb-3'>
+        <div className="templatemo-content-widget no-padding col-12 my-4 mx-0">
+            <h3 className="mb-3">Populiariausių darželių Top 5</h3>
+            <div className="panel panel-default table-responsive">
+                <table className="table table-striped table-bordered templatemo-user-table fixedTable mb-3">
                 <thead>
                     <tr>
                         <th scope='col' style={{ width: "50px" }}>Vieta</th>
@@ -16,38 +17,40 @@ const StatisticsComponent = ({ firstPlace, secondPlace, thirdPlace, fourthPlace,
                     </tr>
                 </thead>
 
-                <tbody>
-
-                    <tr>
-                        <th scope='row'>{1}</th>
-                        <td>{firstPlace}</td>
-                        <td>{firstPlaceAddress}</td>
-                    </tr>
-                    <tr>
-                        <th scope='row'>{2}</th>
-                        <td>{secondPlace}</td>
-                        <td>{secondPlaceAddress}</td>
-                    </tr>
-                    <tr>
-                        <th scope='row'>{3}</th>
-                        <td>{thirdPlace}</td>
-                        <td>{thirdPlaceAddress}</td>
-                    </tr>
-                    <tr>
-                        <th scope='row'>{4}</th>
-                        <td>{fourthPlace}</td>
-                        <td>{fourthPlaceAddress}</td>
-                    </tr>
-                    <tr>
-                        <th scope='row'>{5}</th>
-                        <td>{fifthPlace}</td>
-                        <td>{fifthPlaceAddress}</td>
-                    </tr>
-
+                <tbody>                   
+                        <tr>
+                            <th scope='row'>{1}</th>
+                            <td style={{ width: "50px" }}>{firstPlace}</td>
+                            <td>{firstPlaceAddress}</td>
+                        </tr>
+                        <tr>
+                            <th scope='row'>{2}</th>
+                            <td>{secondPlace}</td>
+                            <td>{secondPlaceAddress}</td>
+                        </tr>
+                        <tr>
+                            <th scope='row'>{3}</th>
+                            <td>{thirdPlace}</td>
+                            <td>{thirdPlaceAddress}</td>
+                        </tr>
+                        <tr>
+                            <th scope='row'>{4}</th>
+                            <td>{fourthPlace}</td>
+                            <td>{fourthPlaceAddress}</td>
+                        </tr>
+                        <tr>
+                            <th scope='row'>{5}</th>
+                            <td>{fifthPlace}</td>
+                            <td>{fifthPlaceAddress}</td>
+                        </tr>
+                
                 </tbody>
             </table>
-            <h1 className="mb-3" style={{ marginLeft: "200px" }}>Nepopuliariausių darželių Top 5</h1>
-            <table id="groupTable" className='table col-12 mb-5'>
+            </div>
+            <div className="templatemo-content-widget no-padding col-12 my-4 mx-0">
+            <h3 className="mb-3">Nepopuliariausių darželių Top 5</h3>
+            <div className="panel panel-default table-responsive">
+                <table className="table table-striped table-bordered templatemo-user-table fixedTable mb-3">
                 <thead>
                     <tr>
                         <th scope='col' style={{ width: "50px" }}>Vieta</th>
@@ -56,39 +59,41 @@ const StatisticsComponent = ({ firstPlace, secondPlace, thirdPlace, fourthPlace,
                     </tr>
                 </thead>
 
-                <tbody>
-
-                    <tr>
-                        <th scope='row'>{1}</th>
-                        <td>{fromEndFirstPlace}</td>
-                        <td>{fromEndFirstPlaceAddress}</td>
-                    </tr>
-                    <tr>
-                        <th scope='row'>{2}</th>
-                        <td>{fromEndSecondPlace}</td>
-                        <td>{fromEndSecondPlaceAddress}</td>
-                    </tr>
-                    <tr>
-                        <th scope='row'>{3}</th>
-                        <td>{fromEndThirdPlace}</td>
-                        <td>{fromEndThirdPlaceAddress}</td>
-                    </tr>
-                    <tr>
-                        <th scope='row'>{4}</th>
-                        <td>{fromEndFourthPlace}</td>
-                        <td>{fromEndFourthPlaceAddress}</td>
-                    </tr>
-                    <tr>
-                        <th scope='row'>{5}</th>
-                        <td>{fromEndFifthPlace}</td>
-                        <td>{fromEndFifthPlaceAddress}</td>
-                    </tr>
-
+                <tbody>                   
+                        <tr>
+                            <th scope='row'>{1}</th>
+                            <td style={{ width: "50px" }}>{fromEndFirstPlace}</td>
+                            <td>{fromEndFirstPlaceAddress}</td>
+                        </tr>
+                        <tr>
+                            <th scope='row'>{2}</th>
+                            <td>{fromEndSecondPlace}</td>
+                            <td>{fromEndSecondPlaceAddress}</td>
+                        </tr>
+                        <tr>
+                            <th scope='row'>{3}</th>
+                            <td>{fromEndThirdPlace}</td>
+                            <td>{fromEndThirdPlaceAddress}</td>
+                        </tr>
+                        <tr>
+                            <th scope='row'>{4}</th>
+                            <td>{fromEndFourthPlace}</td>
+                            <td>{fromEndFourthPlaceAddress}</td>
+                        </tr>
+                        <tr>
+                            <th scope='row'>{5}</th>
+                            <td>{fromEndFifthPlace}</td>
+                            <td>{fromEndFifthPlaceAddress}</td>
+                        </tr>
+                
                 </tbody>
             </table>
-            <h1 className="mb-3" style={{ marginLeft: "200px" }}>Prašymų statistika</h1>
-            <table id="groupTable" className='table col-12 mb-5'>
-
+            </div>
+            </div>
+            <div className="templatemo-content-widget no-padding col-6 my-4 mx-0">
+            <h3 className="mb-3">Prašymų statistika</h3>
+            <div className="panel panel-default table-responsive">
+                <table className="table table-striped table-bordered templatemo-user-table mb-3">
                 <tbody>
 
                     <tr>
@@ -110,6 +115,8 @@ const StatisticsComponent = ({ firstPlace, secondPlace, thirdPlace, fourthPlace,
 
                 </tbody>
             </table>
+            </div>
+            </div>
         </div>
     )
 }
