@@ -7,7 +7,7 @@ import org.openqa.selenium.support.FindBy;
 public class ParentPage extends AbstractPage {
 
     // text
-    @FindBy(xpath = "//*[@id=\"root\"]/div/div/div[2]/div/div/h1")
+    @FindBy(xpath = "/html/body/div/div/div/div[2]/div[1]/div/nav/ul/li[2]/p/strong")
     public WebElement parentpageMainpageTitle;
 
     @FindBy(xpath = "//*[@id=\"root\"]/div/div/div[2]/div[1]/div/nav/ul/li[2]/p/strong")

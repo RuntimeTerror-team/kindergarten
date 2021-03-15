@@ -40,8 +40,8 @@ public class KindergartenCreationTest extends BaseTest {
                 ExpectedConditions.presenceOfElementLocated(By.xpath("//*[@id=\"root\"]/div/div/div[2]/div[2]/h1/strong")));
 
         educationSpecialistKindergartenListPage.clickAddKindergartenButton();
-        String kindergartenName = "Lopšelis-darželis Lapė";
-        String kindergartenCode = "123454331";
+        String kindergartenName = "Lopšelis-darželis Laputė";
+        String kindergartenCode = "123454332";
         String kindergartenAddress = "Antakalnio g. 123";
         String kindergartenPostCode = "12345";
         String kindergartenPhoneNo = "60606060";
@@ -73,8 +73,8 @@ public class KindergartenCreationTest extends BaseTest {
         successfulText = wait.until(
                 ExpectedConditions.presenceOfElementLocated(By.xpath("//*[@id=\"root\"]/div/div/div[2]/div[2]/h1/strong")));
         educationSpecialistKindergartenListPage.clickAddKindergartenButton();
-        kindergartenName = "Lopšelis-darželis Voverytė";
-        kindergartenCode = "1234568";
+        kindergartenName = "Lopšelis-darželis Voverė";
+        kindergartenCode = "1234567";
         kindergartenAddress = "Antakalnio g. 123";
         kindergartenPostCode = "12345";
         kindergartenPhoneNo = "60606060";
@@ -92,7 +92,7 @@ public class KindergartenCreationTest extends BaseTest {
         educationSpecialistKindergartenListPage.enterKindergartenEmail(kindergartenEmail);
         educationSpecialistKindergartenListPage.enterKindergartenWebsite(kindergartenWebsite);
         educationSpecialistKindergartenListPage.clickKindergartenSaveButton();
-        wait = new WebDriverWait(driver, 5);
+        wait = new WebDriverWait(driver, 10);
         successfulText = wait.until(
                 ExpectedConditions.presenceOfElementLocated(By.xpath("/html/body/div/div/div/div[2]/div[2]/div/form/div[11]")));
 
@@ -100,6 +100,7 @@ public class KindergartenCreationTest extends BaseTest {
         assertEquals(actualKindergartenCreationText, "Darželis sėkmingai sukurtas", "Text is not as expected: ");
 
         educationSpecialistKindergartenListPage.clickBackToKindergartenListButton();
+        wait = new WebDriverWait(driver, 10);
         successfulText = wait.until(
                 ExpectedConditions.presenceOfElementLocated(By.xpath("//*[@id=\"root\"]/div/div/div[2]/div[2]/h1/strong")));
 

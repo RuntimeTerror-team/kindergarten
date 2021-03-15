@@ -36,11 +36,9 @@ public class AdminLoginLogoutTest extends BaseTest {
         WebElement adminAccountText = wait.until(
                 ExpectedConditions.presenceOfElementLocated(By.xpath("//*[@id=\"root\"]/div/div/div[2]/div[1]/div/nav/ul/li[2]/p/strong")));
 
-//		String adminLoginURL = "http://akademijait.vtmc.lt:8181/kindergarten/admin";
-//		assertEquals(adminLoginURL, driver.getCurrentUrl());
         String actualResult = adminPage.findAdminLoginText();
         assertEquals(actualResult, adminAccountText.getText(), "Text is not as expected: ");
-     //   adminPage.clickAdminLogoutButton();
+//        adminPage.clickAdminLogoutButton();
     }
 
     @Test

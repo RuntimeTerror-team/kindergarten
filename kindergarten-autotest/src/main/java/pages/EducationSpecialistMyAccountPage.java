@@ -11,7 +11,7 @@ public class EducationSpecialistMyAccountPage extends AbstractPage {
     public WebElement myAccountText;
 
     // button
-    @FindBy(xpath = "//*[@id=\"root\"]/div/div/div[2]/div[2]/div/div[1]/form/div[4]/button")
+    @FindBy(xpath = "//*[@id=\"root\"]/div/div/div[2]/div[2]/div/div/div/div[1]/form/div[4]/button")
     public WebElement buttonNewPasswordSave;
 
     // input

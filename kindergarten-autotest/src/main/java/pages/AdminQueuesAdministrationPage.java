@@ -10,9 +10,9 @@ public class AdminQueuesAdministrationPage extends AbstractPage {
 
 
     // buttons
-//    sukurti nauja eile mygtukas
-//    @FindBy(xpath = "//*[@id=\"root\"]/div/div/div[2]/div[2]/div/div[1]/table/tbody/td[3]/button")
-//    public WebElement buttonGivePermission;
+
+    @FindBy(xpath = "//*[@id=\"root\"]/div/div/div[2]/div[2]/div/button")
+    public WebElement buttonToOpenNewQueue;
 
 
     //text
@@ -32,10 +32,10 @@ public class AdminQueuesAdministrationPage extends AbstractPage {
     // input
 
     // buttons
-    //PRADETI NAUJA EILE
-//    public void clickGivePermissionButton() {
-//        buttonGivePermission.click();
-//    }
+
+    public void clickToOpenNewQueueButton() {
+        buttonToOpenNewQueue.click();
+    }
 
 
 

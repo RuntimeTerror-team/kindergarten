@@ -226,7 +226,7 @@ public class ParentApplicationFillUpPage extends AbstractPage {
     }
 
     public void enterNewParentSurname(String newSurname) {
-        inputNewParentName.sendKeys(newSurname);
+        inputNewParentSurname.sendKeys(newSurname);
     }
     public void clearOldParentSurname() {
         inputNewParentSurname.clear();

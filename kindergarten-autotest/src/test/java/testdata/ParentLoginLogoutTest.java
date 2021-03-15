@@ -52,8 +52,8 @@ public class ParentLoginLogoutTest extends BaseTest {
         wait = new WebDriverWait(driver, 5);
         WebElement loginh1 = wait.until(
                 ExpectedConditions.presenceOfElementLocated(By.id("loginh1")));
-        String parentUsename = parentFirstName + parentLastName + "7";
-        String parentPassword = parentFirstName + parentLastName + "7";
+        String parentUsename = parentFirstName + parentLastName + "3";
+        String parentPassword = parentFirstName + parentLastName + "3";
 
         loginPage.enterUsername(parentUsename);
         loginPage.enterPassword(parentPassword);
@@ -102,8 +102,8 @@ public class ParentLoginLogoutTest extends BaseTest {
 
         WebElement loginh1 = wait.until(
                 ExpectedConditions.presenceOfElementLocated(By.id("loginh1")));
-        String parentUsename = parentFirstName + parentLastName + "01";
-        String parentPassword = parentFirstName + parentLastName + "01";
+        String parentUsename = parentFirstName + parentLastName + "02";
+        String parentPassword = parentFirstName + parentLastName + "02";
 
         loginPage.enterUsername(parentUsename);
         loginPage.enterPassword(parentPassword);

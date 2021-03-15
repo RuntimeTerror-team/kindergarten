@@ -16,16 +16,21 @@ public class ParentApplicationsPage extends AbstractPage {
     @FindBy(xpath = "//*[@id=\"root\"]/div/div/div[2]/div[2]/div/div/table/tbody/tr[2]/td[1]")
     public WebElement secondApplicationChildNameText;
 
-    @FindBy(xpath = "//*[@id=\"root\"]/div/div/div[2]/div[2]/div/div/table/tbody/tr[3]/td[1]")
+    @FindBy(xpath = "/html/body/div/div/div/div[2]/div[2]/div/div/table/tbody/tr[3]/td[1]")
     public WebElement thirdApplicationChildNameText;
+
+    @FindBy(xpath = "//*[@id=\"root\"]/div/div/div[2]/div[2]/div/div/table/tbody/tr[4]/td[1]")
+    public WebElement fourthApplicationChildNameText;
 
     @FindBy(xpath = "//*[@id=\"root\"]/div/div/div[2]/div[2]/div/div/table/tbody/tr[1]/td[3]")
     public WebElement firstChildApplicationStatusText;
     @FindBy(xpath = "//*[@id=\"root\"]/div/div/div[2]/div[2]/div/div/table/tbody/tr[2]/td[3]")
     public WebElement secondChildApplicationStatusText;
-    @FindBy(xpath = "//*[@id=\"root\"]/div/div/div[2]/div[2]/div/div/table/tbody/tr[3]/td[3]")
-    public WebElement thirdChildApplicationStatusText;
+    @FindBy(xpath = "/html/body/div/div/div/div[2]/div[2]/div/div/table/tbody/tr[3]/td[3]")
 
+    public WebElement thirdChildApplicationStatusText;
+    @FindBy(xpath = "//*[@id=\"root\"]/div/div/div[2]/div[2]/div/div/table/tbody/tr[4]/td[3]")
+    public WebElement fourthChildApplicationStatusText;
     // button
 
     // input
@@ -50,7 +55,9 @@ public class ParentApplicationsPage extends AbstractPage {
     public String findThirdApplicationChildNameText() {
         return thirdApplicationChildNameText.getText();
     }
-
+    public String findFourthApplicationChildNameText() {
+        return fourthApplicationChildNameText.getText();
+    }
     public String findFirstChildApplicationStatusText() {
         return firstChildApplicationStatusText.getText();
     }
@@ -59,6 +66,9 @@ public class ParentApplicationsPage extends AbstractPage {
     }
     public String findThirdChildApplicationStatusText() {
         return thirdChildApplicationStatusText.getText();
+    }
+    public String findFourthChildApplicationStatusText() {
+        return fourthChildApplicationStatusText.getText();
     }
     // button
 
