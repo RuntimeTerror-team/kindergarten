@@ -23,8 +23,6 @@ const ESApprovedApplicationListComponent = ({
   closeAlert,
   onStatusChange,
   onOpenPDF,
-  search,
-  searchData,
   updateSearchInputValue
 }) => {
 
@@ -33,11 +31,9 @@ const ESApprovedApplicationListComponent = ({
     <div>
       <div className="row">
         <div className="col-10">
-        {/* <form className="form-inline" onSubmit={searchData}> */}
           <form className="form-inline">
             <div className="form-inline mr-sm-3"><BsSearch size="18px" color="#4285F4"/></div>
             <input className="form-control" type="search" style={{width: "350px"}} placeholder="Įveskite vaiko asmens kodą arba pavardę..." aria-label="Search" onChange={updateSearchInputValue}></input>
-            {/* <button className="btn btn-outline-primary my-2 my-sm-0" type="submit" >Ieškoti  </button> */}
           </form>
         </div>
         <div className="col-2">
