@@ -3,6 +3,7 @@ package lt.vtmc.kindergarten.controller;
 import ch.qos.logback.classic.Logger;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
+import lt.vtmc.kindergarten.domain.User;
 import lt.vtmc.kindergarten.dto.PermissionForESDto;
 import lt.vtmc.kindergarten.dto.UserDetailsDto;
 import lt.vtmc.kindergarten.dto.UserDtoFromAdmin;
@@ -14,6 +15,8 @@ import org.slf4j.LoggerFactory;
 import org.slf4j.Marker;
 import org.slf4j.MarkerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -38,6 +41,21 @@ public class UserController {
     public List<UserDto> getUsers() {
         return userService.getUsers();
     }
+
+    @RequestMapping(method = RequestMethod.GET, value = "/search/all")
+    @ApiOperation(value = "Get users", notes = "Returns registered users")
+    public ResponseEntity<Page<User>> getAllUsers(Pageable pageable) {
+        return new ResponseEntity<>(userService.findAll(pageable), HttpStatus.OK);
+    }
+
+
+    @ApiOperation(value = "Get users", notes = "Returns registered users")
+    @RequestMapping(method = RequestMethod.GET, value = "/search/{searchText}")
+    public ResponseEntity<Page<User>> findAllUsers(Pageable pageable, @PathVariable final String searchText) {
+
+        return new ResponseEntity(userService.findAll(pageable, searchText), HttpStatus.OK);
+    }
+
 
 
     @RequestMapping(method = RequestMethod.POST)

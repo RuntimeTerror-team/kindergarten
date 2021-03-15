@@ -3,7 +3,8 @@ import Proptypes from "prop-types";
 import AdminUserTableComponent from "../AdminUserTable/AdminUserTableComponent";
 import { Modal, Button } from "react-bootstrap";
 
-let AdminUserFormComponent = ({ handleChange, handleSubmit, changedPassword, closeAlert, downloadUserData, restoreOriginalPassword, ...otherProps }) => {
+let AdminUserFormComponent = ({ currentPage, totalPages, firstPage, prevPage, lastPage, nextPage, updateSearchInputValue,
+   handleChange, handleSubmit, changedPassword, closeAlert, downloadUserData, restoreOriginalPassword, ...otherProps }) => {
   const { firstname, lastname, firstnameLength, lastnameLength, createdUsername, isCreated, users } = otherProps;
 
   return (
@@ -63,10 +64,17 @@ let AdminUserFormComponent = ({ handleChange, handleSubmit, changedPassword, clo
           {createdUsername}
         </div>
       )}
-      {users.length > 0 && <AdminUserTableComponent
+      {<AdminUserTableComponent
         users={users}
         downloadUserData={downloadUserData}
         restoreOriginalPassword={restoreOriginalPassword}
+        updateSearchInputValue={updateSearchInputValue}
+        currentPage={currentPage}
+        totalPages={totalPages}
+        firstPage={firstPage}
+        prevPage={prevPage}
+        lastPage={lastPage}
+        nextPage={nextPage}
       />}
       <Modal show={changedPassword} aria-labelledby="contained-modal-title-vcenter" centered>
         <Modal.Body>Sėkmingai atstatytas naudotojo pirminis slaptažodis.</Modal.Body>
@@ -90,7 +98,7 @@ AdminUserFormComponent.propTypes = {
   lastnameLength: Proptypes.string.isRequired,
   createdUsername: Proptypes.string.isRequired,
   isCreated: Proptypes.bool.isRequired,
-  users: Proptypes.array.isRequired
+  users: Proptypes.array.isRequired,
 };
 
 export default AdminUserFormComponent;

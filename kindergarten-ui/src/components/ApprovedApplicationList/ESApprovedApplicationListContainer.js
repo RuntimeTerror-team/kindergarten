@@ -13,7 +13,7 @@ class ESApprovedApplicationListContainer extends Component {
       applications: [],
 
       currentPage: 1,
-      applicationsPerPage: 5,
+      applicationsPerPage: 10,
 
       queues: [],
       pdf: {},
