@@ -14,10 +14,20 @@ class GuardianPageContainer extends Component {
         this.state = {
             username: "",
             applications: [],
+            distributedApplications: [],
+            queues: [],
+            queueStatus: ""
         }
     }
 
     componentDidMount() {
+
+        axios.get(`${baseUrl}/api/queues`)
+            .then((res) => {
+                  this.setState({ queues: res.data });
+                  this.setState({ queueStatus: this.state.queues[0].status });
+             })
+             .catch((err) => console.log(err));
 
         axios
             .get(`${baseUrl}/loggedUsername`)
@@ -29,9 +39,20 @@ class GuardianPageContainer extends Component {
                         this.translateStatus();
                     })
                     .catch(err => { console.log(err) })
+                axios
+                    .get(baseUrl + "/api/distributedApplications/info/" + this.state.username)
+                    .then(res =>{
+                        this.setState({distributedApplications: res.data});
+                        this.translateFinalStatus();
+                    })
+                    .catch(err => {console.log(err)})    
+                
             })
 
             .catch(err => console.log)
+
+        
+            
 
 
     }
@@ -39,6 +60,32 @@ class GuardianPageContainer extends Component {
     translateStatus() {
 
         this.state.applications.forEach(application => {
+
+            if (application.applicationStatus === "SUBMITTED") {
+                application.applicationStatus = 'Pateiktas'
+                this.forceUpdate()
+            }
+
+            else if (application.applicationStatus === "REJECTED") {
+                application.applicationStatus = 'Atmestas'
+                this.forceUpdate()
+            }
+
+            else if (application.applicationStatus === "APPROVED") {
+                application.applicationStatus = 'Patvirtintas'
+                this.forceUpdate()
+            }
+
+            else if (application.applicationStatus === "WAITING") {
+                application.applicationStatus = 'Eilėje'
+                this.forceUpdate()
+            }
+        })
+    }
+
+    translateFinalStatus() {
+
+        this.state.distributedApplications.forEach(application => {
 
             if (application.applicationStatus === "SUBMITTED") {
                 application.applicationStatus = 'Pateiktas'
@@ -70,7 +117,10 @@ class GuardianPageContainer extends Component {
                     <div className="templatemo-content-container">
                         <h1 className="mb-5 text-center page-name"><strong>Prašymai</strong></h1>
                         <ApplicationListComponent
-                            applications={this.state.applications} />
+                            applications={this.state.applications}
+                            distributedApplications={this.state.distributedApplications}
+                            queueStatus={this.state.queueStatus}
+                            />
                         <Footer />
                     </div>
                 </div>

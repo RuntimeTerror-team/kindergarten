@@ -8,6 +8,7 @@ import lt.vtmc.kindergarten.dto.ApplicationCreationDto;
 import lt.vtmc.kindergarten.dto.ApplicationDto;
 import lt.vtmc.kindergarten.dto.ApplicationInfoDto;
 import lt.vtmc.kindergarten.dto.ApplicationsStatisticsDto;
+import lt.vtmc.kindergarten.dto.DistributedApplicationInfoDto;
 import lt.vtmc.kindergarten.service.ApplicationService;
 
 import java.util.*;
@@ -102,6 +103,16 @@ public class ApplicationController {
             @PathVariable final String username
     ) {
         return applicationService.getApplicationsInfo(username);
+    }
+    
+    @RequestMapping(method = RequestMethod.GET, value = "/api/distributedApplications/info/{username}")
+    @ApiOperation(value = "Get distributed applications info", notes = "Returns all distributed applications with info about children first,"
+    		+ " last names, application status, date by username, approvedKindergarten or waitingLineNr")
+    @ResponseStatus(HttpStatus.OK)
+    public List<DistributedApplicationInfoDto> getDistributedApplicationsInfo(
+            @PathVariable final String username
+    ) {
+        return applicationService.getDistributedApplicationsInfo(username);
     }
 
     @RequestMapping(method = RequestMethod.POST, value = "/api/applications/recalculation")
