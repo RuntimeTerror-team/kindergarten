@@ -40,25 +40,40 @@ class GuardianPageContainer extends Component {
 
         this.state.applications.forEach(application => {
 
-            if (application.applicationStatus === "SUBMITTED") {
-                application.applicationStatus = 'Pateiktas'
-                this.forceUpdate()
+            switch (application.applicationStatus) {
+                case "SUBMITTED":
+                    application.applicationStatus = 'Pateiktas'
+                    break;
+                case "REJECTED":
+                    application.applicationStatus = 'Atmestas'
+                    break;
+                case "APPROVED":
+                    application.applicationStatus = 'Patvirtintas'
+                    break;
+                case "WAITING":
+                     application.applicationStatus = 'Eilėje'
+                    break;
+            
+                default:
+                    break;
             }
+            // if (application.applicationStatus === "SUBMITTED") {
+            //     application.applicationStatus = 'Pateiktas'
+            // }
 
-            else if (application.applicationStatus === "REJECTED") {
-                application.applicationStatus = 'Atmestas'
-                this.forceUpdate()
-            }
+            // else if (application.applicationStatus === "REJECTED") {
+            //     application.applicationStatus = 'Atmestas'
+            // }
 
-            else if (application.applicationStatus === "APPROVED") {
-                application.applicationStatus = 'Patvirtintas'
-                this.forceUpdate()
-            }
+            // else if (application.applicationStatus === "APPROVED") {
+            //     application.applicationStatus = 'Patvirtintas'
+            // }
 
-            else if (application.applicationStatus === "WAITING") {
-                application.applicationStatus = 'Eilėje'
-                this.forceUpdate()
-            }
+            // else if (application.applicationStatus === "WAITING") {
+            //     application.applicationStatus = 'Eilėje'
+            // }
+
+            this.forceUpdate()
         })
     }
     render() {
