@@ -1,9 +1,9 @@
 import React from 'react'
 
 const StatisticsComponent = ({ firstPlace, secondPlace, thirdPlace, fourthPlace, fifthPlace, fromEndFirstPlace, fromEndSecondPlace,
-fromEndThirdPlace, fromEndFourthPlace, fromEndFifthPlace, firstPlaceAddress, secondPlaceAddress, thirdPlaceAddress, fourthPlaceAddress,
- fifthPlaceAddress, fromEndFirstPlaceAddress, fromEndSecondPlaceAddress, fromEndThirdPlaceAddress, fromEndFourthPlaceAddress, fromEndFifthPlaceAddress,
-nrOfApplications, nrOfKindergartenSpots, nrOfWaitingApplications, nrOfApprovedApplications}) => {
+    fromEndThirdPlace, fromEndFourthPlace, fromEndFifthPlace, firstPlaceAddress, secondPlaceAddress, thirdPlaceAddress, fourthPlaceAddress,
+    fifthPlaceAddress, fromEndFirstPlaceAddress, fromEndSecondPlaceAddress, fromEndThirdPlaceAddress, fromEndFourthPlaceAddress, fromEndFifthPlaceAddress,
+    nrOfApplications, nrOfKindergartenSpots, nrOfWaitingApplications, nrOfApprovedApplications }) => {
     return (
         <div className="templatemo-content-widget no-padding col-12 my-4 mx-0">
             <h3 className="mb-3">Populiariausių darželių Top 5</h3>
@@ -17,8 +17,7 @@ nrOfApplications, nrOfKindergartenSpots, nrOfWaitingApplications, nrOfApprovedAp
                     </tr>
                 </thead>
 
-                <tbody>
-                   
+                <tbody>                   
                         <tr>
                             <th scope='row'>{1}</th>
                             <td style={{ width: "50px" }}>{firstPlace}</td>
@@ -60,8 +59,7 @@ nrOfApplications, nrOfKindergartenSpots, nrOfWaitingApplications, nrOfApprovedAp
                     </tr>
                 </thead>
 
-                <tbody>
-                   
+                <tbody>                   
                         <tr>
                             <th scope='row'>{1}</th>
                             <td style={{ width: "50px" }}>{fromEndFirstPlace}</td>
@@ -96,26 +94,25 @@ nrOfApplications, nrOfKindergartenSpots, nrOfWaitingApplications, nrOfApprovedAp
             <h3 className="mb-3">Prašymų statistika</h3>
             <div className="panel panel-default table-responsive">
                 <table className="table table-striped table-bordered templatemo-user-table mb-3">
-                
                 <tbody>
-                   
-                        <tr>
-                            <th scope='row'>Prašymų skaičius</th>
-                            <td>{nrOfApplications}</td>
-                        </tr>
-                        <tr>
-                            <th scope='row'>Darželių vietų skaičius</th>
-                            <td>{nrOfKindergartenSpots}</td>
-                        </tr>
-                        <tr>
-                            <th scope='row'>Laukančių eilėje skaičius</th>
-                            <td>{nrOfWaitingApplications === 0 ? "-" : nrOfWaitingApplications }</td>
-                        </tr>
-                        <tr>
-                            <th scope='row'>Priimtų į darželį skaičius</th>
-                            <td>{nrOfApprovedApplications === 0 ? "-" : nrOfApprovedApplications }</td>
-                        </tr>
-                
+
+                    <tr>
+                        <th scope='row'>Prašymų skaičius</th>
+                        <td>{nrOfApplications}</td>
+                    </tr>
+                    <tr>
+                        <th scope='row'>Darželių vietų skaičius</th>
+                        <td>{nrOfKindergartenSpots}</td>
+                    </tr>
+                    <tr>
+                        <th scope='row'>Laukančių eilėje skaičius</th>
+                        <td>{nrOfWaitingApplications === 0 ? "-" : nrOfWaitingApplications}</td>
+                    </tr>
+                    <tr>
+                        <th scope='row'>Priimtų į darželį skaičius</th>
+                        <td>{nrOfApprovedApplications === 0 ? "-" : nrOfApprovedApplications}</td>
+                    </tr>
+
                 </tbody>
             </table>
             </div>

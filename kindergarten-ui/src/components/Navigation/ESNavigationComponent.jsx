@@ -6,7 +6,7 @@ import logo from '../../images/logo.png';
 const ESNavigationComponent = () => {
     return (
         <div className="templatemo-sidebar">
-            <div className="text-center" href="/kindergarten/" style={{ height: "135px" }}>
+            <div className="text-center" style={{ height: "135px" }}>
                 <img src={logo} alt="logo" className="logo mx-auto" />
             </div>
             <nav className="templatemo-left-nav">
@@ -27,7 +27,7 @@ const ESNavigationComponent = () => {
                     Mano paskyra</Link>
                 <Link to={`${urls.educationSpecialist.ESstatisticsBase}`}
                     className={`${window.location.pathname === `/kindergarten${urls.educationSpecialist.ESstatisticsBase}` ? "active" : ""} left-nav-link`}>
-                    Statistika</Link>    
+                    Statistika</Link>
             </nav>
         </div >
     )
