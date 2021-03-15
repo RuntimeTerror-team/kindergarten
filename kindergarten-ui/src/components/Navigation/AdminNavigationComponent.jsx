@@ -14,10 +14,6 @@ const AdminNavigationComponent = () => {
                 {/* <img src={logo} alt="logo" className="logo mx-auto" /> */}
                 <div className="logo-img" style={{ backgroundImage: `${logo}` }}></div>
             </div>
-            <div className="logo-div">
-                {/* <img src={logo} alt="logo" className="logo mx-auto" /> */}
-                <div className="logo-img-public" style={{ backgroundImage: `${logo}` }}></div>
-            </div>
             <nav className="templatemo-left-nav">
                 <Link to={`${urls.admin.userBase}`}
                     className={`${window.location.pathname === `/kindergarten${urls.admin.userBase}` ? "active" : ""} left-nav-link`}>
