@@ -155,6 +155,16 @@ public class UserService implements UserDetailsService {
     		user.setPassword(passwordEncoder.encode(userDto.getPassword()));
     	}
     }
+    
+    @Transactional
+    public void restoreOriginalPassword(UsernameDto usernameDto) {
+    	
+    	User user = userDao.findByUsername(usernameDto.getUsername());
+    	
+    	if(user != null) {
+    		user.setPassword(passwordEncoder.encode(usernameDto.getUsername()));
+    	}
+    }
 
     private String assembleUsername(String firstName, String lastName) {
         return checkUsernameLength(sanitizeNameToPascalCase(firstName)+sanitizeNameToPascalCase(lastName));

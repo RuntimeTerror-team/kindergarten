@@ -1,7 +1,7 @@
 import React from 'react';
 import Proptypes from "prop-types";
 
-const AdminUserTableComponent = ({ users, downloadUserData }) => {
+const AdminUserTableComponent = ({ users, downloadUserData, restoreOriginalPassword}) => {
     return (
         <div className="templatemo-content-widget no-padding col-12 my-4 mx-0">
             <div className="panel panel-default table-responsive">
@@ -20,7 +20,11 @@ const AdminUserTableComponent = ({ users, downloadUserData }) => {
                                 <th scope="row">{index + 1}</th>
                                 <td>{username}</td>
                                 <td>{role}</td>
-                                <td>{role === "GUARDIAN" && <button className="templatemo-edit-btn" id={username} onClick={downloadUserData}>Atsisiųsti duomenis</button>}</td>
+                                <td>
+                                    {role === "GUARDIAN" && <button className="templatemo-edit-btn mr-2" id={username} onClick={downloadUserData}>Atsisiųsti duomenis</button>}
+                                    {(role === "GUARDIAN" || role === "EDUCATION_SPECIALIST")
+                                      && <button className="templatemo-edit-btn" value={username} onClick={restoreOriginalPassword}>Atstatyti slaptažodį</button>}
+                                </td>
                             </tr>
                         ))}
                     </tbody>

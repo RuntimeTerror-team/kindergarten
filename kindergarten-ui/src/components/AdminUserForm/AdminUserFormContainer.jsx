@@ -17,7 +17,8 @@ class AdminUserFormContainer extends Component {
             firstnameLength: "",
             lastnameLength: "",
             isCreated: false,
-            createdUsername: ""
+            createdUsername: "",
+            changedPassword: false
         }
     }
 
@@ -129,6 +130,22 @@ class AdminUserFormContainer extends Component {
             .catch((err) => console.log(err))
     }
 
+    restoreOriginalPassword = (e) => {
+
+        let usernameDto = {
+            username: e.target.value
+        }
+
+        axios.post(baseUrl + "/api/users/restore", usernameDto)
+              .then(res => this.setState({changedPassword: true}))
+              .catch(err => console.log(err))
+    }
+
+    closeAlert = (e) => {
+
+        this.setState({changedPassword: false})
+    }
+
     render() {
         return (
             <div className="templatemo-flex-row">
@@ -141,7 +158,10 @@ class AdminUserFormContainer extends Component {
                             handleSubmit={this.handleSubmit}
                             handleChange={this.handleChange}
                             isCreated={this.state.isCreated}
+                            changedPassword={this.state.changedPassword}
+                            closeAlert={this.closeAlert}
                             downloadUserData={this.downloadUserData}
+                            restoreOriginalPassword={this.restoreOriginalPassword}
                             {...this.state}
                         />
                         <Footer />

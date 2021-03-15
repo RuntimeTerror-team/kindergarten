@@ -8,6 +8,7 @@ import lt.vtmc.kindergarten.dto.UserDetailsDto;
 import lt.vtmc.kindergarten.dto.UserDtoFromAdmin;
 import lt.vtmc.kindergarten.dto.UserDto;
 import lt.vtmc.kindergarten.dto.UserValidateCommandDto;
+import lt.vtmc.kindergarten.dto.UsernameDto;
 import lt.vtmc.kindergarten.service.UserService;
 import org.slf4j.LoggerFactory;
 import org.slf4j.Marker;
@@ -100,6 +101,14 @@ public class UserController {
     public void changePassword(@Valid @RequestBody UserDto userDto){
     	userService.changePassword(userDto);
         logger.info(userEvent,"Vartotojas {} Vartotojo rolė: {} Pakeitė slaptažodį. Įvykio laikas: {}", userDto.getUsername(), userDto.getRole(), new Date());
+    }
+    
+    @ApiOperation(value ="Restore original password", notes = "Restores user's original password")
+    @RequestMapping(method = RequestMethod.POST, value = "/restore")
+    @ResponseStatus(HttpStatus.OK)
+    public void restoreOriginalPassword(@Valid @RequestBody final UsernameDto usernameDto){
+    	userService.restoreOriginalPassword(usernameDto);
+        logger.info(userEvent,"Vartotojas {} pakeitė slaptažodį į pradinį. Įvykio laikas: {}", usernameDto.getUsername(), new Date());
     }
     
     @RequestMapping(method = RequestMethod.POST, value = "/ES/permission")
