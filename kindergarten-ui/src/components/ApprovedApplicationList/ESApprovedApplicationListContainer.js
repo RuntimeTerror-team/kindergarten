@@ -166,19 +166,48 @@ class ESApprovedApplicationListContainer extends Component {
 
   }
 
-  searchData = (ev) => {
-    ev.preventDefault();
+  // searchData = (ev) => {
+  //   ev.preventDefault();
 
+  //   let currentPage = this.state.currentPage - 1;
+
+  //   if (!this.state.search) {
+  //     this.updateApplicationList(this.state.currentPage);
+  //     return;
+  //   }
+
+   
+
+  //   Axios.get(baseUrl + "/api/applications/sorted/search/" + this.state.search + "?page=" + currentPage + "&size=" + this.state.applicationsPerPage)
+  //     .then((res) => {
+  //       this.setState({
+  //         applications: res.data.content,
+  //         totalPages: res.data.totalPages,
+  //         totalElements: res.data.totalElements,
+  //         currentPage: res.data.number + 1,
+  //       });
+  //       this.translateStatus();
+  //     })
+  //     .catch((err) => {
+  //       console.log(err);
+  //     });
+  // }
+
+  // updateSearchInputValueSenas = (letterToSearch) => {
+  
+  //   this.setState({ search: letterToSearch.target.value });
+  //   this.searchData(letterToSearch);
+  // }
+
+  updateSearchInputValue = (ev) => {  
     let currentPage = this.state.currentPage - 1;
 
-    if (!this.state.search) {
+    if (!ev.target.value) {
       this.updateApplicationList(this.state.currentPage);
       return;
     }
 
-   
-
-    Axios.get(baseUrl + "/api/applications/sorted/search/" + this.state.search + "?page=" + currentPage + "&size=" + this.state.applicationsPerPage)
+    Axios.get(baseUrl + "/api/applications/sorted/search/" + ev.target.value + "?page=" + currentPage + "&size=" + this.state.applicationsPerPage)
       .then((res) => {
         this.setState({
           applications: res.data.content,
@@ -191,11 +220,6 @@ class ESApprovedApplicationListContainer extends Component {
       .catch((err) => {
         console.log(err);
       });
-  }
-
-  updateSearchInputValue = (letterToSearch) => {
-    this.setState({ search: letterToSearch.target.value });
-    this.searchData(letterToSearch);
   }
 
   render() {
