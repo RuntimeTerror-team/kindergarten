@@ -1,5 +1,7 @@
 package lt.vtmc.kindergarten.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -13,6 +15,7 @@ public class Role {
     private RoleType type;
 
     @OneToMany(mappedBy="role")
+    @JsonIgnore
     private List<User> users = new ArrayList<>();
 
     public Role() {

@@ -6,29 +6,42 @@ import Footer from '../Footer/Footer';
 import AdminUserFormComponent from './AdminUserFormComponent';
 import AdminNavigationComponent from '../Navigation/AdminNavigationComponent';
 
+const USERS_PER_PAGE = 10;
+
 class AdminUserFormContainer extends Component {
-    constructor() {
-        super();
-        this.state = {
-            users: [],
-            firstname: "",
-            lastname: "",
-            role: "",
-            firstnameLength: "",
-            lastnameLength: "",
-            isCreated: false,
-            createdUsername: "",
-            changedPassword: false
-        }
+    state = {
+      users: [],
+      firstname: "",
+      lastname: "",
+      role: "",
+      firstnameLength: "",
+      lastnameLength: "",
+      isCreated: false,
+      createdUsername: "",
+      changedPassword: false,
+
+      currentPage: 1,
     }
 
-    componentDidMount = () => {
-        axios
-            .get(`${baseUrl}/api/users`)
-            .then((res) => {
-                this.setState({ users: res.data });
-            })
-            .catch((err) => console.log(err))
+    componentDidMount() {
+      this.updateUserList(this.state.currentPage);
+    }
+
+
+    updateUserList(currentPage) {
+      currentPage -= 1;
+      axios.get(baseUrl + "/api/users/search/all/?page=" + currentPage + "&size=" + USERS_PER_PAGE)
+        .then((res) => {
+          this.setState({
+            users: res.data.content,
+            totalPages: res.data.totalPages,
+            totalElements: res.data.totalElements,
+            currentPage: res.data.number + 1,
+          });
+        })
+        .catch((err) => {
+          console.log(err);
+        });
     }
 
     handleChange = (e) => {
@@ -93,21 +106,24 @@ class AdminUserFormContainer extends Component {
                 .then(res => {
                     this.setState({ isCreated: true });
                     this.setState({ createdUsername: res.data })
-
-                    axios
-                        .get(`${baseUrl}/api/users`)
-                        .then((res) => {
-                            this.setState({ users: res.data });
-                        })
-                        .catch((err) => console.log(err))
+                    
+                    // axios
+                    //     .get(`${baseUrl}/api/users`)
+                    //     .then((res) => {
+                    //         this.setState({ users: res.data });
+                    //     })
+                    //     .catch((err) => console.log(err))
+                    this.updateUserList();
                 })
                 .catch(err => console.log(err));
 
-            this.setState({ firstname: "" })
-            this.setState({ lastname: "" })
-            this.setState({ role: "" })
-            this.setState({ firstnameLength: "" })
-            this.setState({ lastnameLength: "" })
+            this.setState({ 
+              firstname: "" ,
+              lastname: "" ,
+              role: "" ,
+              firstnameLength: "" ,
+              lastnameLength: ""
+            })
         }
     }
 
@@ -146,7 +162,75 @@ class AdminUserFormContainer extends Component {
         this.setState({changedPassword: false})
     }
 
+
+
+    firstPage = () => {
+      let firstPage = 1;
+      if (this.state.currentPage > firstPage) {
+        this.updateUserList(firstPage);
+      }
+    };
+  
+    prevPage = () => {
+      let prevPage = 1;
+      if (this.state.currentPage > prevPage) {
+        this.updateUserList(this.state.currentPage - prevPage);
+      }
+    };
+  
+    lastPage = () => {
+      let condition = Math.ceil(this.state.totalElements / USERS_PER_PAGE);
+      if (this.state.currentPage < condition) {
+        this.updateUserList(condition);
+      }
+    };
+  
+    nextPage = () => {
+      if (this.state.currentPage < Math.ceil(this.state.totalElements / USERS_PER_PAGE)) {
+        this.updateUserList(this.state.currentPage + 1);
+      }
+    };
+  
+    changePage = (event) => {
+      let targetPage = parseInt(event.target.value);
+      // this.updateUserList(targetPage);
+      this.setState({
+        [event.target.name]: targetPage,
+      }, this.updateUserList(targetPage));
+    };
+
+    // changePage = (event) => {
+    //   let targetPage = parseInt(event.target.value);
+    //   this.updateUserList(targetPage);
+    //   this.setState({
+    //     [event.target.name]: targetPage,
+    //   })
+    // };
+
+    updateSearchInputValue = (ev) => {  
+      let currentPage = this.state.currentPage - 1;
+  
+      if (!ev.target.value) {
+        this.updateUserList(this.state.currentPage);
+        return;
+      }
+  
+      axios.get(baseUrl + "/api/users/search/" + ev.target.value + "?page=" + currentPage + "&size=" + USERS_PER_PAGE)
+        .then((res) => {
+          this.setState({
+            users: res.data.content,
+            totalPages: res.data.totalPages,
+            totalElements: res.data.totalElements,
+            currentPage: res.data.number + 1,
+          });
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    }
+
     render() {
+      const { currentPage } = this.state
         return (
             <div className="templatemo-flex-row">
                 <AdminNavigationComponent />
@@ -162,9 +246,16 @@ class AdminUserFormContainer extends Component {
                             closeAlert={this.closeAlert}
                             downloadUserData={this.downloadUserData}
                             restoreOriginalPassword={this.restoreOriginalPassword}
+                            updateSearchInputValue={this.updateSearchInputValue}
+                            currentPage={currentPage}
+                            totalPages={this.state.totalPages}
+                            firstPage={this.firstPage}
+                            prevPage={this.prevPage}
+                            lastPage={this.lastPage}
+                            nextPage={this.nextPage}
                             {...this.state}
                         />
-                        <Footer />
+                        {/* <Footer /> */}
                     </div>
                 </div>
             </div>

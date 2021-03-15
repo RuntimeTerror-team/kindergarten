@@ -283,10 +283,10 @@ public class UserService implements UserDetailsService, PagingLimit<User> {
     	
     }
 
-    //FixME do we need this one?
+
     @Override
     public Page<User> findAll(Pageable pageable) {
-        return null;
+        return userDao.findAll(pageable);
     }
 
     @Override

@@ -36,16 +36,22 @@ public class UserController {
     @Autowired
     private UserService userService;
 
-    //FIXME check if this one if this is usefull anywhere
+//    //FIXME check if this one if this is usefull anywhere
     @RequestMapping(method = RequestMethod.GET)
     @ApiOperation(value = "Get users", notes = "Returns registered users")
     public List<UserDto> getUsers() {
         return userService.getUsers();
     }
 
+    @RequestMapping(method = RequestMethod.GET, value = "/search/all")
+    @ApiOperation(value = "Get users", notes = "Returns registered users")
+    public ResponseEntity<Page<User>> getAllUsers(Pageable pageable) {
+        return new ResponseEntity<>(userService.findAll(pageable), HttpStatus.OK);
+    }
+
 
     @ApiOperation(value = "Get users", notes = "Returns registered users")
-    @RequestMapping(method = RequestMethod.GET, value = "/api/users/search/{searchText}")
+    @RequestMapping(method = RequestMethod.GET, value = "/search/{searchText}")
     public ResponseEntity<Page<User>> findAllUsers(Pageable pageable, @PathVariable final String searchText) {
 
         return new ResponseEntity(userService.findAll(pageable, searchText), HttpStatus.OK);
