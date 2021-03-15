@@ -83,14 +83,8 @@ input::-webkit-outer-spin-button, input::-webkit-inner-spin-button {
 
 /* Firefox */
 
-input[type=number], input[type=search] {
+input[type=number] {
     -moz-appearance: textfield;
-}
-
-/* clears the ‘X’ from Chrome */
-
-input[type="search"]::-webkit-search-decoration, input[type="search"]::-webkit-search-cancel-button, input[type="search"]::-webkit-search-results-button, input[type="search"]::-webkit-search-results-decoration {
-    display: none;
 }
 
 .footerBottom {
