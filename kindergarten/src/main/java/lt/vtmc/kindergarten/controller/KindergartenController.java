@@ -126,6 +126,13 @@ public class KindergartenController {
             @RequestBody GroupCreationDto groupCreationDto){
         groupService.addGroup(ageRangeId, kindergartenId, groupCreationDto);
     }
+    
+    @RequestMapping(value = "/api/kindergartens/mostPopular", method = RequestMethod.GET)
+    @ApiOperation(value = "get most popular kindergartebs", notes = "Returns a list of most popular kindergartens")
+    @ResponseStatus(HttpStatus.OK)
+    public MostPopularKindergartensDto getMostPopularKindergartens() {
+        return kindergartenService.getMostPopularKindergartens();
+    }
 
     public void setGroupService(GroupService groupService) {
         this.groupService = groupService;

@@ -7,6 +7,7 @@ import lt.vtmc.kindergarten.domain.ApplicationAfterDistribution;
 import lt.vtmc.kindergarten.dto.ApplicationCreationDto;
 import lt.vtmc.kindergarten.dto.ApplicationDto;
 import lt.vtmc.kindergarten.dto.ApplicationInfoDto;
+import lt.vtmc.kindergarten.dto.ApplicationsStatisticsDto;
 import lt.vtmc.kindergarten.service.ApplicationService;
 
 import java.util.*;
@@ -144,5 +145,13 @@ public class ApplicationController {
             Pageable pageable,
             @PathVariable final String searchText) {
         return new ResponseEntity<>(applicationService.findAll(pageable, searchText), HttpStatus.OK);
+    }
+    
+    @RequestMapping(method = RequestMethod.GET, value = "/api/applications/statistics")
+    @ApiOperation(value = "Get applications statistics", notes = "Returns applications statistics")
+    @ResponseStatus(HttpStatus.OK)
+    public ApplicationsStatisticsDto getApplicationsStatistics() {
+        
+    	return applicationService.getApplicationsStatistics();
     }
 }

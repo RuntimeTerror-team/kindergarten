@@ -50,6 +50,9 @@ class ESNavigationComponent extends Component {
                     <Link to={`${urls.guardian.applicationBase}/passwordChange`}
                         className={`${window.location.pathname === `/kindergarten${urls.guardian.applicationBase}/passwordChange` ? "active" : ""} left-nav-link`}>
                         Mano paskyra</Link>
+                    <Link to={`${urls.guardian.statisticsBase}`}
+                        className={`${window.location.pathname === `/kindergarten${urls.guardian.statisticsBase}` ? "active" : ""} left-nav-link`}>
+                        Statistika</Link>
                 </nav>
             </div >
         )

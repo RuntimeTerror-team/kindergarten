@@ -25,6 +25,9 @@ const ESNavigationComponent = () => {
                 <Link to={`${urls.educationSpecialist.queueBase}/passwordChange`}
                     className={`${window.location.pathname === `/kindergarten${urls.educationSpecialist.queueBase}/passwordChange` ? "active" : ""} left-nav-link`}>
                     Mano paskyra</Link>
+                <Link to={`${urls.educationSpecialist.ESstatisticsBase}`}
+                    className={`${window.location.pathname === `/kindergarten${urls.educationSpecialist.ESstatisticsBase}` ? "active" : ""} left-nav-link`}>
+                    Statistika</Link>    
             </nav>
         </div >
     )
