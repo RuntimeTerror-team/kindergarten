@@ -7,12 +7,7 @@ const AdminNavigationComponent = () => {
     return (
         <div className="templatemo-sidebar">
             <div className="logo-div">
-                {/* <img src={logo} alt="logo" className="logo mx-auto" /> */}
-                <div className="logo" style={{ backgroundImage: `${logo}` }}></div>
-            </div>
-            <div className="logo-div">
-                {/* <img src={logo} alt="logo" className="logo mx-auto" /> */}
-                <div className="logo-img" style={{ backgroundImage: `${logo}` }}></div>
+                <img src={logo} alt="logo" className="logo mx-auto" />
             </div>
             <nav className="templatemo-left-nav">
                 <Link to={`${urls.admin.userBase}`}
