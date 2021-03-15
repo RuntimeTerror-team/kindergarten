@@ -19,7 +19,7 @@ const AdminUserTableComponent = ({ users, downloadUserData }) => {
                             <tr key={username}>
                                 <th scope="row">{index + 1}</th>
                                 <td>{username}</td>
-                                <td>{role}</td>
+                                <td>{role === "GUARDIAN" ? "Vaiko atstovas" : role === "ADMIN" ? "Administratorius" : "Švietimo specialistas"}</td>
                                 <td>{role === "GUARDIAN" && <button className="templatemo-edit-btn" id={username} onClick={downloadUserData}>Atsisiųsti duomenis</button>}</td>
                             </tr>
                         ))}
