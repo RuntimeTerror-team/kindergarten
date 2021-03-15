@@ -1,8 +1,9 @@
 import React from "react";
 import Proptypes from "prop-types";
 import AdminUserTableComponent from "../AdminUserTable/AdminUserTableComponent";
+import { Modal, Button } from "react-bootstrap";
 
-let AdminUserFormComponent = ({ handleChange, handleSubmit, downloadUserData, ...otherProps }) => {
+let AdminUserFormComponent = ({ handleChange, handleSubmit, changedPassword, closeAlert, downloadUserData, restoreOriginalPassword, ...otherProps }) => {
   const { firstname, lastname, firstnameLength, lastnameLength, createdUsername, isCreated, users } = otherProps;
 
   return (
@@ -65,7 +66,16 @@ let AdminUserFormComponent = ({ handleChange, handleSubmit, downloadUserData, ..
       {users.length > 0 && <AdminUserTableComponent
         users={users}
         downloadUserData={downloadUserData}
+        restoreOriginalPassword={restoreOriginalPassword}
       />}
+      <Modal show={changedPassword} aria-labelledby="contained-modal-title-vcenter" centered>
+        <Modal.Body>Sėkmingai atstatytas naudotojo pirminis slaptažodis.</Modal.Body>
+        <Modal.Footer>
+          <Button variant="secondary" onClick={closeAlert}>
+            Uždaryti
+        </Button>
+        </Modal.Footer>
+      </Modal>
     </div>
   )
 };
