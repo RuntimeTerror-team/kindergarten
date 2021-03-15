@@ -94,7 +94,7 @@ public class DataSeeder {
         kindergarten2.setPhoneNumber("862404444");
         kindergarten2.setEmail("smalsuciai@gmail.com");
         kindergarten2.setWebsite("www.smalsuciai.lt");
-        kindergarten2.setCompanyCode("19555888");
+        kindergarten2.setCompanyCode("19555588");
         kindergarten2.setDistrict(district);
 
         kindergartenService.addKindergarten(new KindergartenDto(kindergarten2));
@@ -107,10 +107,114 @@ public class DataSeeder {
         kindergarten3.setPhoneNumber("862406666");
         kindergarten3.setEmail("darzelisnykstukai@gmail.com");
         kindergarten3.setWebsite("www.darzelisnykstukai.lt");
-        kindergarten3.setCompanyCode("19555333");
+        kindergarten3.setCompanyCode("19555589");
         kindergarten3.setDistrict(district2);
 
         kindergartenService.addKindergarten(new KindergartenDto(kindergarten3));
+        
+        Kindergarten kindergarten4 = new Kindergarten();
+        kindergarten4.setTitle("Boruželė lopšelis");
+        kindergarten4.setAddress("Kedrų g. 2");
+        kindergarten4.setCity(CityEnum.VILNIUS);
+        kindergarten4.setPostalCode("12545");
+        kindergarten4.setPhoneNumber("862576666");
+        kindergarten4.setEmail("boruzelei@gmail.com");
+        kindergarten4.setWebsite("www.boruzele.lt");
+        kindergarten4.setCompanyCode("19555590");
+        kindergarten4.setDistrict(district);
+
+        kindergartenService.addKindergarten(new KindergartenDto(kindergarten4));
+        
+        Kindergarten kindergarten5 = new Kindergarten();
+        kindergarten5.setTitle("Zuikučiai");
+        kindergarten5.setAddress("Savanorių g. 15");
+        kindergarten5.setCity(CityEnum.VILNIUS);
+        kindergarten5.setPostalCode("15345");
+        kindergarten5.setPhoneNumber("862576666");
+        kindergarten5.setEmail("zuikučiai@gmail.com");
+        kindergarten5.setWebsite("www.zuikučiai.lt");
+        kindergarten5.setCompanyCode("19555591");
+        kindergarten5.setDistrict(district);
+
+        kindergartenService.addKindergarten(new KindergartenDto(kindergarten5));
+        
+        Kindergarten kindergarten6 = new Kindergarten();
+        kindergarten6.setTitle("Peleda");
+        kindergarten6.setAddress("Basanavičiaus g. 10");
+        kindergarten6.setCity(CityEnum.VILNIUS);
+        kindergarten6.setPostalCode("17645");
+        kindergarten6.setPhoneNumber("868776666");
+        kindergarten6.setEmail("peleda@gmail.com");
+        kindergarten6.setWebsite("www.peleda.lt");
+        kindergarten6.setCompanyCode("19555592");
+        kindergarten6.setDistrict(district2);
+
+        kindergartenService.addKindergarten(new KindergartenDto(kindergarten6));
+        
+        Kindergarten kindergarten7 = new Kindergarten();
+        kindergarten7.setTitle("Lapeles");
+        kindergarten7.setAddress("Minsko plentas. 43");
+        kindergarten7.setCity(CityEnum.VILNIUS);
+        kindergarten7.setPostalCode("17648");
+        kindergarten7.setPhoneNumber("868776665");
+        kindergarten7.setEmail("lapeles@gmail.com");
+        kindergarten7.setWebsite("www.lapeles.lt");
+        kindergarten7.setCompanyCode("19555593");
+        kindergarten7.setDistrict(district);
+
+        kindergartenService.addKindergarten(new KindergartenDto(kindergarten7));
+        
+        Kindergarten kindergarten8 = new Kindergarten();
+        kindergarten8.setTitle("Kaimelis");
+        kindergarten8.setAddress("Bitenu g. 43");
+        kindergarten8.setCity(CityEnum.VILNIUS);
+        kindergarten8.setPostalCode("17635");
+        kindergarten8.setPhoneNumber("868776632");
+        kindergarten8.setEmail("kaimelis@gmail.com");
+        kindergarten8.setWebsite("www.kaimelis.lt");
+        kindergarten8.setCompanyCode("19555594");
+        kindergarten8.setDistrict(district);
+
+        kindergartenService.addKindergarten(new KindergartenDto(kindergarten8));
+        
+        Kindergarten kindergarten9 = new Kindergarten();
+        kindergarten9.setTitle("Zuikučiai");
+        kindergarten9.setAddress("Vingriu g. 102");
+        kindergarten9.setCity(CityEnum.VILNIUS);
+        kindergarten9.setPostalCode("17115");
+        kindergarten9.setPhoneNumber("868775232");
+        kindergarten9.setEmail("zuikuciai@gmail.com");
+        kindergarten9.setWebsite("www.zuikuciai.lt");
+        kindergarten9.setCompanyCode("19555595");
+        kindergarten9.setDistrict(district2);
+
+        kindergartenService.addKindergarten(new KindergartenDto(kindergarten9));
+        
+        Kindergarten kindergarten10 = new Kindergarten();
+        kindergarten10.setTitle("Meškučiai");
+        kindergarten10.setAddress("Laisvės Prospektas 43");
+        kindergarten10.setCity(CityEnum.VILNIUS);
+        kindergarten10.setPostalCode("17435");
+        kindergarten10.setPhoneNumber("868535212");
+        kindergarten10.setEmail("meskuciai@gmail.com");
+        kindergarten10.setWebsite("www.meskuciai.lt");
+        kindergarten10.setCompanyCode("19555596");
+        kindergarten10.setDistrict(district);
+
+        kindergartenService.addKindergarten(new KindergartenDto(kindergarten10));
+        
+        Kindergarten kindergarten11 = new Kindergarten();
+        kindergarten11.setTitle("Bitutės");
+        kindergarten11.setAddress("Švitrigailos g. 13");
+        kindergarten11.setCity(CityEnum.VILNIUS);
+        kindergarten11.setPostalCode("17435");
+        kindergarten11.setPhoneNumber("868535200");
+        kindergarten11.setEmail("bitutes@gmail.com");
+        kindergarten11.setWebsite("www.bitutes.lt");
+        kindergarten11.setCompanyCode("19555597");
+        kindergarten11.setDistrict(district2);
+
+        kindergartenService.addKindergarten(new KindergartenDto(kindergarten11));
     }
 
     public void createGroupForKindergarten(String kindergartenCompanyCode, int minAgeRange, int maxAgeRange, int childrenCount) {
@@ -197,6 +301,41 @@ public class DataSeeder {
         applicationService.addApplication(application);
 
     }
+    
+    public void createApplication(String parentPersonalCode, String childPersonalCode,
+        String kindergarten1CompanyCode,  String kindergarten2CompanyCode,   String kindergarten3CompanyCode,
+        String kindergarten4CompanyCode,   String kindergarten5CompanyCode,
+        Boolean isAdopted, Boolean isGuardianStudent, Boolean isMultiChild, Boolean isDisabled) {
+
+        Person parent1 = personDao.findByPersonalCode(parentPersonalCode);
+        Person child = personDao.findByPersonalCode(childPersonalCode);
+        Kindergarten kindergarten1 = kindergartenDao.findByCompanyCode(kindergarten1CompanyCode);
+        Kindergarten kindergarten2 = kindergartenDao.findByCompanyCode(kindergarten2CompanyCode);
+        Kindergarten kindergarten3 = kindergartenDao.findByCompanyCode(kindergarten3CompanyCode);
+        Kindergarten kindergarten4 = kindergartenDao.findByCompanyCode(kindergarten4CompanyCode);
+        Kindergarten kindergarten5 = kindergartenDao.findByCompanyCode(kindergarten5CompanyCode);
+
+        ApplicationCreationDto application = new ApplicationCreationDto();
+        application.setDate(new Date());
+        application.setIsAdopted(isAdopted);
+        application.setIsGuardianStudent(isGuardianStudent);
+        application.setIsMultiChild(isMultiChild);
+        application.setIsGuardianDisabled(isDisabled);
+
+        application.setFirstParentId(parent1.getId());
+        application.setChildId(child.getId());
+
+        application.setPriorityForKindergartenID(new HashMap<>() {{
+            put(1, kindergarten1.getId());
+            put(2, kindergarten2.getId());
+            put(3, kindergarten3.getId());
+            put(4, kindergarten4.getId());
+            put(5, kindergarten5.getId());
+         }});
+
+        applicationService.addApplication(application);
+
+}    
 
 /*
     public void cretePersons() {

@@ -6,6 +6,8 @@ import ApplicationContainer from './components/ApplicationForm/ApplicationContai
 import ESApprovedApplicationListContainer from './components/ApprovedApplicationList/ESApprovedApplicationListContainer'
 import PasswordChangeContainer from './components/PasswordChange/PasswordChangeContainer'
 import PasswordChangeESContainer from './components/PasswordChange/PasswordChangeESContainer'
+import StatisticsContainer from './components/Statistics/StatisticsContainer'
+import ESStatisticsContainer from './components/Statistics/ESStatisticsContainer'
 import NoMatchComponent from './components/ErrorHandling/NoMatchComponent';
 import AdminUserFormContainer from './components/AdminUserForm/AdminUserFormContainer';
 import AdminDistrictFormContainer from './components/AdminDistrictForm/AdminDistrictFormContainer';
@@ -48,11 +50,13 @@ function App(props) {
         <PrivateRoute userRole="ROLE_EDUCATION_SPECIALIST" exact path={`${urls.educationSpecialist.queueBase}`} component={EsQueueListContainer} />
         <PrivateRoute userRole="ROLE_EDUCATION_SPECIALIST" exact path={`${urls.educationSpecialist.applicationsBase}`} component={ESApprovedApplicationListContainer} />
         <PrivateRoute userRole="ROLE_EDUCATION_SPECIALIST" exact path={`${urls.educationSpecialist.queueBase}/passwordChange`} component={PasswordChangeESContainer} />
+        <PrivateRoute userRole="ROLE_EDUCATION_SPECIALIST" exact path={`${urls.educationSpecialist.ESstatisticsBase}`} component={ESStatisticsContainer} />
         <PrivateRoute userRole="ROLE_GUARDIAN" exact path={`${urls.guardian.applicationBase}`} component={ApplicationListContainer} />
         <PrivateRoute userRole="ROLE_GUARDIAN" exact path={`${urls.guardian.applicationBase}/new`} component={ApplicationContainer} />
         <PrivateRoute userRole="ROLE_GUARDIAN" exact path={`${urls.guardian.applicationBase}/passwordChange`} component={PasswordChangeContainer} />
         <PrivateRoute userRole="ROLE_GUARDIAN" exact path={`${urls.guardian.primaryDataBase}`} component={GuardianPrimaryDataFormContainer} />
         <PrivateRoute userRole="ROLE_GUARDIAN" exact path={`${urls.guardian.healthFormBase}`} component={HealthFormListContainer} />
+        <PrivateRoute userRole="ROLE_GUARDIAN" exact path={`${urls.guardian.statisticsBase}`} component={StatisticsContainer} />
         <PublicRoute restricted={false} exact path='/not-authorized' component={NotAuthorized} />
         <PublicRoute restricted={false} exact path='/forbidden' component={Forbidden} />
         <PublicRoute restricted={false} exact path='/error' component={Error} />

@@ -11,11 +11,13 @@ export const urls = {
     ageRangeBase: "/education-specialist/age-ranges",
     queueBase: "/education-specialist/queues",
     applicationsBase: "/education-specialist/applications",
+    ESstatisticsBase: '/education-specialist/statistics'
   },
   guardian: {
     applicationBase: "/guardian/applications",
     primaryDataBase: "/guardian/primary-data",
     healthFormBase: "/guardian/health-forms",
+    statisticsBase: '/guardian/statistics'
   },
 };
 

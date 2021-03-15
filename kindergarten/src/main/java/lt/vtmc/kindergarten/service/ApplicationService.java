@@ -22,6 +22,7 @@ import java.time.LocalDate;
 
 import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.atomic.AtomicInteger;
 import java.util.concurrent.atomic.AtomicReference;
 import java.util.stream.Collectors;
 
@@ -445,6 +446,28 @@ public class ApplicationService implements PagingLimit<ApplicationAfterDistribut
         });
 
         return applications;
+    }
+    
+    @Transactional
+    public ApplicationsStatisticsDto getApplicationsStatistics() {
+    	
+    	int nrOfApplications = (int) applicationDao.count();
+    	
+    	AtomicInteger nrOfKindergartenSpots = new AtomicInteger(0);
+    	List<Set<Group>> groups = kindergartenDao.findAll().stream().map(kindergarten -> kindergarten.getGroups()).collect(Collectors.toList());
+    	groups.stream().flatMap(group -> group.stream()).forEach(group -> {
+    		
+    	    int nrOfPlaces = group.getChildrenCount();
+    	    nrOfKindergartenSpots.getAndAdd(nrOfPlaces);
+    				});
+    	
+    	int nrOfWaitingApplications = (int) applicationDao.findAll()
+    			.stream().filter(application -> application.getApplicationStatus() == ApplicationStatusEnum.WAITING).count();
+    	
+    	int nrOfApprovedApplications = (int) applicationDao.findAll()
+    			.stream().filter(application -> application.getApplicationStatus() == ApplicationStatusEnum.APPROVED).count();
+    	 	
+    	return new ApplicationsStatisticsDto(nrOfApplications, nrOfKindergartenSpots.get(), nrOfWaitingApplications, nrOfApprovedApplications);	
     }
 
 
