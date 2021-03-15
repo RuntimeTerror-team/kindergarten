@@ -5,9 +5,10 @@ fromEndThirdPlace, fromEndFourthPlace, fromEndFifthPlace, firstPlaceAddress, sec
  fifthPlaceAddress, fromEndFirstPlaceAddress, fromEndSecondPlaceAddress, fromEndThirdPlaceAddress, fromEndFourthPlaceAddress, fromEndFifthPlaceAddress,
 nrOfApplications, nrOfKindergartenSpots, nrOfWaitingApplications, nrOfApprovedApplications}) => {
     return (
-        <div className="mx-auto col-10 mt-3">
-            <h1 className="mb-3" style={{marginLeft: "200px"}}>Populiariausių darželių Top 5</h1>
-            <table id="groupTable" className='table col-12 mb-3'>
+        <div className="templatemo-content-widget no-padding col-12 my-4 mx-0">
+            <h3 className="mb-3">Populiariausių darželių Top 5</h3>
+            <div className="panel panel-default table-responsive">
+                <table className="table table-striped table-bordered templatemo-user-table fixedTable mb-3">
                 <thead>
                     <tr>
                         <th scope='col' style={{ width: "50px" }}>Vieta</th>
@@ -20,7 +21,7 @@ nrOfApplications, nrOfKindergartenSpots, nrOfWaitingApplications, nrOfApprovedAp
                    
                         <tr>
                             <th scope='row'>{1}</th>
-                            <td>{firstPlace}</td>
+                            <td style={{ width: "50px" }}>{firstPlace}</td>
                             <td>{firstPlaceAddress}</td>
                         </tr>
                         <tr>
@@ -46,8 +47,11 @@ nrOfApplications, nrOfKindergartenSpots, nrOfWaitingApplications, nrOfApprovedAp
                 
                 </tbody>
             </table>
-            <h1 className="mb-3" style={{marginLeft: "200px"}}>Nepopuliariausių darželių Top 5</h1>
-            <table id="groupTable" className='table col-12 mb-5'>
+            </div>
+            <div className="templatemo-content-widget no-padding col-12 my-4 mx-0">
+            <h3 className="mb-3">Nepopuliariausių darželių Top 5</h3>
+            <div className="panel panel-default table-responsive">
+                <table className="table table-striped table-bordered templatemo-user-table fixedTable mb-3">
                 <thead>
                     <tr>
                         <th scope='col' style={{ width: "50px" }}>Vieta</th>
@@ -60,7 +64,7 @@ nrOfApplications, nrOfKindergartenSpots, nrOfWaitingApplications, nrOfApprovedAp
                    
                         <tr>
                             <th scope='row'>{1}</th>
-                            <td>{fromEndFirstPlace}</td>
+                            <td style={{ width: "50px" }}>{fromEndFirstPlace}</td>
                             <td>{fromEndFirstPlaceAddress}</td>
                         </tr>
                         <tr>
@@ -86,8 +90,12 @@ nrOfApplications, nrOfKindergartenSpots, nrOfWaitingApplications, nrOfApprovedAp
                 
                 </tbody>
             </table>
-            <h1 className="mb-3" style={{marginLeft: "200px"}}>Prašymų statistika</h1>
-            <table id="groupTable" className='table col-12 mb-5'>
+            </div>
+            </div>
+            <div className="templatemo-content-widget no-padding col-6 my-4 mx-0">
+            <h3 className="mb-3">Prašymų statistika</h3>
+            <div className="panel panel-default table-responsive">
+                <table className="table table-striped table-bordered templatemo-user-table mb-3">
                 
                 <tbody>
                    
@@ -110,6 +118,8 @@ nrOfApplications, nrOfKindergartenSpots, nrOfWaitingApplications, nrOfApprovedAp
                 
                 </tbody>
             </table>
+            </div>
+            </div>
         </div>
     )
 }
