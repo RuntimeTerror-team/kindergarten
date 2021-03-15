@@ -1,4 +1,24 @@
+.logo-div {
+    height: 135px;
+    width: 300px;
+    display: flex;
+    justify-content: center;
+}
+
 .logo {
+    /* background-image: url("/src/images/logo.png"); */
+    height: 100%;
+    width: 50%;
+}
+
+.logo-img {
+    background-image: url("/src/images/logo.png");
+    height: 100%;
+    width: 50%;
+}
+
+.logo-img-public {
+    background-image: url("/public/logo.png");
     height: 100%;
     width: 50%;
 }
