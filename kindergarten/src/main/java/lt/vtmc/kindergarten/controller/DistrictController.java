@@ -12,6 +12,7 @@ import org.slf4j.MarkerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -28,6 +29,7 @@ public class DistrictController {
     @Autowired
     private DistrictService districtService;
 
+    @PreAuthorize("hasRole('ADMIN')")
     @RequestMapping(value="/api/district", method = RequestMethod.POST)
     @ApiOperation(value = "Create district", notes = "Creates a new district")
     public ResponseEntity<?> addDistrict(
@@ -45,7 +47,8 @@ public class DistrictController {
     	return ResponseEntity.ok(new MessageResponse("Rajonas sėkmingai sukurtas", addedDistrict));
         
     }
-   
+
+    @PreAuthorize("hasRole('ADMIN')")
     @ApiOperation(value = "Update District", notes = "Updates district by id")
     @RequestMapping(value = "/api/district/{id}", method = RequestMethod.PUT)
     @ResponseStatus(HttpStatus.OK)
@@ -55,7 +58,7 @@ public class DistrictController {
             @RequestBody DistrictDto districtDto
     ){
         districtService.updateDistrict(id, districtDto);
-        logger.info(districtEvent, "Atnaujinas rajono pavadinimas: {}. Įvykio laikas: {}", districtDto.getTitle(), new Date());
+        logger.info(districtEvent, "Atnaujintas rajono pavadinimas: {}. Įvykio laikas: {}", districtDto.getTitle(), new Date());
     }
 
     @ApiOperation(value = "Get single district by id", notes = "Returns a single district by id")
@@ -67,6 +70,7 @@ public class DistrictController {
         return districtService.getDistrict(district_id);
     }
 
+    @PreAuthorize("hasAnyRole('ADMIN', 'EDUCATION_SPECIALIST')")
     @RequestMapping(method = RequestMethod.GET, value = "/api/districts")
     @ApiOperation(value="Get districts",notes ="Returns all districts")
     @ResponseStatus(HttpStatus.OK)

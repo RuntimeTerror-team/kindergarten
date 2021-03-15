@@ -17,7 +17,7 @@ public class LoginController {
     @Autowired
     private PersonService personService;
 
-    @RequestMapping(path = "/loggedUsername", method = RequestMethod.GET)
+    @RequestMapping(path = "/api/loggedUsername", method = RequestMethod.GET)
     public String getLoggedInUsername() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         if (!(authentication instanceof AnonymousAuthenticationToken)) {
@@ -27,7 +27,7 @@ public class LoginController {
         return "not logged";
     }
 
-    @RequestMapping(path = "/loggedRole", method = RequestMethod.GET)
+    @RequestMapping(path = "/api/loggedRole", method = RequestMethod.GET)
     public String getLoggedInRole() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         if (!(authentication instanceof AnonymousAuthenticationToken)) {
@@ -37,7 +37,7 @@ public class LoginController {
         return "no role";
     }
 
-    @RequestMapping(path = "/loggedWithDetails", method = RequestMethod.GET)
+    @RequestMapping(path = "/api/loggedWithDetails", method = RequestMethod.GET)
     public Boolean hasPersonDetails() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String currentUserName = authentication.getName();

@@ -145,7 +145,7 @@ class ApplicationContainer extends Component {
           .catch(err => console.log(err))
 
         Axios
-          .get(`${baseUrl}/loggedUsername`)
+          .get(`${baseUrl}/api/loggedUsername`)
           .then((res) => {
             this.setState({ username: res.data })
             Axios
@@ -1231,7 +1231,7 @@ class ApplicationContainer extends Component {
         .catch(err => { console.log(err) })
 
       Axios
-        .get(`${baseUrl}/loggedUsername`)
+        .get(`${baseUrl}/api/loggedUsername`)
         .then((res) => {
           this.setState({ username: res.data })
           Axios

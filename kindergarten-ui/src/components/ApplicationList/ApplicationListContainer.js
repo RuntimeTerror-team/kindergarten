@@ -20,7 +20,7 @@ class GuardianPageContainer extends Component {
     componentDidMount() {
 
         axios
-            .get(`${baseUrl}/loggedUsername`)
+            .get(`${baseUrl}/api/loggedUsername`)
             .then((res) => {
                 this.setState({ username: res.data })
                 axios.get(baseUrl + "/api/applications/info/" + this.state.username)
@@ -51,9 +51,9 @@ class GuardianPageContainer extends Component {
                     application.applicationStatus = 'Patvirtintas'
                     break;
                 case "WAITING":
-                     application.applicationStatus = 'Eilėje'
+                    application.applicationStatus = 'Eilėje'
                     break;
-            
+
                 default:
                     break;
             }

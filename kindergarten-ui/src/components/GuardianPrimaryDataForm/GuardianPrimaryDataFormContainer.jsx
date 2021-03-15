@@ -40,7 +40,7 @@ class GuardianPrimaryDataFormContainer extends Component {
 
     componentDidMount = () => {
         axios
-            .get(`${baseUrl}/loggedUsername`)
+            .get(`${baseUrl}/api/loggedUsername`)
             .then((res) => this.setState({ username: res.data }))
             .catch((err) => console.log(err))
     }

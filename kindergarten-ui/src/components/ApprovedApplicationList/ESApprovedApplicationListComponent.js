@@ -1,7 +1,6 @@
 import React from "react";
 import Proptypes from "prop-types";
-import { GrNext } from "react-icons/gr";
-import { GrPrevious } from "react-icons/gr";
+import { BsChevronRight, BsChevronLeft } from "react-icons/bs";
 import { Modal, Button } from "react-bootstrap";
 import { BsSearch } from "react-icons/bs";
 import AppModal from "../common/AppModal";
@@ -32,8 +31,8 @@ const ESApprovedApplicationListComponent = ({
       <div className="row">
         <div className="col-10">
           <form className="form-inline">
-            <div className="form-inline mr-sm-3"><BsSearch size="18px" color="#4285F4"/></div>
-            <input className="form-control" type="search" style={{width: "350px"}} placeholder="Įveskite vaiko asmens kodą arba pavardę..." aria-label="Search" onChange={updateSearchInputValue}></input>
+            <div className="form-inline mr-sm-3"><BsSearch size="18px" color="#4285F4" /></div>
+            <input className="form-control" type="search" style={{ width: "350px" }} placeholder="Įveskite vaiko asmens kodą arba pavardę..." aria-label="Search" onChange={updateSearchInputValue}></input>
           </form>
         </div>
         {permission && queueStatus === "LOCKED" && <div className="col-2">
@@ -163,13 +162,13 @@ const ESApprovedApplicationListComponent = ({
 
         <div className="btn-group mr-2" role="group" aria-label="Second group">
           <button type="button mr-2" className="templatemo-blue-button " onClick={prevPage}>
-            <GrPrevious />
+            <BsChevronLeft />
           </button>
         </div>
 
         <div className="btn-group mr-2" role="group" aria-label="Second group">
           <button type="button mr-2" className="templatemo-blue-button " onClick={nextPage}>
-            <GrNext />
+            <BsChevronRight />
           </button>
         </div>
 
