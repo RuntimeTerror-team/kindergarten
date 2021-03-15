@@ -34,10 +34,10 @@ const AdminDistrictFormComponent = ({
             </div>
           </div>
           <div className="invalid-feedback">Pavadinimo ilgis turi būti 5-20 ženklų.</div>
-          <span className={props.messageStyle + " col-12 mb-0 mt-2"}>
-            {props.requestMessage}
-          </span>
         </form>
+      </div>
+      <div className={props.messageStyle + " col-12 mb-0 mt-2"}>
+        {props.requestMessage}
       </div>
       {districts.length > 0 && <DistrictTableComponent districts={districts} {...props} />}
     </div>
