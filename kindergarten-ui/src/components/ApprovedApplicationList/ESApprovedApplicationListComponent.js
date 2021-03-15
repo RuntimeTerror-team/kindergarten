@@ -73,7 +73,7 @@ const ESApprovedApplicationListComponent = ({
                     parentLastName,
                     date,
                     status,
-                    approvedKindergartenTitle,
+                    approvedKindergarten,
                     waitingNumber,
                     applicationId,
                     childPersonalCode
@@ -85,8 +85,8 @@ const ESApprovedApplicationListComponent = ({
                     waitingNumber = "-";
                   }
 
-                  if (approvedKindergartenTitle === null) {
-                    approvedKindergartenTitle = "-";
+                  if (approvedKindergarten === null) {
+                    approvedKindergarten = "-";
                   }
 
                   return (
@@ -98,7 +98,7 @@ const ESApprovedApplicationListComponent = ({
                       <td>{parentFirstName + " " + parentLastName}</td>
                       <td>{date}</td>
                       <td>{status}</td>
-                      <td>{approvedKindergartenTitle}</td>
+                      <td>{approvedKindergarten}</td>
                       <td>{waitingNumber}</td>
                       <td>
                         <button className="templatemo-edit-btn" onClick={onOpenPDF} value={applicationId}>

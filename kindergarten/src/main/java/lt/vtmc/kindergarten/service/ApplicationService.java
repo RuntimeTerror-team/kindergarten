@@ -155,6 +155,23 @@ public class ApplicationService implements PagingLimit<ApplicationAfterDistribut
 
         return applicationInfoList;
     }
+    
+    @Transactional
+    public List<DistributedApplicationInfoDto> getDistributedApplicationsInfo(String username) {
+        User user = userDao.findByUsername(username);
+        Person parent = personDao.findByUser(user);
+
+        Set<Application> applications = applicationDao.findByParent(parent);
+        Set<ApplicationAfterDistribution> distributedApplications = new LinkedHashSet<>();
+        applications.stream().
+        forEach(application -> distributedApplications.add(applicationAfterDistributionDao.findApplicationByApplicationId(application.getId())));
+
+        List<DistributedApplicationInfoDto> distributedApplicationInfoList = distributedApplications.stream()
+        		.map(distributedApplication -> new DistributedApplicationInfoDto(distributedApplication)
+        ).collect(Collectors.toList());
+
+        return distributedApplicationInfoList;
+    }
 
 
     private int countScore(ApplicationCreationDto applicationCreationDto) {
