@@ -15,10 +15,12 @@ import static org.testng.Assert.assertEquals;
 public class KindergartenGroupCreationTest extends BaseTest {
 
 
-    @Test(groups = "smoke, regression")
+    @Test
     public void newKindergartenGroupCreationTest() {
 
-
+        WebDriverWait wait = new WebDriverWait(driver, 5);
+        WebElement loginh1 = wait.until(
+                ExpectedConditions.presenceOfElementLocated(By.id("loginh1")));
         LoginPage loginPage = new LoginPage(driver);
         EducationSpecialistPage educationSpecialistPage = new EducationSpecialistPage(driver);
         EducationSpecialistKindergartenListPage educationSpecialistKindergartenListPage = new EducationSpecialistKindergartenListPage(driver);
@@ -29,7 +31,7 @@ public class KindergartenGroupCreationTest extends BaseTest {
         loginPage.enterUsername(specialistUsername);
         loginPage.enterPassword(specialistPassword);
         loginPage.clickLoginButton();
-        WebDriverWait wait = new WebDriverWait(driver, 10);
+        wait = new WebDriverWait(driver, 10);
         WebElement successfulText = wait.until(
                 ExpectedConditions.presenceOfElementLocated(By.xpath("//*[@id=\"root\"]/div/div/div[2]/div[1]/div/nav/ul/li[2]/p/strong")));
 
@@ -45,7 +47,7 @@ public class KindergartenGroupCreationTest extends BaseTest {
                 ExpectedConditions.presenceOfElementLocated(By.xpath("//*[@id=\"root\"]/div/div/div[2]/div[2]/h1/strong")));
 
         Select ageGroupsDropdown = new Select(driver.findElement(By.id("ageRange")));
-        ageGroupsDropdown.selectByIndex(5);
+        ageGroupsDropdown.selectByIndex(8);
         String childrenAmount = "3";
         educationSpecialistKindergartenGroupsListPage.enterChildrenAmount(childrenAmount);
 
@@ -96,7 +98,7 @@ public class KindergartenGroupCreationTest extends BaseTest {
                 ExpectedConditions.presenceOfElementLocated(By.xpath("//*[@id=\"root\"]/div/div/div[2]/div[2]/h1/strong")));
 
         Select ageGroupsDropdown = new Select(driver.findElement(By.id("ageRange")));
-        ageGroupsDropdown.selectByIndex(3);
+        ageGroupsDropdown.selectByIndex(8);
         String childrenAmount = "3";
         educationSpecialistKindergartenGroupsListPage.enterChildrenAmount(childrenAmount);
 
@@ -104,7 +106,7 @@ public class KindergartenGroupCreationTest extends BaseTest {
 
         wait = new WebDriverWait(driver, 10);
         successfulText = wait.until(
-                ExpectedConditions.presenceOfElementLocated(By.xpath("//*[@id=\"root\"]/div/div/div[2]/div[2]/div/form/div[4]")));
+                ExpectedConditions.presenceOfElementLocated(By.xpath("/html/body/div/div/div/div[2]/div[2]/div/form/div[4]")));
 
         String actualKindergartenGroupCreationText = educationSpecialistKindergartenGroupsListPage.findUnsuccessfulSameGroupCreationText();
         assertEquals(actualKindergartenGroupCreationText, "Toks amžiaus intervalas jau išsaugotas kitoje grupėje", "Text is not as expected: ");
@@ -148,7 +150,7 @@ public class KindergartenGroupCreationTest extends BaseTest {
         successfulText = wait.until(
                 ExpectedConditions.presenceOfElementLocated(By.xpath("//*[@id=\"root\"]/div/div/div[2]/div[2]/h1/strong")));
 
-        String childrenAmount = "11";
+        String childrenAmount = "4";
         educationSpecialistKindergartenGroupsListPage.clearChildrenAmount();
         educationSpecialistKindergartenGroupsListPage.enterChildrenAmount(childrenAmount);
 

@@ -20,7 +20,7 @@ public class EducationSpecialistKindergartenGroupsListPage extends AbstractPage 
     @FindBy(xpath = "//*[@id=\"root\"]/div/div/div[2]/div[2]/div/form/div[5]/button[1]")
     public WebElement buttonBackToGroupList;
 
-    @FindBy(xpath = "//*[@id=\"root\"]/div/div/div[2]/div[2]/div/div/div/table/tbody/tr/td[3]/a")
+    @FindBy(xpath = "/html/body/div/div/div/div[2]/div[2]/div/div/div/table/tbody/tr/td[3]/a")
     public WebElement buttonChangeAmount;
 
     @FindBy(xpath = "//*[@id=\"root\"]/div/div/div[2]/div[2]/div/form/div[5]/button[2]")
@@ -30,10 +30,10 @@ public class EducationSpecialistKindergartenGroupsListPage extends AbstractPage 
     public WebElement buttonAddChildrenToGroup;
 
     // text
-    @FindBy(xpath = "//*[@id=\"root\"]/div/div/div[2]/div[2]/div/form/div[3]")
+    @FindBy(xpath = "/html/body/div/div/div/div[2]/div[2]/div/form/div[3]")
     public WebElement successfulGroupCreationText;
 
-    @FindBy(xpath = "//*[@id=\"root\"]/div/div/div[2]/div[2]/div/form/div[4]")
+    @FindBy(xpath = "/html/body/div/div/div/div[2]/div[2]/div/form/div[4]")
     public WebElement unsuccessfulSameGroupCreationText;
 
     @FindBy(xpath = "//*[@id=\"root\"]/div/div/div[2]/div[2]/h1/strong")

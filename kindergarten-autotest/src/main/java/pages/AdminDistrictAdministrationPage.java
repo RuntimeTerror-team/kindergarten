@@ -17,17 +17,17 @@ public class AdminDistrictAdministrationPage extends AbstractPage {
     @FindBy(xpath = "//*[@id=\"root\"]/div/div/div[2]/div[2]/div/div[1]/form/div[1]/div/button")
     public WebElement buttonSaveDistrict;
 
-    @FindBy(xpath = "//*[@id=\"1\"]")
+    @FindBy(xpath = "/html/body/div/div/div/div[2]/div[2]/div/div[3]/div/table/tbody/tr[1]/td[2]/button")
     public WebElement firstDistrictInTheListEditButton;
 
-    @FindBy(xpath = "/html/body/div/div/div/div[2]/div[2]/div/div[2]/div/table/tbody/tr[1]/td[2]/button")
+    @FindBy(xpath = "/html/body/div/div/div/div[2]/div[2]/div/div[3]/div/table/tbody/tr[1]/td[2]/button")
     public WebElement saveNewDistrictNameButton;
 
     //text
-    @FindBy(xpath = "//*[@id=\"root\"]/div/div/div[2]/div[2]/div/div[1]/form/span")
+    @FindBy(xpath = "//*[@id=\"root\"]/div/div/div[2]/div[2]/div/div[2]")
     public WebElement successfulDistrictCreationText;
 
-    @FindBy(xpath = "//*[@id=\"root\"]/div/div/div[2]/div[2]/div/div[2]/div/table/tbody/tr[1]/td[1]")
+    @FindBy(xpath = "/html/body/div/div/div/div[2]/div[2]/div/div[3]/div/table/tbody/tr[1]/td[1]")
     public WebElement getSuccessfulNewDistrictNameText;
 
     public AdminDistrictAdministrationPage(WebDriver driver) {

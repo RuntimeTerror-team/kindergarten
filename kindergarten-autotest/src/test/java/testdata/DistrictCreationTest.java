@@ -32,11 +32,13 @@ public class DistrictCreationTest extends BaseTest {
         adminPage.clickDistrictAdministrationButton();
         successfulText = wait.until(
                 ExpectedConditions.presenceOfElementLocated(By.xpath("//*[@id=\"root\"]/div/div/div[2]/div[2]/h1/strong")));
-        String districtName = "Karoliniškių rajonas";
+        String districtName = "Lazdynėliai";
         adminDistrictAdministrationPage.enterDistrictName(districtName);
         adminDistrictAdministrationPage.clickAddDistrictButton();
+        wait = new WebDriverWait(driver, 10);
         successfulText = wait.until(
-                ExpectedConditions.presenceOfElementLocated(By.xpath("//*[@id=\"root\"]/div/div/div[2]/div[2]/div/div[1]/form/span")));
+                ExpectedConditions.presenceOfElementLocated(By.xpath("//*[@id=\"root\"]/div/div/div[2]/div[2]/div/div[2]")));
+
         String actualSuccessfulDistrictCreationText = adminDistrictAdministrationPage.findSuccessfulDistrictCreationText();
         assertEquals(actualSuccessfulDistrictCreationText, "Rajonas sėkmingai sukurtas", "Text is not as expected: ");
         adminPage.clickAdminLogoutButton();
@@ -53,7 +55,7 @@ public class DistrictCreationTest extends BaseTest {
         AdminLoginLogoutTest adminLoginLogoutTest = new AdminLoginLogoutTest();
         AdminDistrictAdministrationPage adminDistrictAdministrationPage = new AdminDistrictAdministrationPage(driver);
         adminLoginLogoutTest.adminLoginTest();
-        wait = new WebDriverWait(driver, 3);
+        wait = new WebDriverWait(driver, 5);
         WebElement successfulText = wait.until(
                 ExpectedConditions.presenceOfElementLocated(By.xpath("//*[@id=\"root\"]/div/div/div[2]/div[1]/div/nav/ul/li[2]/p/strong")));
 
@@ -61,15 +63,15 @@ public class DistrictCreationTest extends BaseTest {
         successfulText = wait.until(
                 ExpectedConditions.presenceOfElementLocated(By.xpath("//*[@id=\"root\"]/div/div/div[2]/div[2]/h1/strong")));
 
-        String newDistrict = "Antakalnis";
+        String newDistrict = "Antakalnio rajonas";
         adminDistrictAdministrationPage.clickFirstDistrictInTheListToEdit();
         adminDistrictAdministrationPage.clearDistrictName();
         adminDistrictAdministrationPage.enterNewDistrictName(newDistrict);
 
         adminDistrictAdministrationPage.clickToSaveNewDistrictName();
-        wait = new WebDriverWait(driver, 5);
+        wait = new WebDriverWait(driver, 10);
         successfulText = wait.until(
-                ExpectedConditions.presenceOfElementLocated(By.xpath("//*[@id=\"root\"]/div/div/div[2]/div[2]/div/div[2]/div/table/thead/tr/th[2]")));
+                ExpectedConditions.presenceOfElementLocated(By.xpath("/html/body/div/div/div/div[2]/div[2]/div/div[3]/div/table/tbody/tr[1]/td[1]")));
 
         String actualSuccessfulNewDistrictSave = adminDistrictAdministrationPage.findSuccessfulNewDistrictNameSaveText();
         assertEquals(actualSuccessfulNewDistrictSave, newDistrict, "Text is not as expected: ");

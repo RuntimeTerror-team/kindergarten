@@ -50,8 +50,7 @@ public class ParentPasswordChangeTest extends BaseTest {
 
         parentPage.clickParentLogoutButton();
 
-        Thread.sleep(2000);
-        wait = new WebDriverWait(driver, 10);
+              wait = new WebDriverWait(driver, 10);
         loginh1 = wait.until(
                 ExpectedConditions.presenceOfElementLocated(By.id("loginh1")));
 

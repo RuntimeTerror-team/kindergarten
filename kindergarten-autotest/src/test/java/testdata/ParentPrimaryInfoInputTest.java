@@ -51,8 +51,8 @@ public class ParentPrimaryInfoInputTest extends BaseTest {
 
         WebElement loginh1 = wait.until(
                 ExpectedConditions.presenceOfElementLocated(By.id("loginh1")));
-        String parentUsername = parentFirstName + parentLastName + "11";
-        String parentPassword = parentFirstName + parentLastName + "11";
+        String parentUsername = parentFirstName + parentLastName + "4";
+        String parentPassword = parentFirstName + parentLastName + "4";
 
         loginPage.enterUsername(parentUsername);
         loginPage.enterPassword(parentPassword);
@@ -66,7 +66,7 @@ public class ParentPrimaryInfoInputTest extends BaseTest {
         parentPrimaryInputPage.enterFirstName(parentFirstName);
         parentPrimaryInputPage.enterLastName(parentLastName);
 
-        String personalCode = "37112220002";
+        String personalCode = "37112220015";
         String address = "Antakalnio g. 34-12";
         String postalCode = "12345";
         String phoneNo = "60606060";
@@ -127,8 +127,8 @@ public class ParentPrimaryInfoInputTest extends BaseTest {
 
         loginh1 = wait.until(
                 ExpectedConditions.presenceOfElementLocated(By.id("loginh1")));
-        parentUsername = parentFirstName + parentLastName + "7";
-        parentPassword = parentFirstName + parentLastName + "7";
+        parentUsername = parentFirstName + parentLastName + "3";
+        parentPassword = parentFirstName + parentLastName + "3";
 
         loginPage.enterUsername(parentUsername);
         loginPage.enterPassword(parentPassword);
@@ -142,7 +142,7 @@ public class ParentPrimaryInfoInputTest extends BaseTest {
         parentPrimaryInputPage.enterFirstName(parentFirstName);
         parentPrimaryInputPage.enterLastName(parentLastName);
 
-        personalCode = "47112220010";
+        personalCode = "47112220022";
         address = "Antakalnio g. 34-1";
         postalCode = "12345";
         phoneNo = "60606060";
@@ -206,8 +206,8 @@ public class ParentPrimaryInfoInputTest extends BaseTest {
 
         loginh1 = wait.until(
                 ExpectedConditions.presenceOfElementLocated(By.id("loginh1")));
-        parentUsername = parentFirstName + parentLastName + "3";
-        parentPassword = parentFirstName + parentLastName + "3";
+        parentUsername = parentFirstName + parentLastName + "2";
+        parentPassword = parentFirstName + parentLastName + "2";
 
         loginPage.enterUsername(parentUsername);
         loginPage.enterPassword(parentPassword);

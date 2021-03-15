@@ -14,12 +14,11 @@ import java.io.IOException;
 import static org.testng.Assert.assertEquals;
 
 
-
 public class ParentApplicationCreationTest extends BaseTest {
 
 
     @Test
-    public void parentApplicationCreationTest()  {
+    public void parentApplicationCreationTest() throws InterruptedException {
 
 
         LoginPage loginPage = new LoginPage(driver);
@@ -42,9 +41,9 @@ public class ParentApplicationCreationTest extends BaseTest {
                 ExpectedConditions.presenceOfElementLocated(By.xpath("//*[@id=\"root\"]/div/div/div[2]/div[1]/div/nav/ul/li[2]/p/strong")));
         parentPage.clickApplicationFillUp();
 
-        String childName = "Jonas";
-        String childSurname = "Petrauskas";
-        String childId = "50704120012";
+        String childName = "Alana";
+        String childSurname = "Petrauskaitė";
+        String childId = "60704120035";
         String childStreet = "Kalvarijų g. 44";
         String childCity = "Vilnius";
 
@@ -55,25 +54,31 @@ public class ParentApplicationCreationTest extends BaseTest {
         parentApplicationFillUpPage.enterChildCity(childCity);
         parentApplicationFillUpPage.clickChildSaveButton();
 
-        String newParentName = "Petras Jonas";
-        String newParentSurname = "Petrauskas-Jonaitis";
+        String newParentName = "Edgaras";
+        String newParentSurname = "Bujonauskas";
         String newParentAddress = "Antakalnio g.34-1";
         String newParentPostalCode = "12346";
 
         parentApplicationFillUpPage.clickParentDataEditButton();
         parentApplicationFillUpPage.clearOldParentName();
         parentApplicationFillUpPage.enterNewParentName(newParentName);
+        parentApplicationFillUpPage.clearOldParentSurname();
         parentApplicationFillUpPage.enterNewParentSurname(newParentSurname);
+        parentApplicationFillUpPage.clearOldParentAddress();
         parentApplicationFillUpPage.enterNewParentAddress(newParentAddress);
+        parentApplicationFillUpPage.clearOldParentPostalCode();
         parentApplicationFillUpPage.enterNewParentPostalCode(newParentPostalCode);
 
         parentApplicationFillUpPage.clickParentDataSaveButton();
+        WebElement buttonEditText = wait.until(
+                ExpectedConditions.presenceOfElementLocated(By.xpath("//*[@id=\"root\"]/div/div/div[2]/div[2]/div/form/div[2]/div/div[1]/div[9]/button")));
+
         parentApplicationFillUpPage.clickSecondParentAddButton();
 
         String secondParentName = "Jonė";
         String secondParentSurname = "Petrauskė";
-        String secondParentId = "98765432109";
-        String secondParentPhoneNo = "+3706060606";
+        String secondParentId = "98765432145";
+        String secondParentPhoneNo = "+37060606060";
         String secondParentAddress = "Kalvarijų g. 44";
         String secondParentCity = "Vilnius";
         String secondParentPostalCode = "12347";
@@ -102,17 +107,25 @@ public class ParentApplicationCreationTest extends BaseTest {
         parentApplicationFillUpPage.clickCheckBoxNumberFour();
 
         parentApplicationFillUpPage.clickApplicationSubmitButton();
-
+        wait = new WebDriverWait(driver, 10);
         WebElement applicationPageTitle = wait.until(
                 ExpectedConditions.presenceOfElementLocated(By.xpath("//*[@id=\"root\"]/div/div/div[2]/div[2]/h1/strong")));
 
 
+        parentPage.clickApplicationsButton();
+        applicationPageTitle = wait.until(
+                ExpectedConditions.presenceOfElementLocated(By.xpath("//*[@id=\"root\"]/div/div/div[2]/div[2]/h1/strong")));
+        Thread.sleep(3000);
         String actualChildName = parentApplicationsPage.findThirdApplicationChildNameText();
+
         assertEquals(actualChildName, childName + " " + childSurname, "Text is not as expected: ");
-
+        applicationPageTitle = wait.until(
+                ExpectedConditions.presenceOfElementLocated(By.xpath("//*[@id=\"root\"]/div/div/div[2]/div[2]/h1/strong")));
+        Thread.sleep(3000);
         String actualStatusText = parentApplicationsPage.findThirdChildApplicationStatusText();
-        assertEquals(actualChildName, "Pateiktas", "Text is not as expected: ");
-
+        assertEquals(actualStatusText, "Pateiktas", "Text is not as expected: ");
+        applicationPageTitle = wait.until(
+                ExpectedConditions.presenceOfElementLocated(By.xpath("//*[@id=\"root\"]/div/div/div[2]/div[2]/h1/strong")));
         parentPage.clickParentLogoutButton();
 
     }

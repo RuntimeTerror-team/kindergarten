@@ -46,11 +46,13 @@ public class AgeGroupCreationTest extends BaseTest {
 
 
         Select AgeFromDropdown = new Select(driver.findElement(By.name("fromAge")));
-        AgeFromDropdown.selectByIndex(1);
-
+        AgeFromDropdown.selectByIndex(4);
         Select AgeToDropdown = new Select(driver.findElement(By.name("toAge")));
         AgeToDropdown.selectByIndex(4);
         educationSpecialistAgeGroupCreationPage.clickAgeGroupCreateButton();
+        wait = new WebDriverWait(driver, 10);
+        successfulText = wait.until(
+                ExpectedConditions.presenceOfElementLocated(By.xpath("//*[@id=\"root\"]/div/div/div[2]/div[2]/div/div[1]/form/div[3]")));
 
         String actualResultAgeGroupCreationText = educationSpecialistAgeGroupCreationPage.findSuccessfulAgeGroupCreationText();
         assertEquals(actualResultAgeGroupCreationText, "Grupės intervalas sėkmingai išsaugotas", "Text is not as expected: ");
@@ -82,13 +84,14 @@ public class AgeGroupCreationTest extends BaseTest {
         successfulText = wait.until(
                 ExpectedConditions.presenceOfElementLocated(By.xpath("//*[@id=\"root\"]/div/div/div[2]/div[2]/h1/strong")));
         Select AgeFromDropdown = new Select(driver.findElement(By.name("fromAge")));
-        AgeFromDropdown.selectByIndex(1);
+        AgeFromDropdown.selectByIndex(4);
 
         Select AgeToDropdown = new Select(driver.findElement(By.name("toAge")));
         AgeToDropdown.selectByIndex(4);
         educationSpecialistAgeGroupCreationPage.clickAgeGroupCreateButton();
         successfulText = wait.until(
                 ExpectedConditions.presenceOfElementLocated(By.xpath("//*[@id=\"root\"]/div/div/div[2]/div[2]/div/div[1]/form/div[3]")));
+
         String actualResultAgeGroupCreationText = educationSpecialistAgeGroupCreationPage.findUnsuccessfulSameAgeGroupCreationText();
         assertEquals(actualResultAgeGroupCreationText, "Toks amžiaus intervalas jau yra įrašytas", "Text is not as expected: ");
 
