@@ -38,11 +38,11 @@ const ESApprovedApplicationListComponent = ({
             <button className="btn btn-outline-primary my-2 my-sm-0" type="submit" >Ieškoti <BsSearch /> </button>
           </form>
         </div>
-        <div className="col-2">
+        {permission && queueStatus === "LOCKED" && <div className="col-2">
           <button type="submit" className="templatemo-blue-button" onClick={recalculation}>
             Perrūšiuoti prašymus
           </button>
-        </div>
+        </div>}
       </div>
       <div className="templatemo-content-widget no-padding col-12 my-4 mx-0">
         <div className="panel panel-default table-responsive">
@@ -148,16 +148,7 @@ const ESApprovedApplicationListComponent = ({
         </Modal.Footer>
       </Modal>
 
-      {/*  <Modal show={statusRejected} aria-labelledby="contained-modal-title-vcenter" centered>
-        <Modal.Body>Prašymas sėkmingai atmestas.</Modal.Body>
-        <Modal.Footer>
-          <Button variant="secondary" onClick={closeAlert}>
-            Uždaryti
-        </Button>
-        </Modal.Footer>
-      </Modal> */}
-
-      <div className="float-right btn-toolbar pt-5" role="toolbar" aria-label="Toolbar with button groups">
+      <div className="button-toolbar mt-5 mb-4" role="toolbar" aria-label="Toolbar with button groups">
         <div className="btn-group mr-2" role="group" aria-label="First group">
           <div className="pr-3" style={{ color: "#AFAFAF", alignItems: "center" }}>
             <p>
