@@ -5,7 +5,7 @@ let GuardianInfoComponent = (props) => {
 
     return (
         <div>
-            <div className="templatemo-content-widget white-bg">
+            <div className="templatemo-content-widget white-bg mb-4">
                 <h3 className="margin-bottom-10">Duomenų redagavimas</h3>
 
                 <div className="form-group">

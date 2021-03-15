@@ -34,7 +34,7 @@ class ESNavigationComponent extends Component {
     render() {
         return (
             <div className="templatemo-sidebar">
-                <div className="text-center" href="/kindergarten/" style={{ height: "135px" }}>
+                <div className="logo-div">
                     <img src={logo} alt="logo" className="logo mx-auto" />
                 </div>
                 <nav className="templatemo-left-nav">
