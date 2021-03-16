@@ -22,7 +22,7 @@ import org.springframework.transaction.annotation.Transactional;
 import static org.junit.jupiter.api.Assertions.*;
 
 @ContextConfiguration
-@WithMockUser(username="administratorius",roles={"ADMIN"})
+@WithMockUser(username="administratorius",roles={"ADMIN", "GUARDIAN"})
 @SpringBootTest
 public class UserControllerTest {
 

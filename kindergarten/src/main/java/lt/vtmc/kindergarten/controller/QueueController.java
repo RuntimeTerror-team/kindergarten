@@ -15,6 +15,7 @@ import org.slf4j.MarkerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Date;
@@ -31,6 +32,7 @@ public class QueueController {
     @Autowired
     private QueueService queueService;
 
+    /* TODO - check if in use */
     @ApiOperation(value = "Get single queue by id", notes = "Returns a single queue by id")
     @RequestMapping(method = RequestMethod.GET, value = "/api/queues/{queue_id}")
     @ResponseStatus(HttpStatus.OK)
@@ -40,6 +42,7 @@ public class QueueController {
         return queueService.getQueue(queue_id);
     }
 
+    @PreAuthorize("hasAnyRole('ADMIN', 'GUARDIAN', 'EDUCATION_SPECIALIST')")
     @RequestMapping(method = RequestMethod.GET, value = "/api/queues")
     @ApiOperation(value = "Get queues", notes = "Returns all queues")
     @ResponseStatus(HttpStatus.OK)
@@ -47,7 +50,7 @@ public class QueueController {
         return queueService.getQueues();
     }
 
-
+    @PreAuthorize("hasRole('ADMIN')")
     @RequestMapping(value = "/api/queues", method = RequestMethod.POST)
     @ResponseStatus(HttpStatus.CREATED)
     @ApiOperation(value = "Create queue with opening Date", notes = "Creates new queue with opening date")
@@ -58,7 +61,7 @@ public class QueueController {
         logger.info(queueEvent,"Administratorius sukūrė eilę. Įvykio laikas: {}", new Date());
     }
 
-
+    @PreAuthorize("hasRole('EDUCATION_SPECIALIST')")
     @RequestMapping(value = "/api/queues/{id}", method = RequestMethod.PUT)
     @ApiOperation(value = "Update queue registration closing date", notes = "Updates queue closing registration date by id")
     @ResponseStatus(HttpStatus.OK)
@@ -76,7 +79,7 @@ public class QueueController {
         }
     }
 
-
+    @PreAuthorize("hasRole('EDUCATION_SPECIALIST')")
     @RequestMapping(value = "/api/queues/closing/{id}", method = RequestMethod.PUT)
     @ApiOperation(value = "Update queue closing date", notes = "Updates queue closing date by id")
     @ResponseStatus(HttpStatus.OK)
