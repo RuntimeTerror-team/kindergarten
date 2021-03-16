@@ -107,29 +107,17 @@ public class CommandLineAppStartupRunner implements CommandLineRunner {
             // Create parents
 
 
-//            List<String> guardianPersonalCodes = new ArrayList<>();
-//            for ( int i =0; i<1000; i++){
-//                String createdPersonalCode = dataSeeder.createPerson(i, "GUARDIAN");
-//                guardianPersonalCodes.add(createdPersonalCode);
-//            }
-//
-//            List<String> childrenPersonalCodes = new ArrayList<>();
-//            for ( int i = 0; i<3000; i++) {
-//                String createdPersonalCode = dataSeeder.createPerson(i, "NON_GUARDIAN");
-//                childrenPersonalCodes.add(createdPersonalCode);
-//            }
             List<String> guardianPersonalCodes = new ArrayList<>();
-            IntStream.range(0, 1000).parallel().forEach(i->{
+            for ( int i =0; i<1000; i++){
                 String createdPersonalCode = dataSeeder.createPerson(i, "GUARDIAN");
                 guardianPersonalCodes.add(createdPersonalCode);
-            });
+            }
 
             List<String> childrenPersonalCodes = new ArrayList<>();
-            IntStream.range(0, 3000).parallel().forEach(i->{
+            for ( int i = 0; i<3000; i++) {
                 String createdPersonalCode = dataSeeder.createPerson(i, "NON_GUARDIAN");
                 childrenPersonalCodes.add(createdPersonalCode);
-            });
-
+            }
 
             ListIterator<String> guardianIterator = guardianPersonalCodes.listIterator();
             while(guardianIterator.hasNext()){
