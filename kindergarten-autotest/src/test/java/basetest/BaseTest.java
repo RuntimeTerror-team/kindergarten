@@ -2,16 +2,21 @@ package basetest;
 
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
-import org.testng.annotations.AfterClass;
-import org.testng.annotations.BeforeClass;
+import org.testng.annotations.*;
 
 public abstract class BaseTest {
 	protected static WebDriver driver;
 
-	@BeforeClass
+
+	@BeforeTest(alwaysRun = true)
+	public static void setUp() {
+		System.setProperty("webdriver.chrome.driver", "src/test/resources/chromedriver.exe");
+	}
+
+	@BeforeMethod(alwaysRun = true)
 	public static void setUpBeforeClass()  {
 
-		System.setProperty("webdriver.chrome.driver", "src/test/resources/chromedriver.exe");
+
 		driver = new ChromeDriver();
 
 		driver.manage().window().maximize();
@@ -19,7 +24,7 @@ public abstract class BaseTest {
 	}
 
 
-	@AfterClass
+	@AfterMethod(alwaysRun = true)
 	public static void tearDown() {
 		driver.manage().deleteAllCookies();
 		// driver.close();

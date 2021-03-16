@@ -10,8 +10,10 @@ public class ParentHealthFormsPage extends AbstractPage {
     @FindBy(xpath = "//*[@id=\"root\"]/div/div/div[2]/div[2]/h1/strong")
     public WebElement healthFormsTitleText;
 
-    @FindBy (xpath = "//*[@id=\"root\"]/div/div/div[2]/div[2]/div[2]")
+    @FindBy(xpath = "//*[@id=\"root\"]/div/div/div[2]/div[2]/div[2]")
     public WebElement warningThereAreNoHealthFormsUploaded;
+    @FindBy(xpath = "/html/body/div/div/div/div[2]/div[2]/div[2]/div/table/tbody/tr/td[3]")
+    public WebElement healthFormFileName;
 
     // button
     @FindBy(xpath = "//*[@id=\"root\"]/div/div/div[2]/div[2]/div[1]/div/div[2]/form/div[3]/button")
@@ -26,7 +28,6 @@ public class ParentHealthFormsPage extends AbstractPage {
     // input
 
 
-
     public ParentHealthFormsPage(WebDriver driver) {
         super(driver);
     }
@@ -38,6 +39,10 @@ public class ParentHealthFormsPage extends AbstractPage {
 
     public String findWarningThereAreNoHealthFormsUploadedText() {
         return warningThereAreNoHealthFormsUploaded.getText();
+    }
+
+    public String findHealthFormFileName() {
+        return healthFormFileName.getText();
     }
 
     // button

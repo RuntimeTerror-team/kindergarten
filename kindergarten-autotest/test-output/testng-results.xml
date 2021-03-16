@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testng-results ignored="30" total="31" passed="1" failed="0" skipped="0">
+  <reporter-output>
+  </reporter-output>
+  <suite started-at="2021-03-16T18:18:15 EET" name="SmokeTests" finished-at="2021-03-16T18:18:21 EET" duration-ms="5429">
+    <groups>
+      <group name="regression">
+        <method signature="AdminLoginLogoutTest.adminLoginTest()[pri:0, instance:testdata.AdminLoginLogoutTest@dd05255]" name="adminLoginTest" class="testdata.AdminLoginLogoutTest"/>
+      </group> <!-- regression -->
+      <group name="smoke">
+        <method signature="AdminLoginLogoutTest.adminLoginTest()[pri:0, instance:testdata.AdminLoginLogoutTest@dd05255]" name="adminLoginTest" class="testdata.AdminLoginLogoutTest"/>
+      </group> <!-- smoke -->
+    </groups>
+    <test started-at="2021-03-16T18:18:15 EET" name="smoke" finished-at="2021-03-16T18:18:21 EET" duration-ms="5429">
+      <class name="testdata.AdminLoginLogoutTest">
+        <test-method is-config="true" signature="setUp()[pri:0, instance:testdata.AdminLoginLogoutTest@dd05255]" started-at="2021-03-16T18:18:15 EET" name="setUp" finished-at="2021-03-16T18:18:15 EET" duration-ms="21" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- setUp -->
+        <test-method is-config="true" signature="setUpBeforeClass()[pri:0, instance:testdata.AdminLoginLogoutTest@dd05255]" started-at="2021-03-16T18:18:15 EET" name="setUpBeforeClass" finished-at="2021-03-16T18:18:20 EET" duration-ms="4065" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- setUpBeforeClass -->
+        <test-method signature="adminLoginTest()[pri:0, instance:testdata.AdminLoginLogoutTest@dd05255]" started-at="2021-03-16T18:18:20 EET" name="adminLoginTest" finished-at="2021-03-16T18:18:21 EET" duration-ms="1245" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- adminLoginTest -->
+        <test-method is-config="true" signature="tearDown()[pri:0, instance:testdata.AdminLoginLogoutTest@dd05255]" started-at="2021-03-16T18:18:21 EET" name="tearDown" finished-at="2021-03-16T18:18:21 EET" duration-ms="31" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- tearDown -->
+      </class> <!-- testdata.AdminLoginLogoutTest -->
+    </test> <!-- smoke -->
+  </suite> <!-- SmokeTests -->
+</testng-results>
