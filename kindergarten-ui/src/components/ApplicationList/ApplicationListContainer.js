@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import GuardianNavigationComponent from '../Navigation/GuardianNavigationComponent'
 import HeaderComponent from '../Header/HeaderComponent';
 import Footer from '../Footer/Footer';
-
+import urls from '../../constants/urls';
 import '../../styles/pages.css';
 import ApplicationListComponent from './ApplicationListComponent';
 import axios from 'axios';
@@ -51,9 +51,21 @@ class GuardianPageContainer extends Component {
 
             .catch(err => console.log)
 
-        
-            
+    }
 
+    cancelApplication = (e) => {
+
+                axios.put(baseUrl + "/api/applications/" + e.target.id + "/REJECTED")
+                .then(() =>{
+                    axios.get(baseUrl + "/api/applications/info/" + this.state.username)
+                            .then(res => {
+                                this.setState({ applications: res.data });
+                                this.translateStatus();
+                            })
+                            .catch(err => { console.log(err) })
+                        })
+                .catch((e) => console.log(e));
+                this.translateStatus();
 
     }
 
@@ -120,6 +132,7 @@ class GuardianPageContainer extends Component {
                             applications={this.state.applications}
                             distributedApplications={this.state.distributedApplications}
                             queueStatus={this.state.queueStatus}
+                            cancelApplication={this.cancelApplication}
                             />
                         <Footer />
                     </div>

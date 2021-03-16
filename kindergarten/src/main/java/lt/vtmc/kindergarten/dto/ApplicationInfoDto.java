@@ -6,6 +6,8 @@ import lt.vtmc.kindergarten.domain.ApplicationStatusEnum;
 import java.util.Date;
 
 public class ApplicationInfoDto {
+	
+	private Long applicationId;
 
     private Date applicationCreationDate;
 
@@ -19,6 +21,7 @@ public class ApplicationInfoDto {
     }
 
     public ApplicationInfoDto(Application application) {
+    	this.applicationId = application.getId();
         this.applicationCreationDate = application.getDate();
         this.childFirstName = application.getChild().getFirstName();
         this.childLastName = application.getChild().getLastName();
@@ -56,4 +59,13 @@ public class ApplicationInfoDto {
     public void setApplicationStatus(ApplicationStatusEnum applicationStatus) {
         this.applicationStatus = applicationStatus;
     }
+
+	public Long getApplicationId() {
+		return applicationId;
+	}
+
+	public void setApplicationId(Long applicationId) {
+		this.applicationId = applicationId;
+	}
+    
 }

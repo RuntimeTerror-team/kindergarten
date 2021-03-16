@@ -25,7 +25,6 @@ class PermissionsContainer extends Component {
             .get(baseUrl + "/api/users/ES/permission")
             .then(res => {
                 this.setState({ permission: res.data });
-                console.log("statusas uzsikrovius puslapiui: " + this.state.permission)
                 this.setState({ buttonText: this.state.permission ? "Panaikinti leidimą" : "Suteikti leidimą" })
             })
             .catch(err => { console.log(err) })
@@ -35,9 +34,6 @@ class PermissionsContainer extends Component {
     handlePermissionChange = (e) => {
 
         e.preventDefault();
-
-        //this.setState({permission: !this.state.permission})
-        console.log("leidimas pries uzklausa: " + this.state.permission)
 
         let permissionDto = {
             isAllowed: !this.state.permission
