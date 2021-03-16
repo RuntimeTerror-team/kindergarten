@@ -122,16 +122,18 @@ public class QueueService {
     protected void startKindergartenRegistrations() {
         logger.info("Kindergaten registration started. Searching for active queue");
         Queue queue = queueDao.findByStatus(QueueStatusEnum.ACTIVE);
-        logger.info("Getting all applications");
-        List<Application> applicationList = applicationDao.findAll();
-        logger.info(applicationList.size() + " applications found");
+
         if (queue != null && queue.getRegistrationClosingDate() != null && queue.getRegistrationClosingDate().before(new Date())) {
+
             logger.info("Queue is after due date. Closing queue.");
             queue.setStatus(QueueStatusEnum.LOCKED);
             logger.info("Saving queue");
             queueDao.save(queue);
             logger.info("Queue saved. Starting application status change to WAITING");
 
+            logger.info("Getting all applications");
+            List<Application> applicationList = applicationDao.findAll();
+            logger.info(applicationList.size() + " applications found");
             applicationList.stream().forEach(application ->
                     {
                         application.setApplicationStatus(ApplicationStatusEnum.WAITING);
