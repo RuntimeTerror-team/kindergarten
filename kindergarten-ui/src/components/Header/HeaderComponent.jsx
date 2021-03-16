@@ -20,7 +20,7 @@ const HeaderComponent = ({ userRole }) => {
       setNameShow("Švietimo specialistas")
     } else if (userRole === "ROLE_GUARDIAN") {
       axios
-        .get(`${baseUrl}/loggedUsername`)
+        .get(`${baseUrl}/api/loggedUsername`)
         .then((res) => {
           axios.get(`${baseUrl}/api/users/${res.data}/details`)
             .then((res) => {

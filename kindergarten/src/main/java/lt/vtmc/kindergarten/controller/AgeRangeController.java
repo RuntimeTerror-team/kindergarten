@@ -16,6 +16,7 @@ import org.slf4j.MarkerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -30,7 +31,8 @@ public class AgeRangeController {
 
     @Autowired
     private AgeRangeService ageRangeService;
-    
+
+    @PreAuthorize("hasRole('EDUCATION_SPECIALIST')")
     @RequestMapping(method = RequestMethod.GET, value = "/api/ageRanges")
     @ApiOperation(value="Get age ranges",notes ="Returns age ranges")
     @ResponseStatus(HttpStatus.OK)
@@ -38,15 +40,15 @@ public class AgeRangeController {
         return ageRangeService.getAgeRanges();
     }
 
+    /* TODO - check if in use */
     @ApiOperation(value = "Get single ageRange by id", notes="Returns a single ageRange by id")
     @RequestMapping(path="/api/ageRanges/{ageRange_id}",method = RequestMethod.GET)
     @ResponseStatus(HttpStatus.OK)
     public AgeRangeDto getAgeRange(@PathVariable final Long ageRange_id){
         return ageRangeService.getAgeRange(ageRange_id);
     }
-    
 
-
+    /* TODO - check if in use */
     @RequestMapping(value="/api/ageRanges", method = RequestMethod.POST)
     @ApiOperation(value = "Create age range", notes = "Creates a new age range")
     public ResponseEntity<?> addAgeRange(
@@ -60,7 +62,8 @@ public class AgeRangeController {
     }
     
     
-    //Paulius 
+    //Paulius
+    @PreAuthorize("hasRole('EDUCATION_SPECIALIST')")
     @RequestMapping(value="/api/saveInterval", method = RequestMethod.POST)
     @ApiOperation(value = "Create age range", notes = "Creates a new age range")
     public ResponseEntity<?> saveAgeRange(
@@ -78,8 +81,8 @@ public class AgeRangeController {
         
       	return ResponseEntity.ok(new MessageResponse("Grupės intervalas sėkmingai išsaugotas", addedAgeRange));
     }
-    
-    
+
+    /* TODO - check if in use */
     @RequestMapping(value = "/api/ageRanges/{id}", method = RequestMethod.PUT)
     @ApiOperation(value = "Update age range", notes = "Uptades age range by id")
     @ResponseStatus(HttpStatus.OK)
@@ -91,7 +94,8 @@ public class AgeRangeController {
         ageRangeService.updateAgeRange(id, ageRangeDto);
         logger.info(ageRangeEvent, "Atnaujintas amžiaus intervalas. Amžiaus intervalo id: {}. Įvykio laikas: {}",ageRangeDto.getId(), new Date());
     }
-    
+
+    @PreAuthorize("hasRole('EDUCATION_SPECIALIST')")
     @RequestMapping(value = "/api/ageRanges/{ageMin}/{ageMax}", method = RequestMethod.DELETE)
     @ApiOperation(value = "delete age range", notes = "Deletes age range by ageMin adn ageMax")
     @ResponseStatus(HttpStatus.OK)

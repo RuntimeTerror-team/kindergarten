@@ -25,7 +25,7 @@ class LoginContainer extends Component {
 
   componentDidMount = () => {
     axios
-      .get(`${baseUrl}/loggedRole`)
+      .get(`${baseUrl}/api/loggedRole`)
       .then((res) => {
         this.setState({ userRole: res.data });
       })
@@ -90,13 +90,13 @@ class LoginContainer extends Component {
         .post(`${baseUrl}/login`, userData, { headers: { "Content-type": "application/x-www-form-urlencoded" } })
         .then(() => {
           axios
-            .get(`${baseUrl}/loggedRole`)
+            .get(`${baseUrl}/api/loggedRole`)
             .then((res) => {
               login(res.data);
               this.setState({ userRole: res.data });
               if (res.data === "ROLE_GUARDIAN") {
                 axios
-                  .get(`${baseUrl}/loggedWithDetails`)
+                  .get(`${baseUrl}/api/loggedWithDetails`)
                   .then((res) => {
                     this.setState({ hasDetails: res.data });
                   })

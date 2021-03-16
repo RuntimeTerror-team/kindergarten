@@ -35,7 +35,7 @@ class PasswordChangeESContainer extends Component {
     componentDidMount = () => {
 
         axios
-            .get(`${baseUrl}/loggedUsername`)
+            .get(`${baseUrl}/api/loggedUsername`)
             .then((res) => {
                 this.setState({ username: res.data })
 
@@ -43,7 +43,7 @@ class PasswordChangeESContainer extends Component {
             .catch((err) => console.log(err))
 
         axios
-            .get(`${baseUrl}/loggedRole`)
+            .get(`${baseUrl}/api/loggedRole`)
             .then((res) => {
                 this.setState({ role: res.data })
                 console.log(res.data)

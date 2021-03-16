@@ -14,7 +14,7 @@ const GroupInfoComponent = ({ groups, kindergartenId, buttonStatus }) => {
         </Link>
       {groups.length > 0 && <GroupTableComponent groups={groups} kindergartenId={kindergartenId} buttonStatus={buttonStatus} />}
       <Link to={`${urls.educationSpecialist.kindergartenBase}`} className="templatemo-blue-button float-right">
-        Atgal
+        Eiti į darželių sąrašą
       </Link>
     </div>
   );

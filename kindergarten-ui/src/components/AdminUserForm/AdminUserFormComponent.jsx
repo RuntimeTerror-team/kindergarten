@@ -4,7 +4,7 @@ import AdminUserTableComponent from "../AdminUserTable/AdminUserTableComponent";
 import { Modal, Button } from "react-bootstrap";
 
 let AdminUserFormComponent = ({ currentPage, totalPages, firstPage, prevPage, lastPage, nextPage, updateSearchInputValue,
-   handleChange, handleSubmit, changedPassword, closeAlert, downloadUserData, restoreOriginalPassword, ...otherProps }) => {
+  handleChange, handleSubmit, changedPassword, closeAlert, downloadUserData, restoreOriginalPassword, ...otherProps }) => {
   const { firstname, lastname, firstnameLength, lastnameLength, createdUsername, isCreated, users } = otherProps;
 
   return (
@@ -64,7 +64,7 @@ let AdminUserFormComponent = ({ currentPage, totalPages, firstPage, prevPage, la
           {createdUsername}
         </div>
       )}
-      {<AdminUserTableComponent
+      <AdminUserTableComponent
         users={users}
         downloadUserData={downloadUserData}
         restoreOriginalPassword={restoreOriginalPassword}
@@ -75,7 +75,7 @@ let AdminUserFormComponent = ({ currentPage, totalPages, firstPage, prevPage, la
         prevPage={prevPage}
         lastPage={lastPage}
         nextPage={nextPage}
-      />}
+      />
       <Modal show={changedPassword} aria-labelledby="contained-modal-title-vcenter" centered>
         <Modal.Body>Sėkmingai atstatytas naudotojo pirminis slaptažodis.</Modal.Body>
         <Modal.Footer>
