@@ -17,7 +17,7 @@ import utilities.FileReaderUtils;
 
 public class AdminLoginLogoutTest extends BaseTest {
 
-    @Test (groups = "smoke, regression")
+    @Test (groups = {"smoke","regression"})
     public void adminLoginTest() throws IOException {
         AdminPage adminPage = new AdminPage(driver);
         LoginPage loginPage = new LoginPage(driver);

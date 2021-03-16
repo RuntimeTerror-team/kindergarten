@@ -19,8 +19,9 @@
 		<version>3.0.0-M5</version>
 		<configuration>
 			<suiteXmlFiles>
+				<!--suppress UnresolvedMavenProperty -->
 				<suiteXmlFile>
-					src/test/java/testsuites/${suiteXmlFile}
+					src/test/resources/testsuites/${suiteXmlFile}
 				</suiteXmlFile>
 			</suiteXmlFiles>
 			<systemPropertyVariables>
