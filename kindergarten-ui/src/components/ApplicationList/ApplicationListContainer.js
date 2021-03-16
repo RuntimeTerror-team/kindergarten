@@ -2,8 +2,6 @@ import React, { Component } from 'react';
 import GuardianNavigationComponent from '../Navigation/GuardianNavigationComponent'
 import HeaderComponent from '../Header/HeaderComponent';
 import Footer from '../Footer/Footer';
-import urls from '../../constants/urls';
-import '../../styles/pages.css';
 import ApplicationListComponent from './ApplicationListComponent';
 import axios from 'axios';
 import baseUrl from '../../AppConfig';
