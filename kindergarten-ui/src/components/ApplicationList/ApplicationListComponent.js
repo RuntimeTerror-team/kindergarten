@@ -1,8 +1,7 @@
 import React from 'react'
 import Proptypes from 'prop-types';
 
-const ApplicationListComponent = ({ applications, distributedApplications, queueStatus}) => {
-
+const ApplicationListComponent = ({ applications, distributedApplications, queueStatus }) => {
     let table = (
         <div className="templatemo-content-widget no-padding col-12 my-4 mx-0">
             <div className="panel panel-default table-responsive">
@@ -50,7 +49,7 @@ const ApplicationListComponent = ({ applications, distributedApplications, queue
 
                     <tbody>
                         {distributedApplications !== "" ? distributedApplications.map(({ id, childFirstName, childLastName, applicationCreationDate, applicationStatus,
-                         approvedKindergarten, waitingNumber }, index) =>
+                            approvedKindergarten, waitingNumber }, index) =>
                             <tr key={id}>
                                 <th scope='row'>{index + 1}</th>
                                 <td>{childFirstName + " " + childLastName}</td>
@@ -59,7 +58,7 @@ const ApplicationListComponent = ({ applications, distributedApplications, queue
                                 <td>{approvedKindergarten === null ? "-" : approvedKindergarten}</td>
                                 <td>{waitingNumber === null ? "-" : waitingNumber}</td>
                             </tr>
-                        ): null}
+                        ) : null}
                     </tbody>
                 </table>
             </div>
@@ -69,7 +68,7 @@ const ApplicationListComponent = ({ applications, distributedApplications, queue
 
     return (
         applications.length === 0 || applications === null ? <h6 className="text-center">Šiuo metu nesate pateikė jokio prašymo</h6>
-        : distributedApplications === null || distributedApplications.length === 0 || queueStatus !== "INACTIVE" ? table : finalTable
+            : distributedApplications === null || distributedApplications.length === 0 || queueStatus !== "INACTIVE" ? table : finalTable
     )
 }
 

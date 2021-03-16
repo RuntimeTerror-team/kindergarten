@@ -106,13 +106,6 @@ class AdminUserFormContainer extends Component {
         .then(res => {
           this.setState({ isCreated: true });
           this.setState({ createdUsername: res.data })
-
-          // axios
-          //     .get(`${baseUrl}/api/users`)
-          //     .then((res) => {
-          //         this.setState({ users: res.data });
-          //     })
-          //     .catch((err) => console.log(err))
           this.updateUserList();
         })
         .catch(err => console.log(err));
@@ -193,19 +186,10 @@ class AdminUserFormContainer extends Component {
 
   changePage = (event) => {
     let targetPage = parseInt(event.target.value);
-    // this.updateUserList(targetPage);
     this.setState({
       [event.target.name]: targetPage,
     }, this.updateUserList(targetPage));
   };
-
-  // changePage = (event) => {
-  //   let targetPage = parseInt(event.target.value);
-  //   this.updateUserList(targetPage);
-  //   this.setState({
-  //     [event.target.name]: targetPage,
-  //   })
-  // };
 
   updateSearchInputValue = (ev) => {
     let currentPage = this.state.currentPage - 1;
