@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import HeaderComponent from '../Header/HeaderComponent';
 import Footer from '../Footer/Footer';
-import '../../styles/pages.css';
 import GuardianPrimaryDataFormComponent from './GuardianPrimaryDataComponent';
 import GuardianPrimaryInfoComponent from '../GuardianPrimaryInfo/GuardianPrimaryInfoComponent';
 import axios from 'axios';

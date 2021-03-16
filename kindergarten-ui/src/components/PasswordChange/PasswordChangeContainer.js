@@ -86,8 +86,6 @@ class PasswordChangeContainer extends Component {
       .get(`${baseUrl}/api/loggedRole`)
       .then((res) => {
         this.setState({ role: res.data })
-        console.log(res.data)
-
       })
       .catch((err) => console.log(err))
 
@@ -495,8 +493,6 @@ class PasswordChangeContainer extends Component {
             email: this.state.guardianEmail
           }
 
-
-          console.log("person id" + this.state.userPerson.id)
           axios.put(baseUrl + "/api/persons/" + this.state.userPerson.id, guardian)
             .then(res => {
 
@@ -550,20 +546,6 @@ class PasswordChangeContainer extends Component {
 
     this.doValidation(passwordFromUser, password2FromUser, oldPasswordFromUser);
 
-
-
-
-
-
-    // if(wrongPassword){
-
-    //     this.setState({wrongOldPasswordMessage: "Įvestas neteisingas senas slaptažodis" })
-    //     this.setState({wrongOldPasswordMessageStyle: "alert alert-danger mt-4"})
-
-    // }
-
-
-
     if (this.state.passwordValidation === "" && this.state.password2Validation === "" && this.state.oldPasswordValidation === ""
       && /^(?=.*[a-ząčęėįšųū])(?=.*[A-ZĄČĘĖĮŠŲŪ])(?=.*\d)[a-ząčęėįšųūA-ZĄČĘĖĮŠŲŪ\d]{8,}$/.test(passwordFromUser)
       && /^(?=.*[a-ząčęėįšųū])(?=.*[A-ZĄČĘĖĮŠŲŪ])(?=.*\d)[a-ząčęėįšųūA-ZĄČĘĖĮŠŲŪ\d]{8,}$/.test(password2FromUser)) {
@@ -586,7 +568,6 @@ class PasswordChangeContainer extends Component {
           { headers: { 'Content-type': 'application/x-www-form-urlencoded' } })
         .then((res) => {
 
-          console.log("gets executed")
           if (res.status === 200) {
 
             let userDto = {

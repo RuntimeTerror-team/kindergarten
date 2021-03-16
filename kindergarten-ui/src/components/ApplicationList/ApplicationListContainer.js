@@ -3,7 +3,6 @@ import GuardianNavigationComponent from '../Navigation/GuardianNavigationCompone
 import HeaderComponent from '../Header/HeaderComponent';
 import Footer from '../Footer/Footer';
 
-import '../../styles/pages.css';
 import ApplicationListComponent from './ApplicationListComponent';
 import axios from 'axios';
 import baseUrl from '../../AppConfig';
@@ -24,10 +23,10 @@ class GuardianPageContainer extends Component {
 
         axios.get(`${baseUrl}/api/queues`)
             .then((res) => {
-                  this.setState({ queues: res.data });
-                  this.setState({ queueStatus: this.state.queues[0].status });
-             })
-             .catch((err) => console.log(err));
+                this.setState({ queues: res.data });
+                this.setState({ queueStatus: this.state.queues[0].status });
+            })
+            .catch((err) => console.log(err));
 
         axios
             .get(`${baseUrl}/api/loggedUsername`)
@@ -41,18 +40,18 @@ class GuardianPageContainer extends Component {
                     .catch(err => { console.log(err) })
                 axios
                     .get(baseUrl + "/api/distributedApplications/info/" + this.state.username)
-                    .then(res =>{
-                        this.setState({distributedApplications: res.data});
+                    .then(res => {
+                        this.setState({ distributedApplications: res.data });
                         this.translateFinalStatus();
                     })
-                    .catch(err => {console.log(err)})    
-                
+                    .catch(err => { console.log(err) })
+
             })
 
             .catch(err => console.log)
 
-        
-            
+
+
 
 
     }
@@ -78,21 +77,6 @@ class GuardianPageContainer extends Component {
                 default:
                     break;
             }
-            // if (application.applicationStatus === "SUBMITTED") {
-            //     application.applicationStatus = 'Pateiktas'
-            // }
-
-            // else if (application.applicationStatus === "REJECTED") {
-            //     application.applicationStatus = 'Atmestas'
-            // }
-
-            // else if (application.applicationStatus === "APPROVED") {
-            //     application.applicationStatus = 'Patvirtintas'
-            // }
-
-            // else if (application.applicationStatus === "WAITING") {
-            //     application.applicationStatus = 'Eilėje'
-            // }
 
             this.forceUpdate()
         })
@@ -135,7 +119,7 @@ class GuardianPageContainer extends Component {
                             applications={this.state.applications}
                             distributedApplications={this.state.distributedApplications}
                             queueStatus={this.state.queueStatus}
-                            />
+                        />
                         <Footer />
                     </div>
                 </div>

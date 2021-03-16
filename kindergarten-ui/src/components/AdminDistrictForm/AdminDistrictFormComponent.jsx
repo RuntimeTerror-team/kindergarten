@@ -2,8 +2,6 @@ import React from "react";
 import Proptypes from "prop-types";
 import DistrictTableComponent from "../AdminDistrictTable/DistrictTableComponent";
 
-import "../../styles/districtAdministration.css";
-
 const AdminDistrictFormComponent = ({
   districts,
   addDistrict,
