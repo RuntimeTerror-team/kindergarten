@@ -164,7 +164,12 @@ public class ApplicationService implements PagingLimit<ApplicationAfterDistribut
         Set<Application> applications = applicationDao.findByParent(parent);
         Set<ApplicationAfterDistribution> distributedApplications = new LinkedHashSet<>();
         applications.stream().
-        forEach(application -> distributedApplications.add(applicationAfterDistributionDao.findApplicationByApplicationId(application.getId())));
+        forEach(application -> {
+        	ApplicationAfterDistribution distributedApplication = applicationAfterDistributionDao.findApplicationByApplicationId(application.getId());
+        	if(distributedApplication != null) {
+        	distributedApplications.add(distributedApplication);
+        	}
+        	});
 
         List<DistributedApplicationInfoDto> distributedApplicationInfoList = distributedApplications.stream()
         		.map(distributedApplication -> new DistributedApplicationInfoDto(distributedApplication)
