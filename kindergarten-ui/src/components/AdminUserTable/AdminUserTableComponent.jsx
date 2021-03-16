@@ -45,39 +45,37 @@ const AdminUserTableComponent = ({ users, downloadUserData, restoreOriginalPassw
                         </tbody>
                     </table>
                 </div>
-                <div>
-                    <div className="button-toolbar mt-5 mb-4" role="toolbar" aria-label="Toolbar with button groups">
-                        <div className="btn-group mr-2" role="group" aria-label="First group">
-                            <div className="pr-3" style={{ color: "#AFAFAF", alignItems: "center" }}>
-                                <p>
-                                    Rodoma {currentPage} iš {totalPages} puslapių{" "}
-                                </p>
-                            </div>
+            </div>
+            <div>
+                <div className="button-toolbar mt-5 mb-4" role="toolbar" aria-label="Toolbar with button groups">
+                    <div className="btn-group mr-2" role="group" aria-label="First group">
+                        <div className="pr-3" style={{ color: "#AFAFAF", alignItems: "center" }}>
+                            <p>
+                                Rodoma {currentPage} iš {totalPages} puslapių{" "}
+                            </p>
                         </div>
+                    </div>
 
-                        <div className="btn-group mr-2" role="group" aria-label="First group">
-                            <button type="button mr-2" className="templatemo-blue-button " onClick={firstPage}>
-                                Pirmas
-                    </button>
-                        </div>
+                    <div className="btn-group mr-2" role="group" aria-label="First group">
+                        <button type="button mr-2" className="templatemo-blue-button " onClick={firstPage}>
+                            Pirmas</button>
+                    </div>
 
-                        <div className="btn-group mr-2" role="group" aria-label="Second group">
-                            <button type="button mr-2" className="templatemo-blue-button " onClick={prevPage}>
-                                <BsChevronLeft />
-                            </button>
-                        </div>
+                    <div className="btn-group mr-2" role="group" aria-label="Second group">
+                        <button type="button mr-2" className="templatemo-blue-button " onClick={prevPage}>
+                            <BsChevronLeft />
+                        </button>
+                    </div>
 
-                        <div className="btn-group mr-2" role="group" aria-label="Second group">
-                            <button type="button mr-2" className="templatemo-blue-button " onClick={nextPage}>
-                                <BsChevronRight />
-                            </button>
-                        </div>
+                    <div className="btn-group mr-2" role="group" aria-label="Second group">
+                        <button type="button mr-2" className="templatemo-blue-button " onClick={nextPage}>
+                            <BsChevronRight />
+                        </button>
+                    </div>
 
-                        <div className="btn-group" role="group" aria-label="Second group">
-                            <button type="button" className="templatemo-blue-button" onClick={lastPage}>
-                                Paskutinis
-                    </button>
-                        </div>
+                    <div className="btn-group" role="group" aria-label="Second group">
+                        <button type="button" className="templatemo-blue-button" onClick={lastPage}>
+                            Paskutinis</button>
                     </div>
                 </div>
             </div>
