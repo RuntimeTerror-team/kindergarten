@@ -47,12 +47,6 @@ public class DataSeeder {
     private PersonDao personDao;
 
     @Autowired
-    private GroupDao groupDao;
-
-    @Autowired
-    private GroupService groupService;
-
-    @Autowired
     private AgeRangeDao ageRangeDao;
 
 
@@ -128,17 +122,17 @@ public class DataSeeder {
     }
 
 
-    public void createKindergartens(District district, District district2) {
+    public void createKindergartens(District antakalnis, District zirmunai, District fabijoniskes, District baltupiai) {
         Kindergarten kindergarten = new Kindergarten();
-        kindergarten.setTitle("Pušaitė");
+        kindergarten.setTitle("Darželis Pušaitė");
         kindergarten.setAddress("Gatvės g. 56");
         kindergarten.setCity(CityEnum.VILNIUS);
         kindergarten.setPostalCode("12546");
-        kindergarten.setPhoneNumber("862405555");
+        kindergarten.setPhoneNumber("862456505");
         kindergarten.setEmail("darzelispusaite@gmail.com");
         kindergarten.setWebsite("www.darzelispusaite.lt");
         kindergarten.setCompanyCode("19555587");
-        kindergarten.setDistrict(district);
+        kindergarten.setDistrict(antakalnis);
 
         kindergartenService.addKindergarten(new KindergartenDto(kindergarten));
 
@@ -147,105 +141,105 @@ public class DataSeeder {
         kindergarten2.setAddress("Vėjų g. 12");
         kindergarten2.setCity(CityEnum.VILNIUS);
         kindergarten2.setPostalCode("12546");
-        kindergarten2.setPhoneNumber("862404444");
+        kindergarten2.setPhoneNumber("862404370");
         kindergarten2.setEmail("smalsuciai@gmail.com");
         kindergarten2.setWebsite("www.smalsuciai.lt");
         kindergarten2.setCompanyCode("19555588");
-        kindergarten2.setDistrict(district);
+        kindergarten2.setDistrict(antakalnis);
 
         kindergartenService.addKindergarten(new KindergartenDto(kindergarten2));
 
         Kindergarten kindergarten3 = new Kindergarten();
-        kindergarten3.setTitle("Nykštukų darželis lopšelis");
+        kindergarten3.setTitle("Nykštukų darželis-lopšelis");
         kindergarten3.setAddress("Kažinkokia g. 56");
         kindergarten3.setCity(CityEnum.VILNIUS);
         kindergarten3.setPostalCode("12546");
-        kindergarten3.setPhoneNumber("862406666");
+        kindergarten3.setPhoneNumber("862506321");
         kindergarten3.setEmail("darzelisnykstukai@gmail.com");
         kindergarten3.setWebsite("www.darzelisnykstukai.lt");
         kindergarten3.setCompanyCode("19555589");
-        kindergarten3.setDistrict(district2);
+        kindergarten3.setDistrict(zirmunai);
 
         kindergartenService.addKindergarten(new KindergartenDto(kindergarten3));
-        
+
         Kindergarten kindergarten4 = new Kindergarten();
-        kindergarten4.setTitle("Boruželė lopšelis");
+        kindergarten4.setTitle("Boruželė darželis-lopšelis");
         kindergarten4.setAddress("Kedrų g. 2");
         kindergarten4.setCity(CityEnum.VILNIUS);
         kindergarten4.setPostalCode("12545");
-        kindergarten4.setPhoneNumber("862576666");
+        kindergarten4.setPhoneNumber("865516644");
         kindergarten4.setEmail("boruzelei@gmail.com");
         kindergarten4.setWebsite("www.boruzele.lt");
         kindergarten4.setCompanyCode("19555590");
-        kindergarten4.setDistrict(district);
+        kindergarten4.setDistrict(antakalnis);
 
         kindergartenService.addKindergarten(new KindergartenDto(kindergarten4));
-        
+
         Kindergarten kindergarten5 = new Kindergarten();
-        kindergarten5.setTitle("Zuikučiai");
+        kindergarten5.setTitle("Darželis Zuikučiai");
         kindergarten5.setAddress("Savanorių g. 15");
         kindergarten5.setCity(CityEnum.VILNIUS);
         kindergarten5.setPostalCode("15345");
-        kindergarten5.setPhoneNumber("862576666");
+        kindergarten5.setPhoneNumber("865577667");
         kindergarten5.setEmail("zuikučiai@gmail.com");
         kindergarten5.setWebsite("www.zuikučiai.lt");
         kindergarten5.setCompanyCode("19555591");
-        kindergarten5.setDistrict(district);
+        kindergarten5.setDistrict(antakalnis);
 
         kindergartenService.addKindergarten(new KindergartenDto(kindergarten5));
-        
+
         Kindergarten kindergarten6 = new Kindergarten();
-        kindergarten6.setTitle("Peleda");
+        kindergarten6.setTitle("Pelėdžiukų darželis");
         kindergarten6.setAddress("Basanavičiaus g. 10");
         kindergarten6.setCity(CityEnum.VILNIUS);
         kindergarten6.setPostalCode("17645");
-        kindergarten6.setPhoneNumber("868776666");
+        kindergarten6.setPhoneNumber("868773216");
         kindergarten6.setEmail("peleda@gmail.com");
         kindergarten6.setWebsite("www.peleda.lt");
         kindergarten6.setCompanyCode("19555592");
-        kindergarten6.setDistrict(district2);
+        kindergarten6.setDistrict(zirmunai);
 
         kindergartenService.addKindergarten(new KindergartenDto(kindergarten6));
-        
+
         Kindergarten kindergarten7 = new Kindergarten();
-        kindergarten7.setTitle("Lapeles");
-        kindergarten7.setAddress("Minsko plentas. 43");
+        kindergarten7.setTitle("Darželis Lapinukai");
+        kindergarten7.setAddress("Minsko plentas 43");
         kindergarten7.setCity(CityEnum.VILNIUS);
         kindergarten7.setPostalCode("17648");
-        kindergarten7.setPhoneNumber("868776665");
+        kindergarten7.setPhoneNumber("868773331");
         kindergarten7.setEmail("lapeles@gmail.com");
         kindergarten7.setWebsite("www.lapeles.lt");
         kindergarten7.setCompanyCode("19555593");
-        kindergarten7.setDistrict(district);
+        kindergarten7.setDistrict(baltupiai);
 
         kindergartenService.addKindergarten(new KindergartenDto(kindergarten7));
-        
+
         Kindergarten kindergarten8 = new Kindergarten();
         kindergarten8.setTitle("Kaimelis");
         kindergarten8.setAddress("Bitenu g. 43");
         kindergarten8.setCity(CityEnum.VILNIUS);
         kindergarten8.setPostalCode("17635");
-        kindergarten8.setPhoneNumber("868776632");
+        kindergarten8.setPhoneNumber("865776632");
         kindergarten8.setEmail("kaimelis@gmail.com");
         kindergarten8.setWebsite("www.kaimelis.lt");
         kindergarten8.setCompanyCode("19555594");
-        kindergarten8.setDistrict(district);
+        kindergarten8.setDistrict(antakalnis);
 
         kindergartenService.addKindergarten(new KindergartenDto(kindergarten8));
-        
+
         Kindergarten kindergarten9 = new Kindergarten();
-        kindergarten9.setTitle("Zuikučiai");
+        kindergarten9.setTitle("Darželis kyškis pyškis");
         kindergarten9.setAddress("Vingriu g. 102");
         kindergarten9.setCity(CityEnum.VILNIUS);
         kindergarten9.setPostalCode("17115");
-        kindergarten9.setPhoneNumber("868775232");
-        kindergarten9.setEmail("zuikuciai@gmail.com");
-        kindergarten9.setWebsite("www.zuikuciai.lt");
+        kindergarten9.setPhoneNumber("868784232");
+        kindergarten9.setEmail("pyskis@gmail.com");
+        kindergarten9.setWebsite("www.kiskispyskis.lt");
         kindergarten9.setCompanyCode("19555595");
-        kindergarten9.setDistrict(district2);
+        kindergarten9.setDistrict(baltupiai);
 
         kindergartenService.addKindergarten(new KindergartenDto(kindergarten9));
-        
+
         Kindergarten kindergarten10 = new Kindergarten();
         kindergarten10.setTitle("Meškučiai");
         kindergarten10.setAddress("Laisvės Prospektas 43");
@@ -255,10 +249,10 @@ public class DataSeeder {
         kindergarten10.setEmail("meskuciai@gmail.com");
         kindergarten10.setWebsite("www.meskuciai.lt");
         kindergarten10.setCompanyCode("19555596");
-        kindergarten10.setDistrict(district);
+        kindergarten10.setDistrict(zirmunai);
 
         kindergartenService.addKindergarten(new KindergartenDto(kindergarten10));
-        
+
         Kindergarten kindergarten11 = new Kindergarten();
         kindergarten11.setTitle("Bitutės");
         kindergarten11.setAddress("Švitrigailos g. 13");
@@ -268,7 +262,7 @@ public class DataSeeder {
         kindergarten11.setEmail("bitutes@gmail.com");
         kindergarten11.setWebsite("www.bitutes.lt");
         kindergarten11.setCompanyCode("19555597");
-        kindergarten11.setDistrict(district2);
+        kindergarten11.setDistrict(fabijoniskes);
 
         kindergartenService.addKindergarten(new KindergartenDto(kindergarten11));
     }
@@ -286,11 +280,11 @@ public class DataSeeder {
         kindergartenDao.save(kindergarten);
     }
 
-    public void createUsers() {
-        userService.createGuardian("Petras", "Petrauskas");
-        userService.createGuardian("Marija", "Pūkienė");
-        userService.createGuardian("Justinas", "Bingelis");
-    }
+//    public void createUsers() {
+//        userService.createGuardian("Petras", "Petrauskas");
+//        userService.createGuardian("Marija", "Pūkienė");
+//        userService.createGuardian("Justinas", "Bingelis");
+//    }
 
     public void createQueueWithOpeningDate() {
         Date date = new Date();
@@ -361,10 +355,72 @@ public class DataSeeder {
 
 }
 
+    public void createApplicationWith3Kindergartens(String parentPersonalCode, String childPersonalCode,
+                                  String kindergarten1CompanyCode,  String kindergarten2CompanyCode,   String kindergarten3CompanyCode,
+                                  Boolean isAdopted, Boolean isGuardianStudent, Boolean isMultiChild, Boolean isDisabled) {
+
+        Person parent1 = personDao.findByPersonalCode(parentPersonalCode);
+        Person child = personDao.findByPersonalCode(childPersonalCode);
+        Kindergarten kindergarten1 = kindergartenDao.findByCompanyCode(kindergarten1CompanyCode);
+        Kindergarten kindergarten2 = kindergartenDao.findByCompanyCode(kindergarten2CompanyCode);
+        Kindergarten kindergarten3 = kindergartenDao.findByCompanyCode(kindergarten3CompanyCode);
+
+        ApplicationCreationDto application = new ApplicationCreationDto();
+        application.setDate(new Date());
+        application.setIsAdopted(isAdopted);
+        application.setIsGuardianStudent(isGuardianStudent);
+        application.setIsMultiChild(isMultiChild);
+        application.setIsGuardianDisabled(isDisabled);
+
+        application.setFirstParentId(parent1.getId());
+        application.setChildId(child.getId());
+
+        application.setPriorityForKindergartenID(new HashMap<>() {{
+            put(1, kindergarten1.getId());
+            put(2, kindergarten2.getId());
+            put(3, kindergarten3.getId());
+
+        }});
+
+        applicationService.addApplication(application);
+
+    }
 
 
-    //FIXME delete after testing
-    public void cretePersons() {
+//
+//    public void createApplication(String parentPersonalCode, String childPersonalCode,
+//                                  String kindergarten1CompanyCode,  String kindergarten2CompanyCode, String kindergarten3CompanyCode,
+//                                  Boolean isAdopted, Boolean isGuardianStudent, Boolean isMultiChild, Boolean isDisabled) {
+//
+//        Person parent1 = personDao.findByPersonalCode(parentPersonalCode);
+//        Person child = personDao.findByPersonalCode(childPersonalCode);
+//        Kindergarten kindergarten1 = kindergartenDao.findByCompanyCode(kindergarten1CompanyCode);
+//        Kindergarten kindergarten2 = kindergartenDao.findByCompanyCode(kindergarten2CompanyCode);
+//        Kindergarten kindergarten3 = kindergartenDao.findByCompanyCode(kindergarten3CompanyCode);
+//
+//        ApplicationCreationDto application = new ApplicationCreationDto();
+//        application.setDate(new Date());
+//        application.setIsAdopted(isAdopted);
+//        application.setIsGuardianStudent(isGuardianStudent);
+//        application.setIsMultiChild(isMultiChild);
+//        application.setIsGuardianDisabled(isDisabled);
+//
+//        application.setFirstParentId(parent1.getId());
+//        application.setChildId(child.getId());
+//
+//        application.setPriorityForKindergartenID(new HashMap<>() {{
+//            put(1, kindergarten1.getId());
+//            put(2, kindergarten2.getId());
+//            put(3, kindergarten3.getId());
+//        }});
+//
+//        applicationService.addApplication(application);
+//
+//    }
+
+
+
+    public void createPersons() {
         Role guardian = new Role();
         guardian.setType(RoleType.GUARDIAN);
 
@@ -395,33 +451,33 @@ public class DataSeeder {
 
         //JONUKAS
         Person child = new Person();
-        child.setFirstName("Jonukas");
+        child.setFirstName("JONUKAS");
         child.setLastName("Bujonauskas");
         child.setEmail(null);
         child.setCity(CityEnum.VILNIUS);
         child.setAddress("Kanklių g. 4");
-        child.setPersonalCode("52001180332");
+        child.setPersonalCode("51504180332");
         child.setPhoneNumber(null);
         child.setPostalCode("10321");
         personService.addPerson(new PersonDto(child));
 
-        Person jonukas = personDao.findByPersonalCode("52001180332");
+        Person jonukas = personDao.findByPersonalCode("51504180332");
         jonukas.setTribeId(personDao.findByPersonalCode("39004180111").getTribeId());
         personDao.save(jonukas);
 
         //MARYTĖ
         Person child2 = new Person();
-        child2.setFirstName("Marytė");
+        child2.setFirstName("MARYTE");
         child2.setLastName("Bujonauskaitė");
         child2.setEmail(null);
         child2.setCity(CityEnum.VILNIUS);
         child2.setAddress("Kanklių g. 4");
-        child2.setPersonalCode("62002221111");
+        child2.setPersonalCode("61602221111");
         child2.setPhoneNumber(null);
         child2.setPostalCode("10321");
         personService.addPerson(new PersonDto(child2));
 
-        Person maryte = personDao.findByPersonalCode("62002221111");
+        Person maryte = personDao.findByPersonalCode("61602221111");
         maryte.setTribeId(personDao.findByPersonalCode("39004180111").getTribeId());
         personDao.save(maryte);
 
@@ -454,33 +510,33 @@ public class DataSeeder {
 
         //GABRIELIUS
         Person childGabrielius = new Person();
-        childGabrielius.setFirstName("Gabrielius");
+        childGabrielius.setFirstName("GABRIELIUS");
         childGabrielius.setLastName("Narkūnas");
         childGabrielius.setEmail(null);
         childGabrielius.setCity(CityEnum.VILNIUS);
         childGabrielius.setAddress("Giedraičių g. 69");
-        childGabrielius.setPersonalCode("52003280322");
+        childGabrielius.setPersonalCode("51910280322");
         childGabrielius.setPhoneNumber(null);
         childGabrielius.setPostalCode("22822");
         personService.addPerson(new PersonDto(childGabrielius));
 
-        Person gabrielius = personDao.findByPersonalCode("52003280322");
+        Person gabrielius = personDao.findByPersonalCode("51910280322");
         gabrielius.setTribeId(personDao.findByPersonalCode("38406160121").getTribeId());
         personDao.save(gabrielius);
 
         //ATĖNĖ
         Person childAtene = new Person();
-        childAtene.setFirstName("Atėnė");
+        childAtene.setFirstName("ATĖNĖ");
         childAtene.setLastName("Narkūnaitė");
         childAtene.setEmail(null);
         childAtene.setCity(CityEnum.VILNIUS);
         childAtene.setAddress("Giedraičių g. 69");
-        childAtene.setPersonalCode("52004281112");
+        childAtene.setPersonalCode("51910281112");
         childAtene.setPhoneNumber(null);
         childAtene.setPostalCode("22822");
         personService.addPerson(new PersonDto(childAtene));
 
-        Person atene = personDao.findByPersonalCode("52004281112");
+        Person atene = personDao.findByPersonalCode("51910281112");
         atene.setTribeId(personDao.findByPersonalCode("38406160121").getTribeId());
         personDao.save(atene);
 
@@ -512,34 +568,34 @@ public class DataSeeder {
 
         //IGLUTĖ ZUBRYTĖ
         Person child4 = new Person();
-        child4.setFirstName("Iglutė");
+        child4.setFirstName("IGLUTĖ");
         child4.setLastName("Zubrytė");
         child4.setEmail(null);
         child4.setCity(CityEnum.OTHER);
         child4.setAddress("Krokuvos g. 51");
-        child4.setPersonalCode("62005520478");
+        child4.setPersonalCode("61507120478");
         child4.setPhoneNumber(null);
         child4.setPostalCode("11185");
         personService.addPerson(new PersonDto(child4));
 
-        Person igluteZub = personDao.findByPersonalCode("62005520478");
+        Person igluteZub = personDao.findByPersonalCode("61507120478");
         igluteZub.setTribeId(personDao.findByPersonalCode("49004170458").getTribeId());
         personDao.save(igluteZub);
 
 
         //ERIKAS ZUBRUS
         Person erikasChild = new Person();
-        erikasChild.setFirstName("Erikas");
+        erikasChild.setFirstName("ERIKAS");
         erikasChild.setLastName("Zubrus");
         erikasChild.setEmail(null);
         erikasChild.setCity(CityEnum.OTHER);
         erikasChild.setAddress("Krokuvos g. 51");
-        erikasChild.setPersonalCode("52006218211");
+        erikasChild.setPersonalCode("51512218211");
         erikasChild.setPhoneNumber(null);
         erikasChild.setPostalCode("11185");
         personService.addPerson(new PersonDto(erikasChild));
 
-        Person erikasZub = personDao.findByPersonalCode("52006218211");
+        Person erikasZub = personDao.findByPersonalCode("51512218211");
         erikasZub.setTribeId(personDao.findByPersonalCode("49004170458").getTribeId());
         personDao.save(erikasZub);
 
@@ -571,7 +627,7 @@ public class DataSeeder {
 
         //IGLUTĖ URBELYTĖ
         Person child3 = new Person();
-        child3.setFirstName("Iglutė");
+        child3.setFirstName("IGLUTĖ");
         child3.setLastName("Urbelytė");
         child3.setEmail(null);
         child3.setCity(CityEnum.OTHER);
@@ -587,17 +643,17 @@ public class DataSeeder {
 
         //POVILIUKAS URBELIS
         Person poviliukasChild = new Person();
-        poviliukasChild.setFirstName("Poviliukas");
+        poviliukasChild.setFirstName("POVILIUKAS");
         poviliukasChild.setLastName("Urbelis");
         poviliukasChild.setEmail(null);
         poviliukasChild.setCity(CityEnum.OTHER);
         poviliukasChild.setAddress("Vėjų g. 16");
-        poviliukasChild.setPersonalCode("61501011211");
+        poviliukasChild.setPersonalCode("62001011211");
         poviliukasChild.setPhoneNumber(null);
         poviliukasChild.setPostalCode("98334");
         personService.addPerson(new PersonDto(poviliukasChild));
 
-        Person poviliukasUrbelis = personDao.findByPersonalCode("61501011211");
+        Person poviliukasUrbelis = personDao.findByPersonalCode("62001011211");
         poviliukasUrbelis.setTribeId(personDao.findByPersonalCode("48901110222").getTribeId());
         personDao.save(poviliukasUrbelis);
 
@@ -618,6 +674,10 @@ public class DataSeeder {
         personDao.save(simasUrbelis);
 
     }
+
+
+
+
 
 
 

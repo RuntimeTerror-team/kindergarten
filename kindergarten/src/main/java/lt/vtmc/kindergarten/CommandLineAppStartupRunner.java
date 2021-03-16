@@ -2,7 +2,6 @@ package lt.vtmc.kindergarten;
 
 import ch.qos.logback.classic.Logger;
 import lt.vtmc.kindergarten.config.DataSeeder;
-import lt.vtmc.kindergarten.controller.UserController;
 import lt.vtmc.kindergarten.dao.PermissionForESDao;
 import lt.vtmc.kindergarten.dao.QueueDao;
 
@@ -10,20 +9,17 @@ import lt.vtmc.kindergarten.domain.District;
 import lt.vtmc.kindergarten.domain.PermissionForES;
 import lt.vtmc.kindergarten.dto.*;
 import lt.vtmc.kindergarten.service.*;
-import org.flywaydb.core.Flyway;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
-import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.ListIterator;
-import java.util.stream.IntStream;
 
 
 @Component
@@ -41,7 +37,7 @@ public class CommandLineAppStartupRunner implements CommandLineRunner {
 
     @Autowired
     QueueDao queueDao;
-    
+
     @Autowired
     PermissionForESDao permissionForESDao;
 
@@ -51,10 +47,14 @@ public class CommandLineAppStartupRunner implements CommandLineRunner {
     @Override
     public void run(String... args) throws Exception {
         userService.createUser(new UserDto("administratorius", "Administratorius1", "ADMIN"));
+        userService.createUser(new UserDto("ŠvietimoSpecialistas1", "ŠvietimoSpecialistas1", "EDUCATION_SPECIALIST"));
 
         if (seedData) {
+
             District districtAntakalnis = dataSeeder.createDistrict("Antakalnis", 1L);
             District districtZirmunai = dataSeeder.createDistrict("Žirmūnai", 2L);
+            District districtFabijoniskes = dataSeeder.createDistrict("Fabijoniškės", 3L);
+            District districtBaltupiai = dataSeeder.createDistrict("Baltupiai", 4L);
 
 
             dataSeeder.createAgeRanges(1, 2);
@@ -65,42 +65,41 @@ public class CommandLineAppStartupRunner implements CommandLineRunner {
             dataSeeder.createAgeRanges(6, 7);
 
 
-            dataSeeder.createKindergartens(districtAntakalnis, districtZirmunai);
+            dataSeeder.createKindergartens(districtAntakalnis, districtZirmunai, districtFabijoniskes, districtBaltupiai);
 
             dataSeeder.createQueueWithOpeningDate();
 
             //Darželis Pušaitė
             dataSeeder.createGroupForKindergarten("19555587", 1, 2, 25);
-            dataSeeder.createGroupForKindergarten("19555587", 2, 3,15);
-            dataSeeder.createGroupForKindergarten("19555587", 3, 4,20);
-            dataSeeder.createGroupForKindergarten("19555587", 4, 5,20);
-            dataSeeder.createGroupForKindergarten("19555587", 5, 6,20);
+            dataSeeder.createGroupForKindergarten("19555587", 2, 3, 15);
+            dataSeeder.createGroupForKindergarten("19555587", 3, 4, 20);
+            dataSeeder.createGroupForKindergarten("19555587", 4, 5, 20);
+            dataSeeder.createGroupForKindergarten("19555587", 5, 6, 20);
 
             //Darželis Smalsučiai
             dataSeeder.createGroupForKindergarten("19555589", 1, 2, 14);
-            dataSeeder.createGroupForKindergarten("19555589", 3, 4,10);
-            dataSeeder.createGroupForKindergarten("19555589", 4, 5,13);
-//            dataSeeder.createGroupForKindergarten("19555888", 4, 5,0);
-//
+            dataSeeder.createGroupForKindergarten("19555589", 3, 4, 10);
+            dataSeeder.createGroupForKindergarten("19555589", 4, 5, 13);
+
             //Darželis Nykštukai
-            dataSeeder.createGroupForKindergarten("19555590", 6, 7,25);
-            dataSeeder.createGroupForKindergarten("19555590", 2, 3,20);
-            dataSeeder.createGroupForKindergarten("19555590", 3, 4,22);
-            dataSeeder.createGroupForKindergarten("19555590", 4, 5,8);
+            dataSeeder.createGroupForKindergarten("19555590", 6, 7, 25);
+            dataSeeder.createGroupForKindergarten("19555590", 2, 3, 20);
+            dataSeeder.createGroupForKindergarten("19555590", 3, 4, 22);
+            dataSeeder.createGroupForKindergarten("19555590", 4, 5, 8);
 
-
+            //Darželis Zuikučiai
             dataSeeder.createGroupForKindergarten("19555591", 1, 2, 25);
-            dataSeeder.createGroupForKindergarten("19555591", 2, 3,15);
-            dataSeeder.createGroupForKindergarten("19555591", 3, 4,20);
-            dataSeeder.createGroupForKindergarten("19555591", 4, 5,20);
-            dataSeeder.createGroupForKindergarten("19555591", 5, 6,20);
+            dataSeeder.createGroupForKindergarten("19555591", 2, 3, 15);
+            dataSeeder.createGroupForKindergarten("19555591", 3, 4, 20);
+            dataSeeder.createGroupForKindergarten("19555591", 4, 5, 20);
+            dataSeeder.createGroupForKindergarten("19555591", 5, 6, 20);
 
-
+            //Darželis Pelėdžiukai
             dataSeeder.createGroupForKindergarten("19555592", 1, 2, 25);
-            dataSeeder.createGroupForKindergarten("19555592", 2, 3,15);
-            dataSeeder.createGroupForKindergarten("19555592", 3, 4,18);
-            dataSeeder.createGroupForKindergarten("19555592", 4, 5,20);
-            dataSeeder.createGroupForKindergarten("19555592", 5, 6,16);
+            dataSeeder.createGroupForKindergarten("19555592", 2, 3, 15);
+            dataSeeder.createGroupForKindergarten("19555592", 3, 4, 18);
+            dataSeeder.createGroupForKindergarten("19555592", 4, 5, 20);
+            dataSeeder.createGroupForKindergarten("19555592", 5, 6, 16);
 
 
             // Create children
@@ -108,24 +107,24 @@ public class CommandLineAppStartupRunner implements CommandLineRunner {
 
 
             List<String> guardianPersonalCodes = new ArrayList<>();
-            for ( int i =0; i<1000; i++){
+            for (int i = 0; i < 500; i++) {
                 String createdPersonalCode = dataSeeder.createPerson(i, "GUARDIAN");
                 guardianPersonalCodes.add(createdPersonalCode);
             }
 
             List<String> childrenPersonalCodes = new ArrayList<>();
-            for ( int i = 0; i<3000; i++) {
+            for (int i = 0; i < 1500; i++) {
                 String createdPersonalCode = dataSeeder.createPerson(i, "NON_GUARDIAN");
                 childrenPersonalCodes.add(createdPersonalCode);
             }
 
             ListIterator<String> guardianIterator = guardianPersonalCodes.listIterator();
-            while(guardianIterator.hasNext()){
+            while (guardianIterator.hasNext()) {
                 String guardianPersonalCode = guardianIterator.next();
                 ListIterator<String> childrenIterator = childrenPersonalCodes.listIterator();
                 int childCount = 0;
-                while(childrenIterator.hasNext()){
-                    if(childCount<4) {
+                while (childrenIterator.hasNext()) {
+                    if (childCount < 4) {
                         dataSeeder.createApplication(
                                 guardianPersonalCode,
                                 childrenIterator.next(),
@@ -150,11 +149,51 @@ public class CommandLineAppStartupRunner implements CommandLineRunner {
             }
         }
 
-        
+
         PermissionForES permission = new PermissionForES();
         permission.setId();
         permission.setIsAllowed(false);
         permissionForESDao.save(permission);
+
+        dataSeeder.createPersons();
+
+        //Jonukas
+            dataSeeder.createApplicationWith3Kindergartens("39004180111", "51504180332",
+                    "19555587", "19555589", "19555590",
+                    false, false, true, true);
+        //Maryte
+        dataSeeder.createApplicationWith3Kindergartens("39004180111", "61602221111",
+                "19555587", "19555589", "19555590",
+                false, false, true, false);
+
+        //Gabrielius
+        dataSeeder.createApplicationWith3Kindergartens("38406160121", "51910280322",
+
+                "19555587", "19555589", "19555590",
+                true, true, true, false);
+        //Atene
+        dataSeeder.createApplicationWith3Kindergartens("38406160121", "51910281112",
+                "19555587", "19555589", "19555590",
+                true, true, true, false);
+
+        //Iglute
+        dataSeeder.createApplicationWith3Kindergartens("49004170458", "61507120478",
+                "19555587", "19555589", "19555590",
+                true, true, true, false);
+        //Erikas
+        dataSeeder.createApplicationWith3Kindergartens("49004170458", "51512218211",
+                "19555587", "19555589", "19555590",
+                true, true, true, false);
+
+        //IgluteUrbelyte
+        dataSeeder.createApplicationWith3Kindergartens("48901110222", "61507120444",
+                "19555587", "19555589", "19555590",
+                true, true, true, false);
+        //Poviliukas
+        dataSeeder.createApplicationWith3Kindergartens("48901110222", "62001011211",
+                "19555587", "19555589", "19555590",
+                true, true, true, false);
+
 
     }
 
