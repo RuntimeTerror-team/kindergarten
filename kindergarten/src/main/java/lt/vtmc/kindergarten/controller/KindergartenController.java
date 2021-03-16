@@ -12,6 +12,7 @@ import org.slf4j.MarkerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.ConstraintViolationException;
@@ -32,6 +33,7 @@ public class KindergartenController {
     @Autowired
     private GroupService groupService;
 
+    @PreAuthorize("hasRole('EDUCATION_SPECIALIST')")
     @RequestMapping(value="/api/kindergartens", method = RequestMethod.POST)
     @ResponseStatus(HttpStatus.CREATED)
     @ApiOperation(value = "Create kindergarten", notes = "Creates kindergarten")
@@ -54,6 +56,7 @@ public class KindergartenController {
 
     }
 
+    @PreAuthorize("hasRole('EDUCATION_SPECIALIST')")
     @ApiOperation(value = "Update Kindergarten", notes = "Uptades Kindergarten by id")
     @RequestMapping(value = "/api/kindergartens/{id}", method = RequestMethod.PUT)
     @ResponseStatus(HttpStatus.OK)
@@ -66,7 +69,7 @@ public class KindergartenController {
         logger.info(kindergartenEvent,"Atnaujinti darželio {}, įmonės kodas: {} duomenys. Įvykio laikas: {}", kindergartenDto.getTitle(), kindergartenDto.getCompanyCode(), new Date());
     }
 
-
+    @PreAuthorize("hasRole('EDUCATION_SPECIALIST')")
     @RequestMapping(method = RequestMethod.GET, value = "/api/kindergartens/{kindergarten_id}")
     @ApiOperation(value = "Get single kindergarten by id", notes = "Returns a single kindergarten by id")
     @ResponseStatus(HttpStatus.OK)
@@ -76,6 +79,7 @@ public class KindergartenController {
         return kindergartenService.getKindergarten(kindergarten_id);
     }
 
+    @PreAuthorize("hasAnyRole('EDUCATION_SPECIALIST', 'GUARDIAN')")
     @RequestMapping(method = RequestMethod.GET, value = "/api/kindergartens")
     @ApiOperation(value="Get kindergartens",notes ="Returns kindergartens")
     @ResponseStatus(HttpStatus.OK)
@@ -83,7 +87,7 @@ public class KindergartenController {
         return kindergartenService.getKindergartens();
     }
 
-
+    @PreAuthorize("hasRole('EDUCATION_SPECIALIST')")
     @RequestMapping(value = "/api/kindergartens/{kindergartenId}/groups", method = RequestMethod.GET)
     @ApiOperation(value = "get single groups", notes = "Returns all groups")
     @ResponseStatus(HttpStatus.OK)
@@ -93,7 +97,7 @@ public class KindergartenController {
         return groupService.getGroups(kindergartenId);
     }
 
-
+    @PreAuthorize("hasRole('EDUCATION_SPECIALIST')")
     @RequestMapping(value = "/api/kindergartens/{kindergartenId}/groups/{group_id}", method = RequestMethod.GET)
     @ApiOperation(value = "get single group by id", notes = "Returns single group by id")
     @ResponseStatus(HttpStatus.OK)
@@ -104,6 +108,7 @@ public class KindergartenController {
         return groupService.getGroup(kindergartenId, group_id);
     }
 
+    @PreAuthorize("hasRole('EDUCATION_SPECIALIST')")
     @RequestMapping(value = "/api/kindergartens/{kindergartenId}/groups/{group_id}/update", method = RequestMethod.PUT)
     @ApiOperation(value = "Update group by id", notes = "Updates group by id")
     @ResponseStatus(HttpStatus.OK)
@@ -114,8 +119,7 @@ public class KindergartenController {
         return groupService.updateGroupChildrenCount(group_id, childrenCount);
     }
 
-
-
+    @PreAuthorize("hasRole('EDUCATION_SPECIALIST')")
     @RequestMapping(value="/api/kindergartens/{kindergartenId}/groups/{ageRangeId}", method = RequestMethod.POST)
     @ResponseStatus(HttpStatus.CREATED)
     @ApiOperation(value = "Create group", notes = "Creates a new group")
@@ -126,7 +130,8 @@ public class KindergartenController {
             @RequestBody GroupCreationDto groupCreationDto){
         groupService.addGroup(ageRangeId, kindergartenId, groupCreationDto);
     }
-    
+
+    @PreAuthorize("hasAnyRole('EDUCATION_SPECIALIST','GUARDIAN')")
     @RequestMapping(value = "/api/kindergartens/mostPopular", method = RequestMethod.GET)
     @ApiOperation(value = "get most popular kindergartebs", notes = "Returns a list of most popular kindergartens")
     @ResponseStatus(HttpStatus.OK)
