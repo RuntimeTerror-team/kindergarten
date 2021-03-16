@@ -21,6 +21,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
@@ -36,6 +37,7 @@ public class ApplicationController {
     @Autowired
     private ApplicationService applicationService;
 
+    @PreAuthorize("hasRole('GUARDIAN')")
     @RequestMapping(value = "/api/applications", method = RequestMethod.POST)
     @ResponseStatus(HttpStatus.CREATED)
     @ApiOperation(value = "Create application", notes = "Creates a new application")
@@ -53,7 +55,7 @@ public class ApplicationController {
         }
     }
 
-
+    /* TODO - check if in use */
     @RequestMapping(value = "/api/applicationsDtos", method = RequestMethod.GET)
     @ResponseStatus(HttpStatus.CREATED)
     @ApiOperation(value = "Get applications", notes = "Returns a list of applications")
@@ -61,6 +63,7 @@ public class ApplicationController {
         return applicationService.getApplicationsList();
     }
 
+    /* TODO - check if in use */
     @ApiOperation(value = "Update application", notes = "Updates application by id")
     @RequestMapping(value = "/api/applications/{id}", method = RequestMethod.PUT)
     @ResponseStatus(HttpStatus.OK)
@@ -79,6 +82,7 @@ public class ApplicationController {
 
     }
 
+    /* TODO - check if in use */
     @ApiOperation(value = "Get single application by id", notes = "Returns a single application by id")
     @RequestMapping(method = RequestMethod.GET, value = "/api/applications/{application_id}")
     @ResponseStatus(HttpStatus.OK)
@@ -88,6 +92,7 @@ public class ApplicationController {
         return applicationService.getApplication(application_id);
     }
 
+    /* TODO - check if in use */
     @RequestMapping(method = RequestMethod.GET, value = "/api/applications")
     @ApiOperation(value = "Get applications", notes = "Returns all applications")
     @ResponseStatus(HttpStatus.OK)
@@ -95,6 +100,7 @@ public class ApplicationController {
         return applicationService.getApplications();
     }
 
+    @PreAuthorize("hasRole('GUARDIAN')")
     @RequestMapping(method = RequestMethod.GET, value = "/api/applications/info/{username}")
     @ApiOperation(value = "Get applications info", notes = "Returns all applications with info about children first, last names and application status, date by username")
     @ResponseStatus(HttpStatus.OK)
@@ -104,6 +110,7 @@ public class ApplicationController {
         return applicationService.getApplicationsInfo(username);
     }
 
+    @PreAuthorize("hasRole('EDUCATION_SPECIALIST')")
     @RequestMapping(method = RequestMethod.POST, value = "/api/applications/recalculation")
     @ApiOperation(value = "Trigers applications queuing", notes = "Trigers sorting algorithm and applications are queued again")
     @ResponseStatus(HttpStatus.OK)
@@ -111,6 +118,7 @@ public class ApplicationController {
         applicationService.recalculateApplicationOrderInQueue();
     }
 
+    @PreAuthorize("hasRole('EDUCATION_SPECIALIST')")
     @RequestMapping(method = RequestMethod.PUT, value = "/api/applications/{id}/{status}")
     @ApiOperation(value = "Change application status", notes = "Changes application status after distribution")
     @ResponseStatus(HttpStatus.OK)
@@ -131,6 +139,7 @@ public class ApplicationController {
         return "UNKNOWN";
     }
 
+    @PreAuthorize("hasRole('EDUCATION_SPECIALIST')")
     @RequestMapping(method = RequestMethod.GET, value = "/api/applications/sorted")
     @ApiOperation(value = "Get sorted applications", notes = "Returns all applications after distribution")
     @ResponseStatus(HttpStatus.OK)
@@ -138,6 +147,7 @@ public class ApplicationController {
         return new ResponseEntity<>(applicationService.findAll(pageable), HttpStatus.OK);
     }
 
+    @PreAuthorize("hasRole('EDUCATION_SPECIALIST')")
     @RequestMapping(method = RequestMethod.GET, value = "/api/applications/sorted/search/{searchText}")
     @ApiOperation(value = "Get sorted applications", notes = "Returns all applications after distribution")
     @ResponseStatus(HttpStatus.OK)
@@ -146,7 +156,8 @@ public class ApplicationController {
             @PathVariable final String searchText) {
         return new ResponseEntity<>(applicationService.findAll(pageable, searchText), HttpStatus.OK);
     }
-    
+
+    @PreAuthorize("hasAnyRole('EDUCATION_SPECIALIST', 'GUARDIAN')")
     @RequestMapping(method = RequestMethod.GET, value = "/api/applications/statistics")
     @ApiOperation(value = "Get applications statistics", notes = "Returns applications statistics")
     @ResponseStatus(HttpStatus.OK)
