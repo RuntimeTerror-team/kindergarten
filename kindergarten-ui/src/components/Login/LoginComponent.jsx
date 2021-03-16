@@ -1,5 +1,6 @@
 import React from "react";
 import Proptypes from "prop-types";
+import userGuide from '../../documents/Naudotojo_vadovas.pdf';
 
 let LoginComponent = ({
   username,
@@ -46,6 +47,7 @@ let LoginComponent = ({
             Prisijungti
           </button>
         </form>
+        <p>Atsisiųsti <a href={userGuide} target="blank">naudotojo vadovą</a></p>
         {areCredentialsIncorrect && (
           <div className="alert alert-danger col-12" role="alert">
             Prisijungimo duomenys neteisingi

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import Proptypes from "prop-types";
 import "../../styles/logo.css";
-import { IoMdExit } from "react-icons/io";
+import { BsBoxArrowRight } from "react-icons/bs";
 import axios from "axios";
 import baseUrl from "../../AppConfig";
 import { useHistory } from "react-router";
@@ -20,7 +20,7 @@ const HeaderComponent = ({ userRole }) => {
       setNameShow("Švietimo specialistas")
     } else if (userRole === "ROLE_GUARDIAN") {
       axios
-        .get(`${baseUrl}/loggedUsername`)
+        .get(`${baseUrl}/api/loggedUsername`)
         .then((res) => {
           axios.get(`${baseUrl}/api/users/${res.data}/details`)
             .then((res) => {
@@ -48,7 +48,7 @@ const HeaderComponent = ({ userRole }) => {
       <div className="row">
         <nav className="templatemo-top-nav col-lg-12 col-md-12">
           <ul className="text-uppercase">
-            <li><button className="btn" onClick={handleLogout}>ATSIJUNGTI <IoMdExit size={20} /></button></li>
+            <li><button className="btn" onClick={handleLogout}>ATSIJUNGTI <BsBoxArrowRight size={20} /></button></li>
             <li>{window.location.pathname === `/kindergarten${urls.guardian.primaryDataBase}` ? <p className="lead">
             </p> : <p className="lead mb-0">
               <strong>{nameToShow}</strong>

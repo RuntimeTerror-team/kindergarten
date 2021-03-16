@@ -7,8 +7,6 @@ import ESNavigationComponent from "../Navigation/ESNavigationComponent";
 import Footer from "../Footer/Footer";
 import AgeRangeFormComponent from "./AgeRangeFormComponent";
 
-import "../../styles/groupsForm.css";
-
 class AgeRangeFormContainer extends Component {
   constructor() {
     super();

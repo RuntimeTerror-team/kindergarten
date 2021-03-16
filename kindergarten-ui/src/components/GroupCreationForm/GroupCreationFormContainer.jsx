@@ -174,7 +174,6 @@ class GroupCreationFormContainer extends Component {
                     e.target.reset();
                 })
                 .catch((err) => {
-                    // we can put a message from backend why saving not succeeded
                     this.setState({ message: "Darželio grupės sukurti nepavyko. Pasitikrinkite duomenis." })
                     this.setState({ messageStyle: "alert alert-danger" })
                     console.log(err)

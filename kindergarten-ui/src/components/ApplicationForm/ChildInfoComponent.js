@@ -21,11 +21,6 @@ let ChildInfoComponent = (props) => {
             className={"form-control " + props.childSurnameValidation} name="childSurname" value={props.surname} onChange={props.onDetailsChange} placeholder="Pavardė"></input>
           <div className="invalid-feedback">Šis laukas privalomas. Pavardė turi būti 3-30 raidžių ilgio.</div>
         </div>
-        {/* <div className="form-group">
-            <input
-              className={"form-control " + props.childBirthDateValidation} name="childBirthDate" value={props.birthDate} onChange={props.onDetailsChange} placeholder="Gimimo data"></input>
-              <div className="invalid-feedback">Šis laukas privalomas</div>
-        </div> */}
         <div className="form-group">
           <input
             className={"form-control " + props.childIdValidation} name="childId" value={props.id} onChange={props.onDetailsChange} placeholder="Asmens kodas"></input>
@@ -44,12 +39,6 @@ let ChildInfoComponent = (props) => {
         <div className="col-12 text-right p-0">
           <button className="templatemo-blue-button" onClick={props.saveChild}>Išsaugoti</button>
         </div>
-
-
-        {/* <div className={props.applicationMessageStyle + " mt-2"}>
-          {props.applicationMessage}
-        </div> */}
-
       </div>
       <div className={props.messageStyle + " mt-2"}>
         <span>{props.message}</span>

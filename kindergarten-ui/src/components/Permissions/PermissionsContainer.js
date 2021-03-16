@@ -19,6 +19,8 @@ class PermissionsContainer extends Component {
         }
     }
 
+    timer = null;
+
     componentDidMount() {
 
         Axios
@@ -28,6 +30,12 @@ class PermissionsContainer extends Component {
                 this.setState({ buttonText: this.state.permission ? "Panaikinti leidimą" : "Suteikti leidimą" })
             })
             .catch(err => { console.log(err) })
+    }
+
+    componentWillUnmount = () => {
+        if (this.timer) {
+            clearTimeout(this.timer);
+        }
     }
 
 

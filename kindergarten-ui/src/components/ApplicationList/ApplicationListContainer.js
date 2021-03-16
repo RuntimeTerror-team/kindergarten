@@ -24,13 +24,13 @@ class GuardianPageContainer extends Component {
 
         axios.get(`${baseUrl}/api/queues`)
             .then((res) => {
-                  this.setState({ queues: res.data });
-                  this.setState({ queueStatus: this.state.queues[0].status });
-             })
-             .catch((err) => console.log(err));
+                this.setState({ queues: res.data });
+                this.setState({ queueStatus: this.state.queues[0].status });
+            })
+            .catch((err) => console.log(err));
 
         axios
-            .get(`${baseUrl}/loggedUsername`)
+            .get(`${baseUrl}/api/loggedUsername`)
             .then((res) => {
                 this.setState({ username: res.data })
                 axios.get(baseUrl + "/api/applications/info/" + this.state.username)
@@ -41,20 +41,18 @@ class GuardianPageContainer extends Component {
                     .catch(err => { console.log(err) })
                 axios
                     .get(baseUrl + "/api/distributedApplications/info/" + this.state.username)
-                    .then(res =>{
-                        this.setState({distributedApplications: res.data});
+                    .then(res => {
+                        this.setState({ distributedApplications: res.data });
                         this.translateFinalStatus();
                     })
-                    .catch(err => {console.log(err)})    
-                
+                    .catch(err => { console.log(err) })
+
             })
 
             .catch(err => console.log)
-
     }
 
     cancelApplication = (e) => {
-
                 axios.put(baseUrl + "/api/applications/" + e.target.id + "/REJECTED")
                 .then(() =>{
                     axios.get(baseUrl + "/api/applications/info/" + this.state.username)
@@ -73,25 +71,25 @@ class GuardianPageContainer extends Component {
 
         this.state.applications.forEach(application => {
 
-            if (application.applicationStatus === "SUBMITTED") {
-                application.applicationStatus = 'Pateiktas'
-                this.forceUpdate()
+            switch (application.applicationStatus) {
+                case "SUBMITTED":
+                    application.applicationStatus = 'Pateiktas'
+                    break;
+                case "REJECTED":
+                    application.applicationStatus = 'Atmestas'
+                    break;
+                case "APPROVED":
+                    application.applicationStatus = 'Patvirtintas'
+                    break;
+                case "WAITING":
+                    application.applicationStatus = 'Eilėje'
+                    break;
+
+                default:
+                    break;
             }
 
-            else if (application.applicationStatus === "REJECTED") {
-                application.applicationStatus = 'Atmestas'
-                this.forceUpdate()
-            }
-
-            else if (application.applicationStatus === "APPROVED") {
-                application.applicationStatus = 'Patvirtintas'
-                this.forceUpdate()
-            }
-
-            else if (application.applicationStatus === "WAITING") {
-                application.applicationStatus = 'Eilėje'
-                this.forceUpdate()
-            }
+            this.forceUpdate()
         })
     }
 

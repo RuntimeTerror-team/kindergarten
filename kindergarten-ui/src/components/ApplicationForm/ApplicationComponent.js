@@ -34,8 +34,6 @@ let ApplicationComponent = (props) => {
             childCityValidation={props.childCityValidation}
             emptyChildInputsMessage={props.emptyChildInputsMessage}
             emptyChildInputsMessageStyle={props.emptyChildInputsMessageStyle}
-            // childRegistratedMessage={props.childRegistratedMessage}
-            // childRegistratedMessageStyle={props.childRegistratedMessageStyle}
             applicationMessage={props.applicationMessage}
             applicationMessageStyle={props.applicationMessageStyle}
             message={props.childMessage}
@@ -170,10 +168,6 @@ let ApplicationComponent = (props) => {
           </div>
 
         </div>
-
-        {/* <div className={props.noChildMessageStyle + " mt-2"}>
-                <span>{props.noChildMessage}</span>
-                </div> */}
 
         <div className="col-12 text-right p-0">
           {props.previousButton()}

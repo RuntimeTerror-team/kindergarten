@@ -1,6 +1,7 @@
 #loginPage {
     height: 100vh;
-    /* background: linear-gradient(45deg, rgba(66, 183, 245, 0.8) 0%, rgba(66, 245, 189, 0.4) 100%); */
+    background-color: #007ac9;
+    color: #a2dbfc;
 }
 
 .loginPadding {
@@ -102,13 +103,9 @@ html {
 body {
     min-height: 100%;
     position: relative;
-    /* padding-bottom: 50px; */
 }
 
 .page-name {
-    /* color: #39ADB4; */
-    /* color: #4285F4; */
-    /* color: #1F2124; */
     color: #666666;
 }
 
@@ -126,4 +123,14 @@ body {
 
 label.label-form {
     font-weight: 700;
+}
+
+.button-toolbar {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-end;
+}
+
+.fixedTable {
+    table-layout: fixed;
 }

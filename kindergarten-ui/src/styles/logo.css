@@ -1,3 +1,10 @@
+.logo-div {
+    height: 135px;
+    width: 300px;
+    display: flex;
+    justify-content: center;
+}
+
 .logo {
     height: 100%;
     width: 50%;

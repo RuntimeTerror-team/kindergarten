@@ -10,6 +10,8 @@ import lt.vtmc.kindergarten.domain.User;
 import lt.vtmc.kindergarten.dto.*;
 import lt.vtmc.kindergarten.dao.UserDao;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.security.core.authority.AuthorityUtils;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -26,7 +28,7 @@ import java.util.stream.Collectors;
 
 @Service
 @Validated
-public class UserService implements UserDetailsService {
+public class UserService implements UserDetailsService, PagingLimit<User> {
     @Autowired
     private UserDao userDao;
 
@@ -296,4 +298,14 @@ public class UserService implements UserDetailsService {
     	
     }
 
+
+    @Override
+    public Page<User> findAll(Pageable pageable) {
+        return userDao.findAll(pageable);
+    }
+
+    @Override
+    public Page<User> findAll(Pageable pageable, String searchText) {
+        return userDao.findAllUsers(pageable, searchText);
+    }
 }

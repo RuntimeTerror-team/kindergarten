@@ -11,6 +11,7 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletResponse;
@@ -29,6 +30,7 @@ public class UserDataController {
     @Autowired
     private UserDataService userDataService;
 
+    @PreAuthorize("hasRole('ADMIN')")
     @RequestMapping(path = "/{username}", method = RequestMethod.GET)
     @ResponseStatus(HttpStatus.OK)
     @ApiOperation(value = "Get user data", notes = "Returns user zip file with user data by username")

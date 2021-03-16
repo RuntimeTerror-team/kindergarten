@@ -5,7 +5,7 @@ let GuardianInfoComponent = (props) => {
 
     return (
         <div>
-            <div className="templatemo-content-widget white-bg">
+            <div className="templatemo-content-widget white-bg mb-4">
                 <h3 className="margin-bottom-10">Duomenų redagavimas</h3>
 
                 <div className="form-group">
@@ -80,8 +80,8 @@ GuardianInfoComponent.propTypes = {
     city: Proptypes.string.isRequired,
     postalCode: Proptypes.string.isRequired,
     email: Proptypes.string.isRequired,
-    message: Proptypes.string.isRequired,
-    messageStyle: Proptypes.string.isRequired,
+    message: Proptypes.string,
+    messageStyle: Proptypes.string,
     guardianButtonText: Proptypes.string.isRequired,
     isDisabled: Proptypes.bool.isRequired,
     onDetailsChange: Proptypes.func.isRequired,
