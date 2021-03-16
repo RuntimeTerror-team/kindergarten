@@ -273,12 +273,27 @@ public class UserService implements UserDetailsService, PagingLimit<User> {
     @Transactional
     public void setESPermision(PermissionForESDto permissionForESDto) {
     	Optional<PermissionForES> permission = permissionForESDao.findById(1L);
+    	if(permission.isEmpty()){
+    		PermissionForES newPermission = new PermissionForES();
+    		newPermission.setId();
+    		newPermission.setIsAllowed(false);
+            permissionForESDao.save(newPermission);
+    	}
+    	permission = permissionForESDao.findById(1L);
     	permission.get().setIsAllowed(permissionForESDto.getIsAllowed());
+    	
     }
     
     @Transactional
     public boolean getESPermisionStatus() {
     	Optional<PermissionForES> permission = permissionForESDao.findById(1L);
+    	if(permission.isEmpty()){
+    		PermissionForES newPermission = new PermissionForES();
+    		newPermission.setId();
+    		newPermission.setIsAllowed(false);
+            permissionForESDao.save(newPermission);
+    	}
+    	permission = permissionForESDao.findById(1L);
     	return permission.get().getIsAllowed();
     	
     }

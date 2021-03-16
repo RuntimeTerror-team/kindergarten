@@ -34,8 +34,8 @@ public class CommandLineAppStartupRunner implements CommandLineRunner {
     @Autowired
     QueueDao queueDao;
     
-    @Autowired
-    PermissionForESDao permissionForESDao;
+//    @Autowired
+//    PermissionForESDao permissionForESDao;
 
 
     @Override
@@ -135,10 +135,10 @@ public class CommandLineAppStartupRunner implements CommandLineRunner {
 //                    true, true, true, false);
         }
         
-        PermissionForES permission = new PermissionForES();
-        permission.setId();
-        permission.setIsAllowed(false);
-        permissionForESDao.save(permission);
+//        PermissionForES permission = new PermissionForES();
+//        permission.setId();
+//        permission.setIsAllowed(false);
+//        permissionForESDao.save(permission);
 
     }
 

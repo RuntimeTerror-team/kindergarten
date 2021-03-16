@@ -124,7 +124,7 @@ public class QueueService {
             queue.setStatus(QueueStatusEnum.LOCKED);
             queueDao.save(queue);
 
-            applicationList.stream().forEach(application ->
+            applicationList.stream().filter(application -> application.getApplicationStatus() != ApplicationStatusEnum.REJECTED).forEach(application ->
                     {
                         application.setApplicationStatus(ApplicationStatusEnum.WAITING);
                         applicationDao.save(application);
