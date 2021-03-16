@@ -30,20 +30,6 @@ public class PersonService {
     @Autowired
     private UserDao userDao;
 
-
-//    @Transactional
-//    public void addPerson(@Valid PersonDto personDto) {
-//        Person person = personDao.findByPersonalCode(personDto.getPersonalCode());
-//        if (person == null) {
-//            person = createPersonFromDto(personDto);
-//            person.setTribeId(getLoggedInUserTribeId());
-//            personDao.save(person);
-//        } else {
-//            updatePerson(person.getId(), personDto);
-//        }
-//
-//    }
-
     @Transactional
     public void updatePerson(Long id, PersonDto personDto) {
         Person person = personDao.getOne(id);
@@ -68,7 +54,7 @@ public class PersonService {
         return new PersonDto(person);
     }
 
-    @Transactional
+    @Transactional(readOnly = true)
     public PersonDto getPersonByPersonalCode(String personalCode){
 
     	Person person = personDao.findByPersonalCode(personalCode);

@@ -32,7 +32,7 @@ public class AgeRangeService {
         return ageRangeList;
     }
 
-    @Transactional
+    @Transactional(readOnly = true)
     public AgeRangeDto getAgeRange(Long id) {
         AgeRange ageRange = ageRangeDao.getOne(id);
         return new AgeRangeDto(ageRange);
@@ -92,7 +92,7 @@ public class AgeRangeService {
     	}
     }
     
-    @Transactional
+    @Transactional(readOnly = true)
     public AgeRange findAgeRange(int ageMin, int ageMax){
         
     	AgeRange ageRange = ageRangeDao.findByAgeMinAndAgeMax(ageMin, ageMax);

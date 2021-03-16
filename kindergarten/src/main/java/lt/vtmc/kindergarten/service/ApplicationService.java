@@ -1,11 +1,14 @@
 package lt.vtmc.kindergarten.service;
 
+import ch.qos.logback.classic.Logger;
+import lt.vtmc.kindergarten.controller.UserController;
 import lt.vtmc.kindergarten.dao.*;
 import lt.vtmc.kindergarten.domain.*;
 import lt.vtmc.kindergarten.domain.Queue;
 import lt.vtmc.kindergarten.dto.*;
 
 import lt.vtmc.kindergarten.exception.QueueDoesntExistException;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -53,6 +56,8 @@ public class ApplicationService implements PagingLimit<ApplicationAfterDistribut
     @Autowired
     private ApplicationAfterDistributionDao applicationAfterDistributionDao;
 
+    private static final Logger logger
+            = (Logger) LoggerFactory.getLogger(ApplicationService.class);
 
     @Transactional
     public void addApplication(@Valid ApplicationCreationDto applicationCreationDto) {
@@ -118,7 +123,7 @@ public class ApplicationService implements PagingLimit<ApplicationAfterDistribut
         }
     }
 
-    @Transactional
+    @Transactional(readOnly = true)
     public List<ApplicationDto> getApplicationsList() {
         List<Application> applications = applicationDao.findAll();
         return applications.stream().map(application -> new ApplicationDto(application.getId(), application.getApplicationStatus(),
@@ -135,7 +140,7 @@ public class ApplicationService implements PagingLimit<ApplicationAfterDistribut
         return new ApplicationCreationDto(application);
     }
 
-    @Transactional
+    @Transactional(readOnly = true)
     public List<ApplicationCreationDto> getApplications() {
         List<Application> applications = applicationDao.findAll(Sort.by(Sort.Direction.ASC, "date"));
         List<ApplicationCreationDto> applicationList = applications.stream().map(application -> new ApplicationCreationDto(application))
@@ -143,7 +148,7 @@ public class ApplicationService implements PagingLimit<ApplicationAfterDistribut
         return applicationList;
     }
 
-    @Transactional
+    @Transactional(readOnly = true)
     public List<ApplicationInfoDto> getApplicationsInfo(String username) {
         User user = userDao.findByUsername(username);
         Person parent = personDao.findByUser(user);
@@ -156,7 +161,7 @@ public class ApplicationService implements PagingLimit<ApplicationAfterDistribut
         return applicationInfoList;
     }
     
-    @Transactional
+    @Transactional(readOnly = true)
     public List<DistributedApplicationInfoDto> getDistributedApplicationsInfo(String username) {
         User user = userDao.findByUsername(username);
         Person parent = personDao.findByUser(user);
@@ -293,7 +298,7 @@ public class ApplicationService implements PagingLimit<ApplicationAfterDistribut
     }
 
 
-    @Transactional
+    @Transactional(readOnly = true)
     public List<ApplicationAfterDistributionDto> getApplicationsAfterDistribution() {
         List<ApplicationAfterDistribution> applications = applicationAfterDistributionDao.findAll(Sort.by(Sort.Direction.ASC, "status"));
         List<ApplicationAfterDistributionDto> applicationListAfterDistribution = applications.stream().map(application -> new ApplicationAfterDistributionDto(application))
@@ -304,9 +309,11 @@ public class ApplicationService implements PagingLimit<ApplicationAfterDistribut
 
     @Transactional
     public void persistApplicationsAfterDistribution(List<Application> applications) {
+        logger.info("Persisting applications to finalised table");
         AtomicReference<Long> waitingNum = new AtomicReference<>(1L);
         applications.stream().forEach(application -> {
             if (application.getApplicationStatus() != ApplicationStatusEnum.APPROVED) {
+                logger.info("Saving application to waiting list for child: " + application.getChild().getPersonalCode() + " created by parent: " + application.getParent().getPersonalCode());
 
                 ApplicationAfterDistribution applicationAfterDistribution = new ApplicationAfterDistribution();
 
@@ -338,7 +345,11 @@ public class ApplicationService implements PagingLimit<ApplicationAfterDistribut
                 applicationAfterDistribution.setChildPersonalCode(application.getChild().getPersonalCode());
                 applicationAfterDistribution.setApprovedKindergarten(application.getKindergartenApplicationForms().stream()
                         .filter(item -> item.isAccepted())
-                        .map(applicationForm -> applicationForm.getKindergarten().getTitle())
+                        .map(applicationForm -> {
+                            String kindergartenTitle = applicationForm.getKindergarten().getTitle();
+                            logger.info("Saving approved application for child: " + application.getChild().getPersonalCode() + " created by parent: " + application.getParent().getPersonalCode() + " to kindergarten " + kindergartenTitle );
+                            return kindergartenTitle;
+                        })
                         .collect(Collectors.joining(application.toString())));
 
                 applicationAfterDistributionDao.save(applicationAfterDistribution);
@@ -349,10 +360,14 @@ public class ApplicationService implements PagingLimit<ApplicationAfterDistribut
 
     @Transactional
     public void recalculateApplicationOrderInQueue() {
+        logger.info("Removing old application data");
         applicationAfterDistributionDao.deleteAll();
+        logger.info("Applicaiton data removal successfull");
+        logger.info("Searching for new application data");
         List<Application> applications = applicationDao.findAll();
         applications.stream().filter(application -> application.getApplicationStatus() != ApplicationStatusEnum.REJECTED)
                 .forEachOrdered(application -> {
+                    logger.info("Changing application id: " + application.getId() + " status");
                     application.setApplicationStatus(ApplicationStatusEnum.WAITING);
                 });
         calculateApplicationStatus();
@@ -365,10 +380,12 @@ public class ApplicationService implements PagingLimit<ApplicationAfterDistribut
      */
     @Transactional
     public void calculateApplicationStatus() {
+        logger.info("Starting application status calculation");
         List<Application> applications = getSortedApplications();
 
         applications.stream().forEach(application -> {
             application.getKindergartenApplicationForms().stream().forEach(applicationForm -> {
+                logger.info("Defaulting application " + application.getId() + " status");
                 applicationForm.getKindergarten().getGroups().forEach(group -> group.setOccupiedSpace(0));
                 applicationForm.setAccepted(false);
             });
@@ -401,6 +418,7 @@ public class ApplicationService implements PagingLimit<ApplicationAfterDistribut
                                                     group.setOccupiedSpace(group.getOccupiedSpace() + 1);
                                                     applicationForm.setAccepted(true);
                                                     application.setApplicationStatus(ApplicationStatusEnum.APPROVED);
+                                                    logger.info("Application id: " + application.getId() + " for person " + application.getChild().getPersonalCode() + " approved");
                                                     return;
                                                 }
                                             }
@@ -443,9 +461,9 @@ public class ApplicationService implements PagingLimit<ApplicationAfterDistribut
      * Sorts application by score. If score is equal, then sorts by child age. If age is equal
      * then sorts by child last name.
      */
-    @Transactional
+    @Transactional(readOnly = true)
     public List<Application> getSortedApplications() {
-
+        logger.info("Sorting applicaitons");
         List<Application> applications = applicationDao.findByApplicationStatus(ApplicationStatusEnum.WAITING);
         applications.sort((o1, o2) -> {
             if (o1.getScore() == o2.getScore()) {
@@ -466,11 +484,11 @@ public class ApplicationService implements PagingLimit<ApplicationAfterDistribut
                 return -1;
             }
         });
-
+        logger.info("Application sorting successful");
         return applications;
     }
     
-    @Transactional
+    @Transactional(readOnly = true)
     public ApplicationsStatisticsDto getApplicationsStatistics() {
     	
     	int nrOfApplications = (int) applicationDao.count();
