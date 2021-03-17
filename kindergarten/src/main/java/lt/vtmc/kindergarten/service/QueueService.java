@@ -125,6 +125,10 @@ public class QueueService {
 
         if (queue != null && queue.getRegistrationClosingDate() != null && queue.getRegistrationClosingDate().before(new Date())) {
 
+            logger.info("Getting all applications");
+            List<Application> applicationList = applicationDao.findAll();
+            logger.info(applicationList.size() + " applications found");
+
             logger.info("Queue is after due date. Closing queue.");
             queue.setStatus(QueueStatusEnum.LOCKED);
             logger.info("Saving queue");
