@@ -76,3 +76,11 @@ body {
 .fixedTable {
     table-layout: fixed;
 }
+
+.templatemo-edit-btn, .templatemo-edit-btn-danger {
+    border: 1px solid #ddd;
+    border-radius: 3px;
+    color: black;
+    padding: 5px 15px;
+    transition: all 0.3s ease;
+}
