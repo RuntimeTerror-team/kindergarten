@@ -28,7 +28,7 @@ public class DistrictService {
         return new DistrictDto(district);
     }
 
-    @Transactional
+    @Transactional(readOnly = true)
     public List<DistrictDto> getDistricts(){
         List<District> districts = districtDao.findAll(Sort.by(Sort.Direction.ASC,"title"));
         List<DistrictDto> districtList= districts.stream().map(district -> new DistrictDto(district)).collect(Collectors.toList());
@@ -59,7 +59,7 @@ public class DistrictService {
         districtDao.save(district);
     }
     
-    @Transactional
+    @Transactional(readOnly = true)
     public District findDistrict(String title) {
     	
     	District district = districtDao.findByTitle(title);

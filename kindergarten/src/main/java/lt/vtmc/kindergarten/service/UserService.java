@@ -284,7 +284,7 @@ public class UserService implements UserDetailsService, PagingLimit<User> {
     	
     }
     
-    @Transactional
+    @Transactional(readOnly = true)
     public boolean getESPermisionStatus() {
     	Optional<PermissionForES> permission = permissionForESDao.findById(1L);
     	if(permission.isEmpty()){

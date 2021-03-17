@@ -36,7 +36,7 @@ public class KindergartenService {
     @Autowired
     private ApplicationDao applicationDao;
 
-    @Transactional
+    @Transactional(readOnly = true)
     public List<KindergartenInfoDto> getKindergartens(){
         List<Kindergarten> kindergartens = kindergartenDao.findAll();
         List<KindergartenInfoDto> kindergartenList= kindergartens.stream().map(kindergarten -> new KindergartenInfoDto(kindergarten)).collect(Collectors.toList());
@@ -95,7 +95,7 @@ public class KindergartenService {
         }
     }
     
-    @Transactional
+    @Transactional(readOnly = true)
     public MostPopularKindergartensDto getMostPopularKindergartens() {
        
     	List<Long> kindergartensIds = kindergartenDao.findAll().stream().map(kindergarten -> kindergarten.getId()).collect(Collectors.toList());

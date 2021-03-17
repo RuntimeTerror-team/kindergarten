@@ -42,7 +42,7 @@ public class GroupService {
     public GroupDto getGroup(Long kindergartenId, Long groupId){
         Kindergarten kindergarten = kindergartenDao.getOne(kindergartenId);
         Set<Group> groups = kindergarten.getGroups();
-        Group group = groups.stream().filter(item -> item.getId() == groupId).findFirst().get();
+        Group group = groups.stream().filter(item -> item.getId().equals(groupId)).findFirst().get();
         return new GroupDto(group);
     }
 
@@ -71,9 +71,9 @@ public class GroupService {
     }
 
 
-    public void setGroupDao(GroupDao groupDao) {
-        this.groupDao = groupDao;
-    }
+//    public void setGroupDao(GroupDao groupDao) {
+//        this.groupDao = groupDao;
+//    }
 
     public void setKindergartenDao(KindergartenDao kindergartenDao) {
         this.kindergartenDao = kindergartenDao;

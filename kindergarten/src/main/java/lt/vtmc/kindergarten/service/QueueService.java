@@ -1,5 +1,6 @@
 package lt.vtmc.kindergarten.service;
 
+import ch.qos.logback.classic.Logger;
 import lt.vtmc.kindergarten.dao.ApplicationAfterDistributionDao;
 import lt.vtmc.kindergarten.dao.ApplicationDao;
 import lt.vtmc.kindergarten.dao.QueueDao;
@@ -9,6 +10,7 @@ import lt.vtmc.kindergarten.dto.QueueDtoClosingDate;
 import lt.vtmc.kindergarten.dto.QueueDtoWithOpeningDate;
 import lt.vtmc.kindergarten.dto.QueueDtoRegistrationClosingDate;
 import lt.vtmc.kindergarten.exception.RegistrationClosingValidationExeption;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
 import org.springframework.scheduling.annotation.EnableScheduling;
@@ -37,6 +39,8 @@ public class QueueService {
     @Autowired
     private ApplicationAfterDistributionDao applicationAfterDistributionDao;
 
+    private static final Logger logger
+            = (Logger) LoggerFactory.getLogger(QueueService.class);
 
     @Transactional
     public void addQueueWithOpeningDate(QueueDtoWithOpeningDate queueDtoWithOpeningDate) {
@@ -116,18 +120,27 @@ public class QueueService {
      */
     @Scheduled(cron = "1 * * * * *")
     protected void startKindergartenRegistrations() {
+        logger.info("Kindergaten registration started. Searching for active queue");
         Queue queue = queueDao.findByStatus(QueueStatusEnum.ACTIVE);
-        List<Application> applicationList = applicationDao.findAll();
 
         if (queue != null && queue.getRegistrationClosingDate() != null && queue.getRegistrationClosingDate().before(new Date())) {
-            System.out.println("Queue is after due date. Closing queue.");
+
+            logger.info("Getting all applications");
+            List<Application> applicationList = applicationDao.findAll();
+            logger.info(applicationList.size() + " applications found");
+
+            logger.info("Queue is after due date. Closing queue.");
             queue.setStatus(QueueStatusEnum.LOCKED);
+            logger.info("Saving queue");
             queueDao.save(queue);
+            logger.info("Queue saved. Starting application status change to WAITING");
 
             applicationList.stream().filter(application -> application.getApplicationStatus() != ApplicationStatusEnum.REJECTED).forEach(application ->
                     {
                         application.setApplicationStatus(ApplicationStatusEnum.WAITING);
+                        logger.info("Saving application: " + application.getId());
                         applicationDao.save(application);
+                        logger.info("Application: " + application.getId() + " saved");
                     }
             );
             applicationService.calculateApplicationStatus();

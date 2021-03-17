@@ -15,7 +15,7 @@ public class LoggingService {
     @Autowired
     private EntityManager entityManager;
 
-    @Transactional
+    @Transactional(readOnly = true)
     public List<String> getLogs(){
         List<String> logs = (List<String>) entityManager.createNativeQuery("SELECT formatted_message FROM logging_event").getResultList().stream().map(log -> (String) log).collect(Collectors.toList());
         return logs;

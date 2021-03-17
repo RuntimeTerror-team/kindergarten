@@ -83,23 +83,6 @@ public class PersonController {
         logger.info(personEvent,"Atnaujinti {} {} duomenys. Įvykio laikas: {}", personDto.getFirstName(), personDto.getLastName(), new Date());
     }
 
-    /* TODO - check if in use */
-    @ApiOperation(value = "Get single person by id", notes = "Returns a single person by id")
-    @RequestMapping(method = RequestMethod.GET, value = "/api/persons/{personID}")
-    @ResponseStatus(HttpStatus.OK)
-    public PersonDto getPerson(
-            @PathVariable final Long personID
-    ){
-        return personService.getPerson(personID);
-    }
-
-    /* TODO - check if in use */
-    @RequestMapping(method = RequestMethod.GET, value = "/api/persons")
-    @ApiOperation(value="Get persons",notes ="Returns all persons")
-    @ResponseStatus(HttpStatus.OK)
-    public List<PersonDto> getPersons(){
-        return personService.getPersons();
-    }
 
     @PreAuthorize("hasRole('GUARDIAN')")
     @RequestMapping(value="/api/persons/byPersonalCode/{personalCode}", method = RequestMethod.GET)

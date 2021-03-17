@@ -69,20 +69,6 @@ public class KindergartenDto {
         this.companyCode = companyCode;
     }
     
-    
-    public KindergartenDto(String title, String address, String city, String postalCode,
-    		String phoneNumber, String email, String website) {
-    	
-    	this.title = title;
-    	this.address = address;
-    	this.city = CityEnum.valueOf(city);
-    	this.postalCode = postalCode;
-    	this.phoneNumber = phoneNumber;
-    	this.email = email;
-    	this.website = website; 
-    	
-    }
-
     public String getTitle() {
         return title;
     }

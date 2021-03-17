@@ -75,7 +75,8 @@ public class DistrictControllerTest {
 
         districtController.updateDistrict(1L, districtDto2);
 
-        assertEquals("ValakampiaiUpdate", districtController.getDistrict(1L).getTitle(), "should update district by id correctly");
+//        assertEquals("ValakampiaiUpdate", districtController.getDistrict(1L).getTitle(), "should update district by id correctly");
+        assertEquals("ValakampiaiUpdate", districtController.getDistricts().get(0).getTitle(), "should update district by id correctly");
     }
 
 

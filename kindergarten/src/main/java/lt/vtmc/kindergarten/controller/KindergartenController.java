@@ -66,7 +66,8 @@ public class KindergartenController {
             @RequestBody KindergartenDto kindergartenDto
     ){
         kindergartenService.updateKindergarten(id, kindergartenDto);
-        logger.info(kindergartenEvent,"Atnaujinti darželio {}, įmonės kodas: {} duomenys. Įvykio laikas: {}", kindergartenDto.getTitle(), kindergartenDto.getCompanyCode(), new Date());
+        logger.info(kindergartenEvent,"Atnaujinti darželio {}, įmonės kodas: {} duomenys. Įvykio laikas: {}",
+                kindergartenDto.getTitle(), kindergartenDto.getCompanyCode(), new Date());
     }
 
     @PreAuthorize("hasRole('EDUCATION_SPECIALIST')")
