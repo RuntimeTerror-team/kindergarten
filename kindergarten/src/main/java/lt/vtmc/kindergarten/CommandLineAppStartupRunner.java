@@ -47,7 +47,7 @@ public class CommandLineAppStartupRunner implements CommandLineRunner {
     @Override
     public void run(String... args) throws Exception {
         userService.createUser(new UserDto("administratorius", "Administratorius1", "ADMIN"));
-        userService.createUser(new UserDto("ŠvietimoSpecialistas1", "ŠvietimoSpecialistas1", "EDUCATION_SPECIALIST"));
+//        userService.createUser(new UserDto("ŠvietimoSpecialistas1", "ŠvietimoSpecialistas1", "EDUCATION_SPECIALIST"));
 
         if (seedData) {
 
@@ -114,13 +114,13 @@ public class CommandLineAppStartupRunner implements CommandLineRunner {
 
 
             List<String> guardianPersonalCodes = new ArrayList<>();
-            for (int i = 0; i < 10; i++) {
+            for (int i = 0; i < 10000; i++) {
                 String createdPersonalCode = dataSeeder.createPerson(i, "GUARDIAN");
                 guardianPersonalCodes.add(createdPersonalCode);
             }
 
             List<String> childrenPersonalCodes = new ArrayList<>();
-            for (int i = 0; i < 30; i++) {
+            for (int i = 0; i < 30000; i++) {
                 String createdPersonalCode = dataSeeder.createPerson(i, "NON_GUARDIAN");
                 childrenPersonalCodes.add(createdPersonalCode);
             }
