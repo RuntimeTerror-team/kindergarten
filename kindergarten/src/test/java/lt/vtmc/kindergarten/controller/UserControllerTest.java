@@ -91,14 +91,14 @@ public class UserControllerTest {
         assertNotEquals(createdUsername, createdUsername2, "Creating 2 guardians with same names gives equal usernames");
     }
 
-    @Test
-    @DirtiesContext(methodMode = DirtiesContext.MethodMode.AFTER_METHOD)
-    void testAdminCreatingEduSpecialist() {
-        UserDtoFromAdmin user = new UserDtoFromAdmin("Arnas", "Jocys","EDUCATION_SPECIALIST");
-        String createdUsername = userController.createUserFromAdmin(user);
-
-        assertEquals("ŠvietimoSpecialistas1", createdUsername, "Education specialist is not created with username ŠvietimoSpecialistas1");
-    }
+//    @Test
+//    @DirtiesContext(methodMode = DirtiesContext.MethodMode.AFTER_METHOD)
+//    void testAdminCreatingEduSpecialist() {
+//        UserDtoFromAdmin user = new UserDtoFromAdmin("Arnas", "Jocys","EDUCATION_SPECIALIST");
+//        String createdUsername = userController.createUserFromAdmin(user);
+//
+//        assertEquals("ŠvietimoSpecialistas1", createdUsername, "Education specialist is not created with username ŠvietimoSpecialistas1");
+//    }
 
     @Test
     @DirtiesContext(methodMode = DirtiesContext.MethodMode.AFTER_METHOD)

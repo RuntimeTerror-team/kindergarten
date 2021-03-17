@@ -1,8 +1,6 @@
 package lt.vtmc.kindergarten.domain;
 
 import javax.persistence.*;
-import java.time.LocalDate;
-import java.util.Comparator;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;

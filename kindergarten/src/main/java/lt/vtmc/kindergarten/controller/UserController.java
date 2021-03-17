@@ -8,7 +8,6 @@ import lt.vtmc.kindergarten.dto.PermissionForESDto;
 import lt.vtmc.kindergarten.dto.UserDetailsDto;
 import lt.vtmc.kindergarten.dto.UserDtoFromAdmin;
 import lt.vtmc.kindergarten.dto.UserDto;
-import lt.vtmc.kindergarten.dto.UserValidateCommandDto;
 import lt.vtmc.kindergarten.dto.UsernameDto;
 import lt.vtmc.kindergarten.service.UserService;
 import org.slf4j.LoggerFactory;
@@ -58,23 +57,6 @@ public class UserController {
         return new ResponseEntity(userService.findAll(pageable, searchText), HttpStatus.OK);
     }
 
-//   /* TODO - check if in use */
-//    @RequestMapping(method = RequestMethod.POST)
-//    @ResponseStatus(HttpStatus.CREATED)
-//    @ApiOperation(value = "Create user", notes = "Creates user with data")
-//    public void createUser(@ApiParam(value = "User Data", required = true) @Valid @RequestBody UserDto userDto) {
-//        userService.createUser(userDto);
-//        logger.info(userEvent, "Sukurtas vartotojas. Vartotojo vardas: {}. Vartotojo rolė: {} Sukūrimo laikas {}", userDto.getUsername(), userDto.getRole(), new Date());
-//    }
-////
-////    /* TODO - check if in use */
-//    @RequestMapping(path = "/{username}", method = RequestMethod.GET)
-//    @ResponseStatus(HttpStatus.OK)
-//    @ApiOperation(value = "Get user", notes = "Returns user by username")
-//    public UserDto getUser(@PathVariable String username) {
-//        return userService.getUser(username);
-//    }
-
     @RequestMapping(path = "/admin", method = RequestMethod.POST)
     @PreAuthorize("hasRole('ADMIN')")
     @ResponseStatus(HttpStatus.CREATED)
@@ -99,22 +81,6 @@ public class UserController {
         }
     }
 
-//    /* TODO - check if in use */
-//    @ApiOperation(value = "Get user validation info", notes = "Returns validity data on person associated with user")
-//    @RequestMapping(method = RequestMethod.POST, value = "/{username}/validate")
-//    @ResponseStatus(HttpStatus.OK)
-//    public ResponseEntity validateUser(
-//            @ApiParam(value = "Username", required = true)
-//            @Valid
-//            @PathVariable String username
-//    ) {
-//        try {
-//            UserValidateCommandDto userValidationData = userService.getUserValidityData(username);
-//            return new ResponseEntity(userValidationData, HttpStatus.OK);
-//        } catch (RuntimeException exception) {
-//            return new ResponseEntity(exception.getMessage(), HttpStatus.BAD_REQUEST);
-//        }
-//    }
 
     @PreAuthorize("hasAnyRole('EDUCATION_SPECIALIST', 'GUARDIAN')")
     @RequestMapping(method = RequestMethod.PUT)

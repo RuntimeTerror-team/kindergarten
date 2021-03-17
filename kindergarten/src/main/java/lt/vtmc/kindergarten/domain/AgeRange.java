@@ -56,11 +56,4 @@ public class AgeRange {
         this.ageMax = ageMax;
     }
 
-    public void addGroup(Group group){
-        groups.add(group);
-    }
-
-    public void removeGroup(Group group){
-        groups.remove(group);
-    }
 }
