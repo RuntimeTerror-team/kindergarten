@@ -50,7 +50,7 @@ public class PersonController {
 
     }
 
-    @PreAuthorize("hasRole('EDUCATION_SPECIALIST')")
+    @PreAuthorize("hasRole('GUARDIAN')")
     @RequestMapping(value="/api/persons/username", method = RequestMethod.POST)
     @ResponseStatus(HttpStatus.CREATED)
     @ApiOperation(value = "Adds person", notes = "Creates new person and assigns it to the existing user")
