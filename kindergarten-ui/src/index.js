@@ -6,7 +6,7 @@ import App from "./App";
 import "bootstrap/dist/css/bootstrap.min.css";
 
 import "./styles/styles.css";
-import './styles/templatemo-style.css'
+import './styles/templatemo-style.css';
 
 document.title = "Vaikų darželių informacinė sistema";
 
