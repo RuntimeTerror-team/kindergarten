@@ -16,7 +16,7 @@ import org.springframework.transaction.annotation.Transactional;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 @SpringBootTest
-@WithMockUser(username="ŠvietimoSpecialistas1",roles={"EDUCATION_SPECIALIST"})
+@WithMockUser(username="AndriusValatka1",roles={"GUARDIAN"})
 @Transactional
 @DirtiesContext(classMode = DirtiesContext.ClassMode.AFTER_EACH_TEST_METHOD)
 public class PersonTest {

@@ -2,8 +2,8 @@ import React from 'react'
 import Proptypes from 'prop-types';
 import AppModal from "../common/AppModal";
 
-const ApplicationListComponent = ({ applications, distributedApplications, queueStatus, cancelApplication}) => {
-  
+const ApplicationListComponent = ({ applications, distributedApplications, queueStatus, cancelApplication }) => {
+
     let table = (
         <div className="templatemo-content-widget no-padding col-12 my-4 mx-0">
             <div className="panel panel-default table-responsive">
@@ -25,16 +25,15 @@ const ApplicationListComponent = ({ applications, distributedApplications, queue
                                 <td>{childFirstName + " " + childLastName}</td>
                                 <td>{applicationCreationDate}</td>
                                 <td>{applicationStatus}</td>
-                                {console.log("statusas: " + applicationStatus)}
-                                <td>{ applicationStatus !== "Atmestas" ? <button className="templatemo-edit-btn-danger" id={applicationId}
-                                data-toggle="modal" data-target={`#exampleModal${applicationId}`}>Atšaukti prašymą</button> : null}
-                                <AppModal
-                                    targetId={applicationId}
-                                    modalTitle="Prašymo atšaukimas"
-                                    modalMessage="Ar tikrai norite atšaukti prašymą?"
-                                    modalApprove={cancelApplication}
-                                    modalButtonMessage="Atšaukti prašymą"
-                                    modalButtonStyle="danger"
+                                <td>{applicationStatus !== "Atmestas" ? <button className="templatemo-edit-btn-danger" id={applicationId}
+                                    data-toggle="modal" data-target={`#exampleModal${applicationId}`}>Atšaukti prašymą</button> : null}
+                                    <AppModal
+                                        targetId={applicationId}
+                                        modalTitle="Prašymo atšaukimas"
+                                        modalMessage="Ar tikrai norite atšaukti prašymą?"
+                                        modalApprove={cancelApplication}
+                                        modalButtonMessage="Atšaukti prašymą"
+                                        modalButtonStyle="danger"
                                     />
                                 </td>
                             </tr>
@@ -84,7 +83,7 @@ const ApplicationListComponent = ({ applications, distributedApplications, queue
     return (
 
         applications.length === 0 || applications === null ? <h6 className="text-center">Šiuo metu nesate pateikę jokio prašymo</h6>
-        : distributedApplications === null || distributedApplications.length === 0 || queueStatus !== "INACTIVE" ? table : finalTable
+            : distributedApplications === null || distributedApplications.length === 0 || queueStatus !== "INACTIVE" ? table : finalTable
     )
 }
 
