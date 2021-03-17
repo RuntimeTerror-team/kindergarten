@@ -20,16 +20,17 @@ public class QueueControllerTest {
     @Autowired
     private QueueController queueController;
 
-//    @Test
-//    @DisplayName("create age Range")
-//    void testAddQueueWithOpeningDate(){
-//        QueueDtoWithOpeningDate queue = new QueueDtoWithOpeningDate();
-//
-//        queue.setOpeningDate(new Date());
-//
-//        queueController.addQueueOpeningDate(queue);
-//
-//        assertEquals(new Date(), queueController.getQueues().get(0).getOpeningDate(), "should create queue with opening date correctly");
-//
-//    }
+    @Test
+    @DisplayName("create age Range")
+    void testAddQueueWithOpeningDate(){
+        QueueDtoWithOpeningDate queue = new QueueDtoWithOpeningDate();
+
+        Date date = new Date(1616000880000L);
+        queue.setOpeningDate(date);
+
+        queueController.addQueueOpeningDate(queue);
+
+        assertEquals(date, queueController.getQueues().get(0).getOpeningDate(), "should create queue with opening date correctly");
+
+    }
 }

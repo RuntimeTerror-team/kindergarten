@@ -1,4 +1,4 @@
-package lt.vtmc.kindergarten.message;
+package lt.vtmc.kindergarten.dto;
 
 public class ResponseMessage {
     private String message;
