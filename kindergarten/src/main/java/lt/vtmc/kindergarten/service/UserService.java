@@ -225,7 +225,6 @@ public class UserService implements UserDetailsService, PagingLimit<User> {
     }
 
     private String createEducationSpecialist(String firstName, String lastName) {
-        //FIXME String eduSpecUsername = assembleUsername(firstName, lastName);
         String eduSpecUsername = "ŠvietimoSpecialistas1";
         String encodedPassword = passwordEncoder.encode(eduSpecUsername);
         Role finalRole = new Role();

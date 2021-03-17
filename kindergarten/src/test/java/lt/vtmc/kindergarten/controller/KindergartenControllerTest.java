@@ -130,6 +130,12 @@ public class KindergartenControllerTest {
 
         KindergartenDto kindergartenDto = new KindergartenDto(kindergarten);
         kindergartenDto.setDistrict(district);
+        kindergartenDto.setWebsite("www.darzelis.lt");
+        kindergartenDto.setCity(CityEnum.VILNIUS);
+        kindergartenDto.setEmail("darzelis@gmail.com");
+        kindergartenDto.setAddress("darzelio g. 45");
+        kindergartenDto.setTitle("Darzelis");
+
         kindergartenController.addKindergarten(kindergartenDto);
 
         District district2 = new District();

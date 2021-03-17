@@ -147,8 +147,4 @@ public class KindergartenService {
         return result;
     }
 
-
-    public void setKindergartenDao(KindergartenDao kindergartenDao) {
-        this.kindergartenDao = kindergartenDao;
-    }
 }

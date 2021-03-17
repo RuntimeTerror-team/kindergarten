@@ -38,8 +38,6 @@ public class AgeRangeService {
         return new AgeRangeDto(ageRange);
     }
 
-
-
     @Transactional
     public void addAgeRange(@Valid AgeRangeDto ageRangeDto){
         AgeRange ageRange = new AgeRange();
@@ -49,9 +47,7 @@ public class AgeRangeService {
 
         ageRangeDao.save(ageRange);
     }
-    
-    
-    //Paulius
+
     @Transactional
     public boolean addAgeInterval(@Valid AgeRangeDto ageRangeDto){
 
