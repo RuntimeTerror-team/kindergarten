@@ -114,13 +114,13 @@ public class CommandLineAppStartupRunner implements CommandLineRunner {
 
 
             List<String> guardianPersonalCodes = new ArrayList<>();
-            for (int i = 0; i < 10000; i++) {
+            for (int i = 0; i < 500; i++) {
                 String createdPersonalCode = dataSeeder.createPerson(i, "GUARDIAN");
                 guardianPersonalCodes.add(createdPersonalCode);
             }
 
             List<String> childrenPersonalCodes = new ArrayList<>();
-            for (int i = 0; i < 30000; i++) {
+            for (int i = 0; i < 1500; i++) {
                 String createdPersonalCode = dataSeeder.createPerson(i, "NON_GUARDIAN");
                 childrenPersonalCodes.add(createdPersonalCode);
             }
