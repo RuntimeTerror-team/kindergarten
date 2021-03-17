@@ -2,6 +2,7 @@
     height: 100vh;
     background-color: #007ac9;
     color: #a2dbfc;
+    margin: 0;
 }
 
 .loginPadding {
@@ -12,7 +13,7 @@
     padding-top: 18%;
 }
 
-#loginForm, #groupForm {
+#loginForm {
     background-color: white;
     border-radius: 1%;
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
@@ -29,48 +30,9 @@
     color: #4285F4;
 }
 
-#grouph1 {
-    color: #4285F4;
-    margin-bottom: 15%;
-}
-
 #loginButton {
     background-color: #4285F4;
     margin-top: 2%;
-}
-
-#groupButton {
-    background-color: #4285F4;
-    margin-top: 3%;
-}
-
-.largeInput {
-    min-width: 21em;
-}
-
-.alertTop {
-    top: 40px;
-    left: 25%;
-}
-
-.btn-green {
-    background-color: rgb(140, 201, 17);
-}
-
-.btn-red {
-    background-color: rgba(220, 0, 0, 0.8);
-}
-
-.btn-main {
-    background-color: rgba(0, 121, 201, 0.13);
-}
-
-.btn-yellow {
-    background-color: #FFCC42;
-}
-
-.btn-boring-blue {
-    background-color: #99cff0;
 }
 
 /*not to show arrows on input of type number */
@@ -88,14 +50,6 @@ input[type=number] {
     -moz-appearance: textfield;
 }
 
-.footerBottom {
-    padding-bottom: 50px;
-}
-
-.btn-active {
-    border-color: rgb(0, 122, 201);
-}
-
 html {
     height: 100%;
 }
@@ -109,20 +63,8 @@ body {
     color: #666666;
 }
 
-.btn-text {
-    color: #212529;
-}
-
-.btn-text:hover {
-    color: #4285F4;
-}
-
 .table-text {
     text-transform: uppercase;
-}
-
-label.label-form {
-    font-weight: 700;
 }
 
 .button-toolbar {
