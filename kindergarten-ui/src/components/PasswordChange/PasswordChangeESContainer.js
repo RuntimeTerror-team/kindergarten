@@ -46,8 +46,6 @@ class PasswordChangeESContainer extends Component {
             .get(`${baseUrl}/api/loggedRole`)
             .then((res) => {
                 this.setState({ role: res.data })
-                console.log(res.data)
-
             })
             .catch((err) => console.log(err))
 
@@ -109,20 +107,6 @@ class PasswordChangeESContainer extends Component {
 
         this.doValidation(passwordFromUser, password2FromUser, oldPasswordFromUser);
 
-
-
-
-
-
-        // if(wrongPassword){
-
-        //     this.setState({wrongOldPasswordMessage: "Įvestas neteisingas senas slaptažodis" })
-        //     this.setState({wrongOldPasswordMessageStyle: "alert alert-danger mt-4"})
-
-        // }
-
-
-
         if (this.state.passwordValidation === "" && this.state.password2Validation === "" && this.state.oldPasswordValidation === ""
             && /^(?=.*[a-ząčęėįšųū])(?=.*[A-ZĄČĘĖĮŠŲŪ])(?=.*\d)[a-ząčęėįšųūA-ZĄČĘĖĮŠŲŪ\d]{8,}$/.test(passwordFromUser)
             && /^(?=.*[a-ząčęėįšųū])(?=.*[A-ZĄČĘĖĮŠŲŪ])(?=.*\d)[a-ząčęėįšųūA-ZĄČĘĖĮŠŲŪ\d]{8,}$/.test(password2FromUser)) {
@@ -144,8 +128,6 @@ class PasswordChangeESContainer extends Component {
                     userData,
                     { headers: { 'Content-type': 'application/x-www-form-urlencoded' } })
                 .then((res) => {
-
-                    console.log("gets executed")
                     if (res.status === 200) {
 
                         let userDto = {

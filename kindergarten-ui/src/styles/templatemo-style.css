@@ -14,9 +14,7 @@ TABLE OF CONTENT
 	5. Login
 	6. Manage Users
 	7. Preferences
-	8. Media Queries
 ----------------------------------------------*/
-
 
 /* 1. Universal Styles
 ----------------------------------------------*/
@@ -29,17 +27,11 @@ body {
     font-size: 13px;
 }
 
-.templatemo-left-nav,
-.templatemo-site-header,
-.templatemo-sidebar {
+.templatemo-left-nav, .templatemo-site-header, .templatemo-sidebar {
     background: #1f2124;
-    /* background-color: #428BCA; */
-    /* color: #FFFDFD; */
 }
 
-h1,
-h2,
-h3 {
+h1, h2, h3 {
     margin: 0;
 }
 
@@ -62,8 +54,7 @@ a:hover {
     text-decoration: none;
 }
 
-nav li,
-.left-nav-link {
+nav li, .left-nav-link {
     font-size: 1.1em;
     list-style: none;
     text-transform: uppercase;
@@ -201,7 +192,6 @@ footer {
     padding: 15px;
 }
 
-
 /* 2. Left Column
 -----------------------------*/
 
@@ -256,7 +246,6 @@ footer {
 .profile-photo-overlay:hover {
     background-color: rgba(4, 152, 114, 0);
 }
-
 
 /* Search form */
 
@@ -336,8 +325,7 @@ footer {
     font-weight: 300;
 }
 
-.left-nav-link:hover,
-.left-nav-link.active {
+.left-nav-link:hover, .left-nav-link.active {
     background: #18191b;
     border-left: 8px solid #4285F4;
     text-decoration: none;
@@ -354,7 +342,6 @@ footer {
     margin-right: 15px;
 }
 
-
 /* 3. Right Column
 ------------------------------*/
 
@@ -369,9 +356,7 @@ footer {
     list-style: none;
 }
 
-.templatemo-top-nav a,
-.templatemo-top-nav button,
-.templatemo-top-nav p {
+.templatemo-top-nav a, .templatemo-top-nav button, .templatemo-top-nav p {
     color: #7f7f7f;
     display: block;
     padding: 0 50px;
@@ -385,13 +370,9 @@ footer {
     border-left: 2px solid #c5c5c5;
 }
 
-.templatemo-top-nav a:hover,
-.templatemo-top-nav a.active,
-.templatemo-top-nav button:hover {
-    /* color: #4285F4; */
+.templatemo-top-nav a:hover, .templatemo-top-nav a.active, .templatemo-top-nav button:hover {
     color: #4285F4;
 }
-
 
 /* Main Content Area */
 
@@ -411,20 +392,6 @@ footer {
     display: -ms-flexbox;
     display: flex;
 }
-
-
-/* .col-1 {
-	-webkit-flex: 1;
-	-ms-flex: 1;
-	flex: 1;
-}
-
-.col-2 {
-	-webkit-flex: 2;
-	-ms-flex: 2;
-	flex: 2;
-} */
-
 
 /* Content Widget */
 
@@ -504,15 +471,11 @@ footer {
     padding: 10px;
 }
 
-.pagination>li>a,
-.pagination>li:first-child>a,
-.pagination>li:last-child>a {
+.pagination>li>a, .pagination>li:first-child>a, .pagination>li:last-child>a {
     border-radius: 10px;
 }
 
-.pagination>.active>a,
-.pagination>.active>a:focus,
-.pagination>.active>a:hover {
+.pagination>.active>a, .pagination>.active>a:focus, .pagination>.active>a:hover {
     background-color: #4285F4;
     border-color: #E9E8E8;
 }
@@ -550,7 +513,6 @@ footer {
     padding: 3px;
 }
 
-
 /* 4. Charts & Maps - http://codepen.io/shoogledesigns/pen/BfLkA
 ----------------------------------------------------------------*/
 
@@ -563,11 +525,9 @@ footer {
     height: auto;
 }
 
-
 /* JQVMap */
 
-.jqvmap-zoomin,
-.jqvmap-zoomout {
+.jqvmap-zoomin, .jqvmap-zoomout {
     width: 15px;
     height: 15px;
 }
@@ -575,7 +535,6 @@ footer {
 .vmap {
     height: 300px;
 }
-
 
 /* 5. Login
 ------------------------------*/
@@ -627,9 +586,7 @@ footer {
     background-color: #007AC9;
 }
 
-.templatemo-blue-button,
-.templatemo-white-button,
-.templatemo-blue-button-disabled {
+.templatemo-blue-button, .templatemo-white-button, .templatemo-blue-button-disabled {
     border-radius: 2px;
     padding: 10px 30px;
     text-transform: uppercase;
@@ -680,7 +637,6 @@ footer {
     font-weight: 400;
 }
 
-
 /* Style checkboxes and radio buttons
 http://webdesign.tutsplus.com/tutorials/quick-tip-easy-css3-checkboxes-and-radio-buttons--webdesign-8953 */
 
@@ -728,8 +684,7 @@ input[type="radio"]:checked+label span {
     color: #ded9d9;
 }
 
-.templatemo-edit-btn,
-.templatemo-edit-btn-danger {
+.templatemo-edit-btn, .templatemo-edit-btn-danger {
     border: 1px solid #ddd;
     border-radius: 3px;
     color: black;
@@ -762,13 +717,11 @@ input[type="radio"]:checked+label span {
 }
 
 .templatemo-user-table thead {
-    /* background-color: #4285F4; */
     background-color: #4285F4;
     color: white;
 }
 
-.panel>.table-responsive:last-child>.table:last-child,
-.panel>.table:last-child {
+.panel>.table-responsive:last-child>.table:last-child, .panel>.table:last-child {
     border-bottom-right-radius: 10px;
     border-bottom-left-radius: 10px;
 }
@@ -870,20 +823,10 @@ input[type="radio"]:checked+label span {
     color: white;
 }
 
-
 /* 7. Preferences
 -------------------------------*/
 
-.has-success .checkbox,
-.has-success .checkbox-inline,
-.has-success .control-label,
-.has-success .help-block,
-.has-success .radio,
-.has-success .radio-inline,
-.has-success.checkbox label,
-.has-success.checkbox-inline label,
-.has-success.radio label,
-.has-success.radio-inline label {
+.has-success .checkbox, .has-success .checkbox-inline, .has-success .control-label, .has-success .help-block, .has-success .radio, .has-success .radio-inline, .has-success.checkbox label, .has-success.checkbox-inline label, .has-success.radio label, .has-success.radio-inline label {
     color: #4285F4;
 }
 
@@ -891,16 +834,7 @@ input[type="radio"]:checked+label span {
     border-color: #4285F4;
 }
 
-.has-warning .checkbox,
-.has-warning .checkbox-inline,
-.has-warning .control-label,
-.has-warning .help-block,
-.has-warning .radio,
-.has-warning .radio-inline,
-.has-warning.checkbox label,
-.has-warning.checkbox-inline label,
-.has-warning.radio label,
-.has-warning.radio-inline label {
+.has-warning .checkbox, .has-warning .checkbox-inline, .has-warning .control-label, .has-warning .help-block, .has-warning .radio, .has-warning .radio-inline, .has-warning.checkbox label, .has-warning.checkbox-inline label, .has-warning.radio label, .has-warning.radio-inline label {
     color: #CF922C;
 }
 
@@ -908,16 +842,7 @@ input[type="radio"]:checked+label span {
     border-color: #CF922C;
 }
 
-.has-error .checkbox,
-.has-error .checkbox-inline,
-.has-error .control-label,
-.has-error .help-block,
-.has-error .radio,
-.has-error .radio-inline,
-.has-error.checkbox label,
-.has-error.checkbox-inline label,
-.has-error.radio label,
-.has-error.radio-inline label {
+.has-error .checkbox, .has-error .checkbox-inline, .has-error .control-label, .has-error .help-block, .has-error .radio, .has-error .radio-inline, .has-error.checkbox label, .has-error.checkbox-inline label, .has-error.radio label, .has-error.radio-inline label {
     color: #D7425C;
 }
 
@@ -930,156 +855,3 @@ input[type="radio"]:checked+label span {
     height: 100px;
     overflow-y: scroll;
 }
-
-
-/* 8. Media Queries
-------------------------------*/
-
-
-/* @media screen and (max-width: 1199px) and (min-width: 991px) {
-	.templatemo-site-header {
-		margin: 25px;
-	}
-	.templatemo-sidebar {
-		width: 250px;
-		min-height: 100vh;
-	}
-	.templatemo-search-form {
-		margin: 20px;
-	}
-	nav li {
-		font-size: 1em;
-	}
-	.templatemo-left-nav a {
-		padding: 15px;
-	}
-	.templatemo-top-nav a {
-		padding: 0 30px;
-	}
-} */
-
-
-/* @media screen and (max-width: 1199px) {
-	.templatemo-flex-row.flex-content-row {
-		display: block;
-	}
-} */
-
-
-/* @media screen and (max-width: 992px) and (min-width: 768px) {
-	.templatemo-site-header, .templatemo-search-form {
-		margin: 15px;
-	}
-	.templatemo-sidebar {
-		width: 200px;
-		min-height: 100vh;
-	}
-	.templatemo-site-header h1 {
-		font-size: 1.6em;
-	}
-	.square {
-		width: 20px;
-		height: 20px;
-	}
-	.templatemo-left-nav a.active, .templatemo-left-nav a:hover {
-		border-left: 6px solid #4285F4;
-	}
-	.templatemo-top-nav-container {
-		padding: 17px 30px;
-	}
-	.templatemo-top-nav a {
-		padding: 0 15px;
-	}
-} */
-
-
-/* @media screen and (max-width: 992px) {
-	nav li {
-		font-size: 1em;
-	}
-	.templatemo-left-nav a {
-		padding: 15px 10px;
-	}
-	.templatemo-content-container {
-		padding: 10px;
-	}
-} */
-
-
-/* @media only screen and (min-width: 768px) {
-	.templatemo-left-nav {
-		display: block !important;
-	}
-} */
-
-
-/* @media screen and (max-width: 767px) {
-	.templatemo-flex-row {
-		display: block;
-	}
-	.templatemo-site-header {
-		margin: 20px 15px;
-	}
-	.profile-photo-container {
-		display: none; */
-
-
-/* Hide profile photo on mobile view */
-
-
-/* }
-	.templatemo-search-form {
-		margin: 10px;
-	}
-	.templatemo-top-nav-container {
-		padding: 10px;
-	}
-	.templatemo-top-nav a {
-		border-left: 1px solid #c5c5c5;
-		padding: 0 7px;
-	}
-	.templatemo-top-nav li:last-child a {
-		border-right: 1px solid #c5c5c5;
-	}
-	.templatemo-content-widget {
-		padding: 15px;
-	} */
-
-
-/* Left column */
-
-
-/* .templatemo-left-nav {
-		display: none;
-		position: fixed;
-		top: 10px;
-		right: 50px;
-		height: 300px;
-		overflow: auto;
-		width: 200px;
-		z-index: 999;
-	}
-	.templatemo-left-nav a.active, .templatemo-left-nav a:hover {
-		border-left: 4px solid #4285F4;
-	}
-	.mobile-menu-icon {
-		cursor: pointer;
-		display: block;
-		position: fixed;
-		top: 10px;
-		right: 10px;
-		z-index: 1000;
-	}
-	.mobile-menu-icon:hover .fa {
-		background-color: rgba(19, 137, 95, 0.8);
-	}
-	.mobile-menu-icon .fa {
-		color: #fff;
-		background-color: rgba(19, 137, 95, 0.4);
-		font-size: 1.5em;
-		width: 40px;
-		height: 40px;
-		padding-top: 9px;
-		padding-left: 11px;
-	}
-} */

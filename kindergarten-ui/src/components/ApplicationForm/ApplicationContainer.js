@@ -7,7 +7,6 @@ import urls from '../../constants/urls';
 import Axios from 'axios';
 import baseUrl from '../../AppConfig';
 import ApplicationComponent from './ApplicationComponent'
-import '../../styles/pages.css';
 
 class ApplicationContainer extends Component {
 
@@ -124,7 +123,6 @@ class ApplicationContainer extends Component {
           }
         } else {
           this.setState({ isActiveQueue: false })
-          console.log("not active");
         }
       })
       .then(() => {
@@ -139,7 +137,6 @@ class ApplicationContainer extends Component {
         Axios.get(baseUrl + "/api/queues")
           .then(res => {
             this.setState({ activeQueues: res.data })
-            console.log("ilgis" + this.state.activeQueues.length)
             this.state.activeQueues.length === 0 ? this.setState({ currentStep: 5 }) : this.setState({ currentStep: 1 })
           })
           .catch(err => console.log(err))
@@ -403,8 +400,6 @@ class ApplicationContainer extends Component {
             email: this.state.guardianEmail
           }
 
-
-          console.log("person id" + this.state.userPerson.id)
           Axios.put(baseUrl + "/api/persons/" + this.state.userPerson.id, guardian)
             .then(res => {
 
@@ -480,8 +475,6 @@ class ApplicationContainer extends Component {
 
         Axios.post(baseUrl + "/api/persons", secondGuardian)
           .then(res => {
-
-            console.log("status: " + res.status)
 
             if (res.status === 201 || res.status === 200) {
               this.setState({ secondGuardianMessage: "Vaiko atstovo duomenys sėkmingai išsaugoti" })
@@ -1171,8 +1164,6 @@ class ApplicationContainer extends Component {
   handleSubmit = (e) => {
 
     e.preventDefault();
-
-    console.log("selected kindergardens list size: " + this.state.optionsValuesList.length)
 
     if (this.state.optionsValuesList.length === 0) {
 

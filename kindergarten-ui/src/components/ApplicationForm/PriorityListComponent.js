@@ -11,12 +11,7 @@ let PriorityListComponent = (props) => {
     <div className="templatemo-content-widget white-bg">
 
       <h3 className="margin-bottom-10">Papildoma informacija</h3>
-      {/* <label htmlFor="checkSelections">Pasirinkite prioritetus</label> */}
       <div className="" name="checkSelections" style={{ textAlign: "left" }}>
-        {/* <div className="form form-check">
-            <input type="checkbox" className="form-check-input" name="priority1" checked={props.priorities[0].isChecked} value={props.priorities[0].value} onChange={props.onPrioritiesChange}></input>
-            <label className="form-check-label" htmlFor="priority1">Vaiko deklaruojama gyvenamoji vieta yra miesto savivaldybė</label>
-            </div> */}
 
         <div class="form-group">
           <div class="checkbox squaredTwo">
@@ -31,11 +26,6 @@ let PriorityListComponent = (props) => {
             <label htmlFor="priority3"><span></span>Vaikas yra iš šeimos, turinčios tris ir daugiau vaikų</label>
           </div>
         </div>
-
-        {/* <div class="form-check">
-            <input type="checkbox" class="form-check-input" name="priority4" value={props.child} onChange={props.onChildHandle}></input>
-            <label class="form-check-label" htmlFor="priority4">Vaiko brolis ar sesuo lanko tą pačią įstaigą</label>
-            </div> */}
 
         <div class="form-group">
           <div class="checkbox squaredTwo">
@@ -52,35 +42,6 @@ let PriorityListComponent = (props) => {
           </div>
         </div>
       </div>
-
-
-      {/* <button className="templatemo-blue-button">Pateikti</button>
-      {props.previousButton()}
-
-
-      <span className={props.noneKindergartenSelectedMessageStyle + " mt-5"} style={{ width: "23em" }}>
-        {props.noneKindergartenSelectedMessage}
-      </span>
-
-
-
-
-      <div className={" " + props.noChildMessageStyle + " ml-1"} style={{ width: "23em" }}>
-        <span>{props.noChildMessage}</span>
-      </div>
-
-
-      <span className={props.emptyInputsMessageStyle} style={{ width: "23em" }}>
-        {props.emptyInputsMessage}
-      </span>
-
-
-      <span className={props.applicationMessageStyle + ""} style={{ width: "23em" }}>
-        {props.applicationMessage}
-      </span> */}
-
-
-
     </div>
   )
 

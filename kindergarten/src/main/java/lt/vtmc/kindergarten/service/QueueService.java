@@ -131,10 +131,7 @@ public class QueueService {
             queueDao.save(queue);
             logger.info("Queue saved. Starting application status change to WAITING");
 
-            logger.info("Getting all applications");
-            List<Application> applicationList = applicationDao.findAll();
-            logger.info(applicationList.size() + " applications found");
-            applicationList.stream().forEach(application ->
+            applicationList.stream().filter(application -> application.getApplicationStatus() != ApplicationStatusEnum.REJECTED).forEach(application ->
                     {
                         application.setApplicationStatus(ApplicationStatusEnum.WAITING);
                         logger.info("Saving application: " + application.getId());

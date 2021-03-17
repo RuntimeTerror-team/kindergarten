@@ -6,13 +6,6 @@
 }
 
 .logo {
-    /* background-image: url("/src/images/logo.png"); */
-    height: 100%;
-    width: 50%;
-}
-
-.logo-img {
-    background-image: url("/src/images/logo.png");
     height: 100%;
     width: 50%;
 }

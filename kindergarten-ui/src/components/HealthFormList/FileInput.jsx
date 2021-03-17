@@ -78,13 +78,13 @@ class FileInput extends Component {
 
     render() {
         return (
-            <div class="form-group col-lg-12 mb-0">
+            <div className="form-group col-lg-12 mb-0">
                 <form onSubmit={this.handleSubmit}>
                     <input name="fileToUpload" id="fileToUpload" type="file" className="filestyle" onChange={this.onChange} />
                     <div className="bootstrap-filestyle input-group">
                         <span className="group-span-filestyle input-group col-12 px-0">
                             <label className="templatemo-blue-button" htmlFor="fileToUpload"><FontAwesomeIcon icon={faCloudUploadAlt} /> Ieškoti</label>
-                            <input type="text" className="form-control" disabled value={this.state.file && this.state.file.name} />
+                            <input type="text" className="form-control" disabled value={(this.state.file && this.state.file.name) || ""} />
                         </span>
                     </div>
                     <p>Formatas PDF. Maksimalus failo dydis 2MB.</p>

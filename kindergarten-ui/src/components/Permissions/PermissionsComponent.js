@@ -1,16 +1,6 @@
 import React from 'react'
 
 const PermissionsComponent = ({ permission, buttonText, changedPermissionMessage, changedPermissionMessageStyle, onPermissionChange }) => {
-
-
-    // return (
-
-    //     <div>
-    //     <button onClick={onPermissionChange}>Change Permission</button><span>{permission ? "Leidimas suteiktas" : "Leidimas nesuteiktas"}</span>
-    //     </div>
-
-    // )
-
     return (
         <div>
             <div className="templatemo-content-widget no-padding col-12 my-4 mx-0">
@@ -23,11 +13,12 @@ const PermissionsComponent = ({ permission, buttonText, changedPermissionMessage
                                 <th></th>
                             </tr>
                         </thead>
-
                         <tbody>
-                            <td><span className="table-text">{"Prašymų sąrašo redagavimas Švietimo specialistui"}</span></td>
-                            <td><span className="table-text">{permission ? "Suteiktas" : "Nesuteiktas"}</span></td>
-                            <td><button className="templatemo-edit-btn" onClick={onPermissionChange}>{buttonText}</button></td>
+                            <tr>
+                                <td><span className="table-text">{"Prašymų sąrašo redagavimas Švietimo specialistui"}</span></td>
+                                <td><span className="table-text">{permission ? "Suteiktas" : "Nesuteiktas"}</span></td>
+                                <td><button className="templatemo-edit-btn" onClick={onPermissionChange}>{buttonText}</button></td>
+                            </tr>
                         </tbody>
                     </table>
                 </div>
@@ -37,8 +28,6 @@ const PermissionsComponent = ({ permission, buttonText, changedPermissionMessage
             </div>
         </div>
     )
-
-
 }
 
 export default PermissionsComponent

@@ -156,7 +156,6 @@ class KindergartenInfoFormContainer extends Component {
     }
 
     toggleDisabled = () => {
-        console.log("disabling");
 
         if (this.state.isDisabled === true) {
             this.setState({

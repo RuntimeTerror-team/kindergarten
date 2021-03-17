@@ -15,15 +15,6 @@ let KindergartenListComponent = (props) => {
         let queueNumber = (props.optionsValuesList.indexOf(kinderGarten) + 1) + ". ";
 
         return (
-
-
-
-            // <div style={{width:"40%"}} className="mb-2">
-            // <span className="d-block" style={{border: 'solid 1px black',borderRadius:"5%"}}>{queueNumber + kinderGarten}
-            // <button className="btn btn-link float right" value={kinderGarten} onClick={props.onDeleteSelection}>Pašalinti</button>
-            // </span>
-            // </div>
-
             <tr>
                 <td>{queueNumber}</td>
                 <td className="">{kinderGarten}</td>
@@ -40,12 +31,6 @@ let KindergartenListComponent = (props) => {
             <div className="mt-4">
 
                 <table className='table'>
-                    {/* <thead>
-                    <tr>
-                        <th scope='col' style={{width: "40px"}}>#</th>
-                        <th scope='col'>Darzelis</th>
-                    </tr>
-                </thead> */}
 
                     <tbody>
                         {choosenKindergartens}
@@ -65,13 +50,11 @@ let KindergartenListComponent = (props) => {
         <div className="templatemo-content-widget white-bg">
             <div className="form-group col-12">
                 <h3 className="margin-bottom-10">Darželių pasirinkimas</h3>
-                {/* <label className="my-3 ml-n5" htmlFor="kindergartens">Pridėkite bent vieną daržėlį iš sąrašo. Max 5</label> */}
                 <select multiple={true} className="form-control mb-2" name="kindergartens" value={props.optionsValuesList} onChange={props.handleOnOptionsChange}>
                     <option value="" disabled>Pasirinkti</option>
                     {Options}
                 </select>
                 <div className="invalid-feedback">Prašome pridėti bent vieną darželį</div>
-                {/* <button className="btn btn-info" onClick={props.onChosenKindergartens}>Pridėti darželį</button> */}
 
                 {props.showChoices ? myTable() : null}
                 <div className="row  ml-1 mb-0">

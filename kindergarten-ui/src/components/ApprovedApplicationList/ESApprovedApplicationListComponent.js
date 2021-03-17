@@ -46,7 +46,6 @@ const ESApprovedApplicationListComponent = ({
           <table className="table table-striped table-bordered templatemo-user-table">
             <thead>
               <tr>
-                {/* <th scope='col' style={{ width: "30px" }}>#</th> */}
                 <th scope="col">Balas</th>
                 <th scope="col">Vaikas</th>
                 <th scope="col">Vaiko asmens kodas</th>
@@ -90,7 +89,6 @@ const ESApprovedApplicationListComponent = ({
 
                   return (
                     <tr key={id}>
-                      {/* <th scope='row'>{index + 1}</th> */}
                       <td>{score}</td>
                       <td>{childFirstName + " " + childLastName}</td>
                       <td>{childPersonalCode}</td>
@@ -103,9 +101,6 @@ const ESApprovedApplicationListComponent = ({
                         <button className="templatemo-edit-btn" onClick={onOpenPDF} value={applicationId}>
                           Atsisiųsti</button>
                       </td>
-
-                      {/* <button className="btn btn-link" value={applicationId} onClick={onOpenPDF}>
-                      <FontAwesomeIcon color="black" icon={faFilePdf} /></button> */}
                       {permission && queueStatus === "LOCKED" ? (
                         status !== "Atmestas" ?
                           <td>

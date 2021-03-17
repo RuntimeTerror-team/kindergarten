@@ -428,7 +428,8 @@ public class ApplicationService implements PagingLimit<ApplicationAfterDistribut
 
         persistApplicationsAfterDistribution(applications);
 
-        applications.stream().forEach(application -> application.setApplicationStatus(ApplicationStatusEnum.SUBMITTED));
+        applications.stream().filter(application -> application.getApplicationStatus() != ApplicationStatusEnum.REJECTED)
+        .forEach(application -> application.setApplicationStatus(ApplicationStatusEnum.SUBMITTED));
     }
     
     @Transactional
@@ -437,9 +438,12 @@ public class ApplicationService implements PagingLimit<ApplicationAfterDistribut
     	Optional<Application> application = applicationDao.findById(id);
     	application.get().setApplicationStatus(ApplicationStatusEnum.valueOf(status));
     	applicationDao.save(application.get());
+    	application = applicationDao.findById(id);
     	ApplicationAfterDistribution applicationDistribution = applicationAfterDistributionDao.findApplicationByApplicationId(id);
+    	if(applicationDistribution != null) {
     	applicationDistribution.setStatus(ApplicationStatusEnum.valueOf(status));
     	applicationAfterDistributionDao.save(applicationDistribution);
+    	}
     		
     }
 
