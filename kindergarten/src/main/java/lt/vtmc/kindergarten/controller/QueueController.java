@@ -28,19 +28,8 @@ public class QueueController {
     private static final Logger logger
             = (Logger) LoggerFactory.getLogger(QueueController.class);
 
-
     @Autowired
     private QueueService queueService;
-
-//    /* TODO - check if in use */
-//    @ApiOperation(value = "Get single queue by id", notes = "Returns a single queue by id")
-//    @RequestMapping(method = RequestMethod.GET, value = "/api/queues/{queue_id}")
-//    @ResponseStatus(HttpStatus.OK)
-//    public QueueDto getQueue(
-//            @PathVariable final Long queue_id
-//    ) {
-//        return queueService.getQueue(queue_id);
-//    }
 
     @PreAuthorize("hasAnyRole('ADMIN', 'GUARDIAN', 'EDUCATION_SPECIALIST')")
     @RequestMapping(method = RequestMethod.GET, value = "/api/queues")
