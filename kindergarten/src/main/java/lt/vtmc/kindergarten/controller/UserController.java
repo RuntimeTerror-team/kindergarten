@@ -58,7 +58,7 @@ public class UserController {
         return new ResponseEntity(userService.findAll(pageable, searchText), HttpStatus.OK);
     }
 
-   /* TODO - check if in use */
+//   /* TODO - check if in use */
     @RequestMapping(method = RequestMethod.POST)
     @ResponseStatus(HttpStatus.CREATED)
     @ApiOperation(value = "Create user", notes = "Creates user with data")
@@ -66,8 +66,8 @@ public class UserController {
         userService.createUser(userDto);
         logger.info(userEvent, "Sukurtas vartotojas. Vartotojo vardas: {}. Vartotojo rolė: {} Sukūrimo laikas {}", userDto.getUsername(), userDto.getRole(), new Date());
     }
-
-    /* TODO - check if in use */
+//
+//    /* TODO - check if in use */
     @RequestMapping(path = "/{username}", method = RequestMethod.GET)
     @ResponseStatus(HttpStatus.OK)
     @ApiOperation(value = "Get user", notes = "Returns user by username")
@@ -99,7 +99,7 @@ public class UserController {
         }
     }
 
-    /* TODO - check if in use */
+//    /* TODO - check if in use */
     @ApiOperation(value = "Get user validation info", notes = "Returns validity data on person associated with user")
     @RequestMapping(method = RequestMethod.POST, value = "/{username}/validate")
     @ResponseStatus(HttpStatus.OK)

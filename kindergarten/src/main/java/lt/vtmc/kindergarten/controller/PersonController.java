@@ -92,14 +92,14 @@ public class PersonController {
     ){
         return personService.getPerson(personID);
     }
-
-    /* TODO - check if in use */
-    @RequestMapping(method = RequestMethod.GET, value = "/api/persons")
-    @ApiOperation(value="Get persons",notes ="Returns all persons")
-    @ResponseStatus(HttpStatus.OK)
-    public List<PersonDto> getPersons(){
-        return personService.getPersons();
-    }
+//
+//    /* TODO - check if in use */
+//    @RequestMapping(method = RequestMethod.GET, value = "/api/persons")
+//    @ApiOperation(value="Get persons",notes ="Returns all persons")
+//    @ResponseStatus(HttpStatus.OK)
+//    public List<PersonDto> getPersons(){
+//        return personService.getPersons();
+//    }
 
     @PreAuthorize("hasRole('GUARDIAN')")
     @RequestMapping(value="/api/persons/byPersonalCode/{personalCode}", method = RequestMethod.GET)

@@ -41,25 +41,25 @@ public class AgeRangeController {
     }
 
     /* TODO - check if in use */
-    @ApiOperation(value = "Get single ageRange by id", notes="Returns a single ageRange by id")
-    @RequestMapping(path="/api/ageRanges/{ageRange_id}",method = RequestMethod.GET)
-    @ResponseStatus(HttpStatus.OK)
-    public AgeRangeDto getAgeRange(@PathVariable final Long ageRange_id){
-        return ageRangeService.getAgeRange(ageRange_id);
-    }
+//    @ApiOperation(value = "Get single ageRange by id", notes="Returns a single ageRange by id")
+//    @RequestMapping(path="/api/ageRanges/{ageRange_id}",method = RequestMethod.GET)
+//    @ResponseStatus(HttpStatus.OK)
+//    public AgeRangeDto getAgeRange(@PathVariable final Long ageRange_id){
+//        return ageRangeService.getAgeRange(ageRange_id);
+//    }
 
-    /* TODO - check if in use */
-    @RequestMapping(value="/api/ageRanges", method = RequestMethod.POST)
-    @ApiOperation(value = "Create age range", notes = "Creates a new age range")
-    public ResponseEntity<?> addAgeRange(
-            @ApiParam(value = "Age range data", required = true)
-            @Valid
-            @RequestBody AgeRangeDto ageRangeDto){
-    	
-        ageRangeService.addAgeRange(ageRangeDto);
-        logger.info(ageRangeEvent, "Sukurtas {}-{} amžiaus intervalas. Įvykio laikas: {}",ageRangeDto.getMinAge(), ageRangeDto.getMaxAge(), new Date());
-        return new ResponseEntity<>(HttpStatus.OK);
-    }
+//    /* TODO - check if in use */
+//    @RequestMapping(value="/api/ageRanges", method = RequestMethod.POST)
+//    @ApiOperation(value = "Create age range", notes = "Creates a new age range")
+//    public ResponseEntity<?> addAgeRange(
+//            @ApiParam(value = "Age range data", required = true)
+//            @Valid
+//            @RequestBody AgeRangeDto ageRangeDto){
+//
+//        ageRangeService.addAgeRange(ageRangeDto);
+//        logger.info(ageRangeEvent, "Sukurtas {}-{} amžiaus intervalas. Įvykio laikas: {}",ageRangeDto.getMinAge(), ageRangeDto.getMaxAge(), new Date());
+//        return new ResponseEntity<>(HttpStatus.OK);
+//    }
     
     
     //Paulius
@@ -83,17 +83,17 @@ public class AgeRangeController {
     }
 
     /* TODO - check if in use */
-    @RequestMapping(value = "/api/ageRanges/{id}", method = RequestMethod.PUT)
-    @ApiOperation(value = "Update age range", notes = "Uptades age range by id")
-    @ResponseStatus(HttpStatus.OK)
-    public void updateAgeRange(
-            @ApiParam(value = "", required = true)
-            @PathVariable Long id,
-            @RequestBody AgeRangeDto ageRangeDto
-    ){
-        ageRangeService.updateAgeRange(id, ageRangeDto);
-        logger.info(ageRangeEvent, "Atnaujintas amžiaus intervalas. Amžiaus intervalo id: {}. Įvykio laikas: {}",ageRangeDto.getId(), new Date());
-    }
+//    @RequestMapping(value = "/api/ageRanges/{id}", method = RequestMethod.PUT)
+//    @ApiOperation(value = "Update age range", notes = "Uptades age range by id")
+//    @ResponseStatus(HttpStatus.OK)
+//    public void updateAgeRange(
+//            @ApiParam(value = "", required = true)
+//            @PathVariable Long id,
+//            @RequestBody AgeRangeDto ageRangeDto
+//    ){
+//        ageRangeService.updateAgeRange(id, ageRangeDto);
+//        logger.info(ageRangeEvent, "Atnaujintas amžiaus intervalas. Amžiaus intervalo id: {}. Įvykio laikas: {}",ageRangeDto.getId(), new Date());
+//    }
 
     @PreAuthorize("hasRole('EDUCATION_SPECIALIST')")
     @RequestMapping(value = "/api/ageRanges/{ageMin}/{ageMax}", method = RequestMethod.DELETE)

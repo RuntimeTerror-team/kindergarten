@@ -61,15 +61,15 @@ public class DistrictController {
         logger.info(districtEvent, "Atnaujintas rajono pavadinimas: {}. Įvykio laikas: {}", districtDto.getTitle(), new Date());
     }
 
-    /* TODO - check if in use */
-    @ApiOperation(value = "Get single district by id", notes = "Returns a single district by id")
-    @RequestMapping(method = RequestMethod.GET, value = "/api/districts/{district_id}")
-    @ResponseStatus(HttpStatus.OK)
-    public DistrictDto getDistrict(
-            @PathVariable final Long district_id
-    ){
-        return districtService.getDistrict(district_id);
-    }
+//    /* TODO - check if in use */
+//    @ApiOperation(value = "Get single district by id", notes = "Returns a single district by id")
+//    @RequestMapping(method = RequestMethod.GET, value = "/api/districts/{district_id}")
+//    @ResponseStatus(HttpStatus.OK)
+//    public DistrictDto getDistrict(
+//            @PathVariable final Long district_id
+//    ){
+//        return districtService.getDistrict(district_id);
+//    }
 
     @PreAuthorize("hasAnyRole('ADMIN', 'EDUCATION_SPECIALIST')")
     @RequestMapping(method = RequestMethod.GET, value = "/api/districts")

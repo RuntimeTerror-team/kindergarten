@@ -61,19 +61,19 @@ public class GroupService {
         kindergartenDao.save(kindergarten);
     }
 
-    @Transactional
-    public void updateGroup(Long id,GroupDto groupDto){
-        Group group = groupDao.getOne(id);
+//    @Transactional
+//    public void updateGroup(Long id,GroupDto groupDto){
+//        Group group = groupDao.getOne(id);
+//
+//        group.setChildrenCount(groupDto.getChildrenCount());
+//
+//        groupDao.save(group);
+//    }
 
-        group.setChildrenCount(groupDto.getChildrenCount());
 
-        groupDao.save(group);
-    }
-
-
-    public void setGroupDao(GroupDao groupDao) {
-        this.groupDao = groupDao;
-    }
+//    public void setGroupDao(GroupDao groupDao) {
+//        this.groupDao = groupDao;
+//    }
 
     public void setKindergartenDao(KindergartenDao kindergartenDao) {
         this.kindergartenDao = kindergartenDao;

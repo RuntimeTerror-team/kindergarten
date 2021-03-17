@@ -32,53 +32,53 @@ public class UserControllerTest {
     @Autowired
     PersonDao personDao;
 
-    @Test
-    @Order(1)
-    @Transactional
-    void testGettingUserWithAdminRole() {
-        String role = userController.getUser("administratorius").getRole();
-        assertEquals("ADMIN", role);
-    }
+//    @Test
+//    @Order(1)
+//    @Transactional
+//    void testGettingUserWithAdminRole() {
+//        String role = userController.getUser("administratorius").getRole();
+//        assertEquals("ADMIN", role);
+//    }
 
-    @Test
-    @Order(2)
-    void testGettingListOfAllUsersWithSize1() {
-        assertEquals(1, userController.getUsers().size());
-    }
-
-    @Test
-    @Order(3)
-    @DirtiesContext(methodMode = DirtiesContext.MethodMode.AFTER_METHOD)
-    void testCreatingUserAndGettingIt() {
-        UserDto user = new UserDto("ArnasJocys1",  "ArnasJocys1", "GUARDIAN");
-
-        userController.createUser(user);
-
-        assertNotEquals(null, userController.getUser("ArnasJocys1"));
-    }
-
-    @Test
-    @Order(4)
-    @DirtiesContext(methodMode = DirtiesContext.MethodMode.AFTER_METHOD)
-    void testCreatingEduSpecialistAndGettingIt() {
-        UserDto user = new UserDto("ArnasJocys2", "ArnasJocys2", "EDUCATION_SPECIALIST");
-
-        userController.createUser(user);
-
-        assertEquals("EDUCATION_SPECIALIST", userController.getUser("ArnasJocys2").getRole());
-    }
-
-    @Test
-    @Order(5)
-    @DirtiesContext(methodMode = DirtiesContext.MethodMode.AFTER_METHOD)
-    void testCreating2AdditionalUsersAndGettingListOfAllUsersWithSize3() {
-        UserDto user1 = new UserDto("ArnasJocys1", "ArnasJocys1", "GUARDIAN");
-        userController.createUser(user1);
-        UserDto user2 = new UserDto("ArnasJocys2",  "ArnasJocys2", "EDUCATION_SPECIALIST");
-        userController.createUser(user2);
-
-        assertEquals(3, userController.getUsers().size());
-    }
+//    @Test
+//    @Order(2)
+//    void testGettingListOfAllUsersWithSize1() {
+//        assertEquals(1, userController.getUsers().size());
+//    }
+//
+//    @Test
+//    @Order(3)
+//    @DirtiesContext(methodMode = DirtiesContext.MethodMode.AFTER_METHOD)
+//    void testCreatingUserAndGettingIt() {
+//        UserDto user = new UserDto("ArnasJocys1",  "ArnasJocys1", "GUARDIAN");
+//
+//        userController.createUser(user);
+//
+//        assertNotEquals(null, userController.getUser("ArnasJocys1"));
+//    }
+//
+//    @Test
+//    @Order(4)
+//    @DirtiesContext(methodMode = DirtiesContext.MethodMode.AFTER_METHOD)
+//    void testCreatingEduSpecialistAndGettingIt() {
+//        UserDto user = new UserDto("ArnasJocys2", "ArnasJocys2", "EDUCATION_SPECIALIST");
+//
+//        userController.createUser(user);
+//
+//        assertEquals("EDUCATION_SPECIALIST", userController.getUser("ArnasJocys2").getRole());
+//    }
+//
+//    @Test
+//    @Order(5)
+//    @DirtiesContext(methodMode = DirtiesContext.MethodMode.AFTER_METHOD)
+//    void testCreating2AdditionalUsersAndGettingListOfAllUsersWithSize3() {
+//        UserDto user1 = new UserDto("ArnasJocys1", "ArnasJocys1", "GUARDIAN");
+//        userController.createUser(user1);
+//        UserDto user2 = new UserDto("ArnasJocys2",  "ArnasJocys2", "EDUCATION_SPECIALIST");
+//        userController.createUser(user2);
+//
+//        assertEquals(3, userController.getUsers().size());
+//    }
 
     @Test
     @DirtiesContext(methodMode = DirtiesContext.MethodMode.AFTER_METHOD)
@@ -145,28 +145,28 @@ public class UserControllerTest {
         assertTrue(lower && capital && digit, "Username does not contain at least 1 lowercase letter, 1 capital letter and 1 digit");
     }
 
-    @Test
-    @DirtiesContext(methodMode = DirtiesContext.MethodMode.AFTER_METHOD)
-    void testAdminCreatingGuardianWithLowerCaseNamesGivesPascalCaseUsernameAndNames() {
-        UserDtoFromAdmin user = new UserDtoFromAdmin("arnas", "jocys","GUARDIAN");
-        String createdUsername = userController.createUserFromAdmin(user);
-
-        assertEquals("ArnasJocys1", userController.getUser(createdUsername).getUsername(), "Pascal case Username is not created");
-//FIXME those must be moved to Person test
-//        assertEquals("Arnas", userController.getUser(createdUsername).getFirstName(), "Pascal case firstname is not created");
-//        assertEquals("Jocys", userController.getUser(createdUsername).getLastName(), "Pascal case lastname is not created");
-    }
-
-    @Test
-    @DirtiesContext(methodMode = DirtiesContext.MethodMode.AFTER_METHOD)
-    void testAdminCannotCreateSecondEducationSpecialist() {
-        UserDtoFromAdmin user = new UserDtoFromAdmin("Arnas", "Jocys","EDUCATION_SPECIALIST");
-        userController.createUserFromAdmin(user);
-        UserDtoFromAdmin user2 = new UserDtoFromAdmin("Li", "Yu","EDUCATION_SPECIALIST");
-        String createdUsername2 = userController.createUserFromAdmin(user2);
-
-        assertEquals("Švietimo specialistas jau egzistuoja. Prisijungimo vardas: ŠvietimoSpecialistas1", createdUsername2, "Trying to create second education specialist does not give info message that education specialist is already created");
-    }
+//    @Test
+//    @DirtiesContext(methodMode = DirtiesContext.MethodMode.AFTER_METHOD)
+//    void testAdminCreatingGuardianWithLowerCaseNamesGivesPascalCaseUsernameAndNames() {
+//        UserDtoFromAdmin user = new UserDtoFromAdmin("arnas", "jocys","GUARDIAN");
+//        String createdUsername = userController.createUserFromAdmin(user);
+//
+//        assertEquals("ArnasJocys1", userController.getUser(createdUsername).getUsername(), "Pascal case Username is not created");
+////FIXME those must be moved to Person test
+////        assertEquals("Arnas", userController.getUser(createdUsername).getFirstName(), "Pascal case firstname is not created");
+////        assertEquals("Jocys", userController.getUser(createdUsername).getLastName(), "Pascal case lastname is not created");
+//    }
+//
+//    @Test
+//    @DirtiesContext(methodMode = DirtiesContext.MethodMode.AFTER_METHOD)
+//    void testAdminCannotCreateSecondEducationSpecialist() {
+//        UserDtoFromAdmin user = new UserDtoFromAdmin("Arnas", "Jocys","EDUCATION_SPECIALIST");
+//        userController.createUserFromAdmin(user);
+//        UserDtoFromAdmin user2 = new UserDtoFromAdmin("Li", "Yu","EDUCATION_SPECIALIST");
+//        String createdUsername2 = userController.createUserFromAdmin(user2);
+//
+//        assertEquals("Švietimo specialistas jau egzistuoja. Prisijungimo vardas: ŠvietimoSpecialistas1", createdUsername2, "Trying to create second education specialist does not give info message that education specialist is already created");
+//    }
 
     @Test
     @DirtiesContext(methodMode = DirtiesContext.MethodMode.AFTER_METHOD)

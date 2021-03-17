@@ -56,50 +56,50 @@ public class ApplicationController {
         }
     }
 
-    /* TODO - check if in use */
-    @RequestMapping(value = "/api/applicationsDtos", method = RequestMethod.GET)
-    @ResponseStatus(HttpStatus.CREATED)
-    @ApiOperation(value = "Get applications", notes = "Returns a list of applications")
-    public List<ApplicationDto> getApplicationsList() {
-        return applicationService.getApplicationsList();
-    }
+//    /* TODO - check if in use */
+//    @RequestMapping(value = "/api/applicationsDtos", method = RequestMethod.GET)
+//    @ResponseStatus(HttpStatus.CREATED)
+//    @ApiOperation(value = "Get applications", notes = "Returns a list of applications")
+//    public List<ApplicationDto> getApplicationsList() {
+//        return applicationService.getApplicationsList();
+//    }
 
-    /* TODO - check if in use */
-    @ApiOperation(value = "Update application", notes = "Updates application by id")
-    @RequestMapping(value = "/api/applications/{id}", method = RequestMethod.PUT)
-    @ResponseStatus(HttpStatus.OK)
-    public ResponseEntity updateApplication(
-            @ApiParam(value = "", required = true)
-            @PathVariable Long id,
-            @RequestBody ApplicationCreationDto applicationDto
-    ) {
-        try {
-            applicationService.updateApplication(id, applicationDto);
-            logger.info(applicationEvent, "Vartotojas {} atnaujino prašymą. Įvykio laikas: {}", getLoggedInUserName(), new Date());
-            return new ResponseEntity(HttpStatus.OK);
-        } catch (QueueDoesntExistException exception) {
-            return new ResponseEntity("Prašymo, negalima redaguoti, nes nėra aktyvios eilės", HttpStatus.FORBIDDEN);
-        }
+//    /* TODO - check if in use */
+//    @ApiOperation(value = "Update application", notes = "Updates application by id")
+//    @RequestMapping(value = "/api/applications/{id}", method = RequestMethod.PUT)
+//    @ResponseStatus(HttpStatus.OK)
+//    public ResponseEntity updateApplication(
+//            @ApiParam(value = "", required = true)
+//            @PathVariable Long id,
+//            @RequestBody ApplicationCreationDto applicationDto
+//    ) {
+//        try {
+//            applicationService.updateApplication(id, applicationDto);
+//            logger.info(applicationEvent, "Vartotojas {} atnaujino prašymą. Įvykio laikas: {}", getLoggedInUserName(), new Date());
+//            return new ResponseEntity(HttpStatus.OK);
+//        } catch (QueueDoesntExistException exception) {
+//            return new ResponseEntity("Prašymo, negalima redaguoti, nes nėra aktyvios eilės", HttpStatus.FORBIDDEN);
+//        }
+//
+//    }
 
-    }
+//    /* TODO - check if in use */
+//    @ApiOperation(value = "Get single application by id", notes = "Returns a single application by id")
+//    @RequestMapping(method = RequestMethod.GET, value = "/api/applications/{application_id}")
+//    @ResponseStatus(HttpStatus.OK)
+//    public ApplicationCreationDto getApplication(
+//            @PathVariable final Long application_id
+//    ) {
+//        return applicationService.getApplication(application_id);
+//    }
 
-    /* TODO - check if in use */
-    @ApiOperation(value = "Get single application by id", notes = "Returns a single application by id")
-    @RequestMapping(method = RequestMethod.GET, value = "/api/applications/{application_id}")
-    @ResponseStatus(HttpStatus.OK)
-    public ApplicationCreationDto getApplication(
-            @PathVariable final Long application_id
-    ) {
-        return applicationService.getApplication(application_id);
-    }
-
-    /* TODO - check if in use */
-    @RequestMapping(method = RequestMethod.GET, value = "/api/applications")
-    @ApiOperation(value = "Get applications", notes = "Returns all applications")
-    @ResponseStatus(HttpStatus.OK)
-    public List<ApplicationCreationDto> getApplications() {
-        return applicationService.getApplications();
-    }
+//    /* TODO - check if in use */
+//    @RequestMapping(method = RequestMethod.GET, value = "/api/applications")
+//    @ApiOperation(value = "Get applications", notes = "Returns all applications")
+//    @ResponseStatus(HttpStatus.OK)
+//    public List<ApplicationCreationDto> getApplications() {
+//        return applicationService.getApplications();
+//    }
 
     @PreAuthorize("hasRole('GUARDIAN')")
     @RequestMapping(method = RequestMethod.GET, value = "/api/applications/info/{username}")

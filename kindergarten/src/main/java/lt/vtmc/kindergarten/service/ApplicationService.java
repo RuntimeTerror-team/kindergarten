@@ -202,49 +202,49 @@ public class ApplicationService implements PagingLimit<ApplicationAfterDistribut
         return sumOfPriorities;
     }
 
-    @Transactional
-    public void updateApplication(Long id, ApplicationCreationDto applicationCreationDto) {
-        Queue queue = queueDao.findByStatus(QueueStatusEnum.ACTIVE);
-
-        if (queue != null) {
-            Application application = applicationDao.getOne(id);
-
-            Person child = personDao.getOne(applicationCreationDto.getChildId());
-            Person firstParent = personDao.getOne(applicationCreationDto.getFirstParentId());
-            Person secondParent = personDao.getOne(applicationCreationDto.getSecondParentId());
-
-            application.setDate(applicationCreationDto.getDate());
-            application.setIsAdopted(applicationCreationDto.isAdopted());
-            application.setIsMultiChild(applicationCreationDto.isMultiChild());
-            application.setIsGuardianStudent(applicationCreationDto.isGuardianDisabled());
-            application.setIsGuardianDisabled(applicationCreationDto.isGuardianDisabled());
-
-            if (child.getCity() == CityEnum.VILNIUS) {
-                application.setScore(countScore(applicationCreationDto) + 10);
-            } else {
-                application.setScore(countScore(applicationCreationDto));
-            }
-
-            application.setChild(child);
-            application.setParent(firstParent);
-            application.setSecondParent(secondParent);
-
-            application.setQueue(queue);
-
-            application.setApplicationStatus(ApplicationStatusEnum.SUBMITTED);
-
-            //Delete preexisting applications before applying new ones
-            kindergartenApplicationService.deleteApplicationFormsByApplicationId(application.getId());
-
-            Set<KindergartenApplicationForm> kindergartenApplicationForms = parseKindergartenApplications(applicationCreationDto, application);
-            application.setKindergartenApplicationForms(kindergartenApplicationForms);
-
-            applicationDao.save(application);
-        } else {
-            throw new QueueDoesntExistException("Active queue must exists");
-        }
-
-    }
+//    @Transactional
+//    public void updateApplication(Long id, ApplicationCreationDto applicationCreationDto) {
+//        Queue queue = queueDao.findByStatus(QueueStatusEnum.ACTIVE);
+//
+//        if (queue != null) {
+//            Application application = applicationDao.getOne(id);
+//
+//            Person child = personDao.getOne(applicationCreationDto.getChildId());
+//            Person firstParent = personDao.getOne(applicationCreationDto.getFirstParentId());
+//            Person secondParent = personDao.getOne(applicationCreationDto.getSecondParentId());
+//
+//            application.setDate(applicationCreationDto.getDate());
+//            application.setIsAdopted(applicationCreationDto.isAdopted());
+//            application.setIsMultiChild(applicationCreationDto.isMultiChild());
+//            application.setIsGuardianStudent(applicationCreationDto.isGuardianDisabled());
+//            application.setIsGuardianDisabled(applicationCreationDto.isGuardianDisabled());
+//
+//            if (child.getCity() == CityEnum.VILNIUS) {
+//                application.setScore(countScore(applicationCreationDto) + 10);
+//            } else {
+//                application.setScore(countScore(applicationCreationDto));
+//            }
+//
+//            application.setChild(child);
+//            application.setParent(firstParent);
+//            application.setSecondParent(secondParent);
+//
+//            application.setQueue(queue);
+//
+//            application.setApplicationStatus(ApplicationStatusEnum.SUBMITTED);
+//
+//            //Delete preexisting applications before applying new ones
+//            kindergartenApplicationService.deleteApplicationFormsByApplicationId(application.getId());
+//
+//            Set<KindergartenApplicationForm> kindergartenApplicationForms = parseKindergartenApplications(applicationCreationDto, application);
+//            application.setKindergartenApplicationForms(kindergartenApplicationForms);
+//
+//            applicationDao.save(application);
+//        } else {
+//            throw new QueueDoesntExistException("Active queue must exists");
+//        }
+//
+//    }
 
     /**
      * Creates applications to concrete kindergartens

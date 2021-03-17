@@ -101,19 +101,26 @@ public class CommandLineAppStartupRunner implements CommandLineRunner {
             dataSeeder.createGroupForKindergarten("19555592", 4, 5, 20);
             dataSeeder.createGroupForKindergarten("19555592", 5, 6, 16);
 
+            //Darželis Meškučiai
+            dataSeeder.createGroupForKindergarten("19555596", 1, 2, 25);
+            dataSeeder.createGroupForKindergarten("19555596", 2, 3, 15);
+            dataSeeder.createGroupForKindergarten("19555596", 3, 4, 18);
+            dataSeeder.createGroupForKindergarten("19555596", 4, 5, 20);
+            dataSeeder.createGroupForKindergarten("19555596", 5, 6, 16);
+
 
             // Create children
             // Create parents
 
 
             List<String> guardianPersonalCodes = new ArrayList<>();
-            for (int i = 0; i < 500; i++) {
+            for (int i = 0; i < 10; i++) {
                 String createdPersonalCode = dataSeeder.createPerson(i, "GUARDIAN");
                 guardianPersonalCodes.add(createdPersonalCode);
             }
 
             List<String> childrenPersonalCodes = new ArrayList<>();
-            for (int i = 0; i < 1500; i++) {
+            for (int i = 0; i < 30; i++) {
                 String createdPersonalCode = dataSeeder.createPerson(i, "NON_GUARDIAN");
                 childrenPersonalCodes.add(createdPersonalCode);
             }
@@ -147,7 +154,6 @@ public class CommandLineAppStartupRunner implements CommandLineRunner {
                 }
                 guardianIterator.remove();
             }
-        }
 
 
         PermissionForES permission = new PermissionForES();
@@ -158,42 +164,51 @@ public class CommandLineAppStartupRunner implements CommandLineRunner {
         dataSeeder.createPersons();
 
         //Jonukas
-            dataSeeder.createApplicationWith3Kindergartens("39004180111", "51504180332",
+            dataSeeder.createApplication("39004180111", "51504180332",
                     "19555587", "19555589", "19555590",
+                    "19555591", "19555596",
                     false, false, true, true);
         //Maryte
-        dataSeeder.createApplicationWith3Kindergartens("39004180111", "61602221111",
+        dataSeeder.createApplication("39004180111", "61602221111",
                 "19555587", "19555589", "19555590",
+                "19555591", "19555596",
                 false, false, true, false);
 
         //Gabrielius
-        dataSeeder.createApplicationWith3Kindergartens("38406160121", "51910280322",
+        dataSeeder.createApplication("38406160121", "51910280322",
 
                 "19555587", "19555589", "19555590",
+                "19555591", "19555596",
                 true, true, true, false);
         //Atene
-        dataSeeder.createApplicationWith3Kindergartens("38406160121", "51910281112",
+        dataSeeder.createApplication("38406160121", "51910281112",
                 "19555587", "19555589", "19555590",
+                "19555591", "19555596",
                 true, true, true, false);
 
         //Iglute
-        dataSeeder.createApplicationWith3Kindergartens("49004170458", "61507120478",
+        dataSeeder.createApplication("49004170458", "61507120478",
                 "19555587", "19555589", "19555590",
+                "19555591", "19555596",
                 true, true, true, false);
         //Erikas
-        dataSeeder.createApplicationWith3Kindergartens("49004170458", "51512218211",
+        dataSeeder.createApplication("49004170458", "51512218211",
                 "19555587", "19555589", "19555590",
+                "19555591", "19555596",
                 true, true, true, false);
 
         //IgluteUrbelyte
-        dataSeeder.createApplicationWith3Kindergartens("48901110222", "61507120444",
+        dataSeeder.createApplication("48901110222", "61507120444",
                 "19555587", "19555589", "19555590",
+                "19555591", "19555596",
                 true, true, true, false);
         //Poviliukas
-        dataSeeder.createApplicationWith3Kindergartens("48901110222", "62001011211",
+        dataSeeder.createApplication("48901110222", "62001011211",
                 "19555587", "19555589", "19555590",
+                "19555591", "19555596",
                 true, true, true, false);
 
+        }
 
     }
 

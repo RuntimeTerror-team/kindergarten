@@ -1,6 +1,5 @@
 package lt.vtmc.kindergarten.config;
 
-
 import lt.vtmc.kindergarten.dao.*;
 import lt.vtmc.kindergarten.domain.*;
 import lt.vtmc.kindergarten.dto.*;
@@ -12,6 +11,10 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.concurrent.ThreadLocalRandom;
 
+/**
+ * Used to fill a database. Can be turned of by setting false in application.properties
+ * startup.enable.data.seed=true
+ */
 
 @Component
 public class DataSeeder {
@@ -50,9 +53,9 @@ public class DataSeeder {
     private AgeRangeDao ageRangeDao;
 
 
+    public String createPerson(Integer iteration, String role) {
 
-    public String createPerson(Integer iteration, String role){
-        if( role.equals("GUARDIAN")) {
+        if (role.equals("GUARDIAN")) {
             UserDtoFromAdmin testUserAccount = new UserDtoFromAdmin();
             testUserAccount.setFirstName("Testas" + iteration);
             testUserAccount.setLastName("Testakovicius");
@@ -62,14 +65,14 @@ public class DataSeeder {
             User testUser = userDao.findAll().stream().filter(user -> user.getUsername().contains("Testas" + iteration)).findFirst().get();
 
             Person testGuardianPerson = new Person();
-            testGuardianPerson.setFirstName("Testas"+iteration);
+            testGuardianPerson.setFirstName("Testas" + iteration);
             testGuardianPerson.setLastName("Testakovicius");
             testGuardianPerson.setEmail("testastestakovicius@gmail.com");
             testGuardianPerson.setCity(CityEnum.VILNIUS);
             testGuardianPerson.setAddress("Testavimo g. 4");
 
             Integer personalCodeEnding = 10000 + iteration;
-            testGuardianPerson.setPersonalCode("39004180111".replace("80111",personalCodeEnding.toString()));
+            testGuardianPerson.setPersonalCode("39004180111".replace("80111", personalCodeEnding.toString()));
             testGuardianPerson.setPhoneNumber("+37062111111");
             testGuardianPerson.setPostalCode("12345");
             testGuardianPerson.setUser(testUser);
@@ -81,7 +84,7 @@ public class DataSeeder {
             return testGuardianPerson.getPersonalCode();
         } else {
             Person testPerson = new Person();
-            testPerson.setFirstName("Testutis"+iteration);
+            testPerson.setFirstName("Testutis" + iteration);
             testPerson.setLastName("Testakoviciukas");
             testPerson.setEmail("testutisdartikvaikas@gmail.com");
             testPerson.setCity(CityEnum.VILNIUS);
@@ -92,28 +95,29 @@ public class DataSeeder {
             int randomDay = ThreadLocalRandom.current().nextInt(10, 32);
             Integer personalCodeEnding = 1000 + iteration;
 
-            testPerson.setPersonalCode("3"+ randomYear+ randomMonth + randomDay + "0111".replace("0111",personalCodeEnding.toString()));
+            testPerson.setPersonalCode("3" + randomYear + randomMonth + randomDay + "0111".replace("0111", personalCodeEnding.toString()));
             testPerson.setPhoneNumber("+37062111111");
             testPerson.setPostalCode("12345");
 
             PersonDto personEdgarasDto = new PersonDto(testPerson);
             personService.addPerson(personEdgarasDto);
-            System.out.println("Person created " + testPerson.getPersonalCode() );
+            System.out.println("Person created " + testPerson.getPersonalCode());
             return testPerson.getPersonalCode();
         }
     }
 
-
-
     public District createDistrict(String title, Long id) {
+
         District district = new District();
         district.setTitle(title);
         district.setId(id);
+
         districtService.addDistrict(new DistrictDto(district));
         return district;
     }
 
     public void createAgeRanges(int min, int max) {
+
         AgeRange ageRange = new AgeRange();
         ageRange.setAgeMin(min);
         ageRange.setAgeMax(max);
@@ -123,6 +127,7 @@ public class DataSeeder {
 
 
     public void createKindergartens(District antakalnis, District zirmunai, District fabijoniskes, District baltupiai) {
+
         Kindergarten kindergarten = new Kindergarten();
         kindergarten.setTitle("Darželis Pušaitė");
         kindergarten.setAddress("Gatvės g. 56");
@@ -280,50 +285,17 @@ public class DataSeeder {
         kindergartenDao.save(kindergarten);
     }
 
-//    public void createUsers() {
-//        userService.createGuardian("Petras", "Petrauskas");
-//        userService.createGuardian("Marija", "Pūkienė");
-//        userService.createGuardian("Justinas", "Bingelis");
-//    }
 
     public void createQueueWithOpeningDate() {
+
         Date date = new Date();
         queueService.addQueueWithOpeningDate(new QueueDtoWithOpeningDate(date));
     }
 
-    public void createApplication(String parentPersonalCode, String childPersonalCode, String kindergarten1CompanyCode,  String kindergarten2CompanyCode,
-                                  Boolean isAdopted, Boolean isGuardianStudent, Boolean isMultiChild, Boolean isDisabled) {
-
-        Person parent1 = personDao.findByPersonalCode(parentPersonalCode);
-        Person child = personDao.findByPersonalCode(childPersonalCode);
-        Kindergarten kindergarten1 = kindergartenDao.findByCompanyCode(kindergarten1CompanyCode);
-        Kindergarten kindergarten2 = kindergartenDao.findByCompanyCode(kindergarten2CompanyCode);
-
-        ApplicationCreationDto application = new ApplicationCreationDto();
-        application.setDate(new Date());
-        application.setIsAdopted(isAdopted);
-        application.setIsGuardianStudent(isGuardianStudent);
-        application.setIsMultiChild(isMultiChild);
-        application.setIsGuardianDisabled(isDisabled);
-
-        application.setFirstParentId(parent1.getId());
-        application.setChildId(child.getId());
-
-        application.setPriorityForKindergartenID(new HashMap<>() {{
-            put(1, kindergarten1.getId());
-            put(2, kindergarten2.getId());
-        }});
-
-        applicationService.addApplication(application);
-
-    }
-
-
-    
     public void createApplication(String parentPersonalCode, String childPersonalCode,
-        String kindergarten1CompanyCode,  String kindergarten2CompanyCode,   String kindergarten3CompanyCode,
-        String kindergarten4CompanyCode,   String kindergarten5CompanyCode,
-        Boolean isAdopted, Boolean isGuardianStudent, Boolean isMultiChild, Boolean isDisabled) {
+                                  String kindergarten1CompanyCode, String kindergarten2CompanyCode, String kindergarten3CompanyCode,
+                                  String kindergarten4CompanyCode, String kindergarten5CompanyCode,
+                                  Boolean isAdopted, Boolean isGuardianStudent, Boolean isMultiChild, Boolean isDisabled) {
 
         Person parent1 = personDao.findByPersonalCode(parentPersonalCode);
         Person child = personDao.findByPersonalCode(childPersonalCode);
@@ -349,37 +321,6 @@ public class DataSeeder {
             put(3, kindergarten3.getId());
             put(4, kindergarten4.getId());
             put(5, kindergarten5.getId());
-         }});
-
-        applicationService.addApplication(application);
-
-}
-
-    public void createApplicationWith3Kindergartens(String parentPersonalCode, String childPersonalCode,
-                                  String kindergarten1CompanyCode,  String kindergarten2CompanyCode,   String kindergarten3CompanyCode,
-                                  Boolean isAdopted, Boolean isGuardianStudent, Boolean isMultiChild, Boolean isDisabled) {
-
-        Person parent1 = personDao.findByPersonalCode(parentPersonalCode);
-        Person child = personDao.findByPersonalCode(childPersonalCode);
-        Kindergarten kindergarten1 = kindergartenDao.findByCompanyCode(kindergarten1CompanyCode);
-        Kindergarten kindergarten2 = kindergartenDao.findByCompanyCode(kindergarten2CompanyCode);
-        Kindergarten kindergarten3 = kindergartenDao.findByCompanyCode(kindergarten3CompanyCode);
-
-        ApplicationCreationDto application = new ApplicationCreationDto();
-        application.setDate(new Date());
-        application.setIsAdopted(isAdopted);
-        application.setIsGuardianStudent(isGuardianStudent);
-        application.setIsMultiChild(isMultiChild);
-        application.setIsGuardianDisabled(isDisabled);
-
-        application.setFirstParentId(parent1.getId());
-        application.setChildId(child.getId());
-
-        application.setPriorityForKindergartenID(new HashMap<>() {{
-            put(1, kindergarten1.getId());
-            put(2, kindergarten2.getId());
-            put(3, kindergarten3.getId());
-
         }});
 
         applicationService.addApplication(application);
@@ -387,40 +328,8 @@ public class DataSeeder {
     }
 
 
-//
-//    public void createApplication(String parentPersonalCode, String childPersonalCode,
-//                                  String kindergarten1CompanyCode,  String kindergarten2CompanyCode, String kindergarten3CompanyCode,
-//                                  Boolean isAdopted, Boolean isGuardianStudent, Boolean isMultiChild, Boolean isDisabled) {
-//
-//        Person parent1 = personDao.findByPersonalCode(parentPersonalCode);
-//        Person child = personDao.findByPersonalCode(childPersonalCode);
-//        Kindergarten kindergarten1 = kindergartenDao.findByCompanyCode(kindergarten1CompanyCode);
-//        Kindergarten kindergarten2 = kindergartenDao.findByCompanyCode(kindergarten2CompanyCode);
-//        Kindergarten kindergarten3 = kindergartenDao.findByCompanyCode(kindergarten3CompanyCode);
-//
-//        ApplicationCreationDto application = new ApplicationCreationDto();
-//        application.setDate(new Date());
-//        application.setIsAdopted(isAdopted);
-//        application.setIsGuardianStudent(isGuardianStudent);
-//        application.setIsMultiChild(isMultiChild);
-//        application.setIsGuardianDisabled(isDisabled);
-//
-//        application.setFirstParentId(parent1.getId());
-//        application.setChildId(child.getId());
-//
-//        application.setPriorityForKindergartenID(new HashMap<>() {{
-//            put(1, kindergarten1.getId());
-//            put(2, kindergarten2.getId());
-//            put(3, kindergarten3.getId());
-//        }});
-//
-//        applicationService.addApplication(application);
-//
-//    }
-
-
-
     public void createPersons() {
+
         Role guardian = new Role();
         guardian.setType(RoleType.GUARDIAN);
 
@@ -447,7 +356,6 @@ public class DataSeeder {
         PersonDto personEdgarasDto = new PersonDto(personEdgaras);
         PersonUserDto personEdgarasUser = new PersonUserDto(personEdgarasDto, edgarasUser.getUsername());
         personService.addPersonWithUsername(personEdgarasUser);
-
 
         //JONUKAS
         Person child = new Person();
@@ -482,7 +390,6 @@ public class DataSeeder {
         personDao.save(maryte);
 
 
-
         //User ALVYDAS *********************************************************************************************************
         UserDtoFromAdmin alvydasUserForAdm = new UserDtoFromAdmin();
         alvydasUserForAdm.setFirstName("Alvydas");
@@ -506,7 +413,6 @@ public class DataSeeder {
         PersonDto personAlvydasDto = new PersonDto(personAlvydas);
         PersonUserDto personAlvydasUser = new PersonUserDto(personAlvydasDto, alvydasUser.getUsername());
         personService.addPersonWithUsername(personAlvydasUser);
-
 
         //GABRIELIUS
         Person childGabrielius = new Person();
@@ -565,7 +471,6 @@ public class DataSeeder {
         PersonUserDto personMonikaUser = new PersonUserDto(monikaUserDto, monikaUser.getUsername());
         personService.addPersonWithUsername(personMonikaUser);
 
-
         //IGLUTĖ ZUBRYTĖ
         Person child4 = new Person();
         child4.setFirstName("IGLUTĖ");
@@ -582,7 +487,6 @@ public class DataSeeder {
         igluteZub.setTribeId(personDao.findByPersonalCode("49004170458").getTribeId());
         personDao.save(igluteZub);
 
-
         //ERIKAS ZUBRUS
         Person erikasChild = new Person();
         erikasChild.setFirstName("ERIKAS");
@@ -598,7 +502,6 @@ public class DataSeeder {
         Person erikasZub = personDao.findByPersonalCode("51512218211");
         erikasZub.setTribeId(personDao.findByPersonalCode("49004170458").getTribeId());
         personDao.save(erikasZub);
-
 
         //Useris IEVA URBELIENĖ *********************************************************************************************************
         UserDtoFromAdmin ievaUserForAdmin = new UserDtoFromAdmin();
@@ -623,7 +526,6 @@ public class DataSeeder {
         PersonDto personIevaDto = new PersonDto(person3);
         PersonUserDto personIevaUser = new PersonUserDto(personIevaDto, ievaUser.getUsername());
         personService.addPersonWithUsername(personIevaUser);
-
 
         //IGLUTĖ URBELYTĖ
         Person child3 = new Person();
@@ -674,12 +576,6 @@ public class DataSeeder {
         personDao.save(simasUrbelis);
 
     }
-
-
-
-
-
-
 
 
 }
