@@ -129,7 +129,7 @@ public class ApplicationController {
         applicationService.recalculateApplicationOrderInQueue();
     }
 
-    @PreAuthorize("hasRole('EDUCATION_SPECIALIST')")
+    @PreAuthorize("hasAnyRole('EDUCATION_SPECIALIST', 'GUARDIAN')")
     @RequestMapping(method = RequestMethod.PUT, value = "/api/applications/{id}/{status}")
     @ApiOperation(value = "Change application status", notes = "Changes application status after distribution")
     @ResponseStatus(HttpStatus.OK)
