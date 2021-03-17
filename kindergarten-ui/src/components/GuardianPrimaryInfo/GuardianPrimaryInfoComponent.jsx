@@ -3,9 +3,9 @@ import logo from '../../images/logo.png';
 const GuardianPrimaryInfoComponent = () => {
     return (
         <div className="templatemo-sidebar">
-            <header className="templatemo-site-header">
-                <img src={logo} alt="logo" className="logo img-responsive" />
-            </header>
+            <div className="logo-div">
+                <img src={logo} alt="logo" className="logo mx-auto" />
+            </div>
             <nav className="templatemo-left-nav">
                 <div className="alert alert-warning mx-3" role="alert">
                     <h4 className="alert-heading">Sveiki prisijungę!</h4>

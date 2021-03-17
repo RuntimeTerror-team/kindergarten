@@ -10,7 +10,7 @@ import {
     BsGraphUp
 } from 'react-icons/bs';
 
-const ESNavigationComponent = () => (
+const GuardianNavigationComponent = () => (
     <div className="templatemo-sidebar">
         <div className="logo-div">
             <img src={logo} alt="logo" className="logo mx-auto" />
@@ -35,7 +35,7 @@ const ESNavigationComponent = () => (
     </div >
 )
 
-export default ESNavigationComponent
+export default GuardianNavigationComponent;
 
 
 
