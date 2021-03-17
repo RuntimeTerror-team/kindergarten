@@ -79,7 +79,7 @@ const GroupCreationFComponent = ({
                     {duplicateMessage}
                 </div>
                 <div className="form-group text-right">
-                    <button onClick={goToGroupList} className="templatemo-blue-button mr-2">
+                    <button type="button" onClick={goToGroupList} className="templatemo-blue-button mr-2">
                         Grįžti į grupių sąrašą</button>
                     <button type="submit" className="templatemo-blue-button">
                         Išsaugoti</button>
