@@ -6,15 +6,6 @@ import org.openqa.selenium.support.FindBy;
 
 public class ParentApplicationFillUpPage extends AbstractPage {
 
-    // text
-    @FindBy(xpath = "//*[@id=\"root\"]/div/div/div[2]/div[2]/h1/strong")
-    public WebElement applicationFillUpText;
-
-    @FindBy(xpath = "//*[@id=\"root\"]/div/div/div[2]/div[2]/div/form/div[5]/div/div/h3")
-    public WebElement kindergartenOptionsTitleText;
-
-    @FindBy(xpath = "//*[@id=\"root\"]/div/div/div[2]/div[2]/div/form/div[6]/div/h3")
-    public WebElement additionalInformationTitleText;
 
     // button
     @FindBy(xpath = "//*[@id=\"root\"]/div/div/div[2]/div[2]/div/form/div[1]/div/div[1]/div[6]/button")
@@ -35,9 +26,6 @@ public class ParentApplicationFillUpPage extends AbstractPage {
     @FindBy(xpath = "//*[@id=\"root\"]/div/div/div[2]/div[2]/div/form/div[3]/div/div[1]/div[9]/button")
     public WebElement buttonSecondParentDataSave;
 
-    @FindBy(xpath = "//*[@id=\"root\"]/div/div/div[2]/div[2]/div/form/div[8]/button[1]")
-    public WebElement buttonBackToApplicationFirstPage;
-
     @FindBy(xpath = "//*[@id=\"root\"]/div/div/div[2]/div[2]/div/form/div[8]/button[2]")
     public WebElement buttonApplicationSubmit;
 
@@ -57,26 +45,8 @@ public class ParentApplicationFillUpPage extends AbstractPage {
     @FindBy(name = "childCity")
     public WebElement inputChildCity;
 
-    @FindBy(name = "guardianName")
-    public WebElement inputNewParentName;
-
-    @FindBy(name = "guardianSurname")
-    public WebElement inputNewParentSurname;
-
-    @FindBy(name = "guardianPhone")
-    public WebElement inputNewParentPhoneNo;
-
     @FindBy(name = "guardianAddress")
     public WebElement inputNewParentAddress;
-
-    @FindBy(name = "guardianCity")
-    public WebElement inputNewParentCity;
-
-    @FindBy(name = "guardianPostalCode")
-    public WebElement inputNewParentPostalCode;
-
-    @FindBy(name = "guardianEmail")
-    public WebElement inputNewParentEmail;
 
     @FindBy(name = "secondGuardianName")
     public WebElement inputSecondParentName;
@@ -120,18 +90,6 @@ public class ParentApplicationFillUpPage extends AbstractPage {
         super(driver);
     }
 
-    // text
-    public String findMyAccountText() {
-        return applicationFillUpText.getText();
-    }
-
-    public String findKindergartenOptionsTitleText() {
-        return kindergartenOptionsTitleText.getText();
-    }
-
-    public String findAdditionalInformationTitleText() {
-        return additionalInformationTitleText.getText();
-    }
 
     // button
     public void clickChildSaveButton() {
@@ -141,6 +99,7 @@ public class ParentApplicationFillUpPage extends AbstractPage {
     public void clickParentDataEditButton() {
         buttonParentDataEdit.click();
     }
+
     public void clickParentDataSaveButton() {
         buttonParentDataSave.click();
     }
@@ -155,10 +114,6 @@ public class ParentApplicationFillUpPage extends AbstractPage {
 
     public void clickSecondParentDataSaveButton() {
         buttonSecondParentDataSave.click();
-    }
-
-    public void clickBackToApplicationFirstPageButton() {
-        buttonBackToApplicationFirstPage.click();
     }
 
     public void clickApplicationSubmitButton() {
@@ -186,7 +141,7 @@ public class ParentApplicationFillUpPage extends AbstractPage {
         inputChildCity.sendKeys(childCity);
     }
 
-       public void enterSecondParentName(String secondParentName) {
+    public void enterSecondParentName(String secondParentName) {
         inputSecondParentName.sendKeys(secondParentName);
     }
 
@@ -218,53 +173,13 @@ public class ParentApplicationFillUpPage extends AbstractPage {
         inputSecondParentEmail.sendKeys(secondParentEmail);
     }
 
-    public void enterNewParentName(String newName) {
-        inputNewParentName.sendKeys(newName);
-    }
-    public void clearOldParentName() {
-        inputNewParentName.clear();
-    }
-
-    public void enterNewParentSurname(String newSurname) {
-        inputNewParentSurname.sendKeys(newSurname);
-    }
-    public void clearOldParentSurname() {
-        inputNewParentSurname.clear();
-    }
-
-    public void enterNewParentPhoneNo(String newPhoneNo) {
-        inputNewParentPhoneNo.sendKeys(newPhoneNo);
-    }
-
-    public void clearOldParentPhoneNo() {
-        inputNewParentPhoneNo.clear();
-    }
 
     public void enterNewParentAddress(String newAddress) {
         inputNewParentAddress.sendKeys(newAddress);
     }
+
     public void clearOldParentAddress() {
         inputNewParentAddress.clear();
-    }
-
-    public void enterNewParentCity(String newCity) {
-        inputNewParentCity.sendKeys(newCity);
-    }
-    public void clearOldParentCity() {
-        inputNewParentCity.clear();
-    }
-
-    public void enterNewParentPostalCode(String newPostalCode) {
-        inputNewParentPostalCode.sendKeys(newPostalCode);
-    }
-    public void clearOldParentPostalCode() {
-        inputNewParentPostalCode.clear();
-    }
-    public void enterNewParentEmail(String newEmail) {
-        inputNewParentEmail.sendKeys(newEmail);
-    }
-    public void clearOldParentEmail() {
-        inputNewParentEmail.clear();
     }
 
     //check-boxes

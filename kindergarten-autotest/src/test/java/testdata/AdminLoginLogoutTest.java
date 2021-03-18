@@ -15,15 +15,25 @@ import pages.AdminPage;
 import pages.LoginPage;
 import utilities.FileReaderUtils;
 
+/** The tests are testing application of Kindergarten Information System
+ *
+ * @author Runtime Terror Team
+ * @version 1.0
+ *
+ */
+
 public class AdminLoginLogoutTest extends BaseTest {
 
-    @Test (groups = {"smoke","regression"})
-    public void adminLoginTest() throws IOException {
+    @Test (groups = "smoke")
+    public void adminLoginLogoutTest() throws IOException {
         AdminPage adminPage = new AdminPage(driver);
         LoginPage loginPage = new LoginPage(driver);
+
         String loginText = loginPage.checkLoginPageTitleName();
         assertEquals(loginText, "Vaikų darželių informacinė sistema", "Text is not as expected: ");
-
+/**
+ * Admin logs in with data from file.
+ */
 
         List<String> testdata = FileReaderUtils.getTestData("src/test/resources/TestData_Admin_Login.txt");
 
@@ -38,14 +48,10 @@ public class AdminLoginLogoutTest extends BaseTest {
 
         String actualResult = adminPage.findAdminLoginText();
         assertEquals(actualResult, adminAccountText.getText(), "Text is not as expected: ");
-//        adminPage.clickAdminLogoutButton();
-    }
-
-    @Test
-    public void adminLoginLogout() throws IOException {
-        AdminPage adminPage = new AdminPage(driver);
-        LoginPage loginPage = new LoginPage(driver);
-        adminLoginTest();
+        /**
+         * Admin logs out.
+         */
         adminPage.clickAdminLogoutButton();
     }
+
 }

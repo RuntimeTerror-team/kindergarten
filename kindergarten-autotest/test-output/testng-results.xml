@@ -1,35 +1,169 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testng-results ignored="30" total="31" passed="1" failed="0" skipped="0">
+<testng-results ignored="21" total="31" passed="10" failed="0" skipped="0">
   <reporter-output>
   </reporter-output>
-  <suite started-at="2021-03-16T18:18:15 EET" name="SmokeTests" finished-at="2021-03-16T18:18:21 EET" duration-ms="5429">
+  <suite started-at="2021-03-17T15:10:07 EET" name="RegressionTests" finished-at="2021-03-17T15:12:48 EET" duration-ms="160208">
     <groups>
       <group name="regression">
-        <method signature="AdminLoginLogoutTest.adminLoginTest()[pri:0, instance:testdata.AdminLoginLogoutTest@dd05255]" name="adminLoginTest" class="testdata.AdminLoginLogoutTest"/>
+        <method signature="A_parentPrimaryInfoInputTest.parentPrimaryInfoInputTest()[pri:0, instance:testdata.A_parentPrimaryInfoInputTest@15de0b3c]" name="parentPrimaryInfoInputTest" class="testdata.A_parentPrimaryInfoInputTest"/>
+        <method signature="B_DistrictCreationTest.districtCreationTest()[pri:0, instance:testdata.B_DistrictCreationTest@489115ef]" name="districtCreationTest" class="testdata.B_DistrictCreationTest"/>
+        <method signature="C_AgeGroupCreationTest.ageGroupCreationTest()[pri:0, instance:testdata.C_AgeGroupCreationTest@3857f613]" name="ageGroupCreationTest" class="testdata.C_AgeGroupCreationTest"/>
+        <method signature="D_KindergartenCreationTest.kindergartenCreationTest()[pri:0, instance:testdata.D_KindergartenCreationTest@198b6731]" name="kindergartenCreationTest" class="testdata.D_KindergartenCreationTest"/>
+        <method signature="E_KindergartenGroupCreationTest.kindergartenGroupCreationTest()[pri:0, instance:testdata.E_KindergartenGroupCreationTest@7c6908d7]" name="kindergartenGroupCreationTest" class="testdata.E_KindergartenGroupCreationTest"/>
+        <method signature="F_ParentApplicationCreationTest.parentApplicationCreationTest()[pri:0, instance:testdata.F_ParentApplicationCreationTest@3c9754d8]" name="parentApplicationCreationTest" class="testdata.F_ParentApplicationCreationTest"/>
+        <method signature="G_EducationSpecialistPasswordChangeTest.educationSpecialistPasswordChangeTest()[pri:0, instance:testdata.G_EducationSpecialistPasswordChangeTest@3bf7ca37]" name="educationSpecialistPasswordChangeTest" class="testdata.G_EducationSpecialistPasswordChangeTest"/>
+        <method signature="H_ParentHealthFormUploadTest.parentHealthFormUploadTest()[pri:0, instance:testdata.H_ParentHealthFormUploadTest@79079097]" name="parentHealthFormUploadTest" class="testdata.H_ParentHealthFormUploadTest"/>
+        <method signature="I_ParentPasswordChangeTest.parentPasswordChangeTest()[pri:0, instance:testdata.I_ParentPasswordChangeTest@4d1c00d0]" name="parentPasswordChangeTest" class="testdata.I_ParentPasswordChangeTest"/>
+        <method signature="J_UserPasswordResetToPrimaryOneForExistingUserTest.UserPasswordResetToPrimaryOneForExistingUserTest()[pri:0, instance:testdata.J_UserPasswordResetToPrimaryOneForExistingUserTest@4b2bac3f]" name="UserPasswordResetToPrimaryOneForExistingUserTest" class="testdata.J_UserPasswordResetToPrimaryOneForExistingUserTest"/>
       </group> <!-- regression -->
-      <group name="smoke">
-        <method signature="AdminLoginLogoutTest.adminLoginTest()[pri:0, instance:testdata.AdminLoginLogoutTest@dd05255]" name="adminLoginTest" class="testdata.AdminLoginLogoutTest"/>
-      </group> <!-- smoke -->
     </groups>
-    <test started-at="2021-03-16T18:18:15 EET" name="smoke" finished-at="2021-03-16T18:18:21 EET" duration-ms="5429">
-      <class name="testdata.AdminLoginLogoutTest">
-        <test-method is-config="true" signature="setUp()[pri:0, instance:testdata.AdminLoginLogoutTest@dd05255]" started-at="2021-03-16T18:18:15 EET" name="setUp" finished-at="2021-03-16T18:18:15 EET" duration-ms="21" status="PASS">
-          <reporter-output>
-          </reporter-output>
-        </test-method> <!-- setUp -->
-        <test-method is-config="true" signature="setUpBeforeClass()[pri:0, instance:testdata.AdminLoginLogoutTest@dd05255]" started-at="2021-03-16T18:18:15 EET" name="setUpBeforeClass" finished-at="2021-03-16T18:18:20 EET" duration-ms="4065" status="PASS">
+    <test started-at="2021-03-17T15:10:07 EET" name="regression" finished-at="2021-03-17T15:12:48 EET" duration-ms="160208">
+      <class name="testdata.I_ParentPasswordChangeTest">
+        <test-method is-config="true" signature="setUpBeforeClass()[pri:0, instance:testdata.I_ParentPasswordChangeTest@4d1c00d0]" started-at="2021-03-17T15:12:12 EET" name="setUpBeforeClass" finished-at="2021-03-17T15:12:15 EET" duration-ms="3265" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- setUpBeforeClass -->
-        <test-method signature="adminLoginTest()[pri:0, instance:testdata.AdminLoginLogoutTest@dd05255]" started-at="2021-03-16T18:18:20 EET" name="adminLoginTest" finished-at="2021-03-16T18:18:21 EET" duration-ms="1245" status="PASS">
+        <test-method signature="parentPasswordChangeTest()[pri:0, instance:testdata.I_ParentPasswordChangeTest@4d1c00d0]" started-at="2021-03-17T15:12:15 EET" name="parentPasswordChangeTest" finished-at="2021-03-17T15:12:36 EET" duration-ms="21541" status="PASS">
           <reporter-output>
           </reporter-output>
-        </test-method> <!-- adminLoginTest -->
-        <test-method is-config="true" signature="tearDown()[pri:0, instance:testdata.AdminLoginLogoutTest@dd05255]" started-at="2021-03-16T18:18:21 EET" name="tearDown" finished-at="2021-03-16T18:18:21 EET" duration-ms="31" status="PASS">
+        </test-method> <!-- parentPasswordChangeTest -->
+        <test-method is-config="true" signature="tearDown()[pri:0, instance:testdata.I_ParentPasswordChangeTest@4d1c00d0]" started-at="2021-03-17T15:12:36 EET" name="tearDown" finished-at="2021-03-17T15:12:37 EET" duration-ms="410" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- tearDown -->
+      </class> <!-- testdata.I_ParentPasswordChangeTest -->
+      <class name="testdata.E_KindergartenGroupCreationTest">
+        <test-method is-config="true" signature="setUpBeforeClass()[pri:0, instance:testdata.E_KindergartenGroupCreationTest@7c6908d7]" started-at="2021-03-17T15:11:10 EET" name="setUpBeforeClass" finished-at="2021-03-17T15:11:13 EET" duration-ms="3119" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- setUpBeforeClass -->
+        <test-method signature="kindergartenGroupCreationTest()[pri:0, instance:testdata.E_KindergartenGroupCreationTest@7c6908d7]" started-at="2021-03-17T15:11:13 EET" name="kindergartenGroupCreationTest" finished-at="2021-03-17T15:11:16 EET" duration-ms="2366" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- kindergartenGroupCreationTest -->
+        <test-method is-config="true" signature="tearDown()[pri:0, instance:testdata.E_KindergartenGroupCreationTest@7c6908d7]" started-at="2021-03-17T15:11:16 EET" name="tearDown" finished-at="2021-03-17T15:11:16 EET" duration-ms="171" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- tearDown -->
+      </class> <!-- testdata.E_KindergartenGroupCreationTest -->
+      <class name="testdata.A_parentPrimaryInfoInputTest">
+        <test-method is-config="true" signature="setUpBeforeClass()[pri:0, instance:testdata.A_parentPrimaryInfoInputTest@15de0b3c]" started-at="2021-03-17T15:10:07 EET" name="setUpBeforeClass" finished-at="2021-03-17T15:10:11 EET" duration-ms="4058" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- setUpBeforeClass -->
+        <test-method signature="parentPrimaryInfoInputTest()[pri:0, instance:testdata.A_parentPrimaryInfoInputTest@15de0b3c]" started-at="2021-03-17T15:10:11 EET" name="parentPrimaryInfoInputTest" finished-at="2021-03-17T15:10:38 EET" duration-ms="26086" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- parentPrimaryInfoInputTest -->
+        <test-method is-config="true" signature="tearDown()[pri:0, instance:testdata.A_parentPrimaryInfoInputTest@15de0b3c]" started-at="2021-03-17T15:10:38 EET" name="tearDown" finished-at="2021-03-17T15:10:38 EET" duration-ms="157" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- tearDown -->
+      </class> <!-- testdata.A_parentPrimaryInfoInputTest -->
+      <class name="testdata.C_AgeGroupCreationTest">
+        <test-method is-config="true" signature="setUpBeforeClass()[pri:0, instance:testdata.C_AgeGroupCreationTest@3857f613]" started-at="2021-03-17T15:10:46 EET" name="setUpBeforeClass" finished-at="2021-03-17T15:10:49 EET" duration-ms="3150" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- setUpBeforeClass -->
+        <test-method signature="ageGroupCreationTest()[pri:0, instance:testdata.C_AgeGroupCreationTest@3857f613]" started-at="2021-03-17T15:10:49 EET" name="ageGroupCreationTest" finished-at="2021-03-17T15:10:55 EET" duration-ms="5893" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- ageGroupCreationTest -->
+        <test-method is-config="true" signature="tearDown()[pri:0, instance:testdata.C_AgeGroupCreationTest@3857f613]" started-at="2021-03-17T15:10:55 EET" name="tearDown" finished-at="2021-03-17T15:10:55 EET" duration-ms="159" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- tearDown -->
+      </class> <!-- testdata.C_AgeGroupCreationTest -->
+      <class name="testdata.D_KindergartenCreationTest">
+        <test-method is-config="true" signature="setUpBeforeClass()[pri:0, instance:testdata.D_KindergartenCreationTest@198b6731]" started-at="2021-03-17T15:10:55 EET" name="setUpBeforeClass" finished-at="2021-03-17T15:10:58 EET" duration-ms="2902" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- setUpBeforeClass -->
+        <test-method signature="kindergartenCreationTest()[pri:0, instance:testdata.D_KindergartenCreationTest@198b6731]" started-at="2021-03-17T15:10:58 EET" name="kindergartenCreationTest" finished-at="2021-03-17T15:11:10 EET" duration-ms="12277" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- kindergartenCreationTest -->
+        <test-method is-config="true" signature="tearDown()[pri:0, instance:testdata.D_KindergartenCreationTest@198b6731]" started-at="2021-03-17T15:11:10 EET" name="tearDown" finished-at="2021-03-17T15:11:10 EET" duration-ms="140" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- tearDown -->
+      </class> <!-- testdata.D_KindergartenCreationTest -->
+      <class name="testdata.AdminLoginLogoutTest">
+        <test-method is-config="true" signature="setUp()[pri:0, instance:testdata.AdminLoginLogoutTest@185a6e9]" started-at="2021-03-17T15:10:07 EET" name="setUp" finished-at="2021-03-17T15:10:07 EET" duration-ms="20" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- setUp -->
       </class> <!-- testdata.AdminLoginLogoutTest -->
-    </test> <!-- smoke -->
-  </suite> <!-- SmokeTests -->
+      <class name="testdata.G_EducationSpecialistPasswordChangeTest">
+        <test-method is-config="true" signature="setUpBeforeClass()[pri:0, instance:testdata.G_EducationSpecialistPasswordChangeTest@3bf7ca37]" started-at="2021-03-17T15:11:32 EET" name="setUpBeforeClass" finished-at="2021-03-17T15:11:35 EET" duration-ms="3132" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- setUpBeforeClass -->
+        <test-method signature="educationSpecialistPasswordChangeTest()[pri:0, instance:testdata.G_EducationSpecialistPasswordChangeTest@3bf7ca37]" started-at="2021-03-17T15:11:35 EET" name="educationSpecialistPasswordChangeTest" finished-at="2021-03-17T15:12:05 EET" duration-ms="29691" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- educationSpecialistPasswordChangeTest -->
+        <test-method is-config="true" signature="tearDown()[pri:0, instance:testdata.G_EducationSpecialistPasswordChangeTest@3bf7ca37]" started-at="2021-03-17T15:12:05 EET" name="tearDown" finished-at="2021-03-17T15:12:05 EET" duration-ms="234" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- tearDown -->
+      </class> <!-- testdata.G_EducationSpecialistPasswordChangeTest -->
+      <class name="testdata.B_DistrictCreationTest">
+        <test-method is-config="true" signature="setUpBeforeClass()[pri:0, instance:testdata.B_DistrictCreationTest@489115ef]" started-at="2021-03-17T15:10:38 EET" name="setUpBeforeClass" finished-at="2021-03-17T15:10:41 EET" duration-ms="2928" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- setUpBeforeClass -->
+        <test-method signature="districtCreationTest()[pri:0, instance:testdata.B_DistrictCreationTest@489115ef]" started-at="2021-03-17T15:10:41 EET" name="districtCreationTest" finished-at="2021-03-17T15:10:46 EET" duration-ms="4931" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- districtCreationTest -->
+        <test-method is-config="true" signature="tearDown()[pri:0, instance:testdata.B_DistrictCreationTest@489115ef]" started-at="2021-03-17T15:10:46 EET" name="tearDown" finished-at="2021-03-17T15:10:46 EET" duration-ms="124" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- tearDown -->
+      </class> <!-- testdata.B_DistrictCreationTest -->
+      <class name="testdata.F_ParentApplicationCreationTest">
+        <test-method is-config="true" signature="setUpBeforeClass()[pri:0, instance:testdata.F_ParentApplicationCreationTest@3c9754d8]" started-at="2021-03-17T15:11:16 EET" name="setUpBeforeClass" finished-at="2021-03-17T15:11:19 EET" duration-ms="2969" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- setUpBeforeClass -->
+        <test-method signature="parentApplicationCreationTest()[pri:0, instance:testdata.F_ParentApplicationCreationTest@3c9754d8]" started-at="2021-03-17T15:11:19 EET" name="parentApplicationCreationTest" finished-at="2021-03-17T15:11:32 EET" duration-ms="13268" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- parentApplicationCreationTest -->
+        <test-method is-config="true" signature="tearDown()[pri:0, instance:testdata.F_ParentApplicationCreationTest@3c9754d8]" started-at="2021-03-17T15:11:32 EET" name="tearDown" finished-at="2021-03-17T15:11:32 EET" duration-ms="163" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- tearDown -->
+      </class> <!-- testdata.F_ParentApplicationCreationTest -->
+      <class name="testdata.H_ParentHealthFormUploadTest">
+        <test-method is-config="true" signature="setUpBeforeClass()[pri:0, instance:testdata.H_ParentHealthFormUploadTest@79079097]" started-at="2021-03-17T15:12:05 EET" name="setUpBeforeClass" finished-at="2021-03-17T15:12:09 EET" duration-ms="3193" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- setUpBeforeClass -->
+        <test-method signature="parentHealthFormUploadTest()[pri:0, instance:testdata.H_ParentHealthFormUploadTest@79079097]" started-at="2021-03-17T15:12:09 EET" name="parentHealthFormUploadTest" finished-at="2021-03-17T15:12:11 EET" duration-ms="2901" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- parentHealthFormUploadTest -->
+        <test-method is-config="true" signature="tearDown()[pri:0, instance:testdata.H_ParentHealthFormUploadTest@79079097]" started-at="2021-03-17T15:12:11 EET" name="tearDown" finished-at="2021-03-17T15:12:12 EET" duration-ms="51" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- tearDown -->
+      </class> <!-- testdata.H_ParentHealthFormUploadTest -->
+      <class name="testdata.J_UserPasswordResetToPrimaryOneForExistingUserTest">
+        <test-method is-config="true" signature="setUpBeforeClass()[pri:0, instance:testdata.J_UserPasswordResetToPrimaryOneForExistingUserTest@4b2bac3f]" started-at="2021-03-17T15:12:37 EET" name="setUpBeforeClass" finished-at="2021-03-17T15:12:40 EET" duration-ms="2970" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- setUpBeforeClass -->
+        <test-method signature="UserPasswordResetToPrimaryOneForExistingUserTest()[pri:0, instance:testdata.J_UserPasswordResetToPrimaryOneForExistingUserTest@4b2bac3f]" started-at="2021-03-17T15:12:40 EET" name="UserPasswordResetToPrimaryOneForExistingUserTest" finished-at="2021-03-17T15:12:47 EET" duration-ms="7623" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- UserPasswordResetToPrimaryOneForExistingUserTest -->
+        <test-method is-config="true" signature="tearDown()[pri:0, instance:testdata.J_UserPasswordResetToPrimaryOneForExistingUserTest@4b2bac3f]" started-at="2021-03-17T15:12:47 EET" name="tearDown" finished-at="2021-03-17T15:12:48 EET" duration-ms="223" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- tearDown -->
+      </class> <!-- testdata.J_UserPasswordResetToPrimaryOneForExistingUserTest -->
+    </test> <!-- regression -->
+  </suite> <!-- RegressionTests -->
 </testng-results>

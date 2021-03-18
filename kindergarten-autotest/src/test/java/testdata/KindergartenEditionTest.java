@@ -9,12 +9,17 @@ import org.testng.annotations.Test;
 import pages.*;
 
 import static org.testng.Assert.assertEquals;
-
+/** The tests are testing application of Kindergarten Information System
+ *
+ * @author Runtime Terror Team
+ * @version 1.0
+ *
+ */
 
 public class KindergartenEditionTest extends BaseTest {
 
     @Test
-    public void kindergartenEditionTest() throws InterruptedException {
+    public void kindergartenEditionTest()  {
         WebDriverWait wait = new WebDriverWait(driver, 5);
         WebElement loginh1 = wait.until(
                 ExpectedConditions.presenceOfElementLocated(By.id("loginh1")));
@@ -29,6 +34,9 @@ public class KindergartenEditionTest extends BaseTest {
 
         loginPage.enterUsername(specialistUsername);
         loginPage.enterPassword(specialistPassword);
+        /**
+         * Education specialist logs in
+         */
         loginPage.clickLoginButton();
 
         wait = new WebDriverWait(driver, 10);
@@ -39,12 +47,16 @@ public class KindergartenEditionTest extends BaseTest {
 
         successfulText = wait.until(
                 ExpectedConditions.presenceOfElementLocated(By.xpath("//*[@id=\"root\"]/div/div/div[2]/div[2]/h1/strong")));
-
+/**
+ * Education specialist clicks the kindergarten information preview button
+ */
         educationSpecialistKindergartenListPage.clickKindergartenInformationReviewButton();
 
         successfulText = wait.until(
                 ExpectedConditions.presenceOfElementLocated(By.xpath("//*[@id=\"root\"]/div/div/div[2]/div[2]/h1/strong")));
-
+/**
+ * Education specialist clicks the kindergarten information edit button
+ */
         educationSpecialistKindergartenEditPage.clickKindergartenInformationEditButton();
 
         successfulText = wait.until(
@@ -61,7 +73,9 @@ public class KindergartenEditionTest extends BaseTest {
 
         educationSpecialistKindergartenEditPage.clearKindergartenEmail();
         educationSpecialistKindergartenEditPage.enterKindergartenEmail(newKindergartenEmail);
-
+/**
+ * Education specialist saves the updated kindergarten's information
+ */
         educationSpecialistKindergartenEditPage.clickKindergartenUpdateSaveButton();
 
         successfulText = wait.until(
@@ -72,11 +86,16 @@ public class KindergartenEditionTest extends BaseTest {
 
         successfulText = wait.until(
                 ExpectedConditions.presenceOfElementLocated(By.xpath("//*[@id=\"root\"]/div/div/div[2]/div[2]/div/div/button[1]")));
+        /**
+         * Education specialist goes back to the kindergarten list
+         */
         educationSpecialistKindergartenListPage.clickBackToKindergartenListButton();
 
         successfulText = wait.until(
                 ExpectedConditions.presenceOfElementLocated(By.xpath("//*[@id=\"root\"]/div/div/div[2]/div[2]/h1/strong")));
-
+/**
+ * Education specialist logs out
+ */
 
         educationSpecialistPage.clickSpecialistLogoutButton();
     }

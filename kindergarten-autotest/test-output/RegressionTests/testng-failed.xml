@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd">
+<suite name="Failed suite [RegressionTests]" guice-stage="DEVELOPMENT">
+  <test thread-count="5" name="regression(failed)">
+    <groups>
+      <run>
+        <include name="regression"/>
+      </run>
+    </groups>
+    <classes>
+      <class name="testdata.G_EducationSpecialistPasswordChangeTest">
+        <methods>
+          <include name="setUp"/>
+          <include name="tearDown"/>
+          <include name="setUpBeforeClass"/>
+          <include name="educationSpecialistPasswordChangeTest"/>
+        </methods>
+      </class> <!-- testdata.G_EducationSpecialistPasswordChangeTest -->
+      <class name="testdata.I_ParentPasswordChangeTest">
+        <methods>
+          <include name="setUp"/>
+          <include name="tearDown"/>
+          <include name="parentPasswordChangeTest"/>
+          <include name="setUpBeforeClass"/>
+        </methods>
+      </class> <!-- testdata.I_ParentPasswordChangeTest -->
+    </classes>
+  </test> <!-- regression(failed) -->
+</suite> <!-- Failed suite [RegressionTests] -->

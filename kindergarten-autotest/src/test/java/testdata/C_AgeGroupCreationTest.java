@@ -18,12 +18,18 @@ import pages.EducationSpecialistPage;
 
 import static org.testng.Assert.assertEquals;
 
+/** The tests are testing application of Kindergarten Information System
+ *
+ * @author Runtime Terror Team
+ * @version 1.0
+ *
+ */
 
-public class AgeGroupCreationTest extends BaseTest {
+public class C_AgeGroupCreationTest extends BaseTest {
 
 
-    @Test(groups = "smoke, regression")
-    public void ageGroupCreationTest()  {
+    @Test(groups = "regression")
+    public void ageGroupCreationTest() throws InterruptedException {
 
 
         LoginPage loginPage = new LoginPage(driver);
@@ -35,6 +41,10 @@ public class AgeGroupCreationTest extends BaseTest {
 
         loginPage.enterUsername(specialistUsername);
         loginPage.enterPassword(specialistPassword);
+        /**
+         * Education specialist logs in
+         *
+         */
         loginPage.clickLoginButton();
         WebDriverWait wait = new WebDriverWait(driver, 10);
         WebElement successfulText = wait.until(
@@ -44,19 +54,31 @@ public class AgeGroupCreationTest extends BaseTest {
         successfulText = wait.until(
                 ExpectedConditions.presenceOfElementLocated(By.xpath("//*[@id=\"root\"]/div/div/div[2]/div[2]/h1/strong")));
 
-
+/** Select from dropdown
+ *
+ */
         Select AgeFromDropdown = new Select(driver.findElement(By.name("fromAge")));
-        AgeFromDropdown.selectByIndex(4);
+
+        AgeFromDropdown.selectByIndex(1);
         Select AgeToDropdown = new Select(driver.findElement(By.name("toAge")));
-        AgeToDropdown.selectByIndex(4);
+        AgeToDropdown.selectByIndex(1);
+
+        /**
+         * Education specialist creates age group
+         *
+         */
         educationSpecialistAgeGroupCreationPage.clickAgeGroupCreateButton();
         wait = new WebDriverWait(driver, 10);
         successfulText = wait.until(
                 ExpectedConditions.presenceOfElementLocated(By.xpath("//*[@id=\"root\"]/div/div/div[2]/div[2]/div/div[1]/form/div[3]")));
-
+        Thread.sleep(2000);
         String actualResultAgeGroupCreationText = educationSpecialistAgeGroupCreationPage.findSuccessfulAgeGroupCreationText();
         assertEquals(actualResultAgeGroupCreationText, "Grupės intervalas sėkmingai išsaugotas", "Text is not as expected: ");
-
+        Thread.sleep(2000);
+        /**
+         * Education specialist logs out
+         *
+         */
         educationSpecialistPage.clickSpecialistLogoutButton();
     }
 

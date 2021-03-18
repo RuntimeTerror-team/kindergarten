@@ -17,7 +17,7 @@ public class EducationSpecialistKindergartenListPage extends AbstractPage {
     @FindBy(xpath = "//*[@id=\"root\"]/div/div/div[2]/div[2]/div/form/div[12]/button[2]")
     public WebElement buttonKindergartenSave;
 
-    @FindBy(xpath = "//*[@id=\"root\"]/div/div/div[2]/div[2]/div/div/button[1]")
+    @FindBy(xpath = "//*[@id=\"root\"]/div/div/div[2]/div[2]/div/form/div[12]/button[1]")
     public WebElement buttonBackToKindergartenList;
     @FindBy (xpath = "//*[@id=\"root\"]/div/div/div[2]/div[2]/div/div/div/table/tbody/tr[1]/td[3]/a[1]")
     public WebElement buttonKindergartenInformationReview;

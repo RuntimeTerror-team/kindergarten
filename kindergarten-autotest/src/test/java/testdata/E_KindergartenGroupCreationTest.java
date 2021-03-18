@@ -12,11 +12,17 @@ import pages.*;
 import static org.testng.Assert.assertEquals;
 
 
-public class KindergartenGroupCreationTest extends BaseTest {
+/** The tests are testing application of Kindergarten Information System
+ *
+ * @author Runtime Terror Team
+ * @version 1.0
+ *
+ */
+public class E_KindergartenGroupCreationTest extends BaseTest {
 
 
-    @Test
-    public void newKindergartenGroupCreationTest() {
+    @Test(groups = "regression")
+    public void kindergartenGroupCreationTest() {
 
         WebDriverWait wait = new WebDriverWait(driver, 5);
         WebElement loginh1 = wait.until(
@@ -30,6 +36,10 @@ public class KindergartenGroupCreationTest extends BaseTest {
 
         loginPage.enterUsername(specialistUsername);
         loginPage.enterPassword(specialistPassword);
+        /**
+         * Education specialist logs in
+         *
+         */
         loginPage.clickLoginButton();
         wait = new WebDriverWait(driver, 10);
         WebElement successfulText = wait.until(
@@ -47,10 +57,13 @@ public class KindergartenGroupCreationTest extends BaseTest {
                 ExpectedConditions.presenceOfElementLocated(By.xpath("//*[@id=\"root\"]/div/div/div[2]/div[2]/h1/strong")));
 
         Select ageGroupsDropdown = new Select(driver.findElement(By.id("ageRange")));
-        ageGroupsDropdown.selectByIndex(8);
+        ageGroupsDropdown.selectByIndex(1);
         String childrenAmount = "3";
         educationSpecialistKindergartenGroupsListPage.enterChildrenAmount(childrenAmount);
-
+        /**
+         * Education specialist saves kindergarten group
+         *
+         */
         educationSpecialistKindergartenGroupsListPage.clickGroupSaveButton();
 
         wait = new WebDriverWait(driver, 10);
@@ -59,12 +72,18 @@ public class KindergartenGroupCreationTest extends BaseTest {
 
         String actualKindergartenGroupCreationText = educationSpecialistKindergartenGroupsListPage.findSuccessfulGroupCreationText();
         assertEquals(actualKindergartenGroupCreationText, "Darželio grupė sėkmingai išsaugota", "Text is not as expected: ");
-
+        /**
+         * Education specialist goes back to kindergarten's group list
+         *
+         */
         educationSpecialistKindergartenGroupsListPage.clickBackToGroupListButton();
 
         successfulText = wait.until(
                 ExpectedConditions.presenceOfElementLocated(By.xpath("//*[@id=\"root\"]/div/div/div[2]/div[2]/h1/strong")));
-
+        /**
+         * Education specialist logs out
+         *
+         */
         educationSpecialistPage.clickSpecialistLogoutButton();
     }
 
