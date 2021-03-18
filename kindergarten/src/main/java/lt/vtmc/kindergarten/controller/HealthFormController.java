@@ -3,7 +3,7 @@ package lt.vtmc.kindergarten.controller;
 import io.swagger.annotations.ApiOperation;
 import lt.vtmc.kindergarten.domain.HealthForm;
 import lt.vtmc.kindergarten.dto.HealthFileResponse;
-import lt.vtmc.kindergarten.message.ResponseMessage;
+import lt.vtmc.kindergarten.dto.ResponseMessage;
 import lt.vtmc.kindergarten.service.HealthFormService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;

@@ -5,7 +5,7 @@ import org.hibernate.annotations.Cascade;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "groups") // Must be groups as group is reserved name in h2
+@Table(name = "groups")
 public class Group {
 
     @Id

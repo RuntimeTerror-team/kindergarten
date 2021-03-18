@@ -1,6 +1,6 @@
 package lt.vtmc.kindergarten.exception;
 
-import lt.vtmc.kindergarten.message.ResponseMessage;
+import lt.vtmc.kindergarten.dto.ResponseMessage;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;

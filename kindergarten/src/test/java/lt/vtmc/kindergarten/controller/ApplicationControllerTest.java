@@ -44,9 +44,6 @@ public class ApplicationControllerTest {
     @Autowired
     private QueueService queueService;
 
-    @Autowired
-    private KindergartenApplicationFormDao kindergartenApplicationFormDao;
-
 
     @Test
     @DisplayName("create an application")
@@ -60,47 +57,13 @@ public class ApplicationControllerTest {
         assertTrue(applicationDao.findAll().size() == 1);
     }
 
-//    @Test
-//    @DisplayName("update an application")
-//    @DirtiesContext(methodMode = DirtiesContext.MethodMode.AFTER_METHOD)
-//    @Transactional
-//    void testUpdateApplication() {
-//
-//        createDefaultQueueDistrictKindergarten();
-//
-//        //Creates two new kindergartens
-//        Kindergarten kindergarten2 = TestUtils.createDefaultKindergarten("22222222");
-//        kindergarten2.setDistrict(districtDao.findByTitle("Antakalnis"));
-//        kindergartenDao.save(kindergarten2);
-//
-//        Kindergarten kindergarten3 = TestUtils.createDefaultKindergarten("33333333");
-//        kindergarten2.setDistrict(districtDao.findByTitle("Antakalnis"));
-//        kindergartenDao.save(kindergarten3);
-//
-//        //Creates filled application
-//        createFilledApplicationWithOneKindergartenAndThreePersons();
-//
-//        assertEquals(1, kindergartenApplicationFormDao.findAll().size());
-//
-//        ApplicationCreationDto applicationUpdateDto2 = TestUtils.createDefaultApplicationDto();
-//
-//        applicationUpdateDto2.setChildId(personDao.findByPersonalCode("49041888888").getId());
-//        applicationUpdateDto2.setFirstParentId(personDao.findByPersonalCode("49041777777").getId());
-//        applicationUpdateDto2.setSecondParentId(personDao.findByPersonalCode("49041666666").getId());
-//
-//        Map<Integer, Long> priorityKindergartenUpdate = new HashMap<>();
-//        priorityKindergartenUpdate.put(1, kindergarten2.getId());
-//        priorityKindergartenUpdate.put(2, kindergarten2.getId());
-//        applicationUpdateDto2.setPriorityForKindergartenID(priorityKindergartenUpdate);
-//
-//        Application application = applicationDao.findAll().get(0);
-//        applicationController.updateApplication(application.getId(), applicationUpdateDto2);
-//
-//        assertEquals(kindergartenApplicationFormDao.findAll().size(), 2);
-//        assertEquals(kindergartenDao.findByCompanyCode("22222222").getApplicationsSet().size(), 1, "Should apply to kindergarten once");
-//        assertEquals(kindergartenDao.findByCompanyCode("33333333").getApplicationsSet().size(), 0, "Should have no applications");
-//        assertEquals(applicationDao.findApplicationByChild(personDao.findByPersonalCode("49041888888")).getKindergartenApplicationForms().size(), 2);
-//    }
+    @Test
+    @DisplayName("update an application")
+    @DirtiesContext(methodMode = DirtiesContext.MethodMode.AFTER_METHOD)
+    @Transactional
+    public void getDistributedApplicationsInfoTest(){
+
+    }
 
 
     @Test
@@ -132,22 +95,6 @@ public class ApplicationControllerTest {
 
         assertEquals(2, applicationDao.findAll().size(), "Should get all applications");
     }
-
-//    @Test
-//    @DisplayName("get one applications by id")
-//    @DirtiesContext(methodMode = DirtiesContext.MethodMode.BEFORE_METHOD)
-//    @Transactional
-//    void testGetOneApplicationById(){
-//
-//        createDefaultQueueDistrictKindergarten();
-//
-//        createFilledApplicationWithOneKindergartenAndThreePersons();
-//
-//        Long applicationId = applicationDao.findAll().get(0).getId();
-//        Long childId = personDao.findByPersonalCode("49041888888").getId();
-//
-//        assertEquals(childId, applicationController.getApplication(applicationId).getChildId(), "Should get one applications by id");
-//    }
 
     private void createDefaultQueueDistrictKindergarten() {
         QueueDtoWithOpeningDate queue = TestUtils.createDefaultQueue();
