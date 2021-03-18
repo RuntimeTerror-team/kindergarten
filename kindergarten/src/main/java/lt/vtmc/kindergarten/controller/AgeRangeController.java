@@ -41,7 +41,6 @@ public class AgeRangeController {
     }
 
 
-    //Paulius
     @PreAuthorize("hasRole('EDUCATION_SPECIALIST')")
     @RequestMapping(value="/api/saveInterval", method = RequestMethod.POST)
     @ApiOperation(value = "Create age range", notes = "Creates a new age range")

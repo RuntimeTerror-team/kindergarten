@@ -70,15 +70,6 @@ public class GroupService {
         groupDao.save(group);
     }
 
-
-//    public void setGroupDao(GroupDao groupDao) {
-//        this.groupDao = groupDao;
-//    }
-
-    public void setKindergartenDao(KindergartenDao kindergartenDao) {
-        this.kindergartenDao = kindergartenDao;
-    }
-
     @Transactional
     public GroupDto updateGroupChildrenCount(Long group_id, ChildrenCountDto childrenCount) {
         Group group = groupDao.getOne(group_id);
@@ -88,4 +79,6 @@ public class GroupService {
         groupDao.save(group);
         return new GroupDto(group);
     }
+
+
 }
