@@ -3,10 +3,7 @@ package lt.vtmc.kindergarten.controller;
 import lt.vtmc.kindergarten.dao.PersonDao;
 import lt.vtmc.kindergarten.domain.*;
 import lt.vtmc.kindergarten.dto.UserDetailsDto;
-import lt.vtmc.kindergarten.dto.UserDto;
 import lt.vtmc.kindergarten.dto.UserDtoFromAdmin;
-import lt.vtmc.kindergarten.service.UserService;
-import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -16,7 +13,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.ContextConfiguration;
-import org.springframework.transaction.annotation.Transactional;
 
 
 import static org.junit.jupiter.api.Assertions.*;
