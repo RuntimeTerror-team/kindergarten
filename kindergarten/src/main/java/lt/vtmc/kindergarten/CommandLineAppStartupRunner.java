@@ -47,7 +47,7 @@ public class CommandLineAppStartupRunner implements CommandLineRunner {
     @Override
     public void run(String... args) throws Exception {
         userService.createUser(new UserDto("administratorius", "Administratorius1", "ADMIN"));
-//        userService.createUser(new UserDto("ŠvietimoSpecialistas1", "ŠvietimoSpecialistas1", "EDUCATION_SPECIALIST"));
+        userService.createUser(new UserDto("ŠvietimoSpecialistas1", "ŠvietimoSpecialistas1", "EDUCATION_SPECIALIST"));
 
         if (seedData) {
 
