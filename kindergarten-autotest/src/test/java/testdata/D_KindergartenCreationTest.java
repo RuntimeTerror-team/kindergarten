@@ -13,12 +13,17 @@ import pages.LoginPage;
 
 import static org.testng.Assert.assertEquals;
 
+/**
+ * The tests are testing application of Kindergarten Information System
+ *
+ * @author Runtime Terror Team
+ * @version 1.0
+ */
+public class D_KindergartenCreationTest extends BaseTest {
 
-public class KindergartenCreationTest extends BaseTest {
 
-
-    @Test(groups = "smoke, regression")
-    public void newKindergartenCreationTest() {
+    @Test(groups = "regression")
+    public void kindergartenCreationTest() throws InterruptedException {
 
 
         LoginPage loginPage = new LoginPage(driver);
@@ -29,6 +34,10 @@ public class KindergartenCreationTest extends BaseTest {
 
         loginPage.enterUsername(specialistUsername);
         loginPage.enterPassword(specialistPassword);
+        /**
+         * Education specialist logs in
+         *
+         */
         loginPage.clickLoginButton();
         WebDriverWait wait = new WebDriverWait(driver, 10);
         WebElement successfulText = wait.until(
@@ -41,7 +50,7 @@ public class KindergartenCreationTest extends BaseTest {
 
         educationSpecialistKindergartenListPage.clickAddKindergartenButton();
         String kindergartenName = "Lopšelis-darželis Laputė";
-        String kindergartenCode = "123454332";
+        String kindergartenCode = "123454329";
         String kindergartenAddress = "Antakalnio g. 123";
         String kindergartenPostCode = "12345";
         String kindergartenPhoneNo = "60606060";
@@ -60,50 +69,32 @@ public class KindergartenCreationTest extends BaseTest {
         educationSpecialistKindergartenListPage.enterKindergartenPhoneNo(kindergartenPhoneNo);
         educationSpecialistKindergartenListPage.enterKindergartenEmail(kindergartenEmail);
         educationSpecialistKindergartenListPage.enterKindergartenWebsite(kindergartenWebsite);
+        /**
+         * Education specialist saves the created kindergarten
+         *
+         */
         educationSpecialistKindergartenListPage.clickKindergartenSaveButton();
         wait = new WebDriverWait(driver, 10);
         successfulText = wait.until(
                 ExpectedConditions.presenceOfElementLocated(By.xpath("/html/body/div/div/div/div[2]/div[2]/div/form/div[11]")));
-
+        Thread.sleep(3000);
         String actualKindergartenCreationText = educationSpecialistKindergartenListPage.getSuccessfulKindergartenSaveText();
         assertEquals(actualKindergartenCreationText, "Darželis sėkmingai sukurtas", "Text is not as expected: ");
-
+        Thread.sleep(3000);
+        /**
+         * Education specialist goes back to kindergarten list
+         *
+         */
         educationSpecialistKindergartenListPage.clickBackToKindergartenListButton();
 
-        successfulText = wait.until(
-                ExpectedConditions.presenceOfElementLocated(By.xpath("//*[@id=\"root\"]/div/div/div[2]/div[2]/h1/strong")));
-        educationSpecialistKindergartenListPage.clickAddKindergartenButton();
-        kindergartenName = "Lopšelis-darželis Voverė";
-        kindergartenCode = "1234567";
-        kindergartenAddress = "Antakalnio g. 123";
-        kindergartenPostCode = "12345";
-        kindergartenPhoneNo = "60606060";
-        kindergartenEmail = "voveryte@voveryte.lt";
-        kindergartenWebsite = "www.voveryte.lt";
-        educationSpecialistKindergartenListPage.enterKindergartenName(kindergartenName);
-
-        educationSpecialistKindergartenListPage.enterKindergartenCode(kindergartenCode);
-        educationSpecialistKindergartenListPage.enterKindergartenAddress(kindergartenAddress);
-
-        districtDropdown = new Select(driver.findElement(By.name("district")));
-        districtDropdown.selectByIndex(1);
-        educationSpecialistKindergartenListPage.enterKindergartenPostalCode(kindergartenPostCode);
-        educationSpecialistKindergartenListPage.enterKindergartenPhoneNo(kindergartenPhoneNo);
-        educationSpecialistKindergartenListPage.enterKindergartenEmail(kindergartenEmail);
-        educationSpecialistKindergartenListPage.enterKindergartenWebsite(kindergartenWebsite);
-        educationSpecialistKindergartenListPage.clickKindergartenSaveButton();
-        wait = new WebDriverWait(driver, 10);
-        successfulText = wait.until(
-                ExpectedConditions.presenceOfElementLocated(By.xpath("/html/body/div/div/div/div[2]/div[2]/div/form/div[11]")));
-
-        actualKindergartenCreationText = educationSpecialistKindergartenListPage.getSuccessfulKindergartenSaveText();
-        assertEquals(actualKindergartenCreationText, "Darželis sėkmingai sukurtas", "Text is not as expected: ");
-
-        educationSpecialistKindergartenListPage.clickBackToKindergartenListButton();
         wait = new WebDriverWait(driver, 10);
         successfulText = wait.until(
                 ExpectedConditions.presenceOfElementLocated(By.xpath("//*[@id=\"root\"]/div/div/div[2]/div[2]/h1/strong")));
-
+        Thread.sleep(3000);
+        /**
+         * Education specialist logs out
+         *
+         */
         educationSpecialistPage.clickSpecialistLogoutButton();
     }
 

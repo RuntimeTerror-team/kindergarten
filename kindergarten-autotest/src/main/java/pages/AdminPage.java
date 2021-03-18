@@ -23,26 +23,19 @@ public class AdminPage extends AbstractPage {
     @FindBy(xpath = "//*[@id=\"root\"]/div/div/div[1]/nav/a[2]")
     public WebElement buttonDistrictAdministration;
 
-    @FindBy(xpath = "//*[@id=\"root\"]/div/div/div[1]/nav/a[2]")
-    public WebElement buttonAccountsAdministration;
-
-    @FindBy(xpath = "//*[@id=\"root\"]/div/div/div[1]/nav/a[3]")
-    public WebElement buttonPermissionsAllowance;
-
     @FindBy(xpath = "//*[@id=\"root\"]/div/div/div[1]/nav/a[4]")
     public WebElement buttonQueuesAdministration;
 
-    @FindBy(xpath = "//*[@id=\"root\"]/div/div/div[1]/nav/a[5]")
-    public WebElement buttonLogging;
+    @FindBy(xpath = "//*[@id=\"root\"]/div/div/div[2]/div[2]/div/div[2]/div[2]/div/table/tbody/tr[4]/td[3]/button[1]")
+    public WebElement buttonPasswordReset;
 
+    @FindBy(xpath = "/html/body/div[3]/div/div/div[2]/button")
+    public WebElement buttonAlertClose;
     //text
     @FindBy(xpath = "//*[@id=\"root\"]/div/div/div[2]/div[1]/div/nav/ul/li[2]/p/strong")
     public WebElement adminAccountText;
 
-    @FindBy(xpath = "//*[@id=\"root\"]/div/div/div[2]/div[2]/div/div[2]")
-    public WebElement successfulAccountSave;
-
-    public AdminPage(WebDriver driver) {
+        public AdminPage(WebDriver driver) {
         super(driver);
 
     }
@@ -69,20 +62,16 @@ public class AdminPage extends AbstractPage {
         buttonDistrictAdministration.click();
     }
 
-    public void clickAccountsAdministrationButton() {
-        buttonAccountsAdministration.click();
-    }
-
-    public void clickPermissionAllowanceButton() {
-        buttonPermissionsAllowance.click();
-    }
-
     public void clickQueuesAdministrationButton() {
         buttonQueuesAdministration.click();
     }
 
-    public void clickLoggingButton() {
-        buttonLogging.click();
+    public void clickPasswordResetButton() {
+        buttonPasswordReset.click();
+    }
+
+    public void clickAlertCloseButton() {
+        buttonAlertClose.click();
     }
 
     //text
@@ -90,7 +79,4 @@ public class AdminPage extends AbstractPage {
         return adminAccountText.getText();
     }
 
-    public String findSuccessfulAccountSaveText() {
-        return successfulAccountSave.getText();
-    }
 }

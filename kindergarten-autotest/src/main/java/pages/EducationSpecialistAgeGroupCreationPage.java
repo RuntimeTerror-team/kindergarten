@@ -6,9 +6,7 @@ import org.openqa.selenium.support.FindBy;
 
 public class EducationSpecialistAgeGroupCreationPage extends AbstractPage {
 
-    // input
-
-    // buttons
+     // buttons
     @FindBy(xpath = "//*[@id=\"root\"]/div/div/div[2]/div[2]/div/div[1]/form/div[4]/button")
     public WebElement buttonAgeGroupCreate;
 
@@ -22,7 +20,7 @@ public class EducationSpecialistAgeGroupCreationPage extends AbstractPage {
     public EducationSpecialistAgeGroupCreationPage(WebDriver driver) {
         super(driver);
     }
-    // input
+    
 
     // buttons
     public void clickAgeGroupCreateButton() {

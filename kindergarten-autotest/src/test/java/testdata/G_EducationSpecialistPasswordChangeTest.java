@@ -7,16 +7,23 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.annotations.Test;
 import pages.*;
-
+/** The tests are testing application of Kindergarten Information System
+ *
+ * @author Runtime Terror Team
+ * @version 1.0
+ *
+ */
 import static org.testng.Assert.assertEquals;
 
-public class EducationSpecialistPasswordChangeTest extends BaseTest {
+public class G_EducationSpecialistPasswordChangeTest extends BaseTest {
 
-    @Test
-    public void educationSpecialistPasswordChangeTest() {
-        WebDriverWait wait = new WebDriverWait(driver, 5);
+    @Test (groups = "regression")
+    public void educationSpecialistPasswordChangeTest() throws InterruptedException {
+        Thread.sleep(3000);
+        WebDriverWait wait = new WebDriverWait(driver, 10);
         WebElement loginh1 = wait.until(
                 ExpectedConditions.presenceOfElementLocated(By.id("loginh1")));
+        Thread.sleep(3000);
         LoginPage loginPage = new LoginPage(driver);
         EducationSpecialistPage educationSpecialistPage = new EducationSpecialistPage(driver);
         EducationSpecialistAgeGroupCreationPage educationSpecialistAgeGroupCreationPage = new EducationSpecialistAgeGroupCreationPage(driver);
@@ -27,6 +34,10 @@ public class EducationSpecialistPasswordChangeTest extends BaseTest {
 
         loginPage.enterUsername(specialistUsername);
         loginPage.enterPassword(specialistPassword);
+        /**
+         * Education specialist logs in
+         *
+         */
         loginPage.clickLoginButton();
 
         wait = new WebDriverWait(driver, 10);
@@ -38,33 +49,49 @@ public class EducationSpecialistPasswordChangeTest extends BaseTest {
         educationSpecialistMyAccountPage.enterOldPassword(specialistPassword);
         educationSpecialistMyAccountPage.enterNewPassword(newPassword);
         educationSpecialistMyAccountPage.enterNewPasswordConfirm(newPassword);
+        /**
+         * Education specialist saves the new password
+         *
+         */
         educationSpecialistMyAccountPage.clickNewPasswordSaveButton();
+        Thread.sleep(3000);
         successfulText = wait.until(
                 ExpectedConditions.presenceOfElementLocated(By.xpath("//*[@id=\"root\"]/div/div/div[2]/div[2]/h1/strong")));
-
-
-        successfulText = wait.until(
-                ExpectedConditions.presenceOfElementLocated(By.xpath("//*[@id=\"root\"]/div/div/div[2]/div[2]/h1/strong")));
-
+        Thread.sleep(3000);
+        /**
+         * Education specialist logs out
+         *
+         */
         educationSpecialistPage.clickSpecialistLogoutButton();
-        wait = new WebDriverWait(driver, 5);
+
+        Thread.sleep(3000);
+        wait = new WebDriverWait(driver, 10);
         loginh1 = wait.until(
                 ExpectedConditions.presenceOfElementLocated(By.id("loginh1")));
 
         specialistUsername = "ŠvietimoSpecialistas1";
-
+        Thread.sleep(3000);
         loginPage.enterUsername(specialistUsername);
         loginPage.enterPassword(newPassword);
-        loginPage.clickLoginButton();
 
+        /**
+         * Education specialist logs in the new password
+         *
+         */
+        loginPage.clickLoginButton();
+        Thread.sleep(3000);
         wait = new WebDriverWait(driver, 10);
         successfulText = wait.until(
                 ExpectedConditions.presenceOfElementLocated(By.xpath("//*[@id=\"root\"]/div/div/div[2]/div[2]/h1/strong")));
-
+        Thread.sleep(3000);
         String actualResultSpecialistTitleText = educationSpecialistPage.findSpecialistLoginText();
         assertEquals(actualResultSpecialistTitleText, "ŠVIETIMO SPECIALISTAS", "Text is not as expected: ");
-
-
+        Thread.sleep(3000);
+        /**
+         * Education specialist logs out
+         *
+         */
+        educationSpecialistPage.clickSpecialistLogoutButton();
 
 
     }
