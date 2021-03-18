@@ -70,22 +70,22 @@ public class CommandLineAppStartupRunner implements CommandLineRunner {
             dataSeeder.createQueueWithOpeningDate();
 
             //Darželis Pušaitė
-            dataSeeder.createGroupForKindergarten("19555587", 1, 2, 25);
+            dataSeeder.createGroupForKindergarten("19555587", 1, 2, 15);
             dataSeeder.createGroupForKindergarten("19555587", 2, 3, 15);
-            dataSeeder.createGroupForKindergarten("19555587", 3, 4, 20);
-            dataSeeder.createGroupForKindergarten("19555587", 4, 5, 20);
-            dataSeeder.createGroupForKindergarten("19555587", 5, 6, 20);
+            dataSeeder.createGroupForKindergarten("19555587", 3, 4, 10);
+            dataSeeder.createGroupForKindergarten("19555587", 4, 5, 10);
+            dataSeeder.createGroupForKindergarten("19555587", 5, 6, 10);
 
             //Darželis Smalsučiai
-            dataSeeder.createGroupForKindergarten("19555589", 1, 2, 14);
+            dataSeeder.createGroupForKindergarten("19555589", 1, 2, 10);
             dataSeeder.createGroupForKindergarten("19555589", 3, 4, 10);
-            dataSeeder.createGroupForKindergarten("19555589", 4, 5, 13);
+            dataSeeder.createGroupForKindergarten("19555589", 4, 5, 15);
 
             //Darželis Nykštukai
-            dataSeeder.createGroupForKindergarten("19555590", 6, 7, 25);
-            dataSeeder.createGroupForKindergarten("19555590", 2, 3, 20);
-            dataSeeder.createGroupForKindergarten("19555590", 3, 4, 22);
-            dataSeeder.createGroupForKindergarten("19555590", 4, 5, 8);
+            dataSeeder.createGroupForKindergarten("19555590", 6, 7, 15);
+            dataSeeder.createGroupForKindergarten("19555590", 2, 3, 10);
+            dataSeeder.createGroupForKindergarten("19555590", 3, 4, 10);
+            dataSeeder.createGroupForKindergarten("19555590", 4, 5, 10);
 
             //Darželis Zuikučiai
             dataSeeder.createGroupForKindergarten("19555591", 1, 2, 25);
@@ -95,18 +95,18 @@ public class CommandLineAppStartupRunner implements CommandLineRunner {
             dataSeeder.createGroupForKindergarten("19555591", 5, 6, 20);
 
             //Darželis Pelėdžiukai
-            dataSeeder.createGroupForKindergarten("19555592", 1, 2, 25);
-            dataSeeder.createGroupForKindergarten("19555592", 2, 3, 15);
-            dataSeeder.createGroupForKindergarten("19555592", 3, 4, 18);
-            dataSeeder.createGroupForKindergarten("19555592", 4, 5, 20);
-            dataSeeder.createGroupForKindergarten("19555592", 5, 6, 16);
+            dataSeeder.createGroupForKindergarten("19555592", 1, 2, 5);
+            dataSeeder.createGroupForKindergarten("19555592", 2, 3, 5);
+            dataSeeder.createGroupForKindergarten("19555592", 3, 4, 5);
+            dataSeeder.createGroupForKindergarten("19555592", 4, 5, 5);
+            dataSeeder.createGroupForKindergarten("19555592", 5, 6, 5);
 
             //Darželis Meškučiai
-            dataSeeder.createGroupForKindergarten("19555596", 1, 2, 25);
-            dataSeeder.createGroupForKindergarten("19555596", 2, 3, 15);
-            dataSeeder.createGroupForKindergarten("19555596", 3, 4, 18);
-            dataSeeder.createGroupForKindergarten("19555596", 4, 5, 20);
-            dataSeeder.createGroupForKindergarten("19555596", 5, 6, 16);
+            dataSeeder.createGroupForKindergarten("19555596", 1, 2, 5);
+            dataSeeder.createGroupForKindergarten("19555596", 2, 3, 5);
+            dataSeeder.createGroupForKindergarten("19555596", 3, 4, 5);
+            dataSeeder.createGroupForKindergarten("19555596", 4, 5, 5);
+            dataSeeder.createGroupForKindergarten("19555596", 5, 6, 5);
 
 
             // Create children
